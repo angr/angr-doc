@@ -95,7 +95,7 @@ This representation has four main classes of objects:
 
 - **Expressions.** IR Expressions represent a calculated or constant value. This includes memory loads, register reads, and results of arithmetic operations.
 - **Operations.** IR Operations describe a *modification* of IR Expressions. This includes integer arithmetic, floating-point arithmetic, bit operations, and so forth. An IR Operation applied to IR Expressions yields an IR Expression as a result.
-- **Temporary variables.** VEX uses temporary variables as internal registers: IR Expressions are stored in temporary variables between use. The content of a temporary variable can be retrieved using an IR Expression. These temporaries are numbered, starting at `t0`.
+- **Temporary variables.** VEX uses temporary variables as internal registers: IR Expressions are stored in temporary variables between use. The content of a temporary variable can be retrieved using an IR Expression. These temporaries are numbered, starting at `t0`. These temporaries are strongly typed (i.e., "64-bit integer" or "32-bit float").
 - **Statements.** IR Statements model changes in the state of the target machine, such as the effect of memory stores and register writes. IR Statements use IR Expressions for values they may need. For example, a memory store *IR Statement* uses an *IR Expression* for the target address of the write, and another *IR Expression* for the content.
 - **Blocks.** An IR Block is a collection of IR Statements, representing an extended basic block in the target architecture. A block can have several exits. For conditional exits from the middle of a basic block, a special *Exit* IR Statement is used. An IR Expression is used to represent the target of the unconditional exit at the end of the block.
 
@@ -144,15 +144,51 @@ irsb = p.block(0x4000A00)
 # pretty-print the basic block
 irsb.pp()
 
+# this is the IR Expression of the jump target of the unconditional exit at the end of the basic block
+print irsb.next
+
+# this is the type of the unconditional exit (i.e., a call, ret, syscall, etc)
+print irsb.jumpkind
+
+# you can also pretty-print it
+irsb.next.pp()
+
 # iterate through each statement and print all the statements
 for stmt in irsb.statements():
 	stmt.pp()
 
-# pretty-print the IR expression representing the data written by every store statement
+# pretty-print the IR expression representing the data, and the *type* of that IR expression written by every store statement
 import pyvex
 for stmt in irsb.statements():
 	if isinstance(stmt, pyvex.IRStmt.Store):
+		print "Data:",
 		stmt.data.pp()
+		print ""
+
+		print "Type:",
+		irsb.tyenv.typeOf(stmt.data)
+		print ""
+
+
+
+# pretty-print the condition and jump target of every conditional exit from the basic block
+import pyvex
+for stmt in irsb.statements():
+	if isinstance(stmt, pyvex.IRStmt.Exit):
+		print "Condition:",
+		stmt.guard.pp()
+		print ""
+
+		print "Target:",
+		stmt.offset.pp()
+		print ""
+
+# these are the types of every temp in the IRSB
+print irsb.tyenv.types()
+
+# there are two ways to get the type of temp 0
+print irsb.tyenv.types()[0]
+print irsb.tyenv.typeOf(0)
 ```
 
 Keep in mind that this is a *syntactic* respresentation of a basic block. That is, it'll tell you what the block means, but you don't have any context to say, for example, what *actual* data is written by a store instruction. We'll get to that next.
