@@ -123,9 +123,17 @@ Exit | A conditional exit from a basic block, with the jump target specified by 
 An example of an IR translation, on ARM, is produced below. In the example, the subtraction operation is translated into a single IR block comprising 5 IR Statements, each of which contains at least one IR Expression (although, in real life, an IR block would typically consist of more than one instruction). Register names are translated into numerical indices given to the *GET* Expression and *PUT* Statement.
 The astute reader will observe that the actual subtraction is modeled by the first 4 IR Statements of the block, and the incrementing of the program counter to point to the next instruction (which, in this case, is located at `0x59FC8`) is modeled by the last statement.
 
-| ARM Assembly | VEX Representation |
-| ------------ | ------------------ |
-| subs R2, R2, #8 | t0 = GET:I32(16)<br>t1 = 0x8:I32<br>t3 = Sub32(t0,t1)<br>PUT(16) = t3<br>PUT(68) = 0x59FC8:I32 |
+The following ARM instruction:
+
+	subs R2, R2, #8
+	
+Becomes this VEX IR:
+
+	t0 = GET:I32(16)
+	t1 = 0x8:I32
+	t3 = Sub32(t0,t1)
+	PUT(16) = t3
+	PUT(68) = 0x59FC8:I32
 
 We use a library called PyVEX (https://git.seclab.cs.ucsb.edu/gitlab/angr/pyvex) that exposes VEX into Python. Now that you understand VEX, you can actually play with some VEX in angr:
 
