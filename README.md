@@ -2,7 +2,7 @@
 
 This is a collection of documentation for angr. By reading this, you'll become and angr pro and will be able to fold binaries to your whim.
 
-## What is Angr?
+# What is Angr?
 
 Angr is a multi-architecture binary analysis platform, with the capability to perform dynamic symbolic execution (like Mayhem, KLEE, etc) and various static analyses on binaries. Several challenges must be overcome to do this. They are, roughly:
 
@@ -16,7 +16,7 @@ Angr is a multi-architecture binary analysis platform, with the capability to pe
 
 Angr has components that meet all of these challenges. This document will explain how each one works, and how they can all be used to accomplish your evil goals.
 
-## Loading a Binary - CLE and angr Projects
+# Loading a Binary - CLE and angr Projects
 
 Angr's binary loading component is CLE, which stands for Christophe's Loader for Everything. CLE is responsible for taking a binary (and any libraries that it depends on) and persenting it to the rest of Angr in a way that is easy to work with. Angr, in turn, encompasses this in a *Project* class. A Project class is the entity that represents your binary, and much of your interaction with angr will go through it.
 
@@ -79,7 +79,7 @@ print p.ld.main\_bin.imports
 
 Now that you have loaded a binary, it's time to look at the IR support.
 
-## Intermediate Representation
+# Intermediate Representation
 
 Because angr deals with widely diverse architectures, it must carry out its analysis on an intermediate representation. The IR abstracts away several architecture differences when dealing with different architectures, allowing a single analysis to be run on all of them:
 
@@ -97,7 +97,7 @@ This representation has four main classes of objects:
 - **Operations.** IR Operations describe a *modification* of IR Expressions. This includes integer arithmetic, floating-point arithmetic, bit operations, and so forth. An IR Operation applied to IR Expressions yields an IR Expression as a result.
 - **Temporary variables.** VEX uses temporary variables as internal registers: IR Expressions are stored in temporary variables between use. The content of a temporary variable can be retrieved using an IR Expression. These temporaries are numbered, starting at `t0`. These temporaries are strongly typed (i.e., "64-bit integer" or "32-bit float").
 - **Statements.** IR Statements model changes in the state of the target machine, such as the effect of memory stores and register writes. IR Statements use IR Expressions for values they may need. For example, a memory store *IR Statement* uses an *IR Expression* for the target address of the write, and another *IR Expression* for the content.
-- **Blocks.** An IR Block is a collection of IR Statements, representing an extended basic block in the target architecture. A block can have several exits. For conditional exits from the middle of a basic block, a special *Exit* IR Statement is used. An IR Expression is used to represent the target of the unconditional exit at the end of the block.
+- **Blocks.** An IR Block is a collection of IR Statements, representing an extended basic block (termed "IR Super Block" or "IRSB") in the target architecture. A block can have several exits. For conditional exits from the middle of a basic block, a special *Exit* IR Statement is used. An IR Expression is used to represent the target of the unconditional exit at the end of the block.
 
 VEX IR is actually quite well documented in the `libvex_ir.h` file (https://git.seclab.cs.ucsb.edu/gitlab/angr/vex/blob/master/pub/libvex_ir.h) in the VEX repository. For the lazy, we'll detail some parts of VEX that you'll likely interact with fairly frequently. To begin with, here are some IR Expressions:
 
@@ -137,7 +137,7 @@ Becomes this VEX IR:
 
 We use a library called PyVEX (https://git.seclab.cs.ucsb.edu/gitlab/angr/pyvex) that exposes VEX into Python. Now that you understand VEX, you can actually play with some VEX in angr:
 
-```
+```python
 # translate a basic block starting at an address
 irsb = p.block(0x4000A00)
 
@@ -169,8 +169,6 @@ for stmt in irsb.statements():
 		irsb.tyenv.typeOf(stmt.data)
 		print ""
 
-
-
 # pretty-print the condition and jump target of every conditional exit from the basic block
 import pyvex
 for stmt in irsb.statements():
@@ -192,3 +190,120 @@ print irsb.tyenv.typeOf(0)
 ```
 
 Keep in mind that this is a *syntactic* respresentation of a basic block. That is, it'll tell you what the block means, but you don't have any context to say, for example, what *actual* data is written by a store instruction. We'll get to that next.
+
+# Semantic Meaning
+
+A unified syntactic meaning is great, but most analyses require an understanding of what the code is *doing* (semantic meaning), not just what the code *is* (syntactic meaning). For this, we developed a module called SimuVEX (https://git.seclab.cs.ucsb.edu/gitlab/angr/simuvex). SimuVEX provides a semantic understanding of what a given piece of VEX code does on a given machine state.
+
+In a nutshell, SimuVEX is a VEX emulator. Given an initial machine state and a VEX IR block, SimuVEX provides a resulting machine state (or, in the case of condition jumps, *several* resulting machine states).
+
+## Machine State - memory, registers, and so on
+
+SimuVEX tracks machine states in a `SimState` object. This object tracks the machine's memory, registers, and various other information, such as open files. The "initial" state of program execution (i.e., the state at the entry point) is provided by the angr.Project class, like so:
+
+```python
+# make the initial state
+s = p.initial_state()
+
+# we can access the memory of the state here
+print "The first 5 bytes of the binary are:", s.mem_expr(p.min_addr, 5)
+
+# and the registers, of course
+print "The stack pointer starts out as:", s.reg_expr('sp')
+
+# and the temps, although these are currently empty
+print "This will throw an except because there is no temp t0, yet:", s.tmp_expr(0)
+```
+
+### Accessing Data
+
+The data that's stored in the state (i.e., data in registers, memory, temps, etc) is stored as an internal *expression*. This exposes a single interface to concrete (i.e., `0x41414141`) and symbolic (i.e., "whatever the user might input on stdin") expressions. In fact, this is the core of what enables angr to analyze binaries *symbolically*. However, this complicates matters by not exposing the actual *value*, if it's concrete, directly. For example, if you try the above examples, you will see that the type that is printed is a `claripy.E` type, which is the internal expression representation. Claripy is the solution backend for SimuVEX, and we'll discuss it in more detail later. For now, you might want to know how to get the actual values out of these expressions.
+
+```python
+# get the integer value of the content of rax:
+print s.se.any_int(s.reg_expr('rax'))
+
+# or, the string value of the 10 bytes stored at 0x1000
+print s.se.any_str(s.mem_expr(0x1000, 10))
+```
+
+Here, `s.se` is the *solver engine* of the state, which we'll talk about later.
+
+This syntax might seem a bit strange -- we get the expression from the state, and then we pass it back *into* the state to get its actual value. This is, in fact, quite intentional. As we mentioned earlier, these expressions could be either concrete or symbolic. In the case of the latter, a symbolic expression might resolve to two different meanings in two different states. We'll go over symbolic expressions in more detail later on. For now, accept the mystery.
+
+### Storing Data
+
+If you want to store content in the state's memory or registers, you'll need to create an expression out of it. You can do it like so:
+
+```python
+# this creates a BVV (which stands for BitVector Value). A BVV is a bitvector that's used to represent data in memory, registers, and temps.
+aaaa = s.BVV("AAAA")
+
+# you can create it from an integer, but then you must provide a length (in bits)
+aaaa = s.BVV(0x41414141, 32)
+
+# this can then be stored in memory or registers. Since the bitvector
+# has a length, only the address to store it at is required
+s.store_reg('rax', aaaa)
+s.store_mem(0x1000, aaaa)
+
+# of course, you can address memory using expressions as well
+s.store_mem(s.reg_expr('rax'), aaaa)
+```
+
+For contenience, there are special accessor functions stack operations:
+
+```python
+# push our "AAAA" onto the stack
+s.stack_push(aaaa)
+
+# and pop it off
+aaaa = s.stack_pop()
+```
+
+### Copying and Merging
+
+A state supports very fast copies, so that you can explore different possibilities:
+
+```python
+s1 = s.copy()
+s2 = s.copy()
+
+s1.store_mem(0x1000, s1.BVV("AAAA"))
+s2.store_mem(0x1000, s2.BVV("BBBB"))
+```
+
+States can also be merged together.
+
+```python
+s_merged = s1.merge(s2)
+
+# this is now an expression that can resolve to "AAAA" *or* "BBBB"
+aaaa_or_bbbb = s_merged.mem_expr(0x1000, 4)
+```
+
+This is where we truly start to enter the realm of symbolic expressions. In the above example, the value of `aaaa_or_bbbb` can be, as it implies, either "AAAA" or "BBBB". The solver engine provides ways to get at both values:
+
+```python
+# this will return a sequence of up to n possible values of the expression in this state.
+# in our case, there are only two values, and it'll return [ "AAAA", "BBBB" ]
+print "This has 2 values:", s_merged.any_n_str(aaaa_or_bbbb, 2)
+print "This *would* have up to 5, but there are only two available:", s_merged.any_n_str(aaaa_or_bbbb, 5)
+
+# there's also the same for the integer value
+print s_merged.any_n_int(aaaa_or_bbbb, 2)
+```
+
+Pretty neat stuff!
+
+# FAQ
+
+This is a collection of commonly-asked "how do I do X?" questions, for those too lazy to read this whole document.
+
+## How do I load a binary?
+
+A binary is loaded by doing:
+
+```python
+p = angr.Project("/path/to/your/binary")
+```
