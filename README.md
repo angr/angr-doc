@@ -16,11 +16,11 @@ Angr is a multi-architecture binary analysis platform, with the capability to pe
 
 Angr has components that meet all of these challenges. This document will explain how each one works, and how they can all be used to accomplish your evil goals.
 
-# Next steps
+# Getting started
 
-- [loading a binary](./loading.md)
+- [Loading a binary](./loading.md)
 - [Intermediate representation (IR)](./ir.md)
-- [Semantic meaning](./semantic_meaning.md)c:w
+- [Semantic meaning](./semantic_meaning.md)
 - [FAQ](./faq.md)
 
 
