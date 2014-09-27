@@ -18,6 +18,7 @@ Angr has components that meet all of these challenges. This document will explai
 
 # Getting started
 
+- [Installing angr](https://git.seclab.cs.ucsb.edu/gitlab/angr/angr_docker/blob/master/README.md)
 - [Loading a binary](./loading.md)
 - [Intermediate representation (IR)](./ir.md)
 - [Semantic meaning](./semantic_meaning.md)
