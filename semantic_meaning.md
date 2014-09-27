@@ -49,6 +49,12 @@ aaaa = s.BVV("AAAA")
 # you can create it from an integer, but then you must provide a length (in bits)
 aaaa = s.BVV(0x41414141, 32)
 
+# While we're at it, we can do various operations on these bitvectors:
+aa = aaaa[31:16] # this extracts the most significant 16 bits
+aa00 = aaaa & s.BVV(0xffff0000, 32)
+aaab = aaaa + 1
+aaaa = s.se.Concat(aaaa, aaaa)
+
 # this can then be stored in memory or registers. Since the bitvector
 # has a length, only the address to store it at is required
 s.store_reg('rax', aaaa)
@@ -89,7 +95,11 @@ s_merged = s1.merge(s2)
 aaaa_or_bbbb = s_merged.mem_expr(0x1000, 4)
 ```
 
-This is where we truly start to enter the realm of symbolic expressions. In the above example, the value of `aaaa_or_bbbb` can be, as it implies, either "AAAA" or "BBBB". The solver engine provides ways to get at both values:
+This is where we truly start to enter the realm of symbolic expressions. In the above example, the value of `aaaa_or_bbbb` can be, as it implies, either "AAAA" or "BBBB".
+
+### Symbolic Values
+
+Symbolic values are expressions that, under different situations, can take on different values. Our symbolic expression, `aaaa_or_bbbb` is a great example of this.  The solver engine provides ways to get at both values:
 
 ```python
 # this will return a sequence of up to n possible values of the expression in this state.
@@ -101,5 +111,105 @@ print "This *would* have up to 5, but there are only two available:", s_merged.a
 print s_merged.any_n_int(aaaa_or_bbbb, 2)
 ```
 
-Pretty neat stuff!
+Of course, there are other ways to encounter symbolic expression than merging. For example, you can create them outright:
 
+```python
+# This creates a simple symbolic expression: just a single symbolic bitvector by itself. The bitvector is 32-bits long.
+# An auto-incrementing numerical ID, and the size, are appended to the name, since names of symbolic bitvectors must be unique.
+v = s.BV("some_name", 32)
+
+# If you want to prevent appending the ID and size to the name, you can, instead, do:
+v = s.BV("some_name", 32, explicit_name=True)
+```
+
+Symbolic expressions can be interacted with in the same way as normal (concrete) bitvectors. In fact, you can even mix them:
+
+```python
+# Create a concrete and a symbolic expression
+v = s.BV("some_name", 32)
+aaaa = s.BVV(0x41414141, 32)
+
+# Do operations involving them, and retrieve possible numerical solutions
+print s.se.any_int(aaaa)
+print s.se.any_int(aaaa + v)
+print s.se.any_int((aaaa + v) | s.BVV(0xffff0000)
+
+# You can tell between symbolic and concrete expressions fairly easily:
+assert s.se.symbolic(v)
+assert not s.se.symbolic(aaaa)
+
+# You can even tell *which* variables make up a given expression.
+assert s.se.variables(aaaa) == set()
+assert s.se.variables(aaaa + v) == { "some_name_1_32" } # that's the ID and size appended to the name
+```
+
+As you can see, symbolic and concrete expressions are pretty interchangeable, which is an extremely useful abstraction provided by SimuVEX. You might also notice that, when you read from memory locations that were never written to, you receive symbolic expressions:
+
+```python
+# Try it!
+m = s.mem_expr(0xbbbb0000, 8)
+
+# The result is symbolic
+assert s.se.symbolic(m)
+
+# Along with the ID and length, the address at which this expression originated is also added to the name
+assert s.se.variables(m) == { "mem_bbbb0000_2_8" }
+
+# And, of course, we can get the numerical or string solutions for the expression
+print s.se.any_n_int(m, 10)
+print s.se.any_str(m)
+```
+
+Symbolic expressions would be pretty boring on their own. After all, the last few that we created could take *any* numerical value, as they were completely unconstrained. This makes them uninteresting. To spice things up, SimuVEX has the concept of symbolic constraints.
+
+# Symbolic Constraints
+
+Symbolic constraints represent, aptly, constraints (or restrictions) on symbolic expressions. It might be easier to show you:
+
+```python
+# make a copy of the state so that we don't screw up the original with our experimentation
+s3 = s.copy()
+
+# Let's read some previously untouched section of memory to get a symbolic expression
+m = s.mem_expr(0xbbbb0000, 8)
+
+# We can verify that *any* solution would do
+assert s3.se.solution(m, 0)
+assert s3.se.solution(m, 10)
+assert s3.se.solution(m, 20)
+assert s3.se.solution(m, 30)
+# ... and so on
+
+# Now, let's add a constraint, forcing m to be greater than 10
+s3.add_constraints(m > 10)
+
+# We can see the effect of this right away!
+assert not s3.se.solution(m, 0)
+assert not s3.se.solution(m, 10)
+assert s3.se.solution(m, 20)
+assert s3.se.solution(m, 30)
+```
+
+One cautionary piece of advice is that the comparison operators (`>`, `<`, `>=`, `<=`) are *signed* by default. That means that, in the above example, this is still the case:
+
+```python
+# This is actually -1
+assert s3.se.solution(m, 0xff)
+```
+
+If we want *unsigned* comparisons, we need to use the unsigned versions of the operators (`UGT`, `UGT`, `UGE`, `ULE`).
+
+```python
+# Add an unsigned comparison
+s3.add_constraints(s3.se.UGT(m, 10))
+
+# We can see the effect of this right away!
+assert not s3.se.solution(m, 0)
+assert not s3.se.solution(m, 10)
+assert s3.se.solution(m, 20)
+assert not s3.se.solution(m, 0xff)
+```
+
+Amazing. Of course, constraints can be arbitrarily complex:
+
+```
