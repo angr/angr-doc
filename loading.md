@@ -52,7 +52,7 @@ print print p.ld.addr_belongs_to_object(p.max_addr)
 ```
 
 It is also possible to interface directly with individual binary objects:
-```
+```python
 # these are the libraries that the main binary depends on
 print p.ld.main_bin.deps
 
@@ -96,31 +96,44 @@ Cle expects a dict as a set of parameters of the following form:
 load_options = {path1:{options1}, path2:{options2}, ...}
 ```
 where:
-	- each path is a distinct binary. The first binary is expected to be the main binary. Every other binary is expected to be a dependency of the fist binary.
+- each path is a distinct binary. The first binary is expected to be the main binary. Every other binary is expected to be a dependency of the fist binary.
 
-        - each set of options is a dict.
+- each set of options is a dict.
 
-        - Valid options are:
+### Valid options
+```python
+# backend can be 'ida' or 'elf' or 'blob' (defaults to 'elf')
+load_options = {'/bin/ls':{backend = 'ida'}}
+```
 
-            @backend : 'ida' or 'elf' or 'blob' (defaults to 'elf')
+The following options are only relevant for the main binary (i.e., the
+first binary passed to CLE):
 
-        The following options are only relevant for the main binary (i.e., the
-        first binary passed to CLE):
+```python
+#shall we also load dynamic libraries ?
+load_options = {'/bin/ls':{auto_load_libs = True}}
 
-            @auto_load_libs : bool ; shall we also load dynamic libraries ?
-            @skip_libs = [] ; specific libs to skip, e.g., skip_libs=['libc.so.6']
+# specific libs to skip
+load_options = {'/bin/ls':{skip_libs=['libc.so.6']}}
+```
 
-        The following options override CLE's automatic detection:
+The following options override CLE's automatic detection:
 
-            @custom_entry_point: the address of a custom entry point that will override CLE's automatic detection.
-            @custom_base_addr: base address to load the binary
-            @custom_offset: discard everything in the binary until this address
+```python
+# Address of a custom entry point that will override CLE's automatic detection.
+load_options = {'/bin/ls':{custom_entry_point = 0x4937}}
 
-            @provides: which dependency is provided by the binary.
-            This is used instead of what CLE would normally load for this dependency.
-            e.g., provides = 'libc.so.6'.
+#base address to load the binary
+load_options = {'/bin/ls':{custom_base_addr  = 0x4000}}
 
-        Example of valid parameters:
+#discard everything in the binary until this address
+load_options = {'/bin/ls':{custom_offset = 0x200}}
+
+#which dependency is provided by the binary. This is used instead of what CLE would normally load for this dependency.
+load_options = {'/bin/ls':{provides = 'libc.so.6'}}
+```
+
+Example with multiple options:
 ```python
 load_options = {'/bin/ls': {backend:'elf', auto_load_libs:True, skip_libs:['libc.so.6']}}
 ```
@@ -137,8 +150,8 @@ If you are looking for the address of the GOT entry related to a specific symbol
 
 Whether you are after a PLT or GOT entry depends on the architecture. Cle's architecture specific stuff is defined in the Archinfo class. The way we deal with absolute addresses of functions depending on the architecture is defined in this class, in the got_section_name() function. 
 
-For more details about Elf loading and architecture specific details, check the [Executable and linkable format document](http://www.cs.northwestern.edu/~pdinda/icsclass/doc/elf.pdf) as well as the ABI supplements for each architecture ([MIPS](http://math-atlas.sourceforge.net/devel/assembly/mipsabi32.pdf), [PPC64](http://math-atlas.sourceforge.net/devel/assembly/PPC-elf64abi-1.7.pdf), [AMD64](http://www.x86-64.org/documentation/abi.pdf).
-```
+For more details about Elf loading and architecture specific details, check the [Executable and linkable format document](http://www.cs.northwestern.edu/~pdinda/icsclass/doc/elf.pdf) as well as the ABI supplements for each architecture ([MIPS](http://math-atlas.sourceforge.net/devel/assembly/mipsabi32.pdf), [PPC64](http://math-atlas.sourceforge.net/devel/assembly/PPC-elf64abi-1.7.pdf), [AMD64](http://www.x86-64.org/documentation/abi.pdf))..
+```python
 rel = p.main_bin.jmprel
 ```
 
