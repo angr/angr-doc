@@ -96,31 +96,28 @@ Cle expects a dict as a set of parameters of the following form:
 load_options = {path1:{options1}, path2:{options2}, ...}
 ```
 where:
-	- each path is a distinct binary. The first binary is expected to be the main binary. Every other binary is expected to be a dependency of the fist binary.
+- each path is a distinct binary. The first binary is expected to be the main binary. Every other binary is expected to be a dependency of the fist binary.
 
-        - each set of options is a dict.
+- each set of options is a dict.
 
-        - Valid options are:
+- Valid options are:
+	backend: 'ida' or 'elf' or 'blob' (defaults to 'elf')
 
-            @backend : 'ida' or 'elf' or 'blob' (defaults to 'elf')
+The following options are only relevant for the main binary (i.e., the
+first binary passed to CLE):
 
-        The following options are only relevant for the main binary (i.e., the
-        first binary passed to CLE):
+	- @auto_load_libs : bool ; shall we also load dynamic libraries ?
+ 	- @skip_libs = [] ; specific libs to skip, e.g., skip_libs=['libc.so.6']
 
-            @auto_load_libs : bool ; shall we also load dynamic libraries ?
-            @skip_libs = [] ; specific libs to skip, e.g., skip_libs=['libc.so.6']
+The following options override CLE's automatic detection:
 
-        The following options override CLE's automatic detection:
+- custom_entry_point: the address of a custom entry point that will override CLE's automatic detection.
+- custom_base_addr: base address to load the binary
+-custom_offset: discard everything in the binary until this address
 
-            @custom_entry_point: the address of a custom entry point that will override CLE's automatic detection.
-            @custom_base_addr: base address to load the binary
-            @custom_offset: discard everything in the binary until this address
+- provides: which dependency is provided by the binary. This is used instead of what CLE would normally load for this dependency. e.g., provides = 'libc.so.6'.
 
-            @provides: which dependency is provided by the binary.
-            This is used instead of what CLE would normally load for this dependency.
-            e.g., provides = 'libc.so.6'.
-
-        Example of valid parameters:
+Example of valid parameters:
 ```python
 load_options = {'/bin/ls': {backend:'elf', auto_load_libs:True, skip_libs:['libc.so.6']}}
 ```
