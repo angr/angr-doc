@@ -100,14 +100,14 @@ where:
 
 - each set of options is a dict.
 
-- Valid options are:
-	backend: 'ida' or 'elf' or 'blob' (defaults to 'elf')
+### Valid options are:
+- backend: 'ida' or 'elf' or 'blob' (defaults to 'elf')
 
 The following options are only relevant for the main binary (i.e., the
 first binary passed to CLE):
 
-	- @auto_load_libs : bool ; shall we also load dynamic libraries ?
- 	- @skip_libs = [] ; specific libs to skip, e.g., skip_libs=['libc.so.6']
+- auto_load_libs : bool ; shall we also load dynamic libraries ?
+- skip_libs = [] ; specific libs to skip, e.g., skip_libs=['libc.so.6']
 
 The following options override CLE's automatic detection:
 
