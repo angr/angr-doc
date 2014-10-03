@@ -142,7 +142,7 @@ For more details about Elf loading and architecture specific details, check the 
 rel = p.main_bin.jmprel
 ```
 
-## Manually using clextract
+### Manually using clextract
 Clextract is a small C program that extracts information from binaries. Angr compiles it for each supported architecture and runs it through qemu-user. It is a good idea to have it in your PATH, for this, add the following to you ~/.bashrc:
 ```
 PATH=$PATH:/path/to/ccle
