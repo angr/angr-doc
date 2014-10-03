@@ -2,7 +2,7 @@
 
 Angr's binary loading component is CLE, which stands for Christophe's Loader for Everything. CLE is responsible for taking a binary (and any libraries that it depends on) and presenting it to the rest of Angr in a way that is easy to work with.
 
-CLE's main goal is to load binaries in a robust way, i.e., the same way the actual loader (e.g., GNU LD in the case of ELF binaries) would load them. It means that some information that may be present in the binaries will be ignored by CLE, because such information may be stripped, voluntarily or unvoluntarily corrupted, etc.. It is not rare in the embedded world to see such things happening. 
+CLE's main goal is to load binaries in a robust way, i.e., the same way the actual loader (e.g., GNU LD in the case of ELF binaries) would load them. It means that some information that may be present in the binaries will be ignored by CLE, because such information may be stripped, voluntarily or unvoluntarily corrupted, etc.. It is not rare in the embedded world to see such things happening.
 
 Angr, in turn, encompasses this in a *Project* class. A Project class is the entity that represents your binary, and much of your interaction with angr will go through it.
 
@@ -27,7 +27,7 @@ print p.min_addr, p.max_addr
 print p.dirname, p.filename
 ```
 
-CLE exposes the binary's information through two main interfaces: a CLE.Loader represents an entire conglomerate of loaded CLE.Binary objects. Different CLE.Binary types are used for different types of binaries. For example, CLE.ELF is used to load ELF binaries.
+CLE exposes the binary's information through two main interfaces: a CLE loader (Cle.Ld) represents an entire conglomerate of loaded CLE binary objects. Different CLE.Binary types are used for different types of binaries. For example, CLE.ELF is used to load ELF binaries. (These are different "backends", see the backends section).
 
 CLE can be interfaced with as follows:
 
@@ -35,21 +35,24 @@ CLE can be interfaced with as follows:
 # this is the CLE Loader object
 print p.ld
 
-# this is a list of the dependencies loaded as part of loading the binary
+# this is a list of (names of) the dependencies that the main binary depends on
 print p.ld.dependencies
+
+# this is a list of the objects that are loaded as part of loading the binary (their types depend on the backend)
+print p.ld.shared_objects
 
 # this is a dict of the memory space of the process after being loaded. It maps addresses to the byte at that address.
 print p.ld.memory[p.max_addr]
 
-# this is the CLE object for the main binary
+# this is the object for the main binary (its type depends on the backend)
 print p.ld.main_bin
 
-# these are the CLE Binary objects for the binary's libraries
-print p.shared_objects
-
-# this retrieves the CLE Binary object that contains memory at a specified address
+# this retrieves the binary object which maps memory at the specified address
 print print p.ld.addr_belongs_to_object(p.max_addr)
+```
 
+It is also possible to interface directly with individual binary objects:
+```
 # these are the libraries that the main binary depends on
 print p.ld.main_bin.deps
 
@@ -59,7 +62,7 @@ print p.ld.main\_bin.memory
 # this is a dict (name->addr) of exports of the first shared library that was loaded
 p.ld.shared_objects[0].get_exports()
 
-# this is a dict (name->???) of imports of the main binary
+# this is a dict (name-> addr) of imports of the main binary, where addr is usually 0 (see the misc section below).
 print p.ld.main\_bin.imports
 ```
 
@@ -72,6 +75,17 @@ load_options = {'/bin/ls':{skip_libs='ld.so.2'}}
 p = angr.Project("/bin/ls", cle_ops)
 
 ```
+
+## Backends
+
+Cle currently supports Elf, IDA and Blob backends.
+
+Elf is the default backend and is recommended unless you are not working with Elf binaries or have some specific needs that cannot be achieved with Cle (such as relying on information from the Elf sections).
+
+IDA runs an instance of IDA for each binary and communicates with it through idalink. 
+
+Blob is a special backend for binaries of unknown types. It provides no abstractions other than mapping the binary into memory, using a custom entry point, a custom base address or skipping the first @offset bytes of the image.
+
 
 ## Loading Options
 
@@ -113,5 +127,31 @@ load_options = {'/bin/ls': {backend:'elf', auto_load_libs:True, skip_libs:['libc
 
 
 Now that you have loaded a binary, it's time to look at the [IR support](./ir_support.md)
+
+
+## Misc
+### Imports
+The following is ELF specific.
+On most architectures, imports, i.e., symbols that refer to functions or global names that are outside of the binary (in shared libraries) appear in the symbol table, most of the time with an undefined address (0). On some architectures like MIPS, it contains the address of the function's PLT stub (which resides in the text segment).
+If you are looking for the address of the GOT entry related to a specific symbol (which resides in the data segment), take a look at jmprel. It is a dict (symbol-> GOT addr):
+
+Whether you are after a PLT or GOT entry depends on the architecture. Cle's architecture specific stuff is defined in the Archinfo class. The way we deal with absolute addresses of functions depending on the architecture is defined in this class, in the got_section_name() function. 
+
+For more details about Elf loading and architecture specific details, check the [Executable and linkable format document](http://www.cs.northwestern.edu/~pdinda/icsclass/doc/elf.pdf) as well as the ABI supplements for each architecture ([MIPS](http://math-atlas.sourceforge.net/devel/assembly/mipsabi32.pdf), [PPC64](http://math-atlas.sourceforge.net/devel/assembly/PPC-elf64abi-1.7.pdf), [AMD64](http://www.x86-64.org/documentation/abi.pdf).
+```
+rel = p.main_bin.jmprel
+```
+
+## Manually using clextract
+Clextract is a small C program that extracts information from binaries. Angr compiles it for each supported architecture and runs it through qemu-user. It is a good idea to have it in your PATH, for this, add the following to you ~/.bashrc:
+```
+PATH=$PATH:/path/to/ccle
+```
+As it relies on libcle, you'll also need:
+```
+LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/path/to/ccle/x86_64
+```
+
+You can also use the clextract.sh script in cle/ccle to run it on foreign architectures.
 
 
