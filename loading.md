@@ -116,11 +116,17 @@ skip_libs = [] ; specific libs to skip, e.g., skip_libs=['libc.so.6']
 The following options override CLE's automatic detection:
 
 ```
-custom_entry_point ; address of a custom entry point that will override CLE's automatic detection.
-custom_base_addr ; base address to load the binary
-custom_offset ; discard everything in the binary until this address
+# Address of a custom entry point that will override CLE's automatic detection.
+custom_entry_point = 0x4937
 
-provides ; which dependency is provided by the binary. This is used instead of what CLE would normally load for this dependency. e.g., provides = 'libc.so.6'.
+#base address to load the binary
+custom_base_addr  = 0x4000
+
+#discard everything in the binary until this address
+custom_offset = 0x200
+
+#which dependency is provided by the binary. This is used instead of what CLE would normally load for this dependency.
+provides = 'libc.so.6'
 ```
 
 Example of valid parameters:
