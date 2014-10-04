@@ -57,13 +57,13 @@ It is also possible to interface directly with individual binary objects:
 print p.ld.main_bin.deps
 
 # this is a dict of the memory contents of *just* the main binary
-print p.ld.main\_bin.memory
+print p.ld.main_bin.memory
 
 # this is a dict (name->addr) of exports of the first shared library that was loaded
 p.ld.shared_objects[0].get_exports()
 
 # this is a dict (name-> addr) of imports of the main binary, where addr is usually 0 (see the misc section below).
-print p.ld.main\_bin.imports
+print p.ld.main_bin.imports
 ```
 
 ## Loading dependencies
@@ -73,7 +73,6 @@ By default, CLE attempts to load all the dependencies of the main binary (e.g., 
 ```python
 load_options = {'/bin/ls':{skip_libs='ld.so.2'}}
 p = angr.Project("/bin/ls", load_options=load_options)
-
 ```
 
 ## Backends
