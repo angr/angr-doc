@@ -261,7 +261,7 @@ There's a lot there, but, basically, m has to be greater than 10 *and* either ha
 
 The state is great and all, but SimuVEX's ultimate goal is to provide a semantic meaning to blocks of binary code. Let's grab a motivating example, from the angr testcases.
 
-```ShellSession
+```none
 # cat fauxware.c | tail -n+9 | head -n 17
 int authenticate(char *username, char *password)
 {
