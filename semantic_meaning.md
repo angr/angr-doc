@@ -251,7 +251,7 @@ assert not s3.se.solution(m, 0xff)
 
 Amazing. Of course, constraints can be arbitrarily complex:
 
-```
+```python
 s3.add_constraints(s3.se.And(s3.se.UGT(m, 10), s3.se.Or(s3.se.ULE(m, 100), m % 200 != 123, s3.se.LShR(m, 8) & 0xff != 0xa)))
 ```
 
