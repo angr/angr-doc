@@ -97,7 +97,7 @@ aaaa_or_bbbb = s_merged.mem_expr(0x1000, 4)
 
 This is where we truly start to enter the realm of symbolic expressions. In the above example, the value of `aaaa_or_bbbb` can be, as it implies, either "AAAA" or "BBBB".
 
-### Symbolic Values
+## Symbolic Expressions
 
 Symbolic values are expressions that, under different situations, can take on different values. Our symbolic expression, `aaaa_or_bbbb` is a great example of this.  The solver engine provides ways to get at both values:
 
@@ -159,12 +159,51 @@ assert s.se.variables(m) == { "mem_bbbb0000_2_8" }
 print s.se.any_n_int(m, 10)
 print s.se.any_str(m)
 ```
+So far, we've seen addition being used. But we can do much more. All of the following examples return new expressions, with the operation applied.
 
-Symbolic expressions would be pretty boring on their own. After all, the last few that we created could take *any* numerical value, as they were completely unconstrained. This makes them uninteresting. To spice things up, SimuVEX has the concept of symbolic constraints.
+```python
+# mods aaaa by 0xff, creating an expression, of the same size as aaaa, with all but the last byte zeroed out
+aaaa % 0xff
 
-# Symbolic Constraints
+# same effect, but with a bitwise and
+aaaa & 0xff
 
-Symbolic constraints represent, aptly, constraints (or restrictions) on symbolic expressions. It might be easier to show you:
+# extracts the most significant (leftmost) byte of aaaa. The range is inclusive on both sides, and indexed with the rightmost bit being 0
+aaaa[31:24]
+
+# concatenates aaaa with itself
+s.se.Concat(aaaa, aaaa)
+
+# zero-extends aaaa by 32 bits
+aaaa.zero_extend(32)
+
+# sign-extends aaaa by 32 bits
+aaaa.sign_extend(32)
+
+# shifts aaaa right arithmetically by 8 bits (i.e., sign-extended)
+aaaa >> 8
+
+# shifts aaaa right logically by 8 bits (i.e., not sign-extended)
+s.se.LShR(aaaa, 8)
+
+# reverses aaaa
+aaaa.reverse()
+
+# returns a list of expressions, representing the individual *bits* of aaaa (expressions of length 1)
+aaaa.chop()
+
+# same, but for the bytes
+aaaa.chop(bits=8)
+
+# and the dwords
+aaaa.chop(bits=16)
+```
+
+More details on the operations supported by the solver engine are available at the [solver engine's documentation](./claripy.md).
+
+## Symbolic Constraints
+
+Symbolic expressions would be pretty boring on their own. After all, the last few that we created could take *any* numerical value, as they were completely unconstrained. This makes them uninteresting. To spice things up, SimuVEX has the concept of symbolic constraints. Symbolic constraints represent, aptly, constraints (or restrictions) on symbolic expressions. It might be easier to show you:
 
 ```python
 # make a copy of the state so that we don't screw up the original with our experimentation
@@ -213,3 +252,8 @@ assert not s3.se.solution(m, 0xff)
 Amazing. Of course, constraints can be arbitrarily complex:
 
 ```
+s3.add_constraints(s3.se.And(s3.se.UGT(m, 10), s3.se.Or(s3.se.ULE(m, 100), m % 200 != 123, s3.se.LShR(m, 8) & 0xff != 0xa)))
+```
+
+There's a lot there, but, basically, m has to be greater than 10 *and* either has to be less than 100, or has to be 123 when modded with 200, or, when logically shifted right by 8, the least significant byte must be 0x0a.
+
