@@ -72,7 +72,7 @@ By default, CLE attempts to load all the dependencies of the main binary (e.g., 
 
 ```python
 load_options = {'/bin/ls':{skip_libs='ld.so.2'}}
-p = angr.Project("/bin/ls", cle_ops)
+p = angr.Project("/bin/ls", load_options=load_options)
 
 ```
 
