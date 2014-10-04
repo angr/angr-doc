@@ -257,3 +257,70 @@ s3.add_constraints(s3.se.And(s3.se.UGT(m, 10), s3.se.Or(s3.se.ULE(m, 100), m % 2
 
 There's a lot there, but, basically, m has to be greater than 10 *and* either has to be less than 100, or has to be 123 when modded with 200, or, when logically shifted right by 8, the least significant byte must be 0x0a.
 
+## Semantic Translation
+
+The state is great and all, but SimuVEX's ultimate goal is to provide a semantic meaning to blocks of binary code. Let's grab a motivating example, from the angr testcases.
+
+```ShellSession
+# cat fauxware.c | tail -n+9 | head -n 17
+int authenticate(char *username, char *password)
+{
+	char stored_pw[9];
+	stored_pw[8] = 0;
+	int pwfile;
+
+	// evil back d00r
+	if (strcmp(password, sneaky) == 0) return 1;
+
+	pwfile = open(username, O_RDONLY);
+	read(pwfile, stored_pw, 8);
+
+	if (strcmp(password, stored_pw) == 0) return 1;
+	return 0;
+
+}
+
+# objdump -d /home/angr/angr/tests/blob/x86_64/fauxware
+0000000000400664 <authenticate>:
+  400664:	55                   	push   rbp
+  400665:	48 89 e5             	mov    rbp,rsp
+  400668:	48 83 ec 20          	sub    rsp,0x20
+  40066c:	48 89 7d e8          	mov    QWORD PTR [rbp-0x18],rdi
+  400670:	48 89 75 e0          	mov    QWORD PTR [rbp-0x20],rsi
+  400674:	c6 45 f8 00          	mov    BYTE PTR [rbp-0x8],0x0
+  400678:	48 8b 15 c9 09 20 00 	mov    rdx,QWORD PTR [rip+0x2009c9]        # 601048 <sneaky>
+  40067f:	48 8b 45 e0          	mov    rax,QWORD PTR [rbp-0x20]
+  400683:	48 89 d6             	mov    rsi,rdx
+  400686:	48 89 c7             	mov    rdi,rax
+  400689:	e8 c2 fe ff ff       	call   400550 <strcmp@plt>
+  40068e:	85 c0                	test   eax,eax
+  400690:	75 07                	jne    400699 <authenticate+0x35>
+  400692:	b8 01 00 00 00       	mov    eax,0x1
+  400697:	eb 52                	jmp    4006eb <authenticate+0x87>
+  400699:	48 8b 45 e8          	mov    rax,QWORD PTR [rbp-0x18]
+  40069d:	be 00 00 00 00       	mov    esi,0x0
+  4006a2:	48 89 c7             	mov    rdi,rax
+  4006a5:	b8 00 00 00 00       	mov    eax,0x0
+  4006aa:	e8 b1 fe ff ff       	call   400560 <open@plt>
+  4006af:	89 45 fc             	mov    DWORD PTR [rbp-0x4],eax
+  4006b2:	48 8d 4d f0          	lea    rcx,[rbp-0x10]
+  4006b6:	8b 45 fc             	mov    eax,DWORD PTR [rbp-0x4]
+  4006b9:	ba 08 00 00 00       	mov    edx,0x8
+  4006be:	48 89 ce             	mov    rsi,rcx
+  4006c1:	89 c7                	mov    edi,eax
+  4006c3:	e8 68 fe ff ff       	call   400530 <read@plt>
+  4006c8:	48 8d 55 f0          	lea    rdx,[rbp-0x10]
+  4006cc:	48 8b 45 e0          	mov    rax,QWORD PTR [rbp-0x20]
+  4006d0:	48 89 d6             	mov    rsi,rdx
+  4006d3:	48 89 c7             	mov    rdi,rax
+  4006d6:	e8 75 fe ff ff       	call   400550 <strcmp@plt>
+  4006db:	85 c0                	test   eax,eax
+  4006dd:	75 07                	jne    4006e6 <authenticate+0x82>
+  4006df:	b8 01 00 00 00       	mov    eax,0x1
+  4006e4:	eb 05                	jmp    4006eb <authenticate+0x87>
+  4006e6:	b8 00 00 00 00       	mov    eax,0x0
+  4006eb:	c9                   	leave  
+  4006ec:	c3                   	ret    
+```
+
+
