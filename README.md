@@ -30,8 +30,8 @@ We try to get as close as the [PEP8 code convention](http://legacy.python.org/de
 If you use Vim, the [python-mode](https://github.com/klen/python-mode) plugin does all you need. You can also [manually configure](https://wiki.python.org/moin/Vim) vim to adopt this behavior.
 
 Most importantly, please consider the following when writing code as part of Angr:
-- Avoid tabs, prefer space indentation. The de-facto standard is 4 spaces instead of 1 tab. 
-- Avoid super long lines. PEP8 recommends 80 character long lines. It's okay to have longer lines, but keep in mind that long lines loose readability and should be avoided.
+- Avoid tabs, use space indentation instead. The de-facto standard is 4 spaces. It is a good idea to adopt this from the beginning, as merging code that mixes both tab and space indentation is awful.
+- Avoid super long lines. PEP8 recommends 80 character long lines. It's okay to have longer lines, but keep in mind that long lines are harder to read and should be avoided.
 - **Document** your code. Every *class definition* and *public function definition* should have some description of:
     	- What it does.
 	- What are the type and the meaning of the parameters.
