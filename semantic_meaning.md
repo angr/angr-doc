@@ -323,4 +323,107 @@ int authenticate(char *username, char *password)
   4006ec:	c3                   	ret    
 ```
 
+### Translating a basic block
 
+TODO
+
+### Basic block actions
+
+TODO
+
+### Exiting from basic blocks
+
+TODO
+
+### Breakpoints!
+
+Like any decent execution engine, SimuVEX supports breakpoints. This is pretty cool! A point is set as follows:
+
+```python
+# get our state
+s = p.initial_state()
+
+# add a breakpoint. This breakpoint will drop into ipdb right before a memory write happens.
+s.inspect.add_breakpoint('mem_write', simuvex.BP(simuvex.BP_BEFORE))
+
+# on the other hand, we can have a breakpoint trigger right *after* a memory write happens. On top of that, we
+# can have a specific function get run instead of going straight to ipdb.
+def debug_func(state):
+    print "State %s is about to do a memory write!"
+
+s.inspect.add_breakpoint('mem_write', simuvex.BP(simuvex.BP_AFTER, action=debug_func))
+```
+
+There are many other places to break than a memory write. Here is the list. You can break at BP_BEFORE or BP_AFTER for each of these events.
+
+| Event type        | Event meaning |
+|-------------------|------------------------------------------|
+| mem_read          | Memory is being read. |
+| mem_write         | Memory is being written. |
+| reg_read          | A register is being read. |
+| reg_write         | A register is being written. |
+| tmp_read          | A temp is being read. |
+| tmp_write         | A temp is being written. |
+| expr              | An expression is being created (i.e., a result of an arithmetic operation or a constant in the IR). |
+| statement         | An IR statement is being translated. |
+| instruction       | A new (native) instruction is being translated. |
+| irsb              | A new basic block is being translated. |
+| constraints       | New constraints are being added to the state. |
+| exit              | A SimExit is being created from a SimIRSB. |
+| symbolic_variable | A new symbolic variable is being created. |
+
+These events expose different attributes:
+
+| Event type        | Attribute name     | Attribute availability | Attribute meaning                        |
+|-------------------|--------------------|------------------------|------------------------------------------|
+| mem_read          | mem_read_address   | BP_BEFORE or BP_AFTER  | The address at which memory is being read. |
+| mem_read          | mem_read_length    | BP_BEFORE or BP_AFTER  | The length of the memory read. |
+| mem_read          | mem_read_expr      | BP_AFTER               | The expression at that address. |
+| mem_write         | mem_write_address  | BP_BEFORE or BP_AFTER  | The address at which memory is being written. |
+| mem_write         | mem_write_length   | BP_BEFORE or BP_AFTER  | The length of the memory write. |
+| mem_write         | mem_write_expr     | BP_BEFORE or BP_AFTER  | The expression that is being written. |
+| reg_read          | reg_read_address   | BP_BEFORE or BP_AFTER  | The offset of the register being read. |
+| reg_read          | reg_read_length    | BP_BEFORE or BP_AFTER  | The length of the register read. |
+| reg_read          | reg_read_expr      | BP_AFTER               | The expression in the register. |
+| reg_write         | reg_write_address  | BP_BEFORE or BP_AFTER  | The offset of the register being written. |
+| reg_write         | reg_write_length   | BP_BEFORE or BP_AFTER  | The length of the register write. |
+| reg_write         | reg_write_expr     | BP_BEFORE or BP_AFTER  | The expression that is being written. |
+| tmp_read          | tmp_read_address   | BP_BEFORE or BP_AFTER  | The number of the temp being read. |
+| tmp_read          | tmp_read_expr      | BP_AFTER               | The expression of the temp. |
+| tmp_write         | tmp_write_address  | BP_BEFORE or BP_AFTER  | The number of the temp written. |
+| tmp_write         | tmp_write_expr     | BP_AFTER               | The expression written to the temp. |
+| expr              | expr               | BP_AFTER               | The value of the expression. |
+| statement         | statement          | BP_BEFORE or BP_AFTER  | The index of the IR statement (in the IR basic block). |
+| instruction       | instruction        | BP_BEFORE or BP_AFTER  | The address of the native instruction. |
+| irsb              | address            | BP_BEFORE or BP_AFTER  | The address of the basic block. |
+| constraints       | added_constrints   | BP_BEFORE or BP_AFTER  | The list of contraint expressions being added. |
+| exit              | exit_target        | BP_BEFORE or BP_AFTER  | The expression representing the target of a SimExit. |
+| exit              | exit_guard         | BP_BEFORE or BP_AFTER  | The expression representing the guard of a SimExit. |
+| exit              | backtrace          | BP_AFTER               | A list of basic block addresses that were executed in this state's history. |
+| symbolic_variable | symbolic_name      | BP_BEFORE or BP_AFTER  | The name of the symbolic variable being created. The solver engine might modify this name (by appending a unique ID and length). Check the symbolic_expr for the final symbolic expression. |
+| symbolic_variable | symbolic_size      | BP_BEFORE or BP_AFTER  | The size of the symbolic variable being created. |
+| symbolic_variable | symbolic_expr      | BP_AFTER               | The expression representing the new symbolic variable. |
+
+We can put all this together to support conditional breakpoints!
+Here it is:
+
+```python
+# This will break before a memory write if 0x1000 is a possible value of its target expression
+s.inspect.add_breakpoint('mem_write', simuvex.BP(simuvex.BP_BEFORE, mem_write_address=0x1000))
+
+# This will break before a memory write if 0x1000 is the *only* value of its target expression
+s.inspect.add_breakpoint('mem_write', simuvex.BP(simuvex.BP_BEFORE, mem_write_address=0x1000, mem_write_address_unique=True))
+
+# This will break after instruction 0x8000, but only 0x1000 is a possible value of the last expression that was read from memory
+s.inspect.add_breakpoint('instruction', simuvex.BP(simuvex.BP_AFTER, instruction=0x8000, mem_read_expr=0x1000))
+```
+
+Cool stuff! In fact, we can even specify a function as a condition:
+```python
+# this is a complex condition that could do anything!
+def cond(state):
+    return state.any_str(state.reg_expr('rax')) == 'AAAA'
+s.inspect.add_breakpoint('mem_write', simuvex.BP(simuvex.BP_BEFORE, condition=cond))
+```
+
+That is some cool stuff!
