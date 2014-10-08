@@ -33,7 +33,9 @@ Most importantly, please consider the following when writing code as part of Ang
 - Avoid tabs, use space indentation instead. The de-facto standard is 4 spaces. It is a good idea to adopt this from the beginning, as merging code that mixes both tab and space indentation is awful.
 - Avoid super long lines. PEP8 recommends 80 character long lines. It's okay to have longer lines, but keep in mind that long lines are harder to read and should be avoided.
 - **Document** your code. Every *class definition* and *public function definition* should have some description of:
+
     	- What it does.
 	- What are the type and the meaning of the parameters.
 	- What it returns.
+
 
