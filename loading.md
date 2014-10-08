@@ -48,7 +48,14 @@ print p.ld.memory[p.max_addr]
 print p.ld.main_bin
 
 # this retrieves the binary object which maps memory at the specified address
-print print p.ld.addr_belongs_to_object(p.max_addr)
+print p.ld.addr_belongs_to_object(p.max_addr)
+
+# Get the address of a symbol
+print p.ld.find_symbol_addr(symbol)
+
+# Get the address of the GOT slot for a symbol (in the main binary)
+print p.ld.find_symbol_got_entry(symbol)
+
 ```
 
 It is also possible to interface directly with individual binary objects:
