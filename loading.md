@@ -35,7 +35,10 @@ CLE can be interfaced with as follows:
 # this is the CLE Loader object
 print p.ld
 
-# this is a dict of the dependencies that the main binary depends on. It has the form {path:load_addr}, e.g. {'/lib/x86_64-linux-gnu/libc.so.6': 274898759680}. This gives the same results as running `ldd` on the binary (we obtain it *dynamically* using the LD_AUDIT interface at runtime).
+# this is a dict of the dependencies that the main binary depends on. It has
+# the form {path:load_addr}, e.g. {'/lib/x86_64-linux-gnu/libc.so.6':
+# 274898759680}. This gives the same results as running `ldd` on the binary (we
+# obtain it *dynamically* using the LD_AUDIT interface at runtime).
 print p.ld.dependencies
 
 # this is a list of the objects that are loaded as part of loading the binary (their types depend on the backend)
@@ -60,7 +63,9 @@ print p.ld.find_symbol_got_entry(symbol)
 
 It is also possible to interface directly with individual binary objects:
 ```python
-# this is a list of the names of libraries the program depend on. We obtain it *statically* by reading the DT_NEEDED field of the dynamic section of the Elf binary.
+# this is a list of the names of libraries the program depend on. We obtain it
+# *statically* by reading the DT_NEEDED field of the dynamic section of the Elf
+# binary.
 print p.ld.main_bin.deps
 
 # this is a dict of the memory contents of *just* the main binary
@@ -82,9 +87,9 @@ load_options = {'/bin/ls':{skip_libs='ld.so.2'}}
 p = angr.Project("/bin/ls", load_options=load_options)
 ```
 
-To load external libraries, CLE first attemps to dynamically get dependency information by running the binary in an emulated target environment, and hooking GNU LD through the LD_AUDIT interface. This yields a dict of dependencies and base_addresses where to load them.
+To load external libraries, CLE first attempts to *dynamically* get dependency information by running the binary in an emulated target environment, in which it hooks GNU LD through the LD_AUDIT interface. This yields a dict of *paths to libraries* along with the *base addresses* where to load them.
 
-If this fails, CLE If this fails (this can happen for various reasons, e.g., incompatible ABI between the target environment and the binary we try to execute), then CLE falls back to statically extracting dependency names from the binary, and :
+If this fails (this can happen for various reasons, e.g., incompatible ABI between the target environment and the binary we try to execute), then CLE falls back to *statically* extracting dependency names from the binary, and :
 - looks in the current directory (i.e., where the main binary is) for *matching libraries*
 - for libs not found there, it recursively looks for system libraries in the standard locations such as `/lib/x86_64_linux_gnu` (depending on the main binary's architecture).
 - a *matching library* is a library with both the correct name+version and the right architecture for the loaded binary.
