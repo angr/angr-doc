@@ -181,6 +181,17 @@ When no such summary is available for a given function:
 
 - if `load_libs` is `False`, then external functions are unresolved, and Project will resolve them to a generic "stub" SimProcedure called `ReturnUnconstrained`. It does what its name says: it returns unconstrained values.
 
+- if you need something more fine grained, you can selectively exclude specific libraries from loading, in this case, the analysis will only step into functions that can be resolved (that is, the functions of the libraries you did not exclude). You can do so with CLE's `skip_libs` option.
+
+- If excluding a whole library is too coarse grained for you, and you want to exclude specific functions, you can do so by manually replacing it with a `ReturnUnconstrained` stub as follows:
+
+```python
+# Get the address of the function
+got = p.find_symbol_got_entry[symbol_name]
+
+# Replace the function with stub
+project.add_custom_sim_procedure(got, simuvex.SimProcedures["stubs"]["ReturnUnconstrained"])
+```
 
 ### Manually using clextract
 Clextract is a small C program that extracts information from binaries. Angr compiles it for each supported architecture and runs it through qemu-user. It is a good idea to have it in your PATH, for this, add the following to you ~/.bashrc:
