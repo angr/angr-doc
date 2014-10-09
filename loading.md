@@ -173,6 +173,15 @@ For more details about Elf loading and architecture specific details, check the 
 rel = p.main_bin.jmprel
 ```
 
+### Symbolic analysis: stepping into functions
+By default, Project tries to replace external calls to libraries' functions by using [symbolic summaries](./todo.md) termed *SimProcedures* (these are summaries of how functions affect the state). 
+
+When no such summary is available for a given function:
+- if `load_libs` is `True` (this is the default), then the *real* library function is executed instead. This may or may not be what you want, depending on the actual function. For example, some of libc's function are extremely complex to analyze and will most likely cause an explosion of the number of states for the [path](./todo.md) trying to execute them.
+
+- if `load_libs` is `False`, then external functions are unresolved, and Project will resolve them to a generic "stub" SimProcedure called `ReturnUnconstrained`. It does what its name says: it returns unconstrained values.
+
+
 ### Manually using clextract
 Clextract is a small C program that extracts information from binaries. Angr compiles it for each supported architecture and runs it through qemu-user. It is a good idea to have it in your PATH, for this, add the following to you ~/.bashrc:
 ```
