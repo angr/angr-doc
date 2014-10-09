@@ -187,13 +187,13 @@ When no such summary is available for a given function:
 
 ```python
 # Get the GOT address of the function (depending on the architecture, it might return the address of the PLT stub instead, which is fine too):
-addr = p.find_symbol_got_entry(symbol_name)
+addr = p.ld.find_symbol_got_entry(symbol_name)
 
 # You can also get the actual address of the function instead, this shouldn't make much difference:
-addr = p.find_symbol_addr(symbol_name)
+addr = p.ld.find_symbol_addr(symbol_name)
 
 # Replace the function with stub
-project.add_custom_sim_procedure(addr, simuvex.SimProcedures["stubs"]["ReturnUnconstrained"])
+p.add_custom_sim_procedure(addr, simuvex.SimProcedures["stubs"]["ReturnUnconstrained"])
 ```
 
 ### Manually using clextract
