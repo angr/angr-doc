@@ -186,11 +186,14 @@ When no such summary is available for a given function:
 - If excluding a whole library is too coarse grained for you, and you want to exclude specific functions, you can do so by manually replacing it with a `ReturnUnconstrained` stub as follows:
 
 ```python
-# Get the address of the function
-got = p.find_symbol_got_entry[symbol_name]
+# Get the GOT address of the function (depending on the architecture, it might return the address of the PLT stub instead, which is fine too):
+addr = p.find_symbol_got_entry(symbol_name)
+
+# You can also get the actual address of the function instead, this shouldn't make much difference:
+addr = p.find_symbol_addr(symbol_name)
 
 # Replace the function with stub
-project.add_custom_sim_procedure(got, simuvex.SimProcedures["stubs"]["ReturnUnconstrained"])
+project.add_custom_sim_procedure(addr, simuvex.SimProcedures["stubs"]["ReturnUnconstrained"])
 ```
 
 ### Manually using clextract
