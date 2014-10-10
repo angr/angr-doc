@@ -146,16 +146,16 @@ The following options override CLE's automatic detection:
 
 ```python
 # Address of a custom entry point that will override CLE's automatic detection.
-load_options = {'/bin/ls':{custom_entry_point = 0x4937}}
+load_options = {'/bin/ls':{'custom_entry_point':0x4937}}
 
 #base address to load the binary
-load_options = {'/bin/ls':{custom_base_addr  = 0x4000}}
+load_options = {'/bin/ls':{'custom_base_addr':0x4000}}
 
 #discard everything in the binary until this address
-load_options = {'/bin/ls':{custom_offset = 0x200}}
+load_options = {'/bin/ls':{'custom_offset':0x200}}
 
 #which dependency is provided by the binary. This is used instead of what CLE would normally load for this dependency.
-load_options = {'/bin/ls':{provides = 'libc.so.6'}}
+load_options = {'/bin/ls':{'provides':'libc.so.6'}}
 ```
 
 Example with multiple options:
