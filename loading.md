@@ -121,7 +121,7 @@ where:
 ### Valid options
 ```python
 # backend can be 'ida' or 'elf' or 'blob' (defaults to 'elf')
-load_options = {'/bin/ls':{backend = 'ida'}}
+load_options = {'/bin/ls':{backend:'ida'}}
 ```
 
 The following options are only relevant for the main binary (i.e., the
@@ -129,10 +129,17 @@ first binary passed to CLE):
 
 ```python
 #shall we also load dynamic libraries ?
-load_options = {'/bin/ls':{auto_load_libs = True}}
+load_options = {'/bin/ls':{'auto_load_libs':True}}
 
 # specific libs to skip
-load_options = {'/bin/ls':{skip_libs=['libc.so.6']}}
+load_options = {'/bin/ls':{'skip_libs':['libc.so.6']}}
+
+# Ignore missing libs (the default is to raise a CLException on missing libs)
+load_options = {'/bin/ls':{'ignore_missing_libs':True}}
+
+# Raise an exception if LD_AUDIT fails (the default is to fall back to static mode)
+load_options = {'/bin/ls':{'except_on_ld_fail':True}}
+
 ```
 
 The following options override CLE's automatic detection:
