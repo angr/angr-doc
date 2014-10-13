@@ -18,6 +18,16 @@ ln -s /home/angr/angr/idalink/idalink /home/angr/ida/ida-6.6/python
 ```
 
 ## How can I get verbose debug messages for specific Angr modules ?
+### Debug messages for everything
+The most simple way to get a debug output is the following:
+```python
+import logging
+logging.basicConfig(level=logging.DEBUG) # ajust to the wanted debug level
+```
+
+You may want to use `logging.INFO` or whatever else instead
+
+### Getting more control of the debug output
 You'll notice that some files include the following:
 
 ```python
