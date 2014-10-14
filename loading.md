@@ -83,7 +83,8 @@ print p.ld.main_bin.imports
 By default, CLE attempts to load all the dependencies of the main binary (e.g., libc.so.6, ld-linux.so.2, etc.). If it cannot find one of them, it will stop the execution by raising an exception. In this case, you can attempt to manually copy the missing dependency in the same directory as the main binary, or alternatively, ignore the missing dependency (see the paragraph on loading option):
 
 ```python
-load_options = {'/bin/ls':{skip_libs='ld.so.2'}}
+load_options = {}
+load_options['/bin/ls'] = {skip_libs='ld.so.2'}
 p = angr.Project("/bin/ls", load_options=load_options)
 ```
 
@@ -112,33 +113,38 @@ Loading options can be passed to Project (which in turn will pass it to CLE).
 Cle expects a dict as a set of parameters of the following form:
 ```python
 load_options = {path1:{options1}, path2:{options2}, ...}
+
+# Or in a more readable form:
+load_options = {}
+load_options[path1] = {k1:v1, k2:v2, ...}
+load_options[path2] = {k1:v1, k2:v2, ...}
+etc.
 ```
 where:
-- each path is a distinct binary. The first binary is expected to be the main binary. Every other binary is expected to be a dependency of the fist binary.
-
+- each path is a distinct binary. 
 - each set of options is a dict.
 
 ### Valid options
 ```python
 # backend can be 'ida' or 'elf' or 'blob' (defaults to 'elf')
-load_options = {'/bin/ls':{backend:'ida'}}
+load_options['/bin/ls'] = {backend:'ida'}
 ```
 
 The following options are only relevant for the main binary (i.e., the
 first binary passed to CLE):
 
 ```python
-#shall we also load dynamic libraries ?
-load_options = {'/bin/ls':{'auto_load_libs':True}}
+# shall we also load dynamic libraries ?
+load_options['/bin/ls'] = {'auto_load_libs':True}
 
 # specific libs to skip
-load_options = {'/bin/ls':{'skip_libs':['libc.so.6']}}
+load_options['/bin/ls'] = {'skip_libs':['libc.so.6']}
 
 # Ignore missing libs (the default is to raise a CLException on missing libs)
-load_options = {'/bin/ls':{'ignore_missing_libs':True}}
+load_options['/bin/ls'] = {'ignore_missing_libs':True}
 
 # Raise an exception if LD_AUDIT fails (the default is to fall back to static mode)
-load_options = {'/bin/ls':{'except_on_ld_fail':True}}
+load_options['/bin/ls'] = {'except_on_ld_fail':True}
 
 ```
 
@@ -146,21 +152,21 @@ The following options override CLE's automatic detection:
 
 ```python
 # Address of a custom entry point that will override CLE's automatic detection.
-load_options = {'/bin/ls':{'custom_entry_point':0x4937}}
+load_options['/bin/ls'] = {'custom_entry_point':0x4937}
 
 #base address to load the binary
-load_options = {'/bin/ls':{'custom_base_addr':0x4000}}
+load_options['/bin/ls'] = {'custom_base_addr':0x4000}
 
 #discard everything in the binary until this address
-load_options = {'/bin/ls':{'custom_offset':0x200}}
+load_options['/bin/ls'] = {'custom_offset':0x200}
 
 #which dependency is provided by the binary. This is used instead of what CLE would normally load for this dependency.
-load_options = {'/bin/ls':{'provides':'libc.so.6'}}
+load_options['/bin/ls'] = {'provides':'libc.so.6'}
 ```
 
-Example with multiple options:
+Example with multiple options for the same binary:
 ```python
-load_options = {'/bin/ls': {backend:'elf', auto_load_libs:True, skip_libs:['libc.so.6']}}
+load_options['/bin/ls'] = {backend:'elf', auto_load_libs:True, skip_libs:['libc.so.6']}
 ```
 
 
@@ -215,4 +221,28 @@ LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/path/to/ccle/x86_64
 
 You can also use the clextract.sh script in cle/ccle to run it on foreign architectures.
 
+
+## Troubleshooting
+
+### Q: My options are ignored
+A: Cle options are an optional argument. Make sure you call Project with the following syntax:
+```python
+p = angr.Project(ping, load_options=load_options)
+```
+
+rather than:
+```python
+p = angr.Project(ping, load_options)
+```
+
+
+### Q: I keep getting errors of the following type:
+Qemu returned error `x` while running `a_long_qemu_command`
+
+A: You most likely have something wrong with your Cle installation. Try to rebuild and reinstall it as follows:
+```python
+cd angr/cle
+make
+make install
+```
 
