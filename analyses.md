@@ -49,7 +49,6 @@ Angr comes with several built-in analyses:
 |------|-------------|
 | CFG  | Constructs a *Control Flow Graph* of the program. The results are accessible via `p.analyze('CFG').cfg`. |
 | VSA  | Performs VSA on every function of the program, creating a *Value Flow Graph* and detecting stack variables. |
-|------|-------------|
 
 ## Creating Analyses
 
