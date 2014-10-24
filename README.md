@@ -22,6 +22,7 @@ Angr has components that meet all of these challenges. This document will explai
 - [Loading a binary](./loading.md)
 - [Intermediate representation (IR)](./ir.md)
 - [Semantic meaning](./semantic_meaning.md)
+- [Running analyses](./analyses.md)
 - [FAQ](./faq.md)
 
 
