@@ -24,7 +24,7 @@ print p.entry
 print p.min_addr, p.max_addr
 
 # this is the base filename and directory name of the binary
-print p.dirname, p.filename
+print p.dirname + '/' + p.basename
 ```
 
 CLE exposes the binary's information through two main interfaces: a CLE loader (Cle.Ld) represents an entire conglomerate of loaded CLE binary objects. Different CLE.Binary types are used for different types of binaries. For example, CLE.ELF is used to load ELF binaries. (These are different "backends", see the backends section).
