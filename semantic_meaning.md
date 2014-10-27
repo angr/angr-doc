@@ -257,6 +257,65 @@ s3.add_constraints(s3.se.And(s3.se.UGT(m, 10), s3.se.Or(s3.se.ULE(m, 100), m % 2
 
 There's a lot there, but, basically, m has to be greater than 10 *and* either has to be less than 100, or has to be 123 when modded with 200, or, when logically shifted right by 8, the least significant byte must be 0x0a.
 
+
+
+
+
+
+## Execution Points
+
+SimuVEX models a specific point in a program's execution as a `SimExit`.
+This object is, basically, a combination of an address in the program, a state, and the type of the last jump.
+Jump types are, unfortunately, named after their VEX enum values.
+Some common types are:
+
+| Type | Description |
+|------|-------------|
+| Ijk_Boring | A normal jump to an address. |
+| IjK_Call | A call to an address. |
+| Ijk_Ret | A return. |
+| Ijk_Sig* | Various signals. |
+| Ijk_Sys* | System calls. |
+
+The entry point to a program is modeled as a SimExit, with a jumpkind of `Ijk_Boring`, and a state that is created by using `p.initial_state()`.
+
+```python
+e = p.initial_exit()
+assert e.jumpkind == 'Ijk_Boring'
+
+# The target of the exit is a symbolic expression, but you can concretize it
+assert type(e.target) is claripy.A
+assert e.concretize() == p.entry
+
+# Some exits are multi-valued (for example, because the target is symbolic), but you can split them into single-valued exits
+split_exits = e.split()
+
+# You can examine the guard condition of an exit, and check if the exit is reachable (i.e., the guard condition can evaluate to True)
+assert type(e.guard) is claripy.A
+print "Can we take this exit?", e.reachable()
+
+# You can also get at the state.
+assert type(e.state) is claripy.SimState
+```
+
+You can create exits to arbitrary points of the program, and even provide a state:
+
+```python
+# create an exit to 0x2000, with an initial state
+e = p.exit_to(0x2000)
+
+# create an exit to 0x1000, with a custom state
+s = p.initial_state()
+s.store_reg('rax', 0)
+s.store_reg('rbx', 0)
+s.store_reg('rcx', 0)
+s.store_reg('rdx', 0)
+e = p.exit_to(0x1000, state=s)
+```
+
+
+
+
 ## Semantic Translation
 
 The state is great and all, but SimuVEX's ultimate goal is to provide a semantic meaning to blocks of binary code. Let's grab a motivating example, from the angr testcases.
@@ -441,8 +500,8 @@ Here's an example.
 In this example, we get the program's initial state (i.e., what we'd expect when the entry point to the program is executed: empty stack, etc), and see what the above block does to it.
 
 ```python
-import simuvex
-sirsb = simuvex.SimIRSB(p.initial_state(), irsb)
+# This creates a SimIRSB at 0x400664, and applies it to the initial state (the default state argument to exit_to)
+sirsb = p.sim_block(p.exit_to(0x400664))
 
 # this is the address of the first instruction in the block
 print sirsb.addr
@@ -472,8 +531,18 @@ Rather than describe the general concept, we'll just list the specific types:
 A basic block's exits can be retrieved by doing:
 
 ```python
+# All exits. Might be unreachable or multi-valued.
 exits = sirsb.exits()
+
+# Only reachable exits.
+exits = sirsb.exits(reachable=True)
+
+# Only single-valued, reachable exits.
+exits = sirsb.flat_exits()
 ```
+
+These exits can then be passed into `p.sim_block` to continue execution!
+
 
 ### Breakpoints!
 
