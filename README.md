@@ -31,7 +31,9 @@ We try to get as close as the [PEP8 code convention](http://legacy.python.org/de
 If you use Vim, the [python-mode](https://github.com/klen/python-mode) plugin does all you need. You can also [manually configure](https://wiki.python.org/moin/Vim) vim to adopt this behavior.
 
 Most importantly, please consider the following when writing code as part of Angr:
-- Avoid tabs, use space indentation instead. The de-facto standard is 4 spaces. It is a good idea to adopt this from the beginning, as merging code that mixes both tab and space indentation is awful.
+- Try to use attribute access (see the `@property` decorator) instead of getters and setters wherever you can. This isn't Java, and attributes enable tab completion in iPython.
+- DO NOT, under ANY circumstances, `raise Exception`. **Use the right exception type**. If there isn't a correct exception type, subclass the core exception of the module that you're working in (i.e. AngrError in Angr, SimError in SimuVEX, etc) and raise that. Note that the `assert` statement falls under this as well. We catch, and properly handle, the right types of errors in the right places, but AssertionError and Exception are not handled anywhere and force-terminate analyses.
+- Avoid tabs, use space indentation instead. Even though it's wrong, the de-facto standard is 4 spaces. It is a good idea to adopt this from the beginning, as merging code that mixes both tab and space indentation is awful.
 - Avoid super long lines. PEP8 recommends 80 character long lines. It's okay to have longer lines, but keep in mind that long lines are harder to read and should be avoided.
 - Avoid too long functions, it is often better to break them up into smaller functions.
 - Prefer _ to __ for private members (so that we can access them anyway when debugging).
