@@ -24,7 +24,7 @@ print "This will throw an except because there is no temp t0, yet:", s.tmp_expr(
 
 ### Accessing Data
 
-The data that's stored in the state (i.e., data in registers, memory, temps, etc) is stored as an internal *expression*. This exposes a single interface to concrete (i.e., `0x41414141`) and symbolic (i.e., "whatever the user might input on stdin") expressions. In fact, this is the core of what enables angr to analyze binaries *symbolically*. However, this complicates matters by not exposing the actual *value*, if it's concrete, directly. For example, if you try the above examples, you will see that the type that is printed is a `claripy.E` type, which is the internal expression representation. Claripy is the solution backend for SimuVEX, and we'll discuss it in more detail later. For now, you might want to know how to get the actual values out of these expressions.
+The data that's stored in the state (i.e., data in registers, memory, temps, etc) is stored as an internal *expression*. This exposes a single interface to concrete (i.e., `0x41414141`) and symbolic (i.e., "whatever the user might input on stdin") expressions. In fact, this is the core of what enables angr to analyze binaries *symbolically*. However, this complicates matters by not exposing the actual *value*, if it's concrete, directly. For example, if you try the above examples, you will see that the type that is printed is a `claripy.A` type, which is the internal expression representation. Claripy is the solution backend for SimuVEX, and we'll discuss it in more detail later. For now, you might want to know how to get the actual values out of these expressions.
 
 ```python
 # get the integer value of the content of rax:
