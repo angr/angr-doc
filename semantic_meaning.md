@@ -187,7 +187,7 @@ aaaa >> 8
 s.se.LShR(aaaa, 8)
 
 # reverses aaaa
-aaaa.reverse()
+aaaa.reversed
 
 # returns a list of expressions, representing the individual *bits* of aaaa (expressions of length 1)
 aaaa.chop()
@@ -469,7 +469,11 @@ Rather than describe the general concept, we'll just list the specific types:
 
 ### Exiting from basic blocks
 
-TODO
+A basic block's exits can be retrieved by doing:
+
+```python
+exits = sirsb.exits()
+```
 
 ### Breakpoints!
 
