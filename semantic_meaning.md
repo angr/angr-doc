@@ -543,8 +543,11 @@ exits = sirsb.flat_exits()
 
 These exits can then be passed into `p.sim_block` to continue execution!
 
+## SimProcedures
 
-### Breakpoints!
+TODO
+
+## Breakpoints!
 
 Like any decent execution engine, SimuVEX supports breakpoints. This is pretty cool! A point is set as follows:
 
