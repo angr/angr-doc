@@ -145,13 +145,34 @@ assert s.eval(x, 10) == (1,) # interestingly enough, since z can't be y, x can o
 
 ## Claripy Backends
 
-Claripy abstracts away differences between the objects in expressions (bit vectors, strided intervals, etc) by relying on several backends.
+Backends are Claripy's workhorses.
+Claripy exposes ASTs (claripy.A objects) to the world, but when actual computation has to be done, it pushes those ASTs into objects that can be handled by the backends themselves.
+This provides a unified interface to the outside world while allowing Claripy to support different types of computation.
+For example, BackendConcrete provides computation support for concrete bitvectors and booleans, BackendVSA introduces VSA constructs such as StridedIntervals (and details what happens when operations are performed on them, and BackendZ3 provides support for symbolic variables and constraint solving.
 
-TODO
+There are a set of functions that a backend is expected to implement.
+For all of these functions, the "public" version is expected to be able to deal with claripy.A objects, while the "private" version should only deal with objects specific to the backend itself.
+This is distinguished with Python idioms: a public function will be named func() while a private function will be _func().
+All functions should return objects that are usable by the backend in its private methods.
+If this can't be done (i.e., some functionality is being attempted that the backend can't handle), the backend should raise a BackendError.
+In this case, Claripy will move on to the next backend in its list.
 
+All backends must implement a convert() function.
+This function receives a claripy.A and should return an object that the backend can handle in its private methods.
+Backends should also implement a _convert() method, which will receive anything that is *not* a claripy.A object (i.e., an integer or an object from a different backend).
+If convert() or _convert() receives something that the backend can't translate to a format that is usable internally, the backend should raise BackendError, and thus won't be used for that object.
+
+Claripy contract with its backends is as follows: backends should be able to can handle, in their private functions, any object that they return from their private *or* public functions.
+Likewise, Claripy will never pass an object to any backend private function that did not originate as a return value from a private or public function of that backend.
+One exception to this is _convert(), as Claripy can try to stuff anything it feels like into _convert() to see if the backend can handle that type of object.
+ 
 ### Model Objects and Model Backends
 
-TODO
+To perform actual, useful computation on ASTs, Claripy uses the concept of model objects.
+A model object is a result of the operation represented by the AST.
+
+Examples of model object types that Claripy currently uses are BVVs, StridedIntervals, booleans, ValueSets, and AbstractLocations.
+On the contrary, a symbolic BitVec is not a model object, as it cannot be pickled.
 
 ### Solver Backends
 
