@@ -80,7 +80,7 @@ print p.ld.main_bin.imports
 
 ## Loading dependencies
 
-By default, CLE attempts to load all the dependencies of the main binary (e.g., libc.so.6, ld-linux.so.2, etc.). If it cannot find one of them, it will stop the execution by raising an exception. In this case, you can attempt to manually copy the missing dependency in the same directory as the main binary, or alternatively, ignore the missing dependency (see the paragraph on loading option):
+By default, CLE won't attempts to load all the dependencies of the main binary (e.g., libc.so.6, ld-linux.so.2, etc.), unless `auto_load_libs` is set to `True` in the loading options. When loading libraries, if it cannot find one of them, it will stop the execution by raising an exception. In this case, you can attempt to manually copy the missing dependency in the same directory as the main binary, or alternatively, ignore the missing dependency (see the paragraph on loading option):
 
 ```python
 load_options = {}
@@ -146,6 +146,8 @@ load_options['/bin/ls'] = {'ignore_missing_libs':True}
 # Raise an exception if LD_AUDIT fails (the default is to fall back to static mode)
 load_options['/bin/ls'] = {'except_on_ld_fail':True}
 
+# Define a custom path to look for libraries to load (will be used if LD_AUDIT fails)
+load_options['/bin/ls'] = {'custom_ld_path':'/path/to/libs'}
 ```
 
 The following options override CLE's automatic detection:
@@ -221,6 +223,19 @@ LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/path/to/ccle/x86_64
 
 You can also use the clextract.sh script in cle/ccle to run it on foreign architectures.
 
+### Manually using cle_ld_audit.so
+
+The GNU Elf loader has an builtin auditing interface providing hooks that can be used to monitor what's going on internally when loading binaries. We use this to get information about libraries and their loading addresses. `cle_ld_audit.so` is a small library that gets this information and writes it down to a file. To invoke it:
+```
+cd cle/ld_audit
+make
+
+# Run the binary, using cle_ld_audit.so as the auditing library
+LD_AUDIT=${arch}/cle_ld_audit.so /path/to/binary
+
+# Results are here:
+cat ld_audit.out
+```
 
 ## Troubleshooting
 
