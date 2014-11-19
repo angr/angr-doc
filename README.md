@@ -52,6 +52,11 @@ A powerful feature of Angr is the ability to represent basic blocks in terms of 
 In other words, Angr can reason about what basic blocks *do*, not just what they *are*.
 This is accomplished by a module named SimuVEX, further described [here](./simuvex.md).
 
+## Symbolic Execution
+
+Angr provides a capable symbolc execution engine.
+The interface to this engine, and how to use it, is described [here](./surveyors.md).
+
 ## Full-program Analysis
 
 All of the above components come together to enable complex, full-program analyses to be easily runnable in Angr.
