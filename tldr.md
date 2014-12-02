@@ -24,11 +24,12 @@ Interesting information about the binary is now accessible in `p.main_binary`, f
 
 Analyses
 -------------
-There are a lot of analyses inside Angr. The available analyses can be found inside `angr/angr/analyses`. They can be run using the `p.analyze` function with the class name as String. Creating the CFG for example can be done using `cfg = p.analyze("CFG")` . Some analyses will instead export a `__name__`  that should be used to run them.
+There are a lot of analyses inside Angr. The available analyses can be found inside `angr/angr/analyses`. They can be run using the `p.analyses` object. Creating the CFG for example can be done using `cfg = p.analyses.CFG()`. Be sure, as always, to use tabbing in iPython.
+A pretty cool shortcut to get to the analysis' results, like the CFG and VSA is using `p.results`, it can be accessed using tab-autocompletion and will automatically calculate results if it's not yet availiable.
 
 
 Surveyors
 -------------
 Surveyors are used to execute code. The commented classes can be found inside `angr/angr/surveyors`.
-Just like the Analyses, they can be run using `p.survey`.
+Just like the Analyses, they can be run using `p.surveyors`.
 The `Slicecutor` runs a program slice, the `Executor` the whole program, ...
