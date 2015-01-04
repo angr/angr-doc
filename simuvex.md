@@ -1,8 +1,10 @@
 # Semantic Meaning
 
-A unified syntactic meaning is great, but most analyses require an understanding of what the code is *doing* (semantic meaning), not just what the code *is* (syntactic meaning). For this, we developed a module called SimuVEX (https://git.seclab.cs.ucsb.edu/gitlab/angr/simuvex). SimuVEX provides a semantic understanding of what a given piece of VEX code does on a given machine state.
+Most analyses require an understanding of what the code is *doing* (semantic meaning), not just what the code *is* (syntactic meaning).
+For this, we developed a module called SimuVEX (https://git.seclab.cs.ucsb.edu/gitlab/angr/simuvex). SimuVEX provides a semantic understanding of what a given piece of VEX code does on a given machine state.
 
-In a nutshell, SimuVEX is a VEX emulator. Given an initial machine state and a VEX IR block, SimuVEX provides a resulting machine state (or, in the case of condition jumps, *several* resulting machine states).
+In a nutshell, SimuVEX is a VEX emulator.
+Given a machine state and a VEX IR block, SimuVEX provides a resulting machine state (or, in the case of condition jumps, *several* resulting machine states).
 
 ## Machine State - memory, registers, and so on
 
@@ -10,10 +12,10 @@ SimuVEX tracks machine states in a `SimState` object. This object tracks the mac
 
 ```python
 # make the initial state
-s = p.initial_state()
+s = b.initial_state()
 
 # we can access the memory of the state here
-print "The first 5 bytes of the binary are:", s.mem_expr(p.min_addr, 5)
+print "The first 5 bytes of the binary are:", s.mem_expr(b.min_addr, 5)
 
 # and the registers, of course
 print "The stack pointer starts out as:", s.reg_expr('sp')
@@ -277,15 +279,15 @@ Some common types are:
 | Ijk_Sig* | Various signals. |
 | Ijk_Sys* | System calls. |
 
-The entry point to a program is modeled as a SimExit, with a jumpkind of `Ijk_Boring`, and a state that is created by using `p.initial_state()`.
+The entry point to a program is modeled as a SimExit, with a jumpkind of `Ijk_Boring`, and a state that is created by using `b.initial_state()`.
 
 ```python
-e = p.initial_exit()
+e = b.initial_exit()
 assert e.jumpkind == 'Ijk_Boring'
 
 # The target of the exit is a symbolic expression, but you can concretize it
 assert type(e.target) is claripy.A
-assert e.concretize() == p.entry
+assert e.concretize() == b.entry
 
 # Some exits are multi-valued (for example, because the target is symbolic), but you can split them into single-valued exits
 split_exits = e.split()
@@ -302,15 +304,15 @@ You can create exits to arbitrary points of the program, and even provide a stat
 
 ```python
 # create an exit to 0x2000, with an initial state
-e = p.exit_to(0x2000)
+e = b.exit_to(0x2000)
 
 # create an exit to 0x1000, with a custom state
-s = p.initial_state()
+s = b.initial_state()
 s.store_reg('rax', 0)
 s.store_reg('rbx', 0)
 s.store_reg('rcx', 0)
 s.store_reg('rdx', 0)
-e = p.exit_to(0x1000, state=s)
+e = b.exit_to(0x1000, state=s)
 ```
 
 
@@ -388,7 +390,7 @@ And the IR of the first basic block:
 
 	>>> import angr
 	>>> p = angr.Project("/home/angr/angr/angr/tests/blob/x86_64/fauxware")
-	>>> irsb = p.block(0x400664)
+	>>> irsb = b.block(0x400664)
 	>>> irsb.pp()
 	IRSB {
 	   t0:I64   t1:I64   t2:I64   t3:I64   t4:I64   t5:I64   t6:I64   t7:I64
@@ -501,7 +503,7 @@ In this example, we get the program's initial state (i.e., what we'd expect when
 
 ```python
 # This creates a SimIRSB at 0x400664, and applies it to the initial state (the default state argument to exit_to)
-sirsb = p.sim_block(p.exit_to(0x400664))
+sirsb = b.sim_block(b.exit_to(0x400664))
 
 # this is the address of the first instruction in the block
 print sirsb.addr
@@ -541,7 +543,7 @@ exits = sirsb.exits(reachable=True)
 exits = sirsb.flat_exits()
 ```
 
-These exits can then be passed into `p.sim_block` to continue execution!
+These exits can then be passed into `b.sim_block` to continue execution!
 
 ## SimProcedures
 
@@ -553,7 +555,7 @@ Like any decent execution engine, SimuVEX supports breakpoints. This is pretty c
 
 ```python
 # get our state
-s = p.initial_state()
+s = b.initial_state()
 
 # add a breakpoint. This breakpoint will drop into ipdb right before a memory write happens.
 s.inspect.add_breakpoint('mem_write', simuvex.BP(simuvex.BP_BEFORE))
