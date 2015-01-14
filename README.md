@@ -46,6 +46,18 @@ Constraint solving and other computational needs are provided by an Angr sub-mod
 Most users of Angr will not need to know anything about Claripy, but documentation is provided in case it is needed.
 Claripy is detailed [here](./claripy.md).
 
+## Program States
+
+Angr provides an interface to the emulated machine state.
+Understanding this is critical to successfully using angr.
+It is detailed [here](./states.md).
+
+## Program Paths
+
+Programs can be analyzed in terms of the possible *path* that execution takes through them.
+Angr exposes information about what the paths execute and *do*.
+[This section](./paths.md) gives an overview of how to use this capability of angr.
+
 ## Semantic Representation
 
 A powerful feature of Angr is the ability to represent basic blocks in terms of their effects on a program state.
