@@ -11,18 +11,18 @@ Angr provides a standardized interface to perform analyses. Specifically, it is:
 
 ```python
 # load your project
-b = angr.Project('/path/to/bin')
+p = angr.Project('/path/to/bin')
 
 # generate a CFG
-cfg = b.analyze('CFG')
+cfg = p.analyze('CFG')
 
 # analyses are keyed by the analyses, and some options to the analysis
-cfg_same = b.analyze('CFG')
+cfg_same = p.analyze('CFG')
 assert cfg is cfg_same
 
 # this means that you can track results for the same analysis with different options
-context_sensitive_cfg = b.analyze('CFG', context_sensitivity=2)
-context_sensitive_cfg_reference = b.analyze('CFG', context_sensitivity=2)
+context_sensitive_cfg = p.analyze('CFG', context_sensitivity=2)
+context_sensitive_cfg_reference = p.analyze('CFG', context_sensitivity=2)
 context_sensitive_cfg_copy = context_sensitive_cfg.copy()
 assert context_sensitive_cfg is context_sensitive_cfg_reference
 assert context_sensitive_cfg is not context_sensitive_cfg_copy
@@ -34,11 +34,11 @@ If an analysis that hasn't been run is accessed, it will be automatically run wi
 For example:
 
 ```python
-cfg = b.analyze('CFG')
-assert cfg is b.results.CFG
+cfg = p.analyze('CFG')
+assert cfg is p.results.CFG
 
 print "About to run the VSA analysis!"
-print b.results.VSA
+print p.results.VSA
 ```
 
 ### Resilience
@@ -49,7 +49,7 @@ However, you might want to run an analysis in "fail fast" mode, so that errors a
 To do this, the `fail_fast` keyword argument can be passed into `analyze`.
 
 ```python
-b.analyze('CFG', fail_fast=True)
+p.analyze('CFG', fail_fast=True)
 ```
 
 ### Built-in Analyses
@@ -58,7 +58,7 @@ Angr comes with several built-in analyses:
 
 | Name | Description |
 |------|-------------|
-| CFG  | Constructs a *Control Flow Graph* of the program. The results are accessible via `b.analyze('CFG').cfg`. |
+| CFG  | Constructs a *Control Flow Graph* of the program. The results are accessible via `p.analyze('CFG').cfg`. |
 | VSA  | Performs VSA on every function of the program, creating a *Value Flow Graph* and detecting stack variables. |
 
 ## Creating Analyses
@@ -78,7 +78,7 @@ Of course, it's not useful, but what can you do?
 Let's see how to call:
 
 ```python
-mock = b.analyze('MockAnalysis', 'this is my option')
+mock = p.analyze('MockAnalysis', 'this is my option')
 assert mock.option == 'this is my option'
 ```
 
@@ -97,7 +97,7 @@ class FunctionBlockAverage(angr.Analysis):
 		self.avg = len(self._cfg.nodes) / len(self._cfg.function_manager.functions)
 ```
 
-After this, you can call this analysis using it's specified name. For example, `b.analyze('FuncSize')`.
+After this, you can call this analysis using it's specified name. For example, `p.analyze('FuncSize')`.
 
 ### Analysis Resilience
 
@@ -153,7 +153,7 @@ def block_counter(project, deps, fail_fast, min_addr=0, max_addr=0xffffffff):
 angr.registered_analyses['blocks'] = block_counter
 
 # and run them!
-b.analyze('block_counter', min_addr=0x100, max_addr=0x400000)
+p.analyze('block_counter', min_addr=0x100, max_addr=0x400000)
 ```
 
 However, this doesn't provide any resilience and so forth.
