@@ -124,6 +124,11 @@ where:
 - each path is a distinct binary. 
 - each set of options is a dict.
 
+Instead of using a path, you can also set the load options for all binaries on the main level.
+```python
+p = angr.Project("...", load_options={"auto_load_libs": True})
+```
+
 ### Valid options
 ```python
 # backend can be 'ida' or 'elf' or 'blob' (defaults to 'elf')
@@ -172,7 +177,11 @@ load_options['/bin/ls'] = {backend:'elf', auto_load_libs:True, skip_libs:['libc.
 ```
 
 
-Now that you have loaded a binary, it's time to look at the [IR support](./ir_support.md)
+Now that you have loaded a binary.
+Interesting information about the binary is now accessible in ```p.main_binary```, for example deps, the list of imported libs, memory, symbols and others. 
+Make heavy use of the tabbing feature of ipython to see available functions and options here.
+
+Now it's time to look at the [IR support](./ir_support.md)
 
 
 ## Misc
