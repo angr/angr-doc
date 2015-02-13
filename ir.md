@@ -58,7 +58,7 @@ We use a library called PyVEX (https://git.seclab.cs.ucsb.edu/gitlab/angr/pyvex)
 
 ```python
 # translate a basic block starting at an address
-irsb = p.block(0x4000A00)
+irsb = b.block(0x4000A00)
 
 # pretty-print the basic block
 irsb.pp()

@@ -11,20 +11,20 @@ To load a binary with angr (let's say "/tmp/program"), you would do the followin
 ```python
 import angr
 
-p = angr.Project("/tmp/program")
+b = angr.Project("/tmp/program")
 ```
 
 After this, *p* is angr's representation of your binary (the "main" binary), along with any libraries that it depends on. There are several basic things that you can do here without further knowledge of the rest of the platform:
 
 ```python
 # this is the entry point of the binary
-print p.entry
+print b.entry
 
 # these are the minimum and maximum addresses of the binary's memory contents
-print p.min_addr, p.max_addr
+print b.min_addr, b.max_addr
 
 # this is the base filename and directory name of the binary
-print p.dirname + '/' + p.basename
+print b.dirname + '/' + b.basename
 ```
 
 CLE exposes the binary's information through two main interfaces: a CLE loader (Cle.Ld) represents an entire conglomerate of loaded CLE binary objects. Different CLE.Binary types are used for different types of binaries. For example, CLE.ELF is used to load ELF binaries. (These are different "backends", see the backends section).
@@ -33,31 +33,31 @@ CLE can be interfaced with as follows:
 
 ```python
 # this is the CLE Loader object
-print p.ld
+print b.ld
 
 # this is a dict of the dependencies that the main binary depends on. It has
 # the form {path:load_addr}, e.g. {'/lib/x86_64-linux-gnu/libc.so.6':
 # 274898759680}. This gives the same results as running `ldd` on the binary (we
 # obtain it *dynamically* using the LD_AUDIT interface at runtime).
-print p.ld.dependencies
+print b.ld.dependencies
 
 # this is a list of the objects that are loaded as part of loading the binary (their types depend on the backend)
-print p.ld.shared_objects
+print b.ld.shared_objects
 
 # this is a dict of the memory space of the process after being loaded. It maps addresses to the byte at that address.
-print p.ld.memory[p.max_addr]
+print b.ld.memory[b.max_addr]
 
 # this is the object for the main binary (its type depends on the backend)
-print p.ld.main_bin
+print b.ld.main_bin
 
 # this retrieves the binary object which maps memory at the specified address
-print p.ld.addr_belongs_to_object(p.max_addr)
+print b.ld.addr_belongs_to_object(b.max_addr)
 
 # Get the address of a symbol
-print p.ld.find_symbol_addr(symbol)
+print b.ld.find_symbol_addr(symbol)
 
 # Get the address of the GOT slot for a symbol (in the main binary)
-print p.ld.find_symbol_got_entry(symbol)
+print b.ld.find_symbol_got_entry(symbol)
 
 ```
 
@@ -66,19 +66,20 @@ It is also possible to interface directly with individual binary objects:
 # this is a list of the names of libraries the program depend on. We obtain it
 # *statically* by reading the DT_NEEDED field of the dynamic section of the Elf
 # binary.
-print p.ld.main_bin.deps
+print b.ld.main_bin.deps
 
 # this is a dict of the memory contents of *just* the main binary
-print p.ld.main_bin.memory
+print b.ld.main_bin.memory
 
 # this is a dict (name->addr) of exports of the first shared library that was loaded
-p.ld.shared_objects[0].get_exports()
+b.ld.shared_objects[0].get_exports()
 
 # this is a dict (name-> addr) of imports of the main binary, where addr is usually 0 (see the misc section below).
 print p.ld.main_bin.imports
 
 # What's the object type ? (ET_EXEC for standard binary, ET_DYN for shared libs and PIE executables)
 print p.ld.main_bin.object_type
+print b.ld.main_bin.imports
 ```
 
 ## Loading dependencies
@@ -88,7 +89,7 @@ By default, CLE won't attempts to load all the dependencies of the main binary (
 ```python
 load_options = {}
 load_options['/bin/ls'] = {skip_libs='ld.so.2'}
-p = angr.Project("/bin/ls", load_options=load_options)
+b = angr.Project("/bin/ls", load_options=load_options)
 ```
 
 To load external libraries, CLE first attempts to *dynamically* get dependency information by running the binary in an emulated target environment, in which it hooks GNU LD through the LD_AUDIT interface. This yields a dict of *paths to libraries* along with the *base addresses* where to load them.
@@ -126,6 +127,11 @@ etc.
 where:
 - each path is a distinct binary. 
 - each set of options is a dict.
+
+Instead of using a path, you can also set the load options for all binaries on the main level.
+```python
+p = angr.Project("...", load_options={"auto_load_libs": True})
+```
 
 ### Valid options
 ```python
@@ -175,7 +181,11 @@ load_options['/bin/ls'] = {backend:'elf', auto_load_libs:True, skip_libs:['libc.
 ```
 
 
-Now that you have loaded a binary, it's time to look at the [IR support](./ir_support.md)
+Now that you have loaded a binary.
+Interesting information about the binary is now accessible in ```p.main_binary```, for example deps, the list of imported libs, memory, symbols and others. 
+Make heavy use of the tabbing feature of ipython to see available functions and options here.
+
+Now it's time to look at the [IR support](./ir_support.md)
 
 
 ## Misc
@@ -188,7 +198,7 @@ Whether you are after a PLT or GOT entry depends on the architecture. Cle's arch
 
 For more details about Elf loading and architecture specific details, check the [Executable and linkable format document](http://www.cs.northwestern.edu/~pdinda/icsclass/doc/elf.pdf) as well as the ABI supplements for each architecture ([MIPS](http://math-atlas.sourceforge.net/devel/assembly/mipsabi32.pdf), [PPC64](http://math-atlas.sourceforge.net/devel/assembly/PPC-elf64abi-1.7.pdf), [AMD64](http://www.x86-64.org/documentation/abi.pdf))..
 ```python
-rel = p.main_bin.jmprel
+rel = b.main_bin.jmprel
 ```
 
 ### Symbolic analysis: stepping into functions
@@ -205,13 +215,13 @@ When no such summary is available for a given function:
 
 ```python
 # Get the GOT address of the function (depending on the architecture, it might return the address of the PLT stub instead, which is fine too):
-addr = p.ld.find_symbol_got_entry(symbol_name)
+addr = b.ld.find_symbol_got_entry(symbol_name)
 
 # You can also get the actual address of the function instead, this shouldn't make much difference:
-addr = p.ld.find_symbol_addr(symbol_name)
+addr = b.ld.find_symbol_addr(symbol_name)
 
 # Replace the function with stub
-p.add_custom_sim_procedure(addr, simuvex.SimProcedures["stubs"]["ReturnUnconstrained"])
+b.add_custom_sim_procedure(addr, simuvex.SimProcedures["stubs"]["ReturnUnconstrained"])
 ```
 
 ### Manually using clextract
@@ -245,12 +255,12 @@ cat ld_audit.out
 ### Q: My options are ignored
 A: Cle options are an optional argument. Make sure you call Project with the following syntax:
 ```python
-p = angr.Project(ping, load_options=load_options)
+b = angr.Project(ping, load_options=load_options)
 ```
 
 rather than:
 ```python
-p = angr.Project(ping, load_options)
+b = angr.Project(ping, load_options)
 ```
 
 
