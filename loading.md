@@ -76,6 +76,9 @@ p.ld.shared_objects[0].get_exports()
 
 # this is a dict (name-> addr) of imports of the main binary, where addr is usually 0 (see the misc section below).
 print p.ld.main_bin.imports
+
+# What's the object type ? (ET_EXEC for standard binary, ET_DYN for shared libs and PIE executables)
+print p.ld.main_bin.object_type
 ```
 
 ## Loading dependencies

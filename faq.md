@@ -17,6 +17,9 @@ IDAlink must also be linked to IDA's python environment (yes, IDA has its own py
 ln -s /home/angr/angr/idalink/idalink /home/angr/ida/ida-6.6/python
 ```
 
+## Idalink cannot talk to IDA
+You need to run `idal` or `idal64` once from the command line before it it can be launched non-interactively.
+
 ## How can I get verbose debug messages for specific Angr modules ?
 ### Debug messages for everything
 The most simple way to get a debug output is the following:
