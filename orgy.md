@@ -8,7 +8,7 @@ Celery
 Angr uses [Celery](http://www.celeryproject.org/) as the framework for everything cloud. 
 On whatever Docker instance you want to run the cloud on, you'll have to start a docker worker, somehow along the lines of
 ```
-celery -A largescale worker -c10 --loglevel=INFO --autoreload
+celery -A angr.distributed.orgy worker -c10 --loglevel=INFO --autoreload
 ```
 With -c being the number of workers and autoreload helping to import updated files automatically. (You'll still need to git pull eventually.)
 
