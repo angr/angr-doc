@@ -74,12 +74,13 @@ The interface to this engine, and how to use it, is described [here](./surveyors
 All of the above components come together to enable complex, full-program analyses to be easily runnable in Angr.
 The mechanism for running and writing these analyses is detailed [here](./analyses.md).
 
-## FAQ
+# MISC
 
-We've collected miscellaneous questions about Angr, and answers to them, in a [FAQ](./faq.md).
+## Cloud
 
+Distribute stuff with [Orgy](./orgy.md)
 
-# Coding rules
+## Coding rules
 We try to get as close as the [PEP8 code convention](http://legacy.python.org/dev/peps/pep-0008/) as is reasonable without being dumb.
 If you use Vim, the [python-mode](https://github.com/klen/python-mode) plugin does all you need. You can also [manually configure](https://wiki.python.org/moin/Vim) vim to adopt this behavior.
 
@@ -96,3 +97,9 @@ Most importantly, please consider the following when writing code as part of Ang
  - What are the type and the meaning of the parameters.
  - What it returns.
 - If you're pushing a new feature, and it is not accompanied by a testcase, it **will be broken** in very short order. Please write testcases for your stuff.
+
+
+# FAQ
+
+We've collected miscellaneous questions about Angr, and answers to them, in a [FAQ](./faq.md).
+
