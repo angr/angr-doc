@@ -214,14 +214,17 @@ Like any decent execution engine, SimuVEX supports breakpoints. This is pretty c
 s = b.initial_state()
 
 # add a breakpoint. This breakpoint will drop into ipdb right before a memory write happens.
-s.inspect.make_breakpoint('mem_write')
+s.inspect.b('mem_write')
 
 # on the other hand, we can have a breakpoint trigger right *after* a memory write happens. On top of that, we
 # can have a specific function get run instead of going straight to ipdb.
 def debug_func(state):
     print "State %s is about to do a memory write!"
 
-s.inspect.make_breakpoint('mem_write', when=simuvex.BP_AFTER, action=debug_func)
+s.inspect.b('mem_write', when=simuvex.BP_AFTER, action=debug_func)
+
+# or, you can have it drop you in an embedded ipython!
+s.inspect.b('mem_write', when=simuvex.BP_AFTER, action='ipython')
 ```
 
 There are many other places to break than a memory write. Here is the list. You can break at BP_BEFORE or BP_AFTER for each of these events.
@@ -279,13 +282,13 @@ Here it is:
 
 ```python
 # This will break before a memory write if 0x1000 is a possible value of its target expression
-s.inspect.make_breakpoint('mem_write', mem_write_address=0x1000)
+s.inspect.b('mem_write', mem_write_address=0x1000)
 
 # This will break before a memory write if 0x1000 is the *only* value of its target expression
-s.inspect.make_breakpoint('mem_write', mem_write_address=0x1000, mem_write_address_unique=True))
+s.inspect.b('mem_write', mem_write_address=0x1000, mem_write_address_unique=True))
 
 # This will break after instruction 0x8000, but only 0x1000 is a possible value of the last expression that was read from memory
-s.inspect.make_breakpoint('instruction', when=simuvex.BP_AFTER, instruction=0x8000, mem_read_expr=0x1000)
+s.inspect.b('instruction', when=simuvex.BP_AFTER, instruction=0x8000, mem_read_expr=0x1000)
 ```
 
 Cool stuff! In fact, we can even specify a function as a condition:
@@ -294,7 +297,7 @@ Cool stuff! In fact, we can even specify a function as a condition:
 # that the basic block starting at 0x8004 was executed sometime in this path's history
 def cond(state):
     return state.any_str(state.reg_expr('rax')) == 'AAAA' and 0x8004 in state.inspect.backtrace
-s.inspect.make_breakpoint('mem_write', condition=cond)
+s.inspect.b('mem_write', condition=cond)
 ```
 
 That is some cool stuff!
