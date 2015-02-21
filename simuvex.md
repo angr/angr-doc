@@ -214,14 +214,14 @@ Like any decent execution engine, SimuVEX supports breakpoints. This is pretty c
 s = b.initial_state()
 
 # add a breakpoint. This breakpoint will drop into ipdb right before a memory write happens.
-s.inspect.add_breakpoint('mem_write', simuvex.BP(simuvex.BP_BEFORE))
+s.inspect.make_breakpoint('mem_write')
 
 # on the other hand, we can have a breakpoint trigger right *after* a memory write happens. On top of that, we
 # can have a specific function get run instead of going straight to ipdb.
 def debug_func(state):
     print "State %s is about to do a memory write!"
 
-s.inspect.add_breakpoint('mem_write', simuvex.BP(simuvex.BP_AFTER, action=debug_func))
+s.inspect.make_breakpoint('mem_write', when=simuvex.BP_AFTER, action=debug_func)
 ```
 
 There are many other places to break than a memory write. Here is the list. You can break at BP_BEFORE or BP_AFTER for each of these events.
@@ -279,13 +279,13 @@ Here it is:
 
 ```python
 # This will break before a memory write if 0x1000 is a possible value of its target expression
-s.inspect.add_breakpoint('mem_write', simuvex.BP(simuvex.BP_BEFORE, mem_write_address=0x1000))
+s.inspect.make_breakpoint('mem_write', mem_write_address=0x1000)
 
 # This will break before a memory write if 0x1000 is the *only* value of its target expression
-s.inspect.add_breakpoint('mem_write', simuvex.BP(simuvex.BP_BEFORE, mem_write_address=0x1000, mem_write_address_unique=True))
+s.inspect.make_breakpoint('mem_write', mem_write_address=0x1000, mem_write_address_unique=True))
 
 # This will break after instruction 0x8000, but only 0x1000 is a possible value of the last expression that was read from memory
-s.inspect.add_breakpoint('instruction', simuvex.BP(simuvex.BP_AFTER, instruction=0x8000, mem_read_expr=0x1000))
+s.inspect.make_breakpoint('instruction', when=simuvex.BP_AFTER, instruction=0x8000, mem_read_expr=0x1000)
 ```
 
 Cool stuff! In fact, we can even specify a function as a condition:
@@ -294,7 +294,7 @@ Cool stuff! In fact, we can even specify a function as a condition:
 # that the basic block starting at 0x8004 was executed sometime in this path's history
 def cond(state):
     return state.any_str(state.reg_expr('rax')) == 'AAAA' and 0x8004 in state.inspect.backtrace
-s.inspect.add_breakpoint('mem_write', simuvex.BP(simuvex.BP_BEFORE, condition=cond))
+s.inspect.make_breakpoint('mem_write', condition=cond)
 ```
 
 That is some cool stuff!
