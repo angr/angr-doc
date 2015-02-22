@@ -52,14 +52,27 @@ To do this, the `fail_fast` keyword argument can be passed into `analyze`.
 p.analyze('CFG', fail_fast=True)
 ```
 
-### Built-in Analyses
+## Built-in Analyses
 
 Angr comes with several built-in analyses:
 
 | Name | Description |
 |------|-------------|
 | CFG  | Constructs a *Control Flow Graph* of the program. The results are accessible via `p.analyze('CFG').cfg`. |
-| VSA  | Performs VSA on every function of the program, creating a *Value Flow Graph* and detecting stack variables. |
+| VFG  | Performs VSA on every function of the program, creating a *Value Flow Graph* and detecting stack variables. |
+| DDG  | Calculates a data dependency graph, allowing one to determine what statements a given value depends on. |
+
+### CFG
+
+TODO
+
+### VFG
+
+TODO
+
+### DDG
+
+TODO
 
 ## Creating Analyses
 
