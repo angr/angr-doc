@@ -74,7 +74,7 @@ void main()
 }
 ```
 
-The above sample has four call chains: `main -> alpha -> puts`, `main -> alpha -> error -> puts` and `main -> beta -> puts`, and `main -> beta -> error -> puts`.
+The above sample has four call chains: `main>alpha>puts`, `main>alpha>error>puts` and `main>beta>puts`, and `main>beta>error>puts`.
 While, in this case, angr can probably execute both call chains, this becomes unfeasible for larger binaries.
 Thus, angr executes the blocks with states limited by the context sensitivity level.
 That is, each function is re-analyzed for each unique context that it is called in.
@@ -84,9 +84,9 @@ For example, the `puts()` function above will be analyzed with the following con
 | Level | Meaning | Contexts |
 |-------|---------|----------|
 | 0 | Callee-only | `puts` |
-| 1 | One caller, plus callee | `alpha -> puts` `beta -> puts` `error -> puts` |
-| 2 | Two callers, plus callee | `alpha -> error -> puts` `main -> alpha -> puts` `beta -> error -> puts` `main -> beta -> puts` |
-| 3 | Three callers, plus callee | `main -> alpha -> error -> puts` `main -> alpha -> puts` `main -> beta -> error -> puts` `main -> beta -> puts` |
+| 1 | One caller, plus callee | `alpha>puts` `beta>puts` `error>puts` |
+| 2 | Two callers, plus callee | `alpha>error>puts` `main>alpha>puts` `beta>error>puts` `main>beta>puts` |
+| 3 | Three callers, plus callee | `main>alpha>error>puts` `main>alpha>puts` `main>beta>error>puts` `main>beta>puts` |
 
 The upside of increasing the context sensitivity level is that more information can be gleamed from the CFG.
 For example, with context sensitivity of 1, the CFG will show that, when called from `alpha`, `puts` returns to `alpha`, when called from `error`, `puts` returns to `error`, and so forth.
