@@ -57,20 +57,20 @@ void error(char *error)
 
 void alpha()
 {
-	puts('alpha')
+	puts("alpha");
 	error("alpha!");
 }
 
 void beta()
 {
-	puts('beta')
+	puts("beta");
 	error("beta!");
 }
 
 void main()
 {
 	alpha();
-	beta()
+	beta();
 }
 ```
 
