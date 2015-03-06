@@ -74,11 +74,9 @@ The interface to this engine, and how to use it, is described [here](./surveyors
 All of the above components come together to enable complex, full-program analyses to be easily runnable in Angr.
 The mechanism for running and writing these analyses is detailed [here](./analyses.md).
 
-# MISC
+## Distributed Analysis
 
-## Cloud
-
-Distribute stuff with [Orgy](./orgy.md)
+Angr comes with the ability to perform distributed analysis, with directions [here](./orgy.md).
 
 ## Coding rules
 We try to get as close as the [PEP8 code convention](http://legacy.python.org/dev/peps/pep-0008/) as is reasonable without being dumb.
