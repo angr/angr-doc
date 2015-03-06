@@ -96,7 +96,7 @@ The downside of increasing the context sensitivity level is that it exponentiall
 
 ### Using the CFG
 
-The CFG, at its core, is a NetworkX di-graph.
+The CFG, at its core, is a [NetworkX](https://networkx.github.io/) di-graph.
 This means that all of the normal NetworkX APIs are available:
 
 ```python
