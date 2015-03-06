@@ -4,37 +4,151 @@ Angr's goal is to make it easy to carry out useful analyses on binary programs.
 These analyses might be complicated to run, so angr makes sure to save them when a project is saved and load them when it is loaded.
 This section will discuss how to run and create these analyses.
 
+## Built-in Analyses
+
+Angr comes with several built-in analyses:
+
+| Name | Description |
+|------|-------------|
+| CFG  | Constructs a *Control Flow Graph* of the program. The results are accessible via `p.analyze('CFG').cfg`. |
+| VFG  | Performs VSA on every function of the program, creating a *Value Flow Graph* and detecting stack variables. |
+| DDG  | Calculates a data dependency graph, allowing one to determine what statements a given value depends on. |
+
+### CFG
+
+A basic analysis that one might carry out on a binary is a Control Flow Graph.
+A CFG is a graph with (conceptually) basic blocks as nodes and jumps/calls/rets/etc as edges.
+
+A CFG can be constructed by doing:
+
+```python
+# load your project
+b = angr.Project('/path/to/bin')
+
+# generate a CFG
+cfg = b.analyses.CFG()
+```
+
+Of course, there are several options for customized CFGs.
+
+| Option | Description |
+|--------|-------------|
+| context_sensitivity_level | This sets the context sensitivity level of the analysis. See the context sensitivity level section below for more information. This is 1 by default. |
+| start, starts | An address, or, for `starts`, a list of addresses, to use as entry points into the analysis. |
+| avoid_runs | A list of addresses to ignore in the analysis. |
+| call_depth | Limit the depth of the analysis to some number calls. This is useful for checking which functions a specific function can directly jump to (by setting `call_depth` to 1).
+| initial_state | An initial state can be provided to the CFG, which it will use throughout its analysis. |
+| keep_input_state | To save memory, the state at each basic block is discarded by default. If `keep_input_state` is True, the state is saved in the CFGNode. |
+
+### Context Sensitivity Level
+
+Angr constructs a CFG by executing every basic block and seeing where it goes.
+This introduces some challenges: a basic block can act differently in different *contexts*.
+For example, if a block ends in a function return, the target of that return will be different, depending on different callers of the function containing that basic block.
+
+The context sensitivity level is, conceptually, the number of such callers to keep on the callstack.
+To explain this concept, let's look at the following code:
+
+```c
+void error(char *error)
+{
+	puts(error);
+}
+
+void alpha()
+{
+	puts('alpha')
+	error("alpha!");
+}
+
+void beta()
+{
+	puts('beta')
+	error("beta!");
+}
+
+void main()
+{
+	alpha();
+	beta()
+}
+```
+
+The above sample has four call chains: `main -> alpha -> puts`, `main -> alpha -> error -> puts` and `main -> beta -> puts`, and `main -> beta -> error -> puts`.
+While, in this case, angr can probably execute both call chains, this becomes unfeasible for larger binaries.
+Thus, angr executes the blocks with states limited by the context sensitivity level.
+That is, each function is re-analyzed for each unique context that it is called in.
+
+For example, the `puts()` function above will be analyzed with the following contexts, given different context sensitivity levels:
+
+| Level | Meaning | Contexts |
+|-------|---------|----------|
+| 0 | Callee-only | `puts` |
+| 1 | One caller, plus callee | `alpha -> puts` `beta -> puts` `error -> puts` |
+| 2 | Two callers, plus callee | `alpha -> error -> puts` `main -> alpha -> puts` `beta -> error -> puts` `main -> beta -> puts` |
+| 3 | Three callers, plus callee | `main -> alpha -> error -> puts` `main -> alpha -> puts` `main -> beta -> error -> puts` `main -> beta -> puts` |
+
+The upside of increasing the context sensitivity level is that more information can be gleamed from the CFG.
+For example, with context sensitivity of 1, the CFG will show that, when called from `alpha`, `puts` returns to `alpha`, when called from `error`, `puts` returns to `error`, and so forth.
+With context sensitivity of 0, the CFG simply shows that `puts` returns to `alpha`, `beta`, and `error`.
+This, specifically, is the context sensitivity level used in IDA.
+The downside of increasing the context sensitivity level is that it exponentially increases the analysis time.
+
+### Using the CFG
+
+The CFG, at its core, is a NetworkX di-graph.
+This means that all of the normal NetworkX APIs are available:
+
+```python
+print "This is the graph:", cfg.graph
+print "It has %d nodes and %d edges" % (len(cfg.graph.nodes()), len(cfg.graph.edges()))
+```
+
+The nodes of the CFG graph are instances of class `CFGNode`.
+Due to context sensitivity, a given basic block can have multiple nodes in the graph (for multiple contexts).
+
+```python
+# this grabs *any* node at a given location:
+food_node = cfg.get_any_node(0xf00d)
+
+# on the other hand, this grabs all of the nodes
+print "There were %d contexts for the 0xf00d block" % len(cfg.get_any_node(0xf00d))
+
+# if keep_input_states was given as True, we can also retrieve the actual SimIRSBs
+print "A single SimIRSB at 0xf00d:", cfg.get_any_irsb(0xf00d)
+print "All SimIRSBs at 0xf00d:", cfg.get_all_irsb(0xf00d)
+
+# we can also look up predecessors and successors
+print "Predecessors of 0xf00d:" [ node.addr for node in cfg.get_predecessors(food_node) ]
+print "Successors of 0xf00d:" [ node.addr for node in cfg.get_successors(food_node) ]
+print "Successors (and type of jump) of 0xf00d:" [ jumpkind + " to " + str(node.addr) for node,jumpkind in cfg.get_successors_and_jumpkind(food_node) ]
+```
+
+## Function Manager
+
+TODO
+
+
+### VFG
+
+TODO
+
+### DDG
+
+TODO
+
 ## Running Analyses
 
 Now that you understand how to load binaries in angr, and have some idea of angr's internals, we can discuss how to carry out analyses!
 Angr provides a standardized interface to perform analyses. Specifically, it is:
 
-```python
-# load your project
-p = angr.Project('/path/to/bin')
-
-# generate a CFG
-cfg = p.analyze('CFG')
-
-# analyses are keyed by the analyses, and some options to the analysis
-cfg_same = p.analyze('CFG')
-assert cfg is cfg_same
-
-# this means that you can track results for the same analysis with different options
-context_sensitive_cfg = p.analyze('CFG', context_sensitivity=2)
-context_sensitive_cfg_reference = p.analyze('CFG', context_sensitivity=2)
-context_sensitive_cfg_copy = context_sensitive_cfg.copy()
-assert context_sensitive_cfg is context_sensitive_cfg_reference
-assert context_sensitive_cfg is not context_sensitive_cfg_copy
-assert cfg is not context_sensitive_cfg
-```
 
 Results of analyses can be accessed by using the `Project.results` attribute.
 If an analysis that hasn't been run is accessed, it will be automatically run with default options.
 For example:
 
 ```python
-cfg = p.analyze('CFG')
+cfg = b.analyze('CFG')
 assert cfg is p.results.CFG
 
 print "About to run the VSA analysis!"
@@ -51,28 +165,6 @@ To do this, the `fail_fast` keyword argument can be passed into `analyze`.
 ```python
 p.analyze('CFG', fail_fast=True)
 ```
-
-## Built-in Analyses
-
-Angr comes with several built-in analyses:
-
-| Name | Description |
-|------|-------------|
-| CFG  | Constructs a *Control Flow Graph* of the program. The results are accessible via `p.analyze('CFG').cfg`. |
-| VFG  | Performs VSA on every function of the program, creating a *Value Flow Graph* and detecting stack variables. |
-| DDG  | Calculates a data dependency graph, allowing one to determine what statements a given value depends on. |
-
-### CFG
-
-TODO
-
-### VFG
-
-TODO
-
-### DDG
-
-TODO
 
 ## Creating Analyses
 
