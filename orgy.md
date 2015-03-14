@@ -95,3 +95,5 @@ They have internet access (currently needed for docker's install) over a caching
 For celery, a mongodb runs on the trashcan and the rabbitmq queue runs on herrington, 10.151.0.9 (on port 5671 with SSL).
 The cloud scripts will try to access git, so they need to have all important git certs set. Have a look at the script on
 https://git.seclab.cs.ucsb.edu/gitlab/angr/largescale/blob/master/largescale/bootstrap_cloud.sh
+
+(In addition, the ip addresses in celery_config for workers need to be adopted to the ips in the vlan)
