@@ -8,7 +8,7 @@ The `Surveyor` class is not meant to be used directly.
 Rather, it should be subclassed by developers to implement their own analyses.
 That being said, the most common symbolic analysis (i.e., "explore from A to B, trying to avoid C") has already been implemented in the `Explorer` class.
 
-### Explorer
+## Explorer
 
 `angr.surveyors.Explorer` is a `Surveyor` subclass that implements symbolic exploration.
 It can be told where to start, where to go, what to avoid, and what paths to stick to.
@@ -75,7 +75,43 @@ print "The first found path is", b._f
 print "The first active path is", b._a
 ```
 
-### Interrupting Surveyors
+## Caller
+
+The `Caller` is a surveyor that handles calling functions to make it easier to figure out what the heck they do.
+It can be used as so:
+
+```python
+# load fauxware
+b = angr.Project("/home/angr/angr/angr/tests/blob/x86_64/fauxware")
+
+# get the state ready, and grab our username and password symbolic expressions for later
+# checking. Here, we'll cheat a bit since we know that username and password should both
+# be 8 chars long
+p = b.path_generator.blank_path()
+username = p.state.mem_expr(0x1000, 9);
+password = p.state.mem_expr(0x2000, 9);
+
+# call the authenticate function with *username being 0x1000 and *password being 0x2000
+c = b.surveyors.Caller(0x400664, (0x1000,0x2000), start=p)
+
+# look at the different paths that can return. This should print 3 paths:
+print tuple(c.iter_returns())
+
+# two of those paths return 1 (authenticated):
+print tuple(c.iter_returns(solution=1))
+
+# now let's see the required username and password to reach that point. `c.map_se`
+# calls state.se.any_n_str (or whatever other function is provided) for the provided
+# arguments, on each return state. This example runs state.se.any_n_str(credentials, 10)
+credentials = username.concat(password)
+tuple(c.map_se('any_n_str', credentials, 10, solution=1))
+
+# you can see the secret password "SOSNEAKY" in the first tuple!
+```
+
+Caller is a pretty powerful tool. Check out the comments on the various functions for more usage info!
+
+## Interrupting Surveyors
 
 A surveyor saves its internal state after every tick.
 In ipython, you should be able to interrupt a surveyor with `Ctrl-C`, and then check what results it has so far, but that's a pretty ugly way of doing it.
