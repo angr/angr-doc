@@ -28,7 +28,7 @@ We've tried to make life easier by providing this documentation, split into seve
 Before Angr can be used, it must be installed.
 Because Angr has **many** components and requires cross-compilers to be installed, this part has historically been rather tricky.
 The best, modern, option is to install Angr through the use of the Angr Dockerfile.
-This is detailed [here](https://git.seclab.cs.ucsb.edu/gitlab/angr/angr_docker/blob/master/README.md).
+This is detailed [here](https://git.seclab.cs.ucsb.edu/gitlab/angr/angr-docker/blob/master/README.md).
 
 ## Loading a Binary
 
@@ -100,4 +100,3 @@ Most importantly, please consider the following when writing code as part of Ang
 # FAQ
 
 We've collected miscellaneous questions about Angr, and answers to them, in a [FAQ](./faq.md).
-
