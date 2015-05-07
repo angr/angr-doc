@@ -35,14 +35,7 @@ CLE can be interfaced with as follows:
 # this is the CLE Loader object
 print b.ld
 
-# this is a dict of the dependencies that the main binary depends on. It has
-# the form {path:load_addr}, e.g. {'/lib/x86_64-linux-gnu/libc.so.6':
-# 274898759680}. This gives the same results as running `ldd` on the binary (we
-# obtain it *dynamically* using the LD_AUDIT interface at runtime).
-
-print b.ld.dependencies
-
-# this is a list of the objects that are loaded as part of loading the binary (their types depend on the backend)
+# this is a dictionary of the objects that are loaded as part of loading the binary (their types depend on the backend)
 print b.ld.shared_objects
 
 # this is a dict of the memory space of the process after being loaded. It maps addresses to the byte at that address.
@@ -53,9 +46,6 @@ print b.ld.main_bin
 
 # this retrieves the binary object which maps memory at the specified address
 print b.ld.addr_belongs_to_object(b.max_addr)
-
-# Get the address of a symbol
-print b.ld.find_symbol_addr(symbol)
 
 # Get the address of the GOT slot for a symbol (in the main binary)
 print b.ld.find_symbol_got_entry(symbol)
@@ -72,10 +62,10 @@ print b.ld.main_bin.deps
 # this is a dict of the memory contents of *just* the main binary
 print b.ld.main_bin.memory
 
-# this is a dict (name->addr) of exports of the first shared library that was loaded
-b.ld.shared_objects[0].get_exports()
+# this is a dict (name->ELFRelocation) of imports from the libc which was loaded
+b.ld.shared_objects['libc.so.6'].imports
 
-# this is a dict (name-> addr) of imports of the main binary, where addr is usually 0 (see the misc section below).
+# this is a dict (name->ELFRelocation) of imports of the main binary, where addr is usually 0 (see the misc section below).
 print b.ld.main_bin.imports
 ```
 
