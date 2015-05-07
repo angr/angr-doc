@@ -14,7 +14,7 @@ import angr
 b = angr.Project("/tmp/program")
 ```
 
-After this, *p* is angr's representation of your binary (the "main" binary), along with any libraries that it depends on. There are several basic things that you can do here without further knowledge of the rest of the platform:
+After this, *b* is angr's representation of your binary (the "main" binary), along with any libraries that it depends on. There are several basic things that you can do here without further knowledge of the rest of the platform:
 
 ```python
 # this is the entry point of the binary
@@ -39,6 +39,7 @@ print b.ld
 # the form {path:load_addr}, e.g. {'/lib/x86_64-linux-gnu/libc.so.6':
 # 274898759680}. This gives the same results as running `ldd` on the binary (we
 # obtain it *dynamically* using the LD_AUDIT interface at runtime).
+
 print b.ld.dependencies
 
 # this is a list of the objects that are loaded as part of loading the binary (their types depend on the backend)
@@ -80,7 +81,7 @@ print b.ld.main_bin.imports
 
 ## Loading dependencies
 
-By default, CLE won't attempts to load all the dependencies of the main binary (e.g., libc.so.6, ld-linux.so.2, etc.), unless `auto_load_libs` is set to `True` in the loading options. When loading libraries, if it cannot find one of them, it will stop the execution by raising an exception. In this case, you can attempt to manually copy the missing dependency in the same directory as the main binary, or alternatively, ignore the missing dependency (see the paragraph on loading option):
+By default, CLE won't attempt to load all the dependencies of the main binary (e.g., libc.so.6, ld-linux.so.2, etc.), unless `auto_load_libs` is set to `True` in the loading options. When loading libraries, if it cannot find one of them, it will stop the execution by raising an exception. In this case, you can attempt to manually copy the missing dependency in the same directory as the main binary, or alternatively, ignore the missing dependency (see the paragraph on loading option):
 
 ```python
 load_options = {}
@@ -90,7 +91,7 @@ b = angr.Project("/bin/ls", load_options=load_options)
 
 To load external libraries, CLE first attempts to *dynamically* get dependency information by running the binary in an emulated target environment, in which it hooks GNU LD through the LD_AUDIT interface. This yields a dict of *paths to libraries* along with the *base addresses* where to load them.
 
-If this fails (this can happen for various reasons, e.g., incompatible ABI between the target environment and the binary we try to execute), then CLE falls back to *statically* extracting dependency names from the binary, and :
+If this fails (this can happen for various reasons, e.g., incompatible ABI between the target environment and the binary we are trying to execute), then CLE falls back to *statically* extracting dependency names from the binary, and :
 - looks in the current directory (i.e., where the main binary is) for *matching libraries*
 - for libs not found there, it recursively looks for system libraries in the standard locations such as `/lib/x86_64_linux_gnu` (depending on the main binary's architecture).
 - a *matching library* is a library with both the correct name+version and the right architecture for the loaded binary.
@@ -201,7 +202,7 @@ rel = b.main_bin.jmprel
 By default, Project tries to replace external calls to libraries' functions by using [symbolic summaries](./todo.md) termed *SimProcedures* (these are summaries of how functions affect the state). 
 
 When no such summary is available for a given function:
-- if `load_libs` is `True` (this is the default), then the *real* library function is executed instead. This may or may not be what you want, depending on the actual function. For example, some of libc's function are extremely complex to analyze and will most likely cause an explosion of the number of states for the [path](./todo.md) trying to execute them.
+- if `load_libs` is `True` (this is the default), then the *real* library function is executed instead. This may or may not be what you want, depending on the actual function. For example, some of libc's functions are extremely complex to analyze and will most likely cause an explosion of the number of states for the [path](./todo.md) trying to execute them.
 
 - if `load_libs` is `False`, then external functions are unresolved, and Project will resolve them to a generic "stub" SimProcedure called `ReturnUnconstrained`. It does what its name says: it returns unconstrained values.
 
