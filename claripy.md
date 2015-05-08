@@ -58,10 +58,10 @@ assert c.is_identical(b.reversed, c.BVV(0x44434241, 32))
 assert b.reversed.reversed is b
 
 # Depth - you can get the depth of the AST
-assert b.depth == 1
+assert b.depth == 0
 x = c.BV('x', 32)
-assert (x+b).depth == 2
-assert ((x+b)/10).depth == 3
+assert (x+b).depth == 1
+assert ((x+b)/10).depth == 2
 
 # If you want to interact with the underlying object, you can call '.model'.
 # Note that, when symbolic variables are involved, this might *still* return an
