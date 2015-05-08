@@ -183,7 +183,7 @@ Now that you have loaded a binary.
 Interesting information about the binary is now accessible in ```p.main_binary```, for example deps, the list of imported libs, memory, symbols and others. 
 Make heavy use of the tabbing feature of ipython to see available functions and options here.
 
-Now it's time to look at the [IR support](./ir_support.md)
+Now it's time to look at the [IR support](./ir.md)
 
 
 ## Misc
