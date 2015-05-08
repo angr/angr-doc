@@ -14,7 +14,7 @@ import angr
 b = angr.Project("/tmp/program")
 ```
 
-After this, *p* is angr's representation of your binary (the "main" binary), along with any libraries that it depends on. There are several basic things that you can do here without further knowledge of the rest of the platform:
+After this, *b* is angr's representation of your binary (the "main" binary), along with any libraries that it depends on. There are several basic things that you can do here without further knowledge of the rest of the platform:
 
 ```python
 # this is the entry point of the binary
@@ -35,13 +35,7 @@ CLE can be interfaced with as follows:
 # this is the CLE Loader object
 print b.ld
 
-# this is a dict of the dependencies that the main binary depends on. It has
-# the form {path:load_addr}, e.g. {'/lib/x86_64-linux-gnu/libc.so.6':
-# 274898759680}. This gives the same results as running `ldd` on the binary (we
-# obtain it *dynamically* using the LD_AUDIT interface at runtime).
-print b.ld.dependencies
-
-# this is a list of the objects that are loaded as part of loading the binary (their types depend on the backend)
+# this is a dictionary of the objects that are loaded as part of loading the binary (their types depend on the backend)
 print b.ld.shared_objects
 
 # this is a dict of the memory space of the process after being loaded. It maps addresses to the byte at that address.
@@ -52,9 +46,6 @@ print b.ld.main_bin
 
 # this retrieves the binary object which maps memory at the specified address
 print b.ld.addr_belongs_to_object(b.max_addr)
-
-# Get the address of a symbol
-print b.ld.find_symbol_addr(symbol)
 
 # Get the address of the GOT slot for a symbol (in the main binary)
 print b.ld.find_symbol_got_entry(symbol)
@@ -71,53 +62,44 @@ print b.ld.main_bin.deps
 # this is a dict of the memory contents of *just* the main binary
 print b.ld.main_bin.memory
 
-# this is a dict (name->addr) of exports of the first shared library that was loaded
-b.ld.shared_objects[0].get_exports()
+# this is a dict (name->ELFRelocation) of imports from the libc which was loaded
+b.ld.shared_objects['libc.so.6'].imports
 
-# this is a dict (name-> addr) of imports of the main binary, where addr is usually 0 (see the misc section below).
+# this is a dict (name->ELFRelocation) of imports of the main binary, where addr is usually 0 (see the misc section below).
 print b.ld.main_bin.imports
 ```
 
 ## Loading dependencies
 
-By default, CLE won't attempts to load all the dependencies of the main binary (e.g., libc.so.6, ld-linux.so.2, etc.), unless `auto_load_libs` is set to `True` in the loading options. When loading libraries, if it cannot find one of them, it will stop the execution by raising an exception. In this case, you can attempt to manually copy the missing dependency in the same directory as the main binary, or alternatively, ignore the missing dependency (see the paragraph on loading option):
+By default, CLE won't attempt to load all the dependencies of the main binary (e.g., libc.so.6, ld-linux.so.2, etc.), unless `auto_load_libs` is set to `True` in the loading options. When loading libraries, if it cannot find one of them, it will stop the execution by raising an exception. In this case, you can attempt to manually copy the missing dependency in the same directory as the main binary, or alternatively, ignore the missing dependency (see the paragraph on loading option):
 
 ```python
 load_options = {}
-load_options['/bin/ls'] = {skip_libs='ld.so.2'}
+load_options = {skip_libs='ld.so.2'}
 b = angr.Project("/bin/ls", load_options=load_options)
 ```
 
 To load external libraries, CLE first attempts to *dynamically* get dependency information by running the binary in an emulated target environment, in which it hooks GNU LD through the LD_AUDIT interface. This yields a dict of *paths to libraries* along with the *base addresses* where to load them.
 
-If this fails (this can happen for various reasons, e.g., incompatible ABI between the target environment and the binary we try to execute), then CLE falls back to *statically* extracting dependency names from the binary, and :
+If this fails (this can happen for various reasons, e.g., incompatible ABI between the target environment and the binary we are trying to execute), then CLE falls back to *statically* extracting dependency names from the binary, and :
 - looks in the current directory (i.e., where the main binary is) for *matching libraries*
 - for libs not found there, it recursively looks for system libraries in the standard locations such as `/lib/x86_64_linux_gnu` (depending on the main binary's architecture).
 - a *matching library* is a library with both the correct name+version and the right architecture for the loaded binary.
-
-## Backends
-
-Cle currently supports Elf, IDA and Blob backends.
-
-Elf is the default backend and is recommended unless you are not working with Elf binaries or have some specific needs that cannot be achieved with Cle (such as relying on information from the Elf sections).
-
-IDA runs an instance of IDA for each binary and communicates with it through idalink. 
-
-Blob is a special backend for binaries of unknown types. It provides no abstractions other than mapping the binary into memory, using a custom entry point, a custom base address or skipping the first @offset bytes of the image.
-
 
 ## Loading Options
 
 Loading options can be passed to Project (which in turn will pass it to CLE). 
 
-Cle expects a dict as a set of parameters of the following form:
+Cle expects a dict as a set of parameters. Parameters which must be applied to libraries which 
+are not the target binary must be passed through the lib_opts parameter in the following form:
 ```python
-load_options = {path1:{options1}, path2:{options2}, ...}
+load_options = {'lib_opts': {path1:{options1}, path2:{options2}, ...}}
 
 # Or in a more readable form:
 load_options = {}
-load_options[path1] = {k1:v1, k2:v2, ...}
-load_options[path2] = {k1:v1, k2:v2, ...}
+load_options['lib_opts'] = {}
+load_options['lib_opts'][path1] = {k1:v1, k2:v2, ...}
+load_options['lib_opts'][path2] = {k1:v1, k2:v2, ...}
 etc.
 ```
 where:
@@ -130,52 +112,72 @@ p = angr.Project("...", load_options={"auto_load_libs": True})
 ```
 
 ### Valid options
-```python
-# backend can be 'ida' or 'elf' or 'blob' (defaults to 'elf')
-load_options['/bin/ls'] = {backend:'ida'}
-```
-
 The following options are only relevant for the main binary (i.e., the
 first binary passed to CLE):
 
 ```python
 # shall we also load dynamic libraries ?
-load_options['/bin/ls'] = {'auto_load_libs':True}
+load_options['auto_load_libs'] = True
+
+# A list of libraries to load regardless of whether they're required by the loaded object
+load_options['force_load_libs'] = ['libleet.so']
 
 # specific libs to skip
-load_options['/bin/ls'] = {'skip_libs':['libc.so.6']}
+load_options['skip_libs'] = ['libc.so.6']
 
-# Ignore missing libs (the default is to raise a CLException on missing libs)
-load_options['/bin/ls'] = {'ignore_missing_libs':True}
+# Options to be used when loading the main binary
+load_options['main_opts'] = {'backend': 'elf'}
 
-# Raise an exception if LD_AUDIT fails (the default is to fall back to static mode)
-load_options['/bin/ls'] = {'except_on_ld_fail':True}
+# A dictionary mapping library names to a dictionary of objects to be used when loading them.
+load_options['lib_opts'] = {'libc.so.6': {'auto_load_libs': True}}
 
-# Define a custom path to look for libraries to load (will be used if LD_AUDIT fails)
-load_options['/bin/ls'] = {'custom_ld_path':'/path/to/libs'}
+# A list of paths we can additionally search for shared libraries
+load_options['custom_ld_path'] = ['/my/fav/libs']
+
+# Whether libraries with different version numbers in the filename will be considered equivilant, for example libc.so.6 and libc.so.0
+load_options['ignore_import_version_numbers'] = False
+
+# The alignment to use for rebasing shared objects
+load_options['rebase_granularity'] = 0x1000
+
+# Throw an Exception if a lib cannot be found (the default is fail silently on missing libs)
+load_options['except_missing_libs'] = True
 ```
 
-The following options override CLE's automatic detection:
+The following options are applied on a per object basis and override CLE's automatic detection. 
+They can be applied through either 'main_opts' or 'lib_opts'.
 
 ```python
-# Address of a custom entry point that will override CLE's automatic detection.
-load_options['/bin/ls'] = {'custom_entry_point':0x4937}
+# Base address to load the binary
+load_options['main_opts'] = {'custom_base_addr':0x4000}
 
-#base address to load the binary
-load_options['/bin/ls'] = {'custom_base_addr':0x4000}
+# Specify the object's backend (backends discussed below)
+load_options['main_opts'] = {'backend': 'elf'}
 
-#discard everything in the binary until this address
-load_options['/bin/ls'] = {'custom_offset':0x200}
-
-#which dependency is provided by the binary. This is used instead of what CLE would normally load for this dependency.
-load_options['/bin/ls'] = {'provides':'libc.so.6'}
 ```
 
 Example with multiple options for the same binary:
 ```python
-load_options['/bin/ls'] = {backend:'elf', auto_load_libs:True, skip_libs:['libc.so.6']}
+load_options['main_opts'] = {'backend':'elf', 'custom_base_addr': 0x10000}
 ```
+## Backends
 
+Cle currently supports Elf, PE, IDA, Blob and CLEextract backends.
+
+Elf is the default backend and is recommended unless you are not working with Elf binaries or have some specific needs that cannot be achieved with Cle (such as relying on information from the Elf sections).
+
+IDA runs an instance of IDA for each binary and communicates with it through idalink. 
+
+Blob is a special backend for binaries of unknown types. It provides no abstractions other than mapping the binary into memory, using a custom entry point, a custom base address or skipping the first @offset bytes of the image.
+
+You can specify the backend for the main binary by specifying it in the main_opts arguments. Library backends can be specified via the lib_opts argument.
+
+```python
+
+load_options = {}
+load_options['main_opts'] = {'backend': 'elf'}
+load_options['lib_opts'] = {'libc.so.6': {'backend': 'elf'}}
+```
 
 Now that you have loaded a binary.
 Interesting information about the binary is now accessible in ```p.main_binary```, for example deps, the list of imported libs, memory, symbols and others. 
@@ -201,7 +203,7 @@ rel = b.main_bin.jmprel
 By default, Project tries to replace external calls to libraries' functions by using [symbolic summaries](./todo.md) termed *SimProcedures* (these are summaries of how functions affect the state). 
 
 When no such summary is available for a given function:
-- if `load_libs` is `True` (this is the default), then the *real* library function is executed instead. This may or may not be what you want, depending on the actual function. For example, some of libc's function are extremely complex to analyze and will most likely cause an explosion of the number of states for the [path](./todo.md) trying to execute them.
+- if `load_libs` is `True` (this is the default), then the *real* library function is executed instead. This may or may not be what you want, depending on the actual function. For example, some of libc's functions are extremely complex to analyze and will most likely cause an explosion of the number of states for the [path](./todo.md) trying to execute them.
 
 - if `load_libs` is `False`, then external functions are unresolved, and Project will resolve them to a generic "stub" SimProcedure called `ReturnUnconstrained`. It does what its name says: it returns unconstrained values.
 
