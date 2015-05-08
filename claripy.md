@@ -94,7 +94,7 @@ In general, Claripy supports all of the normal python operations (+, -, |, ==, e
 
 | Name | Description | Example |
 |------|-------------|---------|
-| LShR | Logically shifts an bit expression (BVV, BV, SI) to the right. | `c.LShR(x, 10)` |
+| LShR | Logically shifts a bit expression (BVV, BV, SI) to the right. | `c.LShR(x, 10)` |
 | SignExt | Sign-extends a bit expression. | `c.SignExt(32, x)` or `x.sign_extend(32)` |
 | ZeroExt | Zero-extends a bit expression. | `c.ZeroExt(32, x)` or `x.zero_extend(32)` |
 | Extract | Extracts the given bits (zero-indexed from the *right*, inclusive) from a bit expression. | Extract the rightmost byte of x: `c.Extract(7, 0, x)` or `x[7:0]` |
@@ -112,7 +112,7 @@ In general, Claripy supports all of the normal python operations (+, -, |, ==, e
 | UGE | Unsigned greater than or equal to. | Check if x is greater than or equal to y: `c.UGE(x, y)` |
 | UGT | Unsigned greater than. | Check if x is greater than y: `c.UGT(x, y)` |
 
-**NOTE:** The default python `>`, `<`, `>=`, and `<=` are unsigned in Claripy, to reflect their behavior in Z3. You will most likely want to use the unsigned operations, instead.
+**NOTE:** The default python `>`, `<`, `>=`, and `<=` are signed in Claripy, to reflect their behavior in Z3. You will most likely want to use the unsigned operations, instead.
 
 ## Claripy Solvers
 
