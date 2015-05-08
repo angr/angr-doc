@@ -57,6 +57,8 @@ Becomes this VEX IR:
 We use a library called PyVEX (https://git.seclab.cs.ucsb.edu/gitlab/angr/pyvex) that exposes VEX into Python. Now that you understand VEX, you can actually play with some VEX in angr:
 
 ```python
+b = angr.Project("...")
+
 # translate a basic block starting at an address
 irsb = b.block(0x4000A00)
 
@@ -73,41 +75,37 @@ print irsb.jumpkind
 irsb.next.pp()
 
 # iterate through each statement and print all the statements
-for stmt in irsb.statements():
+for stmt in irsb.statements:
 	stmt.pp()
 
 # pretty-print the IR expression representing the data, and the *type* of that IR expression written by every store statement
 import pyvex
-for stmt in irsb.statements():
-	if isinstance(stmt, pyvex.IRStmt.Store):
-		print "Data:",
-		stmt.data.pp()
-		print ""
+for stmt in irsb.statements:
+  if isinstance(stmt, pyvex.IRStmt.Store):
+    print "Data:",
+    stmt.data.pp()
+    print ""
 
-		print "Type:",
-		irsb.tyenv.typeOf(stmt.data)
-		print ""
+    print "Type:",
+    print stmt.data.result_type
+    print ""
 
 # pretty-print the condition and jump target of every conditional exit from the basic block
-import pyvex
-for stmt in irsb.statements():
+for stmt in irsb.statements:
 	if isinstance(stmt, pyvex.IRStmt.Exit):
 		print "Condition:",
 		stmt.guard.pp()
 		print ""
 
 		print "Target:",
-		stmt.offset.pp()
+		stmt.dst.pp()
 		print ""
 
 # these are the types of every temp in the IRSB
-print irsb.tyenv.types()
+print irsb.tyenv.types
 
-# there are two ways to get the type of temp 0
-print irsb.tyenv.types()[0]
-print irsb.tyenv.typeOf(0)
+# here is one way to get the type of temp 0
+print irsb.tyenv.types[0]
 ```
 
 Keep in mind that this is a *syntactic* respresentation of a basic block. That is, it'll tell you what the block means, but you don't have any context to say, for example, what *actual* data is written by a store instruction. We'll get to that next.
-
-
