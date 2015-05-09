@@ -209,7 +209,7 @@ Symbolic expressions would be pretty boring on their own. After all, the last fe
 s3 = s.copy()
 
 # Let's read some previously untouched section of memory to get a symbolic expression
-m = s.mem_expr(0xbbbb0000, 8)
+m = s.mem_expr(0xbbbb0000, 1)
 
 # We can verify that *any* solution would do
 assert s3.se.solution(m, 0)
@@ -219,13 +219,13 @@ assert s3.se.solution(m, 30)
 # ... and so on
 
 # Now, let's add a constraint, forcing m to be greater than 10
-s3.add_constraints(m > 10)
+s3.add_constraints(m < 10)
 
 # We can see the effect of this right away!
-assert not s3.se.solution(m, 0)
-assert not s3.se.solution(m, 10)
-assert s3.se.solution(m, 20)
-assert s3.se.solution(m, 30)
+assert s3.se.solution(m, 0)
+assert s3.se.solution(m, 5)
+assert not s3.se.solution(m, 20)
+assert not s3.se.solution(m, 30)
 ```
 
 One cautionary piece of advice is that the comparison operators (`>`, `<`, `>=`, `<=`) are *signed* by default. That means that, in the above example, this is still the case:
@@ -239,12 +239,12 @@ If we want *unsigned* comparisons, we need to use the unsigned versions of the o
 
 ```python
 # Add an unsigned comparison
-s3.add_constraints(s3.se.UGT(m, 10))
+s3.add_constraints(s3.se.ULT(m, 10))
 
 # We can see the effect of this right away!
-assert not s3.se.solution(m, 0)
-assert not s3.se.solution(m, 10)
-assert s3.se.solution(m, 20)
+assert s3.se.solution(m, 0)
+assert s3.se.solution(m, 5)
+assert not s3.se.solution(m, 20)
 assert not s3.se.solution(m, 0xff)
 ```
 
