@@ -85,7 +85,10 @@ s2.store_mem(0x1000, s2.BVV("BBBB"))
 States can also be merged together.
 
 ```python
-s_merged = s1.merge(s2)
+# merge will return a tuple. the first element is the merged state
+# the second element is a symbolic variable describing a state flag
+# the third element is a boolean describing whether any merging was done
+(s_merged, m, anything_merged) = s1.merge(s2)
 
 # this is now an expression that can resolve to "AAAA" *or* "BBBB"
 aaaa_or_bbbb = s_merged.mem_expr(0x1000, 4)
