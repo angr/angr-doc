@@ -15,7 +15,7 @@ print "The first 5 bytes of the binary are:", s.mem_expr(b.min_addr, 5)
 print "The stack pointer starts out as:", s.reg_expr('sp')
 
 # and the temps, although these are currently empty
-print "This will throw an except because there is no VEX temp t0, yet:", s.tmp_expr(0)
+print "This will throw an exception because there is no VEX temp t0, yet:", s.tmp_expr(0)
 ```
 
 ## Accessing Data
@@ -85,7 +85,10 @@ s2.store_mem(0x1000, s2.BVV("BBBB"))
 States can also be merged together.
 
 ```python
-s_merged = s1.merge(s2)
+# merge will return a tuple. the first element is the merged state
+# the second element is a symbolic variable describing a state flag
+# the third element is a boolean describing whether any merging was done
+(s_merged, m, anything_merged) = s1.merge(s2)
 
 # this is now an expression that can resolve to "AAAA" *or* "BBBB"
 aaaa_or_bbbb = s_merged.mem_expr(0x1000, 4)
@@ -100,11 +103,11 @@ Symbolic values are expressions that, under different situations, can take on di
 ```python
 # this will return a sequence of up to n possible values of the expression in this state.
 # in our case, there are only two values, and it'll return [ "AAAA", "BBBB" ]
-print "This has 2 values:", s_merged.any_n_str(aaaa_or_bbbb, 2)
-print "This *would* have up to 5, but there are only two available:", s_merged.any_n_str(aaaa_or_bbbb, 5)
+print "This has 2 values:", s_merged.se.any_n_str(aaaa_or_bbbb, 2)
+print "This *would* have up to 5, but there are only two available:", s_merged.se.any_n_str(aaaa_or_bbbb, 5)
 
 # there's also the same for the integer value
-print s_merged.any_n_int(aaaa_or_bbbb, 2)
+print s_merged.se.any_n_int(aaaa_or_bbbb, 2)
 ```
 
 Of course, there are other ways to encounter symbolic expression than merging. For example, you can create them outright:
@@ -128,7 +131,7 @@ aaaa = s.BVV(0x41414141, 32)
 # Do operations involving them, and retrieve possible numerical solutions
 print s.se.any_int(aaaa)
 print s.se.any_int(aaaa + v)
-print s.se.any_int((aaaa + v) | s.BVV(0xffff0000)
+print s.se.any_int((aaaa + v) | s.BVV(0xffff0000, 32))
 
 # You can tell between symbolic and concrete expressions fairly easily:
 assert s.se.symbolic(v)
@@ -149,7 +152,7 @@ m = s.mem_expr(0xbbbb0000, 8)
 assert s.se.symbolic(m)
 
 # Along with the ID and length, the address at which this expression originated is also added to the name
-assert s.se.variables(m) == { "mem_bbbb0000_2_8" }
+assert s.se.variables(m) == { "mem_bbbb0000_2_64" }
 
 # And, of course, we can get the numerical or string solutions for the expression
 print s.se.any_n_int(m, 10)
@@ -206,7 +209,7 @@ Symbolic expressions would be pretty boring on their own. After all, the last fe
 s3 = s.copy()
 
 # Let's read some previously untouched section of memory to get a symbolic expression
-m = s.mem_expr(0xbbbb0000, 8)
+m = s.mem_expr(0xbbbb0000, 1)
 
 # We can verify that *any* solution would do
 assert s3.se.solution(m, 0)
@@ -216,13 +219,13 @@ assert s3.se.solution(m, 30)
 # ... and so on
 
 # Now, let's add a constraint, forcing m to be greater than 10
-s3.add_constraints(m > 10)
+s3.add_constraints(m < 10)
 
 # We can see the effect of this right away!
-assert not s3.se.solution(m, 0)
-assert not s3.se.solution(m, 10)
-assert s3.se.solution(m, 20)
-assert s3.se.solution(m, 30)
+assert s3.se.solution(m, 0)
+assert s3.se.solution(m, 5)
+assert not s3.se.solution(m, 20)
+assert not s3.se.solution(m, 30)
 ```
 
 One cautionary piece of advice is that the comparison operators (`>`, `<`, `>=`, `<=`) are *signed* by default. That means that, in the above example, this is still the case:
@@ -236,12 +239,12 @@ If we want *unsigned* comparisons, we need to use the unsigned versions of the o
 
 ```python
 # Add an unsigned comparison
-s3.add_constraints(s3.se.UGT(m, 10))
+s3.add_constraints(s3.se.ULT(m, 10))
 
 # We can see the effect of this right away!
-assert not s3.se.solution(m, 0)
-assert not s3.se.solution(m, 10)
-assert s3.se.solution(m, 20)
+assert s3.se.solution(m, 0)
+assert s3.se.solution(m, 5)
+assert not s3.se.solution(m, 20)
 assert not s3.se.solution(m, 0xff)
 ```
 
