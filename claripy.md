@@ -161,7 +161,7 @@ This function receives a claripy.A and should return an object that the backend 
 Backends should also implement a _convert() method, which will receive anything that is *not* a claripy.A object (i.e., an integer or an object from a different backend).
 If convert() or _convert() receives something that the backend can't translate to a format that is usable internally, the backend should raise BackendError, and thus won't be used for that object.
 
-Claripy contract with its backends is as follows: backends should be able to can handle, in their private functions, any object that they return from their private *or* public functions.
+Claripy's contract with its backends is as follows: backends should be able to handle, in their private functions, any object that they return from their private *or* public functions.
 Likewise, Claripy will never pass an object to any backend private function that did not originate as a return value from a private or public function of that backend.
 One exception to this is _convert(), as Claripy can try to stuff anything it feels like into _convert() to see if the backend can handle that type of object.
  
