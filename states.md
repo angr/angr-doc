@@ -131,7 +131,7 @@ aaaa = s.BVV(0x41414141, 32)
 # Do operations involving them, and retrieve possible numerical solutions
 print s.se.any_int(aaaa)
 print s.se.any_int(aaaa + v)
-print s.se.any_int((aaaa + v) | s.BVV(0xffff0000)
+print s.se.any_int((aaaa + v) | s.BVV(0xffff0000, 32))
 
 # You can tell between symbolic and concrete expressions fairly easily:
 assert s.se.symbolic(v)
