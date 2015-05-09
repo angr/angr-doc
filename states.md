@@ -152,7 +152,7 @@ m = s.mem_expr(0xbbbb0000, 8)
 assert s.se.symbolic(m)
 
 # Along with the ID and length, the address at which this expression originated is also added to the name
-assert s.se.variables(m) == { "mem_bbbb0000_2_8" }
+assert s.se.variables(m) == { "mem_bbbb0000_2_64" }
 
 # And, of course, we can get the numerical or string solutions for the expression
 print s.se.any_n_int(m, 10)
