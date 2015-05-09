@@ -103,11 +103,11 @@ Symbolic values are expressions that, under different situations, can take on di
 ```python
 # this will return a sequence of up to n possible values of the expression in this state.
 # in our case, there are only two values, and it'll return [ "AAAA", "BBBB" ]
-print "This has 2 values:", s_merged.any_n_str(aaaa_or_bbbb, 2)
-print "This *would* have up to 5, but there are only two available:", s_merged.any_n_str(aaaa_or_bbbb, 5)
+print "This has 2 values:", s_merged.se.any_n_str(aaaa_or_bbbb, 2)
+print "This *would* have up to 5, but there are only two available:", s_merged.se.any_n_str(aaaa_or_bbbb, 5)
 
 # there's also the same for the integer value
-print s_merged.any_n_int(aaaa_or_bbbb, 2)
+print s_merged.se.any_n_int(aaaa_or_bbbb, 2)
 ```
 
 Of course, there are other ways to encounter symbolic expression than merging. For example, you can create them outright:
