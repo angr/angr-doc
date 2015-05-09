@@ -15,7 +15,7 @@ print "The first 5 bytes of the binary are:", s.mem_expr(b.min_addr, 5)
 print "The stack pointer starts out as:", s.reg_expr('sp')
 
 # and the temps, although these are currently empty
-print "This will throw an except because there is no VEX temp t0, yet:", s.tmp_expr(0)
+print "This will throw an exception because there is no VEX temp t0, yet:", s.tmp_expr(0)
 ```
 
 ## Accessing Data
