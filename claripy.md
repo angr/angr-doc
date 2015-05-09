@@ -121,21 +121,20 @@ Claripy performs constraint solving, via Z3, through the claripy.Solver class. T
 ```python
 # create the solver and an expression
 c = claripy.Claripies['SerialZ3']
-s = c.Solver()
+s = c.solver()
 x = c.BV('x', 8)
 
 # now let's add a constraint on x
-s.add(c.ULT(x, 5))
+s.add(c.ULT(x, 5)) 
 
-# this returns up to 10 solutions, but the constraints we've added keep it down to 5
-assert sorted(s.eval(x, 10)) == (0, 1, 2, 3, 4)
+assert sorted(s.eval(x, 10)) == [0, 1, 2, 3, 4]
 assert s.max(x) == 4
 assert s.min(x) == 0
 
 # we can also get the values of complex expressions
 y = c.BVV(65, 8)
-z = c.If(x == 1, y, x)
-assert sorted(s.eval(z, 10)) == (1, 65)
+z = c.If(x == 1, x, y)
+assert sorted(s.eval(z, 10)) == [1, 65] 
 
 # and, of course, we can add constraints on complex expressions
 s.add(z % 5 != 0)
