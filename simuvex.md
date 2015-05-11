@@ -199,7 +199,7 @@ sirsb = p.next_run
 assert sirsb.addr == p.addr
 ```
 
-Now that we have the SimIRSB, we can retrieve two main piece of semantic information: what the block did, and where execution will go next.
+Now that we have the SimIRSB, we can retrieve two main pieces of semantic information: what the block did, and where execution will go next.
 
 ## SimProcedures
 
