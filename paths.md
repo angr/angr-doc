@@ -46,7 +46,7 @@ assert len(p.actions) == 0
 Of course, we can't be stuck at the entry point forever.
 We can look at the `successors` of a path to see where the program goes after this point.
 Most of the time, a path will have two successors (i.e., the program branched and there are two possible ways forward with execution).
-Sometimes, as in the case of unconditional calls, unconditional jumps, or conditional jumps and calls whose condition is always true or always false, a path will have just one successors.
+Sometimes, as in the case of unconditional calls, unconditional jumps, or conditional jumps and calls whose condition is always true or always false, a path will have just one successor.
 Other times, it will have more than two, such as in the case of a jump table.
 
 ```python
