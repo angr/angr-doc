@@ -160,7 +160,7 @@ p = b.path_generator.blank_path(address=0x800f000, state=some_other_state)
 ## Semantic Actions
 
 SimuVEX exposes the actions of a basic blocks through the concept of "actions".
-An action has an associated `region` (i.e., "mem" for memory, "reg" for registers, "tmp" for temps), and type of action ("read", "write").
+An action has an associated `type` (i.e., "mem" for memory, "reg" for registers, "tmp" for temps), and `action` ("read", "write").
 
 Here is an example interaction with the actions:
 
@@ -168,7 +168,7 @@ Here is an example interaction with the actions:
 p = b.path_generator.entry_point().successors[0]
 
 for a in p.last_actions:
-	if a.region == 'mem':
+	if a.type == 'mem':
 		print "Memory write to", a.addr.ast
 		print "... address depends on registers", a.addr.reg_deps, "and temps", a.addr.tmp_deps
 		print "... data is:", a.data.ast
@@ -177,8 +177,8 @@ for a in p.last_actions:
 			print "... condition is:", a.condition.ast
 			if a.fallback is not None:
 			print "... alternate write in case of condition fail:", a.fallback.ast
-	elif a.region == 'reg':
-		print 'Register write to registerfile offset', a.offset.ast
-	elif a.region == 'tmp':
-		print 'Tmp write to tmp', a.tmp.ast
+	elif a.type == 'reg':
+		print 'Register write to registerfile offset', a.offset
+	elif a.type == 'tmp':
+		print 'Tmp write to tmp', a.tmp
 ```
