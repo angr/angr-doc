@@ -141,7 +141,7 @@ For example, you might be interested in what a specific part of a function does,
 To handle this, we allow the creation of a path at any point in the program:
 
 ```python
-p = b.path_generator.blank_path(addr=0x800f000)
+p = b.path_generator.blank_path(address=0x800f000)
 
 assert p.addr == 0x800f000
 ```
@@ -154,7 +154,7 @@ We'll explore what this means, and its implications, in future sections.
 Additionally, we can create a path with a custom state.
 
 ```python
-p = b.path_generator.blank_path(addr=0x800f000, state=some_other_state)
+p = b.path_generator.blank_path(address=0x800f000, state=some_other_state)
 ```
 
 ## Semantic Actions
