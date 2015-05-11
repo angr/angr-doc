@@ -192,8 +192,8 @@ Here's an example.
 
 ```python
 # This creates a SimIRSB at 0x400664, and applies it to a blank state (which is automatically created by blank_path)
-p = b.path_generator.blank_path(addr=0x400664)
-sirsb = p.last_run
+p = b.path_generator.blank_path(address=0x400664)
+sirsb = p.previous_run
 
 # this is the address of the first instruction in the block
 assert sirsb.addr == p.addr
