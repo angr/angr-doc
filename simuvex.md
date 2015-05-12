@@ -246,6 +246,7 @@ There are many other places to break than a memory write. Here is the list. You 
 | constraints       | New constraints are being added to the state. |
 | exit              | A SimExit is being created from a SimIRSB. |
 | symbolic_variable | A new symbolic variable is being created. |
+| call              | A call instruction is hit. |
 
 These events expose different attributes:
 
