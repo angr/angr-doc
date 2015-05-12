@@ -10,7 +10,7 @@ Angr comes with several built-in analyses:
 
 | Name | Description |
 |------|-------------|
-| CFG  | Constructs a *Control Flow Graph* of the program. The results are accessible via `p.analyze('CFG').cfg`. |
+| CFG  | Constructs a *Control Flow Graph* of the program. The results are accessible via `b.analyses.CFG()`. |
 | VFG  | Performs VSA on every function of the program, creating a *Value Flow Graph* and detecting stack variables. |
 | DDG  | Calculates a data dependency graph, allowing one to determine what statements a given value depends on. |
 
@@ -148,11 +148,11 @@ If an analysis that hasn't been run is accessed, it will be automatically run wi
 For example:
 
 ```python
-cfg = b.analyze('CFG')
-assert cfg is p.results.CFG
+cfg = b.analyses.CFG()
+assert cfg is b.results.CFG
 
 print "About to run the VSA analysis!"
-print p.results.VSA
+print b.results.VSA
 ```
 
 ### Resilience
