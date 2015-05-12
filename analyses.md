@@ -258,8 +258,11 @@ def block_counter(project, deps, fail_fast, min_addr=0, max_addr=0xffffffff):
 # register the analysis
 angr.registered_analyses['blocks'] = block_counter
 
+# reinitialize the project
+b = angr.Project("/path/to/bin")
+
 # and run them!
-p.analyze('block_counter', min_addr=0x100, max_addr=0x400000)
+b.analyses.blocks(min_addr=0x100, max_addr=0x400000)
 ```
 
 However, this doesn't provide any resilience and so forth.
