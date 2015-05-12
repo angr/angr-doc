@@ -25,7 +25,7 @@ b = angr.Project("/home/angr/angr/angr/tests/blob/x86_64/fauxware")
 # This involves creating a default state using `Project.initial_state`.
 # A custom SimExit, with a custom state, can be provided via the optional
 # "start" parameter, or a list of them via the optional "starts" parameter.
-e = b.survey('Explorer')
+e = b.surveyors.Explorer()
 
 # Now we can take a few steps! Printing an Explorer will tell you how
 # many active paths it currently has.
@@ -43,7 +43,7 @@ e.run()
 # We can see which paths are active (running), and which have deadended
 # (i.e., provided no valid exits), and which have errored out. Note that,
 # in some instances, a given path could be in multiple lists (i.e., if it
-# erroed out *and* did not produce any valid exits)
+# errored out *and* did not produce any valid exits)
 print "%d paths are still running" % len(e.active)
 print "%d paths are backgrounded due to lack of resources" % len(e.spilled)
 print "%d paths are suspended due to user action" % len(e.suspended)
@@ -52,14 +52,14 @@ print "%d paths deadended" % len(e.deadended)
 ```
 
 So far, everything we have discussed applies to all `Surveyors`.
-Hoever, the nice thing about an Explorer is that you can tell it to search for, or avoid certain blocks.
+However, the nice thing about an Explorer is that you can tell it to search for, or avoid certain blocks.
 For example, in the `fauxware` sample, we can try to find the "authentication success" function while avoiding the "authentication failed" function.
 
-```
+```python
 # This creates an Exporer that tries to find 0x4006ed (successful auth),
 # while avoiding 0x4006fd (failed auth) or 0x4006aa (the authentication
 # routine). In essense, we are looking for a backdoor.
-e = b.survey('Explorer', find=(0x4006ed,), avoid=(0x4006aa,0x4006fd))
+e = b.surveyors.Explorer(find=(0x4006ed,), avoid=(0x4006aa,0x4006fd))
 e.run()
 
 # Print our found backdoor, and how many paths we avoided!
@@ -71,8 +71,8 @@ print "Avoided %d paths", len(e.avoided)
 Some helper properties are provided for easier access to paths from ipython:
 
 ```python
-print "The first found path is", b._f
-print "The first active path is", b._a
+print "The first found path is", e._f
+print "The first active path is", e._a
 ```
 
 ## Caller
@@ -121,7 +121,7 @@ If you send `SIGUSR1` to a python process running a surveyor, it causes the main
 You can then analyze the result.
 To continue running the surveyor, call `angr.surveyor.resume_analyses()` (to clear the "signalled" flag) and then call the surveyor's `run()` function.
 Since `SIGUSR1` causes `run()` to return, this is rarely useful in a scripted analysis, as the rest of the program will run after `run()` returns.
-Instead, `SIGUSR1` is meant to provide an clean alternative to `Ctrl-C`.
+Instead, `SIGUSR1` is meant to provide a clean alternative to `Ctrl-C`.
 
 Sending SIGUSR2 to the python process, on the other hand, causes `run()` to invoke an `ipdb` breakpoint after every `step()`.
 This allows you to debug, then continue your program.
