@@ -150,8 +150,8 @@ For example:
 cfg = b.analyses.CFG()
 assert cfg is b.results.CFG
 
-print "About to run the VSA analysis!"
-print b.results.VSA
+print "About to run the VSA analysis and create a VFG!"
+print b.results.VFG
 ```
 
 ### Resilience
