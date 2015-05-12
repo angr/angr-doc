@@ -121,7 +121,7 @@ If you send `SIGUSR1` to a python process running a surveyor, it causes the main
 You can then analyze the result.
 To continue running the surveyor, call `angr.surveyor.resume_analyses()` (to clear the "signalled" flag) and then call the surveyor's `run()` function.
 Since `SIGUSR1` causes `run()` to return, this is rarely useful in a scripted analysis, as the rest of the program will run after `run()` returns.
-Instead, `SIGUSR1` is meant to provide an clean alternative to `Ctrl-C`.
+Instead, `SIGUSR1` is meant to provide a clean alternative to `Ctrl-C`.
 
 Sending SIGUSR2 to the python process, on the other hand, causes `run()` to invoke an `ipdb` breakpoint after every `step()`.
 This allows you to debug, then continue your program.
