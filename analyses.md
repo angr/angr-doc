@@ -182,7 +182,9 @@ Of course, it's not useful, but what can you do?
 Let's see how to call:
 
 ```python
-mock = p.analyze('MockAnalysis', 'this is my option')
+# you will have to reinitialize the project to access the new class
+b = angr.Project("path/to/bin")
+mock = b.analyses.MockAnalysis('this is my option')
 assert mock.option == 'this is my option'
 ```
 
@@ -197,11 +199,11 @@ class FunctionBlockAverage(angr.Analysis):
 	__name__ = 'FuncSize'
 
 	def __init__(self):
-		self._cfg = self._p.analyze('CFG')
-		self.avg = len(self._cfg.nodes) / len(self._cfg.function_manager.functions)
+		self._cfg = self._p.analyses.CFG()
+		self.avg = len(self._cfg.nodes()) / len(self._cfg.function_manager.functions)
 ```
 
-After this, you can call this analysis using it's specified name. For example, `p.analyze('FuncSize')`.
+After this, you can call this analysis using it's specified name. For example, `b.analyses.FuncSize()`.
 
 ### Analysis Resilience
 
