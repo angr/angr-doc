@@ -43,7 +43,7 @@ e.run()
 # We can see which paths are active (running), and which have deadended
 # (i.e., provided no valid exits), and which have errored out. Note that,
 # in some instances, a given path could be in multiple lists (i.e., if it
-# erroed out *and* did not produce any valid exits)
+# errored out *and* did not produce any valid exits)
 print "%d paths are still running" % len(e.active)
 print "%d paths are backgrounded due to lack of resources" % len(e.spilled)
 print "%d paths are suspended due to user action" % len(e.suspended)
@@ -52,7 +52,7 @@ print "%d paths deadended" % len(e.deadended)
 ```
 
 So far, everything we have discussed applies to all `Surveyors`.
-Hoever, the nice thing about an Explorer is that you can tell it to search for, or avoid certain blocks.
+However, the nice thing about an Explorer is that you can tell it to search for, or avoid certain blocks.
 For example, in the `fauxware` sample, we can try to find the "authentication success" function while avoiding the "authentication failed" function.
 
 ```
