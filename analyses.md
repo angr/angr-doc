@@ -10,7 +10,7 @@ Angr comes with several built-in analyses:
 
 | Name | Description |
 |------|-------------|
-| CFG  | Constructs a *Control Flow Graph* of the program. The results are accessible via `p.analyze('CFG').cfg`. |
+| CFG  | Constructs a *Control Flow Graph* of the program. The results are accessible via `b.analyses.CFG()`. |
 | VFG  | Performs VSA on every function of the program, creating a *Value Flow Graph* and detecting stack variables. |
 | DDG  | Calculates a data dependency graph, allowing one to determine what statements a given value depends on. |
 
@@ -112,11 +112,11 @@ Due to context sensitivity, a given basic block can have multiple nodes in the g
 food_node = cfg.get_any_node(0xf00d)
 
 # on the other hand, this grabs all of the nodes
-print "There were %d contexts for the 0xf00d block" % len(cfg.get_any_node(0xf00d))
+print "There were %d contexts for the 0xf00d block" % len(cfg.get_all_nodes(0xf00d))
 
 # if keep_input_states was given as True, we can also retrieve the actual SimIRSBs
 print "A single SimIRSB at 0xf00d:", cfg.get_any_irsb(0xf00d)
-print "All SimIRSBs at 0xf00d:", cfg.get_all_irsb(0xf00d)
+print "All SimIRSBs at 0xf00d:", cfg.get_all_irsbs(0xf00d)
 
 # we can also look up predecessors and successors
 print "Predecessors of 0xf00d:" [ node.addr for node in cfg.get_predecessors(food_node) ]
@@ -127,7 +127,6 @@ print "Successors (and type of jump) of 0xf00d:" [ jumpkind + " to " + str(node.
 ## Function Manager
 
 TODO
-
 
 ### VFG
 
@@ -148,11 +147,11 @@ If an analysis that hasn't been run is accessed, it will be automatically run wi
 For example:
 
 ```python
-cfg = b.analyze('CFG')
-assert cfg is p.results.CFG
+cfg = b.analyses.CFG()
+assert cfg is b.results.CFG
 
-print "About to run the VSA analysis!"
-print p.results.VSA
+print "About to run the VSA analysis and create a VFG!"
+print b.results.VFG
 ```
 
 ### Resilience
@@ -163,7 +162,7 @@ However, you might want to run an analysis in "fail fast" mode, so that errors a
 To do this, the `fail_fast` keyword argument can be passed into `analyze`.
 
 ```python
-p.analyze('CFG', fail_fast=True)
+b.analyses.CFG(fail_fast=True)
 ```
 
 ## Creating Analyses
@@ -183,7 +182,9 @@ Of course, it's not useful, but what can you do?
 Let's see how to call:
 
 ```python
-mock = p.analyze('MockAnalysis', 'this is my option')
+# you will have to reinitialize the project to access the new class
+b = angr.Project("path/to/bin")
+mock = b.analyses.MockAnalysis('this is my option')
 assert mock.option == 'this is my option'
 ```
 
@@ -198,11 +199,11 @@ class FunctionBlockAverage(angr.Analysis):
 	__name__ = 'FuncSize'
 
 	def __init__(self):
-		self._cfg = self._p.analyze('CFG')
-		self.avg = len(self._cfg.nodes) / len(self._cfg.function_manager.functions)
+		self._cfg = self._p.analyses.CFG()
+		self.avg = len(self._cfg.nodes()) / len(self._cfg.function_manager.functions)
 ```
 
-After this, you can call this analysis using it's specified name. For example, `p.analyze('FuncSize')`.
+After this, you can call this analysis using it's specified name. For example, `b.analyses.FuncSize()`.
 
 ### Analysis Resilience
 
@@ -217,7 +218,7 @@ Here's an example:
 ```python
 class ComplexFunctionAnalysis(angr.Analysis):
 	def __init__(self):
-		self._cfg = self._p.analyze('CFG')
+		self._cfg = self._p.analyses.CFG()
 		self.results = { }
 		for addr,func in self._cfg.function_manager.functions.items():
 			with self._resilience():
@@ -257,8 +258,11 @@ def block_counter(project, deps, fail_fast, min_addr=0, max_addr=0xffffffff):
 # register the analysis
 angr.registered_analyses['blocks'] = block_counter
 
+# reinitialize the project
+b = angr.Project("/path/to/bin")
+
 # and run them!
-p.analyze('block_counter', min_addr=0x100, max_addr=0x400000)
+b.analyses.blocks(min_addr=0x100, max_addr=0x400000)
 ```
 
 However, this doesn't provide any resilience and so forth.
