@@ -162,7 +162,7 @@ However, you might want to run an analysis in "fail fast" mode, so that errors a
 To do this, the `fail_fast` keyword argument can be passed into `analyze`.
 
 ```python
-p.analyze('CFG', fail_fast=True)
+b.analyses.CFG(fail_fast=True)
 ```
 
 ## Creating Analyses
