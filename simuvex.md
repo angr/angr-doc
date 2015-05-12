@@ -258,23 +258,25 @@ These events expose different attributes:
 | mem_write         | mem_write_address  | BP_BEFORE or BP_AFTER  | The address at which memory is being written. |
 | mem_write         | mem_write_length   | BP_BEFORE or BP_AFTER  | The length of the memory write. |
 | mem_write         | mem_write_expr     | BP_BEFORE or BP_AFTER  | The expression that is being written. |
-| reg_read          | reg_read_address   | BP_BEFORE or BP_AFTER  | The offset of the register being read. |
+| reg_read          | reg_read_offset    | BP_BEFORE or BP_AFTER  | The offset of the register being read. |
 | reg_read          | reg_read_length    | BP_BEFORE or BP_AFTER  | The length of the register read. |
 | reg_read          | reg_read_expr      | BP_AFTER               | The expression in the register. |
-| reg_write         | reg_write_address  | BP_BEFORE or BP_AFTER  | The offset of the register being written. |
+| reg_write         | reg_write_offset   | BP_BEFORE or BP_AFTER  | The offset of the register being written. |
 | reg_write         | reg_write_length   | BP_BEFORE or BP_AFTER  | The length of the register write. |
 | reg_write         | reg_write_expr     | BP_BEFORE or BP_AFTER  | The expression that is being written. |
-| tmp_read          | tmp_read_address   | BP_BEFORE or BP_AFTER  | The number of the temp being read. |
+| tmp_read          | tmp_read_num       | BP_BEFORE or BP_AFTER  | The number of the temp being read. |
 | tmp_read          | tmp_read_expr      | BP_AFTER               | The expression of the temp. |
-| tmp_write         | tmp_write_address  | BP_BEFORE or BP_AFTER  | The number of the temp written. |
+| tmp_write         | tmp_write_num      | BP_BEFORE or BP_AFTER  | The number of the temp written. |
 | tmp_write         | tmp_write_expr     | BP_AFTER               | The expression written to the temp. |
 | expr              | expr               | BP_AFTER               | The value of the expression. |
 | statement         | statement          | BP_BEFORE or BP_AFTER  | The index of the IR statement (in the IR basic block). |
 | instruction       | instruction        | BP_BEFORE or BP_AFTER  | The address of the native instruction. |
 | irsb              | address            | BP_BEFORE or BP_AFTER  | The address of the basic block. |
 | constraints       | added_constrints   | BP_BEFORE or BP_AFTER  | The list of contraint expressions being added. |
+| call              | function_name      | BP_BEFORE or BP_AFTER  | The name of the function being called. |
 | exit              | exit_target        | BP_BEFORE or BP_AFTER  | The expression representing the target of a SimExit. |
 | exit              | exit_guard         | BP_BEFORE or BP_AFTER  | The expression representing the guard of a SimExit. |
+| exit              | jumpkind           | BP_BEFORE or BP_AFTER  | The expression representing the kind of SimExit. |
 | exit              | backtrace          | BP_AFTER               | A list of basic block addresses that were executed in this state's history. |
 | symbolic_variable | symbolic_name      | BP_BEFORE or BP_AFTER  | The name of the symbolic variable being created. The solver engine might modify this name (by appending a unique ID and length). Check the symbolic_expr for the final symbolic expression. |
 | symbolic_variable | symbolic_size      | BP_BEFORE or BP_AFTER  | The size of the symbolic variable being created. |
