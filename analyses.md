@@ -218,7 +218,7 @@ Here's an example:
 ```python
 class ComplexFunctionAnalysis(angr.Analysis):
 	def __init__(self):
-		self._cfg = self._p.analyze('CFG')
+		self._cfg = self._p.analyses.CFG()
 		self.results = { }
 		for addr,func in self._cfg.function_manager.functions.items():
 			with self._resilience():
