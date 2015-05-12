@@ -112,11 +112,11 @@ Due to context sensitivity, a given basic block can have multiple nodes in the g
 food_node = cfg.get_any_node(0xf00d)
 
 # on the other hand, this grabs all of the nodes
-print "There were %d contexts for the 0xf00d block" % len(cfg.get_any_node(0xf00d))
+print "There were %d contexts for the 0xf00d block" % len(cfg.get_all_nodes(0xf00d))
 
 # if keep_input_states was given as True, we can also retrieve the actual SimIRSBs
 print "A single SimIRSB at 0xf00d:", cfg.get_any_irsb(0xf00d)
-print "All SimIRSBs at 0xf00d:", cfg.get_all_irsb(0xf00d)
+print "All SimIRSBs at 0xf00d:", cfg.get_all_irsbs(0xf00d)
 
 # we can also look up predecessors and successors
 print "Predecessors of 0xf00d:" [ node.addr for node in cfg.get_predecessors(food_node) ]
@@ -127,7 +127,6 @@ print "Successors (and type of jump) of 0xf00d:" [ jumpkind + " to " + str(node.
 ## Function Manager
 
 TODO
-
 
 ### VFG
 
