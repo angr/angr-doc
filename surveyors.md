@@ -8,7 +8,7 @@ The `Surveyor` class is not meant to be used directly.
 Rather, it should be subclassed by developers to implement their own analyses.
 That being said, the most common symbolic analysis (i.e., "explore from A to B, trying to avoid C") has already been implemented in the `Explorer` class.
 
-### Explorer
+## Explorer
 
 `angr.surveyors.Explorer` is a `Surveyor` subclass that implements symbolic exploration.
 It can be told where to start, where to go, what to avoid, and what paths to stick to.
@@ -25,7 +25,7 @@ b = angr.Project("/home/angr/angr/angr/tests/blob/x86_64/fauxware")
 # This involves creating a default state using `Project.initial_state`.
 # A custom SimExit, with a custom state, can be provided via the optional
 # "start" parameter, or a list of them via the optional "starts" parameter.
-e = b.survey('Explorer')
+e = b.surveyors.Explorer()
 
 # Now we can take a few steps! Printing an Explorer will tell you how
 # many active paths it currently has.
@@ -43,7 +43,7 @@ e.run()
 # We can see which paths are active (running), and which have deadended
 # (i.e., provided no valid exits), and which have errored out. Note that,
 # in some instances, a given path could be in multiple lists (i.e., if it
-# erroed out *and* did not produce any valid exits)
+# errored out *and* did not produce any valid exits)
 print "%d paths are still running" % len(e.active)
 print "%d paths are backgrounded due to lack of resources" % len(e.spilled)
 print "%d paths are suspended due to user action" % len(e.suspended)
@@ -52,14 +52,14 @@ print "%d paths deadended" % len(e.deadended)
 ```
 
 So far, everything we have discussed applies to all `Surveyors`.
-Hoever, the nice thing about an Explorer is that you can tell it to search for, or avoid certain blocks.
+However, the nice thing about an Explorer is that you can tell it to search for, or avoid certain blocks.
 For example, in the `fauxware` sample, we can try to find the "authentication success" function while avoiding the "authentication failed" function.
 
-```
+```python
 # This creates an Exporer that tries to find 0x4006ed (successful auth),
 # while avoiding 0x4006fd (failed auth) or 0x4006aa (the authentication
 # routine). In essense, we are looking for a backdoor.
-e = b.survey('Explorer', find=(0x4006ed,), avoid=(0x4006aa,0x4006fd))
+e = b.surveyors.Explorer(find=(0x4006ed,), avoid=(0x4006aa,0x4006fd))
 e.run()
 
 # Print our found backdoor, and how many paths we avoided!
@@ -71,11 +71,47 @@ print "Avoided %d paths", len(e.avoided)
 Some helper properties are provided for easier access to paths from ipython:
 
 ```python
-print "The first found path is", b._f
-print "The first active path is", b._a
+print "The first found path is", e._f
+print "The first active path is", e._a
 ```
 
-### Interrupting Surveyors
+## Caller
+
+The `Caller` is a surveyor that handles calling functions to make it easier to figure out what the heck they do.
+It can be used as so:
+
+```python
+# load fauxware
+b = angr.Project("/home/angr/angr/angr/tests/blob/x86_64/fauxware")
+
+# get the state ready, and grab our username and password symbolic expressions for later
+# checking. Here, we'll cheat a bit since we know that username and password should both
+# be 8 chars long
+p = b.path_generator.blank_path()
+username = p.state.mem_expr(0x1000, 9);
+password = p.state.mem_expr(0x2000, 9);
+
+# call the authenticate function with *username being 0x1000 and *password being 0x2000
+c = b.surveyors.Caller(0x400664, (0x1000,0x2000), start=p)
+
+# look at the different paths that can return. This should print 3 paths:
+print tuple(c.iter_returns())
+
+# two of those paths return 1 (authenticated):
+print tuple(c.iter_returns(solution=1))
+
+# now let's see the required username and password to reach that point. `c.map_se`
+# calls state.se.any_n_str (or whatever other function is provided) for the provided
+# arguments, on each return state. This example runs state.se.any_n_str(credentials, 10)
+credentials = username.concat(password)
+tuple(c.map_se('any_n_str', credentials, 10, solution=1))
+
+# you can see the secret password "SOSNEAKY" in the first tuple!
+```
+
+Caller is a pretty powerful tool. Check out the comments on the various functions for more usage info!
+
+## Interrupting Surveyors
 
 A surveyor saves its internal state after every tick.
 In ipython, you should be able to interrupt a surveyor with `Ctrl-C`, and then check what results it has so far, but that's a pretty ugly way of doing it.
@@ -85,7 +121,7 @@ If you send `SIGUSR1` to a python process running a surveyor, it causes the main
 You can then analyze the result.
 To continue running the surveyor, call `angr.surveyor.resume_analyses()` (to clear the "signalled" flag) and then call the surveyor's `run()` function.
 Since `SIGUSR1` causes `run()` to return, this is rarely useful in a scripted analysis, as the rest of the program will run after `run()` returns.
-Instead, `SIGUSR1` is meant to provide an clean alternative to `Ctrl-C`.
+Instead, `SIGUSR1` is meant to provide a clean alternative to `Ctrl-C`.
 
 Sending SIGUSR2 to the python process, on the other hand, causes `run()` to invoke an `ipdb` breakpoint after every `step()`.
 This allows you to debug, then continue your program.

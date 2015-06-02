@@ -46,7 +46,7 @@ assert len(p.actions) == 0
 Of course, we can't be stuck at the entry point forever.
 We can look at the `successors` of a path to see where the program goes after this point.
 Most of the time, a path will have two successors (i.e., the program branched and there are two possible ways forward with execution).
-Sometimes, as in the case of unconditional calls, unconditional jumps, or conditional jumps and calls whose condition is always true or always false, a path will have just one successors.
+Sometimes, as in the case of unconditional calls, unconditional jumps, or conditional jumps and calls whose condition is always true or always false, a path will have just one successor.
 Other times, it will have more than two, such as in the case of a jump table.
 
 ```python
@@ -141,7 +141,7 @@ For example, you might be interested in what a specific part of a function does,
 To handle this, we allow the creation of a path at any point in the program:
 
 ```python
-p = b.path_generator.blank_path(addr=0x800f000)
+p = b.path_generator.blank_path(address=0x800f000)
 
 assert p.addr == 0x800f000
 ```
@@ -154,13 +154,13 @@ We'll explore what this means, and its implications, in future sections.
 Additionally, we can create a path with a custom state.
 
 ```python
-p = b.path_generator.blank_path(addr=0x800f000, state=some_other_state)
+p = b.path_generator.blank_path(address=0x800f000, state=some_other_state)
 ```
 
 ## Semantic Actions
 
 SimuVEX exposes the actions of a basic blocks through the concept of "actions".
-An action has an associated `region` (i.e., "mem" for memory, "reg" for registers, "tmp" for temps), and type of action ("read", "write").
+An action has an associated `type` (i.e., "mem" for memory, "reg" for registers, "tmp" for temps), and `action` ("read", "write").
 
 Here is an example interaction with the actions:
 
@@ -168,7 +168,7 @@ Here is an example interaction with the actions:
 p = b.path_generator.entry_point().successors[0]
 
 for a in p.last_actions:
-	if a.region == 'mem':
+	if a.type == 'mem':
 		print "Memory write to", a.addr.ast
 		print "... address depends on registers", a.addr.reg_deps, "and temps", a.addr.tmp_deps
 		print "... data is:", a.data.ast
@@ -177,8 +177,8 @@ for a in p.last_actions:
 			print "... condition is:", a.condition.ast
 			if a.fallback is not None:
 			print "... alternate write in case of condition fail:", a.fallback.ast
-	elif a.region == 'reg':
-		print 'Register write to registerfile offset', a.offset.ast
-	elif a.region == 'tmp':
-		print 'Tmp write to tmp', a.tmp.ast
+	elif a.type == 'reg':
+		print 'Register write to registerfile offset', a.offset
+	elif a.type == 'tmp':
+		print 'Tmp write to tmp', a.tmp
 ```

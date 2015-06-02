@@ -58,10 +58,10 @@ assert c.is_identical(b.reversed, c.BVV(0x44434241, 32))
 assert b.reversed.reversed is b
 
 # Depth - you can get the depth of the AST
-assert b.depth == 1
+assert b.depth == 0
 x = c.BV('x', 32)
-assert (x+b).depth == 2
-assert ((x+b)/10).depth == 3
+assert (x+b).depth == 1
+assert ((x+b)/10).depth == 2
 
 # If you want to interact with the underlying object, you can call '.model'.
 # Note that, when symbolic variables are involved, this might *still* return an
@@ -94,7 +94,7 @@ In general, Claripy supports all of the normal python operations (+, -, |, ==, e
 
 | Name | Description | Example |
 |------|-------------|---------|
-| LShR | Logically shifts an bit expression (BVV, BV, SI) to the right. | `c.LShR(x, 10)` |
+| LShR | Logically shifts a bit expression (BVV, BV, SI) to the right. | `c.LShR(x, 10)` |
 | SignExt | Sign-extends a bit expression. | `c.SignExt(32, x)` or `x.sign_extend(32)` |
 | ZeroExt | Zero-extends a bit expression. | `c.ZeroExt(32, x)` or `x.zero_extend(32)` |
 | Extract | Extracts the given bits (zero-indexed from the *right*, inclusive) from a bit expression. | Extract the rightmost byte of x: `c.Extract(7, 0, x)` or `x[7:0]` |
@@ -112,7 +112,7 @@ In general, Claripy supports all of the normal python operations (+, -, |, ==, e
 | UGE | Unsigned greater than or equal to. | Check if x is greater than or equal to y: `c.UGE(x, y)` |
 | UGT | Unsigned greater than. | Check if x is greater than y: `c.UGT(x, y)` |
 
-**NOTE:** The default python `>`, `<`, `>=`, and `<=` are unsigned in Claripy, to reflect their behavior in Z3. You will most likely want to use the unsigned operations, instead.
+**NOTE:** The default python `>`, `<`, `>=`, and `<=` are signed in Claripy, to reflect their behavior in Z3. You will most likely want to use the unsigned operations, instead.
 
 ## Claripy Solvers
 
@@ -121,21 +121,20 @@ Claripy performs constraint solving, via Z3, through the claripy.Solver class. T
 ```python
 # create the solver and an expression
 c = claripy.Claripies['SerialZ3']
-s = c.Solver()
+s = c.solver()
 x = c.BV('x', 8)
 
 # now let's add a constraint on x
-s.add(c.ULT(x, 5))
+s.add(c.ULT(x, 5)) 
 
-# this returns up to 10 solutions, but the constraints we've added keep it down to 5
-assert sorted(s.eval(x, 10)) == (0, 1, 2, 3, 4)
+assert sorted(s.eval(x, 10)) == [0, 1, 2, 3, 4]
 assert s.max(x) == 4
 assert s.min(x) == 0
 
 # we can also get the values of complex expressions
 y = c.BVV(65, 8)
-z = c.If(x == 1, y, x)
-assert sorted(s.eval(z, 10)) == (1, 65)
+z = c.If(x == 1, x, y)
+assert sorted(s.eval(z, 10)) == [1, 65] 
 
 # and, of course, we can add constraints on complex expressions
 s.add(z % 5 != 0)
@@ -162,7 +161,7 @@ This function receives a claripy.A and should return an object that the backend 
 Backends should also implement a _convert() method, which will receive anything that is *not* a claripy.A object (i.e., an integer or an object from a different backend).
 If convert() or _convert() receives something that the backend can't translate to a format that is usable internally, the backend should raise BackendError, and thus won't be used for that object.
 
-Claripy contract with its backends is as follows: backends should be able to can handle, in their private functions, any object that they return from their private *or* public functions.
+Claripy's contract with its backends is as follows: backends should be able to handle, in their private functions, any object that they return from their private *or* public functions.
 Likewise, Claripy will never pass an object to any backend private function that did not originate as a return value from a private or public function of that backend.
 One exception to this is _convert(), as Claripy can try to stuff anything it feels like into _convert() to see if the backend can handle that type of object.
  

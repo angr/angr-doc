@@ -3,18 +3,20 @@ The Cloud
 Angr is a very powerful tool however it also needs quite some processing power.
 To make the developer's live easier, a class for executing analyses on multiple binaries at the same time in the cloud is included. Usage is discussed below.
 
-Celery
+Install
 -------------
-Angr uses [Celery](http://www.celeryproject.org/) as the framework for everything cloud. 
-On whatever Docker instance you want to run the cloud on, you'll have to start a docker worker, somehow along the lines of
+Currently the largescale class is not installed in the docker container by default.
+To add it, simply checkout 
 ```
-celery -A largescale worker -c10 --loglevel=INFO --autoreload
+git@git.seclab.cs.ucsb.edu:angr/largescale.git
 ```
-With -c being the number of workers and autoreload helping to import updated files automatically. (You'll still need to git pull eventually.)
+and either run ipython from inside this folder or symlink it to python's lib path.
+Importing angr should now automatically pick it up and the startup info should be gone.
+
 
 Loading binaries
 -------------
-As soon as you got some workers running, you can run Orgies. The interface is similar to that of a Project.
+The interface to Orgies is almost the same as that of a Project.
 
 Run `o = angr.Orgy('<list of binaries')` to load binaries you want to run the analyses on. You can pass in the same parameters as in a Project, for example to resolve all dependent libraries you can use 
 ```python
@@ -27,10 +29,14 @@ o = angr.Orgy('/home/angr/searchme', recursieve=True)
 ```
 (Note that you don't have to pass a list, a single item works as well)
 
+Be careful:
+Local binaries will currently _not_ be transmitted to the cloud, only the path will be. So make sure you are using the path to a shared folder that is avaliable in the vlan 151. (Ideally on the trashcan)
+Also you need to have the latest version of your local source code checked in into git, the script will make the cloud nodes to update to the same revision.
+
 Load Options
 -------------
 You can pass the same options to Orgy as you would normally pass to Project.
-If you want to pass different load options to different binaries it's possible using `bin_specific_options` or easier by creating multiple Orgies and then `Orgy.merge` them together.
+If you want to pass different load options to different binaries it's possible using `bin_specific_options` or, easier, by creating multiple Orgies and then `Orgy.merge`ing them together.
 ```python
 orgies = []
 for filename, path, root in firmwares:
@@ -49,7 +55,7 @@ You can pass the analyses all the same parameters as you're used to from Project
 for ar in o.analyses.CFG():
 	print ar.result  # Currently nothing to see here.
 ```
-At the time of writing, no Analyses return results, you may still have to write a wrapper for it...
+At the time of writing, not all Analyses return results, you may want to write a wrapper for it.
 
 Multi
 -------------
@@ -65,3 +71,29 @@ for result in m.execute():
 	print "%s finished: %s" % (ar.job.analysis, ar.result)
 ```
 You can pass any analysis all the same parameters as they accept using the normal Project p.analyses.
+
+All analyses for one binary will run in the same project sequentially.
+
+Advanced
+-------------
+-------------
+This is for everybody that wants to mess with cloud nodes and workers.
+
+Celery
+-------------
+Angr uses [Celery](http://www.celeryproject.org/) as the framework for everything cloud. 
+On every cloudnode you'll have to start a docker worker with a single thread. 
+This can be done using
+```
+celery -A angr.largescale.orgy worker -c1
+```
+
+The Cloud Setup
+-------------
+Currently, the cloud nodes operate on VLAN151.
+They have internet access (currently needed for docker's install) over a caching squid3 proxy on the trashcan (10.151.0.1).
+For celery, a mongodb runs on the trashcan and the rabbitmq queue runs on herrington, 10.151.0.9 (on port 5671 with SSL).
+The cloud scripts will try to access git, so they need to have all important git certs set. Have a look at the script on
+https://git.seclab.cs.ucsb.edu/gitlab/angr/largescale/blob/master/largescale/bootstrap_cloud.sh
+
+(In addition, the ip addresses in celery_config for workers need to be adopted to the ips in the vlan)
