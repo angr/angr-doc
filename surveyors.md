@@ -88,8 +88,8 @@ b = angr.Project("/home/angr/angr/angr/tests/blob/x86_64/fauxware")
 # checking. Here, we'll cheat a bit since we know that username and password should both
 # be 8 chars long
 p = b.path_generator.blank_path()
-username = p.state.mem_expr(0x1000, 9);
-password = p.state.mem_expr(0x2000, 9);
+username = p.state.memory.load(0x1000, 9)
+password = p.state.memory.load(0x2000, 9)
 
 # call the authenticate function with *username being 0x1000 and *password being 0x2000
 c = b.surveyors.Caller(0x400664, (0x1000,0x2000), start=p)
