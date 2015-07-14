@@ -301,7 +301,7 @@ Cool stuff! In fact, we can even specify a function as a condition:
 # this is a complex condition that could do anything! In this case, it makes sure that RAX is 0x41414141 and
 # that the basic block starting at 0x8004 was executed sometime in this path's history
 def cond(state):
-    return state.any_str(state.reg_expr('rax')) == 'AAAA' and 0x8004 in state.inspect.backtrace
+    return state.any_str(state.regs.rax) == 'AAAA' and 0x8004 in state.inspect.backtrace
 s.inspect.b('mem_write', condition=cond)
 ```
 

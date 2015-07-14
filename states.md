@@ -9,13 +9,13 @@ The "initial" state of program execution (i.e., the state at the entry point) is
 s = b.state_generator.blank_state()
 
 # we can access the memory of the state here
-print "The first 5 bytes of the binary are:", s.mem_expr(b.min_addr, 5)
+print "The first 5 bytes of the binary are:", s.memory.load(b.min_addr, 5)
 
 # and the registers, of course
-print "The stack pointer starts out as:", s.reg_expr('sp')
+print "The stack pointer starts out as:", s.regs.sp
 
 # and the temps, although these are currently empty
-print "This will throw an exception because there is no VEX temp t0, yet:", s.tmp_expr(0)
+print "This will throw an exception because there is no VEX temp t0, yet:", s.scratch.tmp_expr(0)
 ```
 
 ## Accessing Data
@@ -24,10 +24,10 @@ The data that's stored in the state (i.e., data in registers, memory, temps, etc
 
 ```python
 # get the integer value of the content of rax:
-print s.se.any_int(s.reg_expr('rax'))
+print s.se.any_int(s.regs.rax)
 
 # or, the string value of the 10 bytes stored at 0x1000
-print s.se.any_str(s.mem_expr(0x1000, 10))
+print s.se.any_str(s.memory.load(0x1000, 10))
 ```
 
 Here, `s.se` is the *solver engine* of the state, which we'll talk about later.
@@ -53,11 +53,11 @@ aaaa = s.se.Concat(aaaa, aaaa)
 
 # this can then be stored in memory or registers. Since the bitvector
 # has a length, only the address to store it at is required
-s.store_reg('rax', aaaa)
-s.store_mem(0x1000, aaaa)
+s.regs.rax = aaaa
+s.memory.store(0x1000, aaaa)
 
 # of course, you can address memory using expressions as well
-s.store_mem(s.reg_expr('rax'), aaaa)
+s.memory.store(s.regs.rax, aaaa)
 ```
 
 For contenience, there are special accessor functions stack operations:
@@ -78,8 +78,8 @@ A state supports very fast copies, so that you can explore different possibiliti
 s1 = s.copy()
 s2 = s.copy()
 
-s1.store_mem(0x1000, s1.BVV("AAAA"))
-s2.store_mem(0x1000, s2.BVV("BBBB"))
+s1.memory.store(0x1000, s1.BVV("AAAA"))
+s2.memory.store(0x1000, s2.BVV("BBBB"))
 ```
 
 States can also be merged together.
@@ -91,7 +91,7 @@ States can also be merged together.
 (s_merged, m, anything_merged) = s1.merge(s2)
 
 # this is now an expression that can resolve to "AAAA" *or* "BBBB"
-aaaa_or_bbbb = s_merged.mem_expr(0x1000, 4)
+aaaa_or_bbbb = s_merged.memory.load(0x1000, 4)
 ```
 
 This is where we truly start to enter the realm of symbolic expressions. In the above example, the value of `aaaa_or_bbbb` can be, as it implies, either "AAAA" or "BBBB".
@@ -146,7 +146,7 @@ As you can see, symbolic and concrete expressions are pretty interchangeable, wh
 
 ```python
 # Try it!
-m = s.mem_expr(0xbbbb0000, 8)
+m = s.memory.load(0xbbbb0000, 8)
 
 # The result is symbolic
 assert s.se.symbolic(m)
@@ -209,7 +209,7 @@ Symbolic expressions would be pretty boring on their own. After all, the last fe
 s3 = s.copy()
 
 # Let's read some previously untouched section of memory to get a symbolic expression
-m = s.mem_expr(0xbbbb0000, 1)
+m = s.memory.load(0xbbbb0000, 1)
 
 # We can verify that *any* solution would do
 assert s3.se.solution(m, 0)
