@@ -26,7 +26,15 @@ We've tried to make life easier by providing this documentation, split into seve
 ## Installing angr
 
 Before angr can be used, it must be installed.
-The process is detailed [here](https://git.seclab.cs.ucsb.edu/gitlab/angr/angr-docker/blob/master/README.md).
+Ideally, you should just be able to say `pip install angr`, but failing that, you should be
+able to install the following repositories (and the dependencies listed in their requirements.txt files)
+from http://github.com/angr:
+- angr
+- simuvex
+- claripy
+- cle
+- pyvex
+- archinfo
 
 ## Loading a Binary
 
