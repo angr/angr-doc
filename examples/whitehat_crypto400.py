@@ -21,7 +21,7 @@ angr.analyses.cfg.l.setLevel('WARNING')
 
 # load the binary
 print '[*] loading the binary'
-p = angr.Project("crypto400")
+p = angr.Project("whitehat_crypto400")
 
 # this is a statically-linked binary, and it's easer for angr if we use Python
 # summaries for the libc functions
@@ -80,8 +80,8 @@ possibilities = tuple(itertools.product(*possible_values))
 print '[*] example guess: %r' % ''.join(possibilities[0])
 print '[*] brute-forcing %d possibilities' % len(possibilities)
 for guess in progressbar.ProgressBar(widgets=[progressbar.Counter(), ' ', progressbar.Percentage(), ' ', progressbar.Bar(), ' ', progressbar.ETA()])(possibilities):
-    stdout,_ = subprocess.Popen(["./crypto400", ''.join(guess)], stdout=subprocess.PIPE, stderr=subprocess.STDOUT).communicate()
+    stdout,_ = subprocess.Popen(["./whitehat_crypto400", ''.join(guess)], stdout=subprocess.PIPE, stderr=subprocess.STDOUT).communicate()
     if 'FLAG IS' in stdout:
         print "[!!!] got it:",''.join(guess)
-        subprocess.call(["./crypto400", ''.join(guess)])
+        subprocess.call(["./whitehat_crypto400", ''.join(guess)])
         break
