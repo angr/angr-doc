@@ -6,10 +6,10 @@ The "initial" state of program execution (i.e., the state at the entry point) is
 
 ```python
 # let's get a blank state
-s = b.state_generator.blank_state()
+s = b.factory.blank_state()
 
 # we can access the memory of the state here
-print "The first 5 bytes of the binary are:", s.memory.load(b.min_addr, 5)
+print "The first 5 bytes of the binary are:", s.memory.load(b.loader.min_addr(), 5)
 
 # and the registers, of course
 print "The stack pointer starts out as:", s.regs.sp

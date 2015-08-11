@@ -39,6 +39,8 @@ Of course, there are several options for customized CFGs.
 | call_depth | Limit the depth of the analysis to some number calls. This is useful for checking which functions a specific function can directly jump to (by setting `call_depth` to 1).
 | initial_state | An initial state can be provided to the CFG, which it will use throughout its analysis. |
 | keep_input_state | To save memory, the state at each basic block is discarded by default. If `keep_input_state` is True, the state is saved in the CFGNode. |
+| enable_symbolic_back_traversal | Whether to enable an intensive technique for resolving indirect jumps |
+| enable_advanced_backward_slicing | Whether to enable another intensive technique for resolving direct jumps |
 
 ### Context Sensitivity Level
 
@@ -119,8 +121,8 @@ print "A single SimIRSB at 0xf00d:", cfg.get_any_irsb(0xf00d)
 print "All SimIRSBs at 0xf00d:", cfg.get_all_irsbs(0xf00d)
 
 # we can also look up predecessors and successors
-print "Predecessors of 0xf00d:" [ node.addr for node in cfg.get_predecessors(food_node) ]
-print "Successors of 0xf00d:" [ node.addr for node in cfg.get_successors(food_node) ]
+print "Predecessors of 0xf00d:" food_node.predecessors()
+print "Successors of 0xf00d:" food_node.successors()
 print "Successors (and type of jump) of 0xf00d:" [ jumpkind + " to " + str(node.addr) for node,jumpkind in cfg.get_successors_and_jumpkind(food_node) ]
 ```
 

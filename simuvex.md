@@ -213,7 +213,7 @@ Like any decent execution engine, SimuVEX supports breakpoints. This is pretty c
 # get our state
 import simuvex
 
-s = b.state_generator.entry_point()
+s = b.factory.entry_state()
 
 # add a breakpoint. This breakpoint will drop into ipdb right before a memory write happens.
 s.inspect.b('mem_write')

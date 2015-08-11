@@ -12,7 +12,7 @@ To create a blank path, do:
 b = angr.Project('tests/blob/x86_64/fauxware')
 
 # load the path
-p = b.path_generator.entry_point()
+p = b.factory.path()
 
 # this is the address that the path is *about to* execute
 assert p.addr == b.entry
@@ -43,13 +43,12 @@ assert len(p.actions) == 0
 
 ## Moving Forward
 
-Of course, we can't be stuck at the entry point forever.
-We can look at the `successors` of a path to see where the program goes after this point.
-Most of the time, a path will have two successors (i.e., the program branched and there are two possible ways forward with execution).
-Sometimes, as in the case of unconditional calls, unconditional jumps, or conditional jumps and calls whose condition is always true or always false, a path will have just one successor.
-Other times, it will have more than two, such as in the case of a jump table.
+Of course, we can't be stuck at the entry point forever. call `p.step()` to run the single block of symbolic execution.
+We can look at the `successors` of a path to see where the program goes after this point. `p.step()` also returns the successors if you'd like to chain calls.
+Most of the time, a path will have one or two successors. When there are two successors, it usually means the program branched and there are two possible ways forward with execution. Other times, it will have more than two, such as in the case of a jump table.
 
 ```python
+p.step()
 print "The path has", len(p.successors), "successors!"
 
 # each successor is a path, with its backtrace, events, etc
@@ -60,19 +59,13 @@ assert len(s.events) > 0
 assert len(s.actions) <= len(s.events)
 
 # and, of course, we can drill down further
-ss = s.successors[0].successors[0].successors[0]
+ss = s.step()[0].step()[0].step()[0]
 assert len(ss.addr_backtrace) == 4
 assert len(ss.events) > len(s.events)
 
 # we can also access the events and actions from just the last basic block
 assert len(ss.last_events) < len(ss.events)
 assert len(ss.last_actions) < len(ss.actions)
-
-# for easier tab completion in iPython, several shortcuts are provided for
-# accessing successors without having to index a list. The below example
-# accesses the fourth successor of the second successor of the first
-# successor of ss
-assert len(ss._s0._s1._s2._s3.addr_backtrace) == 8
 ```
 
 Part of the history of a path is the *types* of jumps that occur.
@@ -107,15 +100,16 @@ Truly understanding this requires concepts that will be explained in future sect
 For example, let's say that we have a branch:
 
 ```python
-p = b.path_generator.entry_point()
+p = b.factory.path()
+p.step()
 
 branched_left = p.successors[0]
 branched_right = p.successors[1]
 assert branched_left.addr != branched_right.addr
 
-after_branched_left = branched_left.successor[0]
-after_branched_right = branched_left.successor[0]
-assert branched_left.addr == branched_right.addr
+after_branched_left = branched_left.step()[0]
+after_branched_right = branched_right.step()[0]
+assert after_branched_left.addr == after_branched_right.addr
 
 # this will merge both branches into a single path. Values in memory and registers
 # will hold any possible values they could have held in either path.
@@ -127,7 +121,7 @@ assert merged.addr == branched_left.addr and merged.addr == branched_right.addr
 Paths can also be unmerged later.
 
 ```python
-merged_successor = merged.successors[0].successors[0]
+merged_successor = merged.step()[0].step()[0]
 unmerged_paths = merged_successor.unmerge()
 
 assert len(unmerged_paths) == 2
@@ -141,21 +135,14 @@ For example, you might be interested in what a specific part of a function does,
 To handle this, we allow the creation of a path at any point in the program:
 
 ```python
-p = b.path_generator.blank_path(address=0x800f000)
+st = b.factory.blank_state(addr=0x800f000)
+p = b.factory.path(st)
 
 assert p.addr == 0x800f000
 ```
 
 At this point, all memory, registers, and so forth of the path are blank.
 We'll explore what this means, and its implications, in future sections.
-
-## Custom States
-
-Additionally, we can create a path with a custom state.
-
-```python
-p = b.path_generator.blank_path(address=0x800f000, state=some_other_state)
-```
 
 ## Semantic Actions
 
@@ -165,7 +152,7 @@ An action has an associated `type` (i.e., "mem" for memory, "reg" for registers,
 Here is an example interaction with the actions:
 
 ```python
-p = b.path_generator.entry_point().successors[0]
+p = b.path_generator.entry_point().step()[0]
 
 for a in p.last_actions:
 	if a.type == 'mem':
