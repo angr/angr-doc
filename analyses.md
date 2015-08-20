@@ -126,6 +126,14 @@ print "Successors of 0xf00d:" food_node.successors()
 print "Successors (and type of jump) of 0xf00d:" [ jumpkind + " to " + str(node.addr) for node,jumpkind in cfg.get_successors_and_jumpkind(food_node) ]
 ```
 
+## Shared Libraries
+
+The CFG analysis does not distinguish between code from different binary objects.
+This means that by default, it will try to analyze control flow through loaded shared libraries.
+This is almost never intended behavior, since this will extend the analysis time to several days, probably.
+To load a binary without shared libraries, add the following keyword argument to the `Project` constructor:
+`load_options={'auto_load_libs': False}`
+
 ## Function Manager
 
 TODO
