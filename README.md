@@ -1,6 +1,6 @@
 # How to be angry
 
-This is a collection of documentation for angr. By reading this, you'll become and angr pro and will be able to fold binaries to your whim.
+This is a collection of documentation for angr. By reading this, you'll become an angr pro and will be able to fold binaries to your whim.
 
 # What is angr?
 
