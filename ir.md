@@ -54,7 +54,7 @@ Becomes this VEX IR:
 	PUT(16) = t3
 	PUT(68) = 0x59FC8:I32
 
-We use a library called PyVEX (https://git.seclab.cs.ucsb.edu/gitlab/angr/pyvex) that exposes VEX into Python. In addition, PyVEX implements its own pretty-printing so that it can show register names instead of register offsets in PUT and GET instructions. Now that you understand VEX, you can actually play with some VEX in angr:
+We use a library called PyVEX (https://github.com/angr/pyvex) that exposes VEX into Python. In addition, PyVEX implements its own pretty-printing so that it can show register names instead of register offsets in PUT and GET instructions. Now that you understand VEX, you can actually play with some VEX in angr:
 
 ```python
 b = angr.Project("...")
