@@ -45,7 +45,7 @@ print b.loader.memory[b.loader.min_addr()]
 print b.loader.main_bin
 
 # this retrieves the binary object which maps memory at the specified address
-print b.loader.addr_belongs_to_object(b.max_addr)
+print b.loader.addr_belongs_to_object(b.loader.max_addr())
 
 # Get the address of the GOT slot for a symbol (in the main binary)
 print b.loader.find_symbol_got_entry(symbol)
@@ -63,7 +63,7 @@ print b.loader.main_bin.deps
 print b.loader.main_bin.memory
 
 # this is a dict (name->ELFRelocation) of imports required by the libc which was loaded
-b.ld.shared_objects['libc.so.6'].imports
+b.loader.main_bin.imports
 
 # this is a dict (name->ELFRelocation) of imports of the main binary, where addr is usually 0 (see the misc section below).
 print b.ld.main_bin.imports
@@ -163,7 +163,7 @@ load_options['lib_opts'] = {'libc.so.6': {'backend': 'elf'}}
 ```
 
 Now that you have loaded a binary.
-Interesting information about the binary is now accessible in ```p.main_binary```, for example deps, the list of imported libs, memory, symbols and others. 
+Interesting information about the binary is now accessible in ```b.loader.main_bin```, for example deps, the list of imported libs, memory, symbols and others. 
 Make heavy use of the tabbing feature of ipython to see available functions and options here.
 
 Now it's time to look at the [IR support](./ir.md)
@@ -179,7 +179,7 @@ Whether you are after a PLT or GOT entry depends on the architecture. Architectu
 
 For more details about Elf loading and architecture specific details, check the [Executable and linkable format document](http://www.cs.northwestern.edu/~pdinda/icsclass/doc/elf.pdf) as well as the ABI supplements for each architecture ([MIPS](http://math-atlas.sourceforge.net/devel/assembly/mipsabi32.pdf), [PPC64](http://math-atlas.sourceforge.net/devel/assembly/PPC-elf64abi-1.7.pdf), [AMD64](http://www.x86-64.org/documentation/abi.pdf))..
 ```python
-rel = b.main_bin.jmprel
+rel = b.loader.main_bin.jmprel
 ```
 
 ### Symbolic analysis: stepping into functions
