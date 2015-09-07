@@ -60,7 +60,7 @@ We use a library called PyVEX (https://github.com/angr/pyvex) that exposes VEX i
 b = angr.Project("...")
 
 # translate a basic block starting at an address
-irsb = b.block(0x4000A00)
+irsb = b.factory.block(0x4000A00)
 
 # pretty-print the basic block
 irsb.pp()
