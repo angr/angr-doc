@@ -1,6 +1,6 @@
 # Intermediate Representation
 
-Because angr deals with widely diverse architectures, it must carry out its analysis on an intermediate representation. The IR abstracts away several architecture differences when dealing with different architectures, allowing a single analysis to be run on all of them:
+Because angr deals with widely diverse architectures, it must carry out its analysis on an intermediate representation. We use Valgrind's IR, "VEX", for this. The VEX IR abstracts away several architecture differences when dealing with different architectures, allowing a single analysis to be run on all of them:
 
 - **Register names.** The quantity and names of registers differ between architectures, but modern CPU designs hold to a common theme: each CPU contains several general purpose registers, a register to hold the stack pointer, a set of registers to store condition flags, and so forth. The IR provides a consistent, abstracted interface to registers on different platforms. Specifically, VEX models the registers as a separate memory space, with integer offsets (i.e., AMD64's `rax` is stored starting at address 16 in this memory space).
 - **Memory access.** Different architectures access memory in different ways. For example, ARM can access memory in both little-endian and big-endian modes. The IR must abstracts away these differences.
@@ -54,13 +54,17 @@ Becomes this VEX IR:
 	PUT(16) = t3
 	PUT(68) = 0x59FC8:I32
 
-We use a library called PyVEX (https://github.com/angr/pyvex) that exposes VEX into Python. In addition, PyVEX implements its own pretty-printing so that it can show register names instead of register offsets in PUT and GET instructions. Now that you understand VEX, you can actually play with some VEX in angr:
+Now that you understand VEX, you can actually play with some VEX in angr: We use a library called PyVEX (https://github.com/angr/pyvex) that exposes VEX into Python. In addition, PyVEX implements its own pretty-printing so that it can show register names instead of register offsets in PUT and GET instructions.
+
+PyVEX is accessable through angr through the `Project.factory.block` interface. There are many different representations you could use to access syntactic properties of a block of code, but they all have in common the trait of analyzing a particular sequence of bytes. Through the `factory.block` constructor, you get a `Block` object that can be easily turned into several different representations. Try `.vex` for a PyVEX IRSB, or `.capstone` for a Capstone block.
+
+Let's play with PyVEX:
 
 ```python
 b = angr.Project("...")
 
 # translate a basic block starting at an address
-irsb = b.factory.block(0x4000A00)
+irsb = b.factory.block(0x4000A00).vex
 
 # pretty-print the basic block
 irsb.pp()
