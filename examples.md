@@ -39,6 +39,12 @@ Author: Andrew Dutcher (github: @rhelmot)
 We solved this simple reversing challenge with angr, since we were too lazy to reverse it or run it in Windows.
 The resulting [script](./examples/mma_howtouse/howtouse.py) shows how we grabbed the flag out of the [DLL](./examples/mma_howtouse/howtouse.dll).
 
+## ReverseMe example: FlareOn 2015 - Challenge 2
+
+Author: Chris Salls (github: @salls)
+
+This [reversing challenge](./examples/flareon2015_2/very_success) is simple to solve almost entirely with angr, and a lot faster than trying to reverse the password checking function. The script is [here](./examples/flareon2015_2/flareon-solution-2.py)
+
 ## ReverseMe example: FlareOn 2015 - Challenge 10
 
 Author: Fish Wang (github: @ltfish)
@@ -50,10 +56,3 @@ The [script](./examples/flareon2015_10/flareon-solution-10.py) demonstrates how 
 It also shows how to read bytes out of memory and decode as a string.
 
 By the way, here is the [link](https://www.fireeye.com/content/dam/fireeye-www/global/en/blog/threat-research/flareon/2015solution10.pdf) to the intended solution from FireEye.
-
-## ReverseMe example: FlareOn 2015 - Challenge 2
-
-Author: Chris Salls (github: @salls)
-
-This [reversing challenge](./examples/flareon2015_2/very_success) is simple to solve almost entirely with angr, and a lot faster than trying to reverse the password checking function. The script is [here](./examples/flareon2015_2/flareon-solution-2.py)
-
