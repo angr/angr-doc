@@ -55,5 +55,5 @@ By the way, here is the [link](https://www.fireeye.com/content/dam/fireeye-www/g
 
 Author: Chris Salls (github: @salls)
 
-This reversing challenge [here](./examples/flareon2015-2/very_success) is simple to solve almost entirely with angr [script](./examples/flareon2015_2/flareon-solution-2.py), and a lot faster than trying to reverse the password checking function.
+This [reversing challenge](./examples/flareon2015_2/very_success) is simple to solve almost entirely with angr, and a lot faster than trying to reverse the password checking function. The script is [here](./examples/flareon2015_2/flareon-solution-2.py)
 
