@@ -29,7 +29,7 @@ The solving script demonstrates the following:
 Author: Chris Salls (github: @salls)
 
 This crackme is 95% solveable with angr, but we did have to overcome some difficulties.
-The [script](./examples/mma_simplehash/simplehash.py) describes the difficulties that were encountered and how we worked around them.
+The [script](./examples/mma_simplehash/mma_simplehash.py) describes the difficulties that were encountered and how we worked around them.
 The binary can be found [here](./examples/mma_simplehash/simple_hash).
 
 ## Reverseme example: MMA CTF 2015 - HowToUse
