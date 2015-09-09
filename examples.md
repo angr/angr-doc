@@ -1,6 +1,8 @@
 # angr examples
 
-To help you get started with angr, we've created several examples.
+To help you get started with [angr](https://github.com/angr/angr), we've created several examples.
+These mostly stem from CTF problems solved with angr by Shellphish.
+Enjoy!
 
 ## CrackMe example: Whitehat CTF 2015 - Crypto 400
 
