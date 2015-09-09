@@ -51,3 +51,9 @@ It also shows how to read bytes out of memory and decode as a string.
 
 By the way, here is the [link](https://www.fireeye.com/content/dam/fireeye-www/global/en/blog/threat-research/flareon/2015solution10.pdf) to the intended solution from FireEye.
 
+## ReverseMe example: FlareOn 2015 - Challenge 2
+
+Author: Chris Salls (github: @salls)
+
+This reversing challenge [here](./examples/flareon2015-2/very_success) is simple to solve almost entirely with angr [script](./examples/flareon2015_2/flareon-solution-2.py), and a lot faster than trying to reverse the password checking function.
+
