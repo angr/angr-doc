@@ -2,6 +2,8 @@
 
 This is a collection of documentation for angr. By reading this, you'll become an angr pro and will be able to fold binaries to your whim.
 
+To dive right into angr's capabilities, start with the [top level methods](https://github.com/angr/angr-doc/blob/master/toplevel.md).
+
 # What is angr?
 
 angr is a multi-architecture binary analysis platform, with the capability to perform dynamic symbolic execution (like Mayhem, KLEE, etc) and various static analyses on binaries. Several challenges must be overcome to do this. They are, roughly:

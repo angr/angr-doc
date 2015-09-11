@@ -148,21 +148,10 @@ TODO
 
 ## Running Analyses
 
+*Note: Some of this is out of date.*
+
 Now that you understand how to load binaries in angr, and have some idea of angr's internals, we can discuss how to carry out analyses!
-Angr provides a standardized interface to perform analyses. Specifically, it is:
-
-
-Results of analyses can be accessed by using the `Project.results` attribute.
-If an analysis that hasn't been run is accessed, it will be automatically run with default options.
-For example:
-
-```python
-cfg = b.analyses.CFG()
-assert cfg is b.results.CFG
-
-print "About to run the VSA analysis and create a VFG!"
-print b.results.VFG
-```
+Angr provides a standardized interface to perform analyses.
 
 ### Resilience
 

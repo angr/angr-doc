@@ -1,0 +1,144 @@
+Top-level interfaces
+====================
+
+So you've loaded a project. Now what?
+
+This document explains all the attributes that are available directly from instances of `angr.Project`.
+Examples will be done with `import angr, monkeyhex; p = angr.Project('/bin/true')`.
+
+# Basic properties
+```python
+>>> p.arch
+<Arch AMD64 (LE)>
+>>> p.entry
+0x401410
+>>> p.filename
+'/bin/true'
+>>> p.loader
+<Loaded true, maps [0x400000:0x4004000]>
+```
+- *arch* is an instance of an `archinfo.Arch` object for whichever architecture the program is compiled.
+  There's [lots of fun information](https://github.com/angr/archinfo/blob/master/archinfo/arch_amd64.py) on there!
+  The common ones you care about are `arch.bits`, `arch.bytes` (that one is a `@property` declaration on the [main `Arch` class](https://github.com/angr/archinfo/blob/master/archinfo/arch.py)), `arch.name`, and `arch.memory_endness`.
+- *entry* is the entry point of the binary!
+- *filename* is the absolute filename of the binary. Riveting stuff!
+- *loader* is the [cle.Loader](https://github.com/angr/cle/blob/master/cle/loader.py) instance for this project. Details on how to use it are found [here](https://github.com/angr/angr-doc/blob/master/loading.md).
+
+# Analyses and Surveyors
+```python
+>>> p.analyses
+<angr.analysis.Analyses object at 0x7f5220d6a890>
+>>> p.surveyors
+<angr.surveyor.Surveyors object at 0x7f52191b9dd0>
+
+>>> filter(lambda x: '_' not in x, dir(p.analyses))
+['BackwardSlice',
+ 'BinDiff',
+ 'BoyScout',
+ 'BufferOverflowDetection',
+ 'CDG',
+ 'CFG',
+ 'DDG',
+ 'GirlScout',
+ 'SleakMeta',
+ 'Sleakslice',
+ 'VFG',
+ 'Veritesting',
+ 'XSleak']
+>>> filter(lambda x: '_' not in x, dir(p.surveyors))
+['Caller', 'Escaper', 'Executor', 'Explorer', 'Slicecutor', 'started']
+```
+
+`analyses` and `surveyors` are both just container objects for all the Analyses and Surveyors, respectively.
+
+Analyses are customizable analysis routines that can extract some sort of information from the program.
+The most common two are `CFG`, which constructs a control-flow graph, and `VFG`, which performs value-set analysis.
+Their use, as well as how to write your own analyses, is documented [here](https://github.com/angr/angr-doc/blob/master/analyses.md).
+
+Surveyors are basic tools for performing symbolic execution with common goals.
+The most common one is `Explorer`, which searches for a target address while avoiding some others.
+Read about using surveyors [here](https://github.com/angr/angr-doc/blob/master/surveyors.md).
+Note that while surveyors are cool, an alternative to them is Path Groups (below), which are the future.
+
+# The factory
+
+`p.factory`, like `p.analyses` and `p.surveyors`, is a container object that has a lot of cool stuff in it.
+It is not a factory in the java sense, it is merely a home for all the functions that produce new instances of important Angr classes and should be sitting on Project.
+
+```python
+>>> block = p.factory.block(addr=0x10000)
+>>> block = p.factory.block(addr=0x20000, insn_bytes='\xc3')
+>>> block = p.factory.block(addr=0x10000, num_ins=1)
+
+>>> state = p.factory.blank_state(addr=0x10000)
+>>> state = p.factory.entry_state(args=['./program', angr.StringSpec(sym_length=20)])
+>>> state = p.factory.full_init_state(args=['./program', angr.StringSpec(sym_length=20)])
+
+>>> path = p.factory.path()
+>>> path = p.factory.path(state)
+
+>>> group = p.factory.path_group()
+>>> group = p.factory.path_group(path)
+>>> group = p.factory.path_group([path, state])
+
+>>> strlen = p.factory.callable(0x10000)
+>>> strlen("hello")
+5
+```
+
+- *factory.block* is the angr's lifter. passing it an address will lift a basic block of code from the binary at that address, and return an angr Block object that can be used to retrieve multiple representations of that block. More below.
+- *factory.blank_state* returns a SimState object with little initialization besides the parameters passed to it.
+- *factory.entry_state* returns a SimState initialized to the program state at the binary's entry point.
+- *factory.full_init_state* returns a SimState that initialized similarly to `entry_state`, but instead of at the entry point, the program counter points to a SimProcedure that serves the purpose of the dynamic loader and will call the initializers of each shared library before jumping to the entry point.
+- *factory.path* returns a Path object. Since Paths are at their start just light wrappers around SimStates, you can call `path` with a state as an argument and get a path wrapped around that state.
+  Alternately, for simple cases, any keyword arguments you pass `path` will be passed on to `entry_state` to create a state to wrap.
+- *factory.path_group* creates a path group! Path groups are the future. They're basically very smart lists of paths, so you can pass it a path, a state (which will be wrapped into a path), or a list of paths and states.
+- *factory.callable* is _very_ cool. Callables are a FFI (foreign functions interface) into arbitrary binary code.
+
+## Lifter
+
+TODO
+
+Important note that needs to go in this initial version before I write the rest of the stuff:
+The `Block` object that you get back from the lifter, get the `vex` property to get a PyVEX IRSB or the `capstone` property to get a Capstone block. Read the source if you wanna know more about these! (the source is in angr/lifter.py, the method is called `lift`. this method literally gets transplanted out of this class and dropped onto the `factory` instance.)
+
+## State options
+
+TODO
+
+Important note that needs to go in this initial version before I write the rest of the stuff:
+the `args` and `env` keyword args work on `entry_state` and `full_init_state`, and are a list and a dict, respectively, of strings or `StringSpec` objects, which can represent a variety of concrete and symbolic strings. Read the source if you wanna know more about these!
+
+## Callables
+
+TODO
+
+Important note that needs to go in this initial version before I write the rest of the stuff:
+The arguments can be symbolic if you pass in a symbolic `claripy.BV()` argument.
+Also, you can definitely just `call(*args)` a callable to get the return value of the function, but if you want the program state on return, you should use `call.get_res_state(*args)`. Also, `call.set_base_state(state)` to set the state that will be used to do the calling. Read the source if you wanna know more about these! (the source is in angr/surveyors/caller.py)
+
+# Hooking
+```python
+>>> def set_rax(state):
+>>>    state.regs.rax = 10
+>>>
+
+>>> p.hook(0x10000, set_rax, length=5)
+>>> p.is_hooked(0x10000)
+True
+>>> p.unhook(0x10000)
+>>> p.set_sim_procedure(p.loader.main_binary, 'strlen', simuvex.Procedures['stubs']['ReturnUnconstrained'])
+```
+
+A hook is a modification of how program execution should work.
+When you hook a program at a certain address, whenever the program's execution reaches that point, it will run the python code you supplied in the hook.
+Execution will then skip `length` bytes ahead of the hooked address and resume.
+You can omit the `length` argument for execution to skip zero bytes and resume at the address you hooked.
+
+In addition to a basic function, you can hook an address with a `SimProcedure`, which is a more complex system for having fine-grained control over program execution.
+To do this, use the exact same `hook` function, but supply a class (not an instance!) that subclasses `simuvex.SimProcedure`.
+
+The `is_hooked` and `unhook` methods should be self-explanitory.
+
+`set_sim_procedure` is a different function that serves a different purpose. Instead of an address, you pass it a CLE binary and the name of a function that that binary imports.
+The internal (GOT) pointer to the code that function resolved to will be replaced with a pointer to the SimProcedure you specify in the third argument.
