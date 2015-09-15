@@ -14,7 +14,7 @@ import angr
 
 # Load the binary. Base addresses are weird when loading binaries directly, so
 # we specify it explicitly.
-p = angr.Project('howtouse.dll', load_options={'main_opts': {'custom_base_addr': 0x10000000}})
+p = angr.Project('howtouse.dll', load_options={'main_opts': {'custom_base_addr': 0x10000000}, 'auto_load_libs':False})
 
 # A "Callable" is angr's FFI-equivalent. It allows you to call binary functions
 # from Python. Here, we use it to call the `howtouse` function.
