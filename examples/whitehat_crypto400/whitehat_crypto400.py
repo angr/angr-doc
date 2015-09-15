@@ -57,12 +57,12 @@ print '[*] executing'
 pg.explore(find=0x4016A3).unstash(from_stash='found', to_stash='active')
 pg.explore(find=0x4016B7, avoid=[0x4017D6, 0x401699, 0x40167D]).unstash(from_stash='found', to_stash='active')
 pg.explore(find=0x4017CF, avoid=[0x4017D6, 0x401699, 0x40167D]).unstash(from_stash='found', to_stash='active')
-pg.explore(find=0x401825, avoid=[0x401811]).unstash(from_stash='found', to_stash='active')
+pg.explore(find=0x401825, avoid=[0x401811])
 
 # now, we're at stage 2. stage 2 is too complex for a SAT solver to solve, but
 # stage1 has narrowed down the keyspace enough to brute-force the rest, so
 # let's get the possible values for the passphrase and brute-force the rest.
-s = pg.active[0].state
+s = pg.found[0].state
 
 # to reduce the keyspace further, let's assume the bytes are printable
 for i in range(8):
