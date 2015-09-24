@@ -265,3 +265,10 @@ The `fs` option allows you to pass in a dictionary of file names to preconfigure
 Setting the `concrete_fs` option to True will cause angr to respect the files on disk. For example if during simulation a program attempts to open `banner.txt` when concrete_fs is set to False, angr will create a SimFile with a symbolic memory backing. When `concrete_fs` mode is set to True, if `banner.txt` exists a new SimFile object will be created with a concrete backing, reducing the resulting state explosion which would be caused by operating on a completely symbolic file. Additionally in `concrete_fs` mode if `banner.txt` mode does not exist, angr will not create any SimFile objects and any calls to open during simulation will result in an error code. Additionally, it's important to note that attempts to open files whose path begins with '/dev/' will never be opened concretely.
 
 The `chroot` option allows you to specify an optional root to use while using the `concrete_fs` option. This can be convenient if the program you're analyzing references files using an absolute path. For example if the program you are analyzing attempts to open `/etc/passwd` you can set the angr chroot to your current working directory and further attempts to access `/etc/passwd` will cause access to `$CWD/etc/passwd`.
+
+```python
+files = {'/dev/stdin': SimFile("/dev/stdin", "r", size=30)} 
+s = b.factory.entry_state(fs=files, concrete_fs=True, chroot="angr-chroot/")
+```
+
+This example will create a state which constricts at most 30 symbolic bytes from being read from stdin and will cause and references to files to be resolved concretely within the new root directory `angr-chroot`.
