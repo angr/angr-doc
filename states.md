@@ -255,20 +255,3 @@ s3.add_constraints(s3.se.And(s3.se.UGT(m, 10), s3.se.Or(s3.se.ULE(m, 100), m % 2
 ```
 
 There's a lot there, but, basically, m has to be greater than 10 *and* either has to be less than 100, or has to be 123 when modded with 200, or, when logically shifted right by 8, the least significant byte must be 0x0a.
-
-# Filesystem Options
-
-There are a number of options which can be passed to the state initialization routines. These include the `fs`, `concrete_fs`, and `chroot` options.
-
-The `fs` option allows you to pass in a dictionary of file names to preconfigured SimFile objects. This allows you to do things like set a concrete size limit on a file's content.
-
-Setting the `concrete_fs` option to True will cause angr to respect the files on disk. For example if during simulation a program attempts to open `banner.txt` when concrete_fs is set to False, angr will create a SimFile with a symbolic memory backing. When `concrete_fs` mode is set to True, if `banner.txt` exists a new SimFile object will be created with a concrete backing, reducing the resulting state explosion which would be caused by operating on a completely symbolic file. Additionally in `concrete_fs` mode if `banner.txt` mode does not exist, angr will not create any SimFile objects and any calls to open during simulation will result in an error code. Additionally, it's important to note that attempts to open files whose path begins with '/dev/' will never be opened concretely.
-
-The `chroot` option allows you to specify an optional root to use while using the `concrete_fs` option. This can be convenient if the program you're analyzing references files using an absolute path. For example if the program you are analyzing attempts to open `/etc/passwd` you can set the angr chroot to your current working directory and further attempts to access `/etc/passwd` will cause access to `$CWD/etc/passwd`.
-
-```python
-files = {'/dev/stdin': SimFile("/dev/stdin", "r", size=30)} 
-s = b.factory.entry_state(fs=files, concrete_fs=True, chroot="angr-chroot/")
-```
-
-This example will create a state which constricts at most 30 symbolic bytes from being read from stdin and will cause and references to files to be resolved concretely within the new root directory `angr-chroot`.
