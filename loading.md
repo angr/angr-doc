@@ -6,12 +6,12 @@ CLE's main goal is to load binaries in a robust way, i.e., the same way the actu
 
 Angr, in turn, encompasses this in a *Project* class. A Project class is the entity that represents your binary, and much of your interaction with angr will go through it.
 
-To load a binary with angr (let's say "/tmp/program"), you would do the following:
+To load a binary with angr (let's say "/bin/true"), you would do the following:
 
 ```python
 import angr
 
-b = angr.Project("/tmp/program")
+b = angr.Project("/bin/true")
 ```
 
 After this, *b* is angr's representation of your binary (the "main" binary), along with any libraries that it depends on. There are several basic things that you can do here without further knowledge of the rest of the platform:
@@ -93,7 +93,7 @@ etc.
 
 Instead of using a path, you can also set the load options for all binaries on the main level.
 ```python
-p = angr.Project("...", load_options={"auto_load_libs": True})
+p = angr.Project("/bin/true", load_options={"auto_load_libs": True})
 ```
 
 ### Valid options

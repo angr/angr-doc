@@ -61,12 +61,17 @@ PyVEX is accessable through angr through the `Project.factory.block` interface. 
 Let's play with PyVEX:
 
 ```python
-b = angr.Project("...")
+import angr
+
+# load the program binary
+b = angr.Project("/bin/true")
+
+# translate the starting basic block
+isrb = b.factory.block(p.entry).vex
+irsb.pp()
 
 # translate a basic block starting at an address
-irsb = b.factory.block(0x4000A00).vex
-
-# pretty-print the basic block
+irsb = b.factory.block(0x401340).vex
 irsb.pp()
 
 # this is the IR Expression of the jump target of the unconditional exit at the end of the basic block

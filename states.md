@@ -13,6 +13,7 @@ print "The first 5 bytes of the binary are:", s.memory.load(b.loader.min_addr(),
 
 # and the registers, of course
 print "The stack pointer starts out as:", s.regs.sp
+print "The instruction pointer starts out as:", s.regs.ip
 
 # and the temps, although these are currently empty
 print "This will throw an exception because there is no VEX temp t0, yet:", s.scratch.tmp_expr(0)
@@ -39,7 +40,8 @@ This syntax might seem a bit strange -- we get the expression from the state, an
 If you want to store content in the state's memory or registers, you'll need to create an expression out of it. You can do it like so:
 
 ```python
-# this creates a BVV (which stands for BitVector Value). A BVV is a bitvector that's used to represent data in memory, registers, and temps.
+# this creates a BVV (which stands for BitVector Value). A BVV is a bitvector that's used to represent
+# data in memory, registers, and temps. This BVV represents a 32 bit bitvector of four ascii `A` characters
 aaaa = s.BVV("AAAA")
 
 # you can create it from an integer, but then you must provide a length (in bits)
@@ -60,7 +62,7 @@ s.memory.store(0x1000, aaaa)
 s.memory.store(s.regs.rax, aaaa)
 ```
 
-For contenience, there are special accessor functions stack operations:
+For convenience, there are special accessor functions stack operations:
 
 ```python
 # push our "AAAA" onto the stack
@@ -226,6 +228,12 @@ assert s3.se.solution(m, 0)
 assert s3.se.solution(m, 5)
 assert not s3.se.solution(m, 20)
 assert not s3.se.solution(m, 30)
+
+# But the constraint does not affect the original state
+assert s.se.solution(m, 0)
+assert s.se.solution(m, 10)
+assert s.se.solution(m, 20)
+assert s.se.solution(m, 30)
 ```
 
 One cautionary piece of advice is that the comparison operators (`>`, `<`, `>=`, `<=`) are *signed* by default. That means that, in the above example, this is still the case:

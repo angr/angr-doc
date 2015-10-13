@@ -77,8 +77,8 @@ Here is the native AMD64 code:
 And the IR of the first basic block:
 
 	>>> import angr
-	>>> p = angr.Project("/home/angr/angr/angr/tests/blob/x86_64/fauxware")
-	>>> irsb = b.block(0x400664)
+	>>> b = angr.Project("/home/angr/angr/angr/tests/blob/x86_64/fauxware")
+	>>> irsb = b.factory.block(0x400664).vex
 	>>> irsb.pp()
 	IRSB {
 	   t0:I64   t1:I64   t2:I64   t3:I64   t4:I64   t5:I64   t6:I64   t7:I64

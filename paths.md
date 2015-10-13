@@ -9,7 +9,7 @@ To create a blank path, do:
 
 ```python
 # load a binary
-b = angr.Project('tests/blob/x86_64/fauxware')
+b = angr.Project('/bin/true')
 
 # load the path
 p = b.factory.path()
