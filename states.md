@@ -42,10 +42,10 @@ If you want to store content in the state's memory or registers, you'll need to 
 ```python
 # this creates a BVV (which stands for BitVector Value). A BVV is a bitvector that's used to represent
 # data in memory, registers, and temps. This BVV represents a 32 bit bitvector of four ascii `A` characters
-aaaa = s.BVV("AAAA")
+aaaa = s.se.BVV("AAAA")
 
 # you can create it from an integer, but then you must provide a length (in bits)
-aaaa = s.BVV(0x41414141, 32)
+aaaa = s.se.BVV(0x41414141, 32)
 
 # While we're at it, we can do various operations on these bitvectors:
 aa = aaaa[31:16] # this extracts the most significant 16 bits
@@ -80,8 +80,8 @@ A state supports very fast copies, so that you can explore different possibiliti
 s1 = s.copy()
 s2 = s.copy()
 
-s1.memory.store(0x1000, s1.BVV("AAAA"))
-s2.memory.store(0x1000, s2.BVV("BBBB"))
+s1.memory.store(0x1000, s1.se.BVV("AAAA"))
+s2.memory.store(0x1000, s2.se.BVV("BBBB"))
 ```
 
 States can also be merged together.
@@ -117,10 +117,10 @@ Of course, there are other ways to encounter symbolic expression than merging. F
 ```python
 # This creates a simple symbolic expression: just a single symbolic bitvector by itself. The bitvector is 32-bits long.
 # An auto-incrementing numerical ID, and the size, are appended to the name, since names of symbolic bitvectors must be unique.
-v = s.BV("some_name", 32)
+v = s.se.BV("some_name", 32)
 
 # If you want to prevent appending the ID and size to the name, you can, instead, do:
-v = s.BV("some_name", 32, explicit_name=True)
+v = s.se.BV("some_name", 32, explicit_name=True)
 ```
 
 Symbolic expressions can be interacted with in the same way as normal (concrete) bitvectors. In fact, you can even mix them:
@@ -128,12 +128,12 @@ Symbolic expressions can be interacted with in the same way as normal (concrete)
 ```python
 # Create a concrete and a symbolic expression
 v = s.BV("some_name", 32)
-aaaa = s.BVV(0x41414141, 32)
+aaaa = s.se.BVV(0x41414141, 32)
 
 # Do operations involving them, and retrieve possible numerical solutions
 print s.se.any_int(aaaa)
 print s.se.any_int(aaaa + v)
-print s.se.any_int((aaaa + v) | s.BVV(0xffff0000, 32))
+print s.se.any_int((aaaa + v) | s.se.BVV(0xffff0000, 32))
 
 # You can tell between symbolic and concrete expressions fairly easily:
 assert s.se.symbolic(v)
@@ -163,8 +163,8 @@ print s.se.any_str(m)
 So far, we've seen addition being used. But we can do much more. All of the following examples return new expressions, with the operation applied.
 
 ```python
-# mods aaaa by 0xff, creating an expression, of the same size as aaaa, with all but the last byte zeroed out
-aaaa % 0xff
+# mods aaaa by 0x100, creating an expression, of the same size as aaaa, with all but the last byte zeroed out
+aaaa % 0x100
 
 # same effect, but with a bitwise and
 aaaa & 0xff
@@ -236,24 +236,25 @@ assert s.se.solution(m, 20)
 assert s.se.solution(m, 30)
 ```
 
-One cautionary piece of advice is that the comparison operators (`>`, `<`, `>=`, `<=`) are *signed* by default. That means that, in the above example, this is still the case:
+One cautionary piece of advice is that the comparison operators (`>`, `<`, `>=`, `<=`) are *unsigned* by default. That means that, in the above example, this is the case:
 
 ```python
 # This is actually -1
-assert s3.se.solution(m, 0xff)
+assert not s3.se.solution(m, 0xff)
 ```
 
-If we want *unsigned* comparisons, we need to use the unsigned versions of the operators (`UGT`, `UGT`, `UGE`, `ULE`).
+If we want *signed* comparisons, we need to use the unsigned versions of the operators (`SGT`, `SLT`, `SGE`, `SLE`).
+If you'd like to be explicit about your unsigned comparisons, the operators (`UGT`, `ULT`, `UGE`, `ULE`) are available.
 
 ```python
 # Add an unsigned comparison
-s3.add_constraints(s3.se.ULT(m, 10))
+s3.add_constraints(s3.se.SLT(m, 10))
 
 # We can see the effect of this right away!
 assert s3.se.solution(m, 0)
 assert s3.se.solution(m, 5)
 assert not s3.se.solution(m, 20)
-assert not s3.se.solution(m, 0xff)
+assert s3.se.solution(m, 0xff)
 ```
 
 Amazing. Of course, constraints can be arbitrarily complex:
