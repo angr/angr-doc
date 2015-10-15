@@ -5,18 +5,21 @@ This object tracks the machine's memory, registers, and various other informatio
 The "initial" state of program execution (i.e., the state at the entry point) is provided by the angr.Project class, like so:
 
 ```python
+>>> import angr
+>>> b = angr.Project('/bin/true')
+
 # let's get a blank state
-s = b.factory.blank_state()
+>>> s = b.factory.blank_state()
 
 # we can access the memory of the state here
-print "The first 5 bytes of the binary are:", s.memory.load(b.loader.min_addr(), 5)
+>>> print "The first 5 bytes of the binary are:", s.memory.load(b.loader.min_addr(), 5)
 
 # and the registers, of course
-print "The stack pointer starts out as:", s.regs.sp
-print "The instruction pointer starts out as:", s.regs.ip
+>>> print "The stack pointer starts out as:", s.regs.sp
+>>> print "The instruction pointer starts out as:", s.regs.ip
 
 # and the temps, although these are currently empty
-print "This will throw an exception because there is no VEX temp t0, yet:", s.scratch.tmp_expr(0)
+>>> # print "This will throw an exception because there is no VEX temp t0, yet:", s.scratch.tmp_expr(0)
 ```
 
 ## Accessing Data
@@ -25,10 +28,10 @@ The data that's stored in the state (i.e., data in registers, memory, temps, etc
 
 ```python
 # get the integer value of the content of rax:
-print s.se.any_int(s.regs.rax)
+>>> print s.se.any_int(s.regs.rax)
 
 # or, the string value of the 10 bytes stored at 0x1000
-print s.se.any_str(s.memory.load(0x1000, 10))
+>>> print s.se.any_str(s.memory.load(0x1000, 10))
 ```
 
 Here, `s.se` is the *solver engine* of the state, which we'll talk about later.
@@ -42,34 +45,31 @@ If you want to store content in the state's memory or registers, you'll need to 
 ```python
 # this creates a BVV (which stands for BitVector Value). A BVV is a bitvector that's used to represent
 # data in memory, registers, and temps. This BVV represents a 32 bit bitvector of four ascii `A` characters
-aaaa = s.se.BVV("AAAA")
-
-# you can create it from an integer, but then you must provide a length (in bits)
-aaaa = s.se.BVV(0x41414141, 32)
+>>> aaaa = s.se.BVV(0x41414141, 32)
 
 # While we're at it, we can do various operations on these bitvectors:
-aa = aaaa[31:16] # this extracts the most significant 16 bits
-aa00 = aaaa & s.BVV(0xffff0000, 32)
-aaab = aaaa + 1
-aaaa = s.se.Concat(aaaa, aaaa)
+>>> aa = aaaa[31:16] # this extracts the most significant 16 bits
+>>> aa00 = aaaa & s.BVV(0xffff0000, 32)
+>>> aaab = aaaa + 1
+>>> aaaa = s.se.Concat(aaaa, aaaa)
 
 # this can then be stored in memory or registers. Since the bitvector
 # has a length, only the address to store it at is required
-s.regs.rax = aaaa
-s.memory.store(0x1000, aaaa)
+>>> s.regs.rax = aaaa
+>>> s.memory.store(0x1000, aaaa)
 
 # of course, you can address memory using expressions as well
-s.memory.store(s.regs.rax, aaaa)
+>>> s.memory.store(s.regs.rax, aaaa)
 ```
 
 For convenience, there are special accessor functions stack operations:
 
 ```python
 # push our "AAAA" onto the stack
-s.stack_push(aaaa)
+>>> s.stack_push(aaaa)
 
 # and pop it off
-aaaa = s.stack_pop()
+>>> aaaa = s.stack_pop()
 ```
 
 ## Copying and Merging
@@ -77,11 +77,11 @@ aaaa = s.stack_pop()
 A state supports very fast copies, so that you can explore different possibilities:
 
 ```python
-s1 = s.copy()
-s2 = s.copy()
+>>> s1 = s.copy()
+>>> s2 = s.copy()
 
-s1.memory.store(0x1000, s1.se.BVV("AAAA"))
-s2.memory.store(0x1000, s2.se.BVV("BBBB"))
+>>> s1.memory.store(0x1000, s1.se.BVV(0x41414141, 32))
+>>> s2.memory.store(0x1000, s2.se.BVV(0x42424242, 32))
 ```
 
 States can also be merged together.
@@ -90,10 +90,10 @@ States can also be merged together.
 # merge will return a tuple. the first element is the merged state
 # the second element is a symbolic variable describing a state flag
 # the third element is a boolean describing whether any merging was done
-(s_merged, m, anything_merged) = s1.merge(s2)
+>>> (s_merged, m, anything_merged) = s1.merge(s2)
 
 # this is now an expression that can resolve to "AAAA" *or* "BBBB"
-aaaa_or_bbbb = s_merged.memory.load(0x1000, 4)
+>>> aaaa_or_bbbb = s_merged.memory.load(0x1000, 4)
 ```
 
 This is where we truly start to enter the realm of symbolic expressions. In the above example, the value of `aaaa_or_bbbb` can be, as it implies, either "AAAA" or "BBBB".
@@ -105,11 +105,11 @@ Symbolic values are expressions that, under different situations, can take on di
 ```python
 # this will return a sequence of up to n possible values of the expression in this state.
 # in our case, there are only two values, and it'll return [ "AAAA", "BBBB" ]
-print "This has 2 values:", s_merged.se.any_n_str(aaaa_or_bbbb, 2)
-print "This *would* have up to 5, but there are only two available:", s_merged.se.any_n_str(aaaa_or_bbbb, 5)
+>>> print "This has 2 values:", s_merged.se.any_n_str(aaaa_or_bbbb, 2)
+>>> print "This *would* have up to 5, but there are only two available:", s_merged.se.any_n_str(aaaa_or_bbbb, 5)
 
 # there's also the same for the integer value
-print s_merged.se.any_n_int(aaaa_or_bbbb, 2)
+>>> print s_merged.se.any_n_int(aaaa_or_bbbb, 2)
 ```
 
 Of course, there are other ways to encounter symbolic expression than merging. For example, you can create them outright:
@@ -117,87 +117,87 @@ Of course, there are other ways to encounter symbolic expression than merging. F
 ```python
 # This creates a simple symbolic expression: just a single symbolic bitvector by itself. The bitvector is 32-bits long.
 # An auto-incrementing numerical ID, and the size, are appended to the name, since names of symbolic bitvectors must be unique.
-v = s.se.BV("some_name", 32)
+>>> v = s.se.BV("some_name", 32)
 
 # If you want to prevent appending the ID and size to the name, you can, instead, do:
-v = s.se.BV("some_name", 32, explicit_name=True)
+>>> v = s.se.BV("some_name", 32, explicit_name=True)
 ```
 
 Symbolic expressions can be interacted with in the same way as normal (concrete) bitvectors. In fact, you can even mix them:
 
 ```python
 # Create a concrete and a symbolic expression
-v = s.BV("some_name", 32)
-aaaa = s.se.BVV(0x41414141, 32)
+>>> v = s.BV("some_name", 32)
+>>> aaaa = s.se.BVV(0x41414141, 32)
 
 # Do operations involving them, and retrieve possible numerical solutions
-print s.se.any_int(aaaa)
-print s.se.any_int(aaaa + v)
-print s.se.any_int((aaaa + v) | s.se.BVV(0xffff0000, 32))
+>>> print s.se.any_int(aaaa)
+>>> print s.se.any_int(aaaa + v)
+>>> print s.se.any_int((aaaa + v) | s.se.BVV(0xffff0000, 32))
 
 # You can tell between symbolic and concrete expressions fairly easily:
-assert s.se.symbolic(v)
-assert not s.se.symbolic(aaaa)
+>>> assert s.se.symbolic(v)
+>>> assert not s.se.symbolic(aaaa)
 
 # You can even tell *which* variables make up a given expression.
-assert s.se.variables(aaaa) == set()
-assert s.se.variables(aaaa + v) == { "some_name_1_32" } # that's the ID and size appended to the name
+>>> assert s.se.variables(aaaa) == set()
+>>> assert s.se.variables(aaaa + v) == { "some_name_4_32" } # that's the ID and size appended to the name
 ```
 
 As you can see, symbolic and concrete expressions are pretty interchangeable, which is an extremely useful abstraction provided by SimuVEX. You might also notice that, when you read from memory locations that were never written to, you receive symbolic expressions:
 
 ```python
 # Try it!
-m = s.memory.load(0xbbbb0000, 8)
+>>> m = s.memory.load(0xbbbb0000, 8)
 
 # The result is symbolic
-assert s.se.symbolic(m)
+>>> assert s.se.symbolic(m)
 
 # Along with the ID and length, the address at which this expression originated is also added to the name
-assert s.se.variables(m) == { "mem_bbbb0000_2_64" }
+>>> assert s.se.variables(m) == { "mem_bbbb0000_5_64" }
 
 # And, of course, we can get the numerical or string solutions for the expression
-print s.se.any_n_int(m, 10)
-print s.se.any_str(m)
+>>> print s.se.any_n_int(m, 10)
+>>> print s.se.any_str(m)
 ```
 So far, we've seen addition being used. But we can do much more. All of the following examples return new expressions, with the operation applied.
 
 ```python
 # mods aaaa by 0x100, creating an expression, of the same size as aaaa, with all but the last byte zeroed out
-aaaa % 0x100
+>>> print aaaa % 0x100
 
 # same effect, but with a bitwise and
-aaaa & 0xff
+>>> print aaaa & 0xff
 
 # extracts the most significant (leftmost) byte of aaaa. The range is inclusive on both sides, and indexed with the rightmost bit being 0
-aaaa[31:24]
+>>> print aaaa[31:24]
 
 # concatenates aaaa with itself
-s.se.Concat(aaaa, aaaa)
+>>> print s.se.Concat(aaaa, aaaa)
 
 # zero-extends aaaa by 32 bits
-aaaa.zero_extend(32)
+>>> print aaaa.zero_extend(32)
 
 # sign-extends aaaa by 32 bits
-aaaa.sign_extend(32)
+>>> print aaaa.sign_extend(32)
 
 # shifts aaaa right arithmetically by 8 bits (i.e., sign-extended)
-aaaa >> 8
+>>> print aaaa >> 8
 
 # shifts aaaa right logically by 8 bits (i.e., not sign-extended)
-s.se.LShR(aaaa, 8)
+>>> print s.se.LShR(aaaa, 8)
 
-# reverses aaaa
-aaaa.reversed
+# reverses aaaa, i.e. reverses the order of the bytes as if stored big-endian and loaded little-endian
+>>> print aaaa.reversed
 
 # returns a list of expressions, representing the individual *bits* of aaaa (expressions of length 1)
-aaaa.chop()
+>>> print aaaa.chop()
 
 # same, but for the bytes
-aaaa.chop(bits=8)
+>>> print aaaa.chop(bits=8)
 
 # and the dwords
-aaaa.chop(bits=16)
+>>> print aaaa.chop(bits=16)
 ```
 
 More details on the operations supported by the solver engine are available at the [solver engine's documentation](./claripy.md).
@@ -208,32 +208,32 @@ Symbolic expressions would be pretty boring on their own. After all, the last fe
 
 ```python
 # make a copy of the state so that we don't screw up the original with our experimentation
-s3 = s.copy()
+>>> s3 = s.copy()
 
 # Let's read some previously untouched section of memory to get a symbolic expression
-m = s.memory.load(0xbbbb0000, 1)
+>>> m = s.memory.load(0xbbbb0000, 1)
 
 # We can verify that *any* solution would do
-assert s3.se.solution(m, 0)
-assert s3.se.solution(m, 10)
-assert s3.se.solution(m, 20)
-assert s3.se.solution(m, 30)
+>>> assert s3.se.solution(m, 0)
+>>> assert s3.se.solution(m, 10)
+>>> assert s3.se.solution(m, 20)
+>>> assert s3.se.solution(m, 30)
 # ... and so on
 
 # Now, let's add a constraint, forcing m to be greater than 10
-s3.add_constraints(m < 10)
+>>> s3.add_constraints(m < 10)
 
 # We can see the effect of this right away!
-assert s3.se.solution(m, 0)
-assert s3.se.solution(m, 5)
-assert not s3.se.solution(m, 20)
-assert not s3.se.solution(m, 30)
+>>> assert s3.se.solution(m, 0)
+>>> assert s3.se.solution(m, 5)
+>>> assert not s3.se.solution(m, 20)
+>>> assert not s3.se.solution(m, 30)
 
 # But the constraint does not affect the original state
-assert s.se.solution(m, 0)
-assert s.se.solution(m, 10)
-assert s.se.solution(m, 20)
-assert s.se.solution(m, 30)
+>>> assert s.se.solution(m, 0)
+>>> assert s.se.solution(m, 10)
+>>> assert s.se.solution(m, 20)
+>>> assert s.se.solution(m, 30)
 ```
 
 One cautionary piece of advice is that the comparison operators (`>`, `<`, `>=`, `<=`) are *unsigned* by default. That means that, in the above example, this is the case:
@@ -248,19 +248,20 @@ If you'd like to be explicit about your unsigned comparisons, the operators (`UG
 
 ```python
 # Add an unsigned comparison
-s3.add_constraints(s3.se.SLT(m, 10))
+>>> s4 = s.copy()
+>>> s4.add_constraints(s3.se.SLT(m, 10))
 
 # We can see the effect of this right away!
-assert s3.se.solution(m, 0)
-assert s3.se.solution(m, 5)
-assert not s3.se.solution(m, 20)
-assert s3.se.solution(m, 0xff)
+>>> assert s4.se.solution(m, 0)
+>>> assert s4.se.solution(m, 5)
+>>> assert not s4.se.solution(m, 20)
+>>> assert s4.se.solution(m, 0xff)
 ```
 
 Amazing. Of course, constraints can be arbitrarily complex:
 
 ```python
-s3.add_constraints(s3.se.And(s3.se.UGT(m, 10), s3.se.Or(s3.se.ULE(m, 100), m % 200 != 123, s3.se.LShR(m, 8) & 0xff != 0xa)))
+>>> s4.add_constraints(s4.se.And(s4.se.UGT(m, 10), s4.se.Or(s4.se.ULE(m, 100), m % 200 != 123, s4.se.LShR(m, 8) & 0xff != 0xa)))
 ```
 
 There's a lot there, but, basically, m has to be greater than 10 *and* either has to be less than 100, or has to be 123 when modded with 200, or, when logically shifted right by 8, the least significant byte must be 0x0a.

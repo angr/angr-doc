@@ -20,37 +20,38 @@ In the end, one cannot be told what the `Explorer` is.
 You have to see it for yourself:
 
 ```python
-b = angr.Project("/home/angr/angr/angr/tests/blob/x86_64/fauxware")
+>>> import angr
+>>> b = angr.Project("/home/angr/angr/binaries/tests/x86_64/fauxware")
 
 # By default, a Surveyor starts at the entry point of the program, with
 # an exit created by calling `Project.initial_exit` with default arguments.
 # This involves creating a default state using `Project.initial_state`.
 # A custom SimExit, with a custom state, can be provided via the optional
 # "start" parameter, or a list of them via the optional "starts" parameter.
-e = b.surveyors.Explorer()
+>>> e = b.surveyors.Explorer()
 
 # Now we can take a few steps! Printing an Explorer will tell you how
 # many active paths it currently has.
-print e.step()
+>>> print e.step()
 
 # You can use `Explorer.run` to step multiple times.
-print e.run(10)
+>>> print e.run(10)
 
 # Or even forever. By default, an Explorer will not stop running until
 # it runs out of paths (which will likely be never, for most programs),
 # so be careful. In this case, we should be ok because the program does
 # not loop.
-e.run()
+>>> e.run()
 
 # We can see which paths are active (running), and which have deadended
 # (i.e., provided no valid exits), and which have errored out. Note that,
 # in some instances, a given path could be in multiple lists (i.e., if it
 # errored out *and* did not produce any valid exits)
-print "%d paths are still running" % len(e.active)
-print "%d paths are backgrounded due to lack of resources" % len(e.spilled)
-print "%d paths are suspended due to user action" % len(e.suspended)
-print "%d paths had errors" % len(e.errored)
-print "%d paths deadended" % len(e.deadended)
+>>> print "%d paths are still running" % len(e.active)
+>>> print "%d paths are backgrounded due to lack of resources" % len(e.spilled)
+>>> print "%d paths are suspended due to user action" % len(e.suspended)
+>>> print "%d paths had errors" % len(e.errored)
+>>> print "%d paths deadended" % len(e.deadended)
 ```
 
 So far, everything we have discussed applies to all `Surveyors`.
@@ -61,20 +62,21 @@ For example, in the `fauxware` sample, we can try to find the "authentication su
 # This creates an Exporer that tries to find 0x4006ed (successful auth),
 # while avoiding 0x4006fd (failed auth) or 0x4006aa (the authentication
 # routine). In essense, we are looking for a backdoor.
-e = b.surveyors.Explorer(find=(0x4006ed,), avoid=(0x4006aa,0x4006fd))
-e.run()
+>>> e = b.surveyors.Explorer(find=(0x4006ed,), avoid=(0x4006aa,0x4006fd))
+>>> e.run()
 
 # Print our found backdoor, and how many paths we avoided!
-if len(e.found) > 0:
-	print "Found backdoor path:", e.found[0]
-print "Avoided %d paths", len(e.avoided)
+>>> if len(e.found) > 0:
+...     print "Found backdoor path:", e.found[0]
+
+>>> print "Avoided %d paths" % len(e.avoided)
 ```
 
 Some helper properties are provided for easier access to paths from ipython:
 
 ```python
-print "The first found path is", e._f
-print "The first active path is", e._a
+>>> print "The first found path is", e._f
+# Also available are _d (deadended), _spl (spilled), and _e (errored)
 ```
 
 ## Caller
@@ -84,29 +86,29 @@ It can be used as so:
 
 ```python
 # load fauxware
-b = angr.Project("/home/angr/angr/angr/tests/blob/x86_64/fauxware")
+>>> b = angr.Project("/home/angr/angr/binaries/tests/x86_64/fauxware")
 
 # get the state ready, and grab our username and password symbolic expressions for later
 # checking. Here, we'll cheat a bit since we know that username and password should both
 # be 8 chars long
-p = b.path_generator.blank_path()
-username = p.state.memory.load(0x1000, 9)
-password = p.state.memory.load(0x2000, 9)
+>>> p = b.factory.path()
+>>> username = p.state.memory.load(0x1000, 9)
+>>> password = p.state.memory.load(0x2000, 9)
 
 # call the authenticate function with *username being 0x1000 and *password being 0x2000
-c = b.surveyors.Caller(0x400664, (0x1000,0x2000), start=p)
+>>> c = b.surveyors.Caller(0x400664, (0x1000,0x2000), start=p)
 
 # look at the different paths that can return. This should print 3 paths:
-print tuple(c.iter_returns())
+>>> print tuple(c.iter_returns())
 
 # two of those paths return 1 (authenticated):
-print tuple(c.iter_returns(solution=1))
+>>> print tuple(c.iter_returns(solution=1))
 
 # now let's see the required username and password to reach that point. `c.map_se`
 # calls state.se.any_n_str (or whatever other function is provided) for the provided
 # arguments, on each return state. This example runs state.se.any_n_str(credentials, 10)
-credentials = username.concat(password)
-tuple(c.map_se('any_n_str', credentials, 10, solution=1))
+>>> credentials = username.concat(password)
+>>> tuple(c.map_se('any_n_str', credentials, 10, solution=1))
 
 # you can see the secret password "SOSNEAKY" in the first tuple!
 ```

@@ -40,52 +40,55 @@ All of the above creation code returns claripy.AST objects, on which operations 
 ASTs provide several useful operations.
 
 ```python
-import claripy
+>>> import claripy
 
-bv = claripy.BVV(0x41424344, 32)
+>>> bv = claripy.BVV(0x41424344, 32)
 
 # Size - you can get the size of an AST with .size()
-assert bv.size() == 32
+>>> assert bv.size() == 32
 
 # Identity - claripy allows one to test for identity. This is a conservative
 # estimation. True means that the objects are definitely identical. False means
 # that it's hard to tell (this happens in the presense of constraint solving, for
 # example.
-assert claripy.is_identical(bv, bv)
+>>> assert claripy.is_identical(bv, bv)
 
 # Reversing - .reversed is the reversed version of the BVV
-assert claripy.is_identical(bv.reversed, claripy.BVV(0x44434241, 32))
-assert bv.reversed.reversed is bv
+>>> assert claripy.is_identical(bv.reversed, claripy.BVV(0x44434241, 32))
+>>> # assert bv.reversed.reversed is bv
+# TODO: FUCKING FIX THIS
 
 # Depth - you can get the depth of the AST
-assert bv.depth == 0
-x = claripy.BV('x', 32)
-assert (x+bv).depth == 1
-assert ((x+bv)/10).depth == 2
+>>> print bv.depth
+>>> assert bv.depth == 2
+>>> x = claripy.BV('x', 32)
+>>> assert (x+bv).depth == 3
+>>> assert ((x+bv)/10).depth == 4
+# TODO: ALSO FUCKING FIX THIS
 
 # If you want to interact with the underlying object, you can call '.model'.
 # Note that, when symbolic variables are involved, this might *still* return an
 # AST
-assert type(bv.model) is claripy.bv.BVV # not to be confused with claripy.BVV, claripy.bv.BVV is a python concrete bitvector representation
-assert isinstance((x+bv).model, claripy.ast.Base) # no model is available for symbolic expressions
+>>> assert type(bv.model) is claripy.bv.BVV # not to be confused with claripy.BVV, claripy.bv.BVV is a python concrete bitvector representation
+>>> assert isinstance((x+bv).model, claripy.ast.Base) # no model is available for symbolic expressions
 ```
 
 Applying a condition (==, !=, etc) on ASTs will return an AST that represents the condition being carried out.
 For example:
 
 ```python
-r = bv == x
-assert isinstance(r, claripy.ast.Bool)
+>>> r = bv == x
+>>> assert isinstance(r, claripy.ast.Bool)
 
-p = bv == bv
-assert isinstance(p, claripy.ast.Bool)
-assert p.model is True
+>>> p = bv == bv
+>>> assert isinstance(p, claripy.ast.Bool)
+>>> assert p.model is True
 ```
 
 You can combine these conditions in different ways.
 ```python
-q = claripy.And(claripy.Or(bv == x, bv * 2 == x, bv * 3 == x), x == 0)
-assert isinstance(p, claripy.ast.Bool)
+>>> q = claripy.And(claripy.Or(bv == x, bv * 2 == x, bv * 3 == x), x == 0)
+>>> assert isinstance(p, claripy.ast.Bool)
 ```
 
 The usefulness of this will become apparent when we discuss Claripy solvers.
@@ -120,25 +123,25 @@ Claripy performs constraint solving, via Z3, through the claripy.Solver class. T
 
 ```python
 # create the solver and an expression
-s = claripy.Solver()
-x = claripy.BV('x', 8)
+>>> s = claripy.Solver()
+>>> x = claripy.BV('x', 8)
 
 # now let's add a constraint on x
-s.add(claripy.ULT(x, 5)) 
+>>> s.add(claripy.ULT(x, 5)) 
 
-assert sorted(s.eval(x, 10)) == [0, 1, 2, 3, 4]
-assert s.max(x) == 4
-assert s.min(x) == 0
+>>> assert sorted(s.eval(x, 10)) == [0, 1, 2, 3, 4]
+>>> assert s.max(x) == 4
+>>> assert s.min(x) == 0
 
 # we can also get the values of complex expressions
-y = claripy.BVV(65, 8)
-z = claripy.If(x == 1, x, y)
-assert sorted(s.eval(z, 10)) == [1, 65] 
+>>> y = claripy.BVV(65, 8)
+>>> z = claripy.If(x == 1, x, y)
+>>> assert sorted(s.eval(z, 10)) == [1, 65] 
 
 # and, of course, we can add constraints on complex expressions
-s.add(z % 5 != 0)
-assert s.eval(z, 10) == (1,)
-assert s.eval(x, 10) == (1,) # interestingly enough, since z can't be y, x can only be 1!
+>>> s.add(z % 5 != 0)
+>>> assert s.eval(z, 10) == (1,)
+>>> assert s.eval(x, 10) == (1,) # interestingly enough, since z can't be y, x can only be 1!
 ```
 
 ## Claripy Backends

@@ -22,11 +22,12 @@ A CFG is a graph with (conceptually) basic blocks as nodes and jumps/calls/rets/
 A CFG can be constructed by doing:
 
 ```python
+>>> import angr
 # load your project
-b = angr.Project('/path/to/bin', load_options={'auto_load_libs': False})
+>>> b = angr.Project('/bin/true', load_options={'auto_load_libs': False})
 
 # generate a CFG
-cfg = b.analyses.CFG()
+>>> cfg = b.analyses.CFG(keep_input_state=True)
 ```
 
 Of course, there are several options for customized CFGs.
@@ -103,8 +104,8 @@ The CFG, at its core, is a [NetworkX](https://networkx.github.io/) di-graph.
 This means that all of the normal NetworkX APIs are available:
 
 ```python
-print "This is the graph:", cfg.graph
-print "It has %d nodes and %d edges" % (len(cfg.graph.nodes()), len(cfg.graph.edges()))
+>>> print "This is the graph:", cfg.graph
+>>> print "It has %d nodes and %d edges" % (len(cfg.graph.nodes()), len(cfg.graph.edges()))
 ```
 
 The nodes of the CFG graph are instances of class `CFGNode`.
@@ -112,19 +113,19 @@ Due to context sensitivity, a given basic block can have multiple nodes in the g
 
 ```python
 # this grabs *any* node at a given location:
-food_node = cfg.get_any_node(0xf00d)
+>>> entry_node = cfg.get_any_node(b.entry)
 
 # on the other hand, this grabs all of the nodes
-print "There were %d contexts for the 0xf00d block" % len(cfg.get_all_nodes(0xf00d))
+>>> print "There were %d contexts for the entry block" % len(cfg.get_all_nodes(b.entry))
 
 # if keep_input_states was given as True, we can also retrieve the actual SimIRSBs
-print "A single SimIRSB at 0xf00d:", cfg.get_any_irsb(0xf00d)
-print "All SimIRSBs at 0xf00d:", cfg.get_all_irsbs(0xf00d)
+>>> print "A single SimIRSB at the entry point:", cfg.get_any_irsb(b.entry)
+>>> print "All SimIRSBs at the entry point:", cfg.get_all_irsbs(b.entry)
 
 # we can also look up predecessors and successors
-print "Predecessors of 0xf00d:" food_node.predecessors()
-print "Successors of 0xf00d:" food_node.successors()
-print "Successors (and type of jump) of 0xf00d:" [ jumpkind + " to " + str(node.addr) for node,jumpkind in cfg.get_successors_and_jumpkind(food_node) ]
+>>> print "Predecessors of the entry point:", entry_node.predecessors
+>>> print "Successors of the entry point:", entry_node.successors
+>>> print "Successors (and type of jump) of the entry point:", [ jumpkind + " to " + str(node.addr) for node,jumpkind in cfg.get_successors_and_jumpkind(entry_node) ]
 ```
 
 ## Shared Libraries
@@ -141,26 +142,26 @@ The CFG result produces an object called the *Function Manager*, accessable thro
 The most common use case for this object is accessing `function_manager.functions`, which is a dict mapping address to `Function` objects, which can tell you properties about a function.
 
 ```python
->>> main_func = cfg.function_manager.functions[0x400624]
+>>> entry_func = cfg.function_manager.functions[b.entry]
 ```
 
 Functions have several important properties!
-- `main_func.basic_blocks` is a set of addresses at which basic blocks belonging to the function begin.
-- `main_func.string_references()` returns a list of all the constant strings that were referred to at any point in the function.
+- `entry_func.basic_blocks` is a set of addresses at which basic blocks belonging to the function begin.
+- `entry_func.string_references()` returns a list of all the constant strings that were referred to at any point in the function.
   They are formatted as `(addr, string)` tuples, where addr is the address in the binary's data section the string lives, and string is a python string that contains the value of the string.
-- `main_func.returning` is a boolean value signifying whether or not the function can return.
+- `entry_func.returning` is a boolean value signifying whether or not the function can return.
   `False` indicates that all paths do not return.
-- `main_func.callable` is an angr Callable object referring to this function.
+- `entry_func.callable` is an angr Callable object referring to this function.
   You can call it like a python function with python arguments and get back an actual result (may be symbolic) as if you ran the function with those arguments!
-- `main_func.local_transition_graph` is a NetworkX DiGraph describing control flow within the function itself.
+- `entry_func.local_transition_graph` is a NetworkX DiGraph describing control flow within the function itself.
   It resembles the control-flow graphs IDA displays on a per-function level.
-- `main_func.name` is the name of the function.
-- `main_func.has_unresolved_calls` and `main_func.has_unresolved_jumps` have to do with detecting imprecision within the CFG.
+- `entry_func.name` is the name of the function.
+- `entry_func.has_unresolved_calls` and `entry.has_unresolved_jumps` have to do with detecting imprecision within the CFG.
   Sometimes, the analysis cannot detect what the possible target of an indirect call or jump could be.
   If this occurs within a function, that function will have the appropriate `has_unresolved_*` value set to `True`.
-- `main_func.get_call_sites()` returns a list of all the addresses of basic blocks which end in calls out to other functions.
-- `main_func.get_call_target(callsite_addr)` will, given `callsite_addr` from the list of call site addresses, return where that callsite will call out to.
-- `main_func.get_call_return(callsite_addr)` will, given `callsite_addr` from the list of call site addresses, return where that callsite should return to.
+- `entry_func.get_call_sites()` returns a list of all the addresses of basic blocks which end in calls out to other functions.
+- `entry_func.get_call_target(callsite_addr)` will, given `callsite_addr` from the list of call site addresses, return where that callsite will call out to.
+- `entry_func.get_call_return(callsite_addr)` will, given `callsite_addr` from the list of call site addresses, return where that callsite should return to.
 
 
 ### VFG
@@ -184,7 +185,7 @@ However, you might want to run an analysis in "fail fast" mode, so that errors a
 To do this, the `fail_fast` keyword argument can be passed into `analyze`.
 
 ```python
-b.analyses.CFG(fail_fast=True)
+>> b.analyses.CFG(fail_fast=True)
 ```
 
 ## Creating Analyses
@@ -194,11 +195,11 @@ In this section, we'll create a mock analysis to show off the various features.
 Let's start with something simple:
 
 ```python
-class MockAnalysis(angr.Analysis):
-	def __init__(self, option):
-		self.option = option
+>>> class MockAnalysis(angr.Analysis):
+... 	def __init__(self, option):
+... 		self.option = option
 
-angr.register_analysis(MockAnalysis, 'MockAnalysis')
+>>> angr.register_analysis(MockAnalysis, 'MockAnalysis')
 ```
 
 This is a quite simple analysis -- it takes an option, and stores it.
@@ -206,9 +207,9 @@ Of course, it's not useful, but what can you do?
 Let's see how to call:
 
 ```python
-b = angr.Project("path/to/bin")
-mock = b.analyses.MockAnalysis('this is my option')
-assert mock.option == 'this is my option'
+>>> b = angr.Project("/bin/true")
+>>> mock = b.analyses.MockAnalysis('this is my option')
+>>> assert mock.option == 'this is my option'
 ```
 
 ### Working with projects
@@ -217,15 +218,15 @@ Via some python magic, your analysis will automatically have the project upon wh
 Use this to interact with your project and analyze it!
 
 ```python
-class ProjectSummary(angr.Analysis):
-    def __init__(self):
-        self.result = 'This project is a %s binary with an entry point at %#x.' % (self.project.arch.name, self.project.entry)
+>>> class ProjectSummary(angr.Analysis):
+...     def __init__(self):
+...         self.result = 'This project is a %s binary with an entry point at %#x.' % (self.project.arch.name, self.project.entry)
 
-angr.register_analysis(ProjectSummary, 'ProjectSummary')
-b = angr.Project("path/to/bin")
+>>> angr.register_analysis(ProjectSummary, 'ProjectSummary')
+>>> b = angr.Project("/bin/true")
 
-summary = b.analyses.ProjectSummary()
-print summary.result
+>>> summary = b.analyses.ProjectSummary()
+>>> print summary.result
 # 'This project is a AMD64 binary with an entry point at 0x401410.'
 ```
 
@@ -239,12 +240,12 @@ The name is how it appears under the `project.analyses` object.
 Usually, you should use the same name as the analysis class, but if you want to use a shorter name, you can.
 
 ```python
-class FunctionBlockAverage(angr.Analysis):
-	def __init__(self):
-		self._cfg = self.project.analyses.CFG()
-		self.avg = len(self._cfg.nodes()) / len(self._cfg.function_manager.functions)
+>>> class FunctionBlockAverage(angr.Analysis):
+...     def __init__(self):
+...         self._cfg = self.project.analyses.CFG()
+...         self.avg = len(self._cfg.nodes()) / len(self._cfg.function_manager.functions)
 
-angr.register_analysis(FunctionBlockAverate, 'FuncSize')
+>>> angr.register_analysis(FunctionBlockAverage, 'FuncSize')
 ```
 
 After this, you can call this analysis using it's specified name. For example, `b.analyses.FuncSize()`.
@@ -262,16 +263,16 @@ To facilitate this, the `Analysis` base class provides a resilience context mana
 Here's an example:
 
 ```python
-class ComplexFunctionAnalysis(angr.Analysis):
-	def __init__(self):
-		self._cfg = self.project.analyses.CFG()
-		self.results = { }
-		for addr, func in self._cfg.function_manager.functions.iteritems():
-			with self._resilience():
-				if addr % 2 == 0:
-					raise ValueError("can't handle functions at even addresses")
-				else:
-					self.results[addr] = "GOOD"
+>>> class ComplexFunctionAnalysis(angr.Analysis):
+...     def __init__(self):
+...         self._cfg = self.project.analyses.CFG()
+...         self.results = { }
+...         for addr, func in self._cfg.function_manager.functions.iteritems():
+...             with self._resilience():
+...                 if addr % 2 == 0:
+...                     raise ValueError("can't handle functions at even addresses")
+...                 else:
+...                     self.results[addr] = "GOOD"
 ```
 
 The context manager catches any exceptions thrown and logs them (as a tuple of the exception type, message, and traceback) to `self.errors`.

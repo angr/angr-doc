@@ -76,106 +76,108 @@ Here is the native AMD64 code:
 
 And the IR of the first basic block:
 
-	>>> import angr
-	>>> b = angr.Project("/home/angr/angr/angr/tests/blob/x86_64/fauxware")
-	>>> irsb = b.factory.block(0x400664).vex
-	>>> irsb.pp()
-	IRSB {
-	   t0:I64   t1:I64   t2:I64   t3:I64   t4:I64   t5:I64   t6:I64   t7:I64
-	   t8:I64   t9:I64   t10:I64   t11:I64   t12:I64   t13:I64   t14:I64   t15:I64
-	   t16:I64   t17:I64   t18:I64   t19:I64   t20:I64   t21:I64   t22:I64   t23:I64
-	   t24:I64   t25:I64   t26:I64   t27:I64   t28:I64   t29:I64   t30:I64   t31:I64
-	   t32:I64   
-	
-	   IR-NoOp
-	   IR-NoOp
-	   IR-NoOp
-	   IR-NoOp
-	   IR-NoOp
-	   IR-NoOp
-	   IR-NoOp
-	   IR-NoOp
-	   IR-NoOp
-	   IR-NoOp
-	   IR-NoOp
-	   IR-NoOp
-	   IR-NoOp
-	   IR-NoOp
-	   IR-NoOp
-	   ------ IMark(0x400664, 1, 0) ------
-	   t0 = GET:I64(56)
-	   t13 = GET:I64(48)
-	   t12 = Sub64(t13,0x8:I64)
-	   t1 = t12
-	   PUT(48) = t1
-	   STle(t1) = t0
-	   PUT(184) = 0x400665:I64
-	   ------ IMark(0x400665, 3, 0) ------
-	   t14 = GET:I64(48)
-	   PUT(56) = t14
-	   PUT(184) = 0x400668:I64
-	   ------ IMark(0x400668, 4, 0) ------
-	   t4 = GET:I64(48)
-	   t3 = 0x20:I64
-	   t2 = Sub64(t4,t3)
-	   PUT(144) = 0x8:I64
-	   PUT(152) = t4
-	   PUT(160) = t3
-	   PUT(48) = t2
-	   PUT(184) = 0x40066C:I64
-	   ------ IMark(0x40066C, 4, 0) ------
-	   t16 = GET:I64(56)
-	   t15 = Add64(t16,0xFFFFFFFFFFFFFFE8:I64)
-	   t5 = t15
-	   t17 = GET:I64(72)
-	   STle(t5) = t17
-	   PUT(184) = 0x400670:I64
-	   ------ IMark(0x400670, 4, 0) ------
-	   t19 = GET:I64(56)
-	   t18 = Add64(t19,0xFFFFFFFFFFFFFFE0:I64)
-	   t6 = t18
-	   t20 = GET:I64(64)
-	   STle(t6) = t20
-	   PUT(184) = 0x400674:I64
-	   ------ IMark(0x400674, 4, 0) ------
-	   t22 = GET:I64(56)
-	   t21 = Add64(t22,0xFFFFFFFFFFFFFFF8:I64)
-	   t7 = t21
-	   STle(t7) = 0x0:I8
-	   PUT(184) = 0x400678:I64
-	   ------ IMark(0x400678, 7, 0) ------
-	   t8 = Add64(0x40067F:I64,0x2009C9:I64)
-	   t23 = LDle:I64(t8)
-	   PUT(32) = t23
-	   PUT(184) = 0x40067F:I64
-	   ------ IMark(0x40067F, 4, 0) ------
-	   t25 = GET:I64(56)
-	   t24 = Add64(t25,0xFFFFFFFFFFFFFFE0:I64)
-	   t9 = t24
-	   t26 = LDle:I64(t9)
-	   PUT(16) = t26
-	   PUT(184) = 0x400683:I64
-	   ------ IMark(0x400683, 3, 0) ------
-	   t27 = GET:I64(32)
-	   PUT(64) = t27
-	   PUT(184) = 0x400686:I64
-	   ------ IMark(0x400686, 3, 0) ------
-	   t28 = GET:I64(16)
-	   PUT(72) = t28
-	   PUT(184) = 0x400689:I64
-	   ------ IMark(0x400689, 5, 0) ------
-	   t30 = GET:I64(48)
-	   t29 = Sub64(t30,0x8:I64)
-	   t10 = t29
-	   PUT(48) = t10
-	   STle(t10) = 0x40068E:I64
-	   t11 = 0x400550:I64
-	   t31 = Sub64(t10,0x80:I64)
-	   ====== AbiHint(t31, 128, t11) ======
-	   PUT(184) = 0x400550:I64
-	   t32 = GET:I64(184)
-	   PUT(184) = t32; exit-Call
-	}
+```python
+>>> import angr
+>>> b = angr.Project("/home/angr/angr/binaries/tests/x86_64/fauxware")
+>>> irsb = b.factory.block(0x400664).vex
+>>> irsb.pp()
+IRSB {
+   t0:I64   t1:I64   t2:I64   t3:I64   t4:I64   t5:I64   t6:I64   t7:I64
+   t8:I64   t9:I64   t10:I64   t11:I64   t12:I64   t13:I64   t14:I64   t15:I64
+   t16:I64   t17:I64   t18:I64   t19:I64   t20:I64   t21:I64   t22:I64   t23:I64
+   t24:I64   t25:I64   t26:I64   t27:I64   t28:I64   t29:I64   t30:I64   t31:I64
+   t32:I64   
+
+   IR-NoOp
+   IR-NoOp
+   IR-NoOp
+   IR-NoOp
+   IR-NoOp
+   IR-NoOp
+   IR-NoOp
+   IR-NoOp
+   IR-NoOp
+   IR-NoOp
+   IR-NoOp
+   IR-NoOp
+   IR-NoOp
+   IR-NoOp
+   IR-NoOp
+   ------ IMark(0x400664, 1, 0) ------
+   t0 = GET:I64(56)
+   t13 = GET:I64(48)
+   t12 = Sub64(t13,0x8:I64)
+   t1 = t12
+   PUT(48) = t1
+   STle(t1) = t0
+   PUT(184) = 0x400665:I64
+   ------ IMark(0x400665, 3, 0) ------
+   t14 = GET:I64(48)
+   PUT(56) = t14
+   PUT(184) = 0x400668:I64
+   ------ IMark(0x400668, 4, 0) ------
+   t4 = GET:I64(48)
+   t3 = 0x20:I64
+   t2 = Sub64(t4,t3)
+   PUT(144) = 0x8:I64
+   PUT(152) = t4
+   PUT(160) = t3
+   PUT(48) = t2
+   PUT(184) = 0x40066C:I64
+   ------ IMark(0x40066C, 4, 0) ------
+   t16 = GET:I64(56)
+   t15 = Add64(t16,0xFFFFFFFFFFFFFFE8:I64)
+   t5 = t15
+   t17 = GET:I64(72)
+   STle(t5) = t17
+   PUT(184) = 0x400670:I64
+   ------ IMark(0x400670, 4, 0) ------
+   t19 = GET:I64(56)
+   t18 = Add64(t19,0xFFFFFFFFFFFFFFE0:I64)
+   t6 = t18
+   t20 = GET:I64(64)
+   STle(t6) = t20
+   PUT(184) = 0x400674:I64
+   ------ IMark(0x400674, 4, 0) ------
+   t22 = GET:I64(56)
+   t21 = Add64(t22,0xFFFFFFFFFFFFFFF8:I64)
+   t7 = t21
+   STle(t7) = 0x0:I8
+   PUT(184) = 0x400678:I64
+   ------ IMark(0x400678, 7, 0) ------
+   t8 = Add64(0x40067F:I64,0x2009C9:I64)
+   t23 = LDle:I64(t8)
+   PUT(32) = t23
+   PUT(184) = 0x40067F:I64
+   ------ IMark(0x40067F, 4, 0) ------
+   t25 = GET:I64(56)
+   t24 = Add64(t25,0xFFFFFFFFFFFFFFE0:I64)
+   t9 = t24
+   t26 = LDle:I64(t9)
+   PUT(16) = t26
+   PUT(184) = 0x400683:I64
+   ------ IMark(0x400683, 3, 0) ------
+   t27 = GET:I64(32)
+   PUT(64) = t27
+   PUT(184) = 0x400686:I64
+   ------ IMark(0x400686, 3, 0) ------
+   t28 = GET:I64(16)
+   PUT(72) = t28
+   PUT(184) = 0x400689:I64
+   ------ IMark(0x400689, 5, 0) ------
+   t30 = GET:I64(48)
+   t29 = Sub64(t30,0x8:I64)
+   t10 = t29
+   PUT(48) = t10
+   STle(t10) = 0x40068E:I64
+   t11 = 0x400550:I64
+   t31 = Sub64(t10,0x80:I64)
+   ====== AbiHint(t31, 128, t11) ======
+   PUT(184) = 0x400550:I64
+   t32 = GET:I64(184)
+   PUT(184) = t32; exit-Call
+}
+```
 
 This might seem a bit crazy; there's certainly a lot of IR.
 As you can see from the assembly, this block sets up the first strcmp call.
@@ -192,11 +194,12 @@ Here's an example.
 
 ```python
 # This creates a SimIRSB at 0x400664, and applies it to a blank state (which is automatically created by blank_path)
-p = b.path_generator.blank_path(address=0x400664)
-sirsb = p.next_run
+>>> p = b.factory.path(addr=0x400664)
+>>> p.step()
+>>> sirsb = p.next_run
 
 # this is the address of the first instruction in the block
-assert sirsb.addr == p.addr
+>>> assert sirsb.addr == p.addr
 ```
 
 Now that we have the SimIRSB, we can retrieve two main pieces of semantic information: what the block did, and where execution will go next.
@@ -211,22 +214,22 @@ Like any decent execution engine, SimuVEX supports breakpoints. This is pretty c
 
 ```python
 # get our state
-import simuvex
+>>> import simuvex
 
-s = b.factory.entry_state()
+>>> s = b.factory.entry_state()
 
 # add a breakpoint. This breakpoint will drop into ipdb right before a memory write happens.
-s.inspect.b('mem_write')
+>>> s.inspect.b('mem_write')
 
 # on the other hand, we can have a breakpoint trigger right *after* a memory write happens. On top of that, we
 # can have a specific function get run instead of going straight to ipdb.
-def debug_func(state):
-    print "State %s is about to do a memory write!"
+>>> def debug_func(state):
+...     print "State %s is about to do a memory write!"
 
-s.inspect.b('mem_write', when=simuvex.BP_AFTER, action=debug_func)
+>>> s.inspect.b('mem_write', when=simuvex.BP_AFTER, action=debug_func)
 
 # or, you can have it drop you in an embedded ipython!
-s.inspect.b('mem_write', when=simuvex.BP_AFTER, action='ipython')
+>>> s.inspect.b('mem_write', when=simuvex.BP_AFTER, action='ipython')
 ```
 
 There are many other places to break than a memory write. Here is the list. You can break at BP_BEFORE or BP_AFTER for each of these events.
@@ -287,22 +290,23 @@ Here it is:
 
 ```python
 # This will break before a memory write if 0x1000 is a possible value of its target expression
-s.inspect.b('mem_write', mem_write_address=0x1000)
+>>> s.inspect.b('mem_write', mem_write_address=0x1000)
 
 # This will break before a memory write if 0x1000 is the *only* value of its target expression
-s.inspect.b('mem_write', mem_write_address=0x1000, mem_write_address_unique=True))
+>>> s.inspect.b('mem_write', mem_write_address=0x1000, mem_write_address_unique=True)
 
 # This will break after instruction 0x8000, but only 0x1000 is a possible value of the last expression that was read from memory
-s.inspect.b('instruction', when=simuvex.BP_AFTER, instruction=0x8000, mem_read_expr=0x1000)
+>>> s.inspect.b('instruction', when=simuvex.BP_AFTER, instruction=0x8000, mem_read_expr=0x1000)
 ```
 
 Cool stuff! In fact, we can even specify a function as a condition:
 ```python
 # this is a complex condition that could do anything! In this case, it makes sure that RAX is 0x41414141 and
 # that the basic block starting at 0x8004 was executed sometime in this path's history
-def cond(state):
-    return state.any_str(state.regs.rax) == 'AAAA' and 0x8004 in state.inspect.backtrace
-s.inspect.b('mem_write', condition=cond)
+>>> def cond(state):
+...     return state.any_str(state.regs.rax) == 'AAAA' and 0x8004 in state.inspect.backtrace
+
+>>> s.inspect.b('mem_write', condition=cond)
 ```
 
 That is some cool stuff!
