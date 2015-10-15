@@ -4,6 +4,16 @@ To help you get started with [angr](https://github.com/angr/angr), we've created
 These mostly stem from CTF problems solved with angr by Shellphish.
 Enjoy!
 
+## ReverseMe example: ASIS CTF Finals 2015 - license
+
+Author: Fish Wang (github: @ltfish)
+
+This is a good example that showcases the following:
+
+- Create a custom file, and load it during symbolic execution.
+- Create an inline call to SimProcedure `strlen`, and use it to determine the length of a string in memory - even if the string may not be null-terminated.
+- `LAZY_SOLVES` should be disabled sometimes to avoid creating too many paths.
+
 ## ReverseMe example: Defcamp CTF Qualification 2015 - Reversing 100
 
 Author: Fish Wang (github: @ltfish)
