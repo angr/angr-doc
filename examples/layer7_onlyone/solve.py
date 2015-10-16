@@ -74,11 +74,10 @@ def main():
     candidates = final_state.se.any_n_int(input_string, 2)
 
     assert len(candidates) == 1
+    return hex(candidates[0])[2 : -1].decode('hex')
 
-    print "Flag:", hex(candidates[0])[2 : -1].decode('hex')
-
-    # The flag is 'I_H4TE_X0r'
+def test():
+    assert main() == 'I_H4TE_X0r'
 
 if __name__ == "__main__":
-    main()
-
+    print main()

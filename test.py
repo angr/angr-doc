@@ -1,13 +1,31 @@
 # pylint: disable=exec-used
 import os
+import sys
 import claripy
 import itertools
 
 md_files = filter(lambda s: s.endswith('.md'), os.listdir('.'))
+example_dirs = filter(lambda s: '.' not in s, os.listdir('examples'))
 
 def test_docs():
     for md_file in md_files:
         yield doctest_single, md_file
+
+def test_examples():
+    sys.path.append('.')
+    for example_dir in example_dirs:
+        if example_dir in ('mma_simplehash', 'csaw_wyvern'):
+            continue
+        yield exampletest_single, example_dir
+
+def exampletest_single(example_dir):
+    os.chdir('examples/' + example_dir)
+    try:
+        s = __import__('solve')
+        s = reload(s)
+        s.test()
+    finally:
+        os.chdir('../..')
 
 def doctest_single(md_file):
     claripy.ast.base.var_counter = itertools.count()

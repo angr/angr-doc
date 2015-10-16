@@ -4,13 +4,13 @@ import angr
 from simuvex.s_type import SimTypeFunction, SimTypeInt
 
 # This is literally how I solved this challenge during the game. Now I know it's easier
-# to just call tea_decrypt with those bytes (and the correct key), but I don't want to 
+# to just call tea_decrypt with those bytes (and the correct key), but I don't want to
 # change this script anymore.
 
-# You are strongly recommended to use pypy to run this script in order to get a better 
+# You are strongly recommended to use pypy to run this script in order to get a better
 # performance.
 
-# I would like to thank my girlfriend for allowing me to work on FlareOn challenges 
+# I would like to thank my girlfriend for allowing me to work on FlareOn challenges
 # during several nights we spent together.
 
 ARRAY_ADDRESS = 0x29f210
@@ -23,13 +23,13 @@ def before_tea_decrypt(state):
              0xfc, 0x92, 0x61, 0x61, 0x47, 0x1a, 0x19, 0xb9, 0x63, 0xfd,
              0xc, 0xf2, 0xb6, 0x20, 0xc0, 0x2d, 0x5c, 0xfd, 0xd9, 0x71,
              0x54, 0x96, 0x4f, 0x43, 0xf7, 0xff, 0xbb, 0x4c, 0x5d, 0x31]
-    bytes = "".join([ chr(i) for i in all_bytes ])
-    state.memory.store(ARRAY_ADDRESS, bytes)
+    mem_bytes = "".join([ chr(i) for i in all_bytes ])
+    state.memory.store(ARRAY_ADDRESS, mem_bytes)
 
 def main():
     p = angr.Project('challenge-7.sys', load_options={'auto_load_libs': False})
 
-    # Set a zero-length hook, so our function got executed before calling the 
+    # Set a zero-length hook, so our function got executed before calling the
     # function tea_decrypt(0x100f0), and then we can keep executing the original
     # code. Thanks to this awesome design by @rhelmot!
     p.hook(0xadc31, func=before_tea_decrypt,length=0)
@@ -41,14 +41,13 @@ def main():
     # Call the function and get the final state
     state = proc_big_68.call_get_res_state(0)
     # Load the string from memory
-    decrypted = hex(state.se.any_int(state.memory.load(ARRAY_ADDRESS, 40)))[2:-1].decode('hex')
+    return hex(state.se.any_int(state.memory.load(ARRAY_ADDRESS, 40)))[2:-1].decode('hex').strip('\0')
 
-    # The flag is "unconditional_conditions@flare-on.com"
-    print "FLAG:", decrypted
+def test():
+    assert main() == "unconditional_conditions@flare-on.com"
 
 if __name__ == "__main__":
     # Turn on logging so we know what's going on...
     # It's up to you to set up a logging handler beforehand
     logging.getLogger('angr.path_group').setLevel(logging.DEBUG)
-    main()
-
+    print main()

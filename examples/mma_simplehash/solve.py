@@ -64,39 +64,46 @@ class isalnum(simuvex.SimProcedure):
         isalphanum = self.state.se.Or(is_num, is_alpha_lower, is_alpha_upper)
         return self.state.se.If(isalphanum, self.state.se.BVV(1, self.state.arch.bits), self.state.se.BVV(0, self.state.arch.bits))
 
-# Let's load the file and hook the problem functions to get around issues 3
-# and 4.
-b = angr.Project("simple_hash")
-b.hook(0x80487EC, mm)
-b.hook(0x8048680, moddi3)
-b.hook(0x80486E0, isalnum)
+def main():
+    # Let's load the file and hook the problem functions to get around issues 3
+    # and 4.
+    b = angr.Project("simple_hash")
+    b.hook(0x80487EC, mm)
+    b.hook(0x8048680, moddi3)
+    b.hook(0x80486E0, isalnum)
 
-# Here, we create a new symbolic state. To get around issue 5, we start
-# execution partway through `main()`.
-s = b.factory.blank_state(addr=0x8048A63)
+    # Here, we create a new symbolic state. To get around issue 5, we start
+    # execution partway through `main()`.
+    s = b.factory.blank_state(addr=0x8048A63)
 
-# To get around issue 2, we disable an optimization that, in this binary, goes
-# a bit awry and causes *more* constraint solves to happen.
-s.options.discard("LAZY_SOLVES")
+    # To get around issue 2, we disable an optimization that, in this binary, goes
+    # a bit awry and causes *more* constraint solves to happen.
+    s.options.discard("LAZY_SOLVES")
 
-# To get around issue 1, we raise the solver timeout (specified in
-# milliseconds) to avoid situations where Z3 times out. Without this, with the
-# current way Z3 is used in angr, valid solutions end up being discarded
-# because Z3 can't find them fast enough.
-s.se._solver.timeout=30000000
+    # To get around issue 1, we raise the solver timeout (specified in
+    # milliseconds) to avoid situations where Z3 times out. Without this, with the
+    # current way Z3 is used in angr, valid solutions end up being discarded
+    # because Z3 can't find them fast enough.
+    s.se._solver.timeout=30000000
 
-# Since we started execution partway through main(), after the user input was
-# read, we need to manually set the user input.
-s.memory.store(0x080491A0, s.BV("ans", 999*8))
+    # Since we started execution partway through main(), after the user input was
+    # read, we need to manually set the user input.
+    s.memory.store(0x080491A0, s.BV("ans", 999*8))
 
-# Now, we start the symbolic execution. We create a PathGroup and set up some
-# logging (so that we can see what's happening).
-pg = b.factory.path_group(s, immutable=False)
-angr.path_group.l.setLevel("DEBUG")
+    # Now, we start the symbolic execution. We create a PathGroup and set up some
+    # logging (so that we can see what's happening).
+    pg = b.factory.path_group(s, immutable=False)
+    angr.path_group.l.setLevel("DEBUG")
 
-# We want to explore to the "success" state (0x8048A94) while avoiding the
-# "failure" state (0x8048AF6). This takes a loong time (about an hour).
-pg.explore(find=0x8048A94, avoid=0x8048AF6)
+    # We want to explore to the "success" state (0x8048A94) while avoiding the
+    # "failure" state (0x8048AF6). This takes a loong time (about an hour).
+    pg.explore(find=0x8048A94, avoid=0x8048AF6)
 
-# We're done! Now we just print out the resulting string.
-print "The solution is:", pg.found[0].state.se.any_str(pg.found[0].state.memory.load(0x080491A0, 100))
+    # We're done!
+    return pg.found[0].state.se.any_str(pg.found[0].state.memory.load(0x080491A0, 100)).strip('\0\n')
+
+def test():
+    assert main() == 'EwgHWpyND'
+
+if __name__ == '__main__':
+    print main()
