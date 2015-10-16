@@ -67,7 +67,7 @@ import angr
 b = angr.Project("/bin/true")
 
 # translate the starting basic block
-isrb = b.factory.block(p.entry).vex
+irsb = b.factory.block(b.entry).vex
 irsb.pp()
 
 # translate a basic block starting at an address
