@@ -14,7 +14,11 @@ def test_docs():
 def test_examples():
     sys.path.append('.')
     for example_dir in example_dirs:
-        if example_dir in ('mma_simplehash', 'csaw_wyvern', 'layer7_onlyone'):
+        if example_dir in ('mma_simplehash', 
+                           'csaw_wyvern', 
+                           'layer7_onlyone', # Runs out of memory on the test machine
+                           'whitehat_crypto400', # The binary must be ran in a privileged docker container
+                           ):
             continue
         yield exampletest_single, example_dir
 
