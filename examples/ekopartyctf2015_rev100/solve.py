@@ -181,7 +181,13 @@ def main():
 
     # The last one must be '4'...
     known_passwords += [ '4' ]
-    print "Flag: EKO{%s}" % "".join(known_passwords)
+    password = "".join(known_passwords)
+    print "Flag: EKO{%s}" % password
+
+    return password
+
+def test():
+    assert main() == 'St4t1c_4n4lyS1s_randomstring1234'
 
 if __name__ == "__main__":
     main()
