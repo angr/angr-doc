@@ -4,6 +4,14 @@ To help you get started with [angr](https://github.com/angr/angr), we've created
 These mostly stem from CTF problems solved with angr by Shellphish.
 Enjoy!
 
+## ReverseMe example: EKOPARTY CTF 2015 - rev 100
+
+Author: Fish Wang (github: @ltfish)
+
+This is a painful challenge to solve with angr. I should have done things in a smarter way.
+
+Here is the [binary](./examples/ekopartyctf2015_rev100/counter) and the [script](./examples/ekopartyctf2015_rev100/solve.py).
+
 ## ReverseMe example: ASIS CTF Finals 2015 - fake
 
 Author: Fish Wang (github: @ltfish)
