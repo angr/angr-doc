@@ -8,6 +8,8 @@ Enjoy!
 
 Author: Fish Wang (github: @ltfish)
 
+Script runtime: 5.5 sec
+
 A Windows binary that takes a flag as argument, and tells you if the flag is correct or not.
 
 I have to patch out some checks that are difficult for angr to solve (e.g. it uses some bytes of the flag to decrypt some data, and see if those data are legit Windows APIs). 
@@ -20,6 +22,8 @@ Enjoy!
 
 Author: Fish Wang (github: @ltfish)
 
+Script runtime: 5.5 sec
+
 This is a painful challenge to solve with angr. I should have done things in a smarter way.
 
 Here is the [binary](./examples/ekopartyctf2015_rev100/counter) and the [script](./examples/ekopartyctf2015_rev100/solve.py).
@@ -28,6 +32,8 @@ Here is the [binary](./examples/ekopartyctf2015_rev100/counter) and the [script]
 
 Author: Fish Wang (github: @ltfish)
 
+Script runtime: 1 min 57 sec
+
 The solution is pretty straight-forward.
 
 The [binary](./examples/asisctffinals2015_fake/fake) and the [script](./examples/asisctffinals2015_fake/solve.py).
@@ -35,6 +41,8 @@ The [binary](./examples/asisctffinals2015_fake/fake) and the [script](./examples
 ## ReverseMe example: ASIS CTF Finals 2015 - license
 
 Author: Fish Wang (github: @ltfish)
+
+Script runtime: 3.6 sec
 
 This is a good example that showcases the following:
 
