@@ -4,6 +4,18 @@ To help you get started with [angr](https://github.com/angr/angr), we've created
 These mostly stem from CTF problems solved with angr by Shellphish.
 Enjoy!
 
+## ReverseMe example: WhiteHat Grant Prix Global Challenge 2015 - Re400
+
+Author: Fish Wang (github: @ltfish)
+
+A Windows binary that takes a flag as argument, and tells you if the flag is correct or not.
+
+I have to patch out some checks that are difficult for angr to solve (e.g. it uses some bytes of the flag to decrypt some data, and see if those data are legit Windows APIs). 
+Other than that, angr works really well for solving this challenge.
+
+The [binary](./examples/whitehatvn2015_re400/re400.exe) and the [script](./examples/whitehatvn2015_re400/solve.py). 
+Enjoy!
+
 ## ReverseMe example: EKOPARTY CTF 2015 - rev 100
 
 Author: Fish Wang (github: @ltfish)
