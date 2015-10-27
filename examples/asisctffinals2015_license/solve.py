@@ -22,12 +22,12 @@ def main():
     for i in xrange(5):
         line = [ ]
         for j in xrange(6):
-            line.append(state.se.BitVec('license_file_byte_%d_%d' % (i, j), 8))
+            line.append(state.se.BVS('license_file_byte_%d_%d' % (i, j), 8))
             state.add_constraints(line[-1] != 0x0a)
         if bytes is None:
             bytes = state.se.Concat(*line)
         else:
-            bytes = state.se.Concat(bytes, state.se.BitVecVal(0x0a, 8), *line)
+            bytes = state.se.Concat(bytes, state.se.BVV(0x0a, 8), *line)
     content = simuvex.SimSymbolicMemory(memory_id="file_%s" % license_name)
     content.set_state(state)
     content.store(0, bytes)

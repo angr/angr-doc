@@ -5,7 +5,7 @@ unconstrained_number = None
 def strtol(state):
     # We return an unconstrained number here
     global unconstrained_number
-    unconstrained_number = state.se.BV('strtol', 64)
+    unconstrained_number = state.se.BVS('strtol', 64)
     # Store it to rax
     state.regs.rax = unconstrained_number
 
