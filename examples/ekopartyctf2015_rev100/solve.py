@@ -12,7 +12,7 @@ def prepare_state(state, known_passwords):
     state = state.copy()
     password = [ ]
     for i in xrange(0, len(known_passwords) + 1):
-        password.append(state.se.BV('password_%d' % i, 8))
+        password.append(state.se.BVS('password_%d' % i, 8))
         state.memory.store(0xd0000000 + i, password[-1])
 
     for i, char in enumerate(known_passwords):
