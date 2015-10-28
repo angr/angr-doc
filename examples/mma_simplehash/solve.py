@@ -88,7 +88,7 @@ def main():
 
     # Since we started execution partway through main(), after the user input was
     # read, we need to manually set the user input.
-    s.memory.store(0x080491A0, s.BV("ans", 999*8))
+    s.memory.store(0x080491A0, s.se.BVS("ans", 999*8))
 
     # Now, we start the symbolic execution. We create a PathGroup and set up some
     # logging (so that we can see what's happening).
