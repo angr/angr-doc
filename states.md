@@ -141,7 +141,8 @@ Symbolic expressions can be interacted with in the same way as normal (concrete)
 
 # You can even tell *which* variables make up a given expression.
 >>> assert s.se.variables(aaaa) == set()
->>> assert s.se.variables(aaaa + v) == { "some_name_4_32" } # that's the ID and size appended to the name
+>>> #assert s.se.variables(aaaa + v) == { "some_name_4_32" } # that's the ID and size appended to the name
+# This assertion will fail because it depends on precisely the number of symbolic values previously created
 ```
 
 As you can see, symbolic and concrete expressions are pretty interchangeable, which is an extremely useful abstraction provided by SimuVEX. You might also notice that, when you read from memory locations that were never written to, you receive symbolic expressions:
@@ -154,7 +155,7 @@ As you can see, symbolic and concrete expressions are pretty interchangeable, wh
 >>> assert s.se.symbolic(m)
 
 # Along with the ID and length, the address at which this expression originated is also added to the name
->>> assert s.se.variables(m) == { "mem_bbbb0000_5_64" }
+>>> #assert s.se.variables(m) == { "mem_bbbb0000_5_64" }
 
 # And, of course, we can get the numerical or string solutions for the expression
 >>> print s.se.any_n_int(m, 10)
