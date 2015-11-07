@@ -53,10 +53,10 @@ ASTs provide several useful operations.
 
 # Depth - you can get the depth of the AST
 >>> print bv.depth
->>> assert bv.depth == 2
+>>> assert bv.depth == 1
 >>> x = claripy.BVS('x', 32)
->>> assert (x+bv).depth == 3
->>> assert ((x+bv)/10).depth == 4
+>>> assert (x+bv).depth == 2
+>>> assert ((x+bv)/10).depth == 3
 ```
 
 Applying a condition (==, !=, etc) on ASTs will return an AST that represents the condition being carried out.
