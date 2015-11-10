@@ -41,7 +41,7 @@ def doctest_single(md_file):
 
     def try_running(line, i):
         try:
-            exec(line, env)
+            exec line in env
         except Exception as e:
             raise Exception('Error on line %d of %s: %s' % (i+1, md_file, e))
 
