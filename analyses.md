@@ -138,7 +138,7 @@ To load a binary without shared libraries, add the following keyword argument to
 
 ## Function Manager
 
-The CFG result produces an object called the *Function Manager*, accessable through `cfg.function_manager`.
+The CFG result produces an object called the *Function Manager*, accessible through `cfg.function_manager`.
 The most common use case for this object is accessing `function_manager.functions`, which is a dict mapping address to `Function` objects, which can tell you properties about a function.
 
 ```python
