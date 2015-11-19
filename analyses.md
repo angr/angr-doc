@@ -35,7 +35,7 @@ Of course, there are several options for customized CFGs.
 | Option | Description |
 |--------|-------------|
 | context_sensitivity_level | This sets the context sensitivity level of the analysis. See the context sensitivity level section below for more information. This is 1 by default. |
-| start, starts | An address, or, for `starts`, a list of addresses, to use as entry points into the analysis. |
+| starts | A list of addresses, to use as entry points into the analysis. |
 | avoid_runs | A list of addresses to ignore in the analysis. |
 | call_depth | Limit the depth of the analysis to some number calls. This is useful for checking which functions a specific function can directly jump to (by setting `call_depth` to 1).
 | initial_state | An initial state can be provided to the CFG, which it will use throughout its analysis. |
