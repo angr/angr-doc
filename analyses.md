@@ -27,7 +27,7 @@ A CFG can be constructed by doing:
 >>> b = angr.Project('/bin/true', load_options={'auto_load_libs': False})
 
 # generate a CFG
->>> cfg = b.analyses.CFG(keep_input_state=True)
+>>> cfg = b.analyses.CFG(keep_state=True)
 ```
 
 Of course, there are several options for customized CFGs.
@@ -39,7 +39,7 @@ Of course, there are several options for customized CFGs.
 | avoid_runs | A list of addresses to ignore in the analysis. |
 | call_depth | Limit the depth of the analysis to some number calls. This is useful for checking which functions a specific function can directly jump to (by setting `call_depth` to 1).
 | initial_state | An initial state can be provided to the CFG, which it will use throughout its analysis. |
-| keep_input_state | To save memory, the state at each basic block is discarded by default. If `keep_input_state` is True, the state is saved in the CFGNode. |
+| keep_state | To save memory, the state at each basic block is discarded by default. If `keep_state` is True, the state is saved in the CFGNode. |
 | enable_symbolic_back_traversal | Whether to enable an intensive technique for resolving indirect jumps |
 | enable_advanced_backward_slicing | Whether to enable another intensive technique for resolving direct jumps |
 | more! | Examine the docstring on b.analyses.CFG for more up-to-date options |
@@ -118,7 +118,7 @@ Due to context sensitivity, a given basic block can have multiple nodes in the g
 # on the other hand, this grabs all of the nodes
 >>> print "There were %d contexts for the entry block" % len(cfg.get_all_nodes(b.entry))
 
-# if keep_input_states was given as True, we can also retrieve the actual SimIRSBs
+# if keep_state was given as True, we can also retrieve the actual SimIRSBs
 >>> print "A single SimIRSB at the entry point:", cfg.get_any_irsb(b.entry)
 >>> print "All SimIRSBs at the entry point:", cfg.get_all_irsbs(b.entry)
 
