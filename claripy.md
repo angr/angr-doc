@@ -10,17 +10,6 @@ Internally, Claripy seamlessly mediates the co-operation of multiple disparate b
 Most users of Angr will not need to interact directly with Claripy (except for, maybe, claripy AST objects, which represent symbolic expressions) -- SimuVEX handles most interactions with Claripy internally.
 However, for dealing with expressions, an understanding of Claripy might be useful.
 
-## Frontends
-
-The main point of interaction with Claripy are the Claripy frontends.
-These frontends interact with the backends in different ways.
-For example, the `FullFrontend` is a frontend to support backends that must track state (i.e., such as the Z3 backend, which tracks state in the way of a Z3 constraint solver object).
-On the other hand, `LightFrontend` is a faster frontend, designed for backends that do not track state (i.e., the VSA backend or the purely concrete backend).
-Additionally, `CompositeFrontend` extends on `FullFrontend`, implementing optimizations that solve smaller sets of constraints to speed up constraint solving.
-
-For symbolic uses, the `claripy.Solver()` function will create a Z3-backed `FullFrontend`.
-This is the entry-point to Claripy for most users.
-
 ## Claripy ASTs
 
 Claripy ASTs abstract away the differences between the constructs that Claripy supports.
@@ -102,13 +91,25 @@ In general, Claripy supports all of the normal python operations (+, -, |, ==, e
 
 **NOTE:** The default python `>`, `<`, `>=`, and `<=` are signed in Claripy, to reflect their behavior in Z3. You will most likely want to use the unsigned operations, instead.
 
-## Claripy Solvers
+## Frontends
 
-Claripy performs constraint solving, via Z3, through the claripy.Solver class. These work much like Z3 solvers:
+The main point of interaction with Claripy are the Claripy frontends.
+These frontends expose an API to interpret ASTs in different ways and return usable values.
+There are several different frontends.
+
+| Name | Description |
+|------|-------------|
+| FullFrontend | This is analogous to a `z3.Solver()`. It is a frontend that tracks constraints on symbolic variables and uses a constraint solver (currently, Z3) to evaluate symbolic expressions. |
+| LightFrontend | This frontend uses VSA to reason about values. It is an *approximating* frontend, but produces values without performing constraint solves. |
+| HybridFrontend | This frontend combines VSA and Z3 to allow for *approximating* values. You can specify whether or not you want an exact result from your evaluations, and this frontend does the rest. |
+| CompositeFrontend | This frontend implements optimizations that solve smaller sets of constraints to speed up constraint solving. |
+| ReplacementFrontend | This frontend allows the replacement of expressions on-the-fly. It is used as a helper by other frontends and can be used directly to implement exotic analyses. |
+
+Some examples of frontend usage:
 
 ```python
 # create the solver and an expression
->>> s = claripy.Solver()
+>>> s = claripy.Solver() # this is an alias to claripy.FullFrontend
 >>> x = claripy.BVS('x', 8)
 
 # now let's add a constraint on x
