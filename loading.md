@@ -63,7 +63,7 @@ It is also possible to interface directly with individual binary objects:
 >>> print b.loader.main_bin.memory
 
 # this is a dict (name->ELFRelocation) of imports required by the libc which was loaded
->>> p.loader.shared_objects['libc.so.6'].imports
+>>> b.loader.shared_objects['libc.so.6'].imports
 
 # this is a dict (name->ELFRelocation) of imports of the main binary, where addr is usually 0 (see the misc section below).
 >>> print b.loader.main_bin.imports
