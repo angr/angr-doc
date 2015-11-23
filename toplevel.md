@@ -1,0 +1,163 @@
+Top-level interfaces
+====================
+
+So you've loaded a project. Now what?
+
+This document explains all the attributes that are available directly from instances of `angr.Project`.
+
+# Basic properties
+```python
+>>> import angr, monkeyhex, claripy
+>>> b = angr.Project('/bin/true')
+
+>>> b.arch
+<Arch AMD64 (LE)>
+>>> b.entry
+0x401410
+>>> b.filename
+'/bin/true'
+>>> b.loader
+<Loaded true, maps [0x400000:0x4004000]>
+```
+- *arch* is an instance of an `archinfo.Arch` object for whichever architecture the program is compiled.
+  There's [lots of fun information](https://github.com/angr/archinfo/blob/master/archinfo/arch_amd64.py) on there!
+  The common ones you care about are `arch.bits`, `arch.bytes` (that one is a `@property` declaration on the [main `Arch` class](https://github.com/angr/archinfo/blob/master/archinfo/arch.py)), `arch.name`, and `arch.memory_endness`.
+- *entry* is the entry point of the binary!
+- *filename* is the absolute filename of the binary. Riveting stuff!
+- *loader* is the [cle.Loader](https://github.com/angr/cle/blob/master/cle/loader.py) instance for this project. Details on how to use it are found [here](https://github.com/angr/angr-doc/blob/master/loading.md).
+
+# Analyses and Surveyors
+```python
+>>> b.analyses
+<angr.analysis.Analyses object at 0x7f5220d6a890>
+>>> b.surveyors
+<angr.surveyor.Surveyors object at 0x7f52191b9dd0>
+
+>>> filter(lambda x: '_' not in x, dir(b.analyses))
+['BackwardSlice',
+ 'BinDiff',
+ 'BoyScout',
+ 'BufferOverflowDetection',
+ 'CDG',
+ 'CFG',
+ 'DDG',
+ 'GirlScout',
+ 'SleakMeta',
+ 'Sleakslice',
+ 'VFG',
+ 'Veritesting',
+ 'XSleak']
+>>> filter(lambda x: '_' not in x, dir(b.surveyors))
+['Caller', 'Escaper', 'Executor', 'Explorer', 'Slicecutor', 'started']
+```
+
+`analyses` and `surveyors` are both just container objects for all the Analyses and Surveyors, respectively.
+
+Analyses are customizable analysis routines that can extract some sort of information from the program.
+The most common two are `CFG`, which constructs a control-flow graph, and `VFG`, which performs value-set analysis.
+Their use, as well as how to write your own analyses, is documented [here](https://github.com/angr/angr-doc/blob/master/analyses.md).
+
+Surveyors are basic tools for performing symbolic execution with common goals.
+The most common one is `Explorer`, which searches for a target address while avoiding some others.
+Read about using surveyors [here](https://github.com/angr/angr-doc/blob/master/surveyors.md).
+Note that while surveyors are cool, an alternative to them is Path Groups (below), which are the future.
+
+# The factory
+
+`b.factory`, like `b.analyses` and `b.surveyors`, is a container object that has a lot of cool stuff in it.
+It is not a factory in the java sense, it is merely a home for all the functions that produce new instances of important Angr classes and should be sitting on Project.
+
+```python
+>>> block = b.factory.block(addr=b.entry)
+>>> block = b.factory.block(addr=b.entry, insn_bytes='\xc3')
+>>> block = b.factory.block(addr=b.entry, num_inst=1)
+
+>>> state = b.factory.blank_state(addr=b.entry)
+>>> state = b.factory.entry_state(args=['./program', angr.StringSpec(sym_length=20)])
+>>> state = b.factory.full_init_state(args=['./program', angr.StringSpec(sym_length=20)])
+
+>>> path = b.factory.path()
+>>> path = b.factory.path(state)
+
+>>> group = b.factory.path_group()
+>>> group = b.factory.path_group(path)
+>>> group = b.factory.path_group([path, state])
+
+>>> strlen_addr = b.loader.main_bin.plt['strlen']
+>>> strlen = b.factory.callable(strlen_addr)
+>>> assert claripy.is_true(strlen("hello") == 5)
+```
+
+- *factory.block* is the angr's lifter. passing it an address will lift a basic block of code from the binary at that address, and return an angr Block object that can be used to retrieve multiple representations of that block. More below.
+- *factory.blank_state* returns a SimState object with little initialization besides the parameters passed to it.
+- *factory.entry_state* returns a SimState initialized to the program state at the binary's entry point.
+- *factory.full_init_state* returns a SimState that initialized similarly to `entry_state`, but instead of at the entry point, the program counter points to a SimProcedure that serves the purpose of the dynamic loader and will call the initializers of each shared library before jumping to the entry point.
+- *factory.path* returns a Path object. Since Paths are at their start just light wrappers around SimStates, you can call `path` with a state as an argument and get a path wrapped around that state.
+  Alternately, for simple cases, any keyword arguments you pass `path` will be passed on to `entry_state` to create a state to wrap.
+- *factory.path_group* creates a path group! Path groups are the future. They're basically very smart lists of paths, so you can pass it a path, a state (which will be wrapped into a path), or a list of paths and states.
+- *factory.callable* is _very_ cool. Callables are a FFI (foreign functions interface) into arbitrary binary code.
+
+## Lifter
+
+TODO
+
+Important note that needs to go in this initial version before I write the rest of the stuff:
+The `Block` object that you get back from the lifter, get the `vex` property to get a PyVEX IRSB or the `capstone` property to get a Capstone block. Read the source if you wanna know more about these! (the source is in angr/lifter.py, the method is called `lift`. this method literally gets transplanted out of this class and dropped onto the `factory` instance.)
+
+## State options
+
+TODO
+
+### Filesystem Options
+
+There are a number of options which can be passed to the state initialization routines which affect filesystem usage. These include the `fs`, `concrete_fs`, and `chroot` options.
+
+The `fs` option allows you to pass in a dictionary of file names to preconfigured SimFile objects. This allows you to do things like set a concrete size limit on a file's content.
+
+Setting the `concrete_fs` option to `True` will cause angr to respect the files on disk. For example if during simulation a program attempts to open 'banner.txt' when `concrete_fs` is set to `False` (the default), a SimFile with a symbolic memory backing will be created and simulation will continue as though the file exists. When `concrete_fs` mode is set to `True`, if 'banner.txt' exists a new SimFile object will be created with a concrete backing, reducing the resulting state explosion which would be caused by operating on a completely symbolic file. Additionally in `concrete_fs` mode if 'banner.txt' mode does not exist, a SimFile object will not be created upon calls to open during simulation and an error code will be returned. Additionally, it's important to note that attempts to open files whose path begins with '/dev/' will never be opened concretely even with `concrete_fs` set to `True`.
+
+The `chroot` option allows you to specify an optional root to use while using the `concrete_fs` option. This can be convenient if the program you're analyzing references files using an absolute path. For example if the program you are analyzing attempts to open '/etc/passwd' you can set the chroot to your current working directory and further attempts to access '/etc/passwd' will cause access to '$CWD/etc/passwd'.
+
+```python
+>>> import simuvex
+>>> files = {'/dev/stdin': simuvex.storage.file.SimFile("/dev/stdin", "r", size=30)}
+>>> s = b.factory.entry_state(fs=files, concrete_fs=True, chroot="angr-chroot/")
+```
+
+This example will create a state which constricts at most 30 symbolic bytes from being read from stdin and will cause references to files to be resolved concretely within the new root directory `angr-chroot`.
+
+Important note that needs to go in this initial version before I write the rest of the stuff:
+the `args` and `env` keyword args work on `entry_state` and `full_init_state`, and are a list and a dict, respectively, of strings or `StringSpec` objects, which can represent a variety of concrete and symbolic strings. Read the source if you wanna know more about these!
+
+## Callables
+
+TODO
+
+Important note that needs to go in this initial version before I write the rest of the stuff:
+The arguments can be symbolic if you pass in a symbolic `claripy.BV()` argument.
+Also, you can definitely just `call(*args)` a callable to get the return value of the function, but if you want the program state on return, you should use `call.get_res_state(*args)`. Also, `call.set_base_state(state)` to set the state that will be used to do the calling. Read the source if you wanna know more about these! (the source is in angr/surveyors/caller.py)
+
+# Hooking
+```python
+>>> def set_rax(state):
+...    state.regs.rax = 10
+
+>>> b.hook(0x10000, set_rax, length=5)
+>>> b.is_hooked(0x10000)
+True
+>>> b.unhook(0x10000)
+>>> b.set_sim_procedure(b.loader.main_bin, 'strlen', simuvex.SimProcedures['stubs']['ReturnUnconstrained'])
+```
+
+A hook is a modification of how program execution should work.
+When you hook a program at a certain address, whenever the program's execution reaches that point, it will run the python code you supplied in the hook.
+Execution will then skip `length` bytes ahead of the hooked address and resume.
+You can omit the `length` argument for execution to skip zero bytes and resume at the address you hooked.
+
+In addition to a basic function, you can hook an address with a `SimProcedure`, which is a more complex system for having fine-grained control over program execution.
+To do this, use the exact same `hook` function, but supply a class (not an instance!) that subclasses `simuvex.SimProcedure`.
+
+The `is_hooked` and `unhook` methods should be self-explanitory.
+
+`set_sim_procedure` is a different function that serves a different purpose. Instead of an address, you pass it a CLE binary and the name of a function that that binary imports.
+The internal (GOT) pointer to the code that function resolved to will be replaced with a pointer to the SimProcedure you specify in the third argument.

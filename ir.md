@@ -1,6 +1,6 @@
 # Intermediate Representation
 
-Because angr deals with widely diverse architectures, it must carry out its analysis on an intermediate representation. The IR abstracts away several architecture differences when dealing with different architectures, allowing a single analysis to be run on all of them:
+Because angr deals with widely diverse architectures, it must carry out its analysis on an intermediate representation. We use Valgrind's IR, "VEX", for this. The VEX IR abstracts away several architecture differences when dealing with different architectures, allowing a single analysis to be run on all of them:
 
 - **Register names.** The quantity and names of registers differ between architectures, but modern CPU designs hold to a common theme: each CPU contains several general purpose registers, a register to hold the stack pointer, a set of registers to store condition flags, and so forth. The IR provides a consistent, abstracted interface to registers on different platforms. Specifically, VEX models the registers as a separate memory space, with integer offsets (i.e., AMD64's `rax` is stored starting at address 16 in this memory space).
 - **Memory access.** Different architectures access memory in different ways. For example, ARM can access memory in both little-endian and big-endian modes. The IR must abstracts away these differences.
@@ -44,68 +44,75 @@ The astute reader will observe that the actual subtraction is modeled by the fir
 
 The following ARM instruction:
 
-	subs R2, R2, #8
-	
+    subs R2, R2, #8
+    
 Becomes this VEX IR:
 
-	t0 = GET:I32(16)
-	t1 = 0x8:I32
-	t3 = Sub32(t0,t1)
-	PUT(16) = t3
-	PUT(68) = 0x59FC8:I32
+    t0 = GET:I32(16)
+    t1 = 0x8:I32
+    t3 = Sub32(t0,t1)
+    PUT(16) = t3
+    PUT(68) = 0x59FC8:I32
 
-We use a library called PyVEX (https://git.seclab.cs.ucsb.edu/gitlab/angr/pyvex) that exposes VEX into Python. Now that you understand VEX, you can actually play with some VEX in angr:
+Now that you understand VEX, you can actually play with some VEX in angr: We use a library called PyVEX (https://github.com/angr/pyvex) that exposes VEX into Python. In addition, PyVEX implements its own pretty-printing so that it can show register names instead of register offsets in PUT and GET instructions.
+
+PyVEX is accessable through angr through the `Project.factory.block` interface. There are many different representations you could use to access syntactic properties of a block of code, but they all have in common the trait of analyzing a particular sequence of bytes. Through the `factory.block` constructor, you get a `Block` object that can be easily turned into several different representations. Try `.vex` for a PyVEX IRSB, or `.capstone` for a Capstone block.
+
+Let's play with PyVEX:
 
 ```python
-b = angr.Project("...")
+>>> import angr
+
+# load the program binary
+>>> b = angr.Project("/bin/true")
+
+# translate the starting basic block
+>>> irsb = b.factory.block(b.entry).vex
+>>> irsb.pp()
 
 # translate a basic block starting at an address
-irsb = b.block(0x4000A00)
-
-# pretty-print the basic block
-irsb.pp()
+>>> irsb = b.factory.block(0x401340).vex
+>>> irsb.pp()
 
 # this is the IR Expression of the jump target of the unconditional exit at the end of the basic block
-print irsb.next
+>>> print irsb.next
 
 # this is the type of the unconditional exit (i.e., a call, ret, syscall, etc)
-print irsb.jumpkind
+>>> print irsb.jumpkind
 
 # you can also pretty-print it
-irsb.next.pp()
+>>> irsb.next.pp()
 
 # iterate through each statement and print all the statements
-for stmt in irsb.statements:
-	stmt.pp()
+>>> for stmt in irsb.statements:
+...     stmt.pp()
 
 # pretty-print the IR expression representing the data, and the *type* of that IR expression written by every store statement
-import pyvex
-for stmt in irsb.statements:
-  if isinstance(stmt, pyvex.IRStmt.Store):
-    print "Data:",
-    stmt.data.pp()
-    print ""
-
-    print "Type:",
-    print stmt.data.result_type
-    print ""
+>>> import pyvex
+>>> for stmt in irsb.statements:
+...     if isinstance(stmt, pyvex.IRStmt.Store):
+...         print "Data:",
+...         stmt.data.pp()
+...         print ""
+...         print "Type:",
+...         print stmt.data.result_type
+...         print ""
 
 # pretty-print the condition and jump target of every conditional exit from the basic block
-for stmt in irsb.statements:
-	if isinstance(stmt, pyvex.IRStmt.Exit):
-		print "Condition:",
-		stmt.guard.pp()
-		print ""
-
-		print "Target:",
-		stmt.dst.pp()
-		print ""
+... for stmt in irsb.statements:
+...     if isinstance(stmt, pyvex.IRStmt.Exit):
+...         print "Condition:",
+...         stmt.guard.pp()
+...         print ""
+...         print "Target:",
+...         stmt.dst.pp()
+...         print ""
 
 # these are the types of every temp in the IRSB
-print irsb.tyenv.types
+>>> print irsb.tyenv.types
 
 # here is one way to get the type of temp 0
-print irsb.tyenv.types[0]
+>>> print irsb.tyenv.types[0]
 ```
 
 Keep in mind that this is a *syntactic* respresentation of a basic block. That is, it'll tell you what the block means, but you don't have any context to say, for example, what *actual* data is written by a store instruction. We'll get to that next.
