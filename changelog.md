@@ -6,12 +6,14 @@ Tracking minor changes are left as an excercise for the reader :-)
 ## angr 4.5.11.23
 
 This is a pretty beefy release, with over half of claripy having been rewritten and major changes to other analyses.
+Internally, Claripy has been \emph{unified} -- the VSA mode and symbolic mode now work on the same structures instead of requiring structures to be created differently.
+This opens the door for awesome capabilities in the future, but could also result in unexpected behavior if we failed to account for something.
 
 Claripy has had some major interface changes:
 
 - claripy.BV has been renamed to claripy.BVS (bit-vector symbol). It can now create bitvectors out of strings (i.e., claripy.BVS(0x41, 8) and claripy.BVS("A") are identical).
 - state.BV and state.BVV are deprecated. Please use state.se.BVS and state.se.BVV.
-- BV.model is deprecated. If you're using it, you're doing something wrong, anyways. If you really need a specific model, convert it with the appropriate backend (i.e., claripy.backend_concrete.convert(bv).
+- BV.model is deprecated. If you're using it, you're doing something wrong, anyways. If you really need a specific model, convert it with the appropriate backend (i.e., claripy.backend_concrete.convert(bv)).
 
 There have also been some changes to analyses:
 
