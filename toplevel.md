@@ -68,13 +68,15 @@ Note that while surveyors are cool, an alternative to them is Path Groups (below
 It is not a factory in the java sense, it is merely a home for all the functions that produce new instances of important Angr classes and should be sitting on Project.
 
 ```python
+>>> import claripy # used later
+
 >>> block = b.factory.block(addr=b.entry)
 >>> block = b.factory.block(addr=b.entry, insn_bytes='\xc3')
 >>> block = b.factory.block(addr=b.entry, num_inst=1)
 
 >>> state = b.factory.blank_state(addr=b.entry)
->>> state = b.factory.entry_state(args=['./program', angr.StringSpec(sym_length=20)])
->>> state = b.factory.full_init_state(args=['./program', angr.StringSpec(sym_length=20)])
+>>> state = b.factory.entry_state(args=['./program', claripy.BVS('arg1', 20*8)])
+>>> state = b.factory.full_init_state(args=['./program', claripy.BVS('arg1', 20*8)])
 
 >>> path = b.factory.path()
 >>> path = b.factory.path(state)
@@ -127,7 +129,7 @@ The `chroot` option allows you to specify an optional root to use while using th
 This example will create a state which constricts at most 30 symbolic bytes from being read from stdin and will cause references to files to be resolved concretely within the new root directory `angr-chroot`.
 
 Important note that needs to go in this initial version before I write the rest of the stuff:
-the `args` and `env` keyword args work on `entry_state` and `full_init_state`, and are a list and a dict, respectively, of strings or `StringSpec` objects, which can represent a variety of concrete and symbolic strings. Read the source if you wanna know more about these!
+the `args` and `env` keyword args work on `entry_state` and `full_init_state`, and are a list and a dict, respectively, of strings or [claripy](./claripy.md) BV objects, which can represent a variety of concrete and symbolic strings. Read the source if you wanna know more about these!
 
 ## Callables
 

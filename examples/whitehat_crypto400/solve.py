@@ -8,6 +8,7 @@ used to reduce the keyspace, allowing for a reasonable brute-force.
 
 # lots of imports
 import angr
+import claripy
 import simuvex
 import logging
 import itertools
@@ -39,7 +40,12 @@ def main():
 
     # here, we create the initial state to start execution. argv[1] is our 8-byte
     # string, and we add an angr option to gracefully handle unsupported syscalls
-    initial_state = p.factory.entry_state(args=[angr.StringSpec(string="crypto400"), angr.StringSpec(sym_length=8, nonnull=True)], add_options={"BYPASS_UNSUPPORTED_SYSCALL"})
+    arg1 = claripy.BVS('arg1', 8*8)
+    initial_state = p.factory.entry_state(args=["crypto400", arg1], add_options={"BYPASS_UNSUPPORTED_SYSCALL"})
+
+    # and let's add a constraint that none of the string's bytes can be null
+    for b in arg1.chop(8):
+        initial_state.add_constraints(b != 0)
 
     # PathGroups are a basic building block of the symbolic execution engine. They
     # track a group of paths as the binary is executed, and allows for easier
