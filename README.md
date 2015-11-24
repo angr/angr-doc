@@ -113,6 +113,10 @@ Most importantly, please consider the following when writing code as part of ang
  - What it returns.
 - If you're pushing a new feature, and it is not accompanied by a testcase, it **will be broken** in very short order. Please write testcases for your stuff.
 
+# Changelog!
+
+To track major changes in angr, we have created a changelog.
+You can view it [here](./changelog.md).
 
 # FAQ
 
