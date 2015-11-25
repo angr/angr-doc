@@ -12,6 +12,7 @@ angr comes with several built-in analyses:
 | CFG           | Constructs a *Control Flow Graph* of the program. The results are accessible via `b.analyses.CFG()`.                                      |
 | VFG           | Performs VSA on every function of the program, creating a *Value Flow Graph* and detecting stack variables.                               |
 | DDG           | Calculates a data dependency graph, allowing one to determine what statements a given value depends on.                                   |
+| DFG           | Constructs a *Data Flow Graph* for each basic block present in the CFG                                                                    |
 | BackwardSlice | Computes a backward slice of a program w.r.t. a certain target.                                                                           |
 | More!         | angr has quite a few analyses, most of which work! If you'd like to know how to use one, please submit an issue requesting documentation. |
 
