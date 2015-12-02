@@ -136,3 +136,10 @@ Author: Andrew Dutcher (github: @rhelmot)
 Angr can outright solve this challenge with very little assistance from the user.
 The script to do so is [here](./examples/csaw_wyvern/solve.py) and the binary is [here](./examples/csaw_wyvern/wyvern).
 
+## CrackMe example: 9447 CTF 2015 - Reversing 330, "nobranch"
+
+Author: Andrew Dutcher (github: @rhelmot)
+
+Angr cannot currently solve this problem naively, as the problem is too complex for z3 to solve.
+Formatting the constraints to z3 a little differently allows z3 to come up with an answer relatively quickly. (I was asleep while it was solving, so I don't know exactly how long!)
+The script for this is [here](./examples/9447_nobranch/solve.py) and the binary is [here](./examples/9447_nobranch/nobranch).
