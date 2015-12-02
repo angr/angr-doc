@@ -18,6 +18,7 @@ def test_examples():
                            'csaw_wyvern', 
                            'layer7_onlyone', # Runs out of memory on the test machine
                            'whitehat_crypto400', # The binary must be ran in a privileged docker container
+                           '9447_nobranch', # takes at least an hour to run
                            ):
             continue
         yield exampletest_single, example_dir
