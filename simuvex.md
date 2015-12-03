@@ -1,7 +1,7 @@
 # Semantic Meaning
 
 Most analyses require an understanding of what the code is *doing* (semantic meaning), not just what the code *is* (syntactic meaning).
-For this, we developed a module called SimuVEX (https://git.seclab.cs.ucsb.edu/gitlab/angr/simuvex). SimuVEX provides a semantic understanding of what a given piece of VEX code does on a given machine state.
+For this, we developed a module called SimuVEX (https://github.com/angr/simuvex). SimuVEX provides a semantic understanding of what a given piece of VEX code does on a given machine state.
 
 In a nutshell, SimuVEX is a VEX emulator.
 Given a machine state and a VEX IR block, SimuVEX provides a resulting machine state (or, in the case of condition jumps, *several* resulting machine states).
