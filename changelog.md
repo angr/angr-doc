@@ -3,6 +3,11 @@
 This lists the *major* changes in angr.
 Tracking minor changes are left as an excercise for the reader :-)
 
+## angr 4.5.12.12
+
+Improved the ability to recover from failures in instruction decoding.
+You can now hook specific addresses at which VEX fails to decode with `project.hook`, even if those addresses are not the beginning of a basic block.
+
 ## angr 4.5.11.23
 
 This is a pretty beefy release, with over half of claripy having been rewritten and major changes to other analyses.
