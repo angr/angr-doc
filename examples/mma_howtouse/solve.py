@@ -24,7 +24,7 @@ def main():
 
     # In this binary, the result is a concrete char, so we don't need a symbolic
     # state or a solver to get its value.
-    getch = lambda i: chr(claripy.backend_concrete.convert(howtouse(i)).value)
+    getch = lambda i: chr(claripy.backends.concrete.convert(howtouse(i)).value)
 
     # Let's call this 45 times, and that's the result!
     return ''.join(getch(i) for i in xrange(45))
