@@ -3,6 +3,11 @@
 This lists the *major* changes in angr.
 Tracking minor changes are left as an excercise for the reader :-)
 
+## angr 4.5.12.?
+
+Claripy has a new manager for backends, allowing external backends (i.e., those implemented by other modules) to be used.
+The result is that `claripy.backend_concrete` is now `claripy.backends.concrete`, `claripy.backend_vsa` is now `claripy.backends.vsa`, and so on.
+
 ## angr 4.5.12.12
 
 Improved the ability to recover from failures in instruction decoding.
