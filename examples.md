@@ -4,6 +4,12 @@ To help you get started with [angr](https://github.com/angr/angr), we've created
 These mostly stem from CTF problems solved with angr by Shellphish.
 Enjoy!
 
+## Introduction example - Fauxware
+
+This is a basic script that explains how to use angr to symbolically execute a program and produce concrete input satisfying certain conditions.
+
+Binary, source, and script are found [here.](./examples/fauxware)
+
 ## CTF Problems
 ### ReverseMe example: WhiteHat Grant Prix Global Challenge 2015 - Re400
 

@@ -26,9 +26,13 @@ def test_examples():
 def exampletest_single(example_dir):
     os.chdir('examples/' + example_dir)
     try:
-        s = __import__('solve')
-        s = reload(s)
-        s.test()
+        try:
+            s = __import__('solve')
+        except ImportError:
+            pass
+        else:
+            s = reload(s)
+            s.test()
     finally:
         os.chdir('../..')
 
