@@ -151,6 +151,12 @@ Angr cannot currently solve this problem naively, as the problem is too complex 
 Formatting the constraints to z3 a little differently allows z3 to come up with an answer relatively quickly. (I was asleep while it was solving, so I don't know exactly how long!)
 The script for this is [here](./examples/9447_nobranch/solve.py) and the binary is [here](./examples/9447_nobranch/nobranch).
 
+### CrackMe example: ais3_crackme
+
+Author: Antonio Bianchi, Tyler Nighswander
+
+ais3_crackme has been developed by Tyler Nighswander (tylerni7) for ais3 summer school. It is an easy crackme challenge, checking its command line argument.
+
 ## Exploitation Examples
 ### Beginner Exploitation example: strcpy_find
 
