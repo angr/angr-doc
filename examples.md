@@ -157,3 +157,11 @@ The script for this is [here](./examples/9447_nobranch/solve.py) and the binary 
 Author: Kyle Ossinger (github: @k0ss)
 
 This is the first in a series of "tutorial scripts" I'll be making which use angr to find exploitable conditions in binaries.  The first example is a very simple program.  The script finds a path from the main entry point to `strcpy`, but **only** when we control the source buffer of the `strcpy` operation.  To hit the right path, angr has to solve for a password argument, but angr solved this in less than 2 seconds on my machine using the standard python interpreter.  The script might look large, but that's only because I've heavily commented it to be more helpful to beginners.  The challenge binary is [here](./examples/strcpy_find/strcpy_test') and the script is [here](./examples/strcpy_find/solve.py).
+
+### Grub "back to 28" bug
+
+Author: Andrwe Dutcher (github: @rhelmot)
+
+This is the demonstration presented at 32c3. The script uses angr to discover the input to crash grub's password entry prompt.
+
+[script](./examples/grub/solve.py) - [vulnerable module](./examples/grub/crypto.mod)
