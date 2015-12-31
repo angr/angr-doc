@@ -19,7 +19,8 @@ def main():
     p.hook(0x402b5d, patch_0, length=0x402b91-0x402b5d)
 
     state = p.factory.blank_state(addr=0x401f30, remove_options={simuvex.s_options.LAZY_SOLVES})
-    argv=['re400.exe', state.se.BV('arg1', 37 * 8)]
+    argv=['re400.exe', state.se.BVS('arg1', 37 * 8)]
+
 
     # Add previous conditions got from debugging the part of code that is patched out
     state.add_constraints(get_byte(argv[1], 0) >= get_byte(argv[1], 1))
@@ -69,9 +70,18 @@ def main():
     for i, f in enumerate(possible_flags):
         print "Flag %d:" % i, hex(f)[2:-1].decode("hex")
 
+    return [hex(f)[2:-1].decode("hex") for f in possible_flags]
+
+
 def test():
-    # This test method intentionally does nothing, since there are multiple solutions
-    pass
+    # Since there are multiple solutions, we just do some basic checks
+    # on the format of the solutions
+    res = main()
+    assert len(res) == 20
+    for f in res:
+        f = f[:f.find("\x00")]
+        assert len(f) == 36
+        assert all([ord(c) >= 0x20 and ord(c) <= ord("}") for c in f])
 
 if __name__ == "__main__":
     main()
