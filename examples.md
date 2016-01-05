@@ -117,6 +117,8 @@ This [reversing challenge](./examples/flareon2015_2/very_success) is simple to s
 
 Author: Adrian Tang (github: @tangabc)
 
+Script runtime: 2 mins 10 secs
+
 This is another [reversing challenge](./examples/flareon2015_5/sender) from the FlareOn challenges.
 
 "The challenge is designed to teach you about PCAP file parsing and traffic decryption by
