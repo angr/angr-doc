@@ -113,6 +113,24 @@ Author: Chris Salls (github: @salls)
 This [reversing challenge](./examples/flareon2015_2/very_success) is simple to solve almost entirely with angr, and a lot faster than trying to reverse the password checking function. The script is [here](./examples/flareon2015_2/solve.py)
 
 
+### ReverseMe example: FlareOn 2015 - Challenge 5
+
+Author: Adrian Tang (github: @tangabc)
+
+This is another [reversing challenge](./examples/flareon2015_5/sender) from the FlareOn challenges.
+
+"The challenge is designed to teach you about PCAP file parsing and traffic decryption by
+reverse engineering an executable used to generate it. This is a typical scenario in our
+malware analysis practice where we need to figure out precisely what the malware was doing
+on the network"
+
+For this challenge, the author used angr to represent the desired encoded output as a series of contraints for the SAT solver to solve for the input.
+
+For a detailed write-up please visit the author's post [here](http://0x0atang.github.io/reversing/2015/09/18/flareon5-concolic.html) and
+you can also find the solution from the FireEye [here](https://www.fireeye.com/content/dam/fireeye-www/global/en/blog/threat-research/flareon/2015solution5.pdf)
+
+
+
 ### CrackMe example: Layer7 CTF 2015 - Windows challenge OnlyOne
 
 Author: Fish Wang (github: @ltfish)
