@@ -70,6 +70,8 @@ def main():
     print found_s.se.any_str(found_s.memory.load(ADDR_PW_ORI+0, 1)) + \
           found_s.se.any_str(found_s.memory.load(ADDR_PW_ORI+1, LEN_PW-1))
 
+def test():
+    main()
 
 if __name__ == '__main__':
     main()
