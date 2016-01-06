@@ -7,32 +7,14 @@ import itertools
 md_files = filter(lambda s: s.endswith('.md'), os.listdir('.'))
 example_dirs = filter(lambda s: '.' not in s, os.listdir('examples'))
 
-def test_docs():
-    for md_file in md_files:
-        yield doctest_single, md_file
-
-def test_examples():
-    sys.path.append('.')
-    for example_dir in example_dirs:
-        if example_dir in ('mma_simplehash', 
-                           'csaw_wyvern', 
-                           'layer7_onlyone', # Runs out of memory on the test machine
-                           'whitehat_crypto400', # The binary must be ran in a privileged docker container
-                           '9447_nobranch', # takes at least an hour to run
-                           ):
-            continue
-        yield exampletest_single, example_dir
-
+sys.path.append('.')
 def exampletest_single(example_dir):
     os.chdir('examples/' + example_dir)
+    print os.getcwd()
     try:
-        try:
-            s = __import__('solve')
-        except ImportError:
-            pass
-        else:
-            s = reload(s)
-            s.test()
+        s = __import__('solve')
+        s = reload(s)
+        s.test()
     finally:
         os.chdir('../..')
 
@@ -73,6 +55,32 @@ def doctest_single(md_file):
         else:
             if line == '```python':
                 test_enabled = True
+
+def test_docs():
+    for md_file in md_files:
+        yield doctest_single, md_file
+
+#def test_9447_nobranch(): exampletest_single('9447_nobranch')
+def test_ais3_crackme(): exampletest_single('ais3_crackme')
+def test_asisctffinals2015_fake(): exampletest_single('asisctffinals2015_fake')
+def test_asisctffinals2015_license(): exampletest_single('asisctffinals2015_license')
+def test_CADET_00001(): exampletest_single('CADET_00001')
+def test_cmu_binary_bomb(): exampletest_single('cmu_binary_bomb')
+#def test_csaw_wyvern(): exampletest_single('csaw_wyvern')
+def test_defcamp_r100(): exampletest_single('defcamp_r100')
+def test_defcamp_r200(): exampletest_single('defcamp_r200')
+def test_ekopartyctf2015_rev100(): exampletest_single('ekopartyctf2015_rev100')
+def test_fauxware(): exampletest_single('fauxware')
+def test_flareon2015_10(): exampletest_single('flareon2015_10')
+def test_flareon2015_2(): exampletest_single('flareon2015_2')
+#def test_flareon2015_5(): exampletest_single('flareon2015_5')
+def test_grub(): exampletest_single('grub')
+#def test_layer7_onlyone(): exampletest_single('layer7_onlyone')
+def test_mma_howtouse(): exampletest_single('mma_howtouse')
+#def test_mma_simplehash(): exampletest_single('mma_simplehash')
+def test_strcpy_find(): exampletest_single('strcpy_find')
+#def test_whitehat_crypto400(): exampletest_single('whitehat_crypto400')
+def test_whitehatvn2015_re400(): exampletest_single('whitehatvn2015_re400')
 
 if __name__ == '__main__':
     for tester, arg in test_docs():
