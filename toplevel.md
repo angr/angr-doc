@@ -148,7 +148,7 @@ Also, you can definitely just `call(*args)` a callable to get the return value o
 >>> b.is_hooked(0x10000)
 True
 >>> b.unhook(0x10000)
->>> b.set_sim_procedure(b.loader.main_bin, 'strlen', simuvex.SimProcedures['stubs']['ReturnUnconstrained'])
+>>> b.hook_symbol('strlen', simuvex.SimProcedures['stubs']['ReturnUnconstrained'])
 ```
 
 A hook is a modification of how program execution should work.
@@ -161,5 +161,5 @@ To do this, use the exact same `hook` function, but supply a class (not an insta
 
 The `is_hooked` and `unhook` methods should be self-explanitory.
 
-`set_sim_procedure` is a different function that serves a different purpose. Instead of an address, you pass it a CLE binary and the name of a function that that binary imports.
-The internal (GOT) pointer to the code that function resolved to will be replaced with a pointer to the SimProcedure you specify in the third argument.
+`hook_symbol` is a different function that serves a different purpose. Instead of an address, you pass it the name of a function that that binary imports.
+The internal (GOT) pointer to the code that function resolved to will be replaced with a pointer to the SimProcedure or hook function you specify in the third argument. You can also pass a plain integer to make replace pointers to the symbol with that value.
