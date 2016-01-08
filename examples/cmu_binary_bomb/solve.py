@@ -6,9 +6,6 @@ import angr, logging
 def main():
     proj = angr.Project('bomb', load_options={'auto_load_libs':False})
 
-    logging.basicConfig()
-    logging.getLogger('angr.surveyors.explorer').setLevel(logging.DEBUG)
-
     bomb_explode = 0x40143a
 
     # Start analysis at the phase_2 function after the sscanf
@@ -45,4 +42,7 @@ def test():
     assert main() == '1 2 4 8 16 32'
 
 if __name__ == '__main__':
+    logging.basicConfig()
+    logging.getLogger('angr.surveyors.explorer').setLevel(logging.DEBUG)
+
     print(main())
