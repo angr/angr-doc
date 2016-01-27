@@ -9,7 +9,7 @@ A backward slice is constructed from a *target* in the program, and all data flo
 angr has a built-in analysis, called `BackwardSlice`, to construct a backward program slice.
 This section will act as a how-to for angr’s `BackwardSlice` analysis, and followed by some in-depth discussion over the implementation choices and limitations.
 
-## First step first
+## First Step First
 
 To build a `BackwardSlice`, you will need the following information as input.
 
@@ -65,7 +65,7 @@ You can build a `BackwardSlice` solely based on CFG by doing:
 BackwardSlice (to [(<CFGNode exit (0x10000a0) [0]>, -1)])
 ```
 
-## Using the `BackwardSlice` object
+## Using The `BackwardSlice` Object
 
 ### Members
 
@@ -89,17 +89,17 @@ If the “exit” is the default exit of a basic block, it’ll look like the fo
 (“default”, [ 0x400085 ])
 ```
 
-### Export an annotated control flow graph
+### Export an Annotated Control Flow Graph
 
 TODO
 
-### User-friendly representation
+### User-friendly Representation
 
 Take a look at `BackwardSlice.dbg_repr()`!
 
 TODO
 
-## Implementation choices
+## Implementation Choices
 
 TODO
 
