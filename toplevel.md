@@ -65,7 +65,7 @@ Note that while surveyors are cool, an alternative to them is Path Groups (below
 # The factory
 
 `b.factory`, like `b.analyses` and `b.surveyors`, is a container object that has a lot of cool stuff in it.
-It is not a factory in the java sense, it is merely a home for all the functions that produce new instances of important Angr classes and should be sitting on Project.
+It is not a factory in the java sense, it is merely a home for all the functions that produce new instances of important angr classes and should be sitting on Project.
 
 ```python
 >>> import claripy # used later

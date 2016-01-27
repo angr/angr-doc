@@ -3,7 +3,7 @@
 A path through a program is, at its core, a sequence of basic blocks representing what was executed since the program started.
 These blocks in the paths can repeat (in the case of loops) and a program can have a near-infinite amount of paths (for example, a program with a single branch will have two paths, a program with two branches nested within each other will have 4, and so on).
 
-Angr represents a path by using the Path class.
+angr represents a path by using the Path class.
 The Path class will be used in most interactions with angr and in most of angr's analyses.
 To create a blank path, do:
 

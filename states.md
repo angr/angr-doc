@@ -1,6 +1,6 @@
 # Machine State - memory, registers, and so on
 
-Angr (actually, a submodule of Angr, called SimuVEX) tracks machine states in a `SimState` object.
+angr (actually, a submodule of angr, called SimuVEX) tracks machine states in a `SimState` object.
 This object tracks the machine's memory, registers, and various other information, such as open files.
 The "initial" state of program execution (i.e., the state at the entry point) is provided by the angr.Project class, like so:
 

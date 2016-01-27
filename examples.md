@@ -63,7 +63,7 @@ Here are the [binary](./examples/asisctffinals2015_license/license) and the [scr
 
 Author: Fish Wang (github: @ltfish)
 
-Angr solves this challenge with almost zero user-interference.
+angr solves this challenge with almost zero user-interference.
 
 See the [script](./examples/defcamp_r100/solve.py) and the [binary](./examples/defcamp_r100/r100).
 
@@ -71,7 +71,7 @@ See the [script](./examples/defcamp_r100/solve.py) and the [binary](./examples/d
 
 Author: Fish Wang (github: @ltfish)
 
-Angr solves this challenge with almost zero user-interference. Veritesting is required to retrieve the flag promptly.
+angr solves this challenge with almost zero user-interference. Veritesting is required to retrieve the flag promptly.
 
 The [script](./examples/defcamp_r200/solve.py) and the [binary](./examples/defcamp_r200/r200).
 It takes a few minutes to run on my laptop.
@@ -160,14 +160,14 @@ You can find this script [here](./examples/whitehat_crypto400/solve.py) and the 
 
 Author: Andrew Dutcher (github: @rhelmot)
 
-Angr can outright solve this challenge with very little assistance from the user.
+angr can outright solve this challenge with very little assistance from the user.
 The script to do so is [here](./examples/csaw_wyvern/solve.py) and the binary is [here](./examples/csaw_wyvern/wyvern).
 
 ### CrackMe example: 9447 CTF 2015 - Reversing 330, "nobranch"
 
 Author: Andrew Dutcher (github: @rhelmot)
 
-Angr cannot currently solve this problem naively, as the problem is too complex for z3 to solve.
+angr cannot currently solve this problem naively, as the problem is too complex for z3 to solve.
 Formatting the constraints to z3 a little differently allows z3 to come up with an answer relatively quickly. (I was asleep while it was solving, so I don't know exactly how long!)
 The script for this is [here](./examples/9447_nobranch/solve.py) and the binary is [here](./examples/9447_nobranch/nobranch).
 

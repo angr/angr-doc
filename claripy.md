@@ -1,13 +1,13 @@
 # Solver Engine
 
-Angr's solver engine is called Claripy. Claripy exposes the following:
+angr's solver engine is called Claripy. Claripy exposes the following:
 
 - Claripy ASTs (the subclasses of claripy.ast.Base) provide a unified way to interact with concrete and symbolic expressions
 - Claripy frontends provide a unified interface to expression resolution (including constraint solving) over different backends
 
 Internally, Claripy seamlessly mediates the co-operation of multiple disparate backends -- concrete bitvectors, VSA constructs, and SAT solvers. It is pretty badass.
 
-Most users of Angr will not need to interact directly with Claripy (except for, maybe, claripy AST objects, which represent symbolic expressions) -- SimuVEX handles most interactions with Claripy internally.
+Most users of angr will not need to interact directly with Claripy (except for, maybe, claripy AST objects, which represent symbolic expressions) -- SimuVEX handles most interactions with Claripy internally.
 However, for dealing with expressions, an understanding of Claripy might be useful.
 
 ## Claripy ASTs

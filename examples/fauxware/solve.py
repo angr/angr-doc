@@ -11,7 +11,7 @@ import angr
 
 def basic_symbolic_execution():
     # We can use this as a basic demonstration of using angr for symbolic
-    # execution. First, we load the binary into an Angr project.
+    # execution. First, we load the binary into an angr project.
 
     p = angr.Project('fauxware')
 

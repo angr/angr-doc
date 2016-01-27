@@ -10,7 +10,7 @@ A binary is loaded by doing:
 p = angr.Project("/path/to/your/binary")
 ```
 
-## How can I get verbose debug messages for specific Angr modules ?
+## How can I get verbose debug messages for specific angr modules ?
 ### Debug messages for everything
 The most simple way to get a debug output is the following:
 ```python

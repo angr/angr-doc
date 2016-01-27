@@ -32,7 +32,7 @@ Of course, there are several options for customized CFGs.
 
 ## Context Sensitivity Level
 
-Angr constructs a CFG by executing every basic block and seeing where it goes.
+angr constructs a CFG by executing every basic block and seeing where it goes.
 This introduces some challenges: a basic block can act differently in different *contexts*.
 For example, if a block ends in a function return, the target of that return will be different, depending on different callers of the function containing that basic block.
 

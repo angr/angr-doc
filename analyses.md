@@ -1,11 +1,11 @@
 # Analyses
 
-Angr's goal is to make it easy to carry out useful analyses on binary programs.
+angr's goal is to make it easy to carry out useful analyses on binary programs.
 This section will discuss how to run and create these analyses.
 
 ## Built-in Analyses
 
-Angr comes with several built-in analyses:
+angr comes with several built-in analyses:
 
 | Name          | Description                                                                                                                               |
 | --------      | -------------                                                                                                                             |
@@ -13,7 +13,7 @@ Angr comes with several built-in analyses:
 | VFG           | Performs VSA on every function of the program, creating a *Value Flow Graph* and detecting stack variables.                               |
 | DDG           | Calculates a data dependency graph, allowing one to determine what statements a given value depends on.                                   |
 | BackwardSlice | Computes a backward slice of a program w.r.t. a certain target.                                                                           |
-| More!         | Angr has quite a few analyses, most of which work! If you'd like to know how to use one, please submit an issue requesting documentation. |
+| More!         | angr has quite a few analyses, most of which work! If you'd like to know how to use one, please submit an issue requesting documentation. |
 
 ### CFG
 
@@ -34,7 +34,7 @@ TODO
 ## Running Analyses
 
 Now that you understand how to load binaries in angr, and have some idea of angr's internals, we can discuss how to carry out analyses!
-Angr provides a standardized interface to perform analyses.
+angr provides a standardized interface to perform analyses.
 
 ### Resilience
 
