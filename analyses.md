@@ -54,6 +54,8 @@ In this section, we'll create a mock analysis to show off the various features.
 Let's start with something simple:
 
 ```python
+>>> import angr
+
 >>> class MockAnalysis(angr.Analysis):
 ... 	def __init__(self, option):
 ... 		self.option = option
