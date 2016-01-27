@@ -50,7 +50,7 @@ A `BackwardSlice` can be constructed with the following code:
 # object, or a tuple of CFGNode instance and a statement ID. Setting statement 
 # ID to -1 means the very beginning of that CFGNode. A SimProcedure does not 
 # have any statement, so you should always specify -1 for it.
->>> bs = b.analyses.BackwardSlice(cfg, cdg=cdg, ddg=ddg, targets=[i (target_node, -1) ])
+>>> bs = b.analyses.BackwardSlice(cfg, cdg=cdg, ddg=ddg, targets=[ (target_node, -1) ])
 
 # Here is our awesome program slice!
 >>> print bs
