@@ -67,16 +67,19 @@ BackwardSlice (to [(<CFGNode exit (0x10000a0) [0]>, -1)])
 
 ## Using The `BackwardSlice` Object
 
+Before go ahead and using `BackwardSlice` object, you should be noticed that the design of this class is pretty arbitrary right now, and  it is by no means to be stable in the near future.
+I’ll try my best to keep this documentation updated when a refactoring/redesigning occurs.
+
 ### Members
 
 After construction, a `BackwardSlice` has the following members that describe a program slice:
 
-| Member             | Meaning                                                                                                                               |
-| -------            | -------                                                                                                                               |
-| runs_in_slice      | A `networkx.DiGraph` instance showing addresses of blocks and SimProcedures in the program slice, as well as transitions between them |
-| cfg_nodes_in_slice | A `networkx.DiGraph` instance showing CFGNodes in the program slice and transitions in between                                        |
-| chosen_statements  | A dict mapping basic block addresses to lists of statement IDs that are part of the program slice                                     |
-| chosen_exits       | A dict mapping basic block addresses to a list of “exits”. Each exit in the list is a valid transition in the program slice           |
+| Member             | Mode     | Meaning                                                                                                                               |
+| -------            | -------- | -------                                                                                                                               |
+| runs_in_slice      | CFG-only | A `networkx.DiGraph` instance showing addresses of blocks and SimProcedures in the program slice, as well as transitions between them |
+| cfg_nodes_in_slice | CFG-only | A `networkx.DiGraph` instance showing CFGNodes in the program slice and transitions in between                                        |
+| chosen_statements  | With DDG | A dict mapping basic block addresses to lists of statement IDs that are part of the program slice                                     |
+| chosen_exits       | With DDG | A dict mapping basic block addresses to a list of “exits”. Each exit in the list is a valid transition in the program slice           |
 
 Each “exit” in `chosen_exit` is a tuple including a statement ID and a list of target addresses.
 For example, an “exit” might look like the following:
