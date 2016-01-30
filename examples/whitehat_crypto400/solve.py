@@ -15,7 +15,7 @@ import itertools
 import subprocess
 import progressbar
 
-def main():
+def get_possible_flags():
     # load the binary
     print '[*] loading the binary'
     p = angr.Project("whitehat_crypto400")
@@ -76,9 +76,11 @@ def main():
     # To avoid this, we're going to get the solutions to 2 bytes at a time, and
     # brute force the combinations.
     possible_values = [ s.se.any_n_str(s.memory.load(0x6C4B20 + i, 2), 65536) for i in range(0, 8, 2) ]
-
-    # let's try those values!
     possibilities = tuple(itertools.product(*possible_values))
+    return possibilities
+
+def bruteforce_possibilities(possibilities):
+    # let's try those values!
     print '[*] example guess: %r' % ''.join(possibilities[0])
     print '[*] brute-forcing %d possibilities' % len(possibilities)
     for guess in progressbar.ProgressBar(widgets=[progressbar.Counter(), ' ', progressbar.Percentage(), ' ', progressbar.Bar(), ' ', progressbar.ETA()])(possibilities):
@@ -86,8 +88,11 @@ def main():
         if 'FLAG IS' in stdout:
             return filter(lambda s: ''.join(guess) in s, stdout.split())[0]
 
+def main():
+    return bruteforce_possibilities(get_possible_flags())
+
 def test():
-    assert main() == 'growfish_nytEaTBU'
+    assert 'nytEaTBU' in [ ''.join(p) for p in get_possible_flags() ]
 
 if __name__ == '__main__':
     # set some debug messages so that we know what's going on

@@ -79,7 +79,7 @@ def test_grub(): exampletest_single('grub')
 def test_mma_howtouse(): exampletest_single('mma_howtouse')
 #def test_mma_simplehash(): exampletest_single('mma_simplehash')
 def test_strcpy_find(): exampletest_single('strcpy_find')
-#def test_whitehat_crypto400(): exampletest_single('whitehat_crypto400')
+def test_whitehat_crypto400(): exampletest_single('whitehat_crypto400')
 def test_whitehatvn2015_re400(): exampletest_single('whitehatvn2015_re400')
 
 if __name__ == '__main__':
