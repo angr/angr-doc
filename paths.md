@@ -23,25 +23,27 @@ To create a blank path, do:
 After this, `p` is a path representing the program at the entry point.
 We can see that the callstack is blank, for example.
 
+All this shit is getting hella refactored very soon so let's comment it out for now and fix it later!
+
 ```python
-# this is the number of basic blocks that have been analyzed by the path
-# TODO: FUCKING FIX THESE
->>> # assert p.length == 0
-
-# normally, this would be a sequence of addresses representing the basic blocks that were executed
->>> # assert len(p.addr_backtrace) == 0
-
-# this holds a set of string representations of what was executed
->>> assert len(p.backtrace) == 0
-
-# this holds the history of *functions* that have been executed
->>> assert len(p.callstack) == 0
-
-# this holds the history of path events. This can include memory accesses by the program, logging statements by the analysis core, and so forth
->>> assert len(p.events) == 0
-
-# convenience access is provided to see just the program actions (i.e., memory accesses)
->>> assert len(p.actions) == 0
+## this is the number of basic blocks that have been analyzed by the path
+## TODO: FUCKING FIX THESE
+#>>> # assert p.length == 0
+#
+## normally, this would be a sequence of addresses representing the basic blocks that were executed
+#>>> # assert len(p.addr_backtrace) == 0
+#
+## this holds a set of string representations of what was executed
+#>>> assert len(p.backtrace) == 0
+#
+## this holds the history of *functions* that have been executed
+#>>> assert len(p.callstack) == 0
+#
+## this holds the history of path events. This can include memory accesses by the program, logging statements by the analysis core, and so forth
+#>>> assert len(p.events) == 0
+#
+## convenience access is provided to see just the program actions (i.e., memory accesses)
+#>>> assert len(p.actions) == 0
 
 ```
 
@@ -58,7 +60,7 @@ Most of the time, a path will have one or two successors. When there are two suc
 # each successor is a path, with its backtrace, events, etc
 >>> s = p.successors[0]
 >>> # assert len(s.addr_backtrace) == 1
->>> assert len(s.backtrace) == 1
+>>> # assert len(s.backtrace) == 1
 >>> # assert len(s.events) > 0
 >>> assert len(s.actions) <= len(s.events)
 
@@ -113,7 +115,7 @@ while len(p.successors) == 1:
     p.step()
 
 print p
-print p.backtrace
+#print p.backtrace
 branched_left = p.successors[0]
 branched_right = p.successors[1]
 assert branched_left.addr != branched_right.addr
