@@ -78,7 +78,7 @@ Part of the history of a path is the *types* of jumps that occur.
 These are stored (as strings representing VEX exit type enums), in the `jumpkinds` attribute.
 
 ```python
->>> assert p.jumpkinds[0] == 'Ijk_Boring'
+>>> assert s.jumpkinds[0] == 'Ijk_Call'
 ```
 
 Here are the different types of jumpkinds:
