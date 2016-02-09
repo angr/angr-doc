@@ -1,7 +1,7 @@
 # angr examples
 
 To help you get started with [angr](https://github.com/angr/angr), we've created several examples.
-These mostly stem from CTF problems solved with angr by Shellphish.
+These mostly system from CTF problems solved with angr by Shellphish.
 Enjoy!
 
 ## Introduction example - Fauxware
