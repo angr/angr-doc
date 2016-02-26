@@ -62,7 +62,7 @@ def main():
     stdout1 = found.state.posix.dumps(1)
     print repr(stdout1)
 
-    #an alternative way to avoid unfeasible paths (paths that contains an unsatisfiable set
+    #an alternative way to avoid unfeasible paths (paths that contain an unsatisfiable set
     #of constraints) is to "manually" step the path group execution and call prune()
     print "finding the easter egg (again)..."
     pg = project.factory.path_group()
@@ -86,7 +86,7 @@ def main():
 
 def test():
     crashing_input, solution1, stdout1, solution2, stdout2 = main()
-    assert (crashing_input) >= 92 and solution1.startswith("^") and solution2.startswith("^") and \
+    assert len(crashing_input) >= 92 and solution1.startswith("^") and solution2.startswith("^") and \
             "EASTER EGG!" in stdout1 and "EASTER EGG!" in stdout2
 
 
