@@ -1,5 +1,7 @@
 # CFG
 
+Here we describe angr’s CFG analysis in details, as well as some important concepts like context sensitivity and Function Manager of angr.
+
 ## General ideas
 
 A basic analysis that one might carry out on a binary is a Control Flow Graph.
