@@ -59,7 +59,7 @@ However, the nice thing about an Explorer is that you can tell it to search for,
 For example, in the `fauxware` sample, we can try to find the "authentication success" function while avoiding the "authentication failed" function.
 
 ```python
-# This creates an Exporer that tries to find 0x4006ed (successful auth),
+# This creates an Explorer that tries to find 0x4006ed (successful auth),
 # while avoiding 0x4006fd (failed auth) or 0x4006aa (the authentication
 # routine). In essense, we are looking for a backdoor.
 >>> e = b.surveyors.Explorer(find=(0x4006ed,), avoid=(0x4006aa,0x4006fd))
