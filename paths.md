@@ -21,28 +21,18 @@ To create a blank path, do:
 ```
 
 After this, `p` is a path representing the program at the entry point.
-We can see that the callstack is blank, for example.
+We can see that the callstack and the path's history are blank:
 
 ```python
 # this is the number of basic blocks that have been analyzed by the path
-# TODO: FUCKING FIX THESE
->>> # assert p.length == 0
+>>> assert len(p) == 0
 
-# normally, this would be a sequence of addresses representing the basic blocks that were executed
->>> # assert len(p.addr_backtrace) == 0
-
-# this holds a set of string representations of what was executed
->>> assert len(p.backtrace) == 0
-
-# this holds the history of *functions* that have been executed
->>> assert len(p.callstack) == 0
-
-# this holds the history of path events. This can include memory accesses by the program, logging statements by the analysis core, and so forth
->>> assert len(p.events) == 0
-
-# convenience access is provided to see just the program actions (i.e., memory accesses)
->>> assert len(p.actions) == 0
-
+# we can also look at the current backtrace of program execution
+# contains only the dummy frame for execution start
+>>> assert len(p.callstack) == 1
+>>> print p.callstack
+Backtrace:
+Func 0x401410, sp=0x7fffffffffeffd8, ret=0x0
 ```
 
 ## Moving Forward
@@ -55,47 +45,73 @@ Most of the time, a path will have one or two successors. When there are two suc
 >>> p.step()
 >>> print "The path has", len(p.successors), "successors!"
 
-# each successor is a path, with its backtrace, events, etc
+# each successor is a path, keeping track of an execution history
 >>> s = p.successors[0]
->>> # assert len(s.addr_backtrace) == 1
->>> assert len(s.backtrace) == 1
->>> # assert len(s.events) > 0
->>> assert len(s.actions) <= len(s.events)
+>>> assert s.addr_trace[-1] == p.addr
 
-# and, of course, we can drill down further
+# and, of course, we can drill down further!
+# alternate syntax: s.step() returns the same list as s.successors
 >>> ss = s.step()[0].step()[0].step()[0]
->>> # assert len(ss.addr_backtrace) == 4
->>> # assert len(ss.events) > len(s.events)
-
-# we can also access the events and actions from just the last basic block
->>> # assert len(ss.last_events) < len(ss.events)
->>> # assert len(ss.last_actions) < len(ss.actions)
+>>> len(ss.addr_trace.hardcopy) == 4
 ```
 
-Part of the history of a path is the *types* of jumps that occur.
+To efficiently store information about path histories, angr employs a tree structure that resembles the actual symbolic execution tree.
+You should never have to worry about this, since through the magic of python we provide efficient accessors for information stored in the tree as it pertains to each stored historical property.
+The one thing you have to know is that this data structure doesn't allow efficient iteration through the historical lists in forward order - only in reverse order, from most recent to oldest.
+If you need to iterate or access items from these sequences starting from the beginning, you may access the `.hardcopy` property on them, which will extract the entirety of the property's history as a flat list for you to peruse at leisure.
+
+For example: part of the history of a path is the *types* of jumps that occur.
 These are stored (as strings representing VEX exit type enums), in the `jumpkinds` attribute.
 
 ```python
->>> assert p.jumpkinds[0] == 'Ijk_Boring'
+# recall: s is the path created when we stepped forward the initial path once
+>>> print s.jumpkinds
+<angr.path.JumpkindIter object at 0x7f8161e584d0>
+
+>>> assert s.jumpkinds[-1] == 'Ijk_Call'
+>>> print s.jumpkinds.hardcopy
+['Ijk_Call']
+
+# Don't do this! This will throw an exception
+>>> # for jk in ss.jumpkinds: print jk
+
+# Do this instead:
+>>> for jk in reversed(ss.jumpkinds): print jk
+Ijk_Call
+Ijk_Call
+Ijk_Boring
+Ijk_Call
+
+# Or, if you really need to iterate in forward order:
+>>> for jk in ss.jumpkinds.hardcopy: print jk
+Ijk_Call
+Ijk_Boring
+Ijk_Call
+Ijk_Call
 ```
+
+Here is a list of the properties in the path history:
+
+| Property        | Description |
+|-----------------|-------------|
+| Path.addr_trace | The addresses of basic blocks that have been executed so far, as integers |
+| Path.trace      | The SimRun objects that have been executed so far, as strings |
+| Path.targets    | The targets of the jumps/successors that have been taken so far |
+| Path.guards     | The guard conditions that had to be satisfied in order to take the branch listed in Path.targets |
+| Path.jumpkinds  | The type of the exit from each basic block we took, as VEX struct strings |
+| Path.events     | A log of the events that have happened in symbolic execution |
+| Path.actions    | A filtering of Path.events to only include the actions taken by the exeution engine. See below. |
 
 Here are the different types of jumpkinds:
 
-| Type | Description |
-|------|-------------|
+| Type       | Description |
+|------------|-------------|
 | Ijk_Boring | A normal jump to an address. |
-| IjK_Call | A call to an address. |
-| Ijk_Ret | A return. |
-| Ijk_Sig* | Various signals. |
-| Ijk_Sys* | System calls. |
-
-Additionally, the jump *condition* is recorded.
-
-```python
->>> print "The conditions that had to be true to take path `p` are:"
->>> for i in p.guards:
-...     print i
-```
+| IjK_Call   | A call to an address. |
+| Ijk_Ret    | A return. |
+| Ijk_Sig*   | Various signals. |
+| Ijk_Sys*   | System calls. |
+| Ijk_NoHook | An artificial jumpkind, generated by an angr hook. |
 
 ## Merging Paths
 
@@ -113,7 +129,7 @@ while len(p.successors) == 1:
     p.step()
 
 print p
-print p.backtrace
+#print p.backtrace
 branched_left = p.successors[0]
 branched_right = p.successors[1]
 assert branched_left.addr != branched_right.addr
@@ -165,7 +181,7 @@ Here is an example interaction with the actions:
 ```python
 >>> p = b.factory.path().step()[0]
 
->>> for a in p.last_actions:
+>>> for a in p.actions.hardcopy:
 ...     if a.type == 'mem':
 ...         print "Memory write to", a.addr.ast
 ...         print "... address depends on registers", a.addr.reg_deps, "and temps", a.addr.tmp_deps
