@@ -21,7 +21,7 @@ def main():
     '''
     def getFuncAddress( funcName ):
         found = [
-            addr for addr,func in cfg.function_manager.functions.iteritems()
+            addr for addr,func in cfg.kb.functions.iteritems()
             if funcName == func.name
             ]
         if len( found ) > 0:
