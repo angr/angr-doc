@@ -25,7 +25,7 @@ A `BackwardSlice` can be constructed with the following code:
 ```python
 >>> import angr
 # Load the project
->>> b = angr.Project(‘/bin/true’, load_options={‘auto_load_libs’: False})
+>>> b = angr.Project("/bin/true", load_options={"auto_load_libs": False})
 
 # Generate a CFG first. In order to generate data dependence graph afterwards,
 # you’ll have to keep all input states by specifying keep_stat=True. Feel free 
@@ -41,9 +41,9 @@ A `BackwardSlice` can be constructed with the following code:
 
 # See where we wanna go... let’s go to the exit() call, which is modeled as a 
 # SimProcedure.
->>> target_func = cfg.function_manager.function(name=’exit’)
+>>> target_func = cfg.kb.functions.function(name="exit")
 # We need the CFGNode instance
->>> target_node = cfg.get_any_node(target_func.startpoint)
+>>> target_node = cfg.get_any_node(target_func.addr)
 
 # Let’s get a BackwardSlice out of them!
 # `targets` is a list of objects, where each one is either a CodeLocation 
