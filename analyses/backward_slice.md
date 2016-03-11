@@ -41,9 +41,9 @@ A `BackwardSlice` can be constructed with the following code:
 
 # See where we wanna go... let’s go to the exit() call, which is modeled as a 
 # SimProcedure.
->>> target_func = cfg.function_manager.function(name="exit")
+>>> target_func = cfg.kb.functions.function(name="exit")
 # We need the CFGNode instance
->>> target_node = cfg.get_any_node(target_func.startpoint)
+>>> target_node = cfg.get_any_node(target_func.addr)
 
 # Let’s get a BackwardSlice out of them!
 # `targets` is a list of objects, where each one is either a CodeLocation 
