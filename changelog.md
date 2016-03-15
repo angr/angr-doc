@@ -35,3 +35,17 @@ There have also been some changes to analyses:
 And some general changes to angr itself:
 
 - StringSpec is deprecated! You can now pass claripy bitvectors directly as arguments.
+
+## angr 4.6.3.15
+
+There have been several improvements to claripy that should be transparent to users:
+
+- There's been a refactor of the VSA StridedInterval classes to fix cases where operations were not sound. Precision might suffer as a result, however.
+- Some general speed improvements.
+- We've introduced a new backend into claripy: the ReplacementBackend. This frontend generates replacement sets from constraints added to it, and uses these replacement sets to increase the precision of VSA. Additionally, we have introduced the HybridBackend, which combines this functionality with a constraint solver, allowing for memory index resolution using VSA.
+
+angr itself has undergone some improvements, with API changes as a result:
+
+- We are moving toward a new way to store information that angr has recovered about a program: the knowledge base. When an analysis recovers some truth about a program (i.e., "there's a basic block at 0x400400", or "the block at 0x400400 has a jump to 0x400500"), it gets stored in a knowledge-base. Analysis that used to store data (currently, the CFG) now store them in a knowledge base and can *share* the global knowledge base of the project, now accessible via `project.kb`. Over time, this knowledge base will be expanded in the course of any analysis or symbolic execution, so angr is constantly learning more information about the program it is analyzing.
+- A forward data-flow analysis framework (called ForwardAnalysis) has been introduced, and the CFG was rewritten on top of it. The framework is still in alpha stage - expect more changes to be made. Documentation and more details will arrive shortly. The goal is to refactor other data-flow analysis, like CFGFast, VFG, DDG, etc. to use ForwardAnalysis.
+- We refactored the CFG to a) improve code readability, and b) eliminate some bad designs that linger due to historical reasons.
