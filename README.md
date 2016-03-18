@@ -27,6 +27,7 @@ We've tried to make life easier by providing this documentation, split into seve
 
 ## Installing angr
 
+### All operating systems
 Before angr can be used, it must be installed.
 Ideally, you should just be able to say `pip install angr`, but failing that, you should be
 able to install the following repositories (and the dependencies listed in their requirements.txt files)
@@ -37,6 +38,13 @@ from http://github.com/angr:
 - cle
 - pyvex
 - archinfo
+
+### Mac OS X
+To install angr on Mac OS X, you also need to install angr-z3 by `pip install -I --no-use-wheel angr-only-z3-custom`.
+
+### Windows
+For Windows, please check more information at [https://github.com/angr/angr#windows-and-capstone](https://github.com/angr/angr#windows-and-capstone).
+
 
 ## Loading a Binary
 
