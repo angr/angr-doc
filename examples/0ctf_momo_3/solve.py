@@ -56,10 +56,6 @@ def main():
                 targets.append(ins.address + ins.size)
                 state = 0
 
-    #  first version of momo
-    #  ins.op_str == 'al, byte ptr [0x81fe860]'
-    #  ins.op_str == 'dl, byte ptr [0x81fe864]'
-
     print "found {:d} targets".format(len(targets))
     assert len(targets) == 28
 
