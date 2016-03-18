@@ -132,6 +132,16 @@ For a detailed write-up please visit the author's post [here](http://0x0atang.gi
 you can also find the solution from the FireEye [here](https://www.fireeye.com/content/dam/fireeye-www/global/en/blog/threat-research/flareon/2015solution5.pdf)
 
 
+### ReverseMe example: 0ctf 2016 - momo
+
+Author: Fish Wang (github: @ltfish), ocean (github: @ocean1)
+
+This challenge is a [movfuscated](https://github.com/xoreaxeaxeax/movfuscator) binary.
+To find the correct password after exploring the binary with Qira it is possible to understand 
+how to find the places in the binary where every character is checked using capstone and using angr to
+load the [binary](./examples/0ctf_momo/solve.py) and bruteforce the single characters of the flag.
+Be aware that the [script](./examples/0ctf_momo/solve.py) is really slow.
+
 
 ### CrackMe example: Layer7 CTF 2015 - Windows challenge OnlyOne
 
