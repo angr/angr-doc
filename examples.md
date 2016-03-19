@@ -195,8 +195,16 @@ CADET_00001.adapted (by Jacopo Corbetta) is the same program, modified to be run
 
 ### Grub "back to 28" bug
 
-Author: Andrwe Dutcher (github: @rhelmot)
+Author: Andrew Dutcher (github: @rhelmot)
 
 This is the demonstration presented at 32c3. The script uses angr to discover the input to crash grub's password entry prompt.
 
 [script](./examples/grub/solve.py) - [vulnerable module](./examples/grub/crypto.mod)
+
+### Insomnihack Simple AEG
+
+Author: Nick Stephens (github: @NickStephens)
+
+Demonstration for Insomni'hack 2016.  The script is a very simple implementation of AEG.
+
+[script](./examples/insomnihack_aeg/simple_aeg.py)
