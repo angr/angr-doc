@@ -4,8 +4,8 @@ import sys
 import claripy
 import itertools
 
-md_files = filter(lambda s: s.endswith('.md'), os.listdir('docs'))
-md_files += filter(lambda s: s.endswith('.md'), [ os.path.join('analyses', t) for t in os.listdir('docs/analyses')])
+md_files = filter(lambda s: s.endswith('.md'), [ os.path.join('docs', t) for t in os.listdir('docs')])
+md_files += filter(lambda s: s.endswith('.md'), [ os.path.join('docs/analyses', t) for t in os.listdir('docs/analyses')])
 example_dirs = filter(lambda s: '.' not in s, os.listdir('examples'))
 
 sys.path.append('.')
