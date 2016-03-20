@@ -24,7 +24,7 @@ This document explains all the attributes that are available directly from insta
   The common ones you care about are `arch.bits`, `arch.bytes` (that one is a `@property` declaration on the [main `Arch` class](https://github.com/angr/archinfo/blob/master/archinfo/arch.py)), `arch.name`, and `arch.memory_endness`.
 - *entry* is the entry point of the binary!
 - *filename* is the absolute filename of the binary. Riveting stuff!
-- *loader* is the [cle.Loader](https://github.com/angr/cle/blob/master/cle/loader.py) instance for this project. Details on how to use it are found [here](https://github.com/angr/angr-doc/blob/master/loading.md).
+- *loader* is the [cle.Loader](https://github.com/angr/cle/blob/master/cle/loader.py) instance for this project. Details on how to use it are found [here](./loading.md).
 
 # Analyses and Surveyors
 ```python
@@ -55,11 +55,11 @@ This document explains all the attributes that are available directly from insta
 
 Analyses are customizable analysis routines that can extract some sort of information from the program.
 The most common two are `CFG`, which constructs a control-flow graph, and `VFG`, which performs value-set analysis.
-Their use, as well as how to write your own analyses, is documented [here](https://github.com/angr/angr-doc/blob/master/analyses.md).
+Their use, as well as how to write your own analyses, is documented [here](./analyses.md).
 
 Surveyors are basic tools for performing symbolic execution with common goals.
 The most common one is `Explorer`, which searches for a target address while avoiding some others.
-Read about using surveyors [here](https://github.com/angr/angr-doc/blob/master/surveyors.md).
+Read about using surveyors [here](./surveyors.md).
 Note that while surveyors are cool, an alternative to them is Path Groups (below), which are the future.
 
 # The factory

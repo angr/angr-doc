@@ -2,7 +2,7 @@
 
 This is a collection of documentation for angr. By reading this, you'll become an angr pro and will be able to fold binaries to your whim.
 
-To dive right into angr's capabilities, start with the [top level methods](https://github.com/angr/angr-doc/blob/master/toplevel.md).
+To dive right into angr's capabilities, start with the [top level methods](./docs/toplevel.md).
 
 # What is angr?
 
@@ -52,51 +52,51 @@ For Windows, please check more information at [https://github.com/angr/angr#wind
 ## Loading a Binary
 
 After angr is installed, you can load a binary for analysis.
-This process, and the angr component that powers it (called CLE) is described [here](./loading.md).
+This process, and the angr component that powers it (called CLE) is described [here](./docs/loading.md).
 
 ## Intermediate Representation
 
 angr uses an intermediate representation (specifically, VEX) to enable it to run analyses on binaries of different architectures.
-This IR is described [here](./ir.md).
+This IR is described [here](./docs/ir.md).
 
 ## Solver Engine
 
 Constraint solving and other computational needs are provided by an angr sub-module called Claripy.
 Most users of angr will not need to know anything about Claripy, but documentation is provided in case it is needed.
-Claripy is detailed [here](./claripy.md).
+Claripy is detailed [here](./docs/claripy.md).
 
 ## Program States
 
 angr provides an interface to the emulated machine state.
 Understanding this is critical to successfully using angr.
-It is detailed [here](./states.md).
+It is detailed [here](./docs/states.md).
 
 ## Program Paths
 
 Programs can be analyzed in terms of the possible *path* that execution takes through them.
 angr exposes information about what the paths execute and *do*.
-[This section](./paths.md) gives an overview of how to use this capability of angr.
+[This section](./docs/paths.md) gives an overview of how to use this capability of angr.
 
 ## Semantic Representation
 
 A powerful feature of angr is the ability to represent basic blocks in terms of their effects on a program state.
 In other words, angr can reason about what basic blocks *do*, not just what they *are*.
-This is accomplished by a module named SimuVEX, further described [here](./simuvex.md).
+This is accomplished by a module named SimuVEX, further described [here](./docs/simuvex.md).
 
 ## Symbolic Execution
 
 angr provides a capable symbolic execution engine.
-The interface to this engine, and how to use it, is described [here](./surveyors.md).
+The interface to this engine, and how to use it, is described [here](./docs/surveyors.md).
 
 ## Full-program Analysis
 
 All of the above components come together to enable complex, full-program analyses to be easily run with angr.
-The mechanism for running and writing these analyses is detailed [here](./analyses.md).
+The mechanism for running and writing these analyses is detailed [here](./docs/analyses.md).
 
 # Examples
 
 We've written some examples for using angr!
-You can read more [here](./examples.md).
+You can read more [here](./docs/examples.md).
 
 # Developing angr
 
@@ -122,9 +122,9 @@ Most importantly, please consider the following when writing code as part of ang
 
 # FAQ
 
-We've collected miscellaneous questions about angr, and answers to them, in a [FAQ](./faq.md).
+We've collected miscellaneous questions about angr, and answers to them, in a [FAQ](./docs/faq.md).
 
 # Change log!
 
 To track major changes in angr, we maintain a changelog.
-You can view it [here](./changelog.md).
+You can view it [here](./CHANGELOG.md).
