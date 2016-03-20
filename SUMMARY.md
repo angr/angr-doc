@@ -1,6 +1,9 @@
 # Summary
 
 * [Introduction](README.md)
+   * [Overview](docs/overview.md)
+   * [Installing](INSTALL.md)
+   * [Developing](HACKING.md)
 * [Top-level interfaces](docs/toplevel.md)
 * [Loading a binary](docs/loading.md)
 * [Intermediate Representation](docs/ir.md)
