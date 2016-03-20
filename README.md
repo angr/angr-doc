@@ -28,6 +28,7 @@ We've tried to make life easier by providing this documentation, split into seve
 ## Installing angr
 
 ### All operating systems
+
 Before angr can be used, it must be installed.
 Ideally, you should just be able to say `pip install angr`, but failing that, you should be
 able to install the following repositories (and the dependencies listed in their requirements.txt files)
@@ -40,9 +41,11 @@ from http://github.com/angr:
 - archinfo
 
 ### Mac OS X
+
 To install angr on Mac OS X, you also need to install angr-z3 by `pip install -I --no-use-wheel angr-only-z3-custom`.
 
 ### Windows
+
 For Windows, please check more information at [https://github.com/angr/angr#windows-and-capstone](https://github.com/angr/angr#windows-and-capstone).
 
 
@@ -53,8 +56,8 @@ This process, and the angr component that powers it (called CLE) is described [h
 
 ## Intermediate Representation
 
-angr uses an intermediate representation (specificaly, VEX) to enable it to run analyses on binaries of different architectures.
-This IR is described [here](./ir.md)
+angr uses an intermediate representation (specifically, VEX) to enable it to run analyses on binaries of different architectures.
+This IR is described [here](./ir.md).
 
 ## Solver Engine
 
@@ -82,17 +85,13 @@ This is accomplished by a module named SimuVEX, further described [here](./simuv
 
 ## Symbolic Execution
 
-angr provides a capable symbolc execution engine.
+angr provides a capable symbolic execution engine.
 The interface to this engine, and how to use it, is described [here](./surveyors.md).
 
 ## Full-program Analysis
 
-All of the above components come together to enable complex, full-program analyses to be easily runnable in angr.
+All of the above components come together to enable complex, full-program analyses to be easily run with angr.
 The mechanism for running and writing these analyses is detailed [here](./analyses.md).
-
-## Distributed Analysis
-
-angr comes with the ability to perform distributed analysis, with directions [here](./orgy.md).
 
 # Examples
 
@@ -109,9 +108,9 @@ If you use Vim, the [python-mode](https://github.com/klen/python-mode) plugin do
 Most importantly, please consider the following when writing code as part of angr:
 
 - Try to use attribute access (see the `@property` decorator) instead of getters and setters wherever you can. This isn't Java, and attributes enable tab completion in iPython. That being said, be reasonable: attributes should be fast. A rule of thumb is that if something could require a constraint solve, it should not be an attribute.
-- Use our pylintrc. It's fairly permissive, but our CI server will fail your builds if pylint complains under those settings.
-- DO NOT, under ANY circumstances, `raise Exception` or `assert False`. **Use the right exception type**. If there isn't a correct exception type, subclass the core exception of the module that you're working in (i.e. AngrError in angr, SimError in SimuVEX, etc) and raise that. We catch, and properly handle, the right types of errors in the right places, but AssertionError and Exception are not handled anywhere and force-terminate analyses.
-- Avoid tabs, use space indentation instead. Even though it's wrong, the de-facto standard is 4 spaces. It is a good idea to adopt this from the beginning, as merging code that mixes both tab and space indentation is awful.
+- Use our `.pylintrc`. It's fairly permissive, but our CI server will fail your builds if pylint complains under those settings.
+- DO NOT, under ANY circumstances, `raise Exception` or `assert False`. **Use the right exception type**. If there isn't a correct exception type, subclass the core exception of the module that you're working in (i.e. `AngrError` in angr, `SimError` in SimuVEX, etc) and raise that. We catch, and properly handle, the right types of errors in the right places, but `AssertionError` and `Exception` are not handled anywhere and force-terminate analyses.
+- Avoid tabs; use space indentation instead. Even though it's wrong, the de facto standard is 4 spaces. It is a good idea to adopt this from the beginning, as merging code that mixes both tab and space indentation is awful.
 - Avoid super long lines. It's okay to have longer lines, but keep in mind that long lines are harder to read and should be avoided. Let's try to stick to 120 characters.
 - Avoid extremely long functions, it is often better to break them up into smaller functions.
 - Prefer `_` to `__` for private members (so that we can access them when debugging). *You* might not think that anyone has a need to call a given function, but trust us, you're wrong.
@@ -119,13 +118,13 @@ Most importantly, please consider the following when writing code as part of ang
  - What it does.
  - What are the type and the meaning of the parameters.
  - What it returns.
-- If you're pushing a new feature, and it is not accompanied by a testcase, it **will be broken** in very short order. Please write testcases for your stuff.
-
-# Changelog!
-
-To track major changes in angr, we have created a changelog.
-You can view it [here](./changelog.md).
+- If you're pushing a new feature, and it is not accompanied by a test case, it **will be broken** in very short order. Please write test cases for your stuff.
 
 # FAQ
 
 We've collected miscellaneous questions about angr, and answers to them, in a [FAQ](./faq.md).
+
+# Change log!
+
+To track major changes in angr, we maintain a changelog.
+You can view it [here](./changelog.md).
