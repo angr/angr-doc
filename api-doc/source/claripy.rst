@@ -32,7 +32,7 @@ Backends
 
 ..  automodule:: claripy.backends
 ..  automodule:: claripy.backends.backend_concrete
-..  automodule:: claripy.backends.z3
+..  automodule:: claripy.backends.backend_z3
 ..  automodule:: claripy.backends.backend_z3_parallel
 ..  automodule:: claripy.backends.backendremote
 ..  automodule:: claripy.backends.celeryconfig

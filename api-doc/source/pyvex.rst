@@ -2,18 +2,9 @@
 ======================
 
 .. automodule:: pyvex
-.. automodule:: pyvex.IRConst
-
-Vex IR Expressions
-------------------
-
-Expressions represent operations without side effects.
-
-.. automodule:: pyvex.IRExpr
-
-Vex IR Statements
------------------
-
-Statements represent operations with side effects.
-
-.. automodule:: pyvex.IRStmt
+.. automodule:: pyvex.block
+.. automodule:: pyvex.errors
+.. automodule:: pyvex.enums
+.. automodule:: pyvex.stmt
+.. automodule:: pyvex.expr
+.. automodule:: pyvex.const

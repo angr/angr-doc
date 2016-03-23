@@ -44,7 +44,7 @@ Analysis
 .. automodule:: angr.analyses.cfg_base
 .. automodule:: angr.analyses.cfg_fast
 .. automodule:: angr.analyses.cfg_node
-.. automodule:: angr.analysesc.code_location
+.. automodule:: angr.analyses.code_location
 .. automodule:: angr.analyses.datagraph_meta
 .. automodule:: angr.analyses.ddg
 .. automodule:: angr.analyses.dfg
