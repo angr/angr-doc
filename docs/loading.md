@@ -1,10 +1,10 @@
 # Loading a Binary - CLE and angr Projects
 
-angr's binary loading component is CLE, which stands for Christophe's Loader for Everything. CLE is responsible for taking a binary (and any libraries that it depends on) and presenting it to the rest of angr in a way that is easy to work with.
+angr's binary loading component is CLE, which stands for CLE Loads Everything. CLE is responsible for taking a binary (and any libraries that it depends on) and presenting it to the rest of angr in a way that is easy to work with.
 
-CLE's main goal is to load binaries in a robust way, i.e., the same way the actual loader (e.g., GNU LD in the case of ELF binaries) would load them. It means that some information that may be present in the binaries will be ignored by CLE, because such information may be stripped, voluntarily or unvoluntarily corrupted, etc.. It is not rare in the embedded world to see such things happening.
+CLE's main goal is to load binaries in a robust way, i.e., the same way the actual loader (e.g., GNU LD in the case of ELF binaries) would load them. It means that some information that may be present in the binaries will be ignored by CLE, because such information may be stripped, voluntarily or involuntarily corrupted, etc.. It is not rare in the embedded world to see such things happening.
 
-angr, in turn, encompasses this in a *Project* class. A Project class is the entity that represents your binary, and much of your interaction with angr will go through it.
+angr, in turn, encompasses this in a *Project* class. A Project class is the entity that represents your binary. Much of your interaction with angr will go through it.
 
 To load a binary with angr (let's say "/bin/true"), you would do the following:
 
@@ -27,7 +27,7 @@ After this, *b* is angr's representation of your binary (the "main" binary), alo
 >>> print b.filename
 ```
 
-CLE exposes the binary's information through two main interfaces: a CLE loader (cle.Loader) represents an entire conglomerate of loaded CLE binary objects. Different cle.AbsObj (abstract object) types are used for different types of binaries. For example, cle.ELF is used to load ELF binaries. (These are different "backends", see the backends section).
+CLE exposes the binary's information through the Loader class. The CLE loader (cle.Loader) represents an entire conglomerate of loaded CLE binary objects, loaded and mapped into a single memory space. Each binary object is loaded by a loader backend that can handle its filetype (a subclass of cle.Backend). For example, cle.ELF is used to load ELF binaries.
 
 CLE can be interfaced with as follows:
 
@@ -38,7 +38,7 @@ CLE can be interfaced with as follows:
 # this is a dictionary of the objects that are loaded as part of loading the binary (their types depend on the backend)
 >>> print b.loader.shared_objects
 
-# this is a dict of the memory space of the process after being loaded. It maps addresses to the byte at that address.
+# this is the memory space of the process after being loaded. It maps addresses to the byte at that address.
 >>> print b.loader.memory[b.loader.min_addr()]
 
 # this is the object for the main binary (its type depends on the backend)
@@ -96,7 +96,7 @@ etc.
 ```python
 >>> load_options = {}
 
-# shall we also load dynamic libraries ?
+# shall we also load dynamic libraries?
 >>> load_options['auto_load_libs'] = False
 
 # A list of libraries to load regardless of whether they're required by the loaded object
@@ -109,7 +109,7 @@ etc.
 >>> load_options['main_opts'] = {'backend': 'elf'}
 
 # A dictionary mapping library names to a dictionary of objects to be used when loading them.
->>> load_options['lib_opts'] = {'libc.so.6': {'auto_load_libs': True}}
+>>> load_options['lib_opts'] = {'libc.so.6': {'custom_base_addr': 0x13370000}}
 
 # A list of paths we can additionally search for shared libraries
 >>> load_options['custom_ld_path'] = ['/my/fav/libs']
@@ -142,59 +142,69 @@ Example with multiple options for the same binary:
 ```
 ## Backends
 
-Cle currently supports Elf, PE, IDA, and Blob.
+CLE currently has backends for statically loading ELF, PE, CGC and ELF core dump files, as well as loading binaries with IDA and loading files into a flat address space. CLE will automatically detect the correct backend to use in most all cases, so you shouldn't need to specify which backend you're using unless you're doing some pretty weird stuff.
 
-Elf is the default backend and is recommended unless you are not working with Elf binaries or have some specific needs that cannot be achieved with Cle (such as relying on information from the Elf sections).
-
-IDA runs an instance of IDA for each binary and communicates with it through idalink. 
-
-Blob is a special backend for binaries of unknown types. It provides no abstractions other than mapping the binary into memory, using a custom entry point, a custom base address or skipping the first @offset bytes of the image.
-
-You can specify the backend for the main binary by specifying it in the main_opts arguments. Library backends can be specified via the lib_opts argument.
+You can specify the backend for a binary by including a key in its options dictionary. If you need to force the architecture of a certain binary instead of having it auto-detected, you can specify it with the `custom_arch` key. The key doesn't need to match any list of arches; angr will identify which architecture you mean given almost any common identifier for any supported arch.
 
 ```python
 >>> load_options = {}
->>> load_options['main_opts'] = {'backend': 'elf'}
+>>> load_options['main_opts'] = {'backend': 'elf', 'custom_arch': 'i386'}
 >>> load_options['lib_opts'] = {'libc.so.6': {'backend': 'elf'}}
 ```
 
-Now that you have loaded a binary.
-Interesting information about the binary is now accessible in ```b.loader.main_bin```, for example deps, the list of imported libs, memory, symbols and others. 
-Make heavy use of the tabbing feature of ipython to see available functions and options here.
+| backend key | description | requires `custom_arch`? |
+| -- | -- | -- |
+| elf | Static loader for ELF files based on PyELFTools | no |
+| pe | Static loader for PE files based on PEFile | no |
+| cgc | Static loader for Cyber Grand Challenge binaries | no |
+| backedcgc | Static loader for CGC binaries that allows specifying memory and register backers | no |
+| elfcore | Static loader for ELF core dumps | no |
+| ida | Launches an instance of IDA to parse the file | yes |
+| blob | Loads the file into memory as a flat image | yes |
+
+Now that you have loaded a binary, interesting information about the binary is now accessible in ```b.loader.main_bin```. For example, the shared library dependencies, the list of imported libraries, memory, symbols and others. 
+Make heavy use of IPython's tab-completion to see available functions and options here.
 
 Now it's time to look at the [IR support](./ir.md)
 
 
 ## Misc
+
 ### Imports
+
 The following is ELF specific.
 On most architectures, imports, i.e., symbols that refer to functions or global names that are outside of the binary (in shared libraries) appear in the symbol table, most of the time with an undefined address (0). On some architectures like MIPS, it contains the address of the function's PLT stub (which resides in the text segment).
 If you are looking for the address of the GOT entry related to a specific symbol (which resides in the data segment), take a look at jmprel. It is a dict (symbol-> GOT addr):
 
 Whether you are after a PLT or GOT entry depends on the architecture. Architecture specific stuff is defined in a class in the Archinfo repository. The way we deal with absolute addresses of functions depending on the architecture is defined in this class, in the got_section_name property.
 
-For more details about Elf loading and architecture specific details, check the [Executable and linkable format document](http://www.cs.northwestern.edu/~pdinda/icsclass/doc/elf.pdf) as well as the ABI supplements for each architecture ([MIPS](http://math-atlas.sourceforge.net/devel/assembly/mipsabi32.pdf), [PPC64](http://math-atlas.sourceforge.net/devel/assembly/PPC-elf64abi-1.7.pdf), [AMD64](http://www.x86-64.org/documentation/abi.pdf))..
+For more details about ELF loading and architecture specific details, check the [Executable and linkable format document](http://www.cs.northwestern.edu/~pdinda/icsclass/doc/elf.pdf) as well as the ABI supplements for each architecture ([MIPS](http://math-atlas.sourceforge.net/devel/assembly/mipsabi32.pdf), [PPC64](http://math-atlas.sourceforge.net/devel/assembly/PPC-elf64abi-1.7.pdf), [AMD64](http://www.x86-64.org/documentation/abi.pdf))..
 ```python
 >>> rel = b.loader.main_bin.jmprel
 ```
 
-### Symbolic analysis: stepping into functions
+### Symbolic analysis: function summaries
+
 By default, Project tries to replace external calls to libraries' functions by using [symbolic summaries](./todo.md) termed *SimProcedures* (these are summaries of how functions affect the state). 
 
 When no such summary is available for a given function:
-- if `load_libs` is `True` (this is the default), then the *real* library function is executed instead. This may or may not be what you want, depending on the actual function. For example, some of libc's functions are extremely complex to analyze and will most likely cause an explosion of the number of states for the [path](./paths.md) trying to execute them.
 
-- if `load_libs` is `False`, then external functions are unresolved, and Project will resolve them to a generic "stub" SimProcedure called `ReturnUnconstrained`. It does what its name says: it returns unconstrained values.
+- if `auto_load_libs` is `True` (this is the default), then the *real* library function is executed instead. This may or may not be what you want, depending on the actual function. For example, some of libc's functions are extremely complex to analyze and will most likely cause an explosion of the number of states for the [path](./paths.md) trying to execute them.
+- if `auto_load_libs` is `False`, then external functions are unresolved, and Project will resolve them to a generic "stub" SimProcedure called `ReturnUnconstrained`. It does what its name says: it returns unconstrained values.
+- if `use_sim_procedures` (this is a parameter to `angr.Project`, not `cle.Loader`) is `False` (it is `True` by default), then no SimProcedures besides `ReturnUnconstrained` will be used.
+- you may specify specific symbols to exclude from being replaced with SimProcedures with the parameters to `angr.Project`: `exclude_sim_procedures_list` and `exclude_sim_procedures_func`.
+- Look at the code for `angr.Project._use_sim_procedures` for the exact algorithm.
 
 ## Troubleshooting
 
 ### Q: My options are ignored
-A: Cle options are an optional argument. Make sure you call Project with the following syntax:
+
+A: CLE options are an optional argument. Make sure you call Project with the following syntax:
 ```python
 b = angr.Project('/bin/true', load_options=load_options)
 ```
 
 rather than:
 ```python
-b = angr.Project(ping, load_options)
+b = angr.Project('/bin/true', load_options)
 ```
