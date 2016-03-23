@@ -1,11 +1,12 @@
-:mod:`cle` --- CLE
-==========================
+:mod:`cle` --- CLE Loads Everything
+===================================
 
 ..  automodule:: cle
 ..  automodule:: cle.loader
 ..  automodule:: cle.memory
 ..  automodule:: cle.relocations
 ..  automodule:: cle.tls
+..  automodule:: cle.errors
 
 Backends
 --------
