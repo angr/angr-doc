@@ -141,7 +141,7 @@ This challenge is a [movfuscated](https://github.com/xoreaxeaxeax/movfuscator) b
 To find the correct password after exploring the binary with Qira it is possible to understand 
 how to find the places in the binary where every character is checked using capstone and using angr to
 load the [binary](./examples/0ctf_momo/solve.py) and bruteforce the single characters of the flag.
-Be aware that the [script](./examples/0ctf_momo/solve.py) is really slow.
+Be aware that the [script](./examples/0ctf_momo/solve.py) is really slow. Runtime: > 1 hour.
 
 
 ### CrackMe example: Layer7 CTF 2015 - Windows challenge OnlyOne
