@@ -62,6 +62,7 @@ def test_docs():
         yield doctest_single, md_file
 
 #def test_9447_nobranch(): exampletest_single('9447_nobranch')
+def test_0ctf_trace():  exampletest_single('0ctf_trace')
 def test_ais3_crackme(): exampletest_single('ais3_crackme')
 def test_asisctffinals2015_fake(): exampletest_single('asisctffinals2015_fake')
 def test_asisctffinals2015_license(): exampletest_single('asisctffinals2015_license')

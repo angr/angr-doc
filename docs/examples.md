@@ -144,6 +144,23 @@ load the [binary](./examples/0ctf_momo/solve.py) and bruteforce the single chara
 Be aware that the [script](./examples/0ctf_momo/solve.py) is really slow. Runtime: > 1 hour.
 
 
+### ReverseMe example: 0ctf quals 2016 - trace
+
+Author: WGH (wgh@bushwhackers.ru)
+
+Script runtime: 1 min 50 secs (CPython 2.7.10), 1 min 12 secs (PyPy 4.0.1)
+
+In this challenge we're given a text file with trace of a program execution. The file has
+two columns, address and instruction executed. So we know all the instructions being executed,
+and which branches were taken. But the initial data is not known.
+
+Reversing reveals that a buffer on the stack is initialized with known constant string first,
+then an unknown string is appended to it (the flag), and finally it's sorted with some
+variant of quicksort. And we need to find the flag somehow.
+
+Angr easily solves this problem. We only have to direct it to the right direction
+at every branch, and solver finds the flag at a glance.
+
 ### CrackMe example: Layer7 CTF 2015 - Windows challenge OnlyOne
 
 Author: Fish Wang (github: @ltfish)
