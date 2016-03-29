@@ -106,10 +106,6 @@ TODO
 Important note that needs to go in this initial version before I write the rest of the stuff:
 The `Block` object that you get back from the lifter, get the `vex` property to get a PyVEX IRSB or the `capstone` property to get a Capstone block. Read the source if you wanna know more about these! (the source is in angr/lifter.py, the method is called `lift`. this method literally gets transplanted out of this class and dropped onto the `factory` instance.)
 
-## State options
-
-TODO
-
 ### Filesystem Options
 
 There are a number of options which can be passed to the state initialization routines which affect filesystem usage. These include the `fs`, `concrete_fs`, and `chroot` options.

@@ -1,15 +1,16 @@
 # Machine State - memory, registers, and so on
 
 angr (actually, a submodule of angr, called SimuVEX) tracks machine states in a `SimState` object.
-This object tracks the machine's memory, registers, and various other information, such as open files.
-The "initial" state of program execution (i.e., the state at the entry point) is provided by the angr.Project class, like so:
+This object tracks concrete and/or symbolic values for the machine's memory, registers, along with various other information, such as open files.
+You can get a `SimState` by using one of a number of convenient constructors in `Project.factory`.
+The different basic states you can construct are described [here](toplevel.md).
 
 ```python
 >>> import angr
 >>> b = angr.Project('/bin/true')
 
-# let's get a blank state
->>> s = b.factory.blank_state()
+# let's get a state at the program entry point:
+>>> s = b.factory.entry_state()
 
 # we can access the memory of the state here
 >>> print "The first 5 bytes of the binary are:", s.memory.load(b.loader.min_addr(), 5)
@@ -24,7 +25,7 @@ The "initial" state of program execution (i.e., the state at the entry point) is
 
 ## Accessing Data
 
-The data that's stored in the state (i.e., data in registers, memory, temps, etc) is stored as an internal *expression*. This exposes a single interface to concrete (i.e., `0x41414141`) and symbolic (i.e., "whatever the user might input on stdin") expressions. In fact, this is the core of what enables angr to analyze binaries *symbolically*. However, this complicates matters by not exposing the actual *value*, if it's concrete, directly. For example, if you try the above examples, you will see that the type that is printed is a `claripy.A` type, which is the internal expression representation. Claripy is the solution backend for SimuVEX, and we'll discuss it in more detail later. For now, you might want to know how to get the actual values out of these expressions.
+The data that's stored in the state (i.e., data in registers, memory, temps, etc) is stored as an internal *expression*. This exposes a single interface to concrete (i.e., `0x41414141`) and symbolic (i.e., "whatever the user might input on stdin") expressions. In fact, this is the core of what enables angr to analyze binaries *symbolically*. However, this complicates matters by not exposing the actual *value*, if it's concrete, directly. For example, if you try the above examples, you will see that the type that is printed is a [claripy AST](claripy.md), which is the internal expression representation. For now, you might want to know how to get the actual values out of these expressions.
 
 ```python
 # get the integer value of the content of rax:
@@ -34,7 +35,7 @@ The data that's stored in the state (i.e., data in registers, memory, temps, etc
 >>> print s.se.any_str(s.memory.load(0x1000, 10))
 ```
 
-Here, `s.se` is the *solver engine* of the state, which we'll talk about later.
+Here, `s.se` is a [solver engine](claripy.md) that holds the symbolic constraints on the state.
 
 This syntax might seem a bit strange -- we get the expression from the state, and then we pass it back *into* the state to get its actual value. This is, in fact, quite intentional. As we mentioned earlier, these expressions could be either concrete or symbolic. In the case of the latter, a symbolic expression might resolve to two different meanings in two different states. We'll go over symbolic expressions in more detail later on. For now, accept the mystery.
 
@@ -45,13 +46,14 @@ If you want to store content in the state's memory or registers, you'll need to 
 ```python
 # this creates a BVV (which stands for BitVector Value). A BVV is a bitvector that's used to represent
 # data in memory, registers, and temps. This BVV represents a 32 bit bitvector of four ascii `A` characters
->>> aaaa = s.se.BVV(0x41414141, 32)
+>>> import claripy
+>>> aaaa = claripy.BVV(0x41414141, 32)
 
 # While we're at it, we can do various operations on these bitvectors:
 >>> aa = aaaa[31:16] # this extracts the most significant 16 bits
->>> aa00 = aaaa & s.se.BVV(0xffff0000, 32)
+>>> aa00 = aaaa & claripy.BVV(0xffff0000, 32)
 >>> aaab = aaaa + 1
->>> aaaa = s.se.Concat(aaaa, aaaa)
+>>> aaaaaaaa = claripy.Concat(aaaa, aaaa)
 
 # this can then be stored in memory or registers. Since the bitvector
 # has a length, only the address to store it at is required
@@ -174,7 +176,7 @@ So far, we've seen addition being used. But we can do much more. All of the foll
 >>> print aaaa[31:24]
 
 # concatenates aaaa with itself
->>> print s.se.Concat(aaaa, aaaa)
+>>> print aaaa.Concat(aaaa)
 
 # zero-extends aaaa by 32 bits
 >>> print aaaa.zero_extend(32)
@@ -186,7 +188,7 @@ So far, we've seen addition being used. But we can do much more. All of the foll
 >>> print aaaa >> 8
 
 # shifts aaaa right logically by 8 bits (i.e., not sign-extended)
->>> print s.se.LShR(aaaa, 8)
+>>> print aaaa.LShR(8)
 
 # reverses aaaa, i.e. reverses the order of the bytes as if stored big-endian and loaded little-endian
 >>> print aaaa.reversed
@@ -250,7 +252,7 @@ If you'd like to be explicit about your unsigned comparisons, the operators (`UG
 ```python
 # Add an unsigned comparison
 >>> s4 = s.copy()
->>> s4.add_constraints(s3.se.SLT(m, 10))
+>>> s4.add_constraints(claripy.SLT(m, 10))
 
 # We can see the effect of this right away!
 >>> assert s4.se.solution(m, 0)
@@ -262,7 +264,19 @@ If you'd like to be explicit about your unsigned comparisons, the operators (`UG
 Amazing. Of course, constraints can be arbitrarily complex:
 
 ```python
->>> s4.add_constraints(s4.se.And(s4.se.UGT(m, 10), s4.se.Or(s4.se.ULE(m, 100), m % 200 != 123, s4.se.LShR(m, 8) & 0xff != 0xa)))
+>>> s4.add_constraints(claripy.And(claripy.UGT(m, 10), claripy.Or(claripy.ULE(m, 100), m % 200 != 123, claripy.LShR(m, 8) & 0xff != 0xa)))
 ```
 
 There's a lot there, but, basically, m has to be greater than 10 *and* either has to be less than 100, or has to be 123 when modded with 200, or, when logically shifted right by 8, the least significant byte must be 0x0a.
+
+## State Options
+
+There are a lot of little tweaks that can be made to the internals of simuvex that will optimize behavior in some situations and be a detriment in others. These tweaks are controlled through state options.
+
+On each SimState object, there is a set (state.options) of all its enabled options. The full domain of options, along with the defaults for different state types, can be found in (s_options.py)[https://github.com/angr/simuvex/blob/master/simuvex/s_options.py], available as `simuvex.o`.
+
+```python
+# Example: disable lazy solves, a behavior that causes state satisfiability to be checked as infrequently as possible.
+# This change to the settings will be propogated to all successor states created from this state after this line.
+>>> s.remove(simuvex.o.LAZY_SOLVES)
+```
