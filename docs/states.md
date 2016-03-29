@@ -6,7 +6,7 @@ You can get a `SimState` by using one of a number of convenient constructors in 
 The different basic states you can construct are described [here](toplevel.md).
 
 ```python
->>> import angr
+>>> import angr, simuvex
 >>> b = angr.Project('/bin/true')
 
 # let's get a state at the program entry point:
