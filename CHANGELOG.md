@@ -3,6 +3,23 @@
 This lists the *major* changes in angr.
 Tracking minor changes are left as an excercise for the reader :-)
 
+## angr 4.6.3.28
+
+PyVEX has a structural overhaul. The `IRExpr`, `IRStmt`, and `IRConst` modules no longer exist as submodules, and those module names are deprecated.
+Use `pyvex.expr`, `pyvex.stmt`, and `pyvex.const` if you need to access the members of those modules.
+
+The names of the first three parameters to `pyvex.IRSB` (the required ones) have been changed.
+If you were passing the positional args to IRSB as keyword args, consider switching to positional args.
+The order is `data`, `mem_addr`, `arch`.
+
+The optional parameter `sargc` to the `entry_state` and `full_init_state` constructors has been removed and replaced with an `argc` parameter.
+`sargc` predates being able to have claripy ASTs independent from a solver.
+The new system is to pass in the exact value, ast or integer, that you'd like to have as the guest program's arg count.
+
+CLE and angr can now accept file-like streams, that is, objects that support `stream.read()` and `stream.seek()` can be passed in wherever a filepath is expected.
+
+Documentation is much more complete, especially for PyVEX and angr's symbolic execution control components.
+
 ## angr 4.5.12.?
 
 Claripy has a new manager for backends, allowing external backends (i.e., those implemented by other modules) to be used.
