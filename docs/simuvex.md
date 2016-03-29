@@ -46,7 +46,7 @@ A SimAction has an associated `type` (i.e., "mem" for memory, "reg" for register
 # Print out all the actions for this block:
 >>> for sstmt in sirsb.statements:
 ...     print '[+] Actions for statement %d' % sstmt.stmt_idx
-...     for action in sstmt.actions:
+...     for a in sstmt.actions:
 ...         if a.type == 'mem':
 ...             print "Memory write to", a.addr.ast
 ...             print "... address depends on registers", a.addr.reg_deps, "and temps", a.addr.tmp_deps

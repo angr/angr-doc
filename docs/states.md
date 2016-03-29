@@ -278,5 +278,5 @@ On each SimState object, there is a set (state.options) of all its enabled optio
 ```python
 # Example: disable lazy solves, a behavior that causes state satisfiability to be checked as infrequently as possible.
 # This change to the settings will be propogated to all successor states created from this state after this line.
->>> s.remove(simuvex.o.LAZY_SOLVES)
+>>> s.options.remove(simuvex.o.LAZY_SOLVES)
 ```
