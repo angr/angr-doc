@@ -158,7 +158,7 @@ Reversing reveals that a buffer on the stack is initialized with known constant 
 then an unknown string is appended to it (the flag), and finally it's sorted with some
 variant of quicksort. And we need to find the flag somehow.
 
-Angr easily solves this problem. We only have to direct it to the right direction
+angr easily solves this problem. We only have to direct it to the right direction
 at every branch, and solver finds the flag at a glance.
 
 ### CrackMe example: Layer7 CTF 2015 - Windows challenge OnlyOne

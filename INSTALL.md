@@ -1,6 +1,6 @@
 # Installing angr
 
-Angr is a python library, so it must be installed into your python environment before it can be used.
+angr is a python library, so it must be installed into your python environment before it can be used.
 It is built for Python 2: Py3k support is feasable somewhere out in the future, but we are a little hesitant to make that commitment right now (pull requests welcome!).
 
 We highly recommend using a [python virtual environment](https://virtualenvwrapper.readthedocs.org/en/latest/) to install and use angr.
