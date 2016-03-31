@@ -22,6 +22,7 @@ If you use angr in an academic work, please cite the paper for which it was deve
 @article{shoshitaishvili2015firmalice,
   title={Firmalice - Automatic Detection of Authentication Bypass Vulnerabilities in Binary Firmware},
   author={Shoshitaishvili, Yan and Wang, Ruoyu and Hauser, Christophe and Kruegel, Christopher and Vigna, Giovanni},
+  booktitle={NDSS},
   year={2015}
 }
 ```
