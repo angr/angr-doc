@@ -28,6 +28,7 @@ Knowledge Base
 .. automodule:: angr.knowledge.data
 .. automodule:: angr.knowledge.function
 .. automodule:: angr.knowledge.function_manager
+    :members: FunctionManager
 
 Analysis
 --------
