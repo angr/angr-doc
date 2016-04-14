@@ -83,7 +83,7 @@ sudo docker build -t angr - < angr-dev/Dockerfile
 sudo docker run -it angr
 ```
 
-Synchronization of files in and out of docker is left as an excercize to the user (hint: check out `docker -v`).
+Synchronization of files in and out of docker is left as an exercise to the user (hint: check out `docker -v`).
 
 # Troubleshooting
 
