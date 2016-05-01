@@ -10,6 +10,15 @@ A binary is loaded by doing:
 p = angr.Project("/path/to/your/binary")
 ```
 
+## Why am I getting terrifying error messages from LibVEX printed to stderr?
+
+This is something that LibVEX does when it gets fed invalid instructions.
+VEX is not designed for static analysis, it's designed for instrumentation, so it's mode of handling bad data is to freak out as badly as it possibly can.
+There's no way of shutting it up, short of patching it.
+
+We've already patched VEX so that instead of exiting, bringing down the python interpreter with it, it sends up a message that turns into a python exception than can later be caught by analysis.
+Long story short, *this should not affect your analysis if you're just using builtin angr routines.*
+
 ## How can I get verbose debug messages for specific angr modules ?
 ### Debug messages for everything
 The most simple way to get a debug output is the following:

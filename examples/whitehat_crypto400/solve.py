@@ -98,6 +98,5 @@ if __name__ == '__main__':
     # set some debug messages so that we know what's going on
     logging.basicConfig()
     angr.path_group.l.setLevel('DEBUG')
-    angr.analyses.cfg.l.setLevel('WARNING')
 
     print main()
