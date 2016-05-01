@@ -12,6 +12,21 @@ This is a basic script that explains how to use angr to symbolically execute a p
 Binary, source, and script are found [here.](https://github.com/angr/angr-doc/tree/master/examples/fauxware)
 
 ## CTF Problems
+### ReverseMe example: Google CTF - Unbreakable Enterprise Product Activation (150 points)
+
+Author: Adam Van Prooyen (github: [@docileninja](https://github.com/docileninja))
+
+Script runtime: 6.7 sec
+
+A linux binary that takes a key as a command line argument and check it against a series of constraints.
+
+Challenge Description:
+> We need help activating this product -- we've lost our license key :(
+>
+> You're our only hope!
+
+Binary and script are found [here.](https://github.com/angr/angr-doc/tree/master/examples/googlectf_unbreakable)
+
 ### ReverseMe example: WhiteHat Grant Prix Global Challenge 2015 - Re400
 
 Author: Fish Wang (github: @ltfish)
