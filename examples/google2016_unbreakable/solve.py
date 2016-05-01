@@ -40,7 +40,6 @@ def main():
 	found = path_group.found[0]
 
 	solution = found.state.se.any_str(argv1)
-	solution = found.state.se.any_n_str(argv1, 100)
 	print repr(solution)
 	solution = solution[:solution.find("\x00")]
 	print solution
