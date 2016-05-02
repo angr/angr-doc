@@ -11,7 +11,7 @@ characters of input are equal to zero. Because of the program's linear nature
 and reliance on verbose constraints, angr is perfect for solving this challenge
 quickly. On a virtual machine, it took ~7 seconds to solve.
 
-Author: scienceman
+Author: scienceman (@docileninja)
 Team: bitsforeveryone (USMA)
 """
 
