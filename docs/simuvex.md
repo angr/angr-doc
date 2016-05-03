@@ -185,7 +185,6 @@ These events expose different attributes:
 | exit              | exit_target        | BP_BEFORE or BP_AFTER  | The expression representing the target of a SimExit. |
 | exit              | exit_guard         | BP_BEFORE or BP_AFTER  | The expression representing the guard of a SimExit. |
 | exit              | jumpkind           | BP_BEFORE or BP_AFTER  | The expression representing the kind of SimExit. |
-| exit              | backtrace          | BP_AFTER               | A list of basic block addresses that were executed in this state's history. |
 | symbolic_variable | symbolic_name      | BP_BEFORE or BP_AFTER  | The name of the symbolic variable being created. The solver engine might modify this name (by appending a unique ID and length). Check the symbolic_expr for the final symbolic expression. |
 | symbolic_variable | symbolic_size      | BP_BEFORE or BP_AFTER  | The size of the symbolic variable being created. |
 | symbolic_variable | symbolic_expr      | BP_AFTER               | The expression representing the new symbolic variable. |
