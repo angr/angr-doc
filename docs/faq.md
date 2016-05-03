@@ -20,6 +20,9 @@ We've already patched VEX so that instead of exiting, bringing down the python i
 Long story short, *this should not affect your analysis if you're just using builtin angr routines.*
 
 ## How can I get verbose debug messages for specific angr modules ?
+
+angr uses the standard `logging` module for logging, with every package and submodule creating a new logger.
+
 ### Debug messages for everything
 The most simple way to get a debug output is the following:
 ```python
