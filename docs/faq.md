@@ -1,6 +1,6 @@
 # FAQ
 
-This is a collection of commonly-asked "how do I do X?" questions, for those too lazy to read this whole document.
+This is a collection of commonly-asked "how do I do X?" questions and other general questions about angr, for those too lazy to read this whole document.
 
 ## How do I load a binary?
 
@@ -47,3 +47,26 @@ You want to load the binary without shared libraries loaded. If they are loaded,
 like they are by default, the analysis will try to construct a CFG through your
 libraries, which is almost always a really bad idea. Add the following option
 to your `Project` constructor call: `load_options={'auto_load_libs': False}`
+
+
+## Why did you choose VEX instead of another IR (such as LLVM, REIL, BAP, etc)?
+
+We had two design goals in angr that influenced this choice:
+
+1. angr needed to be able to analyze binaries from multiple architectures. This mandated the use of an IR to preserve our sanity, and required the IR to support many architectures.
+2. We wanted to implement a binary analysis engine, not a binary lifter. Many projects start and end with the implementation of a lifter, which is a time consuming process. We needed to take something that existed and already supported the lifting of multiple architectures.
+
+Searching around the internet, the major choices were:
+
+- LLVM is an obvious first candidate, but lifting binary code to LLVM cleanly is a pain. The two solutions are either lifting to LLVM through QEMU, which is hackish (and the only implementation of it seems very tightly integrated into S2E), or mcsema, which only supports x86.
+- TCG is QEMU's IR, but extracting it seems very daunting as well and documentation is very scarse.
+- REIL seems promising, but there is no standard reference implementation that supports all the architectures that we wanted. It seems like a nice academic work, but to use it, we would have to implement our own lifters, which we wanted to avoid.
+- BAP was another possibility. When we started work on angr, BAP only supported lifting x86 code, and up-do-date versions of BAP were only available to academic collaborators of the BAP authors. These were two deal-breakers. BAP has since become open, but it still only supports x86_64, x86, and ARM.
+- VEX was the only choice that offered an open library and support for many architectures. As a bonus, it is very well documented and designed specifically for program analysis, making it very easy to use in angr.
+
+While angr uses VEX now, there's no fundamental reason that multiple IRs cannot be used. There are two parts of angr, outside of the `simuvex.vex` package, that are VEX-specific:
+
+- the jump lables (i.e., the `Ijk_Ret` for returns, `Ijk_Call` for calls, and so forth) are VEX enums.
+- VEX treats registers as a memory space, and so does angr. While we provide accesses to `state.regs.rax` and friends, on the backend, this does `state.registers.load(8, 8)`, where the first `8` is a VEX-defined offset for `rax` to the register file.
+
+To support multiple IRs, we'll either want to abstract these things or translate their labels to VEX analogues.
