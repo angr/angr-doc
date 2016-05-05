@@ -1,8 +1,10 @@
-#!/usr/bin/env python
+#!/usr/bin/env python2
 
 # Author: David Manouchehri <manouchehri@protonmail.com>
 # Google 2016 CTF
 # Challenge: Unbreakable Enterprise Product Activation
+# Team: hack.carleton (http://hack.carleton.team/)
+# Runtime: ~4.5 seconds (single threaded E5-2666 v3 @ 2.90GHz on AWS/EC2)
 
 import angr
 
@@ -11,33 +13,36 @@ def main():
 
     input_size = 0x43; # Max length from strncpy, see 0x4005ae.
 
-    argv1 = angr.claripy.BVS("argv1", input_size * 8) # 
+    argv1 = angr.claripy.BVS("argv1", input_size * 8)
 
     initial_state = proj.factory.entry_state(args=["./unbreakable-enterprise-product-activation", argv1]) 
-    initial_state.libc.buf_symbolic_bytes=input_size + 1 # Thanks to @salls for pointing this out.
+    initial_state.libc.buf_symbolic_bytes=input_size + 1 # Thanks to Christopher Salls (@salls) for pointing this out. By default there's only 60 symbolic bytes, which is too small.
 
-    # For some reason if you constrain less bytes, the solution isn't found. To be safe, I'm constraining them all.
+    # For some reason if you constrain too few bytes, the solution isn't found. To be safe, I'm constraining them all.
     for byte in argv1.chop(8):
-        initial_state.add_constraints(byte != '\x00')
+        initial_state.add_constraints(byte != '\x00') # null
+        initial_state.add_constraints(byte >= ' ') # '\x20'
+        initial_state.add_constraints(byte <= '~') # '\x7e'
+        # Source: https://www.juniper.net/documentation/en_US/idp5.1/topics/reference/general/intrusion-detection-prevention-custom-attack-object-extended-ascii.html
+        # Thanks to Tom Ravenscroft (@tomravenscroft) for showing me how to restrict to printable characters.
 
     # We're told that every flag starts with "CTF", so we might as well use that information to save processing time. 
-    initial_state.add_constraints(argv1.chop(8)[0] == '\x43') # C
-    initial_state.add_constraints(argv1.chop(8)[1] == '\x54') # T
-    initial_state.add_constraints(argv1.chop(8)[2] == '\x46') # F
+    initial_state.add_constraints(argv1.chop(8)[0] == 'C') # '\x43'
+    initial_state.add_constraints(argv1.chop(8)[1] == 'T') # '\x54'
+    initial_state.add_constraints(argv1.chop(8)[2] == 'F') # \x46
+    # angr will still find the solution without setting these, but it'll take a few seconds more.
 
     initial_path = proj.factory.path(initial_state)
     path_group = proj.factory.path_group(initial_state)
-
-    # 0x4005AA = starting of 'good' function
-    # 0x400830 = thank you message
-    # 0x400850 = activation failure
-
+    
+                          # 0x400830 = thank you message
     path_group.explore(find=0x400830, avoid=0x400850)
+                                          # 0x400850 = activation failure
 
-    found = path_group.found[0]
+    found = path_group.found[0] # In our case, there's only one printable solution.
 
     solution = found.state.se.any_str(argv1)
-    solution = solution[:solution.find("}")+1]
+    solution = solution[:solution.find("}")+1] # Trim off the null bytes at the end of the flag (if any).
     return solution
 
 def test():
