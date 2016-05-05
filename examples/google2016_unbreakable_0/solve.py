@@ -31,7 +31,6 @@ def main():
     initial_state.add_constraints(argv1.chop(8)[1] == 'T')
     initial_state.add_constraints(argv1.chop(8)[2] == 'F')
     initial_state.add_constraints(argv1.chop(8)[3] == '{')
-    initial_state.add_constraints(argv1.chop(8)[-1] == '}') # For this line to work, argv1 must be the *exact* length of the solution.
     # angr will still find the solution without setting these, but it'll take a few seconds more.
 
     initial_path = proj.factory.path(initial_state)
