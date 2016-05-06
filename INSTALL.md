@@ -66,18 +66,15 @@ You can branch/edit/recompile the various modules in-place, and it will automati
 
 ## Docker install
 
-For convenience, we ship a Dockerfile that is 99% guaranteed to work.
+For convenience, we ship a Docker image that is 99% guaranteed to work.
 You can install via docker by doing:
 
 ```bash
 # install docker
 curl -sSL https://get.docker.com/ | sudo sh
 
-# clone the repo
-git clone https://github.com/angr/angr-dev
-
-# create the docker image
-sudo docker build -t angr - < angr-dev/Dockerfile
+# pull the docker image
+sudo docker pull angr/angr
 
 # run it
 sudo docker run -it angr
