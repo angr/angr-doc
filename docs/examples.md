@@ -17,6 +17,8 @@ Binary, source, and script are found [here.](https://github.com/angr/angr-doc/tr
 
 Script 0 author: David Manouchehri (github: [@Manouchehri](https://github.com/Manouchehri))
 
+Script runtime: 4.5 sec
+
 Script 1 author: Adam Van Prooyen (github: [@docileninja](https://github.com/docileninja))
 
 Script runtime: 6.7 sec
