@@ -40,7 +40,7 @@ def main():
     for i in xrange(36):
         # We want those flags to be printable characters
         state.add_constraints(argv[1].get_byte(i) >= 0x20)
-        state.add_constraints(argv[1].get_byte(i) <= ord('}'))
+        state.add_constraints(argv[1].get_byte(i) <= '}')
     state.add_constraints(argv[1].get_byte(36) == 0)
 
     # Prepare the argc and argv
@@ -78,7 +78,7 @@ def test():
     for f in res:
         f = f[:f.find("\x00")]
         assert len(f) == 36
-        assert all([ord(c) >= 0x20 and ord(c) <= ord("}") for c in f])
+        assert all([ord(c) >= 0x20 and ord(c) <= "}" for c in f])
 
 if __name__ == "__main__":
     main()
