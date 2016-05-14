@@ -76,6 +76,7 @@ It is not a factory in the java sense, it is merely a home for all the functions
 
 >>> state = b.factory.blank_state(addr=b.entry)
 >>> state = b.factory.entry_state(args=['./program', claripy.BVS('arg1', 20*8)])
+>>> state = b.factory.call_state(0x1000, "hello", "world")
 >>> state = b.factory.full_init_state(args=['./program', claripy.BVS('arg1', 20*8)])
 
 >>> path = b.factory.path()
@@ -88,16 +89,20 @@ It is not a factory in the java sense, it is merely a home for all the functions
 >>> strlen_addr = b.loader.main_bin.plt['strlen']
 >>> strlen = b.factory.callable(strlen_addr)
 >>> assert claripy.is_true(strlen("hello") == 5)
+
+>>> cc = b.factory.cc()
 ```
 
 - *factory.block* is the angr's lifter. passing it an address will lift a basic block of code from the binary at that address, and return an angr Block object that can be used to retrieve multiple representations of that block. More below.
 - *factory.blank_state* returns a SimState object with little initialization besides the parameters passed to it.
 - *factory.entry_state* returns a SimState initialized to the program state at the binary's entry point.
+- *factory.call_state* returns a SimState initialized as if you'd just called the function at the given address, with the given args.
 - *factory.full_init_state* returns a SimState that initialized similarly to `entry_state`, but instead of at the entry point, the program counter points to a SimProcedure that serves the purpose of the dynamic loader and will call the initializers of each shared library before jumping to the entry point.
 - *factory.path* returns a Path object. Since Paths are at their start just light wrappers around SimStates, you can call `path` with a state as an argument and get a path wrapped around that state.
   Alternately, for simple cases, any keyword arguments you pass `path` will be passed on to `entry_state` to create a state to wrap.
 - *factory.path_group* creates a path group! Path groups are the future. They're basically very smart lists of paths, so you can pass it a path, a state (which will be wrapped into a path), or a list of paths and states.
 - *factory.callable* is _very_ cool. Callables are a FFI (foreign functions interface) into arbitrary binary code.
+- *factory.cc* intiializes a calling convention object. This can be initialized with different args or even a function prototype, and then passed to factory.callable or factory.call_state to customize how arguments and return values and return addresses are laid out into memory.
 
 ## Lifter
 
