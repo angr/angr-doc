@@ -13,6 +13,14 @@ Binary, source, and script are found [here.](https://github.com/angr/angr-doc/tr
 
 ## CTF Problems
 
+### ReverseMe example: Google CTF - baby-re
+
+Script 0 author: David Manouchehri (github: [@Manouchehri](https://github.com/Manouchehri))
+
+Script runtime: 8 minutes
+
+Here is the [binary](https://github.com/angr/angr-doc/tree/master/examples/defcon2016quals_baby-re/baby-re) and the [script](https://github.com/angr/angr-doc/tree/master/examples/defcon2016quals_baby-re/solve.py).
+
 ### ReverseMe example: Google CTF - Unbreakable Enterprise Product Activation (150 points)
 
 Script 0 author: David Manouchehri (github: [@Manouchehri](https://github.com/Manouchehri))
