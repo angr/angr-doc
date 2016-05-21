@@ -4,7 +4,8 @@
 Author: David Manouchehri <manouchehri@protonmail.com>
 DEFCON CTF Qualifier 2016
 Challenge: baby-re
-Team: hack.carleton (http://hack.carleton.team/)
+Team: hack.carleton
+Write-up: http://hack.carleton.team/2016/05/21/defcon-ctf-qualifier-2016-baby-re/
 Runtime: ~8 minutes (single threaded E5-2650L v3 @ 1.80GHz on DigitalOcean)
 
 DigitalOcean is horrible for single threaded applications, I would highly suggest using something else.
@@ -22,7 +23,6 @@ def main():
 	# If you use anywhere before 0x40292c, angr won't have the flag to print out yet. So don't do that.
 
 	print path_group.found[0].state.posix.dumps(1) # The flag is at the end.
-	# The flag is: 
 
 	"""
 	Note: There will be a bunch of warnings on your terminal that look like this.
