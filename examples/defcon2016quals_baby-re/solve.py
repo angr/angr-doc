@@ -14,7 +14,7 @@ DigitalOcean is horrible for single threaded applications, I would highly sugges
 import angr
 
 def main():
-	proj = angr.Project('/defcon/baby-re',  load_options={'auto_load_libs': False})
+	proj = angr.Project('./baby-re',  load_options={'auto_load_libs': False})
 
 	path_group = proj.factory.path_group(threads=4) # Doesn't really help to have more threads, but whatever.
 
