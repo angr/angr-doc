@@ -93,7 +93,7 @@ def main(binary):
         sc_bvv = ep.state.se.BVV(shellcode)
 
         # check satisfiability of placing shellcode into the address
-        if ep.state.satisfiable(extra_constraints=(memory == sc_bvv,)):
+        if ep.state.satisfiable(extra_constraints=(memory == sc_bvv,ep.state.regs.pc == buf_addr)):
             l.info("found buffer for shellcode, completing exploit")
             ep.state.add_constraints(memory == sc_bvv)
             l.info("pointing pc towards shellcode buffer")
