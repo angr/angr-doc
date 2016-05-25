@@ -5,7 +5,7 @@ So you've loaded a project. Now what?
 
 This document explains all the attributes that are available directly from instances of `angr.Project`.
 
-# Basic properties
+## Basic properties
 ```python
 >>> import angr, monkeyhex, claripy
 >>> b = angr.Project('/bin/true')
@@ -26,7 +26,7 @@ This document explains all the attributes that are available directly from insta
 - *filename* is the absolute filename of the binary. Riveting stuff!
 - *loader* is the [cle.Loader](https://github.com/angr/cle/blob/master/cle/loader.py) instance for this project. Details on how to use it are found [here](./loading.md).
 
-# Analyses and Surveyors
+## Analyses and Surveyors
 ```python
 >>> b.analyses
 <angr.analysis.Analyses object at 0x7f5220d6a890>
@@ -62,7 +62,7 @@ The most common one is `Explorer`, which searches for a target address while avo
 Read about using surveyors [here](./surveyors.md).
 Note that while surveyors are cool, an alternative to them is Path Groups (below), which are the future.
 
-# The factory
+## The factory
 
 `b.factory`, like `b.analyses` and `b.surveyors`, is a container object that has a lot of cool stuff in it.
 It is not a factory in the java sense, it is merely a home for all the functions that produce new instances of important angr classes and should be sitting on Project.
@@ -94,22 +94,23 @@ It is not a factory in the java sense, it is merely a home for all the functions
 ```
 
 - *factory.block* is the angr's lifter. passing it an address will lift a basic block of code from the binary at that address, and return an angr Block object that can be used to retrieve multiple representations of that block. More below.
-- *factory.blank_state* returns a SimState object with little initialization besides the parameters passed to it.
+- *factory.blank_state* returns a SimState object with little initialization besides the parameters passed to it. States as a whole are discussed in depth [here](states.md).
 - *factory.entry_state* returns a SimState initialized to the program state at the binary's entry point.
 - *factory.call_state* returns a SimState initialized as if you'd just called the function at the given address, with the given args.
 - *factory.full_init_state* returns a SimState that initialized similarly to `entry_state`, but instead of at the entry point, the program counter points to a SimProcedure that serves the purpose of the dynamic loader and will call the initializers of each shared library before jumping to the entry point.
 - *factory.path* returns a Path object. Since Paths are at their start just light wrappers around SimStates, you can call `path` with a state as an argument and get a path wrapped around that state.
-  Alternately, for simple cases, any keyword arguments you pass `path` will be passed on to `entry_state` to create a state to wrap.
-- *factory.path_group* creates a path group! Path groups are the future. They're basically very smart lists of paths, so you can pass it a path, a state (which will be wrapped into a path), or a list of paths and states.
-- *factory.callable* is _very_ cool. Callables are a FFI (foreign functions interface) into arbitrary binary code.
-- *factory.cc* intiializes a calling convention object. This can be initialized with different args or even a function prototype, and then passed to factory.callable or factory.call_state to customize how arguments and return values and return addresses are laid out into memory.
+  Alternately, for simple cases, any keyword arguments you pass `path` will be passed on to `entry_state` to create a state to wrap. It is discussed in depth [here](paths.md).
+- *factory.path_group* creates a path group! Path groups are the future. They're basically very smart lists of paths, so you can pass it a path, a state (which will be wrapped into a path), or a list of paths and states. They are discussed in depth [here](pathgroups.md).
+- *factory.callable* is _very_ cool. Callables are a FFI (foreign functions interface) into arbitrary binary code. They are discussed in depth [here](structured_data.md).
+- *factory.cc* intiializes a calling convention object. This can be initialized with different args or even a function prototype, and then passed to factory.callable or factory.call_state to customize how arguments and return values and return addresses are laid out into memory. It is discussed in depth [here](structured_data.md).
 
-## Lifter
+### Lifter
 
-TODO
-
-Important note that needs to go in this initial version before I write the rest of the stuff:
-The `Block` object that you get back from the lifter, get the `vex` property to get a PyVEX IRSB or the `capstone` property to get a Capstone block. Read the source if you wanna know more about these! (the source is in angr/lifter.py, the method is called `lift`. this method literally gets transplanted out of this class and dropped onto the `factory` instance.)
+Access the lifter through *factory.block*.
+This method has a number of optional parameters, which you can read about [here](http://angr.io/api-doc/angr.html#module-angr.lifter)!
+The bottom line, though, is that `block()` gives you back a generic interface to a basic block of code.
+You can get properties like `.size` (in bytes) from the block, but if you want to do interesting things with it, you need a more specific representation.
+Access `.vex` to get a [PyVEX IRSB](http://angr.io/api-doc/pyvex.html#pyvex.block.IRSB), or `.capstone` to get a [Capstone block](http://www.capstone-engine.org/lang_python.html).
 
 ### Filesystem Options
 
@@ -117,9 +118,9 @@ There are a number of options which can be passed to the state initialization ro
 
 The `fs` option allows you to pass in a dictionary of file names to preconfigured SimFile objects. This allows you to do things like set a concrete size limit on a file's content.
 
-Setting the `concrete_fs` option to `True` will cause angr to respect the files on disk. For example if during simulation a program attempts to open 'banner.txt' when `concrete_fs` is set to `False` (the default), a SimFile with a symbolic memory backing will be created and simulation will continue as though the file exists. When `concrete_fs` mode is set to `True`, if 'banner.txt' exists a new SimFile object will be created with a concrete backing, reducing the resulting state explosion which would be caused by operating on a completely symbolic file. Additionally in `concrete_fs` mode if 'banner.txt' mode does not exist, a SimFile object will not be created upon calls to open during simulation and an error code will be returned. Additionally, it's important to note that attempts to open files whose path begins with '/dev/' will never be opened concretely even with `concrete_fs` set to `True`.
+Setting the `concrete_fs` option to `True` will cause angr to respect the files on disk. For example, if during simulation a program attempts to open 'banner.txt' when `concrete_fs` is set to `False` (the default), a SimFile with a symbolic memory backing will be created and simulation will continue as though the file exists. When `concrete_fs` mode is set to `True`, if 'banner.txt' exists a new SimFile object will be created with a concrete backing, reducing the resulting state explosion which would be caused by operating on a completely symbolic file. Additionally in `concrete_fs` mode if 'banner.txt' mode does not exist, a SimFile object will not be created upon calls to open during simulation and an error code will be returned. Additionally, it's important to note that attempts to open files whose path begins with '/dev/' will never be opened concretely even with `concrete_fs` set to `True`.
 
-The `chroot` option allows you to specify an optional root to use while using the `concrete_fs` option. This can be convenient if the program you're analyzing references files using an absolute path. For example if the program you are analyzing attempts to open '/etc/passwd' you can set the chroot to your current working directory and further attempts to access '/etc/passwd' will cause access to '$CWD/etc/passwd'.
+The `chroot` option allows you to specify an optional root to use while using the `concrete_fs` option. This can be convenient if the program you're analyzing references files using an absolute path. For example, if the program you are analyzing attempts to open '/etc/passwd', you can set the chroot to your current working directory so that attempts to access '/etc/passwd' will read from '$CWD/etc/passwd'.
 
 ```python
 >>> import simuvex
@@ -132,15 +133,8 @@ This example will create a state which constricts at most 30 symbolic bytes from
 Important note that needs to go in this initial version before I write the rest of the stuff:
 the `args` and `env` keyword args work on `entry_state` and `full_init_state`, and are a list and a dict, respectively, of strings or [claripy](./claripy.md) BV objects, which can represent a variety of concrete and symbolic strings. Read the source if you wanna know more about these!
 
-## Callables
+## Hooking
 
-TODO
-
-Important note that needs to go in this initial version before I write the rest of the stuff:
-The arguments can be symbolic if you pass in a symbolic `claripy.BV()` argument.
-Also, you can definitely just `call(*args)` a callable to get the return value of the function, but if you want the program state on return, you should use `call.get_res_state(*args)`. Also, `call.set_base_state(state)` to set the state that will be used to do the calling. Read the source if you wanna know more about these! (the source is in angr/surveyors/caller.py)
-
-# Hooking
 ```python
 >>> def set_rax(state):
 ...    state.regs.rax = 10

@@ -33,6 +33,10 @@ The data that's stored in the state (i.e., data in registers, memory, temps, etc
 
 # or, the string value of the 10 bytes stored at 0x1000
 >>> print s.se.any_str(s.memory.load(0x1000, 10))
+
+# get the value of the 4 bytes stored at 0x2000, i.e. a little-endian int
+# note that unless otherwise specified, all loads from memory are big-endian by default
+>>> print s.se.any_int(s.memory.load(0x2000, 4, endness='Iend_LE'))
 ```
 
 Here, `s.se` is a [solver engine](claripy.md) that holds the symbolic constraints on the state.
@@ -275,8 +279,13 @@ There are a lot of little tweaks that can be made to the internals of simuvex th
 
 On each SimState object, there is a set (state.options) of all its enabled options. The full domain of options, along with the defaults for different state types, can be found in (s_options.py)[https://github.com/angr/simuvex/blob/master/simuvex/s_options.py], available as `simuvex.o`.
 
+When creating a SimState through any method, you may pass the keyword arguments `add_options` and `remove_options`, which should be sets of options that modify the initial options set from the default.
+
 ```python
-# Example: disable lazy solves, a behavior that causes state satisfiability to be checked as infrequently as possible.
+# Example: enable lazy solves, a behavior that causes state satisfiability to be checked as infrequently as possible.
 # This change to the settings will be propogated to all successor states created from this state after this line.
->>> s.options.remove(simuvex.o.LAZY_SOLVES)
+>>> s.options.add(simuvex.o.LAZY_SOLVES)
+
+# Create a new state with lazy solves enabled
+>>> s9 = b.factory.entry_state(add_options={simuvex.o.LAZY_SOLVES})
 ```

@@ -13,6 +13,7 @@
    * [The Execution Engine](docs/simuvex.md)
    * [Controlling Execution](docs/paths.md)
    * [Bulk Execution](docs/pathgroups.md)
+* [Woring with Data and Conventions](docs/structured_data.md)
 * [Analyses](docs/analyses.md)
    * [CFG](docs/analyses/cfg.md)
    * [Backward Slicing](docs/analyses/backward_slice.md)
