@@ -56,11 +56,10 @@ Script runtime: 5.5 sec
 
 A Windows binary that takes a flag as argument, and tells you if the flag is correct or not.
 
-I have to patch out some checks that are difficult for angr to solve (e.g. it uses some bytes of the flag to decrypt some data, and see if those data are legit Windows APIs).
-Other than that, angr works really well for solving this challenge.
+"I have to patch out some checks that are difficult for angr to solve (e.g., it uses some bytes of the flag to decrypt some data, and see if those data are legit Windows APIs).
+Other than that, angr works really well for solving this challenge."
 
 The [binary](https://github.com/angr/angr-doc/tree/master/examples/whitehatvn2015_re400/re400.exe) and the [script](https://github.com/angr/angr-doc/tree/master/examples/whitehatvn2015_re400/solve.py).
-Enjoy!
 
 ### ReverseMe example: EKOPARTY CTF 2015 - rev 100
 
@@ -163,7 +162,7 @@ reverse engineering an executable used to generate it. This is a typical scenari
 malware analysis practice where we need to figure out precisely what the malware was doing
 on the network"
 
-For this challenge, the author used angr to represent the desired encoded output as a series of contraints for the SAT solver to solve for the input.
+For this challenge, the author used angr to represent the desired encoded output as a series of constraints for the SAT solver to solve for the input.
 
 For a detailed write-up please visit the author's post [here](http://0x0atang.github.io/reversing/2015/09/18/flareon5-concolic.html) and
 you can also find the solution from the FireEye [here](https://www.fireeye.com/content/dam/fireeye-www/global/en/blog/threat-research/flareon/2015solution5.pdf)
@@ -176,7 +175,7 @@ Author: Fish Wang (github: @ltfish), ocean (github: @ocean1)
 This challenge is a [movfuscated](https://github.com/xoreaxeaxeax/movfuscator) binary.
 To find the correct password after exploring the binary with Qira it is possible to understand
 how to find the places in the binary where every character is checked using capstone and using angr to
-load the [binary](./examples/0ctf_momo/solve.py) and bruteforce the single characters of the flag.
+load the [binary](./examples/0ctf_momo/solve.py) and brute-force the single characters of the flag.
 Be aware that the [script](./examples/0ctf_momo/solve.py) is really slow. Runtime: > 1 hour.
 
 
@@ -195,7 +194,7 @@ then an unknown string is appended to it (the flag), and finally it's sorted wit
 variant of quicksort. And we need to find the flag somehow.
 
 angr easily solves this problem. We only have to direct it to the right direction
-at every branch, and solver finds the flag at a glance.
+at every branch, and the solver finds the flag at a glance.
 
 ### CrackMe example: Layer7 CTF 2015 - Windows challenge OnlyOne
 
@@ -231,8 +230,9 @@ The script to do so is [here](https://github.com/angr/angr-doc/tree/master/examp
 
 Author: Andrew Dutcher (github: @rhelmot)
 
-angr cannot currently solve this problem naively, as the problem is too complex for z3 to solve.
-Formatting the constraints to z3 a little differently allows z3 to come up with an answer relatively quickly. (I was asleep while it was solving, so I don't know exactly how long!)
+angr cannot currently solve this problem natively, as the problem is too complex for z3 to solve.
+Formatting the constraints to z3 a little differently allows z3 to come up with an answer relatively quickly.
+(I was asleep while it was solving, so I don't know exactly how long!)
 The script for this is [here](https://github.com/angr/angr-doc/tree/master/examples/9447_nobranch/solve.py) and the binary is [here](https://github.com/angr/angr-doc/tree/master/examples/9447_nobranch/nobranch).
 
 ### CrackMe example: ais3_crackme
@@ -241,14 +241,22 @@ Author: Antonio Bianchi, Tyler Nighswander
 
 ais3_crackme has been developed by Tyler Nighswander (tylerni7) for ais3 summer school. It is an easy crackme challenge, checking its command line argument.
 
+
 ## Exploitation Examples
+
 ### Beginner Exploitation example: strcpy_find
 
 Author: Kyle Ossinger (github: @k0ss)
 
-This is the first in a series of "tutorial scripts" I'll be making which use angr to find exploitable conditions in binaries.  The first example is a very simple program.  The script finds a path from the main entry point to `strcpy`, but **only** when we control the source buffer of the `strcpy` operation.  To hit the right path, angr has to solve for a password argument, but angr solved this in less than 2 seconds on my machine using the standard python interpreter.  The script might look large, but that's only because I've heavily commented it to be more helpful to beginners.  The challenge binary is [here](https://github.com/angr/angr-doc/tree/master/examples/strcpy_find/strcpy_test) and the script is [here](https://github.com/angr/angr-doc/tree/master/examples/strcpy_find/solve.py).
+This is the first in a series of "tutorial scripts" I'll be making which use angr to find exploitable conditions in binaries.
+The first example is a very simple program.
+The script finds a path from the main entry point to `strcpy`, but **only** when we control the source buffer of the `strcpy` operation.
+To hit the right path, angr has to solve for a password argument, but angr solved this in less than 2 seconds on my machine using the standard python interpreter.
+The script might look large, but that's only because I've heavily commented it to be more helpful to beginners.
+The challenge binary is [here](https://github.com/angr/angr-doc/tree/master/examples/strcpy_find/strcpy_test) and the script is [here](https://github.com/angr/angr-doc/tree/master/examples/strcpy_find/solve.py).
 
 ### Beginner Exploitation example: CADET_0001
+
 Author: Antonio Bianchi, Jacopo Corbetta
 
 This is a very easy binary containing a stack buffer overflow and an easter egg.

@@ -1,7 +1,7 @@
 # Installing angr
 
 angr is a python library, so it must be installed into your python environment before it can be used.
-It is built for Python 2: Py3k support is feasable somewhere out in the future, but we are a little hesitant to make that commitment right now (pull requests welcome!).
+It is built for Python 2: Py3k support is feasible somewhere out in the future, but we are a little hesitant to make that commitment right now (pull requests welcome!).
 
 We highly recommend using a [python virtual environment](https://virtualenvwrapper.readthedocs.org/en/latest/) to install and use angr.
 Several of angr's dependencies (z3, pyvex) require libraries of native code that are forked from their originals, and if you already have libz3 or libVEX installed, you definitely don't want to overwrite the official shared objects with ours.
@@ -41,7 +41,7 @@ Capstone is difficult to install on windows.
 You might need to manually specify a wheel to install, but sometimes it installs under a name different from "capstone", so if that happens you want to just remove capstone from the requirements.txt files in angr and archinfo.
 
 Z3 might compile on windows if you have a l33t enough build environment.
-If this isn't the case for you, you should download a wheel from somewhere on the internet.
+If this isn't the case for you, you should download a wheel from somewhere on the Internet.
 One location for pre-built Windows wheel files is <https://github.com/Owlz/angr-Windows>.
 
 If you build z3 from source, make sure you're using the unstable branch of z3, which includes floating point support.
