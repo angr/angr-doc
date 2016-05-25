@@ -114,6 +114,8 @@ Due to context sensitivity, a given basic block can have multiple nodes in the g
 >>> print "Successors (and type of jump) of the entry point:", [ jumpkind + " to " + str(node.addr) for node,jumpkind in cfg.get_successors_and_jumpkind(entry_node) ]
 ```
 
+See for advanced graphing features see (angr-utils)[https://github.com/axt/angr-utils].
+
 ## Shared Libraries
 
 The CFG analysis does not distinguish between code from different binary objects.
