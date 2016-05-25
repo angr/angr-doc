@@ -114,6 +114,13 @@ Due to context sensitivity, a given basic block can have multiple nodes in the g
 >>> print "Successors (and type of jump) of the entry point:", [ jumpkind + " to " + str(node.addr) for node,jumpkind in cfg.get_successors_and_jumpkind(entry_node) ]
 ```
 
+### Viewing the CFG
+
+Control-flow graph rendering is a hard problem.
+angr does not provide any built-in mechanism for rendering the output of a CFG analysis, and attempting to use a traditional graph rendering library, like matplotlib, will result in an unusable image.
+
+One solution for viewing angr CFGs is found in (axt's angr-utils repository)[https://github.com/axt/angr-utils].
+
 ## Shared Libraries
 
 The CFG analysis does not distinguish between code from different binary objects.
