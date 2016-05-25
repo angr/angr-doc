@@ -22,7 +22,7 @@ def main():
 	path_group.explore(find=0x40294b, avoid=0x402941) 
 	# If you use anywhere before 0x40292c, angr won't have the flag to print out yet. So don't do that.
 
-	print path_group.found[0].state.posix.dumps(1) # The flag is at the end.
+	return path_group.found[0].state.posix.dumps(1) # The flag is at the end.
 
 	"""
 	Note: There will be a bunch of warnings on your terminal that look like this.
