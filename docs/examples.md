@@ -13,6 +13,22 @@ Binary, source, and script are found [here.](https://github.com/angr/angr-doc/tr
 
 ## CTF Problems
 
+### ReverseMe example: Google CTF - baby-re
+
+Script 0 author: David Manouchehri (github: [@Manouchehri](https://github.com/Manouchehri))
+
+Script runtime: 8 minutes
+
+Script 1 author: Stanislas Lejay (github: [@P1kachu](https://github.com/P1kachu)
+
+Script runtime: 11 sec
+
+Here is the [binary](https://github.com/angr/angr-doc/tree/master/examples/defcon2016quals_baby-re/baby-re) and the scripts
+* [script0](https://github.com/angr/angr-doc/tree/master/examples/defcon2016quals_baby-re_0/solve.py).
+* [script1](https://github.com/angr/angr-doc/tree/master/examples/defcon2016quals_baby-re_1/solve.py).
+
+
+
 ### ReverseMe example: Google CTF - Unbreakable Enterprise Product Activation (150 points)
 
 Script 0 author: David Manouchehri (github: [@Manouchehri](https://github.com/Manouchehri))
@@ -40,10 +56,10 @@ Script runtime: 5.5 sec
 
 A Windows binary that takes a flag as argument, and tells you if the flag is correct or not.
 
-I have to patch out some checks that are difficult for angr to solve (e.g. it uses some bytes of the flag to decrypt some data, and see if those data are legit Windows APIs). 
+I have to patch out some checks that are difficult for angr to solve (e.g. it uses some bytes of the flag to decrypt some data, and see if those data are legit Windows APIs).
 Other than that, angr works really well for solving this challenge.
 
-The [binary](https://github.com/angr/angr-doc/tree/master/examples/whitehatvn2015_re400/re400.exe) and the [script](https://github.com/angr/angr-doc/tree/master/examples/whitehatvn2015_re400/solve.py). 
+The [binary](https://github.com/angr/angr-doc/tree/master/examples/whitehatvn2015_re400/re400.exe) and the [script](https://github.com/angr/angr-doc/tree/master/examples/whitehatvn2015_re400/solve.py).
 Enjoy!
 
 ### ReverseMe example: EKOPARTY CTF 2015 - rev 100
@@ -118,10 +134,10 @@ The binary can be found [here](https://github.com/angr/angr-doc/tree/master/exam
 
 Author: Fish Wang (github: @ltfish)
 
-angr acts as a binary loader and an emulator in solving this challenge. 
+angr acts as a binary loader and an emulator in solving this challenge.
 I didn’t have to load the driver onto my Windows box.
 
-The [script](https://github.com/angr/angr-doc/tree/master/examples/flareon2015_10/solve.py) demonstrates how to hook at arbitrary program points without affecting the intended bytes to be executed (a zero-length hook). 
+The [script](https://github.com/angr/angr-doc/tree/master/examples/flareon2015_10/solve.py) demonstrates how to hook at arbitrary program points without affecting the intended bytes to be executed (a zero-length hook).
 It also shows how to read bytes out of memory and decode as a string.
 
 By the way, here is the [link](https://www.fireeye.com/content/dam/fireeye-www/global/en/blog/threat-research/flareon/2015solution10.pdf) to the intended solution from FireEye.
@@ -158,7 +174,7 @@ you can also find the solution from the FireEye [here](https://www.fireeye.com/c
 Author: Fish Wang (github: @ltfish), ocean (github: @ocean1)
 
 This challenge is a [movfuscated](https://github.com/xoreaxeaxeax/movfuscator) binary.
-To find the correct password after exploring the binary with Qira it is possible to understand 
+To find the correct password after exploring the binary with Qira it is possible to understand
 how to find the places in the binary where every character is checked using capstone and using angr to
 load the [binary](./examples/0ctf_momo/solve.py) and bruteforce the single characters of the flag.
 Be aware that the [script](./examples/0ctf_momo/solve.py) is really slow. Runtime: > 1 hour.
