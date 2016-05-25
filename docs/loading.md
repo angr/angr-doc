@@ -153,7 +153,7 @@ You can specify the backend for a binary by including a key in its options dicti
 ```
 
 | backend key | description | requires `custom_arch`? |
-| -- | -- | -- |
+| --- | --- | --- |
 | elf | Static loader for ELF files based on PyELFTools | no |
 | pe | Static loader for PE files based on PEFile | no |
 | cgc | Static loader for Cyber Grand Challenge binaries | no |
