@@ -35,11 +35,12 @@ def main():
     p.hook(0xadc31, func=before_tea_decrypt,length=0)
 
     # Declare the prototype of the target function
-    prototype = SimTypeFunction((SimTypeInt(32, False),), SimTypeInt(32, False))
+    prototype = SimTypeFunction((SimTypeInt(False),), SimTypeInt(False))
     # Initialize the function instance
-    proc_big_68 = p.factory.callable(BIG_PROC, prototype=prototype, toc=None, concrete_only=True)
+    proc_big_68 = p.factory.callable(BIG_PROC, cc=p.factory.cc(func_ty=prototype), toc=None, concrete_only=True)
     # Call the function and get the final state
-    state = proc_big_68.call_get_res_state(0)
+    proc_big_68.perform_call(0)
+    state = proc_big_68.result_state
     # Load the string from memory
     return hex(state.se.any_int(state.memory.load(ARRAY_ADDRESS, 40)))[2:-1].decode('hex').strip('\0')
 
