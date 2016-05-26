@@ -36,7 +36,7 @@ def main():
 	"""
 
 def test():
-	assert main() == 'Math is hard!'
+	assert 'Math is hard!' in main()
 
 
 if __name__ == '__main__':
