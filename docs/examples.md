@@ -13,6 +13,20 @@ Binary, source, and script are found [here.](https://github.com/angr/angr-doc/tr
 
 ## CTF Problems
 
+### ReverseMe example: DEFCON Quals 2016 - baby-re
+
+Script 0 author: David Manouchehri (github: [@Manouchehri](https://github.com/Manouchehri))
+
+Script runtime: 8 minutes
+
+Script 1 author: Stanislas Lejay (github: [@P1kachu](https://github.com/P1kachu))
+
+Script runtime: 11 sec
+
+Here is the [binary](https://github.com/angr/angr-doc/tree/master/examples/defcon2016quals_baby-re/baby-re) and the scripts:
+* [script0](https://github.com/angr/angr-doc/tree/master/examples/defcon2016quals_baby-re_0/solve.py)
+* [script1](https://github.com/angr/angr-doc/tree/master/examples/defcon2016quals_baby-re_1/solve.py)
+
 ### ReverseMe example: Google CTF - Unbreakable Enterprise Product Activation (150 points)
 
 Script 0 author: David Manouchehri (github: [@Manouchehri](https://github.com/Manouchehri))
@@ -40,10 +54,10 @@ Script runtime: 5.5 sec
 
 A Windows binary that takes a flag as argument, and tells you if the flag is correct or not.
 
-"I have to patch out some checks that are difficult for angr to solve (e.g., it uses some bytes of the flag to decrypt some data, and see if those data are legit Windows APIs). 
+"I have to patch out some checks that are difficult for angr to solve (e.g., it uses some bytes of the flag to decrypt some data, and see if those data are legit Windows APIs).
 Other than that, angr works really well for solving this challenge."
 
-The [binary](https://github.com/angr/angr-doc/tree/master/examples/whitehatvn2015_re400/re400.exe) and the [script](https://github.com/angr/angr-doc/tree/master/examples/whitehatvn2015_re400/solve.py). 
+The [binary](https://github.com/angr/angr-doc/tree/master/examples/whitehatvn2015_re400/re400.exe) and the [script](https://github.com/angr/angr-doc/tree/master/examples/whitehatvn2015_re400/solve.py).
 
 ### ReverseMe example: EKOPARTY CTF 2015 - rev 100
 
@@ -117,10 +131,10 @@ The binary can be found [here](https://github.com/angr/angr-doc/tree/master/exam
 
 Author: Fish Wang (github: @ltfish)
 
-angr acts as a binary loader and an emulator in solving this challenge. 
+angr acts as a binary loader and an emulator in solving this challenge.
 I didn’t have to load the driver onto my Windows box.
 
-The [script](https://github.com/angr/angr-doc/tree/master/examples/flareon2015_10/solve.py) demonstrates how to hook at arbitrary program points without affecting the intended bytes to be executed (a zero-length hook). 
+The [script](https://github.com/angr/angr-doc/tree/master/examples/flareon2015_10/solve.py) demonstrates how to hook at arbitrary program points without affecting the intended bytes to be executed (a zero-length hook).
 It also shows how to read bytes out of memory and decode as a string.
 
 By the way, here is the [link](https://www.fireeye.com/content/dam/fireeye-www/global/en/blog/threat-research/flareon/2015solution10.pdf) to the intended solution from FireEye.
@@ -157,7 +171,7 @@ you can also find the solution from the FireEye [here](https://www.fireeye.com/c
 Author: Fish Wang (github: @ltfish), ocean (github: @ocean1)
 
 This challenge is a [movfuscated](https://github.com/xoreaxeaxeax/movfuscator) binary.
-To find the correct password after exploring the binary with Qira it is possible to understand 
+To find the correct password after exploring the binary with Qira it is possible to understand
 how to find the places in the binary where every character is checked using capstone and using angr to
 load the [binary](./examples/0ctf_momo/solve.py) and brute-force the single characters of the flag.
 Be aware that the [script](./examples/0ctf_momo/solve.py) is really slow. Runtime: > 1 hour.
@@ -215,7 +229,7 @@ The script to do so is [here](https://github.com/angr/angr-doc/tree/master/examp
 Author: Andrew Dutcher (github: @rhelmot)
 
 angr cannot currently solve this problem natively, as the problem is too complex for z3 to solve.
-Formatting the constraints to z3 a little differently allows z3 to come up with an answer relatively quickly. 
+Formatting the constraints to z3 a little differently allows z3 to come up with an answer relatively quickly.
 (I was asleep while it was solving, so I don't know exactly how long!)
 The script for this is [here](https://github.com/angr/angr-doc/tree/master/examples/9447_nobranch/solve.py) and the binary is [here](https://github.com/angr/angr-doc/tree/master/examples/9447_nobranch/nobranch).
 
@@ -232,11 +246,11 @@ ais3_crackme has been developed by Tyler Nighswander (tylerni7) for ais3 summer 
 
 Author: Kyle Ossinger (github: @k0ss)
 
-This is the first in a series of "tutorial scripts" I'll be making which use angr to find exploitable conditions in binaries.  
-The first example is a very simple program.  
-The script finds a path from the main entry point to `strcpy`, but **only** when we control the source buffer of the `strcpy` operation.  
-To hit the right path, angr has to solve for a password argument, but angr solved this in less than 2 seconds on my machine using the standard python interpreter.  
-The script might look large, but that's only because I've heavily commented it to be more helpful to beginners.  
+This is the first in a series of "tutorial scripts" I'll be making which use angr to find exploitable conditions in binaries.
+The first example is a very simple program.
+The script finds a path from the main entry point to `strcpy`, but **only** when we control the source buffer of the `strcpy` operation.
+To hit the right path, angr has to solve for a password argument, but angr solved this in less than 2 seconds on my machine using the standard python interpreter.
+The script might look large, but that's only because I've heavily commented it to be more helpful to beginners.
 The challenge binary is [here](https://github.com/angr/angr-doc/tree/master/examples/strcpy_find/strcpy_test) and the script is [here](https://github.com/angr/angr-doc/tree/master/examples/strcpy_find/solve.py).
 
 ### Beginner Exploitation example: CADET_0001
