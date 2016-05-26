@@ -121,7 +121,7 @@ Due to context sensitivity, a given basic block can have multiple nodes in the g
 Control-flow graph rendering is a hard problem.
 angr does not provide any built-in mechanism for rendering the output of a CFG analysis, and attempting to use a traditional graph rendering library, like matplotlib, will result in an unusable image.
 
-One solution for viewing angr CFGs is found in (axt's angr-utils repository)[https://github.com/axt/angr-utils].
+One solution for viewing angr CFGs is found in [axt's angr-utils repository](https://github.com/axt/angr-utils).
 
 ## Shared Libraries
 
