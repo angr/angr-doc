@@ -15,7 +15,7 @@
    * [Bulk Execution](docs/pathgroups.md)
 * [Working with Data and Conventions](docs/structured_data.md)
 * [Analyses](docs/analyses.md)
-   * [CFG](docs/analyses/cfg.md)
+   * [CFGAccurate](docs/analyses/cfg_accurate.md)
    * [Backward Slicing](docs/analyses/backward_slice.md)
 * [Surveyors](docs/surveyors.md)
 * [Examples](docs/examples.md)

@@ -1,21 +1,26 @@
-# CFG
+# CFGAccurate
 
-Here we describe angr’s CFG analysis in details, as well as some important concepts like context sensitivity and Function Manager of angr.
+Here we describe angr’s CFGAccurate analysis in details, as well as some important concepts like context sensitivity and Function Manager of angr.
 
 ## General ideas
 
 A basic analysis that one might carry out on a binary is a Control Flow Graph.
 A CFG is a graph with (conceptually) basic blocks as nodes and jumps/calls/rets/etc as edges.
 
-A CFG can be constructed by doing:
+In angr, there are two types of CFG that can be generated: a fast CFG (CFGFast) and an accurate CFG (CFGAccurate).
+As their names suggested, generating a fast CFG is usually much faster than generating the accurate one.
+In general, CFGFast is what you need.
+This page discusses CFGAccurate.
+
+An accurate CFG can be constructed by doing:
 
 ```python
 >>> import angr
 # load your project
 >>> b = angr.Project('/bin/true', load_options={'auto_load_libs': False})
 
-# generate a CFG
->>> cfg = b.analyses.CFG(keep_state=True)
+# generate an accurate CFG
+>>> cfg = b.analyses.CFGAccurate(keep_state=True)
 ```
 
 Of course, there are several options for customized CFGs.
@@ -30,7 +35,7 @@ Of course, there are several options for customized CFGs.
 | keep_state | To save memory, the state at each basic block is discarded by default. If `keep_state` is True, the state is saved in the CFGNode. |
 | enable_symbolic_back_traversal | Whether to enable an intensive technique for resolving indirect jumps |
 | enable_advanced_backward_slicing | Whether to enable another intensive technique for resolving direct jumps |
-| more! | Examine the docstring on b.analyses.CFG for more up-to-date options |
+| more! | Examine the docstring on b.analyses.CFGAccurate for more up-to-date options |
 
 ## Context Sensitivity Level
 
