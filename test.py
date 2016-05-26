@@ -86,6 +86,10 @@ def test_strcpy_find(): exampletest_single('strcpy_find')
 def test_whitehat_crypto400(): exampletest_single('whitehat_crypto400')
 def test_whitehatvn2015_re400(): exampletest_single('whitehatvn2015_re400')
 
+#def test_0ctf_momo_3(): exampletest_single('0ctf_momo_3')
+#def test_defcon2016quals_baby_re_0(): exampletest_single('defcon2016quals_baby-re_0')
+def test_defcon2016quals_baby_re_1(): exampletest_single('defcon2016quals_baby-re_1')
+
 if __name__ == '__main__':
     for tester, arg in test_docs():
         tester(arg)
