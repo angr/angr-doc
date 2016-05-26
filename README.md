@@ -24,7 +24,7 @@ If you use angr in an academic work, please cite the papers for which it was dev
   title={SoK: (State of) The Art of War: Offensive Techniques in Binary Analysis},
   author={Shoshitaishvili, Yan and Wang, Ruoyu and Salls, Christopher and Stephens, Nick and Polino, Mario and Dutcher, Andrew and Grosen, John and Feng, Siji and Hauser, Christophe and Kruegel, Christopher and Vigna, Giovanni},
   booktitle={IEEE Symposium on Security and Privacy},
-  year={2015}
+  year={2016}
 }
 
 @article{stephens2016driller,
