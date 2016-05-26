@@ -3,6 +3,16 @@
 This lists the *major* changes in angr.
 Tracking minor changes are left as an exercise for the reader :-)
 
+## angr 4.6.5.25
+
+New state constructor - `call_state`. Comes with a refactor to `SimCC`, a refactor to `callable`, and the removal of `PathGroup.call`.
+All these changes are thoroughly documented, in `angr-doc/docs/structured_data.md`
+
+Refactor of `SimType` to make it easier to use types - they can be instanciated without a SimState and one can be added later.
+Comes with some usability improvements to SimMemView.
+Also, there's a better wrapper around PyCParser for generating SimType instances from c declarations and definitions.
+Again, thoroughly documented, still in the structured data doc.
+
 ## angr 4.6.3.28
 
 PyVEX has a structural overhaul. The `IRExpr`, `IRStmt`, and `IRConst` modules no longer exist as submodules, and those module names are deprecated.
