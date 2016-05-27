@@ -13,12 +13,12 @@ Comes with some usability improvements to SimMemView.
 Also, there's a better wrapper around PyCParser for generating SimType instances from c declarations and definitions.
 Again, thoroughly documented, still in the structured data doc.
 
-CFG is now an alias to CFGFast instead of CFGAccurate.
-In general, CFGFast should work under most cases, and it's way faster than CFGAccurate.
+`CFG` is now an alias to `CFGFast` instead of `CFGAccurate`.
+In general, `CFGFast` should work under most cases, and it's way faster than `CFGAccurate`.
 We believe such a change is necessary, and will make angr more approachable to new users.
-You will have to change your code from "CFG" to "CFGAccurate" if you are relying on specific functionalities that only exist in CFGAccurate, for example, context-sensitivity and state-preserving.
-An exception will be raised by angr if any parameter passed to CFG is only supported by CFGAccurate.
-For more detailed explanation, please take a look at the documentation of angr.analyses.CFG.
+You will have to change your code from `CFG` to `CFGAccurate` if you are relying on specific functionalities that only exist in `CFGAccurate`, for example, context-sensitivity and state-preserving.
+An exception will be raised by angr if any parameter passed to `CFG` is only supported by `CFGAccurate`.
+For more detailed explanation, please take a look at the documentation of `angr.analyses.CFG`.
 
 ## angr 4.6.3.28
 
