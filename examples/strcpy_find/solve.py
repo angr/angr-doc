@@ -48,7 +48,7 @@ def main():
     '''
      Get addresses of our functions to find or avoid
     '''
-    addrStrcpy = getFuncAddress('strcpy')
+    addrStrcpy = getFuncAddress('plt.strcpy')
     addrBadFunc = getFuncAddress('func3')
     '''
      Create the list of command-line arguments and add the program name
