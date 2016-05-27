@@ -9,7 +9,8 @@ angr comes with several built-in analyses:
 
 | Name                                        | Description                                                                                                                               |
 | --------                                    | -------------                                                                                                                             |
-| [CFG](analyses/cfg.md)                      | Constructs a *Control Flow Graph* of the program. The results are accessible via `b.analyses.CFG()`.                                      |
+| CFGFast                                     | Constructs a fast *Control Flow Graph* of the program. `b.analyses.CFG()` is what you want.                                               |
+| [CFGAccurate](analyses/cfg_accurate.md)     | Constructs an accurate *Control Flow Graph* of the program. The simple way to do is via `b.analyses.CFGAccurate()`.                       |
 | VFG                                         | Performs VSA on every function of the program, creating a *Value Flow Graph* and detecting stack variables.                               |
 | DDG                                         | Calculates a data dependency graph, allowing one to determine what statements a given value depends on.                                   |
 | [DFG](analyses/dfg.md)                      | Constructs a *Data Flow Graph* for each basic block present in the CFG                                                                    |
