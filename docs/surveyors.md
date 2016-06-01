@@ -4,7 +4,7 @@ At heart, angr is a symbolic execution engine.
 angr exposes a standard way to write and perform dynamic symbolic execution: the `Surveyor` class.
 A `Surveyor` is the *engine* that drives symbolic execution: it tracks what paths are active, identifies which paths to step forward and which paths to prune, and optimizes resource allocation.
 
-`Surveyors` are an old API that is rather unweildy. It's recommended to use `PathGroups` instead.
+/!\ `Surveyors` are an old API that is rather unweildy. It's recommended to use [PathGroups](./pathgroups.md) instead. /!\
 
 The `Surveyor` class is not meant to be used directly.
 Rather, it should be subclassed by developers to implement their own analyses.
