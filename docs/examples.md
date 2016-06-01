@@ -239,6 +239,12 @@ Author: Antonio Bianchi, Tyler Nighswander
 
 ais3_crackme has been developed by Tyler Nighswander (tylerni7) for ais3 summer school. It is an easy crackme challenge, checking its command line argument.
 
+### ReverseMe: Modern Binary Exploitation - CSCI 4968
+
+Author: David Manouchehri (GitHub [@Manouchehri](https://github.com/Manouchehri))
+
+[This folder](https://github.com/angr/angr-doc/tree/master/examples/CSCI-4968-MBE/challenges) contains scripts used to solve some of the challenges with angr. At the moment it only contains the examples from the IOLI crackme suite, but eventually other solutions will be added.
+
 
 ## Exploitation Examples
 
