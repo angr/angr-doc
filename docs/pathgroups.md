@@ -3,8 +3,12 @@ Bulk Execution and Exploration - Path Groups
 
 Path groups are just a bunch of paths being executed at once. They are also the future.
 
-A path group is a collection of paths grouped by stash. There are different kind
-of stash, which are specified in [Paths](./paths.md#path-types):
+Path groups let you wrangle multiple paths in a slick way.
+Paths are organized into “stashes”, which you can step forward, filter, merge,
+and move around as you wish. There are different kind of stashes, which are
+specified in [Paths](./paths.md#path-types). This allows you to, for example,
+step two different stashes of paths at different rates, then merge them together.
+
 
 Here are some basic examples of pathgroups capabilities:
 ```python
@@ -119,3 +123,6 @@ Math is hard!
 Pretty simple, isn't it ?
 
 Other examples can be found by browsing the [examples](./examples.md).
+
+
+## TODO: STASHES
