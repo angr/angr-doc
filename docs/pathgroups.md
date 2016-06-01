@@ -3,6 +3,10 @@ Bulk Execution and Exploration - Path Groups
 
 Path groups are just a bunch of paths being executed at once. They are also the future.
 
+A path group is a collection of paths grouped by stash. There are different kind
+of stash, which are specified in [Paths](./paths.md#path-types):
+
+Here are some basic examples of pathgroups capabilities:
 ```python
 >>> import angr
 
@@ -11,8 +15,7 @@ Path groups are just a bunch of paths being executed at once. They are also the 
 >>> pg = p.factory.path_group()
 ```
 
-They are supposed to replace `surveyors.Explorer`, being more clever and efficient:
-
+Exploring a path:
 ```python
 # While there are active path, we step
 >>> while len(pg.active) > 0:
@@ -76,4 +79,43 @@ rax: <BV64 0x37>
 >>> assert path.state.regs.rip.args[0] == path.addr  # regs are BitVectors
 ```
 
-Best way to see how they work is to browse the [examples](./examples.md).
+### PathGroup.Explorer()
+Pathgroups are supposed to replace `surveyors.Explorer`, being more clever and
+efficient. When launching path_group.Explore with a `find` argument, multiple
+paths will be launched and step until one of them finds one of the address we
+are looking for. Paths reaching the `avoid`ed addresses, if any, will be put
+into the `avoided` stash. If an active path reaches an interesting address, it
+will be stashed into the `found` stash, and the other ones will remain active.
+You can then explore the found path, or decide to discard it and continue with
+the other ones.
+
+Example from a DefconCTF Quals [exercise](./examples.md#reverseme-example-defcon-quals-2016---baby-re):
+
+```python
+>>> p = angr.Project('baby-re')
+```
+
+Setting the environment (state)
+```python
+>>> main = 0x4025e7 # Beginning of function we want to explore
+>>> win = 0x4028e9  # Address we want to reach
+>>> fail = 0x402941 # Address we want to avoid
+[...]
+>>> init = p.factory.blank_state(addr=main)
+```
+
+Creating and lauching the explorer
+```python
+>>> pgp = p.factory.path_group(init)
+>>> ex = pgp.explore(find=find, avoid=avoid)
+>>> print(ex)
+<PathGroup with 11 avoid, 2 active, 1 found>
+>>> s = ex.found[0].state
+>>> flag = s.se.any_str(s.memory.load(flag_addr, 50))
+>>> print(flag)
+Math is hard!
+```
+
+Pretty simple, isn't it ?
+
+Other examples can be found by browsing the [examples](./examples.md).
