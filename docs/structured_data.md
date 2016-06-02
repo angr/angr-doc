@@ -70,7 +70,7 @@ This allows you to specify the type of the data you're looking at.
 
 ```python
 >>> import angr
->>> b = angr.Project('/home/angr/angr/binaries/tests/x86_64/fauxware')
+>>> b = angr.Project('examples/fauxware/fauxware')
 >>> s = b.factory.entry_state()
 >>> s.mem[0x601048]
 <<untyped> <unresolvable> at 0x601048>
@@ -158,7 +158,7 @@ All the interaction with the state happens with the aid of a `SimCC`, to tell wh
 By default, it uses a sane default for the archetecture, but if you'd like to customize it, you can pass a `SimCC` object in the `cc` keyword argument when constructing the callable.
 
 You can pass symbolic data as function arguments, and everything will work fine.
-You can even pass more complicated data, like strings, lists, and structures as native python data (use tuples for structures), and it'll be serialized as cleanly as possible into the state.  
+You can even pass more complicated data, like strings, lists, and structures as native python data (use tuples for structures), and it'll be serialized as cleanly as possible into the state.
 If you'd like to specify a pointer to a certain value, you can wrap it in a `PointerWrapper` object, available as `b.factory.callable.PointerWrapper`.
 The exact semantics of how pointer-wrapping work are a little confusing, but they can be boiled down to "unless you specify it with a PointerWrapper or a specific SimArrayType, nothing will be wrapped in a pointer automatically unless it gets to the end and it hasn't yet been wrapped in a pointer yet and the original type is a string, array, or tuple."
 The relevant code is actually in SimCC - it's the `setup_callsite` function.

@@ -36,6 +36,19 @@ Backtrace:
 Func 0x401410, sp=0x7fffffffffeffd8, ret=0x0
 ```
 
+## Path types
+| Path type     | Description |
+|---------------|-------------|
+| Deadended     | A path goes to deadended when it cannot continue the execution for some reason, including no more valid instructions, unsat state, or an invalid instruction pointer. |
+| Found         | A path goes to found when the execution reaches a basic block which begins at the address specified with the find argument. |
+| Pruned        | TODO |
+| Active        | TODO |
+| Errored       | TODO |
+| Unconstrained | TODO |
+| Unsat         | TODO |
+
+
+
 ## Moving Forward
 
 Of course, we can't be stuck at the entry point forever. call `p.step()` to run the single block of symbolic execution.
