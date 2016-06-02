@@ -1,7 +1,11 @@
 Symbolic Execution
 ==================
 
-TODO: would someone write an intro to the concept of symbolic execution, maybe just copy paste it from some paper
+Symbolic execution allows at a time T to determine for a branch all conditions
+necessary to take the branch or not. Every varaible is represented as a symbolic
+value, and each branch as a constraint. Thus, symbolic execution allows us to
+see which conditions allows the program to go from a point A to a point B, by
+resolving the constraints.
 
 Basic archetecture of angr's symbolic execution:
 
