@@ -21,7 +21,7 @@ You have to see it for yourself:
 
 ```python
 >>> import angr
->>> b = angr.Project("/home/angr/angr/binaries/tests/x86_64/fauxware")
+>>> b = angr.Project('examples/fauxware/fauxware')
 
 # By default, a Surveyor starts at the entry point of the program, with
 # an exit created by calling `Project.initial_exit` with default arguments.
@@ -86,7 +86,7 @@ It can be used as so:
 
 ```python
 # load fauxware
->>> b = angr.Project("/home/angr/angr/binaries/tests/x86_64/fauxware")
+>>> b = angr.Project('examples/fauxware/fauxware')
 
 # get the state ready, and grab our username and password symbolic expressions for later
 # checking. Here, we'll cheat a bit since we know that username and password should both

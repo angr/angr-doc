@@ -96,7 +96,7 @@ the other ones.
 Example from a DefconCTF Quals [exercise](./examples.md#reverseme-example-defcon-quals-2016---baby-re):
 
 ```python
->>> p = angr.Project('baby-re')
+>>> p = angr.Project('examples/defcon2016quals_baby-re_1/baby-re')
 ```
 
 Setting the environment (state)
@@ -104,6 +104,7 @@ Setting the environment (state)
 >>> main = 0x4025e7 # Beginning of function we want to explore
 >>> win = 0x4028e9  # Address we want to reach
 >>> fail = 0x402941 # Address we want to avoid
+>>> flag_addr = 0x7fffffffffeff98
 [...]
 >>> init = p.factory.blank_state(addr=main)
 ```
@@ -111,7 +112,7 @@ Setting the environment (state)
 Creating and lauching the explorer
 ```python
 >>> pgp = p.factory.path_group(init)
->>> ex = pgp.explore(find=find, avoid=avoid)
+>>> ex = pgp.explore(find=win, avoid=fail)
 >>> print(ex)
 <PathGroup with 11 avoid, 2 active, 1 found>
 >>> s = ex.found[0].state

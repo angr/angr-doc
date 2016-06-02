@@ -27,7 +27,7 @@ To create a SimIRSB directly, use the `sim_block(state)` constructor in the proj
 # This creates a symbolic state with execution starting at 0x400664,
 # and then symbolically executes the IRSB at its instruction pointer.
 >>> import angr, simuvex
->>> b = angr.Project('/home/angr/angr/binaries/tests/x86_64/fauxware')
+>>> b = angr.Project('examples/fauxware/fauxware')
 >>> state = b.factory.blank_state(addr=0x400664)
 >>> sirsb = b.factory.sim_block(state)
 
