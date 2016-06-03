@@ -20,5 +20,6 @@
    * [Backward Slicing](docs/analyses/backward_slice.md)
 * [Examples](docs/examples.md)
 * [FAQ](docs/faq.md)
+* [Gotchas](docs/gotchas.md)
 * [Changelog](CHANGELOG.md)
 
