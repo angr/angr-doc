@@ -3,6 +3,15 @@
 This lists the *major* changes in angr.
 Tracking minor changes are left as an exercise for the reader :-)
 
+## angr 4.6.6.4
+
+Syscalls are no longer handled by `simuvex.procedures.syscalls.handler`.
+Instead, syscalls are now handled by `angr.SimOS.handle_syscall()`.
+In old days, the address of a syscall SimProcedure is the address right after the syscall instruction (e.g. `int 80h`), which collides with the real basic block starting at that address, and is very confusing.
+Now each syscall SimProcedure has its own address, just as a normal SimProcedure.
+
+Some refactoring and bug fixes in `CFGFast`.
+
 ## angr 4.6.5.25
 
 New state constructor - `call_state`. Comes with a refactor to `SimCC`, a refactor to `callable`, and the removal of `PathGroup.call`.
