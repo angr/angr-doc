@@ -88,8 +88,13 @@ In general, Claripy supports all of the normal python operations (+, -, |, ==, e
 | ULT | Unsigned less than. | Check if x is less than y: `claripy.ULT(x, y)` |
 | UGE | Unsigned greater than or equal to. | Check if x is greater than or equal to y: `claripy.UGE(x, y)` |
 | UGT | Unsigned greater than. | Check if x is greater than y: `claripy.UGT(x, y)` |
+| SLE | Signed less than or equal to. | Check if x is less than or equal to y: `claripy.SLE(x, y)` |
+| SLT | Signed less than. | Check if x is less than y: `claripy.SLT(x, y)` |
+| SGE | Signed greater than or equal to. | Check if x is greater than or equal to y: `claripy.SGE(x, y)` |
+| SGT | Signed greater than. | Check if x is greater than y: `claripy.SGT(x, y)` |
 
-**NOTE:** The default python `>`, `<`, `>=`, and `<=` are signed in Claripy, to reflect their behavior in Z3. You will most likely want to use the unsigned operations, instead.
+
+**NOTE:** The default python `>`, `<`, `>=`, and `<=` are unsigned in Claripy. This is different than their behavior in Z3, because it seems more natural in binary analysis.
 
 ## Frontends
 
