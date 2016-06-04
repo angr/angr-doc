@@ -12,6 +12,10 @@ Now each syscall SimProcedure has its own address, just as a normal SimProcedure
 
 Some refactoring and bug fixes in `CFGFast`.
 
+Claripy has been given the ability to handle *annotations* on ASTs.
+An annotation can be used to customize the behavior of some backends without impacting others.
+For more information, check the docstrings of claripy.Annotation and claripy.Backend.apply_annotation.
+
 ## angr 4.6.5.25
 
 New state constructor - `call_state`. Comes with a refactor to `SimCC`, a refactor to `callable`, and the removal of `PathGroup.call`.
