@@ -13,6 +13,17 @@ Binary, source, and script are found [here.](https://github.com/angr/angr-doc/tr
 
 ## CTF Problems
 
+### ReverseMe example: SecurityFest 2016 - fairlight
+
+Script author: chuckleberryfinn (github: [@chuckleberryfinn](https://github.com/chuckleberryfinn))
+
+Script runtime: ~20 seconds
+
+A simple reverse me that takes a key as a command line argument and checks it against 14 checks.
+Possible to solve the challenge using angr without reversing any of the checks.
+
+Here is the [binary](https://github.com/angr/angr-doc/tree/master/examples/securityfest_fairlight/fairlight) and the [script](https://github.com/angr/angr-doc/tree/master/examples/securityfest_fairlight/solve.py)
+
 ### ReverseMe example: DEFCON Quals 2016 - baby-re
 
 Script 0 author: David Manouchehri (github: [@Manouchehri](https://github.com/Manouchehri))
