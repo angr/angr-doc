@@ -7,8 +7,21 @@ If you've found something that angr isn't able to solve and appears to be a bug,
 3. Give us a pull request for angr/angr, with testcases that trigger the binaries in `angr/tests/broken_x.py`, `angr/tests/broken_y.py`, etc
 
 Please try to follow the testcase format that we have (so the code is in a test_blah function), that way we can very easily merge that and make the scripts run.
+An example is:
 
-Ideally, we can just fix the bug and rename `broken_x.py` to `test_x.py` without making any changes and it'll all work in our private CI.
+```python
+def test_some_broken_feature():
+    p = angr.Project("some_binary")
+    result = p.analyses.SomethingThatDoesNotWork()
+    assert result == "what it should *actually* be if it worked"
+
+if __name__ == '__main__':
+    test_some_broken_feature()
+```
+
+This will *greatly* help us recreate your bug and fix it faster.
+The ideal situation is that, when the bug is fixed, your testcases passes (i.e., the assert at the end does not raise an AssertionError).
+Then, we can just fix the bug and rename `broken_x.py` to `test_x.py` and the testcase will run in our internal CI at every push, ensuring that we do not break this feature again.
 
 # Developing angr
 
