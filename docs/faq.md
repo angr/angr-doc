@@ -73,3 +73,17 @@ While angr uses VEX now, there's no fundamental reason that multiple IRs cannot 
 - VEX treats registers as a memory space, and so does angr. While we provide accesses to `state.regs.rax` and friends, on the backend, this does `state.registers.load(8, 8)`, where the first `8` is a VEX-defined offset for `rax` to the register file.
 
 To support multiple IRs, we'll either want to abstract these things or translate their labels to VEX analogues.
+
+
+### My load options are ignored when creating a Project.
+
+CLE options are an optional argument. Make sure you call Project with the following syntax:
+
+```python
+b = angr.Project('/bin/true', load_options=load_options)
+```
+
+rather than:
+```python
+b = angr.Project('/bin/true', load_options)
+```
