@@ -7,7 +7,7 @@ value, and each branch as a constraint. Thus, symbolic execution allows us to
 see which conditions allows the program to go from a point A to a point B, by
 resolving the constraints.
 
-Basic archetecture of angr's symbolic execution:
+Basic architecture of angr's symbolic execution:
 
 - simuvex.md is the core engine and provides the concept of a [symbolic machine state](states.md)
 - Also the [means to tick that state forward](simuvex.md) through simulating VEX or running python code
