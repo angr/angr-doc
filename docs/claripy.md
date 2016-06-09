@@ -88,8 +88,13 @@ In general, Claripy supports all of the normal python operations (+, -, |, ==, e
 | ULT | Unsigned less than. | Check if x is less than y: `claripy.ULT(x, y)` |
 | UGE | Unsigned greater than or equal to. | Check if x is greater than or equal to y: `claripy.UGE(x, y)` |
 | UGT | Unsigned greater than. | Check if x is greater than y: `claripy.UGT(x, y)` |
+| SLE | Signed less than or equal to. | Check if x is less than or equal to y: `claripy.SLE(x, y)` |
+| SLT | Signed less than. | Check if x is less than y: `claripy.SLT(x, y)` |
+| SGE | Signed greater than or equal to. | Check if x is greater than or equal to y: `claripy.SGE(x, y)` |
+| SGT | Signed greater than. | Check if x is greater than y: `claripy.SGT(x, y)` |
 
-**NOTE:** The default python `>`, `<`, `>=`, and `<=` are signed in Claripy, to reflect their behavior in Z3. You will most likely want to use the unsigned operations, instead.
+
+**NOTE:** The default python `>`, `<`, `>=`, and `<=` are unsigned in Claripy. This is different than their behavior in Z3, because it seems more natural in binary analysis.
 
 ## Frontends
 
@@ -113,7 +118,7 @@ Some examples of frontend usage:
 >>> x = claripy.BVS('x', 8)
 
 # now let's add a constraint on x
->>> s.add(claripy.ULT(x, 5)) 
+>>> s.add(claripy.ULT(x, 5))
 
 >>> assert sorted(s.eval(x, 10)) == [0, 1, 2, 3, 4]
 >>> assert s.max(x) == 4
@@ -122,7 +127,7 @@ Some examples of frontend usage:
 # we can also get the values of complex expressions
 >>> y = claripy.BVV(65, 8)
 >>> z = claripy.If(x == 1, x, y)
->>> assert sorted(s.eval(z, 10)) == [1, 65] 
+>>> assert sorted(s.eval(z, 10)) == [1, 65]
 
 # and, of course, we can add constraints on complex expressions
 >>> s.add(z % 5 != 0)
@@ -153,7 +158,7 @@ All backends must also implement any functions of the base `Backend` abstract cl
 Claripy's contract with its backends is as follows: backends should be able to handle, in their private functions, any object that they return from their private *or* public functions.
 Claripy will never pass an object to any backend private function that did not originate as a return value from a private or public function of that backend.
 One exception to this is `convert()` and `_convert()`, as Claripy can try to stuff anything it feels like into _convert() to see if the backend can handle that type of object.
- 
+
 ### Model Objects
 
 To perform actual, useful computation on ASTs, Claripy uses model objects.

@@ -1,7 +1,37 @@
 # Changelog
 
 This lists the *major* changes in angr.
-Tracking minor changes are left as an excercise for the reader :-)
+Tracking minor changes are left as an exercise for the reader :-)
+
+## angr 4.6.6.4
+
+Syscalls are no longer handled by `simuvex.procedures.syscalls.handler`.
+Instead, syscalls are now handled by `angr.SimOS.handle_syscall()`.
+In old days, the address of a syscall SimProcedure is the address right after the syscall instruction (e.g. `int 80h`), which collides with the real basic block starting at that address, and is very confusing.
+Now each syscall SimProcedure has its own address, just as a normal SimProcedure.
+
+Some refactoring and bug fixes in `CFGFast`.
+
+Claripy has been given the ability to handle *annotations* on ASTs.
+An annotation can be used to customize the behavior of some backends without impacting others.
+For more information, check the docstrings of claripy.Annotation and claripy.Backend.apply_annotation.
+
+## angr 4.6.5.25
+
+New state constructor - `call_state`. Comes with a refactor to `SimCC`, a refactor to `callable`, and the removal of `PathGroup.call`.
+All these changes are thoroughly documented, in `angr-doc/docs/structured_data.md`
+
+Refactor of `SimType` to make it easier to use types - they can be instanciated without a SimState and one can be added later.
+Comes with some usability improvements to SimMemView.
+Also, there's a better wrapper around PyCParser for generating SimType instances from c declarations and definitions.
+Again, thoroughly documented, still in the structured data doc.
+
+`CFG` is now an alias to `CFGFast` instead of `CFGAccurate`.
+In general, `CFGFast` should work under most cases, and it's way faster than `CFGAccurate`.
+We believe such a change is necessary, and will make angr more approachable to new users.
+You will have to change your code from `CFG` to `CFGAccurate` if you are relying on specific functionalities that only exist in `CFGAccurate`, for example, context-sensitivity and state-preserving.
+An exception will be raised by angr if any parameter passed to `CFG` is only supported by `CFGAccurate`.
+For more detailed explanation, please take a look at the documentation of `angr.analyses.CFG`.
 
 ## angr 4.6.3.28
 
@@ -24,7 +54,7 @@ Documentation is much more complete, especially for PyVEX and angr's symbolic ex
 
 There have been several improvements to claripy that should be transparent to users:
 
-- There's been a refactor of the VSA StridedInterval classes to fix cases where operations were not sound. Precision might suffer as a result, however.
+- There's been a refactoring of the VSA StridedInterval classes to fix cases where operations were not sound. Precision might suffer as a result, however.
 - Some general speed improvements.
 - We've introduced a new backend into claripy: the ReplacementBackend. This frontend generates replacement sets from constraints added to it, and uses these replacement sets to increase the precision of VSA. Additionally, we have introduced the HybridBackend, which combines this functionality with a constraint solver, allowing for memory index resolution using VSA.
 
@@ -47,7 +77,7 @@ You can now hook specific addresses at which VEX fails to decode with `project.h
 ## angr 4.5.11.23
 
 This is a pretty beefy release, with over half of claripy having been rewritten and major changes to other analyses.
-Internally, Claripy has been \emph{unified} -- the VSA mode and symbolic mode now work on the same structures instead of requiring structures to be created differently.
+Internally, Claripy has been unified -- the VSA mode and symbolic mode now work on the same structures instead of requiring structures to be created differently.
 This opens the door for awesome capabilities in the future, but could also result in unexpected behavior if we failed to account for something.
 
 Claripy has had some major interface changes:

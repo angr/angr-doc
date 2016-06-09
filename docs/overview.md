@@ -1,6 +1,8 @@
 # What is angr?
 
-angr is a multi-architecture binary analysis platform, with the capability to perform dynamic symbolic execution (like Mayhem, KLEE, etc) and various static analyses on binaries. Several challenges must be overcome to do this. They are, roughly:
+angr is a multi-architecture binary analysis platform, with the capability to perform dynamic symbolic execution (like Mayhem, KLEE, etc.) and various static analyses on binaries.
+ Several challenges must be overcome to do this. 
+ They are, roughly:
 
 - Loading a binary into the analysis program.
 - Translating a binary into an intermediate representation (IR).
@@ -10,8 +12,8 @@ angr is a multi-architecture binary analysis platform, with the capability to pe
  - A symbolic exploration of the program's state space (i.e., "Can we execute it until we find an overflow?").
  - Some combination of the above (i.e., "Let's execute only program slices that lead to a memory write, to find an overflow.")
 
-angr has components that meet all of these challenges. This book will explain how each one works, and how they can all be used to accomplish your evil goals.
-
+angr has components that meet all of these challenges. 
+This book will explain how each one works, and how they can all be used to accomplish your evil goals.
 
 ## Loading a Binary
 
@@ -31,7 +33,7 @@ Claripy is detailed [here](./claripy.md).
 
 ## Program States
 
-angr provides an interface to the emulated machine state.
+angr provides an interface to the emulated machine states.
 Understanding this is critical to successfully using angr.
 It is detailed [here](./states.md).
 

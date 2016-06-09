@@ -7,17 +7,15 @@ This section will discuss how to run and create these analyses.
 
 angr comes with several built-in analyses:
 
-| Name          | Description                                                                                                                               |
-| --------      | -------------                                                                                                                             |
-| CFG           | Constructs a *Control Flow Graph* of the program. The results are accessible via `b.analyses.CFG()`.                                      |
-| VFG           | Performs VSA on every function of the program, creating a *Value Flow Graph* and detecting stack variables.                               |
-| DDG           | Calculates a data dependency graph, allowing one to determine what statements a given value depends on.                                   |
-| BackwardSlice | Computes a backward slice of a program w.r.t. a certain target.                                                                           |
-| More!         | angr has quite a few analyses, most of which work! If you'd like to know how to use one, please submit an issue requesting documentation. |
-
-### CFG
-
-We describe angr’s CFG analysis in details [here](analyses/cfg.md), as well as some important concepts like context sensitivity and Function Manager of angr.
+| Name                                        | Description                                                                                                                               |
+| --------                                    | -------------                                                                                                                             |
+| CFGFast                                     | Constructs a fast *Control Flow Graph* of the program. `b.analyses.CFG()` is what you want.                                               |
+| [CFGAccurate](analyses/cfg_accurate.md)     | Constructs an accurate *Control Flow Graph* of the program. The simple way to do is via `b.analyses.CFGAccurate()`.                       |
+| VFG                                         | Performs VSA on every function of the program, creating a *Value Flow Graph* and detecting stack variables.                               |
+| DDG                                         | Calculates a data dependency graph, allowing one to determine what statements a given value depends on.                                   |
+| [DFG](../analyses/dfg.md)                      | Constructs a *Data Flow Graph* for each basic block present in the CFG                                                                    |
+| [BackwardSlice](analyses/backward_slice.md) | Computes a backward slice of a program w.r.t. a certain target.                                                                           |
+| More!                                       | angr has quite a few analyses, most of which work! If you'd like to know how to use one, please submit an issue requesting documentation. |
 
 ### VFG
 
@@ -26,10 +24,6 @@ TODO
 ### DDG
 
 TODO
-
-### BackwardSlice
-
-[Here](analyses/backward_slice.md).
 
 ## Running Analyses
 

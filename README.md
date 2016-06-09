@@ -1,6 +1,7 @@
 # How to be angry
 
-This is a collection of documentation for angr. By reading this, you'll become an angr pro and will be able to fold binaries to your whim.
+This is a collection of documentation for angr. 
+By reading this, you'll become an angr pro and will be able to fold binaries to your whim.
 
 We've tried to make using angr as pain-free as possible - our goal is to create a user-friendly binary analysis suite, allowing a user to simply start up iPython and easily perform intensive binary analyses with a couple of commands.
 That being said, binary analysis is complex, which makes angr complex.
@@ -23,7 +24,7 @@ If you use angr in an academic work, please cite the papers for which it was dev
   title={SoK: (State of) The Art of War: Offensive Techniques in Binary Analysis},
   author={Shoshitaishvili, Yan and Wang, Ruoyu and Salls, Christopher and Stephens, Nick and Polino, Mario and Dutcher, Andrew and Grosen, John and Feng, Siji and Hauser, Christophe and Kruegel, Christopher and Vigna, Giovanni},
   booktitle={IEEE Symposium on Security and Privacy},
-  year={2015}
+  year={2016}
 }
 
 @article{stephens2016driller,

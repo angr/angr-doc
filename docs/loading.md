@@ -153,7 +153,7 @@ You can specify the backend for a binary by including a key in its options dicti
 ```
 
 | backend key | description | requires `custom_arch`? |
-| -- | -- | -- |
+| --- | --- | --- |
 | elf | Static loader for ELF files based on PyELFTools | no |
 | pe | Static loader for PE files based on PEFile | no |
 | cgc | Static loader for Cyber Grand Challenge binaries | no |
@@ -194,17 +194,3 @@ When no such summary is available for a given function:
 - if `use_sim_procedures` (this is a parameter to `angr.Project`, not `cle.Loader`) is `False` (it is `True` by default), then no SimProcedures besides `ReturnUnconstrained` will be used.
 - you may specify specific symbols to exclude from being replaced with SimProcedures with the parameters to `angr.Project`: `exclude_sim_procedures_list` and `exclude_sim_procedures_func`.
 - Look at the code for `angr.Project._use_sim_procedures` for the exact algorithm.
-
-## Troubleshooting
-
-### Q: My options are ignored
-
-A: CLE options are an optional argument. Make sure you call Project with the following syntax:
-```python
-b = angr.Project('/bin/true', load_options=load_options)
-```
-
-rather than:
-```python
-b = angr.Project('/bin/true', load_options)
-```

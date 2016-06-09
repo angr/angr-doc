@@ -1,19 +1,26 @@
-# CFG
+# CFGAccurate
+
+Here we describe angr’s CFGAccurate analysis in details, as well as some important concepts like context sensitivity and Function Manager of angr.
 
 ## General ideas
 
 A basic analysis that one might carry out on a binary is a Control Flow Graph.
 A CFG is a graph with (conceptually) basic blocks as nodes and jumps/calls/rets/etc as edges.
 
-A CFG can be constructed by doing:
+In angr, there are two types of CFG that can be generated: a fast CFG (CFGFast) and an accurate CFG (CFGAccurate).
+As their names suggested, generating a fast CFG is usually much faster than generating the accurate one.
+In general, CFGFast is what you need.
+This page discusses CFGAccurate.
+
+An accurate CFG can be constructed by doing:
 
 ```python
 >>> import angr
 # load your project
 >>> b = angr.Project('/bin/true', load_options={'auto_load_libs': False})
 
-# generate a CFG
->>> cfg = b.analyses.CFG(keep_state=True)
+# generate an accurate CFG
+>>> cfg = b.analyses.CFGAccurate(keep_state=True)
 ```
 
 Of course, there are several options for customized CFGs.
@@ -28,7 +35,7 @@ Of course, there are several options for customized CFGs.
 | keep_state | To save memory, the state at each basic block is discarded by default. If `keep_state` is True, the state is saved in the CFGNode. |
 | enable_symbolic_back_traversal | Whether to enable an intensive technique for resolving indirect jumps |
 | enable_advanced_backward_slicing | Whether to enable another intensive technique for resolving direct jumps |
-| more! | Examine the docstring on b.analyses.CFG for more up-to-date options |
+| more! | Examine the docstring on b.analyses.CFGAccurate for more up-to-date options |
 
 ## Context Sensitivity Level
 
@@ -114,6 +121,13 @@ Due to context sensitivity, a given basic block can have multiple nodes in the g
 >>> print "Successors (and type of jump) of the entry point:", [ jumpkind + " to " + str(node.addr) for node,jumpkind in cfg.get_successors_and_jumpkind(entry_node) ]
 ```
 
+### Viewing the CFG
+
+Control-flow graph rendering is a hard problem.
+angr does not provide any built-in mechanism for rendering the output of a CFG analysis, and attempting to use a traditional graph rendering library, like matplotlib, will result in an unusable image.
+
+One solution for viewing angr CFGs is found in [axt's angr-utils repository](https://github.com/axt/angr-utils).
+
 ## Shared Libraries
 
 The CFG analysis does not distinguish between code from different binary objects.
@@ -132,15 +146,15 @@ The most common use case for this object is to access it like a dictionnary. It 
 ```
 
 Functions have several important properties!
-- `entry_func.basic_blocks` is a set of addresses at which basic blocks belonging to the function begin.
+- `entry_func.block_addrs` is a set of addresses at which basic blocks belonging to the function begin.
+- `entry_func.blocks` is the set of basic blocks belonging to the function, that you can explore and disassemble using capstone.
 - `entry_func.string_references()` returns a list of all the constant strings that were referred to at any point in the function.
   They are formatted as `(addr, string)` tuples, where addr is the address in the binary's data section the string lives, and string is a python string that contains the value of the string.
 - `entry_func.returning` is a boolean value signifying whether or not the function can return.
   `False` indicates that all paths do not return.
 - `entry_func.callable` is an angr Callable object referring to this function.
   You can call it like a python function with python arguments and get back an actual result (may be symbolic) as if you ran the function with those arguments!
-- `entry_func.local_transition_graph` is a NetworkX DiGraph describing control flow within the function itself.
-  It resembles the control-flow graphs IDA displays on a per-function level.
+- `entry_func.transition_graph` is a NetworkX DiGraph describing control flow within the function itself. It resembles the control-flow graphs IDA displays on a per-function level.
 - `entry_func.name` is the name of the function.
 - `entry_func.has_unresolved_calls` and `entry.has_unresolved_jumps` have to do with detecting imprecision within the CFG.
   Sometimes, the analysis cannot detect what the possible target of an indirect call or jump could be.
@@ -148,4 +162,6 @@ Functions have several important properties!
 - `entry_func.get_call_sites()` returns a list of all the addresses of basic blocks which end in calls out to other functions.
 - `entry_func.get_call_target(callsite_addr)` will, given `callsite_addr` from the list of call site addresses, return where that callsite will call out to.
 - `entry_func.get_call_return(callsite_addr)` will, given `callsite_addr` from the list of call site addresses, return where that callsite should return to.
+
+and many more !
 

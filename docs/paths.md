@@ -108,7 +108,7 @@ Here are the different types of jumpkinds:
 | Type       | Description |
 |------------|-------------|
 | Ijk_Boring | A normal jump to an address. |
-| IjK_Call   | A call to an address. |
+| Ijk_Call   | A call to an address. |
 | Ijk_Ret    | A return. |
 | Ijk_Sig*   | Various signals. |
 | Ijk_Sys*   | System calls. |
