@@ -26,15 +26,19 @@ Here is the [binary](https://github.com/angr/angr-doc/tree/master/examples/secur
 
 ### ReverseMe example: DEFCON Quals 2016 - baby-re
 
-Script 0 author: David Manouchehri (github: [@Manouchehri](https://github.com/Manouchehri))
+- Script 0
 
-Script runtime: 8 minutes
+    author: David Manouchehri (github: [@Manouchehri](https://github.com/Manouchehri))
 
-Script 1 author: Stanislas Lejay (github: [@P1kachu](https://github.com/P1kachu))
+    Script runtime: 8 minutes
 
-Script runtime: 11 sec
+- Script 1
 
-Here is the [binary](https://github.com/angr/angr-doc/tree/master/examples/defcon2016quals_baby-re/baby-re) and the scripts:
+    author: Stanislas Lejay (github: [@P1kachu](https://github.com/P1kachu))
+
+    Script runtime: 11 sec
+
+Here is the [binary](https://github.com/angr/angr-doc/blob/master/examples/defcon2016quals_baby-re_1/baby-re) and the scripts:
 * [script0](https://github.com/angr/angr-doc/tree/master/examples/defcon2016quals_baby-re_0/solve.py)
 * [script1](https://github.com/angr/angr-doc/tree/master/examples/defcon2016quals_baby-re_1/solve.py)
 

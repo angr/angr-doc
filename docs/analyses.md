@@ -13,7 +13,7 @@ angr comes with several built-in analyses:
 | [CFGAccurate](analyses/cfg_accurate.md)     | Constructs an accurate *Control Flow Graph* of the program. The simple way to do is via `b.analyses.CFGAccurate()`.                       |
 | VFG                                         | Performs VSA on every function of the program, creating a *Value Flow Graph* and detecting stack variables.                               |
 | DDG                                         | Calculates a data dependency graph, allowing one to determine what statements a given value depends on.                                   |
-| [DFG](../analyses/dfg.md)                      | Constructs a *Data Flow Graph* for each basic block present in the CFG                                                                    |
+| [DFG](analyses/dfg.md)                      | Constructs a *Data Flow Graph* for each basic block present in the CFG                                                                    |
 | [BackwardSlice](analyses/backward_slice.md) | Computes a backward slice of a program w.r.t. a certain target.                                                                           |
 | More!                                       | angr has quite a few analyses, most of which work! If you'd like to know how to use one, please submit an issue requesting documentation. |
 

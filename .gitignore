@@ -1,3 +1,4 @@
 *.pyc
 api-doc/build
 *.swp
+*.ipynb*

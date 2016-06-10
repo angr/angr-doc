@@ -13,7 +13,7 @@ However, for dealing with expressions, an understanding of Claripy might be usef
 ## Claripy ASTs
 
 Claripy ASTs abstract away the differences between the constructs that Claripy supports.
-They define a tree of operations (i.e., `(a+b)/c`) on any type of underlying data.
+They define a tree of operations (i.e., `(a + b) / c)` on any type of underlying data.
 Claripy handles the application of these operations on the underlying objects themselves by dispatching requests to the backends.
 
 Currently, Claripy supports the following types of ASTs:
@@ -106,9 +106,9 @@ There are several different frontends.
 |------|-------------|
 | FullFrontend | This is analogous to a `z3.Solver()`. It is a frontend that tracks constraints on symbolic variables and uses a constraint solver (currently, Z3) to evaluate symbolic expressions. |
 | LightFrontend | This frontend uses VSA to reason about values. It is an *approximating* frontend, but produces values without performing constraint solves. |
-| HybridFrontend | This frontend combines VSA and Z3 to allow for *approximating* values. You can specify whether or not you want an exact result from your evaluations, and this frontend does the rest. |
+| ReplacementFrontend | This frontend expands the LightFrontend by allowing the replacement of expressions on-the-fly. It is used as a helper by other frontends and can be used directly to implement exotic analyses. |
+| HybridFrontend | This frontend combines the ReplacementFrontend and the FullFrontend (VSA and Z3) to allow for *approximating* values. You can specify whether or not you want an exact result from your evaluations, and this frontend does the rest. |
 | CompositeFrontend | This frontend implements optimizations that solve smaller sets of constraints to speed up constraint solving. |
-| ReplacementFrontend | This frontend allows the replacement of expressions on-the-fly. It is used as a helper by other frontends and can be used directly to implement exotic analyses. |
 
 Some examples of frontend usage:
 

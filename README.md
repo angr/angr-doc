@@ -1,6 +1,6 @@
 # How to be angry
 
-This is a collection of documentation for angr. 
+This is a collection of documentation for angr.
 By reading this, you'll become an angr pro and will be able to fold binaries to your whim.
 
 We've tried to make using angr as pain-free as possible - our goal is to create a user-friendly binary analysis suite, allowing a user to simply start up iPython and easily perform intensive binary analyses with a couple of commands.
@@ -49,3 +49,11 @@ To get help with angr, you can ask via:
 - the mailing list: angr@lists.cs.ucsb.edu
 - the IRC channel: **#angr** on [freenode](https://freenode.net/)
 - opening an issue on the appropriate github repository
+
+## Going further:
+
+You can read this [paper][paper], explaining some of the internals, algorithms,
+and used techniques to get a better understanding on what's going on under the
+hood.
+
+[paper]: https://www.cs.ucsb.edu/~vigna/publications/2016_SP_angrSoK.pdf
