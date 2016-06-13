@@ -21,14 +21,14 @@ second_branch_left = 0x4004ca
 second_branch_right = 0x4004d1
 
 
-# We create a state so that angr starts from the beginning of the main function
+# We create a state so that angr starts at the beginning of the main function
 main_state = project.factory.blank_state(addr=addr_main)
 pg = project.factory.path_group(main_state)
 assert pg.active[0].addr == addr_main
 
 
-# Our path group has not done anything, so is only has one active path
-# It's address is main
+# Our path group hasn't done anything yet, so it only has one active path
+# which address is main
 # Let's step
 # The pathgroup.step functions accepts different arguments to regulate
 # the stepping. Here, let's try to step until we reach the first comparison
