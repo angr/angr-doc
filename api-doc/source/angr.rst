@@ -14,8 +14,14 @@ Factory
 Paths & Path Groups
 -------------------
 
-.. automodule:: angr.path_group
 .. automodule:: angr.path
+.. automodule:: angr.path_group
+.. automodule:: angr.exploration_techniques
+.. automodule:: angr.exploration_techniques.dfs
+.. automodule:: angr.exploration_techniques.explorer
+.. automodule:: angr.exploration_techniques.looplimiter
+.. automodule:: angr.exploration_techniques.threading
+.. automodule:: angr.exploration_techniques.veritesting
 .. automodule:: angr.path_hierarchy
 .. automodule:: angr.pathprioritizer
 
