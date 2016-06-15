@@ -36,7 +36,6 @@ Or using its components in angr::
 ..  automodule:: claripy.frontend
 ..  automodule:: claripy.operations
 ..  automodule:: claripy.ops
-..  automodule:: claripy.replacer
 ..  automodule:: claripy.result
  
 AST
