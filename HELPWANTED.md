@@ -61,3 +61,13 @@ This can be written in Python, if it just outputs PyVEX structures.
 - PIC, AVR, other embedded architectures
 - SPARC (there is some preliminary libVEX support for SPARC [here](https://bitbucket.org/iraisr/valgrind-solaris))
 - LLVM IR (with this, we can extend angr from just a Binary Analysis Framework to a Program Analysis Framework and expand its capabilities in other ways!)
+
+## Development: environment support
+
+We use the concept of "function summaries" in angr to model the environment of operating systems (i.e., the effects of their system calls) and library functions.
+Extending this would be greatly helpful in increasing angr's utility.
+These function summaries can be found [here](https://github.com/angr/simuvex/tree/master/simuvex/procedures).
+
+A specific subset of this is system calls.
+Even more than library function SimProcedures (without which angr can always execute the actual function), we have very few workarounds for missing system calls.
+Every implemented system call extends the set of binaries that angr can handle!
