@@ -15,7 +15,7 @@ Here are some basic examples of pathgroups capabilities:
 >>> import angr
 
 
->>> p = angr.Project('/bin/ls', load_options={'auto_load_libs': False})
+>>> p = angr.Project('examples/fauxware/fauxware', load_options={'auto_load_libs': False})
 >>> pg = p.factory.path_group()
 ```
 
@@ -33,7 +33,7 @@ We now have a deadended path, let's see what we can do with it
 ```python
 >>> path = pg.deadended[0]
 >>> print('Path length: {0} steps'.format(path.length))
-Path length: 23 steps
+Path length: 50 steps
 ```
 
 Get path trace:
@@ -42,45 +42,69 @@ Get path trace:
 >>> for step in path.trace:
 ...    print(step)
 Trace:
-<SimIRSB 0x4049a0>
-<SimIRSB 0x402650>
+<SimIRSB 0x400580>
+<SimIRSB 0x400540>
 <SimProcedure __libc_start_main>
-<SimIRSB 0x413930>
-<SimIRSB 0x4022d0>
-<SimIRSB 0x4022e5>
-<SimIRSB 0x413961>
-<SimIRSB 0x413966>
-<SimIRSB 0x404a70>
-<SimIRSB 0x404a7b>
-<SimIRSB 0x404a10>
-<SimIRSB 0x404a48>
-<SimIRSB 0x41397d>
-<SimIRSB 0x413986>
+<SimIRSB 0x4007e0>
+<SimIRSB 0x4004e0>
+<SimIRSB 0x4005ac>
+<SimIRSB 0x4005be>
+<SimIRSB 0x4004e9>
+<SimIRSB 0x400640>
+<SimIRSB 0x400660>
+<SimIRSB 0x4004ee>
+<SimIRSB 0x400880>
+<SimIRSB 0x4008af>
+<SimIRSB 0x4004f3>
+<SimIRSB 0x400825>
+<SimIRSB 0x400846>
 <SimProcedure __libc_start_main>
-<SimIRSB 0x402a00>
-<SimIRSB 0x40da70>
-<SimIRSB 0x40dae3>
-<SimIRSB 0x402950>
-<SimProcedure fwrite>
-<SimIRSB 0x40dafe>
-<SimIRSB 0x402390>
-<SimProcedure abort>
+<SimIRSB 0x40071d>
+<SimIRSB 0x400510>
+<SimProcedure puts>
+<SimIRSB 0x40073e>
+<SimIRSB 0x400530>
+<SimProcedure read>
+<SimIRSB 0x400754>
+<SimIRSB 0x400530>
+<SimProcedure read>
+<SimIRSB 0x40076a>
+<SimIRSB 0x400510>
+<SimProcedure puts>
+<SimIRSB 0x400774>
+<SimIRSB 0x400530>
+<SimProcedure read>
+imIRSB 0x40078a>
+<SimIRSB 0x400530>
+<SimProcedure read>
+<SimIRSB 0x4007a0>
+<SimIRSB 0x400664>
+<SimIRSB 0x400550>
+<SimProcedure strcmp>
+<SimIRSB 0x40068e>
+<SimIRSB 0x400692>
+<SimIRSB 0x4006eb>
+<SimIRSB 0x4007b3>
+<SimIRSB 0x4007bd>
+<SimIRSB 0x4006ed>
+<SimIRSB 0x400510>
+<SimProcedure puts>
+<SimIRSB 0x4006fb>
+<SimIRSB 0x4007c7>
+<SimIRSB 0x4007d3>
 ```
 
 Get constraints applied to the path:
 ```python
->>> print('Constraints:')
->>> for c in path.state.se.constraints:
-...    print(c)
-Constraints:
-<Bool mem_70_7_32 == 0x0>
+>>> print('There are %d constraints.' % len(path.state.se.constraints))
+There are 2 constraints.
 ```
 
 Get memory state at the end of the traversal:
 ```python
 >>> print('rax: {0}'.format(path.state.regs.rax))
 rax: <BV64 0x37>
->>> assert path.state.regs.rip.args[0] == path.addr  # regs are BitVectors
+>>> assert path.state.se.any_int(path.state.regs.rip) == path.addr  # regs are BitVectors
 ```
 
 ### PathGroup.Explorer()
@@ -93,35 +117,37 @@ will be stashed into the `found` stash, and the other ones will remain active.
 You can then explore the found path, or decide to discard it and continue with
 the other ones.
 
-Example from a DefconCTF Quals [exercise](./examples.md#reverseme-example-defcon-quals-2016---baby-re):
+Let's look at a simple crackme [example](./examples.md#reverseme-modern-binary-exploitation---csci-4968):
 
+First, we load the binary.
 ```python
->>> p = angr.Project('examples/defcon2016quals_baby-re_1/baby-re')
+>>> p = angr.Project('examples/CSCI-4968-MBE/challenges/crackme0x00a/crackme0x00a')
 ```
 
-Setting the environment (state)
+Next, we create a path group.
 ```python
->>> main = 0x4025e7 # Beginning of function we want to explore
->>> win = 0x4028e9  # Address we want to reach
->>> fail = 0x402941 # Address we want to avoid
->>> flag_addr = 0x7fffffffffeff98
-[...]
->>> init = p.factory.blank_state(addr=main)
+>>> pg = p.factory.path_group()
 ```
 
-Creating and lauching the explorer
+Now, we symbolically execute until we find a path that matches our condition (i.e., the "win" condition).
 ```python
->>> pgp = p.factory.path_group(init)
->>> ex = pgp.explore(find=win, avoid=fail)
->>> print(ex)
-<PathGroup with 11 avoid, 2 active, 1 found>
->>> s = ex.found[0].state
->>> flag = s.se.any_str(s.memory.load(flag_addr, 50))
+>> pg.explore(find=lambda p: "Congrats" in p.state.posix.dumps(1))
+<PathGroup with 1 active, 1 found>
+```
+
+Now, we can get the flag out of that state!
+```
+>>> s = pg.found[0].state
+>>> print s.posix.dumps(1)
+Enter password: Congrats!
+
+
+>>> flag = s.posix.dumps(0)
 >>> print(flag)
-Math is hard!
+g00dJ0B!
 ```
 
-Pretty simple, isn't it ?
+Pretty simple, isn't it?
 
 Other examples can be found by browsing the [examples](./examples.md).
 
