@@ -7,7 +7,7 @@ data dependency: the value produced (or constant) from one vertex is needed as a
 
 ```python
 >>> import angr
->>> b = angr.Project('/bin/true', load_options={'auto_load_libs': False})
+>>> b = angr.Project('examples/fauxware/fauxware', load_options={'auto_load_libs': False})
 >>> d = b.analyses.DFG()
 ```
 

@@ -25,7 +25,7 @@ A `BackwardSlice` can be constructed with the following code:
 ```python
 >>> import angr
 # Load the project
->>> b = angr.Project("/bin/true", load_options={"auto_load_libs": False})
+>>> b = angr.Project("examples/fauxware/fauxware", load_options={"auto_load_libs": False})
 
 # Generate a CFG first. In order to generate data dependence graph afterwards,
 # you’ll have to keep all input states by specifying keep_stat=True. Feel free 
