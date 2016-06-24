@@ -87,3 +87,9 @@ rather than:
 ```python
 b = angr.Project('/bin/true', load_options)
 ```
+
+## Why are some ARM addresses off-by-one?
+
+In order to encode THUMB-ness of an ARM code address, we set the lowest bit to one.
+This convention comes from LibVEX, and is not entirely our choice!
+If you see an odd ARM address, that just means the code at `address - 1` is in THUMB mode.
