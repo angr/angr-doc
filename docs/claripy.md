@@ -96,25 +96,25 @@ In general, Claripy supports all of the normal python operations (+, -, |, ==, e
 
 **NOTE:** The default python `>`, `<`, `>=`, and `<=` are unsigned in Claripy. This is different than their behavior in Z3, because it seems more natural in binary analysis.
 
-## Frontends
+## Solvers
 
-The main point of interaction with Claripy are the Claripy frontends.
-These frontends expose an API to interpret ASTs in different ways and return usable values.
-There are several different frontends.
+The main point of interaction with Claripy are the Claripy Solvers.
+Solvers expose an API to interpret ASTs in different ways and return usable values.
+There are several different solvers.
 
 | Name | Description |
 |------|-------------|
-| FullFrontend | This is analogous to a `z3.Solver()`. It is a frontend that tracks constraints on symbolic variables and uses a constraint solver (currently, Z3) to evaluate symbolic expressions. |
-| LightFrontend | This frontend uses VSA to reason about values. It is an *approximating* frontend, but produces values without performing constraint solves. |
-| ReplacementFrontend | This frontend expands the LightFrontend by allowing the replacement of expressions on-the-fly. It is used as a helper by other frontends and can be used directly to implement exotic analyses. |
-| HybridFrontend | This frontend combines the ReplacementFrontend and the FullFrontend (VSA and Z3) to allow for *approximating* values. You can specify whether or not you want an exact result from your evaluations, and this frontend does the rest. |
-| CompositeFrontend | This frontend implements optimizations that solve smaller sets of constraints to speed up constraint solving. |
+| Solver | This is analogous to a `z3.Solver()`. It is a solver that tracks constraints on symbolic variables and uses a constraint solver (currently, Z3) to evaluate symbolic expressions. |
+| SolverVSA | This solver uses VSA to reason about values. It is an *approximating* solver, but produces values without performing actual constraint solves. |
+| SolverReplacement | This solver acts as a pass-through to a child solver, allowing the replacement of expressions on-the-fly. It is used as a helper by other solvers and can be used directly to implement exotic analyses. |
+| SolverHybrid | This solver combines the SolverReplacement and the Solver (VSA and Z3) to allow for *approximating* values. You can specify whether or not you want an exact result from your evaluations, and this solver does the rest. |
+| SolverComposite | This solver implements optimizations that solve smaller sets of constraints to speed up constraint solving. |
 
-Some examples of frontend usage:
+Some examples of solver usage:
 
 ```python
 # create the solver and an expression
->>> s = claripy.Solver() # this is an alias to claripy.FullFrontend
+>>> s = claripy.Solver()
 >>> x = claripy.BVS('x', 8)
 
 # now let's add a constraint on x
@@ -134,6 +134,8 @@ Some examples of frontend usage:
 >>> assert s.eval(z, 10) == (1,)
 >>> assert s.eval(x, 10) == (1,) # interestingly enough, since z can't be y, x can only be 1!
 ```
+
+Custom solvers can be built by combining a Claripy Frontend (the class that handles the actual interaction with SMT solver or the underlying data domain) and some combination of frontend mixins (that handle things like caching, filtering out duplicate constraints, doing opportunistic simplification, and so on).
 
 ## Claripy Backends
 
