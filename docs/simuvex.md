@@ -194,7 +194,7 @@ You can even modify these value to modify further uses of the values!
 
 ```python
 >>> def track_reads(state):
-...     print 'Read', state.inspect.mem_read_expr, 'from', 'state.inspect.mem_read_address
+...     print 'Read', state.inspect.mem_read_expr, 'from', state.inspect.mem_read_address
 ...
 >>> s.inspect.b('mem_read', when=simuvex.BP_AFTER, action=track_reads)
 ```
