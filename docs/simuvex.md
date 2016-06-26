@@ -189,8 +189,17 @@ These events expose different attributes:
 | symbolic_variable | symbolic_size      | BP_BEFORE or BP_AFTER  | The size of the symbolic variable being created. |
 | symbolic_variable | symbolic_expr      | BP_AFTER               | The expression representing the new symbolic variable. |
 
-We can put all this together to support conditional breakpoints!
-Here it is:
+These attributes can be accessed as members of `state.inspect` during the appropriate breakpoint callback to access the appropriate values.
+You can even modify these value to modify further uses of the values!
+
+```python
+>>> def track_reads(state):
+...     print 'Read', state.inspect.mem_read_expr, 'from', 'state.inspect.mem_read_address
+...
+>>> s.inspect.b('mem_read', when=simuvex.BP_AFTER, action=track_reads)
+```
+
+Additionally, each of these properties can be used as a keyword argument to `inspect.b` to make the breakpoint conditional:
 
 ```python
 # This will break before a memory write if 0x1000 is a possible value of its target expression
