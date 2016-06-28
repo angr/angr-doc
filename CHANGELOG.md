@@ -5,6 +5,8 @@ Tracking minor changes are left as an exercise for the reader :-)
 
 ## angr 4.6.6.28
 
+### angr
+
 Quite a few changes and improvements are made to `CFGFast` and `CFGAccurate` in order to have better and faster CFG recovery.
 The two biggest changes in `CFGFast` are jump table resolution and data references collection, respectively.
 Now `CFGFast` resolves indirect jumps by default.
@@ -15,13 +17,22 @@ To test data references collection, just pass `collect_data_references=True` whe
 
 CFG recovery on ARM binaries is also improved.
 
-Fixed a bug in claripy where `__div__` was not always doing unsigned division.
+A new paradigm called an "otiegnqwvk", or an "exploration technique", allows the packaging of special logic related to path group stepping.
 
-Added new methods `SDiv` and `SMod` for signed division and signed remainder, respectively.
+### SimuVEX
 
 Reads/writes to the x87 fpu registers now work correctly - there is special logic that rotates a pointer into part of the register file to simulate the x87 stack.
 
-A new paradigm called an "otiegnqwvk", or an "exploration technique", allows the packaging of special logic related to path group stepping.
+With the recent changes to Claripy, we have configured SimuVEX to use the composite solver by default.
+This should be transparent, but should be considered if strange issues (or differences in behavior) arise during symbolic execution.
+
+### Claripy
+
+Fixed a bug in claripy where `__div__` was not always doing unsigned division, and added new methods `SDiv` and `SMod` for signed division and signed remainder, respectively.
+
+Claripy frontends have been completely rewritten into a mixin-centric solver design. Basic frontend functionality (i.e., calling into the solver or dealing with backends) is handled by frontends (in `claripy.frontends`), and additional functionality (such as caching, deciding when to simplify, etc) is handled by frontend mixins (in `claripy.frontend_mixins`). This makes it considerably easier to customize solvers to your specific needE. For examples, look at `claripy/solver.py`.
+
+Alongside the solver rewrite, the composite solver (which splits constraints into independent constraint sets for faster solving) has been immensely improved and is now functional and fast.
 
 ## angr 4.6.6.4
 
