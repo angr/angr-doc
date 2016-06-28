@@ -3,6 +3,17 @@
 This lists the *major* changes in angr.
 Tracking minor changes are left as an exercise for the reader :-)
 
+## angr 4.6.6.28
+
+We made quite a few changes and improvements to `CFGFast` and `CFGAccurate` in order to have better and faster CFG recovery result.
+The biggest changes are jump table resolution in `CFGFast` and data references collection.
+Now `CFGFast` resolves indirect jumps by default.
+You may get a list of indirect jumps recovered in `CFGFast` by accessing the `indirect_jumps` attribute.
+For many cases, it can resolve the jump table accurately.
+Data references collection is still in alpha mode.
+To test data references collection, just pass `collect_data_references=True` when creating a fast CFG, and access the `_memory_data` attribute after the CFG is constructed.
+CFG recovery on ARM binaries is also improved.
+
 ## angr 4.6.6.4
 
 Syscalls are no longer handled by `simuvex.procedures.syscalls.handler`.
