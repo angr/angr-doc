@@ -3,18 +3,50 @@
 This lists the *major* changes in angr.
 Tracking minor changes are left as an exercise for the reader :-)
 
+## angr 4.6.6.28
+
+### angr
+
+Quite a few changes and improvements are made to `CFGFast` and `CFGAccurate` in order to have better and faster CFG recovery.
+The two biggest changes in `CFGFast` are jump table resolution and data references collection, respectively.
+Now `CFGFast` resolves indirect jumps by default.
+You may get a list of indirect jumps recovered in `CFGFast` by accessing the `indirect_jumps` attribute.
+For many cases, it resolves the jump table accurately.
+Data references collection is still in alpha mode.
+To test data references collection, just pass `collect_data_references=True` when creating a fast CFG, and access the `memory_data` attribute after the CFG is constructed.
+
+CFG recovery on ARM binaries is also improved.
+
+A new paradigm called an "otiegnqwvk", or an "exploration technique", allows the packaging of special logic related to path group stepping.
+
+### SimuVEX
+
+Reads/writes to the x87 fpu registers now work correctly - there is special logic that rotates a pointer into part of the register file to simulate the x87 stack.
+
+With the recent changes to Claripy, we have configured SimuVEX to use the composite solver by default.
+This should be transparent, but should be considered if strange issues (or differences in behavior) arise during symbolic execution.
+
+### Claripy
+
+Fixed a bug in claripy where `__div__` was not always doing unsigned division, and added new methods `SDiv` and `SMod` for signed division and signed remainder, respectively.
+
+Claripy frontends have been completely rewritten into a mixin-centric solver design. Basic frontend functionality (i.e., calling into the solver or dealing with backends) is handled by frontends (in `claripy.frontends`), and additional functionality (such as caching, deciding when to simplify, etc) is handled by frontend mixins (in `claripy.frontend_mixins`). This makes it considerably easier to customize solvers to your specific needE. For examples, look at `claripy/solver.py`.
+
+Alongside the solver rewrite, the composite solver (which splits constraints into independent constraint sets for faster solving) has been immensely improved and is now functional and fast.
+
 ## angr 4.6.6.4
 
 Syscalls are no longer handled by `simuvex.procedures.syscalls.handler`.
 Instead, syscalls are now handled by `angr.SimOS.handle_syscall()`.
-In old days, the address of a syscall SimProcedure is the address right after the syscall instruction (e.g. `int 80h`), which collides with the real basic block starting at that address, and is very confusing.
+Previously, the address of a syscall SimProcedure is the address right after the syscall instruction (e.g. `int 80h`), which collides with the real basic block starting at that address, and is very confusing.
 Now each syscall SimProcedure has its own address, just as a normal SimProcedure.
+To support this, there is another region mapped for the syscall addresses, `Project._syscall_obj`.
 
 Some refactoring and bug fixes in `CFGFast`.
 
 Claripy has been given the ability to handle *annotations* on ASTs.
 An annotation can be used to customize the behavior of some backends without impacting others.
-For more information, check the docstrings of claripy.Annotation and claripy.Backend.apply_annotation.
+For more information, check the docstrings of `claripy.Annotation` and `claripy.Backend.apply_annotation`.
 
 ## angr 4.6.5.25
 
