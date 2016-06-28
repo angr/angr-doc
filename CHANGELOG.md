@@ -21,14 +21,19 @@ Added new methods `SDiv` and `SMod` for signed division and signed remainder, re
 
 Syscalls are no longer handled by `simuvex.procedures.syscalls.handler`.
 Instead, syscalls are now handled by `angr.SimOS.handle_syscall()`.
-In old days, the address of a syscall SimProcedure is the address right after the syscall instruction (e.g. `int 80h`), which collides with the real basic block starting at that address, and is very confusing.
+Previously, the address of a syscall SimProcedure is the address right after the syscall instruction (e.g. `int 80h`), which collides with the real basic block starting at that address, and is very confusing.
 Now each syscall SimProcedure has its own address, just as a normal SimProcedure.
+To support this, there is another region mapped for the syscall addresses, `Project._syscall_obj`.
 
 Some refactoring and bug fixes in `CFGFast`.
 
 Claripy has been given the ability to handle *annotations* on ASTs.
 An annotation can be used to customize the behavior of some backends without impacting others.
-For more information, check the docstrings of claripy.Annotation and claripy.Backend.apply_annotation.
+For more information, check the docstrings of `claripy.Annotation` and `claripy.Backend.apply_annotation`.
+
+Reads/writes to the x87 fpu registers now work correctly - there is special logic that rotates a pointer into part of the register file to simulate the x87 stack.
+
+A new paradigm called an "otiegnqwvk", or an "exploration technique", allows the packaging of special logic related to path group stepping.
 
 ## angr 4.6.5.25
 
