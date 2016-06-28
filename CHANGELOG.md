@@ -5,6 +5,10 @@ Tracking minor changes are left as an exercise for the reader :-)
 
 ## angr 4.6.6.28
 
+In general, there have been enormous amounts of speed improvements in this release.
+Depending on the workload, angr should run about twice as fast.
+Aside from this, there have also been many submodule-specific changes:
+
 ### angr
 
 Quite a few changes and improvements are made to `CFGFast` and `CFGAccurate` in order to have better and faster CFG recovery.
