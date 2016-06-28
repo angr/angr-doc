@@ -14,6 +14,9 @@ Data references collection is still in alpha mode.
 To test data references collection, just pass `collect_data_references=True` when creating a fast CFG, and access the `_memory_data` attribute after the CFG is constructed.
 CFG recovery on ARM binaries is also improved.
 
+Fixed a bug in claripy where `__div__` was not always doing unsigned division.
+Added new methods `SDiv` and `SMod` for signed division and signed remainder, respectively. 
+
 ## angr 4.6.6.4
 
 Syscalls are no longer handled by `simuvex.procedures.syscalls.handler`.
