@@ -17,6 +17,10 @@ CFG recovery on ARM binaries is also improved.
 Fixed a bug in claripy where `__div__` was not always doing unsigned division.
 Added new methods `SDiv` and `SMod` for signed division and signed remainder, respectively. 
 
+Reads/writes to the x87 fpu registers now work correctly - there is special logic that rotates a pointer into part of the register file to simulate the x87 stack.
+
+A new paradigm called an "otiegnqwvk", or an "exploration technique", allows the packaging of special logic related to path group stepping.
+
 ## angr 4.6.6.4
 
 Syscalls are no longer handled by `simuvex.procedures.syscalls.handler`.
@@ -30,10 +34,6 @@ Some refactoring and bug fixes in `CFGFast`.
 Claripy has been given the ability to handle *annotations* on ASTs.
 An annotation can be used to customize the behavior of some backends without impacting others.
 For more information, check the docstrings of `claripy.Annotation` and `claripy.Backend.apply_annotation`.
-
-Reads/writes to the x87 fpu registers now work correctly - there is special logic that rotates a pointer into part of the register file to simulate the x87 stack.
-
-A new paradigm called an "otiegnqwvk", or an "exploration technique", allows the packaging of special logic related to path group stepping.
 
 ## angr 4.6.5.25
 
