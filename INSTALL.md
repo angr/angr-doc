@@ -19,6 +19,9 @@ On Ubuntu, you will want: `sudo apt-get install python-dev libffi-dev build-esse
 
 `mkvirtualenv angr && pip install angr` should usually be sufficient to install angr in most cases, since angr is published on the Python Package Index.
 
+Fish (shell) users can either use [virtualfish](https://github.com/adambrenecki/virtualfish) or the [virtualenv](https://pypi.python.org/pypi/virtualenv) package.<br>
+`vf new angr && vf activate angr && pip install angr`
+
 Failing that, you can install angr by installing the following repositories (and the dependencies listed in their requirements.txt files), in order, from https://github.com/angr:
 
 - [claripy](https://github.com/angr/claripy)
