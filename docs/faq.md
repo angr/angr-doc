@@ -93,3 +93,9 @@ b = angr.Project('/bin/true', load_options)
 In order to encode THUMB-ness of an ARM code address, we set the lowest bit to one.
 This convention comes from LibVEX, and is not entirely our choice!
 If you see an odd ARM address, that just means the code at `address - 1` is in THUMB mode.
+
+## I get an exception that says ```AttributeError: 'FFI' object has no attribute 'unpack'``` What do I do?
+
+You have an outdated version of the `cffi` Python module.  angr now requires at least version 1.7 of cffi.
+Try `pip install --upgrade cffi`.  If the problem persists, make sure your operating system hasn't pre-installed an old version of cffi, which pip may refuse to uninstall.
+If you're using a Python virtual environment with the pypy interpreter, ensure you have a recent version of pypy, as it includes a version of cffi which pip will not upgrade.
