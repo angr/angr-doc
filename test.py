@@ -4,13 +4,20 @@ import sys
 import claripy
 import itertools
 
-md_files = filter(lambda s: s.endswith('.md'), [ os.path.join('docs', t) for t in os.listdir('docs')])
-md_files += filter(lambda s: s.endswith('.md'), [ os.path.join('docs/analyses', t) for t in os.listdir('docs/analyses')])
-example_dirs = filter(lambda s: '.' not in s, os.listdir('examples'))
+def _path(d):
+    return os.path.join(os.path.dirname(__file__), d)
+
+md_files = filter(lambda s: s.endswith('.md'), [
+    os.path.join(_path('docs'), t) for t in os.listdir(_path('docs'))
+])
+md_files += filter(lambda s: s.endswith('.md'), [
+    os.path.join(_path('docs/analyses'), t) for t in os.listdir(_path('docs/analyses'))
+])
+example_dirs = filter(lambda s: '.' not in s, os.listdir(_path('examples')))
 
 sys.path.append('.')
 def exampletest_single(example_dir):
-    os.chdir('examples/' + example_dir)
+    os.chdir(_path('examples/') + example_dir)
     print os.getcwd()
     try:
         s = __import__('solve')
@@ -58,6 +65,7 @@ def doctest_single(md_file):
                 test_enabled = True
 
 def test_docs():
+    os.chdir(_path('.'))
     for md_file in md_files:
         yield doctest_single, md_file
 
