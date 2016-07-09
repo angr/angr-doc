@@ -26,7 +26,7 @@ We can see that the callstack and the path's history are blank:
 
 ```python
 # this is the number of basic blocks that have been analyzed by the path
->>> assert len(p) == 0
+>>> assert p.length == 0
 
 # we can also look at the current backtrace of program execution
 # contains only the dummy frame for execution start
