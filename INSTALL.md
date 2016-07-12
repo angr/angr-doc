@@ -113,7 +113,6 @@ In native environment, if capstone Python files are installed in `/usr/local/lib
 
 Moving `libcapstone.so` to the same directory as that of Python files will fix the problem.
 
-
 ## Claripy and z3
 Z3 is a bit weird to compile. Sometimes it just completely fails to build for
 no reason, saying that it can't create some object file because some file or
