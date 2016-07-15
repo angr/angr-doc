@@ -13,6 +13,18 @@ Binary, source, and script are found [here.](https://github.com/angr/angr-doc/tr
 
 ## CTF Problems
 
+### ExploitMe example: SecuInside 2016 Quals - mbrainfuzz
+
+Script author: nsr (nsr@tasteless.eu)
+
+Script runtime: ~15 seconds per binary
+
+Originally, a binary was given to the ctf-player by the challenge-service, and an exploit had to be crafted automatically. Four sample binaries, obtained during the ctf, are included in the example.
+All binaries followed the same format; the command-line argument is validated in a bunch of functions, and when every check succeeds, a memcpy() resulting into a stack-based bufferoverflow is executed.
+Angr is used to find the way through the binary to the memcpy() and to generate valid inputs to every checking function individually.
+
+Both sample binaries and the script are located [here](https://github.com/angr/angr-doc/tree/master/examples/secuinside2016mbrainfuzz) and additional information be found at the author's [Write-Up](https://tasteless.eu/post/2016/07/secuinside-mbrainfuzz/).
+
 ### ReverseMe example: SecurityFest 2016 - fairlight
 
 Script author: chuckleberryfinn (github: [@chuckleberryfinn](https://github.com/chuckleberryfinn))
