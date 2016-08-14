@@ -155,6 +155,7 @@ There are many other places to break than a memory write. Here is the list. You 
 | exit              | A SimExit is being created from a SimIRSB. |
 | symbolic_variable | A new symbolic variable is being created. |
 | call              | A call instruction is hit. |
+| address_concretization | A symbolic memory access is being resolved. |
 
 These events expose different attributes:
 
@@ -188,6 +189,12 @@ These events expose different attributes:
 | symbolic_variable | symbolic_name      | BP_BEFORE or BP_AFTER  | The name of the symbolic variable being created. The solver engine might modify this name (by appending a unique ID and length). Check the symbolic_expr for the final symbolic expression. |
 | symbolic_variable | symbolic_size      | BP_BEFORE or BP_AFTER  | The size of the symbolic variable being created. |
 | symbolic_variable | symbolic_expr      | BP_AFTER               | The expression representing the new symbolic variable. |
+| address_concretization | address_concretization_strategy | BP_BEFORE or BP_AFTER | The SimConcretizationStrategy being used to resolve the address. This can be modified by the breakpoint handler to change the strategy that will be applied. If your breakpoint handler sets this to None, this strategy will be skipped. |
+| address_concretization | address_concretization_action | BP_BEFORE or BP_AFTER | The SimAction object being used to record the memory action. |
+| address_concretization | address_concretization_memory | BP_BEFORE or BP_AFTER | The SimMemory object on which the action was taken. |
+| address_concretization | address_concretization_expr | BP_BEFORE or BP_AFTER | The AST representing the memory index being resolved. The breakpoint handler can modify this to affect the address being resolved. |
+| address_concretization | address_concretization_add_constraints | BP_BEFORE or BP_AFTER | Whether or not constraints should/will be added for this read. |
+| address_concretization | address_concretization_result | BP_AFTER | The list of resolved memory addresses (integers). The breakpoint handler can overwrite these to effect a different resolution result. |
 
 These attributes can be accessed as members of `state.inspect` during the appropriate breakpoint callback to access the appropriate values.
 You can even modify these value to modify further uses of the values!
@@ -223,3 +230,15 @@ Cool stuff! In fact, we can even specify a function as a condition:
 ```
 
 That is some cool stuff!
+
+# Symbolic memory indexing
+
+SimuVEX supports *symbolic memory addressing*, meaning that offsets into memory may be symbolic.
+Our implementation of this is inspired by "Mayhem".
+
+This resolution behavior is governed by *concretization strategies*, which are subclasses of `simuvex.concretization_strategies.SimConcretizationStrategy`.
+Concretization strategies for reads are set in `state.memory.read_strategies` and for writes in `state.memory.write_strategies`.
+These strategies are called, in order, until one of them is able to resolve addresses for the symbolic index.
+By setting your own concretization managers (or through the use of SimInspect `address_concretization` breakpoints, described above), you can change the way SimuVEX resolves symbolic addresses.
+
+_TODO: elaborate_
