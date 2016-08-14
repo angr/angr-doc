@@ -1,6 +1,7 @@
 #!/usr/bin/env python
 # coding: utf-8
 import angr
+import simuvex
 
 def main():
     # Load the binary. This is a 64-bit C++ binary, pretty heavily obfuscated.
@@ -9,8 +10,8 @@ def main():
     # This block constructs the initial program state for analysis.
     # Because we're going to have to step deep into the C++ standard libraries
     # for this to work, we need to run everyone's initializers. The full_init_state
-    # will do that.
-    st = p.factory.full_init_state(args=['./wyvern'])
+    # will do that. In order to do this peformantly, we will use the unicorn engine!
+    st = p.factory.full_init_state(args=['./wyvern'], add_options=simuvex.o.unicorn, remove_options={simuvex.o.LAZY_SOLVES})
 
     # It's reasonably easy to tell from looking at the program in IDA that the key will
     # be 29 bytes long, and the last byte is a newline.
@@ -30,13 +31,9 @@ def main():
     st.posix.files[0].length = 29
 
     # Construct a path group to perform symbolic execution.
-    # Step the program though 100000 basic blocks (it will not actually get to run
-    # that many blocks, all the paths will deadend before that).
-    # The step_func argument is run after each step, and instructs the program to
-    # check that each state is satisfiable and prune the ones that aren't if there's more
-    # than one state active.
-    pg = p.factory.path_group(st, immutable=False)
-    pg.step(step_func=lambda lpg: lpg if len(lpg.active) == 1 else lpg.prune(), n=100000)
+    # Step until there is nothing left to be stepped.
+    pg = p.factory.path_group(st)
+    pg.run()
 
     # Get the stdout of every path that reached an exit syscall. The flag should be in one of these!
     out = ''
