@@ -19,6 +19,7 @@
 * [Analyses](docs/analyses.md)
    * [CFGAccurate](docs/analyses/cfg_accurate.md)
    * [Backward Slicing](docs/analyses/backward_slice.md)
+* [Speed Considerations](docs/speed.md)
 * [Examples](docs/examples.md)
 * [FAQ](docs/faq.md)
 * [Gotchas](docs/gotchas.md)
