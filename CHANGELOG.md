@@ -3,6 +3,29 @@
 This lists the *major* changes in angr.
 Tracking minor changes are left as an exercise for the reader :-)
 
+## angr 5.6.8.17
+
+Major point release! An incredible number of things have changed in the month run-up to the Cyber Grand Challenge.
+
+- Integration with [Unicorn Engine](https://github.com/unicorn/unicorn-engine) supported for concrete execution.
+  A new SimRun type, SimUnicorn, may step through many basic blocks at once, so long as there is no operation on symbolic data.
+- Lots of improvements to the VFG analysis, including speed and accuracy.
+- Lots of speed optimizations in general - CFGFast should be 3-6x faster under CPython with much less memory usage.
+- Path Hierarchy is moved into Path History, which is moved into its own file.
+- Merging of paths (as opposed to states) is performed in a much smarter way.
+- The behavior of the `support_selfmodifying_code` project option is changed:
+  Before, this would allow the state to be used as a fallback source of instruction bytes when no backer from CLE is available.
+  Now, this option makes instruction lifting use the state as the source of bytes always.
+  When the option is disabled and execution jumps outside the normal binary, the state will be used automatically.
+- *Actually* support self-modifying code - if a basic block of code modifies itself, the block will be re-lifted before the next instruction starts.
+- Syscalls are handled differently now - Before you would see a SimRun for a syscall helper, now you'll just see a SimProcedure for the given syscall.
+  Additionally, each syscall has its own address in a "syscalls segment", and syscalls are treated as jumps to this segment.
+  This simplifies a lot of things analysis-wise.
+- CFGAccurate accepts a `base_graph` keyword to its constructor, e.g. `CFGFast().graph`, to use as a base for analysis.
+- New fast memory model for cases where symbolic-addressed reads and writes are unlikely.
+- Conflicts between the `find` and `avoid` parameters to the Explorer otiegnqwvk are resolved correctly. (credit clslgrnc)
+- New analysis `StaticHooker` which hooks library functions in unstripped statically linked binaries.
+
 ## angr 4.6.6.28
 
 In general, there have been enormous amounts of speed improvements in this release.
