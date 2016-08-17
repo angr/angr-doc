@@ -134,15 +134,15 @@ branched_left = p.successors[0]
 branched_right = p.successors[1]
 assert branched_left.addr != branched_right.addr
 
+# Step the branches until they converge again
 after_branched_left = branched_left.step()[0]
 after_branched_right = branched_right.step()[0]
 assert after_branched_left.addr == after_branched_right.addr
 
 # this will merge both branches into a single path. Values in memory and registers
 # will hold any possible values they could have held in either path.
-merged = branched_left.merge(branched_right)
-
-assert merged.addr == branched_left.addr and merged.addr == branched_right.addr
+merged = after_branched_left.merge(after_branched_right)
+assert merged.addr == after_branched_left.addr and merged.addr == after_branched_right.addr
 ```
 
 Paths can also be unmerged later.
