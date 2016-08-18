@@ -61,7 +61,7 @@ Sometimes it’s difficult to get a data dependence graph, or you may simply wan
 That’s basically why DDG is an optional parameter.
 You can build a `BackwardSlice` solely based on CFG by doing:
 ```
->>> bs = b.analyses.BackwardSlice(cfg, control_flow_sice=True)
+>>> bs = b.analyses.BackwardSlice(cfg, control_flow_slice=True)
 BackwardSlice (to [(<CFGNode exit (0x10000a0) [0]>, -1)])
 ```
 
