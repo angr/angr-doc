@@ -11,6 +11,7 @@ Major point release! An incredible number of things have changed in the month ru
   A new SimRun type, SimUnicorn, may step through many basic blocks at once, so long as there is no operation on symbolic data.
 - Lots of improvements to the VFG analysis, including speed and accuracy.
 - Lots of speed optimizations in general - CFGFast should be 3-6x faster under CPython with much less memory usage.
+- New state option `simuvex.o.STRICT_PAGE_ACCESS` will cause a `SimSegfaultError` to be raised whenever the guest reads/writes/executes memory that is either unmapped or doesn't have the appropriate permissions.
 - Path Hierarchy is moved into Path History, which is moved into its own file.
 - Merging of paths (as opposed to states) is performed in a much smarter way.
 - The behavior of the `support_selfmodifying_code` project option is changed:
