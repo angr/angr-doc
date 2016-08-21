@@ -227,7 +227,7 @@ Symbolic expressions would be pretty boring on their own. After all, the last fe
 >>> assert s3.se.solution(m, 30)
 # ... and so on
 
-# Now, let's add a constraint, forcing m to be greater than 10
+# Now, let's add a constraint, forcing m to be less than 10
 >>> s3.add_constraints(m < 10)
 
 # We can see the effect of this right away!
