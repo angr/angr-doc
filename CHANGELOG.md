@@ -7,16 +7,18 @@ Tracking minor changes are left as an exercise for the reader :-)
 
 Major point release! An incredible number of things have changed in the month run-up to the Cyber Grand Challenge.
 
-- Integration with [Unicorn Engine](https://github.com/unicorn/unicorn-engine) supported for concrete execution.
+- Integration with [Unicorn Engine](https://github.com/unicorn-engine/unicorn) supported for concrete execution.
   A new SimRun type, SimUnicorn, may step through many basic blocks at once, so long as there is no operation on symbolic data.
+  Please use [our fork of unicorn engine](https://github.com/angr/unicorn), which has many patches applied.
+  All these patches are pending merge into upstream.
 - Lots of improvements and bug fixes to CFGFast.
   Rumors are angr’s CFG was only "optimized" for x86-64 binaries (which is really because most of our test cases are compiled as 64-bit ELFs).
   Now it is also “optimized” for x86 binaries :)
-- Lots of improvements to the VFG analysis, including speed and accuracy. However, there are still a lot to be done.
+  (editor's note: angr is built with cross-architecture analysis in mind. CFG construction is pretty much the only component which has architecture-specific behavior.)
+- Lots of improvements to the VFG analysis, including speed and accuracy. However, there is still a lot to be done.
 - Lots of speed optimizations in general - CFGFast should be 3-6x faster under CPython with much less memory usage.
 - Now data dependence graph gives you a real dependence graph between variable definitions. Try `data_graph` and `simplified_data_graph` on a DDG object!
 - New state option `simuvex.o.STRICT_PAGE_ACCESS` will cause a `SimSegfaultError` to be raised whenever the guest reads/writes/executes memory that is either unmapped or doesn't have the appropriate permissions.
-- Path Hierarchy is moved into Path History, which is moved into its own file.
 - Merging of paths (as opposed to states) is performed in a much smarter way.
 - The behavior of the `support_selfmodifying_code` project option is changed:
   Before, this would allow the state to be used as a fallback source of instruction bytes when no backer from CLE is available.
@@ -31,8 +33,9 @@ Major point release! An incredible number of things have changed in the month ru
 - Conflicts between the `find` and `avoid` parameters to the Explorer otiegnqwvk are resolved correctly. (credit clslgrnc)
 - New analysis `StaticHooker` which hooks library functions in unstripped statically linked binaries.
 - `Lifter` can be used without creating an angr Project.
-  Just make sure to pass in the correct `arch` to `.lift()` and `.fresh_block()`.
-- Add two new analyses (mostly as examples of doing static analysis with angr): Reassembler and BinaryOptimizer.
+  You must manually specify the architecture and bytestring in calls to `.lift()` and `.fresh_block()`.
+  If you like, you can also specify the architecture as a parameter to the constructor and omit it from the lifting calls.
+- Add two new analyses developed for the CGC (mostly as examples of doing static analysis with angr): Reassembler and BinaryOptimizer.
 
 ## angr 4.6.6.28
 
