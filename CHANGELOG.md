@@ -3,14 +3,18 @@
 This lists the *major* changes in angr.
 Tracking minor changes are left as an exercise for the reader :-)
 
-## angr 5.6.8.17
+## angr 5.6.8.22
 
 Major point release! An incredible number of things have changed in the month run-up to the Cyber Grand Challenge.
 
 - Integration with [Unicorn Engine](https://github.com/unicorn/unicorn-engine) supported for concrete execution.
   A new SimRun type, SimUnicorn, may step through many basic blocks at once, so long as there is no operation on symbolic data.
-- Lots of improvements to the VFG analysis, including speed and accuracy.
+- Lots of improvements and bug fixes to CFGFast.
+  Rumors are angr’s CFG was only "optimized" for x86-64 binaries (which is really because most of our test cases are compiled as 64-bit ELFs).
+  Now it is also “optimized” for x86 binaries :)
+- Lots of improvements to the VFG analysis, including speed and accuracy. However, there are still a lot to be done.
 - Lots of speed optimizations in general - CFGFast should be 3-6x faster under CPython with much less memory usage.
+- Now data dependence graph gives you a real dependence graph between variable definitions. Try `data_graph` and `simplified_data_graph` on a DDG object!
 - New state option `simuvex.o.STRICT_PAGE_ACCESS` will cause a `SimSegfaultError` to be raised whenever the guest reads/writes/executes memory that is either unmapped or doesn't have the appropriate permissions.
 - Path Hierarchy is moved into Path History, which is moved into its own file.
 - Merging of paths (as opposed to states) is performed in a much smarter way.
@@ -22,10 +26,13 @@ Major point release! An incredible number of things have changed in the month ru
 - Syscalls are handled differently now - Before you would see a SimRun for a syscall helper, now you'll just see a SimProcedure for the given syscall.
   Additionally, each syscall has its own address in a "syscalls segment", and syscalls are treated as jumps to this segment.
   This simplifies a lot of things analysis-wise.
-- CFGAccurate accepts a `base_graph` keyword to its constructor, e.g. `CFGFast().graph`, to use as a base for analysis.
+- CFGAccurate accepts a `base_graph` keyword to its constructor, e.g. `CFGFast().graph`, or even `.graph` of a function, to use as a base for analysis.
 - New fast memory model for cases where symbolic-addressed reads and writes are unlikely.
 - Conflicts between the `find` and `avoid` parameters to the Explorer otiegnqwvk are resolved correctly. (credit clslgrnc)
 - New analysis `StaticHooker` which hooks library functions in unstripped statically linked binaries.
+- `Lifter` can be used without creating an angr Project.
+  Just make sure to pass in the correct `arch` to `.lift()` and `.fresh_block()`.
+- Add two new analyses (mostly as examples of doing static analysis with angr): Reassembler and BinaryOptimizer.
 
 ## angr 4.6.6.28
 
