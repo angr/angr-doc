@@ -13,8 +13,6 @@ def main():
     main        = 0x405a6f # Fail message to be printed
     find        = 0x405aee # Win message printed
     avoid       = (0x405af0, 0x405ab4) # First two ways to fail from main
-    flag_addr   = -1       # Will contain the flag address in memory...
-    flag_in_reg = 0x405a91 # ... found in $rdi when $pc reaches this address
     crazy       = 0x400646 # Entry point of Crazy function
 
     # Offset (from IDA) of 'FAIL' blocks in Crazy
