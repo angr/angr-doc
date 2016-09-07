@@ -111,7 +111,7 @@ rax: <BV64 0x37>
 Pathgroups are supposed to replace `surveyors.Explorer`, being more clever and
 efficient. When launching path_group.Explore with a `find` argument, multiple
 paths will be launched and step until one of them finds one of the address we
-are looking for. Paths reaching the `avoid`ed addresses, if any, will be put
+are looking for. Paths reaching the `avoided` addresses, if any, will be put
 into the `avoided` stash. If an active path reaches an interesting address, it
 will be stashed into the `found` stash, and the other ones will remain active.
 You can then explore the found path, or decide to discard it and continue with
