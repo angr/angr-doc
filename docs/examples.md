@@ -13,6 +13,14 @@ Binary, source, and script are found [here.](https://github.com/angr/angr-doc/tr
 
 ## CTF Problems
 
+### ReverseMe example: HackCon 2016 - angry-reverser
+
+author: Stanislas Lejay (github: [@P1kachu](https://github.com/P1kachu))
+
+Script runtime: ~31 minutes
+
+Here is the [binary](https://github.com/angr/angr-doc/tree/master/examples/hackcon2016_angry-reverser/yolomolo) and the [script](https://github.com/angr/angr-doc/tree/master/examples/hackcon2016_angry-reverser/solve.py)
+
 ### ReverseMe example: SecurityFest 2016 - fairlight
 
 Script author: chuckleberryfinn (github: [@chuckleberryfinn](https://github.com/chuckleberryfinn))
