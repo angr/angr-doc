@@ -11,7 +11,7 @@ Given a machine state and a VEX IR block, SimuVEX provides a resulting machine s
 
 SimuVEX's ultimate goal is to provide a semantic meaning to blocks of binary code.
 
-While the IR gives us syntactic meaning (i.e., what statements the block containts), SimuVEX can provide us semantic meaning (i.e., what the block *does* to a given state).
+While the IR gives us syntactic meaning (i.e., what statements the block contains), SimuVEX can provide us semantic meaning (i.e., what the block *does* to a given state).
 We'll now move on to how to do that.
 
 ## Accessing SimIRSBs
