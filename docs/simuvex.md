@@ -242,3 +242,8 @@ These strategies are called, in order, until one of them is able to resolve addr
 By setting your own concretization managers (or through the use of SimInspect `address_concretization` breakpoints, described above), you can change the way SimuVEX resolves symbolic addresses.
 
 _TODO: elaborate_
+
+# SimuVEX Options
+
+SimuVEX is extremely customizable through the use of _state options_, a set of constants stored in `state.options`.
+These options are documented in the [source code](https://github.com/angr/simuvex/blob/master/simuvex/s_options.py).
