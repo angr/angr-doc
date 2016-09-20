@@ -13,6 +13,9 @@ md_files = filter(lambda s: s.endswith('.md'), [
 md_files += filter(lambda s: s.endswith('.md'), [
     os.path.join(_path('docs/analyses'), t) for t in os.listdir(_path('docs/analyses'))
 ])
+md_files += filter(lambda s: s.endswith('.md'), [
+    os.path.join(_path('docs/courses'), t) for t in os.listdir(_path('docs/courses'))
+])
 example_dirs = filter(lambda s: '.' not in s, os.listdir(_path('examples')))
 
 sys.path.append('.')
