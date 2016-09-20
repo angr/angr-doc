@@ -142,16 +142,16 @@ def main():
     if ( len( found ) > 0 ):    #   Make sure we found a path before giving the solution
         found = path_group.found[0]
         result = found.state.se.any_str(argv[1])
+        try:
+            result = result[:result.index('\0')]
+        except ValueError:
+            pass
     else:   # Aww somehow we didn't find a path.  Time to work on that check() function!
         result = "Couldn't find any paths which satisfied our conditions."
     return result
 
 def test():
-    '''
-     angr sometimes returns stuff after the password, so we'll just test the first
-     32 bytes
-    '''
-    assert main()[:27] == "Totally not the password..."
+    assert main() == "Totally not the password..."
 
 if __name__ == "__main__":
-    print main()
+    print 'The password is "%s"' % main()
