@@ -16,7 +16,7 @@ There are several things that you can do:
 2. Replace the SimProcedure with something written directly to the situation in question. For example, our `scanf` implementation is not complete, but if you just need to support a single, known format string, you can write a hook to do exactly that.
 3. Fix the SimProcedure.
 
-# Unsupported syscalls
+## Unsupported syscalls
 
 System calls are also implemented as SimProcedures.
 Unfortunately, there are system calls that we have not yet implemented in angr.
@@ -26,7 +26,7 @@ There are several workarounds for an unsupported system call:
 2. Hook the callsite of the system call (using `project.hook`) to make the required modifications to the state in an ad-hoc way.
 3. Use the `state.posix.queued_syscall_returns` list to queue syscall return values. If a return value is queued, the system call will not be executed, and the value will be used instead. Furthermore, a function can be queued instead as the "return value", which will result in that function being applied to the state when the system call is triggered.
 
-# Symbolic memory model
+## Symbolic memory model
 
 The default memory model used by angr is inspired by [Mayhem](https://users.ece.cmu.edu/~dbrumley/pdf/Cha%20et%20al._2012_Unleashing%20Mayhem%20on%20Binary%20Code.pdf).
 This memory model supports limited symbolic reads and writes.
@@ -34,7 +34,7 @@ If the memory index of a read is symbolic and the range of possible values of th
 If the memory index of a write is symbolic at all, the index is concretized to a single value.
 This is configurable by changing the memory concretization strategies of `state.memory`.
 
-# Symbolic lengths
+## Symbolic lengths
 
 SimProcedures, and especially system calls such as `read()` and `write()` might run into a situation where the *length* of a buffer is symbolic.
 In general, this is handled very poorly: in many cases, this length will end up being concretized outright or retroactively concretized in later steps of execution.
