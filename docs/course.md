@@ -5,6 +5,8 @@ This course is meant to supplement the examples, gitbook, and API reference by g
 
 Where possible, we'll include slides explaining the underlying concepts and maybe even some video tutorials!
 
+Chapter 1 : Static Analysis with crackmes
+
 # TODO: basic symbolic execution - step a path group
 
 # TODO: next steps - using avoid, etc to cut down on path explosion
