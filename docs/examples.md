@@ -13,9 +13,27 @@ Binary, source, and script are found [here.](https://github.com/angr/angr-doc/tr
 
 ## CTF Problems
 
+### ReverseMe example: TUMCTF 2016 - zwiebel
+
+Script author: Fish
+
+Script runtime: 2 hours 31 minutes with Pypy and Unicorn - expect much longer with CPython only
+
+We were given a binary that unpacks and executes a small amount of code each time, which checks the input.
+You may refer to other writeup about the internals of this binary.
+I didn’t reverse too much since I was pretty confident that angr is able to solve it :-)
+
+This example shows how to enable Unicorn support and self-modification support in angr.
+Unicorn support is essential to solve this challenge within a reasonable amount of time - simulating the unpacking code is *very* slow.
+
+The long-term goal of optimizing angr is to execute this script within 10 minutes.
+Pretty ambitious :P
+
+Here is the [binary](https://github.com/angr/angr-doc/tree/master/examples/tumctf2016_zwiebel/zwiebel) and the [script](https://github.com/angr/angr-doc/tree/master/examples/tumctf2016_zwiebel/solve.py).
+
 ### ReverseMe example: HackCon 2016 - angry-reverser
 
-author: Stanislas Lejay (github: [@P1kachu](https://github.com/P1kachu))
+Script author: Stanislas Lejay (github: [@P1kachu](https://github.com/P1kachu))
 
 Script runtime: ~31 minutes
 
