@@ -57,14 +57,11 @@ Backends
 ..  automodule:: claripy.backends
 ..  automodule:: claripy.backends.backend_concrete
 ..  automodule:: claripy.backends.backend_z3
-..  automodule:: claripy.backends.backend_z3_parallel
-..  automodule:: claripy.backends.backendremote
-..  automodule:: claripy.backends.celeryconfig
-..  automodule:: claripy.backends.remotetasks
  
 Frontends
 ---------
 
+..  automodule:: claripy.frontend
 ..  automodule:: claripy.frontends
 ..  automodule:: claripy.frontends.caching_frontend
 ..  automodule:: claripy.frontends.composite_frontend
@@ -74,6 +71,22 @@ Frontends
 ..  automodule:: claripy.frontends.light_frontend
 ..  automodule:: claripy.frontends.replacement_frontend
 
+Frontend Mixins
+---------------
+.. automodule:: claripy.frontend_mixins
+.. automodule:: claripy.frontend_mixins.composited_cache_mixin
+.. automodule:: claripy.frontend_mixins.concrete_handler_mixin
+.. automodule:: claripy.frontend_mixins.constraint_deduplicator_mixin
+.. automodule:: claripy.frontend_mixins.constraint_expansion_mixin
+.. automodule:: claripy.frontend_mixins.constraint_filter_mixin
+.. automodule:: claripy.frontend_mixins.constraint_fixer_mixin
+.. automodule:: claripy.frontend_mixins.debug_mixin
+.. automodule:: claripy.frontend_mixins.eager_resolution_mixin
+.. automodule:: claripy.frontend_mixins.model_cache_mixin
+.. automodule:: claripy.frontend_mixins.sat_cache_mixin
+.. automodule:: claripy.frontend_mixins.simplify_helper_mixin
+.. automodule:: claripy.frontend_mixins.simplify_skipper_mixin
+.. automodule:: claripy.frontend_mixins.solve_block_mixin
 
 VSA
 ---
@@ -85,4 +98,3 @@ VSA
 ..  automodule:: claripy.vsa.errors
 ..  automodule:: claripy.vsa.strided_interval
 ..  automodule:: claripy.vsa.valueset
- 

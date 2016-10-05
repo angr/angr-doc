@@ -20,6 +20,7 @@ Plugins
 -------
 
 .. automodule:: simuvex.plugins
+.. automodule:: simuvex.plugins.symbolic_memory
 .. automodule:: simuvex.plugins.abstract_memory
 .. automodule:: simuvex.plugins.cgc
 .. automodule:: simuvex.plugins.gdb
@@ -41,6 +42,7 @@ Storage
 ..  automodule:: simuvex.storage.memory
 ..  automodule:: simuvex.storage.memory_object
 ..  automodule:: simuvex.storage.paged_memory
+.. automodule:: simuvex.concretization_strategies
  
 Vex
 ---

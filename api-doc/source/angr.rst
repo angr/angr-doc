@@ -73,7 +73,6 @@ Surveyors
 .. automodule:: angr.surveyors.executor
 .. automodule:: angr.surveyors.explorer
 .. automodule:: angr.surveyors.slicecutor
-.. automodule:: angr.surveyors.sser
 
 Lifter
 ------
