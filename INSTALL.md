@@ -80,7 +80,7 @@ curl -sSL https://get.docker.com/ | sudo sh
 sudo docker pull angr/angr
 
 # run it
-sudo docker run -it angr
+sudo docker run -it angr/angr
 ```
 
 Synchronization of files in and out of docker is left as an exercise to the user (hint: check out `docker -v`).
