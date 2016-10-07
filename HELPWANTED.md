@@ -61,6 +61,7 @@ This can be written in Python, if it just outputs PyVEX structures.
 - PIC, AVR, other embedded architectures
 - SPARC (there is some preliminary libVEX support for SPARC [here](https://bitbucket.org/iraisr/valgrind-solaris))
 - LLVM IR (with this, we can extend angr from just a Binary Analysis Framework to a Program Analysis Framework and expand its capabilities in other ways!)
+- SOOT (there is no reason that angr can't analyze Java code, although doing so would require some extensions to our memory model)
 
 ## Development: environment support
 
@@ -71,3 +72,33 @@ These function summaries can be found [here](https://github.com/angr/simuvex/tre
 A specific subset of this is system calls.
 Even more than library function SimProcedures (without which angr can always execute the actual function), we have very few workarounds for missing system calls.
 Every implemented system call extends the set of binaries that angr can handle!
+
+## Development: in-vivo concolic execution
+
+Rather than developing symbolic summaries for every system call, we can use a technique proposed by [S2E](http://dslab.epfl.ch/pubs/s2e.pdf) for concretizing necessary data and dispatching them to the OS itself.
+This would make angr applicable to a *much* larger set of binaries than it can currently analyze.
+
+While this would be most useful for system calls, once it is implemented, it could be trivially applied to any location of code (i.e., library functions).
+By carefully choosing which library functions are handled like this, we can greatly increase angr's scalability.
+
+## Design: type annotation and type information usage
+
+angr has fledgling support for types, in the sense that it can parse them out of header files.
+However, those types are not well exposed to do anything useful with.
+Improving this support would make it possible to, for example, annotate certain memory regions with certain type information and interact with them intelligently.
+
+Consider, for example, interacting with a linked list like this: `print state.memory[state.regs.rax:].next.next.value`.
+
+## Research: semantic function identification/diffing
+
+Current function diffing techniques (TODO: some examples) have drawbacks.
+For the CGC, we created a semantic-based binary identification engine (https://github.com/angr/identifier) that can identify functions based on testcases.
+There are two areas of improvement, each of which is its own research project:
+
+1. Currently, the testcases used by this component are human-generated. However, symbolic execution can be used to automatically generate testcases that can be used to recognize instances of a given function in other binaries.
+2. By creating testcases that achieve a "high-enough" code coverage of a given function, we can detect changes in functionality by applying the set of testcases to another implementation of the same function and analyzing changes in code coverage. This can then be used as a sematic function diff.
+
+## Research: applying AFL's path selection criteria to symbolic execution
+
+AFL does an excellent job in identifying "unique" paths during fuzzing by tracking the control flow transitions taken by every path.
+This same metric can be applied to symbolic exploration, and would probably do a depressingly good job, considering how simple it is.
