@@ -45,6 +45,13 @@ We have several projects in mind that primarily require development effort.
 ### angr-management
 
 The angr GUI, [angr-management](https://github.com/angr/angr-management) needs a *lot* of work.
+Here is a non-exhaustive list of what is currently missing in angr-management:
+
+- A navigator toolbar showing content in a program’s memory space, just like IDA Pro’s navigator toolbar.
+- A text-based disassembly view of the program.
+- Better view showing details in program states during path exploration, including modifiable register view, memory view, file descriptor view, etc.
+- A GUI for cross referencing.
+
 Exposing angr's capabilities in a usable way, graphically, would be really useful!
 
 ### additional architectures
@@ -62,10 +69,13 @@ Supporting a new architecture with angr would involve:
 An alternative to steps 2 and 3 would be to write a lifter that lifts the architecture's native code to VEX.
 This can be written in Python, if it just outputs PyVEX structures.
 
-__Ideas for new architectures/IRs:__
+__ideas for new architectures:__
 
 - PIC, AVR, other embedded architectures
 - SPARC (there is some preliminary libVEX support for SPARC [here](https://bitbucket.org/iraisr/valgrind-solaris))
+
+__ideas for new IRs:__
+
 - LLVM IR (with this, we can extend angr from just a Binary Analysis Framework to a Program Analysis Framework and expand its capabilities in other ways!)
 - SOOT (there is no reason that angr can't analyze Java code, although doing so would require some extensions to our memory model)
 
