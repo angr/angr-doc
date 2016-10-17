@@ -13,7 +13,8 @@ All of the python dependencies should be handled by pip and/or the setup.py scri
 You will, however, need to build some C to get from here to the end, so you'll need a good build environment as well as the python development headers.
 At some point in the dependency install process, you'll install the python library cffi, but (on linux, at least) it won't run unless you install your operating system's libffi package.
 
-On Ubuntu, you will want: `sudo apt-get install python-dev libffi-dev build-essential virtualenvwrapper`
+On Ubuntu, you will want: `sudo apt-get install python-dev libffi-dev build-essential virtualenvwrapper`.
+If you are trying out angr-management, you will need `sudo apt-get libqt4-default`.
 
 ## Most Operating systems, all \*nix systems
 
