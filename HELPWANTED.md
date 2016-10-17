@@ -38,6 +38,27 @@ Steps have already been made in this direction [here](https://github.com/angr/an
 
 Ideally, the course would have a hands-on component, of increasing difficulty, that would require people to use more and more of angr's capabilities.
 
+## Research re-implementation
+
+Unfortunately, not everyone bases their research on angr ;-).
+Until that's remedied, we'll need to periodically implement related work, on top of angr, to make it reusable within the scope of the framework.
+This section lists some of this related work that's ripe for reimplementation in angr.
+
+### Redundant State Detection for Dynamic Symbolic Execution
+
+Bugrara, et al. describe a method to identify and trim redundant states, increasing the speed of symbolic execution by up to 50 times and coverage by 4%.
+This would be great to have in angr, as an ExplorationTechnique.
+The paper is here: http://nsl.cs.columbia.edu/projects/minestrone/papers/atc13-bugrara.pdf
+
+### In-Vivo Multi-Path Analysis of Software Systems
+
+Rather than developing symbolic summaries for every system call, we can use a technique proposed by [S2E](http://dslab.epfl.ch/pubs/s2e.pdf) for concretizing necessary data and dispatching them to the OS itself.
+This would make angr applicable to a *much* larger set of binaries than it can currently analyze.
+
+While this would be most useful for system calls, once it is implemented, it could be trivially applied to any location of code (i.e., library functions).
+By carefully choosing which library functions are handled like this, we can greatly increase angr's scalability.
+
+
 ## Development
 
 We have several projects in mind that primarily require development effort.
@@ -93,14 +114,6 @@ These function summaries can be found [here](https://github.com/angr/simuvex/tre
 A specific subset of this is system calls.
 Even more than library function SimProcedures (without which angr can always execute the actual function), we have very few workarounds for missing system calls.
 Every implemented system call extends the set of binaries that angr can handle!
-
-### in-vivo concolic execution
-
-Rather than developing symbolic summaries for every system call, we can use a technique proposed by [S2E](http://dslab.epfl.ch/pubs/s2e.pdf) for concretizing necessary data and dispatching them to the OS itself.
-This would make angr applicable to a *much* larger set of binaries than it can currently analyze.
-
-While this would be most useful for system calls, once it is implemented, it could be trivially applied to any location of code (i.e., library functions).
-By carefully choosing which library functions are handled like this, we can greatly increase angr's scalability.
 
 ## Design Problems
 
