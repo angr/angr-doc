@@ -54,6 +54,11 @@ Here is a non-exhaustive list of what is currently missing in angr-management:
 
 Exposing angr's capabilities in a usable way, graphically, would be really useful!
 
+### IDA Plugins
+
+Much of angr's functionality could be exposed via IDA.
+For example, angr's data dependence graph could be exposed in IDA through annotations, or obfuscated values can be resolved using symbolic execution.
+
 ### additional architectures
 
 More architecture support would make angr all the more useful.
