@@ -14,7 +14,7 @@ You will, however, need to build some C to get from here to the end, so you'll n
 At some point in the dependency install process, you'll install the python library cffi, but (on linux, at least) it won't run unless you install your operating system's libffi package.
 
 On Ubuntu, you will want: `sudo apt-get install python-dev libffi-dev build-essential virtualenvwrapper`.
-If you are trying out angr-management, you will need `sudo apt-get libqt4-default`.
+If you are trying out angr-management, you will need `sudo apt-get install libqt4-dev`.
 
 ## Most Operating systems, all \*nix systems
 
