@@ -9,6 +9,10 @@
 * Python 2.7, and a properly configured `PATH` environment variable.
 * `g++`/`cpp` and `cmake` via [Cygwin](https://cygwin.com/install.html)
 
+## Instructions
+
+* Run `install_angr.bat` from a Visual Studio Developer Command Prompt.
+
 See [Installing Angr in
 Windows](https://blog.spirotot.com/2016/11/05/installing-angr-in-windows/) for
 more help/details.
