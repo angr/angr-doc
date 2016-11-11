@@ -1,5 +1,4 @@
 ;@echo off
-pip install capstone-windows
 
 powershell -Command "wget https://github.com/angr/archinfo/archive/master.zip -OutFile archinfo-master.zip"
 powershell -Command "wget https://github.com/angr/pyvex/archive/master.zip -OutFile pyvex-master.zip"
