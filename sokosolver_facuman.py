@@ -1,12 +1,9 @@
 import angr
 import sys
-import simuvex
 import struct
 from itertools import combinations, product
 
-#WIN_HASH = "C03922D0206DC3A33016010D6C66936E953ABAB9000010AE805CE8463CBE9A2D".decode("hex")
-WIN_HASH = "D5C0E6E33E3C16853457C96C11C626F3628E95480000160ABFE0AA76C108E671".decode("hex")
-
+WIN_HASH = "C03922D0206DC3A33016010D6C66936E953ABAB9000010AE805CE8463CBE9A2D".decode("hex")
 
 
 def get_valid_coords():
@@ -48,21 +45,21 @@ def get_valid_coords():
 
     return valid
 
+def do_memset(state):
+    addr = 0x417490
+    with open("matrix.bin","rb") as f:
+        content = f.read()
+        for i in content:            
+            state.memory.store(addr, state.se.BVV(ord(i), 8 * 1))
+            addr += 1
 
-def get_table(state):
-    base_addr_table = 0x41D450
-    current_addr = base_addr_table
-    end_addr = 0x0041E0D0
+    start_off = 0x41d450 - addr
+    end_off = 0x41e0c8 - addr
+    coords = []
+    for i in xrange(start_off, end_off+8, 8):        
+        coords.append(struct.unpack("<Q", content[i:i+8])[0])
 
-    t = []
-    conc = state.se.any_int
-    while current_addr < end_addr:
-        n = conc(state.memory.load(current_addr, 8))
-        pn = struct.unpack(">Q", struct.pack("<Q", n))[0]
-        t.append(pn)
-        current_addr += 8
-
-    return t
+    return coords
 
 def do_repmovsd(state):
     # angr does not like rep movsd
@@ -89,11 +86,19 @@ def main():
     proj = angr.Project('sokohashv2.0.exe', use_sim_procedures=True, load_options={"auto_load_libs": False})
 
     # addrs 
+    main = 0x401013
     to_find = 0x0040123E
     hash_addr = 0x04216C0
 
-    proj.hook(0x0040102c, do_nothing,length=6)
-    proj.hook(0x00401033, do_nothing,length=6)
+    # hooks
+    func_hooks = [0x0040102C, 0x0401033]
+    for addr in func_hooks:
+        proj.hook(addr, do_nothing, length=6) 
+
+    func_hooks = [0x401215, 0x40121E, 0x401239, 0x40123C]
+    for addr in func_hooks:
+        proj.hook(addr, do_nothing, length=2) 
+
     proj.hook(0x0401028, do_repmovsd, length=2)
     proj.hook(0x0401253, do_nothing, length=5) 
     proj.hook(0x040103E, do_nothing, length=5) 
@@ -101,28 +106,31 @@ def main():
     proj.hook(0x0401243, do_nothing, length=5) 
 
     # initial state
-    init = proj.factory.blank_state(addr=0x401013)
+    init = proj.factory.blank_state(addr=main)
     
+    coords = do_memset(init)
+    coord_dict = {}
+    count = 0
+    for i in get_valid_coords():
+        #print "%s = %.16x" % (i, pos[count])
+        coord_dict[coords[count]] = i
+        count += 1
+
     init.regs.ebp = init.regs.esp + 0x78
 
-
-    start = init.regs.ebp
-    r1 = init.memory.load(start+0x08, 8, endness=proj.arch.memory_endness)
-    r2 = init.memory.load(start+0x10, 8, endness=proj.arch.memory_endness)
-    r3 = init.memory.load(start+0x18, 8, endness=proj.arch.memory_endness)
-    r4 = init.memory.load(start+0x20, 8, endness=proj.arch.memory_endness)
-    
     # search only for possible coords
-    list_conds = []
-    for p in get_table(init):
-        list_conds.append(p == r1)
-        list_conds.append(p == r2)
-        list_conds.append(p == r3)
-        list_conds.append(p == r4)
+    variables = []
+    for i in xrange(0, 4):
+        var = init.memory.load(init.regs.ebp + 0x8 + (0x8*i), 0x8, endness=proj.arch.memory_endness) 
+        variables.append(var)
+        conds = []
+        for p in coords:
+            conds.append(p == var)
+        init.add_constraints(init.se.Or(*conds))
 
-    init.add_constraints(init.se.Or(*list_conds))
-
-
+    # each coordinate must be distinct
+    for v1,v2 in combinations(variables, 2):
+        init.add_constraints(v1 != v2)
 
     buffer = init.memory.load(init.regs.ebp + 0x8, 0x20)
         
@@ -135,26 +143,43 @@ def main():
 
     # Resulting hash must be winning hash
     # Print expected hash and resulting hash for verification
-    conds=[]
-    conc = init.se.any_int
-    for addr, value in get_hash_map(0x04216C0):
-        memory = found.memory.load(addr, 1)
-        print "Addr: %x --> %s" % (addr, hex(value))
+    conds = []
+    expected = []
+    hash_map = get_hash_map(hash_addr)
+    for addr, value in hash_map:       
+        memory = found.memory.load(addr, 1, endness=proj.arch.memory_endness) 
         conds.append((memory == value))
+        expected.append((hex(addr), hex(value)))
+    print "Expected is '%s'\n\n" % expected
 
     found.add_constraints(init.se.And(*conds))
 
-    import binascii
-    r = binascii.hexlify(found.se.any_str(buffer))
-    print r[0:16]
-    print r[16:32]
-    print r[32:48]
-    print r[48:64]
+    result = []
+    hash_map = get_hash_map(hash_addr)
+    for addr, value in hash_map:       
+        buf_ptr = found.memory.load(addr, 1)
+        possible = found.se.any_int(buf_ptr)
+        result.append((hex(addr), "0x%x" % possible))
+    print "Result is '%s'\n\n" % result
 
+
+    # Print solutions
+    possible = found.se.any_n_int(buffer, 1)
+    for i, f in enumerate(possible):
+        out = "%x" % f
+        if len(out) < (0x20*2):
+            continue
+
+        names = ["x","y","z","w"]
+        values = []
+        for j in xrange(0, len(out), 16):
+            value = out[j:j+16]
+            unpk_value = struct.unpack("<Q", value.decode("hex"))[0]
+
+            values.append((names[j//16], coord_dict[unpk_value]))
+        print "\tSolution %d: %s" % (i, values)
 
 
 if __name__ == '__main__':
     #angr.path_group.l.setLevel('DEBUG')
     main()
-
-
