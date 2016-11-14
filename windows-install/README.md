@@ -1,4 +1,4 @@
-# Install Angr on Windows
+# Install angr on Windows
 
 ## Requirements
 
@@ -13,6 +13,6 @@
 
 * Run `install_angr.bat` from a Visual Studio Developer Command Prompt.
 
-See [Installing Angr in
+See [Installing angr in
 Windows](https://blog.spirotot.com/2016/11/05/installing-angr-in-windows/) for
 more help/details.
