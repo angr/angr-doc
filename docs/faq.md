@@ -99,3 +99,13 @@ If you see an odd ARM address, that just means the code at `address - 1` is in T
 You have an outdated version of the `cffi` Python module.  angr now requires at least version 1.7 of cffi.
 Try `pip install --upgrade cffi`.  If the problem persists, make sure your operating system hasn't pre-installed an old version of cffi, which pip may refuse to uninstall.
 If you're using a Python virtual environment with the pypy interpreter, ensure you have a recent version of pypy, as it includes a version of cffi which pip will not upgrade.
+
+## When importing angr, I get an exception that says `ImportError: ERROR: fail to load the dynamic library.`
+
+The capstone pip package is sometimes broken. You can reinstall capstone with:
+
+```bash
+pip install -I --no-use-wheel capstone
+```
+
+This will rebuild the dynamic library and your install will work.
