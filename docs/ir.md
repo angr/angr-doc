@@ -3,7 +3,7 @@
 Because angr deals with widely diverse architectures, it must carry out its analysis on an intermediate representation. We use Valgrind's IR, "VEX", for this. The VEX IR abstracts away several architecture differences when dealing with different architectures, allowing a single analysis to be run on all of them:
 
 - **Register names.** The quantity and names of registers differ between architectures, but modern CPU designs hold to a common theme: each CPU contains several general purpose registers, a register to hold the stack pointer, a set of registers to store condition flags, and so forth. The IR provides a consistent, abstracted interface to registers on different platforms. Specifically, VEX models the registers as a separate memory space, with integer offsets (e.g., AMD64's `rax` is stored starting at address 16 in this memory space).
-- **Memory access.** Different architectures access memory in different ways. For example, ARM can access memory in both little-endian and big-endian modes. The IR must abstracts away these differences.
+- **Memory access.** Different architectures access memory in different ways. For example, ARM can access memory in both little-endian and big-endian modes. The IR abstracts away these differences.
 - **Memory segmentation.** Some architectures, such as x86, support memory segmentation through the use of special segment registers. The IR understands such memory access mechanisms.
 - **Instruction side-effects.** Most instructions have side-effects. For example, most operations in Thumb mode on ARM update the condition flags, and stack push/pop instructions update the stack pointer. Tracking these side-effects in an *ad hoc* manner in the analysis would be crazy, so the IR makes these effects explicit.
 
@@ -68,9 +68,10 @@ Let's play with PyVEX:
 
 # translate the starting basic block
 >>> irsb = b.factory.block(b.entry).vex
+# and then pretty-print it
 >>> irsb.pp()
 
-# translate a basic block starting at an address
+# translate and pretty-print a basic block starting at an address
 >>> irsb = b.factory.block(0x401340).vex
 >>> irsb.pp()
 
