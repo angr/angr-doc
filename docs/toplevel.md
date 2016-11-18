@@ -62,10 +62,10 @@ The most common one is `Explorer`, which searches for a target address while avo
 Read about using surveyors [here](./surveyors.md).
 Note that while surveyors are cool, an alternative to them is Path Groups (below), which are the future.
 
-## The factory
+## The Factory
 
 `b.factory`, like `b.analyses` and `b.surveyors`, is a container object that has a lot of cool stuff in it.
-It is not a factory in the java sense, it is merely a home for all the functions that produce new instances of important angr classes and should be sitting on Project.
+It is not a factory in the Java sense, it is merely a home for all the functions that produce new instances of important angr classes and should be sitting on Project.
 
 ```python
 >>> import claripy # used later
@@ -93,7 +93,7 @@ It is not a factory in the java sense, it is merely a home for all the functions
 >>> cc = b.factory.cc()
 ```
 
-- *factory.block* is the angr's lifter. passing it an address will lift a basic block of code from the binary at that address, and return an angr Block object that can be used to retrieve multiple representations of that block. More below.
+- *factory.block* is the angr's lifter. Passing it an address will lift a basic block of code from the binary at that address, and return an angr Block object that can be used to retrieve multiple representations of that block. More below.
 - *factory.blank_state* returns a SimState object with little initialization besides the parameters passed to it. States as a whole are discussed in depth [here](states.md).
 - *factory.entry_state* returns a SimState initialized to the program state at the binary's entry point.
 - *factory.call_state* returns a SimState initialized as if you'd just called the function at the given address, with the given args.
@@ -146,10 +146,10 @@ True
 >>> b.hook_symbol('strlen', simuvex.SimProcedures['stubs']['ReturnUnconstrained'])
 ```
 
-A hook is a modification of how program execution should work.
-When you hook a program at a certain address, whenever the program's execution reaches that point, it will run the python code you supplied in the hook.
+A hook allows you to intercept the program's execution at specific points.
+If you hook a program at an address, whenever the program's execution reaches that point, it will run the python code in the hook.
 Execution will then skip `length` bytes ahead of the hooked address and resume.
-You can omit the `length` argument for execution to skip zero bytes and resume at the address you hooked.
+You can omit the `length` argument for execution to skip zero bytes and resume at the hooked address.
 
 In addition to a basic function, you can hook an address with a `SimProcedure`, which is a more complex system for having fine-grained control over program execution.
 To do this, use the exact same `hook` function, but supply a class (not an instance!) that subclasses `simuvex.SimProcedure`.
