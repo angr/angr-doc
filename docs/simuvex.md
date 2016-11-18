@@ -126,8 +126,8 @@ Like any decent execution engine, SimuVEX supports breakpoints. This is pretty c
 # add a breakpoint. This breakpoint will drop into ipdb right before a memory write happens.
 >>> s.inspect.b('mem_write')
 
-# on the other hand, we can have a breakpoint trigger right *after* a memory write happens. On top of that, we
-# can have a specific function get run instead of going straight to ipdb.
+# on the other hand, we can have a breakpoint trigger right *after* a memory write happens. 
+# we can also have a callback function run instead of opening ipdb.
 >>> def debug_func(state):
 ...     print "State %s is about to do a memory write!"
 
