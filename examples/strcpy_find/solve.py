@@ -19,10 +19,10 @@ def main():
      functions you are trying to find/avoid in your paths rather than using
      this helper function.
     '''
-    def getFuncAddress( funcName ):
+    def getFuncAddress( funcName, plt=None ):
         found = [
             addr for addr,func in cfg.kb.functions.iteritems()
-            if funcName == func.name
+            if funcName == func.name and (plt is None or func.is_plt == plt)
             ]
         if len( found ) > 0:
             print "Found "+funcName+"'s address at "+hex(found[0])+"!"
@@ -48,7 +48,7 @@ def main():
     '''
      Get addresses of our functions to find or avoid
     '''
-    addrStrcpy = getFuncAddress('plt.strcpy')
+    addrStrcpy = getFuncAddress('strcpy', plt=True)
     addrBadFunc = getFuncAddress('func3')
     '''
      Create the list of command-line arguments and add the program name
