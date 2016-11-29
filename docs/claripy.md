@@ -20,7 +20,7 @@ Currently, Claripy supports the following types of ASTs:
 
 | Name | Description | Supported By (Claripy Backends) | Example Code |
 |------|-------------|-----------------------------|---------------|
-| BV | This is a bitvector, whether symbolic (with a name) or concrete (with a value). It has a size (in bits). | BackendConcrete, BackendVSA, BackendZ3 | <ul><li>Create a 32-bit symbolic bitvector "x": `claripy.BVS('x', 32)`</li><li>Create a 32-bit bitvectory with the value `0xc001b3475`: `claripy.BVV(0xc001b3a75, 32)`</li><li>Create a 32-bit "strided interval" (see VSA documentation) that can be any divisible-by-10 number between 1000 and 2000: `claripy.SI(name='x', bits=32, lower_bound=1000, upper_bound=2000, stride=10)`</li></ul>   |
+| BV | This is a bitvector, whether symbolic (with a name) or concrete (with a value). It has a size (in bits). | BackendConcrete, BackendVSA, BackendZ3 | <ul><li>Create a 32-bit symbolic bitvector "x": `claripy.BVS('x', 32)`</li><li>Create a 32-bit bitvector with the value `0xc001b3475`: `claripy.BVV(0xc001b3a75, 32)`</li><li>Create a 32-bit "strided interval" (see VSA documentation) that can be any divisible-by-10 number between 1000 and 2000: `claripy.SI(name='x', bits=32, lower_bound=1000, upper_bound=2000, stride=10)`</li></ul>   |
 | FP | This is a floating-point number, whether symbolic (with a name) or concrete (with a value). | BackendConcrete, BackendZ3 | TODO  |
 | Bool | This is a boolean operation (True or False). | BackendConcrete, BackendVSA, BackendZ3 | `claripy.BoolV(True)`, or `claripy.true` or `claripy.false`, or by comparing two ASTs (i.e., `claripy.BVS('x', 32) < claripy.BVS('y', 32)` |
 
