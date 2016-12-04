@@ -3,7 +3,7 @@
 This lists the *major* changes in angr.
 Tracking minor changes are left as an exercise for the reader :-)
 
-## angr 5.6.12.2
+## angr 5.6.12.3
 
 It has been over a month since the last release 5.6.10.12.
 Again, we’ve made some significant changes and improvements on the code base.
