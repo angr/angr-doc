@@ -3,6 +3,37 @@
 This lists the *major* changes in angr.
 Tracking minor changes are left as an exercise for the reader :-)
 
+## angr 5.6.12.3
+
+It has been over a month since the last release 5.6.10.12.
+Again, we’ve made some significant changes and improvements on the code base.
+
+- angr: Labels are now stored in KnowledgeBase.
+- angr: Add a new analysis: `Disassembly`.
+  The new Disassembly analysis provides an easy-to-use interface to render assembly of functions.
+- angr: Fix the issue that `ForwardAnalysis` may prematurely terminate while there are still un-processed jobs.
+- angr: Many small improvements and bug fixes on `CFGFast`.
+- angr: Many small improvements and bug fixes on `VFG`.
+  Bring back widening support.
+  Fix the issue that `VFG` may not terminate under certain cases.
+  Implement a new graph traversal algorithm to have an optimal traversal order.
+  Allow state merging at non-merge-points, which allows faster convergence.
+- angr-management: Display a progress during initial CFG recovery.
+- angr-management: Display a “Load binary” window upon binary loading.
+  Some analysis options can be adjusted there.
+- angr-management: Disassembly view: Edge routing on the graph is improved.
+- angr-management: Disassembly view: Support starting a new symbolic execution task from an arbitrary address in the program.
+- angr-management: Disassembly view: Support renaming of function names and labels.
+- angr-management: Disassembly view: Support “Jump to address”.
+- angr-management: Disassembly view: Display resolved and unresolved jump targets.
+  All jump targets are double-clickable.
+- SimuVEX: Move region mapping from `SimAbstractMemory` to `SimMemory`.
+  This will allow an easier conversion between `SimAbstractMemory` and `SimSymbolicMemory`, which is to say, conversion between symbolic states and static states is now possible.
+- SimuVEX & claripy: Provide support for `unsat_core` in Z3.
+  It returns a set of constraints that led to unsatness of the constraint set on the current state.
+- archinfo: Add a new Boolean variable `branch_delay_slot` for each architecture.
+  It is set to True on MIPS32.
+
 ## angr 5.6.8.22
 
 Major point release! An incredible number of things have changed in the month run-up to the Cyber Grand Challenge.
