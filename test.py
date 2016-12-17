@@ -3,6 +3,7 @@ import os
 import sys
 import claripy
 import itertools
+import traceback
 
 def _path(d):
     return os.path.join(os.path.dirname(__file__), d)
@@ -41,6 +42,8 @@ def doctest_single(md_file):
         try:
             exec line in env
         except Exception as e:
+            print 'Error on line %d of %s: %s' % (i+1, md_file, e)
+            traceback.print_exc()
             raise Exception('Error on line %d of %s: %s' % (i+1, md_file, e))
 
     for i, line in enumerate(lines):

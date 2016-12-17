@@ -147,6 +147,8 @@ def test():
     
     args_3 = ["0 207", "1 311", "2 707", "3 256", "4 389", "5 206", "6 682", "7 327"]
     res_3 = solve_flag_3()
+    print args_3
+    print res_3
     assert len(res_3) == len(args_3)
     for s in args_3:
         assert s in res_3
