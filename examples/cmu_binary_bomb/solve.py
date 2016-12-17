@@ -99,7 +99,7 @@ def solve_flag_3():
     while len(queue) > 0:
 
         state = queue.pop()
-        print "\nStarting symbolic execution..."
+        #print "\nStarting symbolic execution..." 
 
         path = proj.factory.path(state=state)
         ex = proj.surveyors.Explorer(start=path, find=(end,),
@@ -107,14 +107,12 @@ def solve_flag_3():
                                      enable_veritesting=True)
         ex.run()
 
-        print "Inserting in queue " + str(len(ex.active)) + " paths (not yet finished)"
+        #print "Inserting in queue " + str(len(ex.active)) + " paths (not yet finished)"
         for p in ex.active:
             queue.append(p.state)
 
-        print ex
-        if len(ex.errored) > 0:
-            ex.errored[0].retry()
-        print "Enumerating up to 10 solutions for each found state"
+        #print "Found states are " + str(len(ex.found))
+        #print "Enumerating up to 10 solutions for each found state"
 
         if ex.found:
 
