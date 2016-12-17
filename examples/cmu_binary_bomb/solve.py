@@ -104,7 +104,8 @@ def solve_flag_3():
         path = proj.factory.path(state=state)
         ex = proj.surveyors.Explorer(start=path, find=(end,),
                                      avoid=(bomb_explode,),
-                                     enable_veritesting=True)
+                                     enable_veritesting=True,
+                                     max_active=8)
         ex.run()
 
         #print "Inserting in queue " + str(len(ex.active)) + " paths (not yet finished)"
