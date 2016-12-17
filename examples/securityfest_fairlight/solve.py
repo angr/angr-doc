@@ -25,7 +25,9 @@ def main():
 
 
 def test():
-    assert '4ngrman4gem3nt' == main()
+    res = main()
+    print repr(res)
+    assert res == '4ngrman4gem3nt'
 
 
 if __name__ == '__main__':
