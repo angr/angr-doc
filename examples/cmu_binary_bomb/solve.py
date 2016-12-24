@@ -262,10 +262,13 @@ def main():
     # there is still a "secret" phase to defuse
 
 
-def test():
+def test_stage_1():
     assert solve_flag_1() == 'Border relations with Canada have never been better.'
+
+def test_stage_2():
     assert solve_flag_2() == '1 2 4 8 16 32'
 
+def test_stage_3():
     args_3 = ["0 207", "1 311", "2 707", "3 256", "4 389", "5 206", "6 682", "7 327"]
     res_3 = solve_flag_3()
     print args_3
@@ -274,8 +277,13 @@ def test():
     for s in args_3:
         assert s in res_3
 
+def test_stage_4():
     assert solve_flag_4() == '7 0'
+
+def test_stage_5():
     assert solve_flag_5() == 'iONefg'
+
+def test_stage_6():
     assert solve_flag_6() == '3 4 5 6 1 2'
 
 
