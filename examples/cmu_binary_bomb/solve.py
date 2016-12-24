@@ -1,6 +1,7 @@
 ## Full writeup on flag 2 found on http://www.ctfhacker.com
 ## Binary found here: http://csapp.cs.cmu.edu/3e/bomb.tar
 
+import sys
 import angr
 import logging
 import claripy
@@ -262,13 +263,15 @@ def main():
     # there is still a "secret" phase to defuse
 
 
-def test_stage_1():
+def test():
     assert solve_flag_1() == 'Border relations with Canada have never been better.'
+    print >>sys.stderr, "Stage 1 ok!"
+    print "Stage 1 ok!"
 
-def test_stage_2():
     assert solve_flag_2() == '1 2 4 8 16 32'
+    print >>sys.stderr, "Stage 2 ok!"
+    print "Stage 2 ok!"
 
-def test_stage_3():
     args_3 = ["0 207", "1 311", "2 707", "3 256", "4 389", "5 206", "6 682", "7 327"]
     res_3 = solve_flag_3()
     print args_3
@@ -276,15 +279,19 @@ def test_stage_3():
     assert len(res_3) == len(args_3)
     for s in args_3:
         assert s in res_3
+    print >>sys.stderr, "Stage 3 ok!"
+    print "Stage 3 ok!"
 
-def test_stage_4():
     assert solve_flag_4() == '7 0'
+    print >>sys.stderr, "Stage 4 ok!"
+    print "Stage 4 ok!"
 
-def test_stage_5():
     assert solve_flag_5() == 'iONefg'
+    print >>sys.stderr, "Stage 5 ok!"
+    print "Stage 5 ok!"
 
-def test_stage_6():
     assert solve_flag_6() == '3 4 5 6 1 2'
+    print >>sys.stderr, "Stage 6 ok!"
 
 
 if __name__ == '__main__':
