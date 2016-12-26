@@ -1,3 +1,5 @@
+## Full writeup on flag 2 found on http://www.ctfhacker.com		
+## Binary found here: http://csapp.cs.cmu.edu/3e/bomb.tar
 import sys
 import angr
 import logging
