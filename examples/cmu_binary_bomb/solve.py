@@ -1,12 +1,19 @@
-## Full writeup on flag 2 found on http://www.ctfhacker.com
+## Full writeup on flag 2 found on http://www.ctfhacker.com		
 ## Binary found here: http://csapp.cs.cmu.edu/3e/bomb.tar
-
 import sys
 import angr
 import logging
 import claripy
 import simuvex
 from struct import unpack
+
+class readline_hook(simuvex.SimProcedure):
+    def run(self):
+        pass
+
+class strtol_hook(simuvex.SimProcedure):
+    def run(self, str, end, base):
+        return self.state.se.BVS("flag", 64, explicit_name=True)
 
 def solve_flag_1():
 
@@ -251,7 +258,25 @@ def solve_flag_6():
 
     return ' '.join(map(str, answer))
 
+def solve_secret():
+    start = 0x401242
+    find = 0x401282
+    avoid = (0x40127d, 0x401267,)
+    readline = 0x40149e
+    strtol = 0x400bd0
 
+    p = angr.Project("./bomb", load_options={'auto_load_libs':False})
+    p.hook(readline, readline_hook)
+    p.hook(strtol, strtol_hook)
+    state = p.factory.blank_state(addr=start, remove_options={simuvex.o.LAZY_SOLVES})
+    flag = claripy.BVS("flag", 64, explicit_name=True)
+    state.add_constraints(flag -1 <= 0x3e8)
+    pg = p.factory.path_group(state)
+    pg.explore(find=find, avoid=avoid)
+    ### flag found
+    found = pg.found[0]
+    flag = found.state.se.BVS("flag", 64, explicit_name="True")
+    return found.state.se.any_int(flag)
 
 def main():
     print "Flag    1: " + solve_flag_1()
@@ -260,8 +285,7 @@ def main():
     print "Flag    4: " + solve_flag_4()
     print "Flag    5: " + solve_flag_5()
     print "Flag    6: " + solve_flag_6()
-    # there is still a "secret" phase to defuse
-
+    print "Secret   : " + str(solve_secret())
 
 def test():
     assert solve_flag_1() == 'Border relations with Canada have never been better.'
@@ -293,6 +317,8 @@ def test():
     assert solve_flag_6() == '3 4 5 6 1 2'
     print >>sys.stderr, "Stage 6 ok!"
 
+    assert solve_secret() == '22'
+    print >>sys.stderr, "Secret stage ok!"
 
 if __name__ == '__main__':
 
