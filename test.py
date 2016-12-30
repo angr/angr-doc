@@ -111,6 +111,7 @@ if __name__ == '__main__':
 
     exampletest_single('0ctf_trace')
     exampletest_single('ais3_crackme')
+    exampletest_single('android_arm_license_validation')
     exampletest_single('asisctffinals2015_fake')
     exampletest_single('asisctffinals2015_license')
     exampletest_single('CADET_00001')
