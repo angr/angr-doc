@@ -276,7 +276,7 @@ def solve_secret():
     ### flag found
     found = pg.found[0]
     flag = found.state.se.BVS("flag", 64, explicit_name="True")
-    return found.state.se.any_int(flag)
+    return str(found.state.se.any_int(flag))
 
 def main():
     print "Flag    1: " + solve_flag_1()
@@ -285,40 +285,33 @@ def main():
     print "Flag    4: " + solve_flag_4()
     print "Flag    5: " + solve_flag_5()
     print "Flag    6: " + solve_flag_6()
-    print "Secret   : " + str(solve_secret())
+    print "Secret   : " + solve_secret()
 
 def test():
     assert solve_flag_1() == 'Border relations with Canada have never been better.'
-    print >>sys.stderr, "Stage 1 ok!"
     print "Stage 1 ok!"
 
     assert solve_flag_2() == '1 2 4 8 16 32'
-    print >>sys.stderr, "Stage 2 ok!"
     print "Stage 2 ok!"
 
     args_3 = ["0 207", "1 311", "2 707", "3 256", "4 389", "5 206", "6 682", "7 327"]
     res_3 = solve_flag_3()
-    print args_3
-    print res_3
     assert len(res_3) == len(args_3)
     for s in args_3:
         assert s in res_3
-    print >>sys.stderr, "Stage 3 ok!"
     print "Stage 3 ok!"
 
     assert solve_flag_4() == '7 0'
-    print >>sys.stderr, "Stage 4 ok!"
     print "Stage 4 ok!"
 
     assert solve_flag_5() == 'iONefg'
-    print >>sys.stderr, "Stage 5 ok!"
     print "Stage 5 ok!"
 
-    #assert solve_flag_6() == '3 4 5 6 1 2'
-    #print >>sys.stderr, "Stage 6 ok!"
+    assert solve_flag_6() == '3 4 5 6 1 2'
+    print "Stage 6 ok!"
 
     assert solve_secret() == '22'
-    print >>sys.stderr, "Secret stage ok!"
+    print "Secret stage ok!"
 
 if __name__ == '__main__':
 
