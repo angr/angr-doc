@@ -310,8 +310,8 @@ def test():
     assert solve_flag_6() == '3 4 5 6 1 2'
     print "Stage 6 ok!"
 
-    assert solve_secret() == '22'
-    print "Secret stage ok!"
+    #assert solve_secret() == '22'
+    #print "Secret stage ok!"
 
 if __name__ == '__main__':
 
