@@ -23,7 +23,7 @@ def main():
 
     def patch_scanf(state):
         print(state.regs.rsi)
-        state.mem[state.regs.rsi:] = state.se.BVS('c', 8)
+        state.mem[state.regs.rsi:].char = state.se.BVS('c', 8)
 
     # IDA xrefs
     scanf_offsets = (0x4d, 0x85, 0xbd, 0xf5, 0x12d, 0x165, 0x19d, 0x1d5, 0x20d, 0x245, 0x27d, 0x2b5, 0x2ed)
