@@ -71,7 +71,7 @@ It is not a factory in the Java sense, it is merely a home for all the functions
 >>> import claripy # used later
 
 >>> block = b.factory.block(addr=b.entry)
->>> block = b.factory.block(addr=b.entry, insn_bytes='\xc3')
+>>> block = b.factory.block(addr=b.entry, byte_string='\xc3')
 >>> block = b.factory.block(addr=b.entry, num_inst=1)
 
 >>> state = b.factory.blank_state(addr=b.entry)
