@@ -2,6 +2,7 @@ import logging
 
 import angr
 from simuvex.s_type import SimTypeFunction, SimTypeInt
+from simuvex.procedures.stubs.UserHook import UserHook
 
 # This is literally how I solved this challenge during the game. Now I know it's easier
 # to just call tea_decrypt with those bytes (and the correct key), but I don't want to
@@ -32,7 +33,7 @@ def main():
     # Set a zero-length hook, so our function got executed before calling the
     # function tea_decrypt(0x100f0), and then we can keep executing the original
     # code. Thanks to this awesome design by @rhelmot!
-    p.hook(0xadc31, func=before_tea_decrypt,length=0)
+    p.hook(0xadc31, angr.Hook(UserHook, user_func=before_tea_decrypt, length=0))
 
     # Declare the prototype of the target function
     prototype = SimTypeFunction((SimTypeInt(False),), SimTypeInt(False))

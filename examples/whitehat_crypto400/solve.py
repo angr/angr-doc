@@ -7,13 +7,16 @@ used to reduce the keyspace, allowing for a reasonable brute-force.
 '''
 
 # lots of imports
-import angr
-import claripy
-import simuvex
 import logging
 import itertools
 import subprocess
 import progressbar
+
+import angr
+import claripy
+import simuvex
+
+from simuvex.procedures.stubs.UserHook import UserHook
 
 def get_possible_flags():
     # load the binary
@@ -22,21 +25,21 @@ def get_possible_flags():
 
     # this is a statically-linked binary, and it's easer for angr if we use Python
     # summaries for the libc functions
-    p.hook(0x4018B0, simuvex.SimProcedures['libc.so.6']['__libc_start_main'])
-    p.hook(0x422690, simuvex.SimProcedures['libc.so.6']['memcpy'])
-    p.hook(0x408F10, simuvex.SimProcedures['libc.so.6']['puts'])
+    p.hook(0x4018B0, angr.Hook(simuvex.SimProcedures['libc.so.6']['__libc_start_main']))
+    p.hook(0x422690, angr.Hook(simuvex.SimProcedures['libc.so.6']['memcpy']))
+    p.hook(0x408F10, angr.Hook(simuvex.SimProcedures['libc.so.6']['puts']))
 
     # this is some anti-debugging initialization. It doesn't do much against angr,
     # but wastes time
-    p.hook(0x401438, simuvex.SimProcedures['stubs']['ReturnUnconstrained'], kwargs={'resolves': 'nothing'})
+    p.hook(0x401438, angr.Hook(simuvex.SimProcedures['stubs']['ReturnUnconstrained']), kwargs={'resolves': 'nothing'})
 
     # from playing with the binary, we can easily see that it requires strings of
     # length 8, so we'll hook the strlen calls and make sure we pass an 8-byte
     # string
     def hook_length(state):
         state.regs.rax = 8
-    p.hook(0x40168e, func=hook_length, length=5)
-    p.hook(0x4016BE, func=hook_length, length=5)
+    p.hook(0x40168e, angr.Hook(UserHook, user_func=hook_length, length=5))
+    p.hook(0x4016BE, angr.Hook(UserHook, user_func=hook_length, length=5))
 
     # here, we create the initial state to start execution. argv[1] is our 8-byte
     # string, and we add an angr option to gracefully handle unsupported syscalls

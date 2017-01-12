@@ -1,7 +1,9 @@
 #!/usr/bin/python2
 
-import angr
 import string
+
+import angr
+from simuvex.procedures.stubs.UserHook import UserHook
 
 # DEFCON - BABY-RE
 # @author: P1kachu
@@ -33,7 +35,7 @@ def main():
 
     # Patch scanfs (don't know how angr handles it)
     for offst in scanf_offsets:
-        p.hook(main + offst, func=patch_scanf, length=5)
+        p.hook(main + offst, angr.Hook(UserHook, user_func=patch_scanf, length=5))
 
 
     pgp = p.factory.path_group(init)
