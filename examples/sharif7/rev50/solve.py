@@ -30,7 +30,7 @@
 #
 #  The mechanism here is that this binary transforms a md5 hash stored internally
 #  and writes it into a file in the /tmp/ directory. Before exiting, it deletes
-#  the file. 
+#  the file.
 #
 #  Therefore, we use Angr to launch the execution and stop it just before the call
 #  deleting the file. We then extract the de-obfuscated string in memory to find
@@ -59,14 +59,14 @@ __version__ = '.'.join(__version_info__)
 #
 usage = PROGRAM_USAGE
 parser = argparse.ArgumentParser(
-	usage=usage, 
-	prog=PROGRAM_NAME, 
+	usage=usage,
+	prog=PROGRAM_NAME,
 	description=PROGRAM_DESC)
 io_options=parser.add_argument_group("I/O Options", "Input and output data options.")
-io_options.add_argument("-f", "--file", 
-	dest="input", 
+io_options.add_argument("-f", "--file",
+	dest="input",
 	required=True,
-	help="The Rev50 binary from SharifCTF 7")	
+	help="The Rev50 binary from SharifCTF 7")
 #
 #//////////////////////////////////////////////////////////////////////////////
 # Core functions
@@ -78,15 +78,15 @@ def solve(_file):
 
 	# The de-obfuscated flag is stored at this address:
 	flag_addr = 0x6010e0
-	
+
 	# We set the srop address before the program deletes
 	# the file file where the de-obfuscated flag is stored.
 	stop_addr = 0x4008c8
 
-	# Creates a Angr project. Always needed and always the 
+	# Creates a Angr project. Always needed and always the
 	# first line
 	project = angr.Project(_file, load_options={"auto_load_libs": False})
-	
+
 	# We then need to define a start state for the execution.
 	# The initial state usually contains the arguments given
 	# to the program or can be a blank state with a start address.
@@ -94,20 +94,20 @@ def solve(_file):
 	# than the name of the program (as in any program, e.g. argv[0])
 	argv = [project.filename]
 	state = project.factory.entry_state(args=argv)
-	
+
 	# Now, Angr will start to execute the binary from this initial state
 	# and explore many paths until it reaches a certain condition. In this
 	# case, we want to run until we reached our stop_addr.
 	path_group = project.factory.path_group(state)
 	path_group.explore(find=stop_addr)
-	
+
 	# At this point, the first active path reached our stop address
-	# and therefore, the de-obfuscated string is in memory. So we will 
+	# and therefore, the de-obfuscated string is in memory. So we will
 	# retrieve the 43 bytes (e.g. len(flag)) at flag_addr
-	solve = path_group.found[0].state.memory.load(flag_addr, len(FLAG_STR))
+	solve_var = path_group.found[0].state.memory.load(flag_addr, len(FLAG_STR))
 	# and convert it into a string:
-	solved_flag = path_group.found[0].state.se.any_str(solve)
-	
+	solved_flag = path_group.found[0].state.se.any_str(solve_var)
+
 	return solved_flag
 
 #
@@ -119,9 +119,9 @@ def test():
 
 def main(_args):
 	try:
-		print(solve(_args.input))
+		print solve(_args.input)
 	except Exception as e:
-		print(str(e))
+		print str(e)
 		traceback.print_exc()
 #
 #//////////////////////////////////////////////////////////////////////////////
@@ -129,6 +129,6 @@ def main(_args):
 #
 if __name__ == "__main__":
 	args = parser.parse_args()
-	main(args)
+	main(args.input)
 #
 #//////////////////////////////////////////////////////////////////////////////
