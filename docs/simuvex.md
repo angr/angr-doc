@@ -7,115 +7,19 @@ For this, we developed a module called SimuVEX (https://github.com/angr/simuvex)
 In a nutshell, SimuVEX is a symbolic VEX emulator.
 Given a machine state and a VEX IR block, SimuVEX provides a resulting machine state (or, in the case of condition jumps, *several* resulting machine states).
 
-# Semantic Translation
+The exact mechanism that SimuVEX uses to perform execution has changed recently, so we have removed the related documentation pending a rewrite. This information is not critical to the use of angr, since it is abstracted away by `Path` and `PathGroup`, but it provides useful insight into angr's functionality.
 
-SimuVEX's ultimate goal is to provide a semantic meaning to blocks of binary code.
+# SimProcedures
 
-While the IR gives us syntactic meaning (i.e., what statements the block contains), SimuVEX can provide us semantic meaning (i.e., what the block *does* to a given state).
-We'll now move on to how to do that.
+SimProcedures are, first and foremost, *symbolic function summaries*: angr handles functions imported into the binary by executing a SimProcedure that symbolically implements the given library function, if one exists. SimProcedures are a generic enough interface to do more than this, though - they can be used to run Python code to mutate a state at any point in execution.
 
-## Accessing SimIRSBs
-
-We get semantic meaning by converting an IRSB into a SimIRSB.
-While the former focuses on providing a cross-architecture, programmatically-accessible representation of what a block is, the latter provides a cross-platform, programmatically-accessible representation of what a block did, given an input state.
-
-**Note that you will almost never need to interact with SimIRSBs directly.** The higher level angr interfaces complete abstract away simuvex's pedantic execution model, but it's important to understand the way that execution happens.
-
-To create a SimIRSB directly, use the `sim_block(state)` constructor in the project factory. Here's an example.
-
-```python
-# This creates a symbolic state with execution starting at 0x400664,
-# and then symbolically executes the IRSB at its instruction pointer.
->>> import angr, simuvex
->>> b = angr.Project('examples/fauxware/fauxware')
->>> state = b.factory.blank_state(addr=0x400664)
->>> sirsb = b.factory.sim_block(state)
-
-# this is the address of the first instruction in the block
->>> assert sirsb.addr == 0x400664
-```
-
-### What happened?
-
-Symbolic execution happened! `sirsb` is now a record of what happened during the symbolic execution of this basic block. This information is exposed in the form of SimActions. In case you hadn't noticed, everything that comes out of simuvex has "Sim-" on the front of its name.
-
-An IRSB has Statements, so a SimIRSB has SimStatements. Each statement has a list of SimActions recording each of its reads and writes to and from memory, registers, and temps.
-A SimAction has an associated `type` (i.e., "mem" for memory, "reg" for registers, "tmp" for temps), and `action` ("read", "write").
-
-```python
-# Print out all the actions for this block:
->>> for sstmt in sirsb.statements:
-...     print '[+] Actions for statement %d' % sstmt.stmt_idx
-...     for a in sstmt.actions:
-...         if a.type == 'mem':
-...             print "Memory write to", a.addr.ast
-...             print "... address depends on registers", a.addr.reg_deps, "and temps", a.addr.tmp_deps
-...             print "... data is:", a.data.ast
-...             print "... data depends on registers", a.data.reg_deps, "and temps", a.data.tmp_deps
-...             if a.condition is not None:
-...                 print "... condition is:", a.condition.ast
-...             if a.fallback is not None:
-...                 print "... alternate write in case of condition fail:", a.fallback.ast
-...         elif a.type == 'reg':
-...             print 'Register write to registerfile offset', a.offset
-...             print "... data is:", a.data.ast
-...         elif a.type == 'tmp':
-...             print 'Tmp write to tmp', a.tmp
-...             print "... data is:", a.data.ast
-```
-
-### Where are we going?
-
-For each Exit in the IRSB, there will be a new successor SimState! Each successor will be a copy of the original state you started with, plus the modifications described by the SimActions, plus the *constraints* added to the solver engine by the exit you've taken. For boring jump exits, no constraints are added, but for conditional jumps, the successor that took the jump gets the *guard condition* of the jump exit, while the *default successor* gets the negation.
-
-```python
-# The list of successors:
->>> for succ in sirsb.all_successors:
-...     print succ
-
-# The default successor, i.e. the one that runs off the end of the block:
->>> print sirsb.default_exit
-
-# Any unconstrained successors, that is, successors with symbolic instruction pointers:
->>> for succ in sirsb.unconstrained_successors:
-...     print succ
-
-# Any successors whose constraints contain a contradition (not necessarily a complete list):
->>> for succ in sirsb.unsat_successors:
-...     print succ
-```
-
-## SimProcedures
-
-Fun fact: SimIRSBs aren't the only way to step symbolic execution forward! SimIRSBs inherit the SimRun class, which is a generic class for describing execution steps.
-
-At the moment, the only other important SimRun is the *SimProcedure*. SimProcedures are, first and foremost, *symbolic function summaries*: angr handles functions imported into the binary by executing a SimProcedure that symbolically implements the given library function, if one exists. SimProcedures are a generic enough interface to do more than this, though - they can be used to run Python code to mutate a state at any point in execution.
-
-SimProcedures are injected into angr's execution pipeline through an interface called *hooking*. The full interface is described [here](toplevel.md#hooking), but the most important part is the `Project.hook(address, procedure)` method. After running this, whenever execution in this project reaches `address`, instead of running the SimIRSB at that address, we run the SimProcedure specified by the `procedure` argument.
+SimProcedures are injected into angr's execution pipeline through an interface called *hooking*. The full interface is described [here](toplevel.md#hooking), but the most important part is the `Project.hook(address, procedure)` method. After running this, whenever execution in this project reaches `address`, instead of running the binary code at that address, we run the SimProcedure specified by the `procedure` argument.
 
 `Project.hook` can also take a plain python function as an argument, instead of a SimProcedure class. That function will be automatically wrapped by a SimProcedure and executed (with the current SimState) as its argument.
 
-Nobody actually calls `Project.factory.sim_block`, like in the example above. Instead, use `Project.factory.sim_run`, which has the exact same interface but will chose what kind of SimRun to create. Again, **this is still a very low-level interface that you normally shouldn't have to touch while writing analyses with angr.**
-
 TODO: Programming SimProcedures. Cover all the kinds of control flow, inline calls, etc. If you want to program a SimProcedure now, look at [the library of already-written ones](https://github.com/angr/simuvex/tree/master/simuvex/procedures).
 
-## Putting it all together
-
-Now you have all the components necessary to do the most basic symbolic execution with angr! The below code will execute all possible paths through a binary.
-
-```python
-# Note: please don't actually do this. This will eat up all your computer's RAM and you will die.
-# Also there's no error handling at all!
-
-states = [b.factory.entry_state()]
-while len(states) > 0:
-    successors = []
-    for state in states:
-        successors.extend(b.factory.sim_run(state).all_successors)
-    states = successors
-```
-
-# Breakpoints!
+# Breakpoints
 
 Like any decent execution engine, SimuVEX supports breakpoints. This is pretty cool! A point is set as follows:
 
@@ -152,7 +56,7 @@ There are many other places to break than a memory write. Here is the list. You 
 | instruction       | A new (native) instruction is being translated. |
 | irsb              | A new basic block is being translated. |
 | constraints       | New constraints are being added to the state. |
-| exit              | A SimExit is being created from a SimIRSB. |
+| exit              | A successor is being generated from execution. |
 | symbolic_variable | A new symbolic variable is being created. |
 | call              | A call instruction is hit. |
 | address_concretization | A symbolic memory access is being resolved. |
