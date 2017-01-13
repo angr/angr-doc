@@ -29,6 +29,7 @@ The following are the major changes:
 
 As usual, there are many other improvements and minor bugfixes.
 
+- claripy: support `unsat_core()` to get the core of unsatness of constraints. It is in fact a thin wrapper of the `unsat_core()` function provided by Z3. Also a new state option `CONSTRAINT_TRACKING_IN_SOLVER` is added to SimuVEX. That state option must be enabled if you want to use `unsat_core()` on any state.
 - simuvex: `SimMemory.load()` and `SimMemory.store()` now takes a new parameter `disable_actions`. Setting it to True will prevent any SimAction creation.
 - angr: CFGFast has a better support for ARM binaries, especially for code in THUMB mode.
 - angr: thanks to an improvement in SimuVEX, CFGAccurate now uses slightly less memory than before.
