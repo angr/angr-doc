@@ -3,6 +3,31 @@
 This lists the *major* changes in angr.
 Tracking minor changes are left as an exercise for the reader :-)
 
+## angr 6.7.1.12
+
+For the last month, we have been working on a major refactor of the angr to change the way that angr reasons about the code that it analyzes.
+Until now, angr has been bound to the VEX intermediate representation to lift native code, supporting a wide range of architectures but not being very expandable past them.
+This release represents the ground work for what we call translation and execution engines.
+These engines are independent backends, pluggable into the angr framework, that will allow angr to reason about a wide range of targets.
+For now, we have restructured the existing VEX and Unicorn Engine support into this engine paradigm, but as we discuss in [our blog post](http://angr.io/blog/2017_01_10.html), the plan is to create engines to enable angr's reasoning of Java bytecode and source code, and to augment angr's environment support through the use of external dynamic sandboxes.
+
+For now, these changes are mostly internal. 
+We have attempted to maintain compatibility for end-users, but those building systems atop angr will have to adapt to the modern codebase.
+The following are the major changes:
+
+- simuvex: we have introduced SimEngine. SimEngine is a base class for abstractions over native code. For example, angr's VEX-specific functionality is now concentrated in SimEngineVEX, and new engines (such as SimEngineLLVM) can be implemented (even outside of simuvex itself) to support the analysis of new types of code.
+- simuvex: as part of the engines refactor, the SimRun class has been eliminated. Instead of different subclasses of SimRun that would be instantiated from an input state, engines each have a `process` function that, from an input state, produces a SimSuccessors instance containing lists of different successor states (normal, unsat, unconstrained, etc) and any engine-specific artifacts (such as the VEX statements).
+- angr: the way hooks work has slightly changed, though is backwards-compatible. The new angr.Hook class acts as a wrapper for hooks (SimProcedures and functions), keeping things cleaner in the `project._sim_procedures` dict.
+- angr: we have deprecated the keyword argument `max_size` and changed it to to `size` in the `angr.Block` constructor (i.e., the argument to `project.factory.block` and more upstream methods (`path.step`, `path_group.step`, etc).
+- angr: we have deprecated `project.factory.sim_run` and changed it to to `project.factory.successors`, and it now generates a `SimSuccessors` object.
+- angr: `project.factory.sim_block` has been deprecated and replaced with `project.factory.successors(default_engine=True)`
+- angr: angr syscalls are no longer hooks. Instead, the syscall table is now in `project._simos.syscall_table`. This will be made "public" after a usability refactor.
+- pyvex: to support custom lifters to VEX, pyvex has introduced the concept of backend lifters. Lifters can be written in pure python to produce VEX IR, allowing for extendability of angr's VEX-based analyses to other hardware architectures.
+
+As usual, there are many other minor bugfixes.
+Looking forward, angr is poised to become a program analysis engine for binaries *and more*!
+
+
 ## angr 5.6.12.3
 
 It has been over a month since the last release 5.6.10.12.
