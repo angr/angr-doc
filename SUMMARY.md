@@ -20,6 +20,7 @@
    * [CFGAccurate](docs/analyses/cfg_accurate.md)
    * [Backward Slicing](docs/analyses/backward_slice.md)
 * [Speed Considerations](docs/speed.md)
+* [Customization](docs/customization.md)
 * [Examples](docs/examples.md)
 * [FAQ](docs/faq.md)
 * [Gotchas](docs/gotchas.md)

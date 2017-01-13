@@ -111,10 +111,6 @@ Due to context sensitivity, a given basic block can have multiple nodes in the g
 # on the other hand, this grabs all of the nodes
 >>> print "There were %d contexts for the entry block" % len(cfg.get_all_nodes(b.entry))
 
-# if keep_state was given as True, we can also retrieve the actual SimIRSBs
->>> print "A single SimIRSB at the entry point:", cfg.get_any_irsb(b.entry)
->>> print "All SimIRSBs at the entry point:", cfg.get_all_irsbs(b.entry)
-
 # we can also look up predecessors and successors
 >>> print "Predecessors of the entry point:", entry_node.predecessors
 >>> print "Successors of the entry point:", entry_node.successors

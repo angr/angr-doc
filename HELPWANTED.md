@@ -86,14 +86,11 @@ More architecture support would make angr all the more useful.
 Supporting a new architecture with angr would involve:
 
 1. Adding the architecture information to [archinfo](https://github.com/angr/archinfo)
-2. Adding the IR translation to `angr.Block`.
-3. Adding parsing for the IR to `simuvex` (probably as another subclass of `simuvex.SimRun`)
+2. Adding an IR translation. This may be either an extension to PyVEX, producing IRSBs, or another IR entirely.
+3. If your IR is not VEX, add a `simuvex.SimEngine` to support it.
 4. Adding a calling convention (`simuvex.SimCC`) to support SimProcedures (including system calls)
 5. Adding or modifying an `angr.SimOS` to support initialization activities.
 6. Creating a CLE backend to load binaries, or extending the CLE ELF backend to know about the new architecture if the binary format is ELF.
-
-An alternative to steps 2 and 3 would be to write a lifter that lifts the architecture's native code to VEX.
-This can be written in Python, if it just outputs PyVEX structures.
 
 __ideas for new architectures:__
 

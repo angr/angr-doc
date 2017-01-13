@@ -33,7 +33,7 @@ We now have a deadended path, let's see what we can do with it
 ```python
 >>> path = pg.deadended[0]
 >>> print('Path length: {0} steps'.format(path.length))
-Path length: 50 steps
+Path length: 51 steps
 ```
 
 Get path trace:
@@ -42,56 +42,57 @@ Get path trace:
 >>> for step in path.trace:
 ...    print(step)
 Trace:
-<SimIRSB 0x400580>
-<SimIRSB 0x400540>
-<SimProcedure __libc_start_main>
-<SimIRSB 0x4007e0>
-<SimIRSB 0x4004e0>
-<SimIRSB 0x4005ac>
-<SimIRSB 0x4005be>
-<SimIRSB 0x4004e9>
-<SimIRSB 0x400640>
-<SimIRSB 0x400660>
-<SimIRSB 0x4004ee>
-<SimIRSB 0x400880>
-<SimIRSB 0x4008af>
-<SimIRSB 0x4004f3>
-<SimIRSB 0x400825>
-<SimIRSB 0x400846>
-<SimProcedure __libc_start_main>
-<SimIRSB 0x40071d>
-<SimIRSB 0x400510>
-<SimProcedure puts>
-<SimIRSB 0x40073e>
-<SimIRSB 0x400530>
-<SimProcedure read>
-<SimIRSB 0x400754>
-<SimIRSB 0x400530>
-<SimProcedure read>
-<SimIRSB 0x40076a>
-<SimIRSB 0x400510>
-<SimProcedure puts>
-<SimIRSB 0x400774>
-<SimIRSB 0x400530>
-<SimProcedure read>
-imIRSB 0x40078a>
-<SimIRSB 0x400530>
-<SimProcedure read>
-<SimIRSB 0x4007a0>
-<SimIRSB 0x400664>
-<SimIRSB 0x400550>
-<SimProcedure strcmp>
-<SimIRSB 0x40068e>
-<SimIRSB 0x400692>
-<SimIRSB 0x4006eb>
-<SimIRSB 0x4007b3>
-<SimIRSB 0x4007bd>
-<SimIRSB 0x4006ed>
-<SimIRSB 0x400510>
-<SimProcedure puts>
-<SimIRSB 0x4006fb>
-<SimIRSB 0x4007c7>
-<SimIRSB 0x4007d3>
+<IRSB from 0x400580: 1 sat>
+<IRSB from 0x400540: 1 sat>
+<SimProcedure __libc_start_main from 0x1000030: 1 sat>
+<IRSB from 0x4007e0: 1 sat>
+<IRSB from 0x4004e0: 1 sat>
+<IRSB from 0x4005ac: 1 sat 1 unsat>
+<IRSB from 0x4005be: 1 sat>
+<IRSB from 0x4004e9: 1 sat>
+<IRSB from 0x400640: 1 sat 1 unsat>
+<IRSB from 0x400660: 1 sat>
+<IRSB from 0x4004ee: 1 sat>
+<IRSB from 0x400880: 1 sat 1 unsat>
+<IRSB from 0x4008af: 1 sat>
+<IRSB from 0x4004f3: 1 sat>
+<IRSB from 0x400825: 1 sat 1 unsat>
+<IRSB from 0x400846: 1 sat>
+<SimProcedure __libc_start_main from 0x1000040: 1 sat>
+<IRSB from 0x40071d: 1 sat>
+<IRSB from 0x400510: 1 sat>
+<SimProcedure puts from 0x1000000: 1 sat>
+<IRSB from 0x40073e: 1 sat>
+<IRSB from 0x400530: 1 sat>
+<SimProcedure read from 0x1000020: 1 sat>
+<IRSB from 0x400754: 1 sat>
+<IRSB from 0x400530: 1 sat>
+<SimProcedure read from 0x1000020: 1 sat>
+<IRSB from 0x40076a: 1 sat>
+<IRSB from 0x400510: 1 sat>
+<SimProcedure puts from 0x1000000: 1 sat>
+<IRSB from 0x400774: 1 sat>
+<IRSB from 0x400530: 1 sat>
+<SimProcedure read from 0x1000020: 1 sat>
+<IRSB from 0x40078a: 1 sat>
+<IRSB from 0x400530: 1 sat>
+<SimProcedure read from 0x1000020: 1 sat>
+<IRSB from 0x4007a0: 1 sat>
+<IRSB from 0x400664: 1 sat>
+<IRSB from 0x400550: 1 sat>
+<SimProcedure strcmp from 0x1000050: 1 sat>
+<IRSB from 0x40068e: 2 sat>
+<IRSB from 0x400692: 1 sat>
+<IRSB from 0x4006eb: 1 sat>
+<IRSB from 0x4007b3: 1 sat 1 unsat>
+<IRSB from 0x4007bd: 1 sat>
+<IRSB from 0x4006ed: 1 sat>
+<IRSB from 0x400510: 1 sat>
+<SimProcedure puts from 0x1000000: 1 sat>
+<IRSB from 0x4006fb: 1 sat>
+<IRSB from 0x4007c7: 1 sat>
+<IRSB from 0x4007d3: 1 sat>
+<SimProcedure __libc_start_main from 0x1000040: 1 sat>
 ```
 
 Get constraints applied to the path:

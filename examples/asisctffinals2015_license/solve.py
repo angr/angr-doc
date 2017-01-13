@@ -57,8 +57,12 @@ def main():
     flag_addr = rsp + 0x278 - 0xd8 # Ripped from IDA
     # Perform an inline call to strlen() in order to determine the length of the 
     # flag
-    strlen = simuvex.SimProcedures['libc.so.6']['strlen']
-    flag_length = strlen(found.state, inline=True, arguments=[flag_addr]).ret_expr
+    FAKE_ADDR = 0x100000
+    strlen = lambda state, arguments: \
+        simuvex.SimProcedures['libc.so.6']['strlen'](FAKE_ADDR, p.arch).execute(
+            state, arguments=arguments
+        )
+    flag_length = strlen(found.state, arguments=[flag_addr]).ret_expr
     # In case it's not null-terminated, we get the least number as the length
     flag_length_int = min(found.state.se.any_n_int(flag_length, 3))
     # Read out the flag!
