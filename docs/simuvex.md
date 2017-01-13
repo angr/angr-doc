@@ -24,6 +24,9 @@ TODO: Programming SimProcedures. Cover all the kinds of control flow, inline cal
 Like any decent execution engine, SimuVEX supports breakpoints. This is pretty cool! A point is set as follows:
 
 ```python
+>>> import angr, simuvex
+>>> b = angr.Project('examples/fauxware/fauxware')
+
 # get our state
 >>> s = b.factory.entry_state()
 
