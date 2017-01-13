@@ -3,7 +3,7 @@
 This lists the *major* changes in angr.
 Tracking minor changes are left as an exercise for the reader :-)
 
-## angr 6.7.1.12
+## angr 6.7.1.13
 
 For the last month, we have been working on a major refactor of the angr to change the way that angr reasons about the code that it analyzes.
 Until now, angr has been bound to the VEX intermediate representation to lift native code, supporting a wide range of architectures but not being very expandable past them.
