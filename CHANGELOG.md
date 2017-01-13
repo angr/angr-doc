@@ -36,6 +36,8 @@ As usual, there are many other improvements and minor bugfixes.
 - angr: Fix a crash during CFG generation or symbolic execution on platforms/architectures with no syscall defined.
 - angr: as part of the refactor, `BackwardSlicing` is temporarily disabled. It will be re-enabled once all DDG-related refactor are merged to master.
 
+Additionally, packaging and build-system improvements coordinated between the angr and Unicorn Engine projects have allowed angr's Unicorn support to be built on Windows. Because of this, `unicorn` is now a dependency for `simuvex`.
+
 Looking forward, angr is poised to become a program analysis engine for binaries *and more*!
 
 
