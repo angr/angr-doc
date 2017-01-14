@@ -98,6 +98,7 @@ def test_whitehatvn2015_re400(): exampletest_single('whitehatvn2015_re400')
 #def test_0ctf_momo_3(): exampletest_single('0ctf_momo_3')
 #def test_defcon2016quals_baby_re_0(): exampletest_single('defcon2016quals_baby-re_0')
 def test_defcon2016quals_baby_re_1(): exampletest_single('defcon2016quals_baby-re_1')
+def test_sharif7_rev50(): exampletest_single(os.path.join('sharif7', 'rev50'))
 
 if __name__ == '__main__':
     for tester, arg in test_docs():
