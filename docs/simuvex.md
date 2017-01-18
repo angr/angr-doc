@@ -24,7 +24,7 @@ They are:
 
 
 | Attribute | Guard Condition | Instruction Pointer | Description |
-|-|-|-|-|
+|-----------|-----------------|---------------------|-------------|
 | `successors` | True (can be symbolic, but constrained to True) | Can be symbolic (but 256 solutions or less; see `unconstrained_successors`). | A normal, satisfiable successor state to the state processed by the engine. The instruction pointer of this state may be symbolic (i.e., a computed jump based on user input), so the state might actually represent *several* potential continuations of execution going forward. |
 | `unsat_successors` | False (can be symbolic, but constrained to False). | Can be symbolic. | Unsatisfiable successors. These are successors whose guard conditions can only be false (i.e., jumps that cannot be taken, or the default branch of jumps that *must* be taken). |
 | `all_successors` | Anything | Can be symbolic. | This is `successors + unsat_successors`. |
