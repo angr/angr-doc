@@ -7,7 +7,29 @@ For this, we developed a module called SimuVEX (https://github.com/angr/simuvex)
 In a nutshell, SimuVEX is a symbolic VEX emulator.
 Given a machine state and a VEX IR block, SimuVEX provides a resulting machine state (or, in the case of condition jumps, *several* resulting machine states).
 
-The exact mechanism that SimuVEX uses to perform execution has changed recently, so we have removed the related documentation pending a rewrite. This information is not critical to the use of angr, since it is abstracted away by `Path` and `PathGroup`, but it provides useful insight into angr's functionality.
+# SimEngines
+
+SimuVEX uses a series of engines to emulate the effects that of a given section of code has on an input state.
+This mechanism has changed recently, so we have removed much related documentation pending a rewrite.
+This information is not critical to the use of angr, since it is abstracted away by `Path` and `PathGroup`, but it provides useful insight into angr's functionality.
+
+TODO: much things
+
+## SimSuccessors
+
+`SimEngine.process` takes an input state and engine-specific arguments (such as a block of VEX IR for `SimEngineVEX`) and returns a SimSuccessors object that contains the successor states, with modifications applied.
+Since simuvex supports symbolic execution, there can be *multiple* output successor states for a single input state.
+The successor states are stored in individual lists.
+They are:
+
+
+| Attribute | Guard Condition | Instruction Pointer | Description |
+|-|-|-|-|
+| `successors` | True (can be symbolic, but constrained to True) | Can be symbolic (but 256 solutions or less; see `unconstrained_successors`). | A normal, satisfiable successor state to the state processed by the engine. The instruction pointer of this state may be symbolic (i.e., a computed jump based on user input), so the state might actually represent *several* potential continuations of execution going forward. |
+| `unsat_successors` | False (can be symbolic, but constrained to False). | Can be symbolic. | Unsatisfiable successors. These are successors whose guard conditions can only be false (i.e., jumps that cannot be taken, or the default branch of jumps that *must* be taken). |
+| `all_successors` | Anything | Can be symbolic. | This is `successors + unsat_successors`. |
+| `flat_successors` | True (can be symbolic, but constrained to True). | Concrete value. | As noted above, states in the `successors` list can have symbolic instruction pointers. This is rather confusing, as elsewhere in the code (i.e., in `SimEngineVEX.process`, when it's time to step that state forward), we make assumptions that a single program state only represents the execution of a single spot in the code. To alleviate this, when we encounter states in `successors` with symbolic instruction pointers, we compute all possible concrete solutions (up to an arbitrary threshold of 256) for them, and make a copy of the state for each such solution. We call this process "flattening". These `flat_successors` are states, each of which has a different, concrete instruction pointer. For example, if the instruction pointer of a state in `successors` was `X+5`, where `X` had constraints of `X > 0x800000` and `X < 0x800010`, we would flatten it into 16 different `flat_successors` states, one with an instruction pointer of `0x800001`, one with `0x800002`, and so on until `0x80000f`. |
+| `unconstrained_successors` | True (can be symbolic, but constrained to True). | Symbolic (with more than 256 solutions). | During the flattening procedure described above, if it turns out that there are more than 256 possible solutions for the instruction pointer, we assume that the instruction pointer has been overwritten with unconstrained data (i.e., a stack overflow with user data). *This assumption is not sound in general*. Such states are placed in `unconstrained_successors` and not in `successors`. |
 
 # SimProcedures
 
