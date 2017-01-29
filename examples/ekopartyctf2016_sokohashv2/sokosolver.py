@@ -58,8 +58,8 @@ def get_hash_map(init_addr):
 
     return hash_map
     
-logging.getLogger('angr').setLevel(logging.DEBUG)
-logging.getLogger('angr.path_group').setLevel(logging.DEBUG)
+#logging.getLogger('angr').setLevel(logging.DEBUG)
+#logging.getLogger('angr.path_group').setLevel(logging.DEBUG)
 
 def hook_printf(state):
     pass 
