@@ -183,3 +183,4 @@ def main():
 if __name__ == '__main__':
     #angr.path_group.l.setLevel('DEBUG')
     main()
+    sys.stdout.flush()

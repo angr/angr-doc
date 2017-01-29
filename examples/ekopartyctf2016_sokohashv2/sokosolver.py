@@ -1,7 +1,9 @@
 import logging
-import struct
 import simuvex
 import logging
+import struct
+import sys
+
 import angr
 
 
@@ -203,3 +205,5 @@ print "z:", hex(solution3)
 solution4 = found_s.se.any_int(r4)
 print "w:", hex(solution4)
 ##############################################
+
+sys.stdout.flush()
