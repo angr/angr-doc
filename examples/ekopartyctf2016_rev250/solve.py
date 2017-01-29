@@ -60,7 +60,11 @@ def main():
     return team_name
 
 def test():
-    assert main() == '@@@(h@@@@f@v@ @@/@vCo@&D@ACHP@@@@@@@@D@@ @X@@@@@B@h@]@@@W@UB@"(@Lq@@@@@,FBtH@?6@@" * k[Q@@@@@@@@@I@@'
+    team = '@@@(h@@@@f@v@ @@/@vCo@&D@ACHP@@@@@@@@D@@ @X@@@@@B@h@]@@@W@UB@"(@Lq@@@@@,FBtH@?6@@" * k[Q@@@@@@@@@I@@'
+    import subprocess
+    p = subprocess.Popen(["./FUck_binary"], env={"LD_LIBRARY_PATH": "."}, stdin=subprocess.PIPE, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+    out, err = p.communicate(input=team + "\n")
+    assert "BOOM" in out
 
 if __name__ == '__main__':
     main()
