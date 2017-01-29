@@ -90,7 +90,7 @@ def get_table(state):
 #   hook functions embedded in the binary (not OS call)
 ##############################################
 load_options={}
-p = angr.Project("/home/polako/Desktop/sokohashv2.0.exe")
+p = angr.Project("sokohashv2.0.exe")
 
 p.hook(0x0040103E, hook_printf,length=5)
 p.hook(0x00401225, hook_printf,length=5)
