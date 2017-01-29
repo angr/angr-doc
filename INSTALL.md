@@ -36,6 +36,24 @@ Failing that, you can install angr by installing the following repositories (and
 
 Before you say `pip install angr`, you need to rebuild our fork of z3 with `pip install -I --no-use-wheel angr-only-z3-custom`.
 
+If you're unlucky and run into a broken build script with Clang, try using GCC.
+
+```bash
+brew install gcc
+env CC=/usr/local/bin/gcc-6 pip install angr
+```
+
+After installing angr, you will need to fix some shared libraries paths for simuvex.
+
+```bash
+BASEDIR=/usr/local/lib/python2.7/site-packages
+# If you don't know where your site-packages folder is, use this to find them:
+python2 -c "import site; print(site.getsitepackages())"
+
+install_name_tool -change libunicorn.1.dylib "$BASEDIR"/unicorn/lib/libunicorn.dylib "$BASEDIR"/simuvex/lib/sim_unicorn.dylib
+install_name_tool -change libpyvex.dylib "$BASEDIR"/pyvex/lib/libpyvex.dylib "$BASEDIR"/simuvex/lib/sim_unicorn.dylib
+```
+
 ## Windows
 
 You cannot install angr from pip on windows.
