@@ -46,7 +46,7 @@ Script author: nsr (nsr@tasteless.eu)
 Script runtime: ~15 seconds per binary
 
 Originally, a binary was given to the ctf-player by the challenge-service, and an exploit had to be crafted automatically. Four sample binaries, obtained during the ctf, are included in the example.
-All binaries followed the same format; the command-line argument is validated in a bunch of functions, and when every check succeeds, a memcpy() resulting into a stack-based bufferoverflow is executed.
+All binaries followed the same format; the command-line argument is validated in a bunch of functions, and when every check succeeds, a memcpy() resulting into a stack-based buffer overflow is executed.
 Angr is used to find the way through the binary to the memcpy() and to generate valid inputs to every checking function individually.
 
 Both sample binaries and the script are located [here](https://github.com/angr/angr-doc/tree/master/examples/secuinside2016mbrainfuzz) and additional information be found at the author's [Write-Up](https://tasteless.eu/post/2016/07/secuinside-mbrainfuzz/).
@@ -90,7 +90,7 @@ Script 1 author: Adam Van Prooyen (github: [@docileninja](https://github.com/doc
 
 Script runtime: 6.7 sec
 
-A Linux binary that takes a key as a command line argument and check it against a series of constraints.
+A Linux binary that takes a key as a command line argument and checks it against a series of constraints.
 
 Challenge Description:
 > We need help activating this product -- we've lost our license key :(
@@ -98,6 +98,19 @@ Challenge Description:
 > You're our only hope!
 
 Here are the binary and scripts: [script 0](https://github.com/angr/angr-doc/tree/master/examples/google2016_unbreakable_0), [script_1](https://github.com/angr/angr-doc/tree/master/examples/google2016_unbreakable_1)
+
+### ReverseMe example: EKOPARTY CTF - Fuckzing reverse (250 points)
+
+Author: Adam Van Prooyen (github: [@docileninja](https://github.com/docileninja))
+
+Script runtime: 29 sec
+
+A Linux binary that takes a team name as input and checks it against a series of constraints.
+
+Challenge Description:
+> Hundreds of conditions to be meet, will you be able to surpass them?
+
+Both sample binaries and the script are located [here](https://github.com/angr/angr-doc/tree/master/examples/ekopartyctf2016_rev250) and additional information be found at the author's [write-up](http://van.prooyen.com/reversing/2016/10/30/Fuckzing-reverse-Writeup.html).
 
 ### ReverseMe example: WhiteHat Grant Prix Global Challenge 2015 - Re400
 
@@ -175,7 +188,7 @@ The resulting [script](https://github.com/angr/angr-doc/tree/master/examples/mma
 
 Author: Chris Salls (github: @salls)
 
-This crackme is 95% solveable with angr, but we did have to overcome some difficulties.
+This crackme is 95% solvable with angr, but we did have to overcome some difficulties.
 The [script](https://github.com/angr/angr-doc/tree/master/examples/mma_simplehash/solve.py) describes the difficulties that were encountered and how we worked around them.
 The binary can be found [here](https://github.com/angr/angr-doc/tree/master/examples/mma_simplehash/simple_hash).
 
