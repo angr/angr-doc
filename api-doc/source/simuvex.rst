@@ -10,11 +10,20 @@
 .. automodule:: simuvex.s_options
 .. automodule:: simuvex.s_pcap
 .. automodule:: simuvex.s_procedure
-.. automodule:: simuvex.s_run
 .. automodule:: simuvex.s_slicer
 .. automodule:: simuvex.s_state
 .. automodule:: simuvex.s_type
 .. automodule:: simuvex.s_variable
+ 
+Engines
+---
+
+.. automodule:: simuvex.engines
+.. automodule:: simuvex.engines.engine
+.. automodule:: simuvex.engines.successors
+.. automodule:: simuvex.engines.vex
+.. automodule:: simuvex.engines.procedure
+.. automodule:: simuvex.engines.unicorn_engine
 
 Plugins
 -------
@@ -38,13 +47,8 @@ Storage
 -------
 
 .. automodule:: simuvex.storage
-..  automodule:: simuvex.storage.file
-..  automodule:: simuvex.storage.memory
-..  automodule:: simuvex.storage.memory_object
-..  automodule:: simuvex.storage.paged_memory
+.. automodule:: simuvex.storage.file
+.. automodule:: simuvex.storage.memory
+.. automodule:: simuvex.storage.memory_object
+.. automodule:: simuvex.storage.paged_memory
 .. automodule:: simuvex.concretization_strategies
- 
-Vex
----
-
-..  automodule:: simuvex.vex
