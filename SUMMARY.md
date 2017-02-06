@@ -15,6 +15,7 @@
    * [Controlling Execution](docs/paths.md)
    * [Bulk Execution - Path Groups](docs/pathgroups.md)
    * [Bulk Execution - Surveyors](docs/surveyors.md)
+   * [The Whole Pipeline](docs/pipeline.md)
 * [Working with Data and Conventions](docs/structured_data.md)
 * [Analyses](docs/analyses.md)
    * [CFGAccurate](docs/analyses/cfg_accurate.md)
