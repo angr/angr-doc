@@ -22,6 +22,7 @@ Engines
 .. automodule:: simuvex.engines.engine
 .. automodule:: simuvex.engines.successors
 .. automodule:: simuvex.engines.vex
+.. automodule:: simuvex.engines.vex.engine
 .. automodule:: simuvex.engines.procedure
 .. automodule:: simuvex.engines.unicorn_engine
 
