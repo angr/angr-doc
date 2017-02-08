@@ -1,15 +1,18 @@
-:mod:`angr` --- angr
-====================
+:mod:`angr` --- Analysis and Coordination
+=========================================
+
 
 Project
 -------
 
 .. automodule:: angr.project
 
+
 Factory
 -------
 
 .. automodule:: angr.factory
+
 
 Paths & Path Groups
 -------------------
@@ -25,6 +28,7 @@ Paths & Path Groups
 .. automodule:: angr.path_hierarchy
 .. automodule:: angr.pathprioritizer
 
+
 Knowledge Base
 --------------
 
@@ -35,6 +39,7 @@ Knowledge Base
 .. automodule:: angr.knowledge.function
 .. automodule:: angr.knowledge.function_manager
     :members: FunctionManager
+
 
 Analysis
 --------
@@ -63,8 +68,16 @@ Analysis
 .. automodule:: angr.analyses.vsa_ddg
 
 
+SimOS
+-----
+
+.. automodule:: angr.simos
+
+
 Surveyors
 ---------
+
+Do not use surveyors. They are a legacy interface.
 
 .. automodule:: angr.surveyor
 .. automodule:: angr.surveyors
@@ -73,13 +86,3 @@ Surveyors
 .. automodule:: angr.surveyors.executor
 .. automodule:: angr.surveyors.explorer
 .. automodule:: angr.surveyors.slicecutor
-
-Lifter
-------
-
-.. automodule:: angr.lifter
-
-SimOS
------
-
-.. automodule:: angr.simos

@@ -55,7 +55,7 @@ master_doc = 'index'
 
 # General information about the project.
 project = u'angr'
-copyright = u'2016, The angr project'
+copyright = u'2017, The angr project'
 author = u'The angr project'
 
 # The version info for the project you're documenting, acts as replacement for
@@ -114,11 +114,12 @@ todo_include_todos = False
 intersphinx_mapping = {'python': ('https://docs.python.org/2.7', None)}
 
 autoclass_content = "both"
+autodoc_member_order = 'bysource'
 autodoc_default_flags = ['members',
                          #'special-members',
                          'show-inheritance'
                          # 'private-members',
-                         #'undoc-members',
+                         'undoc-members',
                         ]
 
 def autodoc_skip_member(app, what, name, obj, skip, options):
@@ -279,8 +280,12 @@ latex_documents = [
 # One entry per manual page. List of tuples
 # (source start file, name, description, authors, manual section).
 man_pages = [
-    (master_doc, 'angr', u'angr Documentation',
-     [author], 1)
+    ('angr', 'angr', u'angr analysis module', [author], 3),
+    ('simuvex', 'simuvex', u'angr emulation and instrumentation module', [author], 3),
+    ('claripy', 'claripy', u'angr numerical and constraint-solving module', [author], 3),
+    ('cle', 'cle', u'angr binary loader', [author], 3),
+    ('pyvex', 'pyvex', u'angr binary translator', [author], 3),
+    ('archinfo', 'archinfo', u'angr architecture information repository', [author], 3),
 ]
 
 # If true, show URL addresses after external links.

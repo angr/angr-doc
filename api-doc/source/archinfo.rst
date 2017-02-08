@@ -1,5 +1,5 @@
-:mod:`archinfo` --- Arch Info
-=============================
+:mod:`archinfo` --- Arch Information Repository
+===============================================
 
 .. automodule:: archinfo
 .. automodule:: archinfo.arch
