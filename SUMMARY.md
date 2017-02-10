@@ -21,6 +21,7 @@
    * [CFGAccurate](docs/analyses/cfg_accurate.md)
    * [Backward Slicing](docs/analyses/backward_slice.md)
 * [Speed Considerations](docs/speed.md)
+* [Programming SimProcedures and Hooks](docs/simprocedures.md)
 * [Examples](docs/examples.md)
 * [FAQ](docs/faq.md)
 * [Gotchas](docs/gotchas.md)
