@@ -12,8 +12,8 @@ Here's an example that will remove all bugs from any program:
 
 ```python
 >>> from simuvex import SimProcedure
->>> from angr import Hook
->>> project = angr.Project('examples/fauxware/fauxware')
+>>> from angr import Hook, Project
+>>> project = Project('examples/fauxware/fauxware')
 
 >>> class BugFree(SimProcedure):
 ...    def run(self, argc, argv):
