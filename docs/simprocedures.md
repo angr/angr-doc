@@ -13,6 +13,7 @@ Here's an example that will remove all bugs from any program:
 ```python
 >>> from simuvex import SimProcedure
 >>> from angr import Hook
+>>> project = angr.Project('examples/fauxware/fauxware')
 
 >>> class BugFree(SimProcedure):
 ...    def run(self, argc, argv):
@@ -23,7 +24,7 @@ Here's an example that will remove all bugs from any program:
 >>> project.hook(project.kb.labels.lookup('main'), Hook(BugFree))
 
 # Run a quick execution!
->>> pg = p.factory.path_group()
+>>> pg = project.factory.path_group()
 >>> pg.run()  # step until no more active paths
 Program running with argc=<SAO <BV64 0x0>> and argv=<SAO <BV64 0x7fffffffffeffa0>>
 <PathGroup with 1 deadended>
@@ -191,11 +192,11 @@ What if you don't?
 There's an alternate interface for hooking, a user hook, that lets you streamline the process of hooking sections of code.
 
 ```python
-@Hook.wrap(length=5)
-def set_rax(state):
-    state.regs.rax = 1
+>>> @Hook.wrap(length=5)
+... def set_rax(state):
+...     state.regs.rax = 1
 
-project.hook(0x1234, set_rax)
+>>> project.hook(0x1234, set_rax)
 ```
 
 This is a lot simpler!
@@ -238,18 +239,18 @@ This means that you can replace library functions with your own code.
 For instance, to replace `rand()` with a function that always returns a consistent sequence of values:
 
 ```python
-class NotVeryRand(SimProcedure):
-    def run(self, return_values=None):
-        if 'rand_idx' in self.state.procedure_data.global_variables:
-            rand_idx = self.state.procedure_data.global_variables['rand_idx']
-        else:
-            rand_idx = 0
+>>> class NotVeryRand(SimProcedure):
+...     def run(self, return_values=None):
+...         if 'rand_idx' in self.state.procedure_data.global_variables:
+...             rand_idx = self.state.procedure_data.global_variables['rand_idx']
+...         else:
+...             rand_idx = 0
+... 
+...         out = return_values[rand_idx % len(return_values)]
+...         self.state.procedure_data.global_variables['rand_idx'] = rand_idx + 1
+...         return out
 
-        out = return_values[rand_idx % len(return_values)]
-        self.state.procedure_data.global_variables['rand_idx'] = rand_idx + 1
-        return out
-
-project.hook_symbol('rand', Hook(NotVeryRand, return_values=[413, 612, 1025, 1111]))
+>>> project.hook_symbol('rand', Hook(NotVeryRand, return_values=[413, 612, 1025, 1111]))
 ```
 
 Now, whenever the program tries to call `rand()`, it'll return the integers from the `return_values` array in a loop.
