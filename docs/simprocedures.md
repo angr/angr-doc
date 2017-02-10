@@ -237,7 +237,7 @@ You can use this function to allocate a fresh address, hook that address with wh
 This means that you can replace library functions with your own code.
 For instance, to replace `rand()` with a function that always returns a consistent sequence of values:
 
-``python
+```python
 class NotVeryRand(SimProcedure):
     def run(self, return_values=None):
         if 'rand_idx' in self.state.procedure_data.global_variables:
