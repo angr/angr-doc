@@ -1,15 +1,15 @@
 # angr courses - Step 0 - Basic symbolic execution
 
 The first thing you are going to do with angr is executing symbolicaly your
-program. As a reminder, you can check what symbolic execution is [here](symbolic.md).
+program. As a reminder, you can check what symbolic execution is [here](/docs/symbolic.md).
 
-The binary and source code for this course can be found [here](./src/).
+The binary and source code for this course can be found [here](./).
 
 ```python
 >>> import angr
 
 # We load the binary in angr
->>> project = angr.Project('docs/courses/src/step0.bin')
+>>> project = angr.Project('docs/courses/step0-basic_symbol_execution/step0.bin')
 
 # Let's make things more readable
 >>> addr_main = 0x4004a6
@@ -30,12 +30,12 @@ The binary and source code for this course can be found [here](./src/).
 # Our path group hasn't done anything yet, so it only has one active path
 # which address is main
 # Let's step
-# The pathgroup.step functions accepts different arguments to regulate
+# The pathgroup.step function accepts different arguments to regulate
 # the stepping. Here, let's try to step until we reach the first comparison
 >>> pg.step(until=lambda p: p.active[0].addr >= first_jmp)
 
 
-# We know have two active paths. Each of them took a branch from the
+# We now have two active paths. Each of them took a branch from the
 # comparison and will progress independently from the other one
 >>> print(pg)
 >>> for i, p in enumerate(pg.active):
@@ -58,7 +58,7 @@ The binary and source code for this course can be found [here](./src/).
 >>> assert pg.active[2].addr == second_branch_right
 
 
-# Good We know have three paths
+# Good. We now have three paths:
 # - The two first paths reached the endpoint, and thus became deadended
 # - The other one will have the same history thus stop stepping at the endpoint
 >>> pg.step()
