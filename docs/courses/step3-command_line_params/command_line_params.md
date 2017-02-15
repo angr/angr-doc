@@ -24,7 +24,7 @@ int main(int argc, char** argv) {
 	}
 }
 ```
-For more information visit the [docs](docs/claripy.md).
+For more information visit the [docs](/docs/claripy.md).
 
 ##### Background: Concretizing symbolic values in angr
 Let's say that there is something important at *b* and we want to know what parameter to pass the binary to get there.

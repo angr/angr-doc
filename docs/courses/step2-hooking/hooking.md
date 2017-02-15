@@ -14,7 +14,7 @@ It loops until the current value n is 1 and then returns n, meaning that it will
 In both cases, we dont want this function to be executed.
 We are only interested in the example secret that is printed afterwards if the returned value of the collatz function added to the first command line argument equals 123456.
 To exclude it, we simply replace it with a custom function using angr's *hooking* functionality.
-For more information visit the [docs](docs/toplevel.md#hooking)
+For more information visit the [docs](/docs/toplevel.md#hooking)
 
 ```python
 >>> import angr

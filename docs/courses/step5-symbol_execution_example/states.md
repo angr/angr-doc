@@ -8,7 +8,7 @@ The state holds e.g. values of registers and memory, a Solver and the system sta
 Every state also knows its successor states.
 
 
-In this course, we will take a look at the binary that was also used in [the previous course about CFGs](docs/courses/step4-control_flow_graphs/cfg.md).
+In this course, we will take a look at the binary that was also used in [the previous course about CFGs](/docs/courses/step4-control_flow_graphs/cfg.md).
 We already found out by looking at the CFG that it takes some user input, performs some math operations on it and checks the results against some hardcoded constants.
 Afterwards, it prints something to the user.
 

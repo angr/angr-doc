@@ -11,7 +11,7 @@ In angr, it is used in several other analyses and is implemented twice, with the
 
 We are using angr's CFGAccurate to generate a CFG from the given binary which asks for a specific user input.
 As angr itself cannot display CFGs (e.g. as png-files), we are using [angrutils'](https://github.com/axt/angr-utils) function plot_cfg.
-The various parameters of CFGAccurate are described in the [docs](docs/analyses/cfg_accurate.md) and in the [api](http://angr.io/api-doc/angr.html#angr.analyses.cfg_accurate.CFGAccurate).
+The various parameters of CFGAccurate are described in the [docs](/docs/analyses/cfg_accurate.md) and in the [api](http://angr.io/api-doc/angr.html#angr.analyses.cfg_accurate.CFGAccurate).
 
 
 ```python

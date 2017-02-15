@@ -6,7 +6,7 @@ The binary and source code for this course can be found [here](./).
 The path group is angr's interface to symbolic execution.
 Like the name says, it organizes different paths throughout the binary in different groups, called *stashes*.
 The most common stashes are *active*, *deadended*, *found* and *avoid*.
-For more information, visit the [pathgroup doc](docs/pathgroups.md).
+For more information, visit the [pathgroup doc](/docs/pathgroups.md).
 
 ```python
 >>> import angr
