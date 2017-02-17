@@ -30,7 +30,7 @@ Program running with argc=<SAO <BV64 0x0>> and argv=<SAO <BV64 0x7fffffffffeffa0
 <PathGroup with 1 deadended>
 ```
 
-Now, whenever program execution reaches the main function, intead of executing the actual main function, it will execute this procedure!
+Now, whenever program execution reaches the main function, instead of executing the actual main function, it will execute this procedure!
 This procedure just prints out a message, and returns.
 
 Now, let's talk about what happens on the edge of this function!
@@ -38,16 +38,16 @@ When entering the function, where do the values that go into the arguments come 
 You can define your `run()` function with however many arguments you like, and the SimProcedure runtime will automatically extract from the program state those arguments for you, via a [calling convention](structured_data.md#working-with-calling-conventions), and call your run function with them. Similarly, when you return a value from the run function, it is placed into the state (again, according to the calling convention), and the actual control-flow action of returning from a function is performed, which depending on the architecture may involve jumping to the link register or jumping to the result of a stack pop.
 
 It should be clear at this point that the SimProcedure we just wrote is meant to totally replace whatever function it is hooked over top of.
-In fact, the original use case for SimProcedures was replacing library funtions.
+In fact, the original use case for SimProcedures was replacing library functions.
 More on that later.
 
 ## Clarifying the Hierarchy
 
-We've been using the words Hook and SimProcedure sort of interchangably. Let's fix that.
+We've been using the words Hook and SimProcedure sort of interchangeably. Let's fix that.
 
 - `SimProcedure` is a simuvex class that describes a set of actions to take on a state.
   Its crux is the `run()` method.
-- `Hook` is an angr class that holds a SimProcedure along with information about how to instanciate it.
+- `Hook` is an angr class that holds a SimProcedure along with information about how to instantiate it.
 
 On a `Project` class, the dict `project._sim_procedures` is a mapping from address to `Hook` instances.
 (The name is a historical artifact - SimProcedure is one of the oldest classes in the angr, suite, while Hook is relatively new.)
@@ -112,7 +112,7 @@ How can we call a function in the binary and have execution resume within our Si
 There is a whole bunch of infrastructure called the "SimProcedure Continuation" that will let you do this.
 When you use `self.call(addr, args, continue_at)`, `addr` is expected to be the address you'd like to call, `args` are the arguments you'd like to call it with, and `continue_at` is the name of another method in your SimProcedure class that you'd like execution to continue at when it returns.
 This method must have the same signature as the `run()` method.
-Futhermore, you can pass the keyword argument `cc` as the calling convention that ought to be used to communicate with the callee.
+Furthermore, you can pass the keyword argument `cc` as the calling convention that ought to be used to communicate with the callee.
 
 When you do this, you finish your current step, and execution will start again at the next step at the function you've specified.
 When that function returns, it has to return to some concrete address!
@@ -126,7 +126,7 @@ There are two pieces of metadata you need to attach to your SimProcedure class i
 - Set the class variable `local_vars` to a tuple of strings, where each string is the name of an instance variable on your SimProcedure whose value you would like to persist to when you return.
   Local variables can be any type so long as you don't mutate their instances.
 
-You may have guessed by now that there exists some sort of auxilliary storage in order to hold on to all this data.
+You may have guessed by now that there exists some sort of auxiliary storage in order to hold on to all this data.
 You would be right!
 The state plugin `state.procedure_data` exists to hold all the data that SimProcedures need to store in order to go about their business that must persist between runs.
 It's stuff that ought to be stored in memory, but the data can't be serialized and/or memory allocation is hard.
@@ -168,7 +168,7 @@ Very cool!
 
 As a brief aside, you can store global variables in `state.procedure_data.global_variables`.
 This is a dictionary that just gets shallow-copied from state to successor state.
-Because it's only a shallow copy, its members are the same instances, so the same rules as local varialbes in SimProcedure continuations apply.
+Because it's only a shallow copy, its members are the same instances, so the same rules as local variables in SimProcedure continuations apply.
 You need to be careful not to mutate any item that is used as a global variable.
 
 ## Helping out static analysis
@@ -178,10 +178,10 @@ There are a few more class variables you can set, though these ones have no dire
 
 - `NO_RET`: Set this to true if control flow will never return from this function
 - `ADDS_EXITS`: Set this to true if you do any control flow other than returning
-- `IS_SYSCALL`: Self-explanitory
+- `IS_SYSCALL`: Self-explanatory
 
 Furthermore, if you set `ADDS_EXITS`, you may also want to define the method `static_exits()`.
-This function takes a single parmeter, a list of IRSBs that would be executed in the run-up to your function, and asks you to return a list of all the exits that you know would be produced by your function in that case.
+This function takes a single parameter, a list of IRSBs that would be executed in the run-up to your function, and asks you to return a list of all the exits that you know would be produced by your function in that case.
 The return value is expected to be a list of tuples of (address (int), jumpkind (str)).
 This is meant to be a quick, best-effort analysis, and you shouldn't try to do anything crazy or intensive to get your answer.
 
@@ -204,7 +204,7 @@ The idea is to use a single function instead of an entire SimProcedure subclass.
 No extraction of arguments is performed, no complex control flow happens.
 
 Control flow is controlled by the length argument to `Hook.wrap`.
-After the function finishes exectuting, the next step will start at 5 bytes after the hooked address.
+After the function finishes executing, the next step will start at 5 bytes after the hooked address.
 If the length argument is omitted or set to zero, execution will resume executing the binary code at exactly the hooked address, without re-triggering the hook. The `Ijk_NoHook` jumpkind allows this to happen.
 
 If you want more control over control flow coming out of a user hook, you can return a list of successor states.

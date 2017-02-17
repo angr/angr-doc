@@ -18,12 +18,11 @@ The following options are also available:
 | cfg     | If you already have a CFG available you can provide it instead of rebuilding it. |
 | annocfg | An annotated CFG that can be built from an BackwardSlice to construct only the DFGs from the basic block that are present in the backward slice. |
 
-Each basic block, or node, in the CFG, which is not a SimProcedure, has its DFG built available in the dict `d.dfgs`
+Each basic block, or node, in the CFG, which is not a SimProcedure, has its DFG available in the dict `d.dfgs`
 where the key is the address of the basic block.
 
-Every DFG constructed is a is a [NetworkX](https://networkx.github.io/) di-graph.
-This means that all of the normal NetworkX APIs are available, for example you can print all the input edges of a node
-in a DFG:
+Every DFG constructed is a [NetworkX](https://networkx.github.io/) di-graph.
+This means that all of the normal NetworkX APIs are available, for example you can print all the input edges of a node in a DFG:
 
 ```python
 >>> bbl_addr, dfg = d.dfgs.popitem()

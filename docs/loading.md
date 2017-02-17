@@ -118,7 +118,7 @@ etc.
 # A list of paths we can additionally search for shared libraries
 >>> load_options['custom_ld_path'] = ['/my/fav/libs']
 
-# Whether libraries with different version numbers in the filename will be considered equivilant, for example libc.so.6 and libc.so.0
+# Whether libraries with different version numbers in the filename will be considered equivalent, for example libc.so.6 and libc.so.0
 >>> load_options['ignore_import_version_numbers'] = False
 
 # The alignment to use for rebasing shared objects

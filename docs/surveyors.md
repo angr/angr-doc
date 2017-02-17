@@ -72,7 +72,7 @@ For example, in the `fauxware` sample, we can try to find the "authentication su
 >>> print "Avoided %d paths" % len(e.avoided)
 ```
 
-Some helper properties are provided for easier access to paths from ipython:
+Some helper properties are provided for easier access to paths from IPython:
 
 ```python
 >>> print "The first found path is", e._f
@@ -118,7 +118,7 @@ Caller is a pretty powerful tool. Check out the comments on the various function
 ## Interrupting Surveyors
 
 A surveyor saves its internal state after every tick.
-In ipython, you should be able to interrupt a surveyor with `Ctrl-C`, and then check what results it has so far, but that's a pretty ugly way of doing it.
+In IPython, you should be able to interrupt a surveyor with `Ctrl-C`, and then check what results it has so far, but that's a pretty ugly way of doing it.
 There are two official ways of doing this cleanly: `SIGUSR1` and `SIGUSR2`.
 
 If you send `SIGUSR1` to a python process running a surveyor, it causes the main loop in `Surveyor.run()` to terminate at the end of the current `Surveyor.step()`.

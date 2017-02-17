@@ -62,8 +62,8 @@ Like any decent execution engine, SimuVEX supports breakpoints. This is pretty c
 
 >>> s.inspect.b('mem_write', when=simuvex.BP_AFTER, action=debug_func)
 
-# or, you can have it drop you in an embedded ipython!
->>> s.inspect.b('mem_write', when=simuvex.BP_AFTER, action='ipython')
+# or, you can have it drop you in an embedded IPython!
+>>> s.inspect.b('mem_write', when=simuvex.BP_AFTER, action='IPython')
 ```
 
 There are many other places to break than a memory write. Here is the list. You can break at BP_BEFORE or BP_AFTER for each of these events.
@@ -110,7 +110,7 @@ These events expose different attributes:
 | statement         | statement          | BP_BEFORE or BP_AFTER  | The index of the IR statement (in the IR basic block). |
 | instruction       | instruction        | BP_BEFORE or BP_AFTER  | The address of the native instruction. |
 | irsb              | address            | BP_BEFORE or BP_AFTER  | The address of the basic block. |
-| constraints       | added_constrints   | BP_BEFORE or BP_AFTER  | The list of contraint expressions being added. |
+| constraints       | added_constraints   | BP_BEFORE or BP_AFTER  | The list of constraint expressions being added. |
 | call              | function_name      | BP_BEFORE or BP_AFTER  | The name of the function being called. |
 | exit              | exit_target        | BP_BEFORE or BP_AFTER  | The expression representing the target of a SimExit. |
 | exit              | exit_guard         | BP_BEFORE or BP_AFTER  | The expression representing the guard of a SimExit. |

@@ -8,7 +8,7 @@ angr has several features to make this less of a headache.
 
 SimuVEX has a system for representing types.
 These SimTypes are found in `simuvex/s_type.py` - an instance of any of these classes represents a type.
-Many of the types are incomplete unless they are supplimented with a SimState - their size depends on the architecture you're running under.
+Many of the types are incomplete unless they are supplamented with a SimState - their size depends on the architecture you're running under.
 You may do this with `ty.with_state(state)`, which returns a copy of itself, with the state specified.
 
 SimuVEX also has a light wrapper around `pycparser`, which is a C parser.
@@ -32,7 +32,7 @@ struct aa
 OrderedDict([('x', int), ('y', long)])
 ```
 
-Additionally, you may parse C defininitions and have them returned to you in a dict:
+Additionally, you may parse C definitions and have them returned to you in a dict:
 
 ```python
 >>> defs = simuvex.s_type.parse_defns("int x; typedef struct llist { char* str; struct llist *next; } list_node; list_node *y;")
@@ -104,7 +104,7 @@ The interface works like this:
 
 - You first use [array index notation] to specify the address you'd like to load from
 - If at that address is a pointer, you may access the `deref` property to return a SimMemView at the address present in memory.
-- You then specify a type for the data by simply accesing a property of that name.
+- You then specify a type for the data by simply accessing a property of that name.
   For a list of supported types, look at `state.mem.types`.
 - You can then _refine_ the type. Any type may support any refinement it likes.
   Right now the only refinements supported are that you may access any member of a struct by its member name, and you may index into a string or array to access that element.
@@ -127,7 +127,7 @@ If you define a struct using `s_type.define_struct`, you can access it here as a
 ## Working with Calling Conventions
 
 A calling convention is the specific means by which code passes arguments and return values through function calls.
-While angr comes with a large number of pre-built calling conventions, and a lot of logic for refining calling conventions for specifc circumstances (e.g. floating point arguments need to be stored in different locations, it gets worse from there), it will inevitably be insufficient to describe all possible calling conventions a compiler could generate.
+While angr comes with a large number of pre-built calling conventions, and a lot of logic for refining calling conventions for specific circumstances (e.g. floating point arguments need to be stored in different locations, it gets worse from there), it will inevitably be insufficient to describe all possible calling conventions a compiler could generate.
 Because of this, you can _customize_ a calling convention by describing where the arguments and return values should live.
 
 angr's abstraction of calling conventions lives in Simuvex as SimCC.
@@ -140,8 +140,8 @@ You can construct new SimCC instances through the angr object factory, with `b.f
 
 To specify a value location for the `args` or `ret_val` parameters, use instances of the `SimRegArg` or `SimStackArg` classes.
 You can find them in the factory - `b.factory.cc.Sim*Arg`.
-Register arguments should be instanciated with the name of the register you're storing the value in, and the size of the register in bytes.
-Stack arguments should be instanciated with the offset from the stack pointer *at the time of entry into the function* and the size of the storage location, in bytes.
+Register arguments should be instantiated with the name of the register you're storing the value in, and the size of the register in bytes.
+Stack arguments should be instantiated with the offset from the stack pointer *at the time of entry into the function* and the size of the storage location, in bytes.
 
 Once you have a SimCC object, you can use it along with a SimState object to extract or store function arguments more cleanly.
 Take a look at the [API documentation](http://angr.io/api-doc/simuvex.html#simuvex.s_cc.SimCC) for details.
@@ -155,7 +155,7 @@ When you call the callable, angr will set up a `call_state` at the given address
 Then, it merges all the result states together, pulls the return value out of that state, and returns it.
 
 All the interaction with the state happens with the aid of a `SimCC`, to tell where to put the arguments and where to get the return value.
-By default, it uses a sane default for the archetecture, but if you'd like to customize it, you can pass a `SimCC` object in the `cc` keyword argument when constructing the callable.
+By default, it uses a sane default for the architecture, but if you'd like to customize it, you can pass a `SimCC` object in the `cc` keyword argument when constructing the callable.
 
 You can pass symbolic data as function arguments, and everything will work fine.
 You can even pass more complicated data, like strings, lists, and structures as native python data (use tuples for structures), and it'll be serialized as cleanly as possible into the state.

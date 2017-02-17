@@ -67,12 +67,12 @@ BackwardSlice (to [(<CFGNode exit (0x10000a0) [0]>, -1)])
 
 ## Using The `BackwardSlice` Object
 
-Before go ahead and using `BackwardSlice` object, you should be noticed that the design of this class is pretty arbitrary right now, and  it is by no means to be stable in the near future.
+Before you go ahead and using `BackwardSlice` object, you should be noticed that the design of this class is pretty arbitrary right now, and  it is by no means to be stable in the near future.
 I’ll try my best to keep this documentation updated when a refactoring/redesigning occurs.
 
 ### Members
 
-After construction, a `BackwardSlice` has the following members that describe a program slice:
+After construction, a `BackwardSlice` has the following members which describe a program slice:
 
 | Member             | Mode     | Meaning                                                                                                                               |
 | -------            | -------- | -------                                                                                                                               |
