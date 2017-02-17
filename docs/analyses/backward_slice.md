@@ -67,8 +67,7 @@ BackwardSlice (to [(<CFGNode exit (0x10000a0) [0]>, -1)])
 
 ## Using The `BackwardSlice` Object
 
-Before you go ahead and using `BackwardSlice` object, you should be noticed that the design of this class is pretty arbitrary right now, and  it is by no means to be stable in the near future.
-I’ll try my best to keep this documentation updated when a refactoring/redesigning occurs.
+Before you go ahead and use `BackwardSlice` object, you should notice that the design of this class is fairly arbitrary right now, and it is still subject to change in the near future. We’ll try our best to keep this documentation up-to-date.
 
 ### Members
 
