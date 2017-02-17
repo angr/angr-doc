@@ -113,7 +113,7 @@ It can be used as so:
 # you can see the secret password "SOSNEAKY" in the first tuple!
 ```
 
-Caller is a pretty powerful tool. Check out the comments on the various functions for more usage info! HOWEVER, there is a much easier tool you can use to call functions, called `callable`. This is described [elsewhere in the docs](https://github.com/angr/angr-doc/blob/master/toplevel.md).
+Caller is a pretty powerful tool. Check out the comments on the various functions for more usage info! HOWEVER, there is a much easier tool you can use to call functions, called `callable`. This is described [elsewhere in the docs](./structured_data.md#callables).
 
 ## Interrupting Surveyors
 

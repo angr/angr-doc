@@ -31,7 +31,7 @@ Regardless, there are a lot of optimizations and tweaks you can use to make angr
 ## If you're performing lots of concrete or partially-concrete execution
 
 - *Use the unicorn engine*.
-  If you have [unicorn engine](https://github.com/unicorn/unicorn-engine) installed, Simuvex can be built to take advantage of it for concrete emulation.
+  If you have [unicorn engine](https://github.com/unicorn-engine/unicorn/) installed, Simuvex can be built to take advantage of it for concrete emulation.
   To enable it, add the options in the set `simuvex.o.unicorn` to your state.
   Keep in mind that while most items under `simuvex.o` are individual options, `simuvex.o.unicorn` is a bundle of options, and is thus a set.
   *NOTE*: At time of writing the official version of unicorn engine will not work with angr - we have a lot of patches to it to make it work well with angr.
