@@ -102,7 +102,7 @@ It is not a factory in the Java sense, it is merely a home for all the functions
   Alternately, for simple cases, any keyword arguments you pass `path` will be passed on to `entry_state` to create a state to wrap. It is discussed in depth [here](paths.md).
 - *factory.path_group* creates a path group! Path groups are the future. They're basically very smart lists of paths, so you can pass it a path, a state (which will be wrapped into a path), or a list of paths and states. They are discussed in depth [here](pathgroups.md).
 - *factory.callable* is _very_ cool. Callables are a FFI (foreign functions interface) into arbitrary binary code. They are discussed in depth [here](structured_data.md).
-- *factory.cc* intiializes a calling convention object. This can be initialized with different args or even a function prototype, and then passed to factory.callable or factory.call_state to customize how arguments and return values and return addresses are laid out into memory. It is discussed in depth [here](structured_data.md).
+- *factory.cc* initializes a calling convention object. This can be initialized with different args or even a function prototype, and then passed to factory.callable or factory.call_state to customize how arguments and return values and return addresses are laid out into memory. It is discussed in depth [here](structured_data.md).
 
 ### Lifter
 

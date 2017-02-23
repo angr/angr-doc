@@ -41,8 +41,8 @@ level for the parent module. For example, `logging.getLogger('angr.analyses').se
 will make the CFG, as well as all other analyses, log at the INFO level.
 
 ### Automatic log settings
-If you're using angr through ipython, you can add a startup script in your
-ipython profile to set various logging levels.
+If you're using angr through IPython, you can add a startup script in your
+IPython profile to set various logging levels.
 
 
 ## Why is a CFG taking forever to construct?

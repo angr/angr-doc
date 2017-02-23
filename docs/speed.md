@@ -24,14 +24,14 @@ Regardless, there are a lot of optimizations and tweaks you can use to make angr
 - *Use the Replacement Solver*.
   You can enable it with the `simuvex.o.REPLACEMENT_SOLVER` state option.
   The replacement solver allows you to specify AST replacements that are applied at solve-time.
-  If you add replacements so that all symbolic data is replaced with concrete data when it comes time to do the solve, the runtime is greatly increased.
+  If you add replacements so that all symbolic data is replaced with concrete data when it comes time to do the solve, the runtime is greatly reduced.
   The API for adding a replacement is `state.se._solver.add_replacement(old, new)`.
   The replacement solver is a bit finicky, so there are some gotchas, but it'll definitely help.
 
 ## If you're performing lots of concrete or partially-concrete execution
 
 - *Use the unicorn engine*.
-  If you have [unicorn engine](https://github.com/unicorn/unicorn-engine) installed, Simuvex can be built to take advantage of it for concrete emulation.
+  If you have [unicorn engine](https://github.com/unicorn-engine/unicorn/) installed, Simuvex can be built to take advantage of it for concrete emulation.
   To enable it, add the options in the set `simuvex.o.unicorn` to your state.
   Keep in mind that while most items under `simuvex.o` are individual options, `simuvex.o.unicorn` is a bundle of options, and is thus a set.
   *NOTE*: At time of writing the official version of unicorn engine will not work with angr - we have a lot of patches to it to make it work well with angr.

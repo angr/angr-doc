@@ -75,9 +75,13 @@ By default, CLE will attempt to load all the dependencies of the main binary (e.
 
 ## Loading Options
 
-Loading options can be passed to Project (which in turn will pass it to CLE). 
+Loading options can be passed to Project (which in turn will pass it to CLE) using the `load_options` kwarg:
 
-CLE expects a dict as a set of parameters. Parameters which must be applied to libraries which 
+```python
+>>> b = angr.Project("/bin/true", load_options=dict(auto_load_libs=False)
+```
+
+CLE expects a dict as a set of parameters. Parameters which must be applied to libraries which
 are not the target binary must be passed through the lib_opts parameter in the following form:
 ```python
 load_options = {'main_opts':{options0}, 'lib_opts': {libname1:{options1}, path2:{options2}, ...}}
@@ -114,7 +118,7 @@ etc.
 # A list of paths we can additionally search for shared libraries
 >>> load_options['custom_ld_path'] = ['/my/fav/libs']
 
-# Whether libraries with different version numbers in the filename will be considered equivilant, for example libc.so.6 and libc.so.0
+# Whether libraries with different version numbers in the filename will be considered equivalent, for example libc.so.6 and libc.so.0
 >>> load_options['ignore_import_version_numbers'] = False
 
 # The alignment to use for rebasing shared objects

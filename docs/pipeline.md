@@ -2,7 +2,7 @@ Understanding the Execution Pipeline
 ====================================
 
 If you've made it this far you know that at its core, angr is a highly flexible and intensely instrumentable emulator.
-In order to get the most milage out of it, you'll want to know what happens at every step of the way when you say `path_group.step()`.
+In order to get the most mileage out of it, you'll want to know what happens at every step of the way when you say `path_group.step()`.
 
 You may want to have the angr source open to follow along with this.
 
@@ -14,13 +14,13 @@ So you've called for a step to occur. Time to begin our journey.
 
 `PathGroup.step()` function takes many optional parameters.
 The most important of these are `stash`, `n`, `until`, and `step_func`.
-`n` is used immediately - the `step()` function loops, calling the `_one_step()` function and passing on all its parameters until either `n` steps have happened or some other termination condition has occured. If `n` is not provided, it defaults to 1, unless an `until` function is provided, in which case it is 100000 - effectively infinte.
+`n` is used immediately - the `step()` function loops, calling the `_one_step()` function and passing on all its parameters until either `n` steps have happened or some other termination condition has occurred. If `n` is not provided, it defaults to 1, unless an `until` function is provided, in which case it is 100000 - effectively infinite.
 
 Before any of the termination conditions are checked, however, `step_func` is applied - this function takes the current path group and returns a new path group to replace it.
 In writing a step function, it is useful to recall that most common path group functions also return a path group - if the path group is immutable (`immutable=True` in the constructor), it is a new object, but otherwise it is the same object as before.
 
 Now, we check the termination conditions - either the stash we are operating on ("active" by default) has gone empty, or the `until` callback function returns True.
-If neiher of these conditions are satisfied, we loop back around to call `_one_step()` again.
+If neither of these conditions are satisfied, we loop back around to call `_one_step()` again.
 
 ### `_one_step()`
 
@@ -119,7 +119,7 @@ It works by making a call into `SimOS` to retrieve the SimProcedure that should 
 
 `SimEngineHook` provides the hooking functionality in angr.
 It is used when a state is at an address that is hooked, and the previous jumpkind is *not* `Ijk_NoHook`.
-It simply looks up the given hook, calls `hook.instanciate()` on it in order to retrieve a `SimProcedure` instance, and then runs that procedure.
+It simply looks up the given hook, calls `hook.instantiate()` on it in order to retrieve a `SimProcedure` instance, and then runs that procedure.
 This class is a thin subclass of the `SimEngineProcedure` class present in SimuVEX, for obvious reasons.
 It takes the parameter `procedure`, which will cause `check` to always succeed, and this procedure will be used instead of the SimProcedure that would be obtained from a hook.
 
@@ -137,7 +137,7 @@ At time of writing I'm not sure if this exists anywhere but it really should.
 
 ### Engine instances
 
-In addition to parameters to the stepping process, you can also instanciate new versions of these engines!
+In addition to parameters to the stepping process, you can also instantiate new versions of these engines!
 Look at the API docs to see what options each engine can take.
 Once you have a new engine instance, you can either pass it into the step process, or directly put it into the `project.factory.engines` list for automatic use.
 

@@ -101,7 +101,7 @@ Here is a list of the properties in the path history:
 | Path.guards     | The guard conditions that had to be satisfied in order to take the branch listed in Path.targets |
 | Path.jumpkinds  | The type of the exit from each basic block we took, as VEX struct strings |
 | Path.events     | A log of the events that have happened in symbolic execution |
-| Path.actions    | A filtering of Path.events to only include the actions taken by the exeution engine. See below. |
+| Path.actions    | A filtering of Path.events to only include the actions taken by the execution engine. See below. |
 
 Here are the different types of jumpkinds:
 
@@ -168,7 +168,7 @@ To handle this, we allow the creation of a path at any point in the program:
 >>> assert p.addr == 0x800f000
 ```
 
-At this point, all memory, registers, and so forth of the path are blank. In a nutshell, this means that they are fully symbolic and unconstrained, and execution can procede from this point as an overapproximation of what could happen on a real CPU. If you have outside knowledge about what the state should look like at this point, you can craft the blank state into a more precise description of machine state by adding constraints and setting the contents of memory, registers, and files.
+At this point, all memory, registers, and so forth of the path are blank. In a nutshell, this means that they are fully symbolic and unconstrained, and execution can proceed from this point as an over-approximation of what could happen on a real CPU. If you have outside knowledge about what the state should look like at this point, you can craft the blank state into a more precise description of machine state by adding constraints and setting the contents of memory, registers, and files.
 
 ## SimActions Redux
 

@@ -85,7 +85,7 @@ For example, the `puts()` function above will be analyzed with the following con
 | 2 | Two callers, plus callee | `alpha>error>puts` `main>alpha>puts` `beta>error>puts` `main>beta>puts` |
 | 3 | Three callers, plus callee | `main>alpha>error>puts` `main>alpha>puts` `main>beta>error>puts` `main>beta>puts` |
 
-The upside of increasing the context sensitivity level is that more information can be gleamed from the CFG.
+The upside of increasing the context sensitivity level is that more information can be gleaned from the CFG.
 For example, with context sensitivity of 1, the CFG will show that, when called from `alpha`, `puts` returns to `alpha`, when called from `error`, `puts` returns to `error`, and so forth.
 With context sensitivity of 0, the CFG simply shows that `puts` returns to `alpha`, `beta`, and `error`.
 This, specifically, is the context sensitivity level used in IDA.
