@@ -20,7 +20,7 @@ Regardless, there are a lot of optimizations and tweaks you can use to make angr
   [SimInspect](simuvex.html#breakpoints) is the most underused and one of the most powerful features of angr.
   You can hook and modify almost any behavior of angr, including memory index resolution (which is often the slowest part of any angr analysis).
 - *Write a concretization strategy*.
-  A more powerful solution to the problem of memory index resolution is a [concretization strategy](https://git.seclab.cs.ucsb.edu/angr/simuvex/tree/master/simuvex/concretization_strategies).
+  A more powerful solution to the problem of memory index resolution is a [concretization strategy](https://github.com/angr/simuvex/tree/master/simuvex/concretization_strategies).
 - *Use the Replacement Solver*.
   You can enable it with the `simuvex.o.REPLACEMENT_SOLVER` state option.
   The replacement solver allows you to specify AST replacements that are applied at solve-time.
