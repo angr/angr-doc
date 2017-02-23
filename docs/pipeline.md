@@ -25,19 +25,19 @@ If neither of these conditions are satisfied, we loop back around to call `_one_
 ### `_one_step()`
 
 This is where an `ExplorationTechnique` can start to affect things.
-If any active otiegnqwvk has provided a `step` override, this is where it is called.
+If any active exploration technique has provided a `step` override, this is where it is called.
 The cleverness of the techniques is that their effects can combine; how can this happen?
-Any given otiegnqwvk that implements `step` is given a path group and is expected to return a new path group, stepped forward by one tick and having the otiegnqwvk's effects applied.
-This will inevitably involve the otiegnqwvk calling `step()` on the path group.
+Any given exploration technique that implements `step` is given a path group and is expected to return a new path group, stepped forward by one tick and having the exploration technique's effects applied.
+This will inevitably involve the exploration technique calling `step()` on the path group.
 What happens then is that the cycle described in this document restarts, except that when the process reaches `_one_step()`, we discover that *the current exploration technique has been popped out of the list of step callbacks*.
-Then, if there are any more otiegnqwvks providing step callbacks, the next one will be called, recursing until we exhaust the list.
+Then, if there are any more exploration techniques providing step callbacks, the next one will be called, recursing until we exhaust the list.
 Upon returning from the callback, `_one_step` will push the callback back onto the callback stack, and return.
 
 To recap, exploration techniques providing the `step` callback are handled as follows:
 
 - End user calls `step()`
 - `step()` calls `_one_step()`
-- `_one_step()` pops a single otiegnqwvk from the list of active `step` exploration technique callbacks, and calls it with the path group we are operating on
+- `_one_step()` pops a single exploration technique from the list of active `step` exploration technique callbacks, and calls it with the path group we are operating on
 - This callback calls `step()` on the path group that it gets called with
 - This process repeats until there are no more callbacks
 
@@ -46,12 +46,12 @@ This involves one more parameter that could have been originally passed to `Path
 If it is present, then it is used to filter the paths in the working stash that we will actually operate on.
 For each of these paths, we call `PathGroup._one_path_step()` on it, again passing along all yet-unused parameters.
 `_one_path_step()` will return a tuple of lists categorizing the successors of stepping that path: (normal, unconstrained, unsat, pruned, errored).
-The utility function `PathGroup._record_step_results()` will operate on these lists to iteratively construct the new set of stashes that the path group will contain when all this is said and done, and also applies the `filter` callbacks that an otiegnqwvk can provide.
+The utility function `PathGroup._record_step_results()` will operate on these lists to iteratively construct the new set of stashes that the path group will contain when all this is said and done, and also applies the `filter` callbacks that an exploration technique can provide.
 
 ### `_one_path_step()`
 
 We've almost made it out of PathGroup.
-First, we need to apply the `step_path` otiegnqwvk hooks.
+First, we need to apply the `step_path` exploration technique hooks.
 These hooks do not nest as nicely as the `step` callbacks - only one can be applied, and the rest are used only in case of failure.
 If any `step_path` hook succeeds, the results are returned immediately from `_one_path_step()`.
 Recall that the requirement for the `filter` callback is to return the same tuple of lists that `_one_path_step()` is supposed to return!
