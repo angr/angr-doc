@@ -4,6 +4,7 @@ Understanding the Execution Pipeline
 If you've made it this far you know that at its core, angr is a highly flexible and intensely instrumentable emulator.
 In order to get the most mileage out of it, you'll want to know what happens at every step of the way when you say `path_group.step()`.
 
+This is intended to be a more advanced document; you'll need to understand the function and intent of `PathGroup`, `ExplorationTechnique`, `Path`, `SimState`, and `SimEngine` in order to understand what we're talking about at times!
 You may want to have the angr source open to follow along with this.
 
 ## Path Groups
