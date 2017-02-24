@@ -78,7 +78,7 @@ By default, CLE will attempt to load all the dependencies of the main binary (e.
 Loading options can be passed to Project (which in turn will pass it to CLE) using the `load_options` kwarg:
 
 ```python
->>> b = angr.Project("/bin/true", load_options=dict(auto_load_libs=False)
+>>> b = angr.Project("/bin/true", load_options=dict(auto_load_libs=False))
 ```
 
 CLE expects a dict as a set of parameters. Parameters which must be applied to libraries which
