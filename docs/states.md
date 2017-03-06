@@ -250,7 +250,7 @@ One cautionary piece of advice is that the comparison operators (`>`, `<`, `>=`,
 assert not s3.se.solution(m, 0xff)
 ```
 
-If we want *signed* comparisons, we need to use the unsigned versions of the operators (`SGT`, `SLT`, `SGE`, `SLE`).
+If we want *signed* comparisons, we need to use the signed versions of the operators (`SGT`, `SLT`, `SGE`, `SLE`).
 If you'd like to be explicit about your unsigned comparisons, the operators (`UGT`, `ULT`, `UGE`, `ULE`) are available.
 
 ```python
