@@ -45,7 +45,10 @@ Explore pathgroup until lambda
 ```python
 path_group.step(until=lambda p: p.active[0].addr >= first_jmp)
 ```
-
+This is especially usefull with the ability to access the current STDOUT or STDERR (1 here is the File Descriptor for STDOUT)
+```python
+pathgroup.explore(find=lambda p: "correct" in p.state.posix.dumps(1))
+```
 Memory Managment on big searches (Auto Drop Stashes):
 ```python
 path_group.explore(find=find_addr, avoid=avoid_addr, step_func=lambda lpg: lpg.drop(stash='avoid'))
