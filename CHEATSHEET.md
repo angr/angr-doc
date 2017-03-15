@@ -31,13 +31,15 @@ pg.use_technique(angr.exploration_techniques.DFS())
 
 Explore Pathgroup until one pathgroup at one of the adresses from find is found
 ```python
-path_group.explore(find=list_of_adresses_to_find, avoid=list_of_adresses_to_avoid)
+avoid_addr = [0x400c06, 0x400bc7]
+find_addr = 0x400c10d
+pg.explore(find=find_addr, avoid=avoid_addr)
 ```
+
 ```python
 found = path_group.found[] # The list of paths that reached find condition from explore
 found.state.se.any_str(sym_arg) # Return a concrete string value for the sym arg to reach this state 
 ```
-
 
 Explore pathgroup until lambda
 ```python
@@ -49,11 +51,7 @@ Memory Managment on big searches (Auto Drop Stashes):
 pg.explore(find=find_addr, avoid=avoid_addr, step_func=lambda lpg: lpg.drop(stash='avoid'))
 ```
 
-```python
-avoid_addr = [0x400c06, 0x400bc7]
-find_addr = 0x400c10d
-pg.explore(find=find_addr, avoid=avoid_addr)
-```
+
 
 ### Manually Exploring:
 ```python
