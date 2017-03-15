@@ -1,3 +1,8 @@
+# Intro
+The following cheatsheet aims to give a an overview of various things you can do with angr and as a quick reference to check what exactly the syntax for something was without having to dig through the deeper docs.
+
+
+## General getting started
 Some useful imports
 ```python
 import angr #the main framework
@@ -9,21 +14,77 @@ Loading the binary
 proj = angr.Project("/path/to/binary", load_options={'auto_load_libs': False} ) # auto_load_libs False for improve performance
 ```
 
-Generate a path group object
+## Path Groups
 
+Generate a path group object
 ```python
-path_group = proj.factory.path_group(threads=4)
+path_group = proj.factory.path_group(state, threads=4)
 ```
+
+## Exploring and analysing pathgroups
+
+Choosing a different Exploring strat
+```python
+pg.use_technique(angr.exploration_techniques.DFS())
+```
+
 
 Explore Pathgroup until one pathgroup at one of the adresses from find is found
 ```python
 path_group.explore(find=list_of_adresses_to_find, avoid=list_of_adresses_to_avoid)
 ```
+```python
+found = path_group.found[] # The list of paths that reached find condition from explore
+found.state.se.any_str(sym_arg) # Return a concrete string value for the sym arg to reach this state 
+```
+
 
 Explore pathgroup until lambda
 ```python
-pg.step(until=lambda p: p.active[0].addr >= first_jmp)
+path_group.step(until=lambda p: p.active[0].addr >= first_jmp)
 ```
+
+Memory Managment on big searches (Auto Drop Stashes):
+```python
+pg.explore(find=find_addr, avoid=avoid_addr, step_func=lambda lpg: lpg.drop(stash='avoid'))
+```
+
+```python
+avoid_addr = [0x400c06, 0x400bc7]
+find_addr = 0x400c10d
+pg.explore(find=find_addr, avoid=avoid_addr)
+```
+
+### Manually Exploring:
+```python
+pg.step(step_func=step_func, until=lambda lpg: len(lpg.found) > 0)
+
+def step_func(lpg):
+    lpg.stash(filter_func=lambda path: path.addr == 0x400c06, from_stash='active', to_stash='avoid')
+    lpg.stash(filter_func=lambda path: path.addr == 0x400bc7, from_stash='active', to_stash='avoid')
+    lpg.stash(filter_func=lambda path: path.addr == 0x400c10, from_stash='active', to_stash='found')
+    return lpg
+```
+
+
+Enable Logging:
+```python
+angr.path_group.l.setLevel("DEBUG")
+```
+
+### Stashes
+
+Move Stash:
+```python
+pg.stash(from_stash="found", to_stash="active")
+```
+Drop Stashes:
+```python
+pg.drop(stash="avoid")
+```
+
+
+## Constraint Solver (claripy)
 
 Create symbolic object
 ```python
@@ -39,7 +100,7 @@ for byte in sym_arg.chop(8):
     initial_state.add_constraints(byte <= '~') # '\x7e'
 ```
 
-Use the argument somehow
+Use the argument to create a state
 ```python
 argv = [project.filename]
 argv.append(sym_arg)
@@ -52,16 +113,7 @@ argv1 = angr.claripy.BVS("argv1", flag_size * 8)
 initial_state = b.factory.full_init_state(args=["./antidebug", argv1], add_options=simuvex.o.unicorn, remove_options={simuvex.o.LAZY_SOLVES})
 ```
 
-Create a path group
-```python
-path_group = project.factory.path_group(state)
-```
-
-Exploring and analysing pathgroups
-```python
-found = path_group.found[] # The list of paths that reached find condition from explore
-found.state.se.any_str(sym_arg) #Return a concrete string value for the sym arg to reach this state 
-```
+## FFI and Hooking
 
 Calling a function from ipython
 ```python
@@ -90,7 +142,7 @@ class fixpid(SimProcedure):
 b.hook(0x4008cd, fixpid, length=5)
 ```
 
-Other useful tricks
+## Other useful tricks
 
 
 Drop into an ipython if a ctr+c is recieved (useful for debugging scripts that are running forever)
@@ -120,9 +172,9 @@ block.capstone.pp() #Capstone object has pretty print and other data about the d
 block.vex.pp()		#Print vex representation
 ```
 
-State manipulation
+## State manipulation
 
-write to state:
+Write to state:
 ```python
 aaaa = claripy.BVV(0x41414141, 32) # 32 = Bits
 state.memory.store(0x6021f2, aaaa)
@@ -143,47 +195,8 @@ for i in range(38):
 	key.append(extractkey.se.any_int(extractkey.memory.load(0x602140+(i*4), 4, endness='Iend_LE')))
 ```
 
-Stepping a Path Group
 
-Exploring:
-```python
-avoid_addr = [0x400c06, 0x400bc7]
-find_addr = 0x400c10d
-pg.explore(find=find_addr, avoid=avoid_addr)
-```
-
-Manually Exploring:
-```python
-pg.step(step_func=step_func, until=lambda lpg: len(lpg.found) > 0)
-
-def step_func(lpg):
-    lpg.stash(filter_func=lambda path: path.addr == 0x400c06, from_stash='active', to_stash='avoid')
-    lpg.stash(filter_func=lambda path: path.addr == 0x400bc7, from_stash='active', to_stash='avoid')
-    lpg.stash(filter_func=lambda path: path.addr == 0x400c10, from_stash='active', to_stash='found')
-    return lpg
-```
-Choosing a different Exploring strat
-```python
-pg.use_technique(angr.exploration_techniques.DFS())
-```
-
-Enable Logging:
-```python
-angr.path_group.l.setLevel("DEBUG")
-```
-
-Stashes
-
-Move Stash:
-```python
-pg.stash(from_stash="found", to_stash="active")
-```
-Drop Stashes:
-```python
-pg.drop(stash="avoid")
-```
-
-Debugging angr
+## Debugging angr
 
 Set Breakpoint at every Memory read/write:
 ```python
@@ -196,10 +209,4 @@ Set Breakpoint at specific Memory location:
 ```python
 new_state.inspect.b('mem_write', mem_write_address=0x6021f1, when=simuvex.BP_AFTER, action=debug_funcWrite)
 ```
-
-Memory Managment on big searches (Auto Drop Stashes):
-```python
-pg.explore(find=find_addr, avoid=avoid_addr, step_func=lambda lpg: lpg.drop(stash='avoid'))
-```
-
 
