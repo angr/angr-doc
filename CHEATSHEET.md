@@ -25,7 +25,7 @@ path_group = proj.factory.path_group(state, threads=4)
 
 Choosing a different Exploring strat
 ```python
-pg.use_technique(angr.exploration_techniques.DFS())
+path_group.use_technique(angr.exploration_techniques.DFS())
 ```
 
 
@@ -33,7 +33,7 @@ Explore Pathgroup until one pathgroup at one of the adresses from find is found
 ```python
 avoid_addr = [0x400c06, 0x400bc7]
 find_addr = 0x400c10d
-pg.explore(find=find_addr, avoid=avoid_addr)
+path_group.explore(find=find_addr, avoid=avoid_addr)
 ```
 
 ```python
@@ -48,14 +48,14 @@ path_group.step(until=lambda p: p.active[0].addr >= first_jmp)
 
 Memory Managment on big searches (Auto Drop Stashes):
 ```python
-pg.explore(find=find_addr, avoid=avoid_addr, step_func=lambda lpg: lpg.drop(stash='avoid'))
+path_group.explore(find=find_addr, avoid=avoid_addr, step_func=lambda lpg: lpg.drop(stash='avoid'))
 ```
 
 
 
 ### Manually Exploring:
 ```python
-pg.step(step_func=step_func, until=lambda lpg: len(lpg.found) > 0)
+path_group.step(step_func=step_func, until=lambda lpg: len(lpg.found) > 0)
 
 def step_func(lpg):
     lpg.stash(filter_func=lambda path: path.addr == 0x400c06, from_stash='active', to_stash='avoid')
@@ -74,11 +74,11 @@ angr.path_group.l.setLevel("DEBUG")
 
 Move Stash:
 ```python
-pg.stash(from_stash="found", to_stash="active")
+path_group.stash(from_stash="found", to_stash="active")
 ```
 Drop Stashes:
 ```python
-pg.drop(stash="avoid")
+path_group.drop(stash="avoid")
 ```
 
 
@@ -159,7 +159,7 @@ signal.signal(signal.SIGINT, sigint_handler)
 
 Get the calltrace of a pathgroup to find out where we got stuck
 ```python
-path = pg.active[0]
+path = path_group.active[0]
 path.callstack_backtrace
 ```
 
