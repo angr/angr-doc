@@ -3,6 +3,13 @@
 This lists the *major* changes in angr.
 Tracking minor changes are left as an exercise for the reader :-)
 
+## angr 6.7.3.21
+
+- We have rebased our fork of VEX on the latest master branch from valgrind (as of 2 months ago, at least...). We have also submitted our patches to VEX to upstream, so we should be able to stop maintaining a fork pretty soon.
+- The way we interact with VEX has changed substancially, and should speed things up a bit.
+- Loading sets of binaries with many import symbols has been sped up
+- Many, many improvements to angr-management, including the switch away from enaml to using pyside directly.
+
 ## angr 6.7.1.13
 
 For the last month, we have been working on a major refactor of the angr to change the way that angr reasons about the code that it analyzes.
