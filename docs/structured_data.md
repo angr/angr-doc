@@ -19,25 +19,30 @@ This helps with getting instances of type objects:
 
 # note that SimType objects have their __repr__ defined to return their c type name,
 # so this function actually returned a SimType instance.
->>> simuvex.s_type.parse_type('int')
+>>> simuvex.parse_type('int')
 int
 
->>> simuvex.s_type.parse_type('char **')
+>>> simuvex.parse_type('char **')
 char**
 
->>> simuvex.s_type.parse_type('struct aa {int x; long y;}')
+>>> simuvex.parse_type('struct aa {int x; long y;}')
 struct aa
 
->>> simuvex.s_type.parse_type('struct aa {int x; long y;}').fields
+>>> simuvex.parse_type('struct aa {int x; long y;}').fields
 OrderedDict([('x', int), ('y', long)])
 ```
 
-Additionally, you may parse C definitions and have them returned to you in a dict:
+Additionally, you may parse C definitions and have them returned to you in a dict, either of variable/function declarations or of newly defined types:
 
 ```python
->>> defs = simuvex.s_type.parse_defns("int x; typedef struct llist { char* str; struct llist *next; } list_node; list_node *y;")
+>>> simuvex.parse_defns("int x; typedef struct llist { char* str; struct llist *next; } list_node; list_node *y;")
+{'x': int, 'y': struct llist*}
+
+>>> defs = simuvex.parse_types("int x; typedef struct llist { char* str; struct llist *next; } list_node; list_node *y;")
 >>> defs
-{'list_node': struct llist, 'x': int, 'y': struct llist*}
+{'list_node': struct llist}
+
+# if you want to get both of these dicts at once, use parse_file, which returns both in a tuple.
 
 >>> defs['list_node'].fields
 OrderedDict([('str', char*), ('next', struct llist*)])
@@ -47,16 +52,17 @@ OrderedDict([('str', char*), ('next', struct llist*)])
 
 # If you want to get a function type and you don't want to construct it manually,
 # you have to use parse_defns, not parse_type
->>> simuvex.s_type.parse_defns("int x(int y, double z);")
+>>> simuvex.parse_defns("int x(int y, double z);")
 {'x': (int, double) -> int}
 ```
 
 And finally, you can register struct definitions for future use:
 
 ```python
->>> simuvex.s_type.define_struct('struct abcd { int x; int y; }')
->>> simuvex.s_type.parse_type('struct abcd')
-struct abcd
+>>> simuvex.define_struct('struct abcd { int x; int y; }')
+>>> simuvex.register_types(simuvex.parse_types('typedef long time_t;'))
+>>> simuvex.parse_defns('struct abcd a; time_t b;')
+{'a': struct abcd, 'b': long}
 ```
 
 These type objects aren't all that useful on their own, but they can be passed to other parts of angr to specify data types.
@@ -114,7 +120,7 @@ The interface works like this:
 - Alternately, you may store a value to memory, by assigning to the chain of properties that you've constructed.
   Note that because of the way python works, `x = s.mem[...].prop; x = val` will NOT work, you must say `s.mem[...].prop = val`.
 
-If you define a struct using `s_type.define_struct`, you can access it here as a type:
+If you define a struct using `define_struct` or `register_types`, you can access it here as a type:
 
 ```python
 >>> s.mem[b.entry].abcd
