@@ -7,6 +7,8 @@
 # Runtime: ~4.5 seconds (single threaded E5-2666 v3 @ 2.90GHz on AWS/EC2)
 
 import angr
+import simuvex
+
 
 def main():
     proj = angr.Project('./unbreakable-enterprise-product-activation', load_options={"auto_load_libs": False}) # Disabling the automatic library loading saves a few milliseconds.
@@ -15,7 +17,7 @@ def main():
 
     argv1 = angr.claripy.BVS("argv1", input_size * 8)
 
-    initial_state = proj.factory.entry_state(args=["./unbreakable-enterprise-product-activation", argv1]) 
+    initial_state = proj.factory.entry_state(args=["./unbreakable-enterprise-product-activation", argv1], add_options={simuvex.o.LAZY_SOLVES})
     initial_state.libc.buf_symbolic_bytes=input_size + 1 # Thanks to Christopher Salls (@salls) for pointing this out. By default there's only 60 symbolic bytes, which is too small.
 
     # For some reason if you constrain too few bytes, the solution isn't found. To be safe, I'm constraining them all.
