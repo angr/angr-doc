@@ -29,7 +29,7 @@ def main():
     pg = proj.factory.path_group(state,save_unconstrained=True)
 
     # Step execution until we find a place we may control
-    while len(pg.active) > 0 and len(pg.unconstrained) == 0:
+    while pg.active != [] and pg.unconstrained == []:
         pg.step()
 
     # In [9]: pg
@@ -40,12 +40,12 @@ def main():
 
     # Now we can simply tell angr to set the instruction pointer to point at the
     # win function to give us execution
-    s.add_constraints(s.regs.rip == proj.loader.main_bin.get_symbol('win').addr) 
+    s.add_constraints(s.regs.rip == proj.loader.main_bin.get_symbol('win').addr)
 
     assert s.satisfiable()
 
     # Call the solving engine and write the solution out to a file called "exploit"
-    print("Writing exploit as \"exploit\"")
+    print "Writing exploit as \"exploit\""
     s.posix.dump(0,"exploit")
 
     # Now you can run the program and feed it your exploit to gain execution
@@ -67,5 +67,5 @@ def test():
     assert "Win" in out
 
 
-if __name__ == '__main__':                                                                                                                                                                                       
-    main()                                                                                                                                                                                                 
+if __name__ == '__main__':
+    main()
