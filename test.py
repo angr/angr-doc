@@ -107,6 +107,7 @@ def test_whitehatvn2015_re400(): exampletest_single('whitehatvn2015_re400')
 #def test_defcon2016quals_baby_re_0(): exampletest_single('defcon2016quals_baby-re_0')
 def test_defcon2016quals_baby_re_1(): exampletest_single('defcon2016quals_baby-re_1')
 def test_sharif7_rev50(): exampletest_single(os.path.join('sharif7', 'rev50'))
+def test_simple_heap_overflow(): exampletest_single('simple_heap_overflow')
 
 if __name__ == '__main__':
     for tester, arg in test_docs():
@@ -134,3 +135,4 @@ if __name__ == '__main__':
     exampletest_single('whitehat_crypto400')
     exampletest_single('whitehatvn2015_re400')
     exampletest_single('defcon2016quals_baby-re_1')
+    exampletest_single('simple_heap_overflow')
