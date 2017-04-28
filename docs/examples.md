@@ -210,3 +210,17 @@ All binaries follow the same format; the command-line argument is validated in a
 angr is used to find the way through the binary to the memcpy() and to generate valid inputs to every checking function individually.
 
 The sample binaries and the script are located [here](https://github.com/angr/angr-doc/tree/master/examples/secuinside2016mbrainfuzz) and additional information be found at the author's [Write-Up](https://tasteless.eu/post/2016/07/secuinside-mbrainfuzz/).
+
+
+### SECCON 2016 Quals - ropsynth
+
+```
+Script author: Yan Shoshitaishvili (github @zardus) and Nilo Redini
+Script runtime: 2 minutes
+Concepts presented: automatic ROP chain generation, binary modification, reasoning over constraints, reasoning over action history
+```
+
+This challenge required the automatic generation of ropchains, with the twist that every ropchain was succeeded by an input check that, if not passed, would terminate the application.
+We used symbolic execution to recover those checks, removed the checks from the binary, used angrop to build the ropchains, and instrumented them with the inputs to pass the checks.
+
+The various challenge files are located [here](https://github.com/angr/angr-doc/tree/master/examples/secconquals2016_ropsynth), with the actual solve script [here](https://github.com/angr/angr-doc/tree/master/examples/secconquals2016_ropsynth/solve.py).

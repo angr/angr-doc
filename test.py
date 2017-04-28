@@ -102,6 +102,7 @@ def test_securityfest_fairlight(): exampletest_single('securityfest_fairlight')
 def test_strcpy_find(): exampletest_single('strcpy_find')
 def test_whitehat_crypto400(): exampletest_single('whitehat_crypto400')
 def test_whitehatvn2015_re400(): exampletest_single('whitehatvn2015_re400')
+def test_secconquals2016_ropsynth(): exampletest_single('secconquals2016_ropsynth')
 
 #def test_0ctf_momo_3(): exampletest_single('0ctf_momo_3')
 #def test_defcon2016quals_baby_re_0(): exampletest_single('defcon2016quals_baby-re_0')
