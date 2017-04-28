@@ -1,33 +1,40 @@
-#This example is for secuinsides mbrainfuzz challenge (2016)
-#The challenge gave you binaries which you automatically had to exploit - since the service is not online anymore, 4 example binaries, obtained during the ctf, are included in this example 
-#The script is based on the writeup at https://tasteless.eu/post/2016/07/secuinside-mbrainfuzz/ - the difference is that the static analyses part is done with angr instead of r2
+# This example is for secuinsides mbrainfuzz challenge (2016)
+# The challenge gave you binaries which you automatically had
+# to exploit - since the service is not online anymore, 4 example
+# binaries, obtained during the ctf, are included in this example
+# The script is based on the writeup at
+# https://tasteless.eu/post/2016/07/secuinside-mbrainfuzz/ - the
+# difference is that the static analyses part is done with angr instead of r2
 
 
-import angr, claripy, re, sys, struct, subprocess
+import re
+import sys
+import angr
+import claripy
+import subprocess
 
 def static_analyses(p):
     print '[*] Analyzing %s...' % p.filename
 
     #This part is done with r2 in the original writeup.
     #However, it is also possible to do the same with angr! :)
-        
+
     to_find, to_avoid, byte_addresses = [], [], []
     find_hex_re = re.compile('(0x[0-9a-fA-F]{6})')
 
-    #Our main interface for this part will be the cfg. For performance reasons, we use CFGFast 
+    #Our main interface for this part will be the cfg. For performance reasons, we use CFGFast
     cfg = p.analyses.CFGFast()
 
-    #As the main function doesn't get identified automatically, let's use a small trick here: 
+    #As the main function doesn't get identified automatically, let's use a small trick here:
     #We take a function which is only called in main (e.g. sscanf) and resolve its predecessor
-    for address,function in cfg.function_manager.functions.iteritems():
-        if function.name == 'plt.__isoc99_sscanf':
-            addr = cfg.function_manager.interfunction_graph.predecessors(address)[0]
+    for address,function in cfg.functions.iteritems():
+        if function.name == '__isoc99_sscanf' and function.is_plt:
+            addr = cfg.functions.callgraph.predecessors(address)[0]
             break
 
     #Now, let's go down all the way to the target function
-    while(True):
-        
-        function = cfg.function_manager.function(addr)
+    while True:
+        function = cfg.functions[addr]
 
         #First, let's get all call_sites and leave the loop, if there are none
         call_sites = function.get_call_sites()
@@ -62,6 +69,7 @@ def static_analyses(p):
 
     return to_find, to_avoid, byte_addresses
 
+#pylint:disable=redefined-builtin
 
 def generate_input(p, to_find, to_avoid, byte_addresses):
     print '[*] Generating input ....'
