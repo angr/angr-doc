@@ -8,9 +8,9 @@ There are also a great amount of slightly more redunant examples (these mostly s
 
 To jump to a specific category:
 
-[Introduction](#)
-[Reversing](#)
-[Exploitation](#)
+- [Introduction](#Introduction) - examples showing off the very basics of angr's functionality
+- [Reversing](#Reversing) - examples showing angr being used in reverse engineering tasks
+- [Exploitation](#Exploitation) - examples of angr being used as an exploitation assistance tool
 
 ## Introduction
 
