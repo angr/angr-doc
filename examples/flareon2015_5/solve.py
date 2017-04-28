@@ -32,8 +32,7 @@ def main():
     p = angr.Project('sender')
 
     # Start with a blank state at the EIP after "key.txt" is read
-    state = p.factory.blank_state(addr=0x401198, 
-                                  remove_options={simuvex.o.LAZY_SOLVES})
+    state = p.factory.blank_state(addr=0x401198)
 
     # Initialize global variables
     ADDR_PW_ORI = state.regs.ebp - 0x80004
