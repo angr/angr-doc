@@ -10,16 +10,14 @@
 # 1. Because we need to automatically break a hash, constraint solves can be
 #    extremely slow. This means that we need to adjust Z3's timeout so that
 #    constraint solves will succeed.
-# 2. Related to (1), since exploring extraneous paths is very expensive, we
-#    need to disable some optimizations in angr.
-# 3. The optimized way in which modular multiplication is implemented in the
+# 2. The optimized way in which modular multiplication is implemented in the
 #    binary causes problems for angr's symbolic execution engine and results
 #    in a path explosion. To get around this, we need to hook the `mm` and
 #    `moddi3` functions with python summaries.
-# 4. There is a bug in angr's environment model, causing global data used by
+# 3. There is a bug in angr's environment model, causing global data used by
 #    `isalnum` to be improperly initialized. As a temporary fix, we need to
 #    hook the `isalnum` function with a python summary.
-# 5. One of the initializers in the binary causes a path explosion in the
+# 4. One of the initializers in the binary causes a path explosion in the
 #    symbolic execution engine. This is also likely due to a faulty environment
 #    model. Our solution was to simply begin execution from within `main()`,
 #    manually specifying the user input.
@@ -75,10 +73,6 @@ def main():
     # Here, we create a new symbolic state. To get around issue 5, we start
     # execution partway through `main()`.
     s = b.factory.blank_state(addr=0x8048A63)
-
-    # To get around issue 2, we disable an optimization that, in this binary, goes
-    # a bit awry and causes *more* constraint solves to happen.
-    s.options.discard("LAZY_SOLVES")
 
     # To get around issue 1, we raise the solver timeout (specified in
     # milliseconds) to avoid situations where Z3 times out. Without this, with the

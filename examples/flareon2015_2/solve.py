@@ -6,7 +6,7 @@ def main():
     # create a state at the checking function
     # Since this is a windows binary we have to start after the windows library calls
     # remove lazy solves since we don't want to explore unsatisfiable paths
-    s = b.factory.blank_state(addr=0x401084, remove_options={simuvex.o.LAZY_SOLVES})
+    s = b.factory.blank_state(addr=0x401084)
     # set up the arguments on the stack
     s.memory.store(s.regs.esp+12, s.se.BVV(40, s.arch.bits))
     s.mem[s.regs.esp+8:].dword = 0x402159

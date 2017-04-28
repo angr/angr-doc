@@ -15,7 +15,7 @@ def main():
     p.hook(0x401f7e, patch_0, length=0x4028dd-0x401f7e)
     p.hook(0x402b5d, patch_0, length=0x402b91-0x402b5d)
 
-    state = p.factory.blank_state(addr=0x401f30, remove_options={simuvex.s_options.LAZY_SOLVES})
+    state = p.factory.blank_state(addr=0x401f30)
     argv=['re400.exe', state.se.BVS('arg1', 37 * 8)]
 
 

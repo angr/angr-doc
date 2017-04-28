@@ -4,9 +4,8 @@ import simuvex
 def main():
     p = angr.Project("license", load_options={'auto_load_libs': False})
 
-    # We remove the LAZY_SOLVES flag, so that we don't have too many unnecessary 
-    # branches
-    state = p.factory.blank_state(remove_options={simuvex.s_options.LAZY_SOLVES})
+    # Create a blank state
+    state = p.factory.blank_state()
 
     # Build the file whose name is weird
     license_name = "_a\nb\tc_"

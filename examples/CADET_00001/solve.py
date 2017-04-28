@@ -47,7 +47,6 @@ def main():
     #then we specify this path as the initial path of the path group
     print "finding the easter egg..."
     path = project.factory.path()
-    path.state.options.discard("LAZY_SOLVES")
     pg = project.factory.path_group(path)
 
     #at this point we just ask angr to reach the basic block where the easter egg 
