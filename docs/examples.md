@@ -10,6 +10,7 @@ To jump to a specific category:
 
 - [Introduction](#introduction) - examples showing off the very basics of angr's functionality
 - [Reversing](#reversing) - examples showing angr being used in reverse engineering tasks
+- [Vulnerability Discovery](#vulnerability) - examples of angr being used to search for vulnerabilities
 - [Exploitation](#exploitation) - examples of angr being used as an exploitation assistance tool
 
 ## Introduction
@@ -21,19 +22,6 @@ These are some introductory examples to give an idea of how to use angr's API.
 This is a basic script that explains how to use angr to symbolically execute a program and produce concrete input satisfying certain conditions.
 
 Binary, source, and script are found [here.](https://github.com/angr/angr-doc/tree/master/examples/fauxware)
-
-### CGC crash identification
-
-```
-Script author: Antonio Bianchi, Jacopo Corbetta
-Concepts presented: exploration to vulnerability
-```
-
-This is a very easy binary containing a stack buffer overflow and an easter egg.
-CADET_00001 is one of the challenge released by DARPA for the Cyber Grand Challenge:
-[link](https://github.com/CyberGrandChallenge/samples/tree/master/examples/CADET_00001)
-The binary can run in the DECREE VM: [link](http://repo.cybergrandchallenge.com/boxes/)
-CADET_00001.adapted (by Jacopo Corbetta) is the same program, modified to be runnable in an Intel x86 Linux machine.
 
 
 ## Reversing
@@ -148,14 +136,11 @@ Rather than hooking the read operations of the flag file, we actually pass in a 
 Here is the [binary](https://github.com/angr/angr-doc/tree/master/examples/asisctffinals2015_license/license) and the [script](https://github.com/angr/angr-doc/tree/master/examples/asisctffinals2015_license/solve.py).
 
 
+## Vulnerability Discovery
 
+These are examples of angr being used to identify vulnerabilities in binaries.
 
-
-## Exploitation
-
-These are examples of angr's use as an exploitation assistance engine.
-
-### Beginner Exploitation example: strcpy_find
+### Beginner vulnerability discovery example: strcpy_find
 
 ```
 Script author: Kyle Ossinger (github: @k0ss)
@@ -169,6 +154,18 @@ To hit the right path, angr has to solve for a password argument, but angr solve
 The script might look large, but that's only because I've heavily commented it to be more helpful to beginners.
 The challenge binary is [here](https://github.com/angr/angr-doc/tree/master/examples/strcpy_find/strcpy_test) and the script is [here](https://github.com/angr/angr-doc/tree/master/examples/strcpy_find/solve.py).
 
+### CGC crash identification
+
+```
+Script author: Antonio Bianchi, Jacopo Corbetta
+Concepts presented: exploration to vulnerability
+```
+
+This is a very easy binary containing a stack buffer overflow and an easter egg.
+CADET_00001 is one of the challenge released by DARPA for the Cyber Grand Challenge:
+[link](https://github.com/CyberGrandChallenge/samples/tree/master/examples/CADET_00001)
+The binary can run in the DECREE VM: [link](http://repo.cybergrandchallenge.com/boxes/)
+CADET_00001.adapted (by Jacopo Corbetta) is the same program, modified to be runnable in an Intel x86 Linux machine.
 
 ### Grub "back to 28" bug
 
@@ -181,6 +178,11 @@ This is the demonstration presented at 32c3. The script uses angr to discover th
 
 [script](https://github.com/angr/angr-doc/tree/master/examples/grub/solve.py) - [vulnerable module](https://github.com/angr/angr-doc/tree/master/examples/grub/crypto.mod)
 
+
+
+## Exploitation
+
+These are examples of angr's use as an exploitation assistance engine.
 
 
 ### Insomnihack Simple AEG
