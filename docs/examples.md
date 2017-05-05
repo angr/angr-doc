@@ -10,7 +10,7 @@ To jump to a specific category:
 
 - [Introduction](#introduction) - examples showing off the very basics of angr's functionality
 - [Reversing](#reversing) - examples showing angr being used in reverse engineering tasks
-- [Vulnerability Discovery](#vulnerability) - examples of angr being used to search for vulnerabilities
+- [Vulnerability Discovery](#vulnerability-discovery) - examples of angr being used to search for vulnerabilities
 - [Exploitation](#exploitation) - examples of angr being used as an exploitation assistance tool
 
 ## Introduction
