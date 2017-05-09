@@ -2,3 +2,7 @@
 api-doc/build
 *.swp
 *.ipynb*
+windows-install/*.zip
+windows-install/*-master
+windows-install/*-win32
+windows-install/*.msi
