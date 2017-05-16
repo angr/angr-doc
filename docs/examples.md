@@ -135,6 +135,16 @@ Rather than hooking the read operations of the flag file, we actually pass in a 
 
 Here is the [binary](https://github.com/angr/angr-doc/tree/master/examples/asisctffinals2015_license/license) and the [script](https://github.com/angr/angr-doc/tree/master/examples/asisctffinals2015_license/solve.py).
 
+### DEFCON Quals 2017 - Crackme2000
+
+```
+Script author: Shellphish
+Script runtime: varies, but on the order of seconds
+Concepts presented: automated reverse engineering
+```
+
+DEFCON Quals had a whole category for automatic reversing in 2017.
+Our scripts are [here](https:////github.com/angr/angr-doc/tree/master/examples/defcon2017quals_crackme2000).
 
 ## Vulnerability Discovery
 
