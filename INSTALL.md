@@ -108,7 +108,7 @@ Synchronization of files in and out of docker is left as an exercise to the user
 
 You might find yourself needing to install additional packages via apt. The vanilla version of the container does not have the sudo package installed, which means the default user in the container cannot escalate privilege to install additional packages. 
 
-To over come this hurdle, use the following docker commands to grant yourself root access:
+To over come this hurdle, use the following docker command to grant yourself root access:
 
 ```bash
 # assuming the docker container is running 
