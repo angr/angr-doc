@@ -104,6 +104,19 @@ sudo docker run -it angr/angr
 
 Synchronization of files in and out of docker is left as an exercise to the user (hint: check out `docker -v`).
 
+### Modifying the angr container
+
+You might find yourself needing to install additional packages via apt. The vanilla version of the container does not have the sudo package installed, which means the default user in the container cannot escalate privilege to install additional packages. 
+
+To over come this hurdle, use the following docker command to grant yourself root access:
+
+```bash
+# assuming the docker container is running 
+# with the name "angr" and the instance is
+# running in the background.
+docker exec -ti -u root angr bash
+```
+
 # Troubleshooting
 
 ## libgomp.so.1: version GOMP_4.0 not found
