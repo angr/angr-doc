@@ -109,3 +109,9 @@ pip install -I --no-use-wheel capstone
 ```
 
 This will rebuild the dynamic library and your install will work.
+
+## How do I serialize angr objects?
+
+[Pickle](https://docs.python.org/2/library/pickle.html) will work.
+However, python will default to using an extremely old pickle protocol that does not support more complex python data structures, so you must specify a [more advanced data stream format](https://docs.python.org/2/library/pickle.html#data-stream-format).
+The easiest way to do this is `pickle.dumps(obj, -1)`.
