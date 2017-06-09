@@ -5,13 +5,13 @@ Tracking minor changes are left as an exercise for the reader :-)
 
 ## angr 6.7.6.9
 
-- angr: A static data-flow analysis framework is introduced, and implemented as part of the `ForwardAnalysis` class. Additionally, a few exemplary data-flow analyses, like `VariableRecovery` and `VariableRecoveryFast`, are implemented in angr.
+- angr: A static data-flow analysis framework has been introduced, and implemented as part of the `ForwardAnalysis` class. Additionally, a few exemplary data-flow analyses, like `VariableRecovery` and `VariableRecoveryFast`, have been implemented in angr.
 - angr: We introduced the notion of _variable_ to the angr world. Now a VariableManager is available in the knowledge base. Variable information can be recovered by running a variable recovery analysis. Currently the variable information recovered for each function is still pretty coarse. More updates to it will arrive soon.
 - angr: Fix a bug in the topological sorting in `CFGUtils`, which resulted in suboptimal graph node ordering after sorting.
-- SimuVEX: `LAZY_SOLVES` is no longer enabled by default during symbolic execution.
+- SimuVEX: `LAZY_SOLVES` is no longer enabled by default during symbolic execution. It's still there if it's wanted, but it just caused confusion when on by default.
 - SimuVEX: Thanks to @ekilmer, a few new libc SimProcedures are added.
-- SimuVEX: The `r/trees` branch has been merged in. TODO: @zardus?
-- angr-management: Implemented our own graph layouting and edge routing algorithm. We do not rely on grandalf anymore.
+- SimuVEX: The default memory model has been refactored for expandability. Custom pages can now be created (derive the simuvex.storage.ListPage class) and used instead of the default page classes to implement custom memory behavior for specific pages. The user-friendly API for this is pending the next release.
+- angr-management: Implemented our own graph layout and edge routing algorithm. We do not rely on grandalf anymore.
 - angr-management: Added support for displaying variable information for operands.
 - angr-management: Added support for highlighting dependent operands when an operand is highlighted.
 
