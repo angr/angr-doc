@@ -3,11 +3,23 @@
 This lists the *major* changes in angr.
 Tracking minor changes are left as an exercise for the reader :-)
 
+## angr 6.7.6.9
+
+- angr: A static data-flow analysis framework is introduced, and implemented as part of the `ForwardAnalysis` class. Additionally, a few exemplary data-flow analyses, like `VariableRecovery` and `VariableRecoveryFast`, are implemented in angr.
+- angr: We introduced the notion of _variable_ to the angr world. Now a VariableManager is available in the knowledge base. Variable information can be recovered by running a variable recovery analysis. Currently the variable information recovered for each function is still pretty coarse. More updates to it will arrive soon.
+- angr: Fix a bug in the topological sorting in `CFGUtils`, which resulted in suboptimal graph node ordering after sorting.
+- SimuVEX: `LAZY_SOLVES` is no longer enabled by default during symbolic execution.
+- SimuVEX: Thanks to @ekilmer, a few new libc SimProcedures are added.
+- SimuVEX: The `r/trees` branch has been merged in. TODO: @zardus?
+- angr-management: Implemented our own graph layouting and edge routing algorithm. We do not rely on grandalf anymore.
+- angr-management: Added support for displaying variable information for operands.
+- angr-management: Added support for highlighting dependent operands when an operand is highlighted.
+
 ## angr 6.7.3.26
 
 Building off of the engine changes from the last release, we have begun to extend angr to other architectures. AVR and MSP430 are in progress. In the meantime, subwire has created a reference implementation of BrainFuck support in angr, done two different ways! Check out [angr-bf](https://github.com/angr/angr-bf) for more info!
 
-- We have rebased our fork of VEX on the latest master branch from valgrind (as of 2 months ago, at least...). We have also submitted our patches to VEX to upstream, so we should be able to stop maintaining a fork pretty soon.
+- We have rebased our fork of VEX on the latest master branch from Valgrind (as of 2 months ago, at least...). We have also submitted our patches to VEX to upstream, so we should be able to stop maintaining a fork pretty soon.
 - The way we interact with VEX has changed substancially, and should speed things up a bit.
 - Loading sets of binaries with many import symbols has been sped up
 - Many, many improvements to angr-management, including the switch away from enaml to using pyside directly.
