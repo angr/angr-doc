@@ -1,6 +1,5 @@
 
 import angr
-import simuvex
 
 def main():
 
@@ -14,7 +13,7 @@ def main():
                      )
 
     # unicorn support makes execution, especially code unpacking, way faster
-    state = p.factory.entry_state(add_options=simuvex.o.unicorn)
+    state = p.factory.entry_state(add_options=angr.options.unicorn)
     pg = p.factory.path_group(state)
 
     while pg.active:

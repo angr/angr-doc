@@ -1,7 +1,6 @@
 #!/usr/bin/env python
 # coding: utf-8
 import angr
-import simuvex
 
 def main():
     # Load the binary. This is a 64-bit C++ binary, pretty heavily obfuscated.
@@ -11,7 +10,7 @@ def main():
     # Because we're going to have to step deep into the C++ standard libraries
     # for this to work, we need to run everyone's initializers. The full_init_state
     # will do that. In order to do this peformantly, we will use the unicorn engine!
-    st = p.factory.full_init_state(args=['./wyvern'], add_options=simuvex.o.unicorn)
+    st = p.factory.full_init_state(args=['./wyvern'], add_options=angr.options.unicorn)
 
     # It's reasonably easy to tell from looking at the program in IDA that the key will
     # be 29 bytes long, and the last byte is a newline.

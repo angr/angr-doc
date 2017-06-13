@@ -16,7 +16,6 @@ Team: bitsforeveryone (USMA)
 """
 
 import angr
-import simuvex
 
 
 START_ADDR = 0x4005bd # first part of program that does computation
@@ -39,7 +38,7 @@ def main():
     p = angr.Project('unbreakable')
 
     print('adding BitVectors and constraints')
-    state = p.factory.blank_state(addr=START_ADDR, add_options={simuvex.o.LAZY_SOLVES})
+    state = p.factory.blank_state(addr=START_ADDR, add_options={angr.options.LAZY_SOLVES})
     for i in range(INPUT_LENGTH):
         c, cond = char(state, i)
         # the first command line argument is copied to INPUT_ADDR in memory

@@ -1,24 +1,23 @@
-## Full writeup on flag 2 found on http://www.ctfhacker.com		
+## Full writeup on flag 2 found on http://www.ctfhacker.com     
 ## Binary found here: http://csapp.cs.cmu.edu/3e/bomb.tar
 import sys
 import angr
 import logging
 import claripy
-import simuvex
 from struct import unpack
 
-class readline_hook(simuvex.SimProcedure):
+class readline_hook(angr.SimProcedure):
     def run(self):
         pass
 
-class strtol_hook(simuvex.SimProcedure):
+class strtol_hook(angr.SimProcedure):
     def run(self, str, end, base):
         return self.state.se.BVS("flag", 64, explicit_name=True)
 
 def solve_flag_1():
 
     # shutdown some warning produced by this example
-    logging.getLogger('simuvex.vex.irsb').setLevel(logging.ERROR)
+    logging.getLogger('angr.engines.vex.irsb').setLevel(logging.ERROR)
 
     proj = angr.Project('bomb', load_options={'auto_load_libs':False})
 
@@ -160,7 +159,7 @@ def solve_flag_4():
         # addr=proj.kb.functions.get('phase_4').addr,
         # we will just use the obj's symbol directly
         addr=proj.kb.obj.get_symbol('phase_4').addr,
-        remove_options={simuvex.o.LAZY_SOLVES})
+        remove_options={angr.options.LAZY_SOLVES})
     pg = proj.factory.path_group(state)
     pg.explore(find=find, avoid=avoid)
 
@@ -199,7 +198,7 @@ def solve_flag_5():
     find = proj.kb.functions.get('phase_5').ret_sites[0].addr
 
     state = proj.factory.blank_state(
-        addr=start, remove_options={simuvex.o.LAZY_SOLVES})
+        addr=start, remove_options={angr.options.LAZY_SOLVES})
     # retrofit the input string on the stack
     state.regs.rdi = state.regs.rsp - 0x1000
     string_addr = state.regs.rdi
@@ -215,7 +214,7 @@ def solve_flag_5():
     # return map(lambda s: s.split('\x00')[0], found.se.any_n_str(mem, 10))
 
 
-class read_6_ints(simuvex.SimProcedure):
+class read_6_ints(angr.SimProcedure):
     answer_ints = []  # class variable
     int_addrs = []
 
@@ -236,7 +235,7 @@ def solve_flag_6():
     avoid = 0x40143A
     p = angr.Project("./bomb", load_options={'auto_load_libs': False})
     p.hook(read_num, read_6_ints)
-    state = p.factory.blank_state(addr=start, remove_options={simuvex.o.LAZY_SOLVES})
+    state = p.factory.blank_state(addr=start, remove_options={angr.options.LAZY_SOLVES})
     pg = p.factory.path_group(state)
     pg.explore(find=find, avoid=avoid)
     found = pg.found[0].state
@@ -254,7 +253,7 @@ def solve_secret():
     p = angr.Project("./bomb", load_options={'auto_load_libs':False})
     p.hook(readline, readline_hook)
     p.hook(strtol, strtol_hook)
-    state = p.factory.blank_state(addr=start, remove_options={simuvex.o.LAZY_SOLVES})
+    state = p.factory.blank_state(addr=start, remove_options={angr.options.LAZY_SOLVES})
     flag = claripy.BVS("flag", 64, explicit_name=True)
     state.add_constraints(flag -1 <= 0x3e8)
     pg = p.factory.path_group(state)

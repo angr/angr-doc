@@ -3,7 +3,7 @@
 import string
 
 import angr
-from simuvex.procedures.stubs.UserHook import UserHook
+from angr.procedures.stubs.UserHook import UserHook
 
 # DEFCON - BABY-RE
 # @author: P1kachu

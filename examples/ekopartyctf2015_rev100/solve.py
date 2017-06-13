@@ -6,7 +6,7 @@
 # verified, and then run that single part of code inside angr to solve the 
 # password.
 
-from simuvex.procedures.stubs.UserHook import UserHook
+from angr.procedures.stubs.UserHook import UserHook
 import angr
 
 def prepare_state(state, known_passwords):

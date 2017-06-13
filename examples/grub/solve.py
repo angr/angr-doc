@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 
-import angr, simuvex
+import angr
 
 def find_bug():
     p = angr.Project('crypto.mod', load_options={'main_opts': {'custom_base_addr': 0x8000000}})
@@ -15,10 +15,10 @@ def find_bug():
         p.hook(pseudo_addr, func)
 
     # use libc functions as stand-ins for grub functions
-    grub_memset = simuvex.SimProcedures['libc.so.6']['memset']
-    grub_getkey = simuvex.SimProcedures['libc.so.6']['getchar']
-    grub_puts = simuvex.SimProcedures['stubs']['ReturnUnconstrained']
-    grub_refresh = simuvex.SimProcedures['stubs']['ReturnUnconstrained']
+    grub_memset = angr.SIM_PROCEDURES['libc.so.6']['memset']
+    grub_getkey = angr.SIM_PROCEDURES['libc.so.6']['getchar']
+    grub_puts = angr.SIM_PROCEDURES['stubs']['ReturnUnconstrained']
+    grub_refresh = angr.SIM_PROCEDURES['stubs']['ReturnUnconstrained']
     resolve_dependancy('grub_getkey', grub_getkey)
     resolve_dependancy('grub_memset', grub_memset)
     resolve_dependancy('grub_refresh', grub_refresh)
@@ -28,7 +28,7 @@ def find_bug():
     p.loader.provide_symbol(p._extern_obj, 'grub_xputs', p._extern_obj.get_pseudo_addr('grub_xputs') - p._extern_obj.rebase_addr)
 
     exec_sink = p._extern_obj.get_pseudo_addr('exec_sink')
-    p.hook(exec_sink, simuvex.SimProcedures['stubs']['PathTerminator'])
+    p.hook(exec_sink, angr.SIM_PROCEDURES['stubs']['PathTerminator'])
 
     # set up the most generic state that could enter this function
     start_state = p.factory.blank_state(addr=0x80008A1)

@@ -9,7 +9,6 @@ This is an example that uses angr to solve a challenge from Layer7 CTF 2015.
 """
 
 import angr
-import simuvex
 
 def decrypt(state):
     buf = state.regs.edx # The second argument
@@ -21,7 +20,7 @@ def main():
     # Load the project
     p = angr.Project("onlyone.exe", use_sim_procedures=True)
     # Hook the malloc - we cannot automatically use SimProcedures for it, which will be fixed soon
-    p.hook(0x2398, simuvex.SimProcedures['libc.so.6']['malloc'])
+    p.hook(0x2398, angr.SIM_PROCEDURES['libc.so.6']['malloc'])
     # Hook the decrypt function merely because we don't support pow/sqrt/floor
     p.hook(0x401038, decrypt, length=5)
 

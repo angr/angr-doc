@@ -2,7 +2,6 @@
 #logging.getLogger('angr.surveyor').setLevel(logging.DEBUG)
 
 import angr
-import simuvex
 
 def patch_0(state):
     pass

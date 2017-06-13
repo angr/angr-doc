@@ -31,14 +31,13 @@
 #
 
 import angr
-import simuvex
 
 #
 # These are our symbolic summary functions for modular multiplication, modulo,
 # and isalnum.
 #
 
-class mm(simuvex.SimProcedure):
+class mm(angr.SimProcedure):
     def run(self, low1, high1, low2, high2):
         first = high1.concat(low1)
         second = high2.concat(low2)
@@ -46,7 +45,7 @@ class mm(simuvex.SimProcedure):
         self.state.regs.edx = self.state.se.Extract(63, 32, result)
         return self.state.se.Extract(31, 0, result)
 
-class moddi3(simuvex.SimProcedure):
+class moddi3(angr.SimProcedure):
     def run(self, a, a2, b, b2):
         first = a2.concat(a)
         second = b2.concat(b)
@@ -54,7 +53,7 @@ class moddi3(simuvex.SimProcedure):
         self.state.regs.edx = self.state.se.Extract(63, 32, result)
         return self.state.se.Extract(31, 0, result)
 
-class isalnum(simuvex.SimProcedure):
+class isalnum(angr.SimProcedure):
     def run(self, c):
         is_num = self.state.se.And(c >= ord("0"), c <= ord("9"))
         is_alpha_lower = self.state.se.And(c >= ord("a"), c <= ord("z"))

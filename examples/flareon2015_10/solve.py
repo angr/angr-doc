@@ -1,8 +1,8 @@
 import logging
 
 import angr
-from simuvex.s_type import SimTypeFunction, SimTypeInt
-from simuvex.procedures.stubs.UserHook import UserHook
+from angr.sim_type import SimTypeFunction, SimTypeInt
+from angr.procedures.stubs.UserHook import UserHook
 
 # This is literally how I solved this challenge during the game. Now I know it's easier
 # to just call tea_decrypt with those bytes (and the correct key), but I don't want to

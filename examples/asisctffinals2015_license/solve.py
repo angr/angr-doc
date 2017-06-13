@@ -1,5 +1,4 @@
 import angr
-import simuvex
 
 def main():
     p = angr.Project("license", load_options={'auto_load_libs': False})
@@ -27,11 +26,11 @@ def main():
             bytes = state.se.Concat(*line)
         else:
             bytes = state.se.Concat(bytes, state.se.BVV(0x0a, 8), *line)
-    content = simuvex.SimSymbolicMemory(memory_id="file_%s" % license_name)
+    content = angr.state_plugins.SimSymbolicMemory(memory_id="file_%s" % license_name)
     content.set_state(state)
     content.store(0, bytes)
 
-    license_file = simuvex.SimFile(license_name, 'rw', content=content, size=len(bytes) / 8)
+    license_file = angr.storage.SimFile(license_name, 'rw', content=content, size=len(bytes) / 8)
 
     # Build the file system dict
     # This interface might change in the near future
@@ -58,7 +57,7 @@ def main():
     # flag
     FAKE_ADDR = 0x100000
     strlen = lambda state, arguments: \
-        simuvex.SimProcedures['libc.so.6']['strlen'](FAKE_ADDR, p.arch).execute(
+        angr.SIM_PROCEDURES['libc.so.6']['strlen'](FAKE_ADDR, p.arch).execute(
             state, arguments=arguments
         )
     flag_length = strlen(found.state, arguments=[flag_addr]).ret_expr

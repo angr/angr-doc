@@ -1,5 +1,4 @@
 import logging
-import simuvex
 import logging
 import struct
 import sys
@@ -146,7 +145,7 @@ initial_state.add_constraints(initial_state.se.And(or_v1,or_v2,or_v3,or_v4))
 ##############################################
 
 #for debugging only
-#initial_state.inspect.b('instruction', when=simuvex.BP_BEFORE, action=debug_func)
+#initial_state.inspect.b('instruction', when=angr.BP_BEFORE, action=debug_func)
 
 # Explore the paths until after the hash is computed
 #path = p.factory.path(initial_state)

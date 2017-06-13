@@ -27,10 +27,10 @@ def main():
 	"""
 	Note: There will be a bunch of warnings on your terminal that look like this.
 
-	WARNING | 2016-05-21 17:34:33,185 | simuvex.plugins.symbolic_memory | Concretizing symbolic length. Much sad; think about implementing.
-	WARNING | 2016-05-21 17:34:49,353 | simuvex.plugins.symbolic_memory | Concretizing symbolic length. Much sad; think about implementing.
-	WARNING | 2016-05-21 17:35:11,810 | simuvex.plugins.symbolic_memory | Concretizing symbolic length. Much sad; think about implementing.
-	WARNING | 2016-05-21 17:35:44,170 | simuvex.plugins.symbolic_memory | Concretizing symbolic length. Much sad; think about implementing.
+	WARNING | 2016-05-21 17:34:33,185 | angr.state_plugins.symbolic_memory | Concretizing symbolic length. Much sad; think about implementing.
+	WARNING | 2016-05-21 17:34:49,353 | angr.state_plugins.symbolic_memory | Concretizing symbolic length. Much sad; think about implementing.
+	WARNING | 2016-05-21 17:35:11,810 | angr.state_plugins.symbolic_memory | Concretizing symbolic length. Much sad; think about implementing.
+	WARNING | 2016-05-21 17:35:44,170 | angr.state_plugins.symbolic_memory | Concretizing symbolic length. Much sad; think about implementing.
 
 	Don't worry about these, they're not an issue for this challenge.
 	"""

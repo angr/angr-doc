@@ -15,7 +15,7 @@ def main():
     # overflow into the area of the first. Further, a pointer will be dereferenced
     # in this process, thus giving us a target to control execution from.
 
-    import angr, simuvex
+    import angr
 
     # By default, angr will use a sim procedure instead of going through malloc
     # This will tell angr to go ahead and use libc's calloc
@@ -23,7 +23,7 @@ def main():
 
     # The extra option here is due to a feature not yet in angr for handling
     # underconstraining 0 initialization of certain memory allocations
-    state = proj.factory.entry_state(add_options={simuvex.o.CGC_ZERO_FILL_UNCONSTRAINED_MEMORY})
+    state = proj.factory.entry_state(add_options={angr.options.CGC_ZERO_FILL_UNCONSTRAINED_MEMORY})
 
     # We're looking for unconstrained paths, it means we may have control
     pg = proj.factory.path_group(state,save_unconstrained=True)

@@ -1,14 +1,14 @@
 import os
 import sys
 import angr
-from simuvex import s_options as so
+from angr import sim_options as so
 
 import logging
 
 l = logging.getLogger("insomnihack.simple_aeg")
 
 # silence some annoying logs
-logging.getLogger("simuvex").setLevel("CRITICAL")
+logging.getLogger("angr").setLevel("CRITICAL")
 
 l.setLevel("INFO")
 

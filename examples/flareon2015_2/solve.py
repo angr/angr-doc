@@ -1,5 +1,5 @@
 #!/usr/bin/env python
-import angr, simuvex
+import angr
 
 def main():
     b = angr.Project("very_success", load_options={"auto_load_libs":False})

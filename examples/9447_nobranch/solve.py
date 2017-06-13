@@ -5,7 +5,7 @@
 # It takes a VERY long time to run! I took a well-deserved nap while it was solving :)
 #
 
-import angr, simuvex, claripy
+import angr, claripy
 p = angr.Project('nobranch')
 all_blocks = []
 mainaddr = 0x400400

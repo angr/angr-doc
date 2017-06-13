@@ -3,7 +3,6 @@ Full writeup of the walkthrough:
 http://0x0atang.github.io/reversing/2015/09/18/flareon5-concolic.html
 """
 import angr
-import simuvex
 
 
 # Globals

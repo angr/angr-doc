@@ -3,12 +3,11 @@ import logging
 import sys
 
 import angr
-import simuvex
 import capstone
 import r2pipe
 
 l = logging.getLogger('angr.path_group').setLevel(logging.WARNING)
-l = logging.getLogger('simuvex.engines.vex.engine').setLevel(logging.ERROR)
+l = logging.getLogger('angr.engines.vex.engine').setLevel(logging.ERROR)
 
 pos = 0xd000000
 
@@ -100,7 +99,7 @@ def solve(s):
             if char_offset is not None:
                 break
 
-        state = p.factory.blank_state(addr=check_func.addr, add_options={simuvex.o.LAZY_SOLVES, simuvex.o.NO_SYMBOLIC_JUMP_RESOLUTION})
+        state = p.factory.blank_state(addr=check_func.addr, add_options={angr.options.LAZY_SOLVES, angr.options.NO_SYMBOLIC_JUMP_RESOLUTION})
 
         char = state.se.BVS("chr", 64)
 
