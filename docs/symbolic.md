@@ -9,7 +9,7 @@ resolving the constraints.
 
 Basic architecture of angr's symbolic execution:
 
-- simuvex.md is the core engine and provides the concept of a [symbolic machine state](states.md)
-- Also the [means to tick that state forward](simuvex.md) through simulating VEX or running python code
+- simulation.md is the core engine and provides the concept of a [symbolic machine state](states.md)
+- Also the [means to tick that state forward](simulation.md) through simulating VEX or running python code
 - Use [Paths](paths.md) to control execution easily and also to track history
 - Use [Path Groups](pathgroups.md) to bulk-control execution

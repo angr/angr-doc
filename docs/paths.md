@@ -1,9 +1,10 @@
 Program Paths - Controlling Execution
 =====================================
 
-SimuVEX provides an incredibly awkward interface for performing symbolic execution. Paths are angr's primary interface to provide an abstraction to control execution, and are used in most interactions with angr and its analyses.
+Dealing with SimStates and SimEngines directly provides an incredibly awkward interface for performing symbolic execution.
+Paths are angr's primary interface to provide an abstraction to control execution, and are used in most interactions with angr and its analyses.
 
-A path through a program is, at its core, a sequence of basic blocks (actually, individual executions of a `simuvex.SimEngine`) representing what was executed since the program started.
+A path through a program is, at its core, a sequence of basic blocks (actually, individual executions of a `angr.SimEngine`) representing what was executed since the program started.
 These blocks in the paths can repeat (in the case of loops) and a program can have a near-infinite amount of paths (for example, a program with a single branch will have two paths, a program with two branches nested within each other will have 4, and so on).
 
 To create an empty path at the program's entry point, do:
@@ -172,7 +173,7 @@ At this point, all memory, registers, and so forth of the path are blank. In a n
 
 ## SimActions Redux
 
-The SimActions from deep within simuvex are exported for much easier access through the Path. Actions are part of the path's history (Path.actions), so the same rules as the other history items about iterating over them still apply.
+The SimActions from deep within the simulation engine are exported for much easier access through the Path. Actions are part of the path's history (Path.actions), so the same rules as the other history items about iterating over them still apply.
 
 When paths grow long, stored SimActions can be a serious source of memory consumption. Because of this, by default all but the most recent SimActions are discarded. To disable this behavior, enable the `TRACK_ACTION_HISTORY` state option.
 

@@ -1,12 +1,12 @@
 # Machine State - memory, registers, and so on
 
-angr (actually, a submodule of angr, called SimuVEX) tracks machine states in a `SimState` object.
+angr tracks machine states in a `SimState` object.
 This object tracks concrete and/or symbolic values for the machine's memory, registers, along with various other information, such as open files.
 You can get a `SimState` by using one of a number of convenient constructors in `Project.factory`.
 The different basic states you can construct are described [here](toplevel.md).
 
 ```python
->>> import angr, simuvex
+>>> import angr
 >>> b = angr.Project('/bin/true')
 
 # let's get a state at the program entry point:
@@ -151,7 +151,8 @@ Symbolic expressions can be interacted with in the same way as normal (concrete)
 # This assertion will fail because it depends on precisely the number of symbolic values previously created
 ```
 
-As you can see, symbolic and concrete expressions are pretty interchangeable, which is an extremely useful abstraction provided by SimuVEX. You might also notice that, when you read from memory locations that were never written to, you receive symbolic expressions:
+As you can see, symbolic and concrete expressions are pretty interchangeable, which is an extremely useful abstraction.
+You might also notice that, when you read from memory locations that were never written to, you receive symbolic expressions:
 
 ```python
 # Try it!
@@ -211,7 +212,7 @@ More details on the operations supported by the solver engine are available at t
 
 ## Symbolic Constraints
 
-Symbolic expressions would be pretty boring on their own. After all, the last few that we created could take *any* numerical value, as they were completely unconstrained. This makes them uninteresting. To spice things up, SimuVEX has the concept of symbolic constraints. Symbolic constraints represent, aptly, constraints (or restrictions) on symbolic expressions. It might be easier to show you:
+Symbolic expressions would be pretty boring on their own. After all, the last few that we created could take *any* numerical value, as they were completely unconstrained. This makes them uninteresting. To spice things up, angr has the concept of symbolic constraints. Symbolic constraints represent, aptly, constraints (or restrictions) on symbolic expressions. It might be easier to show you:
 
 ```python
 # make a copy of the state so that we don't screw up the original with our experimentation
@@ -275,17 +276,17 @@ There's a lot there, but, basically, m has to be greater than 10 *and* either ha
 
 ## State Options
 
-There are a lot of little tweaks that can be made to the internals of simuvex that will optimize behavior in some situations and be a detriment in others. These tweaks are controlled through state options.
+There are a lot of little tweaks that can be made to the internals of angr that will optimize behavior in some situations and be a detriment in others. These tweaks are controlled through state options.
 
-On each SimState object, there is a set (state.options) of all its enabled options. The full domain of options, along with the defaults for different state types, can be found in (s_options.py)[https://github.com/angr/simuvex/blob/master/simuvex/s_options.py], available as `simuvex.o`.
+On each SimState object, there is a set (state.options) of all its enabled options. The full domain of options, along with the defaults for different state types, can be found in (s_options.py)[https://github.com/angr/angr/blob/master/angr/sim_options.py], available as `angr.options`.
 
 When creating a SimState through any method, you may pass the keyword arguments `add_options` and `remove_options`, which should be sets of options that modify the initial options set from the default.
 
 ```python
 # Example: enable lazy solves, a behavior that causes state satisfiability to be checked as infrequently as possible.
 # This change to the settings will be propogated to all successor states created from this state after this line.
->>> s.options.add(simuvex.o.LAZY_SOLVES)
+>>> s.options.add(angr.options.LAZY_SOLVES)
 
 # Create a new state with lazy solves enabled
->>> s9 = b.factory.entry_state(add_options={simuvex.o.LAZY_SOLVES})
+>>> s9 = b.factory.entry_state(add_options={angr.options.LAZY_SOLVES})
 ```

@@ -121,7 +121,7 @@ It works by making a call into `SimOS` to retrieve the SimProcedure that should 
 `SimEngineHook` provides the hooking functionality in angr.
 It is used when a state is at an address that is hooked, and the previous jumpkind is *not* `Ijk_NoHook`.
 It simply looks up the given hook, calls `hook.instantiate()` on it in order to retrieve a `SimProcedure` instance, and then runs that procedure.
-This class is a thin subclass of the `SimEngineProcedure` class present in SimuVEX, for obvious reasons.
+This class is a thin subclass of the `SimEngineProcedure` class, specialized for hooking.
 It takes the parameter `procedure`, which will cause `check` to always succeed, and this procedure will be used instead of the SimProcedure that would be obtained from a hook.
 
 `SimEngineUnicorn` performs concrete execution with the Unicorn Engine.
@@ -130,7 +130,7 @@ It is used when the state option `o.UNICORN` is enabled, and a myriad of other c
 `SimEngineVEX` is the big fellow.
 It is used whenever any of the previous can't be used.
 It attempts to lift bytes from the current address into an IRSB, and then executes that IRSB symbolically.
-There are a huge number of parameters that can control this process, so I will merely link to the [API reference](http://angr.io/api-doc/simuvex.html#simuvex.engines.vex.engine.SimEngineVEX.process) describing them.
+There are a huge number of parameters that can control this process, so I will merely link to the [API reference](http://angr.io/api-doc/angr.html#angr.engines.vex.engine.SimEngineVEX.process) describing them.
 
 The exact process by which SimEngineVEX digs into an IRSB and executes it deserves some documentation as well.
 At time of writing I'm not sure if this exists anywhere but it really should.
@@ -154,10 +154,10 @@ unicorn = { UNICORN, UNICORN_SYM_REGS_SUPPORT, INITIALIZE_ZERO_REGISTERS, UNICOR
 These will enable some additional functionalities and defaults which will greatly enhance your experience.
 Additionally, there are a lot of options you can tune on the `state.unicorn` plugin.
 
-A good way to understand how unicorn works is by examining the logging output (`logging.getLogger('simuvex.engines.unicorn_engine').setLevel('DEBUG'); logging.getLogger('simuvex.plugins.unicorn_engine').setLevel('DEBUG')` from a sample run of unicorn.
+A good way to understand how unicorn works is by examining the logging output (`logging.getLogger('angr.engines.unicorn_engine').setLevel('DEBUG'); logging.getLogger('angr.state_plugins.unicorn_engine').setLevel('DEBUG')` from a sample run of unicorn.
 
 ```
-INFO    | 2017-02-25 08:19:48,012 | simuvex.plugins.unicorn | started emulation at 0x4012f9 (1000000 steps)
+INFO    | 2017-02-25 08:19:48,012 | angr.state_plugins.unicorn | started emulation at 0x4012f9 (1000000 steps)
 ```
 
 Here, angr diverts to unicorn engine, beginning with the basic block at 0x4012f9.
@@ -166,41 +166,41 @@ This is to avoid hanging in an infinite loop.
 The block count is configurable via the `state.unicorn.max_steps` variable.
 
 ```
-INFO    | 2017-02-25 08:19:48,014 | simuvex.plugins.unicorn | mmap [0x401000, 0x401fff], 5 (symbolic)
-INFO    | 2017-02-25 08:19:48,016 | simuvex.plugins.unicorn | mmap [0x7fffffffffe0000, 0x7fffffffffeffff], 3 (symbolic)
-INFO    | 2017-02-25 08:19:48,019 | simuvex.plugins.unicorn | mmap [0x6010000, 0x601ffff], 3
-INFO    | 2017-02-25 08:19:48,022 | simuvex.plugins.unicorn | mmap [0x602000, 0x602fff], 3 (symbolic)
-INFO    | 2017-02-25 08:19:48,023 | simuvex.plugins.unicorn | mmap [0x400000, 0x400fff], 5
-INFO    | 2017-02-25 08:19:48,025 | simuvex.plugins.unicorn | mmap [0x7000000, 0x7000fff], 5
+INFO    | 2017-02-25 08:19:48,014 | angr.state_plugins.unicorn | mmap [0x401000, 0x401fff], 5 (symbolic)
+INFO    | 2017-02-25 08:19:48,016 | angr.state_plugins.unicorn | mmap [0x7fffffffffe0000, 0x7fffffffffeffff], 3 (symbolic)
+INFO    | 2017-02-25 08:19:48,019 | angr.state_plugins.unicorn | mmap [0x6010000, 0x601ffff], 3
+INFO    | 2017-02-25 08:19:48,022 | angr.state_plugins.unicorn | mmap [0x602000, 0x602fff], 3 (symbolic)
+INFO    | 2017-02-25 08:19:48,023 | angr.state_plugins.unicorn | mmap [0x400000, 0x400fff], 5
+INFO    | 2017-02-25 08:19:48,025 | angr.state_plugins.unicorn | mmap [0x7000000, 0x7000fff], 5
 ```
 
 angr performs lazy mapping of data that is accessed by unicorn engine, as it is accessed. 0x401000 is the page of instructions that it is executing, 0x7fffffffffe0000 is the stack, and so on. Some of these pages are symbolic, meaning that they contain at least some data that, when accessed, will cause execution to abort out of Unicorn.
 
 ```
-INFO    | 2017-02-25 08:19:48,037 | simuvex.plugins.unicorn | finished emulation at 0x7000080 after 3 steps: STOP_STOPPOINT
+INFO    | 2017-02-25 08:19:48,037 | angr.state_plugins.unicorn | finished emulation at 0x7000080 after 3 steps: STOP_STOPPOINT
 ```
 
 Execution stays in Unicorn for 3 basic blocks (a computational waste, considering the required setup), after which it reaches a simprocedure location and jumps out to execute the simproc in angr.
 
 ```
-INFO    | 2017-02-25 08:19:48,076 | simuvex.plugins.unicorn | started emulation at 0x40175d (1000000 steps)
-INFO    | 2017-02-25 08:19:48,077 | simuvex.plugins.unicorn | mmap [0x401000, 0x401fff], 5 (symbolic)
-INFO    | 2017-02-25 08:19:48,079 | simuvex.plugins.unicorn | mmap [0x7fffffffffe0000, 0x7fffffffffeffff], 3 (symbolic)
-INFO    | 2017-02-25 08:19:48,081 | simuvex.plugins.unicorn | mmap [0x6010000, 0x601ffff], 3
+INFO    | 2017-02-25 08:19:48,076 | angr.state_plugins.unicorn | started emulation at 0x40175d (1000000 steps)
+INFO    | 2017-02-25 08:19:48,077 | angr.state_plugins.unicorn | mmap [0x401000, 0x401fff], 5 (symbolic)
+INFO    | 2017-02-25 08:19:48,079 | angr.state_plugins.unicorn | mmap [0x7fffffffffe0000, 0x7fffffffffeffff], 3 (symbolic)
+INFO    | 2017-02-25 08:19:48,081 | angr.state_plugins.unicorn | mmap [0x6010000, 0x601ffff], 3
 ```
 
 After the simprocedure, execution jumps back into Unicorn.
 
 ```
-WARNING | 2017-02-25 08:19:48,082 | simuvex.plugins.unicorn | fetching empty page [0x0, 0xfff]
-INFO    | 2017-02-25 08:19:48,103 | simuvex.plugins.unicorn | finished emulation at 0x401777 after 1 steps: STOP_EXECNONE
+WARNING | 2017-02-25 08:19:48,082 | angr.state_plugins.unicorn | fetching empty page [0x0, 0xfff]
+INFO    | 2017-02-25 08:19:48,103 | angr.state_plugins.unicorn | finished emulation at 0x401777 after 1 steps: STOP_EXECNONE
 ```
 
 Execution bounces out of Unicorn almost right away because the binary accessed the zero-page.
 
 ```
-INFO    | 2017-02-25 08:19:48,120 | simuvex.engines.unicorn_engine | not enough runs since last unicorn (100)
-INFO    | 2017-02-25 08:19:48,125 | simuvex.engines.unicorn_engine | not enough runs since last unicorn (99)
+INFO    | 2017-02-25 08:19:48,120 | angr.engines.unicorn_engine | not enough runs since last unicorn (100)
+INFO    | 2017-02-25 08:19:48,125 | angr.engines.unicorn_engine | not enough runs since last unicorn (99)
 ```
 
 To avoid thrashing in and out of Unicorn (which is expensive), we have cooldowns (attributes of the `state.unicorn` plugin) that wait for certain conditions to hold (i.e., no symbolic memory accesses for X blocks) before jumping back into unicorn when a unicorn run is aborted due to anything but a simprocedure or syscall.
