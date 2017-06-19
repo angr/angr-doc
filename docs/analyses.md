@@ -15,6 +15,7 @@ angr comes with several built-in analyses:
 | DDG                                         | Calculates a data dependency graph, allowing one to determine what statements a given value depends on.                                   |
 | [DFG](analyses/dfg.md)                      | Constructs a *Data Flow Graph* for each basic block present in the CFG                                                                    |
 | [BackwardSlice](analyses/backward_slice.md) | Computes a backward slice of a program w.r.t. a certain target.                                                                           |
+| [Identifier](analyses/identifier.md)        | Identifies common library functions in CGC binaries. |
 | More!                                       | angr has quite a few analyses, most of which work! If you'd like to know how to use one, please submit an issue requesting documentation. |
 
 ### VFG
