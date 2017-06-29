@@ -158,3 +158,10 @@ The `is_hooked` and `unhook` methods should be self-explanitory.
 
 `hook_symbol` is a different function that serves a different purpose. Instead of an address, you pass it the name of a function that that binary imports.
 The internal (GOT) pointer to the code that function resolved to will be replaced with a pointer to the SimProcedure or hook function you specify in the third argument. You can also pass a plain integer to make replace pointers to the symbol with that value.
+
+When angr loads a binary, it implicitly performs a lot of hooking to try to replace as many library functions as it can with SimProcedures.
+There are a [whole bunch of functions](https://github.com/angr/simuvex/tree/master/simuvex/procedures) we've implemented as SimProcedures to provide "symbolic summaries".
+Executing the SimProcedure instead of the actual library function that gets loaded from your system makes analysis a LOT more tractable, at the cost of [some potential inaccuracies](https://docs.angr.io/docs/gotchas.html).
+You can disable the use of these library function SimProcedures by providing the option `use_sim_procedures=False` to the [Project constructor](http://angr.io/api-doc/angr.html#angr.project.Project).
+You can control which library functions are replaced with SimProcedures at a more fine-grained level with the parameters `exclude_sim_procedures_list` and `exclude_sim_procedures_func`, which act as blacklists.
+Finally, whenever a library function cannot be resolved by either importing a shared library function or a symbolic summary of it via a SimProcedure, angr's final fallback is to hook it with a special SimProcedure that does nothing but return an unconstrained symbolic value.
