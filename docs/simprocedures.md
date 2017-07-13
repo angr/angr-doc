@@ -11,8 +11,7 @@ This chapter should serve as a guide when programming SimProcedures.
 Here's an example that will remove all bugs from any program:
 
 ```python
->>> from simuvex import SimProcedure
->>> from angr import Hook, Project
+>>> from angr import Hook, Project, SimProcedure
 >>> project = Project('examples/fauxware/fauxware')
 
 >>> class BugFree(SimProcedure):
@@ -24,10 +23,10 @@ Here's an example that will remove all bugs from any program:
 >>> project.hook(project.kb.labels.lookup('main'), Hook(BugFree))
 
 # Run a quick execution!
->>> pg = project.factory.path_group()
->>> pg.run()  # step until no more active paths
+>>> sm = project.factory.simgr()
+>>> sm.run()  # step until no more active paths
 Program running with argc=<SAO <BV64 0x0>> and argv=<SAO <BV64 0x7fffffffffeffa0>>
-<PathGroup with 1 deadended>
+<SimulationManager with 1 deadended>
 ```
 
 Now, whenever program execution reaches the main function, instead of executing the actual main function, it will execute this procedure!

@@ -79,12 +79,9 @@ It is not a factory in the Java sense, it is merely a home for all the functions
 >>> state = b.factory.call_state(0x1000, "hello", "world")
 >>> state = b.factory.full_init_state(args=['./program', claripy.BVS('arg1', 20*8)])
 
->>> path = b.factory.path()
->>> path = b.factory.path(state)
-
->>> group = b.factory.path_group()
->>> group = b.factory.path_group(path)
->>> group = b.factory.path_group([path, state])
+>>> sim_manager = b.factory.simgr()
+>>> sim_manager = b.factory.simgr(state)
+>>> sim_manager = b.factory.simgr([state])
 
 >>> strlen_addr = b.loader.main_bin.plt['strlen']
 >>> strlen = b.factory.callable(strlen_addr)

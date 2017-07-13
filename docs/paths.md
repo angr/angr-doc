@@ -14,24 +14,24 @@ To create an empty path at the program's entry point, do:
 >>> import angr
 >>> b = angr.Project('/bin/true')
 
-# load the path
->>> p = b.factory.path()
+# load the state
+>>> s = b.factory.entry_state()
 
 # this is the address that the path is *about to* execute
->>> assert p.addr == b.entry
+>>> assert s.addr == b.entry
 ```
 
-After this, `p` is a path representing the program at the entry point.
-We can see that the callstack and the path's history are blank:
+After this, `s` is a state representing the program at the entry point.
+We can see that the callstack and the state's history are blank:
 
 ```python
 # this is the number of basic blocks that have been analyzed by the path
->>> assert p.length == 0
+>>> assert s.history.block_count == 0
 
 # we can also look at the current backtrace of program execution
 # contains only the dummy frame for execution start
->>> assert len(p.callstack) == 1
->>> print p.callstack
+>>> assert len(s.callstack) == 1
+>>> print s.callstack
 Backtrace:
 Func 0x401410, sp=0x7fffffffffeffd8, ret=0x0
 ```
@@ -43,7 +43,7 @@ We can look at the `successors` of a path to see where the program goes after th
 Most of the time, a path will have one or two successors. When there are two successors, it usually means the program branched and there are two possible ways forward with execution. Other times, it will have more than two, such as in the case of a jump table.
 
 ```python
->>> p.step()
+>>> new_state = b.step()
 >>> print "The path has", len(p.successors), "successors!"
 
 # each successor is a path, keeping track of an execution history
