@@ -43,17 +43,18 @@ We can look at the `successors` of a path to see where the program goes after th
 Most of the time, a path will have one or two successors. When there are two successors, it usually means the program branched and there are two possible ways forward with execution. Other times, it will have more than two, such as in the case of a jump table.
 
 ```python
->>> new_state = b.step()
->>> print "The path has", len(p.successors), "successors!"
+>>> new_states = b.factory.successors(s).flat_successors
+>>> print "The path has", len(new_states), "successors!"
 
 # each successor is a path, keeping track of an execution history
->>> s = p.successors[0]
->>> assert s.addr_trace[-1] == p.addr
+>>> new_state = new_states[0]
+>>> assert new_state.history.bbl_addrs[-1] == s.addr
+>>> s = new_state
 
 # and, of course, we can drill down further!
 # alternate syntax: s.step() returns the same list as s.successors
->>> ss = s.step()[0].step()[0].step()[0]
->>> len(ss.addr_trace.hardcopy) == 4
+>>> ss = b.factory.successors(b.factory.successors(s).flat_successors[0]).flat_successors[0]
+>>> len(ss.history.bbl_addrs.hardcopy) == 2
 ```
 
 To efficiently store information about path histories, angr employs a tree structure that resembles the actual symbolic execution tree.
@@ -66,25 +67,25 @@ These are stored (as strings representing VEX exit type enums), in the `jumpkind
 
 ```python
 # recall: s is the path created when we stepped forward the initial path once
->>> print s.jumpkinds
+>>> print s.history.jumpkinds
 <angr.path.JumpkindIter object at 0x7f8161e584d0>
 
->>> assert s.jumpkinds[-1] == 'Ijk_Call'
->>> print s.jumpkinds.hardcopy
+>>> assert s.history.jumpkinds[-1] == 'Ijk_Call'
+>>> print s.history.jumpkinds.hardcopy
 ['Ijk_Call']
 
 # Don't do this! This will throw an exception
 >>> # for jk in ss.jumpkinds: print jk
 
 # Do this instead:
->>> for jk in reversed(ss.jumpkinds): print jk
+>>> for jk in reversed(ss.history.jumpkinds): print jk
 Ijk_Call
 Ijk_Call
 Ijk_Boring
 Ijk_Call
 
 # Or, if you really need to iterate in forward order:
->>> for jk in ss.jumpkinds.hardcopy: print jk
+>>> for jk in ss.history.jumpkinds.hardcopy: print jk
 Ijk_Call
 Ijk_Boring
 Ijk_Call
@@ -122,21 +123,20 @@ For example, let's say that we have a branch:
 
 ```python
 # step until branch
-p = b.factory.path()
-p.step()
-while len(p.successors) == 1:
+s = b.factory.entry_state()
+next = b.factory.successors(s).flat_successors
+while len(b.factory.successors(s).flat_successors) == 1:
     print 'step'
-    p = p.successors[0]
-    p.step()
+    s = b.factory.successors(s).flat_successors[0]
 
-print p
-branched_left = p.successors[0]
-branched_right = p.successors[1]
+print s
+branched_left = b.factory.successors(s).flat_successors[0]
+branched_right = b.factory.successors(s).flat_successors[1]
 assert branched_left.addr != branched_right.addr
 
 # Step the branches until they converge again
-after_branched_left = branched_left.step()[0]
-after_branched_right = branched_right.step()[0]
+after_branched_left = b.factory.successors(branched_left).flat_successors[0]
+after_branched_right = b.factory.successors(branched_right).flat_successors[0]
 assert after_branched_left.addr == after_branched_right.addr
 
 # this will merge both branches into a single path. Values in memory and registers
@@ -148,7 +148,7 @@ assert merged.addr == after_branched_left.addr and merged.addr == after_branched
 Paths can also be unmerged later.
 
 ```python
-merged_successor = merged.step()[0].step()[0]
+merged_successor = b.factory.successors(b.factory.successors(merged).flat_successor)[0]).flat_successors[0]
 unmerged_paths = merged_successor.unmerge()
 
 assert len(unmerged_paths) == 2
@@ -163,9 +163,8 @@ To handle this, we allow the creation of a path at any point in the program:
 
 ```python
 >>> st = b.factory.blank_state(addr=0x800f000)
->>> p = b.factory.path(st)
 
->>> assert p.addr == 0x800f000
+>>> assert st.addr == 0x800f000
 ```
 
 At this point, all memory, registers, and so forth of the path are blank. In a nutshell, this means that they are fully symbolic and unconstrained, and execution can proceed from this point as an over-approximation of what could happen on a real CPU. If you have outside knowledge about what the state should look like at this point, you can craft the blank state into a more precise description of machine state by adding constraints and setting the contents of memory, registers, and files.

@@ -15,7 +15,7 @@ def main():
     # overflow into the area of the first. Further, a pointer will be dereferenced
     # in this process, thus giving us a target to control execution from.
 
-    import angr, simuvex
+    import angr
 
     # By default, angr will use a sim procedure instead of going through malloc
     # This will tell angr to go ahead and use libc's calloc
@@ -23,20 +23,21 @@ def main():
 
     # The extra option here is due to a feature not yet in angr for handling
     # underconstraining 0 initialization of certain memory allocations
-    state = proj.factory.entry_state(add_options={simuvex.o.CGC_ZERO_FILL_UNCONSTRAINED_MEMORY})
+    state = proj.factory.entry_state(add_options={angr.sim_options.CGC_ZERO_FILL_UNCONSTRAINED_MEMORY})
 
     # We're looking for unconstrained paths, it means we may have control
-    pg = proj.factory.path_group(state,save_unconstrained=True)
+    sm = proj.factory.simgr(state,save_unconstrained=True)
 
     # Step execution until we find a place we may control
-    while pg.active != [] and pg.unconstrained == []:
-        pg.step()
+    while sm.active != [] and sm.unconstrained == []:
+        sm.step()
 
-    # In [9]: pg
+    # In [9]: sm
     # Out[9]: <PathGroup with 1 deadended, 1 unconstrained>
 
     # Make a copy of the state to play with
-    s = pg.unconstrained[0].state.copy()
+    import ipdb; ipdb.set_trace()
+    s = sm.unconstrained[0].copy()
 
     # Now we can simply tell angr to set the instruction pointer to point at the
     # win function to give us execution

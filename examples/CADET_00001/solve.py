@@ -25,20 +25,20 @@ def main():
     #by default angr discards unconstrained paths, so we need to specify the  
     #save_unconstrained option
     print "finding the buffer overflow..."
-    pg = project.factory.path_group(save_unconstrained=True)
+    sm = project.factory.simgr(save_unconstrained=True)
     #symbolically execute the binary until an unconstrained path is reached
-    while len(pg.unconstrained)==0:
-        pg.step()
-    unconstrained_path = pg.unconstrained[0]
-    crashing_input = unconstrained_path.state.posix.dumps(0)
+    while len(sm.unconstrained)==0:
+        sm.step()
+    unconstrained_state = sm.unconstrained[0]
+    crashing_input = unconstrained_state.posix.dumps(0)
     #cat crash_input.bin | ./CADET_00001.adapted will segfault
-    unconstrained_path.state.posix.dump(0,"crash_input.bin")
+    unconstrained_state.posix.dump(0,"crash_input.bin")
     print "buffer overflow found!"
     print repr(crashing_input)
 
 
     #let's now find the easter egg (it takes about 2 minutes)
-    
+
     #now we want angr to avoid "unfeasible" paths
     #by default, "lazy solving" is enabled, this means that angr will not 
     #automatically discard unfeasible paths
@@ -46,38 +46,37 @@ def main():
     #to disable "lazy solving" we generate a blank path and we change its options,
     #then we specify this path as the initial path of the path group
     print "finding the easter egg..."
-    path = project.factory.path()
-    pg = project.factory.path_group(path)
+    sm = project.factory.simgr(project.factory.entry_state())
 
     #at this point we just ask angr to reach the basic block where the easter egg 
     #text is printed
-    pg.explore(find=0x804833E)
-    found = pg.found[0]
-    solution1 = found.state.posix.dumps(0)
+    sm.explore(find=0x804833E)
+    found = sm.found[0]
+    solution1 = found.posix.dumps(0)
     print "easter egg found!"
     print repr(solution1)
-    found.state.posix.dump(0,"easteregg_input1.bin")
+    found.posix.dump(0,"easteregg_input1.bin")
     #you can even check if the easter egg has been found by checking stdout
-    stdout1 = found.state.posix.dumps(1)
+    stdout1 = found.posix.dumps(1)
     print repr(stdout1)
 
     #an alternative way to avoid unfeasible paths (paths that contain an unsatisfiable set
     #of constraints) is to "manually" step the path group execution and call prune()
     print "finding the easter egg (again)..."
-    pg = project.factory.path_group()
+    sm = project.factory.simgr()
     while True:
-        pg.step()
-        pg.prune() #we "manually" ask angr to remove unfeasible paths 
-        found_list = [active for active in pg.active if active.addr == 0x804833E]
+        sm.step()
+        sm.prune() #we "manually" ask angr to remove unfeasible paths 
+        found_list = [active for active in sm.active if active.addr == 0x804833E]
         if len(found_list) > 0:
             break
     found = found_list[0]
-    solution2 = found.state.posix.dumps(0)
+    solution2 = found.posix.dumps(0)
     print "easter egg found!"
     print repr(solution2)
-    found.state.posix.dump(0,"easteregg_input2.bin")
+    found.posix.dump(0,"easteregg_input2.bin")
     #you can even check if the easter egg has been found by checking stdout
-    stdout2 = found.state.posix.dumps(1)
+    stdout2 = found.posix.dumps(1)
     print repr(stdout2)
 
     return (crashing_input, solution1, stdout1, solution2, stdout2)

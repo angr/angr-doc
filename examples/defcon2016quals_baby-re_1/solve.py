@@ -3,7 +3,7 @@
 import string
 
 import angr
-from simuvex.procedures.stubs.UserHook import UserHook
+from angr.procedures.stubs.UserHook import UserHook
 
 # DEFCON - BABY-RE
 # @author: P1kachu
@@ -38,13 +38,13 @@ def main():
         p.hook(main + offst, angr.Hook(UserHook, user_func=patch_scanf, length=5))
 
 
-    pgp = p.factory.path_group(init)
+    sm = p.factory.simgr(init)
 
     # Now stuff becomes interesting
-    ex = pgp.explore(find=find, avoid=avoid)
+    ex = sm.explore(find=find, avoid=avoid)
 
     print(ex)
-    s = ex.found[0].state
+    s = ex.found[0]
     flag = s.se.any_str(s.memory.load(flag_addr, 50))
 
     # The flag is 'Math is hard!'

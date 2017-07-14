@@ -1,8 +1,8 @@
 import logging
 
 import angr
-from simuvex.s_type import SimTypeFunction, SimTypeInt
-from simuvex.procedures.stubs.UserHook import UserHook
+from angr.sim_type import SimTypeFunction, SimTypeInt
+from angr.procedures.stubs.UserHook import UserHook
 
 # This is literally how I solved this challenge during the game. Now I know it's easier
 # to just call tea_decrypt with those bytes (and the correct key), but I don't want to
@@ -51,5 +51,5 @@ def test():
 if __name__ == "__main__":
     # Turn on logging so we know what's going on...
     # It's up to you to set up a logging handler beforehand
-    logging.getLogger('angr.path_group').setLevel(logging.DEBUG)
+    logging.getLogger('angr.manager').setLevel(logging.DEBUG)
     print main()
