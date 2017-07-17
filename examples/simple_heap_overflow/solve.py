@@ -36,7 +36,6 @@ def main():
     # Out[9]: <PathGroup with 1 deadended, 1 unconstrained>
 
     # Make a copy of the state to play with
-    import ipdb; ipdb.set_trace()
     s = sm.unconstrained[0].copy()
 
     # Now we can simply tell angr to set the instruction pointer to point at the
