@@ -8,13 +8,14 @@
 
 import angr
 
+import claripy
 
 def main():
     proj = angr.Project('./unbreakable-enterprise-product-activation', load_options={"auto_load_libs": False}) # Disabling the automatic library loading saves a few milliseconds.
 
     input_size = 0x43; # Max length from strncpy, see 0x4005ae.
 
-    argv1 = angr.claripy.BVS("argv1", input_size * 8)
+    argv1 = claripy.BVS("argv1", input_size * 8)
 
     initial_state = proj.factory.entry_state(args=["./unbreakable-enterprise-product-activation", argv1], add_options={angr.options.LAZY_SOLVES})
     initial_state.libc.buf_symbolic_bytes=input_size + 1 # Thanks to Christopher Salls (@salls) for pointing this out. By default there's only 60 symbolic bytes, which is too small.
@@ -34,16 +35,15 @@ def main():
     initial_state.add_constraints(argv1.chop(8)[3] == '{')
     # angr will still find the solution without setting these, but it'll take a few seconds more.
 
-    initial_path = proj.factory.path(initial_state)
-    path_group = proj.factory.path_group(initial_state)
-    
+    sm = proj.factory.simgr(initial_state)
+
                           # 0x400830 = thank you message
-    path_group.explore(find=0x400830, avoid=0x400850)
+    sm.explore(find=0x400830, avoid=0x400850)
                                           # 0x400850 = activation failure
 
-    found = path_group.found[0] # In our case, there's only one printable solution.
+    found = sm.found[0] # In our case, there's only one printable solution.
 
-    solution = found.state.se.any_str(argv1)
+    solution = found.se.any_str(argv1)
     solution = solution[:solution.find("}")+1] # Trim off the null bytes at the end of the flag (if any).
     return solution
 

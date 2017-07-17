@@ -91,12 +91,12 @@ It can be used as so:
 # get the state ready, and grab our username and password symbolic expressions for later
 # checking. Here, we'll cheat a bit since we know that username and password should both
 # be 8 chars long
->>> p = b.factory.path()
->>> username = p.state.memory.load(0x1000, 9)
->>> password = p.state.memory.load(0x2000, 9)
+>>> s = b.factory.entry_state()
+>>> username = s.memory.load(0x1000, 9)
+>>> password = s.memory.load(0x2000, 9)
 
 # call the authenticate function with *username being 0x1000 and *password being 0x2000
->>> c = b.surveyors.Caller(0x400664, (0x1000,0x2000), start=p)
+>>> c = b.surveyors.Caller(0x400664, (0x1000,0x2000), start=s)
 
 # look at the different paths that can return. This should print 3 paths:
 >>> print tuple(c.iter_returns())

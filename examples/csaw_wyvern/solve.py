@@ -29,15 +29,15 @@ def main():
     st.posix.files[0].seek(0)
     st.posix.files[0].length = 29
 
-    # Construct a path group to perform symbolic execution.
+    # Construct a SimulationManager to perform symbolic execution.
     # Step until there is nothing left to be stepped.
-    pg = p.factory.path_group(st)
-    pg.run()
+    sm = p.factory.simgr(st)
+    sm.run()
 
     # Get the stdout of every path that reached an exit syscall. The flag should be in one of these!
     out = ''
-    for pp in pg.deadended:
-        out = pp.state.posix.dumps(1)
+    for pp in sm.deadended:
+        out = pp.posix.dumps(1)
         if 'flag{' in out:
             return filter(lambda s: 'flag{' in s, out.split())[0]
 

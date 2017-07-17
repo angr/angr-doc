@@ -40,17 +40,17 @@ def find_bug():
     start_state.memory.store(p._extern_obj.get_pseudo_addr('grub_xputs'), p._extern_obj.get_pseudo_addr('grub_puts'), size=4, endness='Iend_LE')
 
     # create a new path group to explore the state space of this function
-    pg = p.factory.path_group(start_state)
+    sm = p.factory.simgr(start_state)
 
     unique_states = set()
-    def check_uniqueness(path):
+    def check_uniqueness(state):
         vals = []
         for reg in ('eax', 'ebx', 'ecx', 'edx', 'esi', 'edi', 'ebp', 'esp', 'eip'):
-            val = path.state.registers.load(reg)
+            val = state.registers.load(reg)
             if val.symbolic:
                 vals.append('symbolic')
             else:
-                vals.append(path.state.se.any_int(val))
+                vals.append(state.se.any_int(val))
 
         vals = tuple(vals)
         if vals in unique_states:
@@ -59,17 +59,17 @@ def find_bug():
         unique_states.add(vals)
         return False
 
-    def step_func(lpg):
-        print lpg
-        lpg.stash(filter_func=check_uniqueness, from_stash='active', to_stash='not_unique')
-        lpg.stash(filter_func=lambda path: path.addr == 0, from_stash='active', to_stash='found')
-        return lpg
+    def step_func(lsm):
+        print lsm
+        lsm.stash(filter_func=check_uniqueness, from_stash='active', to_stash='not_unique')
+        lsm.stash(filter_func=lambda state: state.addr == 0, from_stash='active', to_stash='found')
+        return lsm
 
-    pg.step(step_func=step_func, until=lambda lpg: len(lpg.found) > 0)
+    sm.step(step_func=step_func, until=lambda lsm: len(lsm.found) > 0)
 
     print 'we found a crashing input!'
-    print 'path:', pg.found[0]
-    print 'input:', repr(pg.found[0].state.posix.dumps(0))
+    print 'path:', sm.found[0]
+    print 'input:', repr(sm.found[0].posix.dumps(0))
 
 def test():
     pass        # this is not a CI test

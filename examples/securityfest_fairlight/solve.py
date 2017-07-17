@@ -11,17 +11,17 @@ Simple solution, requires 0 knowledge of the check functions.
 """
 
 import angr
+import claripy
 
 def main():
     proj = angr.Project('./fairlight', load_options={"auto_load_libs": False})
-    argv1 = angr.claripy.BVS("argv1", 0xE * 8)
+    argv1 = claripy.BVS("argv1", 0xE * 8)
     initial_state = proj.factory.entry_state(args=["./fairlight", argv1]) 
 
-    initial_path = proj.factory.path(initial_state)
-    path_group = proj.factory.path_group(initial_state)
-    path_group.explore(find=0x4018f7, avoid=0x4018f9)
-    found = path_group.found[0]
-    return found.state.se.any_str(argv1)
+    sm = proj.factory.simgr(initial_state)
+    sm.explore(find=0x4018f7, avoid=0x4018f9)
+    found = sm.found[0]
+    return found.se.any_str(argv1)
 
 
 def test():

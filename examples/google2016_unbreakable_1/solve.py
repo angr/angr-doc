@@ -47,13 +47,12 @@ def main():
         state.add_constraints(cond)
 
     print('creating path and explorer')
-    path = p.factory.path(state)
-    ex = p.surveyors.Explorer(start=path, find=(FIND_ADDR,), avoid=(AVOID_ADDR,))
+    ex = p.surveyors.Explorer(start=state, find=(FIND_ADDR,), avoid=(AVOID_ADDR,))
 
     print('running explorer')
     ex.run()
 
-    flag = extract_memory(ex._f.state) # ex._f is equiv. to ex.found[0]
+    flag = extract_memory(ex._f) # ex._f is equiv. to ex.found[0]
     print('found flag: {}'.format(flag))
 
     return flag

@@ -53,16 +53,14 @@ def main():
 
     state.memory.store(0x413ad4, 36, endness=state.arch.memory_endness)
 
-    path = p.factory.path(state=state)
-
     ex = p.surveyors.Explorer(
-        start=path,
+        start=state,
         find=(0x402f29,),
         avoid=(0x402f3f,),
     )
     ex.run()
 
-    possible_flags = ex.found[0].state.se.any_n_int(argv[1], 20)
+    possible_flags = ex.found[0].se.any_n_int(argv[1], 20)
     for i, f in enumerate(possible_flags):
         print "Flag %d:" % i, hex(f)[2:-1].decode("hex")
 

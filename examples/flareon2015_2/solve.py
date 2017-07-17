@@ -15,10 +15,10 @@ def main():
     # store a symbolic string for the input
     s.memory.store(0x402159, s.se.BVS("ans", 8*40))
     # explore for success state, avoiding failure
-    pg = b.factory.path_group(s, immutable=False)
-    pg.explore(find=0x40106b, avoid=0x401072)
+    sm = b.factory.simgr(s, immutable=False)
+    sm.explore(find=0x40106b, avoid=0x401072)
     # print the string
-    found_state = pg.found[0].state
+    found_state = sm.found[0]
     return found_state.se.any_str(found_state.memory.load(0x402159, 40)).strip('\0')
 
 def test():
