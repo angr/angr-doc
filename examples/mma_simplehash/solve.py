@@ -85,15 +85,15 @@ def main():
 
     # Now, we start the symbolic execution. We create a PathGroup and set up some
     # logging (so that we can see what's happening).
-    pg = b.factory.path_group(s, immutable=False)
-    angr.path_group.l.setLevel("DEBUG")
+    sm = b.factory.simgr(s, immutable=False)
+    angr.manager.l.setLevel("DEBUG")
 
     # We want to explore to the "success" state (0x8048A94) while avoiding the
     # "failure" state (0x8048AF6). This takes a loong time (about an hour).
-    pg.explore(find=0x8048A94, avoid=0x8048AF6)
+    sm.explore(find=0x8048A94, avoid=0x8048AF6)
 
     # We're done!
-    return pg.found[0].state.se.any_str(pg.found[0].state.memory.load(0x080491A0, 100)).strip('\0\n')
+    return sm.found[0].se.any_str(sm.found[0].memory.load(0x080491A0, 100)).strip('\0\n')
 
 def test():
     assert main() == 'EwgHWpyND'

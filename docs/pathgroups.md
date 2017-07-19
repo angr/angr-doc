@@ -10,37 +10,37 @@ specified in [Paths](./paths.md#path-types). This allows you to, for example,
 step two different stashes of paths at different rates, then merge them together.
 
 
-Here are some basic examples of pathgroups capabilities:
+Here are some basic examples of SimulationManager capabilities:
 ```python
 >>> import angr
 
 
 >>> p = angr.Project('examples/fauxware/fauxware', load_options={'auto_load_libs': False})
->>> pg = p.factory.path_group()
+>>> sm = p.factory.simgr()
 ```
 
-Exploring a path:
+Exploring a state:
 ```python
 # While there are active path, we step
->>> while len(pg.active) > 0:
-...    pg.step()
+>>> while len(sm.active) > 0:
+...    sm.step()
 
->>> print(pg)
-<PathGroup with 1 deadended>
+>>> print(sm)
+<SimulationManager with 3 deadended>
 ```
 
-We now have a deadended path, let's see what we can do with it
+We now have 3 deadended states, let's see what we can do with it
 ```python
->>> path = pg.deadended[0]
->>> print('Path length: {0} steps'.format(path.length))
-Path length: 51 steps
+>>> state = sm.deadended[0]
+>>> print 'State length: %d steps' % len(state.history.descriptions)
+State length: 51 steps
 ```
 
-Get path trace:
+Get state trace:
 ```python
->>> print('Trace:')
->>> for step in path.trace:
-...    print(step)
+>>> print 'Trace:'
+>>> for step in state.history.descriptions:
+...    print step
 Trace:
 <IRSB from 0x400580: 1 sat>
 <IRSB from 0x400540: 1 sat>
@@ -95,17 +95,17 @@ Trace:
 <SimProcedure __libc_start_main from 0x1000040: 1 sat>
 ```
 
-Get constraints applied to the path:
+Get constraints applied to the state:
 ```python
->>> print('There are %d constraints.' % len(path.state.se.constraints))
+>>> print 'There are %d constraints.' % len(state.se.constraints)
 There are 2 constraints.
 ```
 
 Get memory state at the end of the traversal:
 ```python
->>> print('rax: {0}'.format(path.state.regs.rax))
+>>> print 'rax: %s' % state.regs.rax
 rax: <BV64 0x37>
->>> assert path.state.se.any_int(path.state.regs.rip) == path.addr  # regs are BitVectors
+>>> assert state.se.any_int(state.regs.rip) == state.addr  # regs are BitVectors
 ```
 
 ### PathGroup.Explorer()
@@ -125,20 +125,20 @@ First, we load the binary.
 >>> p = angr.Project('examples/CSCI-4968-MBE/challenges/crackme0x00a/crackme0x00a')
 ```
 
-Next, we create a path group.
+Next, we create a SimulationManager.
 ```python
->>> pg = p.factory.path_group()
+>>> sm = p.factory.simgr()
 ```
 
-Now, we symbolically execute until we find a path that matches our condition (i.e., the "win" condition).
+Now, we symbolically execute until we find a state that matches our condition (i.e., the "win" condition).
 ```python
->> pg.explore(find=lambda p: "Congrats" in p.state.posix.dumps(1))
-<PathGroup with 1 active, 1 found>
+>> sm.explore(find=lambda s: "Congrats" in s.posix.dumps(1))
+<SimulationManager with 1 active, 1 found>
 ```
 
 Now, we can get the flag out of that state!
 ```
->>> s = pg.found[0].state
+>>> s = sm.found[0]
 >>> print s.posix.dumps(1)
 Enter password: Congrats!
 

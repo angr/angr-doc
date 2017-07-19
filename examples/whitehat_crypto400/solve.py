@@ -24,21 +24,20 @@ def get_possible_flags():
 
     # this is a statically-linked binary, and it's easer for angr if we use Python
     # summaries for the libc functions
-    p.hook(0x4018B0, angr.Hook(angr.SIM_PROCEDURES['libc.so.6']['__libc_start_main']))
-    p.hook(0x422690, angr.Hook(angr.SIM_PROCEDURES['libc.so.6']['memcpy']))
-    p.hook(0x408F10, angr.Hook(angr.SIM_PROCEDURES['libc.so.6']['puts']))
+    p.hook(0x4018B0, angr.SIM_PROCEDURES['glibc']['__libc_start_main'])
+    p.hook(0x422690, angr.SIM_PROCEDURES['libc']['memcpy'])
+    p.hook(0x408F10, angr.SIM_PROCEDURES['libc']['puts'])
 
     # this is some anti-debugging initialization. It doesn't do much against angr,
     # but wastes time
-    p.hook(0x401438, angr.Hook(angr.SIM_PROCEDURES['stubs']['ReturnUnconstrained']), kwargs={'resolves': 'nothing'})
-
+    p.hook(0x401438, angr.SIM_PROCEDURES['stubs']['ReturnUnconstrained'](resolves='nothing'))
     # from playing with the binary, we can easily see that it requires strings of
     # length 8, so we'll hook the strlen calls and make sure we pass an 8-byte
     # string
     def hook_length(state):
         state.regs.rax = 8
-    p.hook(0x40168e, angr.Hook(UserHook, user_func=hook_length, length=5))
-    p.hook(0x4016BE, angr.Hook(UserHook, user_func=hook_length, length=5))
+    p.hook(0x40168e, UserHook(user_func=hook_length, length=5))
+    p.hook(0x4016BE, UserHook(user_func=hook_length, length=5))
 
     # here, we create the initial state to start execution. argv[1] is our 8-byte
     # string, and we add an angr option to gracefully handle unsupported syscalls
@@ -52,21 +51,21 @@ def get_possible_flags():
     # PathGroups are a basic building block of the symbolic execution engine. They
     # track a group of paths as the binary is executed, and allows for easier
     # management, pruning, and so forth of those paths
-    pg = p.factory.path_group(initial_state, immutable=False)
+    sm = p.factory.simgr(initial_state, immutable=False)
 
     # here, we get to stage 2 using the PathGroup's find() functionality. This
     # executes until at least one path reaches the specified address, and can
     # discard paths that hit certain other addresses.
     print '[*] executing'
-    pg.explore(find=0x4016A3).unstash(from_stash='found', to_stash='active')
-    pg.explore(find=0x4016B7, avoid=[0x4017D6, 0x401699, 0x40167D]).unstash(from_stash='found', to_stash='active')
-    pg.explore(find=0x4017CF, avoid=[0x4017D6, 0x401699, 0x40167D]).unstash(from_stash='found', to_stash='active')
-    pg.explore(find=0x401825, avoid=[0x401811])
+    sm.explore(find=0x4016A3).unstash(from_stash='found', to_stash='active')
+    sm.explore(find=0x4016B7, avoid=[0x4017D6, 0x401699, 0x40167D]).unstash(from_stash='found', to_stash='active')
+    sm.explore(find=0x4017CF, avoid=[0x4017D6, 0x401699, 0x40167D]).unstash(from_stash='found', to_stash='active')
+    sm.explore(find=0x401825, avoid=[0x401811])
 
     # now, we're at stage 2. stage 2 is too complex for a SAT solver to solve, but
     # stage1 has narrowed down the keyspace enough to brute-force the rest, so
     # let's get the possible values for the passphrase and brute-force the rest.
-    s = pg.found[0].state
+    s = sm.found[0]
 
     # to reduce the keyspace further, let's assume the bytes are printable
     for i in range(8):
@@ -99,6 +98,6 @@ def test():
 if __name__ == '__main__':
     # set some debug messages so that we know what's going on
     logging.basicConfig()
-    angr.path_group.l.setLevel('DEBUG')
+    angr.manager.l.setLevel('DEBUG')
 
     print main()

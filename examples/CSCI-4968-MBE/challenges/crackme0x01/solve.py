@@ -11,21 +11,21 @@ FIND_ADDR = 0x0804844e # This is right after the printf for the OK password.
 AVOID_ADDR = 0x08048434 # mov dword [esp], str.Invalid_Password__n ; [0x804854f:4]=0x61766e49 LEA str.Invalid_Password__n ; "Invalid Password!." @ 0x804854f
 
 def main():
-	proj = angr.Project('crackme0x01', load_options={"auto_load_libs": False}) 
+	proj = angr.Project('crackme0x01', load_options={"auto_load_libs": False})
 
-	path_group = proj.factory.path_group()
-	path_group.explore(find=FIND_ADDR, avoid=AVOID_ADDR)
+	sm = proj.factory.simgr()
+	sm.explore(find=FIND_ADDR, avoid=AVOID_ADDR)
 
-	return path_group.found[0].state.posix.dumps(0).lstrip('+0').rstrip('B')
+	return sm.found[0].posix.dumps(0).lstrip('+0').rstrip('B')
 
 def test():
-	assert main() == '5274'
+	assert main() == '5274\n'
 
 if __name__ == '__main__':
-	print(main())
+	print(repr(main()))
 
 """
-[0x08048530]> pdf @ main  
+[0x08048530]> pdf @ main
             ;-- main:
 ╒ (fcn) sym.main 113
 │           ; arg int arg_149ah @ ebp+0x149a
@@ -59,6 +59,6 @@ if __name__ == '__main__':
 │      │    0x08048449      e8cefeffff     sym.imp.printf ()
 │      │    ; JMP XREF from 0x08048440 (sym.main)
 │      └──> 0x0804844e      b800000000     eax = 0
-│           0x08048453      c9             
-╘           0x08048454      c3       
+│           0x08048453      c9
+╘           0x08048454      c3
 """

@@ -59,32 +59,33 @@ def main():
     state.memory.store(FLAG_LOCATION, state.se.BVS("flag", 8*32))
     state.memory.store(FLAG_PTR_LOCATION, struct.pack("<I", FLAG_LOCATION))
 
-    path = project.factory.path(state)
-    choices = [path]
+    sm = project.factory.simgr(state)
+    choices = [state]
 
     print("Tracing...")
     for i, addr in enumerate(trace_log):
         if addr in delay_slots:
             continue
 
-        for path in choices:
-            if path.addr == addr:
+        for s in choices:
+            if s.addr == addr:
                 break
+
         else:
             raise ValueError("couldn't advance to %08x, line %d" % (addr, i+1))
 
-        if path.addr == MAIN_END:
+        if s.addr == MAIN_END:
             break
 
         # if command is a jump, it's followed by a delay slot
         # we need to advance by two instructions
         # https://github.com/angr/angr/issues/71
-        if path.addr + 4 in delay_slots:
-            choices = path.step(num_inst=2)
+        if s.addr + 4 in delay_slots:
+            choices = project.factory.successors(s, num_inst=2).successors
         else:
-            choices = path.step(num_inst=1)
+            choices = project.factory.successors(s, num_inst=1).successors
 
-    state = path.state
+    state = s
 
     print("Running solver...")
 

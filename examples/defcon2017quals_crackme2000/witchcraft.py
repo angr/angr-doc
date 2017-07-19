@@ -2,7 +2,7 @@
 import logging
 import sys
 
-l = logging.getLogger('angr.path_group').setLevel(logging.DEBUG)
+l = logging.getLogger('angr.manager').setLevel(logging.DEBUG)
 
 import angr
 
@@ -58,10 +58,10 @@ def solve(s):
     p.hook(swift_retain, angr.SIM_PROCEDURES['stubs']['ReturnUnconstrained'])
     p.hook(alloca, Alloca)
 
-    pg = p.factory.path_group(state)
-    pg.explore()
+    sm = p.factory.simgr(state)
+    sm.explore()
 
-    state = pg.deadended[-1].state
+    state = sm.deadended[-1]
     mem = state.memory.load(pos + 0x20, 60)
     mem_str = state.se.any_str(mem).replace("\x00", "")
     return mem_str

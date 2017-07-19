@@ -1,5 +1,6 @@
 import angr
 import sys
+import logging
 
 # HackCon 2016 - angry-reverser
 # @author: P1kachu
@@ -28,15 +29,19 @@ def main():
     avoid += [(crazy + offst) for offst in fails] # Let's save RAM
 
     print("Launching exploration")
-    pg = p.factory.path_group(init, threads=8)
-    ex = pg.explore(find=find, avoid=avoid)
+    sm = p.factory.simgr(init, threads=8)
+    angr.manager.l.setLevel(logging.DEBUG)
+    ex = sm.explore(find=find, avoid=avoid)
 
     # Get stdout
-    final = ex.found[0].state
+    final = ex.found[0]
     flag = final.posix.dumps(1)
     print("Flag: {0}".format(final.posix.dumps(1)))
 
     return flag[7:27]
+
+def test():
+    assert main() == "HACKCON{VVhYS04ngrY}"
 
 if __name__ in '__main__':
     assert main() == "HACKCON{VVhYS04ngrY}"

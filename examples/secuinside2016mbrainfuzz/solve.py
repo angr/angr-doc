@@ -91,17 +91,17 @@ def generate_input(p, to_find, to_avoid, byte_addresses):
         e.regs.rdx = rdx
         e.regs.rcx = rcx
 
-        #Generate a path_group out of this state and explore
-        pg = p.factory.path_group(e)
-        pg.explore(find=t,avoid=to_avoid)
+        #Generate a SimulationManager out of this state and explore
+        sm = p.factory.simgr(e)
+        sm.explore(find=t,avoid=to_avoid)
 
         #Save the solutions
-        found = pg.found[0]
+        found = sm.found[0]
         address_local = byte_addresses[i]
-        input[address_local[3]] = found.state.se.any_int(rdi)
-        input[address_local[2]] = found.state.se.any_int(rsi)
-        input[address_local[1]] = found.state.se.any_int(rdx)
-        input[address_local[0]] = found.state.se.any_int(rcx)
+        input[address_local[3]] = found.se.any_int(rdi)
+        input[address_local[2]] = found.se.any_int(rsi)
+        input[address_local[1]] = found.se.any_int(rdx)
+        input[address_local[0]] = found.se.any_int(rcx)
 
     return input
 

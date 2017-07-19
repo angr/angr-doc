@@ -5,7 +5,7 @@ def main():
     ex = p.surveyors.Explorer(find=(0x400844, ), avoid=(0x400855,))
     ex.run()
 
-    return ex.found[0].state.posix.dumps(0).strip('\0\n')
+    return ex.found[0].posix.dumps(0).strip('\0\n')
 
 def test():
     assert main() == 'Code_Talkers'

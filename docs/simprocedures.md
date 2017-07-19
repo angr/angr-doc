@@ -11,7 +11,7 @@ This chapter should serve as a guide when programming SimProcedures.
 Here's an example that will remove all bugs from any program:
 
 ```python
->>> from angr import Hook, Project, SimProcedure
+>>> from angr import Project, SimProcedure
 >>> project = Project('examples/fauxware/fauxware')
 
 >>> class BugFree(SimProcedure):
@@ -20,13 +20,13 @@ Here's an example that will remove all bugs from any program:
 ...        return 0
 
 # this assumes we have symbols for the binary
->>> project.hook(project.kb.labels.lookup('main'), Hook(BugFree))
+>>> project.hook(project.kb.labels.lookup('main'), BugFree)
 
 # Run a quick execution!
->>> pg = project.factory.path_group()
->>> pg.run()  # step until no more active paths
+>>> sm = project.factory.simgr()
+>>> sm.run()  # step until no more active paths
 Program running with argc=<SAO <BV64 0x0>> and argv=<SAO <BV64 0x7fffffffffeffa0>>
-<PathGroup with 1 deadended>
+<SimulationManager with 1 deadended>
 ```
 
 Now, whenever program execution reaches the main function, instead of executing the actual main function, it will execute this procedure!
@@ -191,11 +191,10 @@ What if you don't?
 There's an alternate interface for hooking, a user hook, that lets you streamline the process of hooking sections of code.
 
 ```python
->>> @Hook.wrap(length=5)
+>>> @project.hook(0x1234, length=5)
 ... def set_rax(state):
 ...     state.regs.rax = 1
 
->>> project.hook(0x1234, set_rax)
 ```
 
 This is a lot simpler!
@@ -249,7 +248,7 @@ For instance, to replace `rand()` with a function that always returns a consiste
 ...         self.state.procedure_data.global_variables['rand_idx'] = rand_idx + 1
 ...         return out
 
->>> project.hook_symbol('rand', Hook(NotVeryRand, return_values=[413, 612, 1025, 1111]))
+>>> project.hook_symbol('rand', NotVeryRand(return_values=[413, 612, 1025, 1111]))
 ```
 
 Now, whenever the program tries to call `rand()`, it'll return the integers from the `return_values` array in a loop.
