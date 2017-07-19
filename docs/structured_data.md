@@ -6,39 +6,39 @@ angr has several features to make this less of a headache.
 
 ## Working with types
 
-SimuVEX has a system for representing types.
-These SimTypes are found in `simuvex/s_type.py` - an instance of any of these classes represents a type.
+angr has a system for representing types.
+These SimTypes are found in `angr.types` - an instance of any of these classes represents a type.
 Many of the types are incomplete unless they are supplamented with a SimState - their size depends on the architecture you're running under.
 You may do this with `ty.with_state(state)`, which returns a copy of itself, with the state specified.
 
-SimuVEX also has a light wrapper around `pycparser`, which is a C parser.
+angr also has a light wrapper around `pycparser`, which is a C parser.
 This helps with getting instances of type objects:
 
 ```python
->>> import simuvex
+>>> import angr
 
 # note that SimType objects have their __repr__ defined to return their c type name,
 # so this function actually returned a SimType instance.
->>> simuvex.parse_type('int')
+>>> angr.types.parse_type('int')
 int
 
->>> simuvex.parse_type('char **')
+>>> angr.types.parse_type('char **')
 char**
 
->>> simuvex.parse_type('struct aa {int x; long y;}')
+>>> angr.types.parse_type('struct aa {int x; long y;}')
 struct aa
 
->>> simuvex.parse_type('struct aa {int x; long y;}').fields
+>>> angr.types.parse_type('struct aa {int x; long y;}').fields
 OrderedDict([('x', int), ('y', long)])
 ```
 
 Additionally, you may parse C definitions and have them returned to you in a dict, either of variable/function declarations or of newly defined types:
 
 ```python
->>> simuvex.parse_defns("int x; typedef struct llist { char* str; struct llist *next; } list_node; list_node *y;")
+>>> angr.types.parse_defns("int x; typedef struct llist { char* str; struct llist *next; } list_node; list_node *y;")
 {'x': int, 'y': struct llist*}
 
->>> defs = simuvex.parse_types("int x; typedef struct llist { char* str; struct llist *next; } list_node; list_node *y;")
+>>> defs = angr.types.parse_types("int x; typedef struct llist { char* str; struct llist *next; } list_node; list_node *y;")
 >>> defs
 {'list_node': struct llist}
 
@@ -52,16 +52,16 @@ OrderedDict([('str', char*), ('next', struct llist*)])
 
 # If you want to get a function type and you don't want to construct it manually,
 # you have to use parse_defns, not parse_type
->>> simuvex.parse_defns("int x(int y, double z);")
+>>> angr.types.parse_defns("int x(int y, double z);")
 {'x': (int, double) -> int}
 ```
 
 And finally, you can register struct definitions for future use:
 
 ```python
->>> simuvex.define_struct('struct abcd { int x; int y; }')
->>> simuvex.register_types(simuvex.parse_types('typedef long time_t;'))
->>> simuvex.parse_defns('struct abcd a; time_t b;')
+>>> angr.types.define_struct('struct abcd { int x; int y; }')
+>>> angr.types.register_types(angr.types.parse_types('typedef long time_t;'))
+>>> angr.types.parse_defns('struct abcd a; time_t b;')
 {'a': struct abcd, 'b': long}
 ```
 
@@ -136,7 +136,7 @@ A calling convention is the specific means by which code passes arguments and re
 While angr comes with a large number of pre-built calling conventions, and a lot of logic for refining calling conventions for specific circumstances (e.g. floating point arguments need to be stored in different locations, it gets worse from there), it will inevitably be insufficient to describe all possible calling conventions a compiler could generate.
 Because of this, you can _customize_ a calling convention by describing where the arguments and return values should live.
 
-angr's abstraction of calling conventions lives in Simuvex as SimCC.
+angr's abstraction of calling conventions is called SimCC.
 You can construct new SimCC instances through the angr object factory, with `b.factory.cc(...)`.
 
 - Pass as the `args` keyword argument a list of argument storage locations
@@ -150,7 +150,7 @@ Register arguments should be instantiated with the name of the register you're s
 Stack arguments should be instantiated with the offset from the stack pointer *at the time of entry into the function* and the size of the storage location, in bytes.
 
 Once you have a SimCC object, you can use it along with a SimState object to extract or store function arguments more cleanly.
-Take a look at the [API documentation](http://angr.io/api-doc/simuvex.html#simuvex.s_cc.SimCC) for details.
+Take a look at the [API documentation](http://angr.io/api-doc/angr.html#angr.calling_conventions.SimCC) for details.
 Alternately, you can pass it to an interface that can use it to modify its own behavior, like `b.factory.call_state`, or...
 
 ## Callables

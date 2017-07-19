@@ -11,8 +11,7 @@ This chapter should serve as a guide when programming SimProcedures.
 Here's an example that will remove all bugs from any program:
 
 ```python
->>> from simuvex import SimProcedure
->>> from angr import Hook, Project
+>>> from angr import Project, SimProcedure
 >>> project = Project('examples/fauxware/fauxware')
 
 >>> class BugFree(SimProcedure):
@@ -21,13 +20,13 @@ Here's an example that will remove all bugs from any program:
 ...        return 0
 
 # this assumes we have symbols for the binary
->>> project.hook(project.kb.labels.lookup('main'), Hook(BugFree))
+>>> project.hook(project.kb.labels.lookup('main'), BugFree)
 
 # Run a quick execution!
->>> pg = project.factory.path_group()
->>> pg.run()  # step until no more active paths
+>>> sm = project.factory.simgr()
+>>> sm.run()  # step until no more active paths
 Program running with argc=<SAO <BV64 0x0>> and argv=<SAO <BV64 0x7fffffffffeffa0>>
-<PathGroup with 1 deadended>
+<SimulationManager with 1 deadended>
 ```
 
 Now, whenever program execution reaches the main function, instead of executing the actual main function, it will execute this procedure!
@@ -45,7 +44,7 @@ More on that later.
 
 We've been using the words Hook and SimProcedure sort of interchangeably. Let's fix that.
 
-- `SimProcedure` is a simuvex class that describes a set of actions to take on a state.
+- `SimProcedure` is a class that describes a set of actions to take on a state.
   Its crux is the `run()` method.
 - `Hook` is an angr class that holds a SimProcedure along with information about how to instantiate it.
 
@@ -102,7 +101,7 @@ We'll get there after a quick detour...
 What if we want to add a conditional branch out of a SimProcedure?
 In order to do that, you'll need to work directly with the SimSuccessors object for the current execution step.
 
-The interface for this is [`self.successors.add_successor(state, addr, guard, jumpkind)`](http://angr.io/api-doc/simuvex.html#simuvex.engines.successors.SimSuccessors.add_successor).
+The interface for this is [`self.successors.add_successor(state, addr, guard, jumpkind)`](http://angr.io/api-doc/angr.html#angr.engines.successors.SimSuccessors.add_successor).
 All of these parameters should have an obvious meaning if you've followed along so far.
 Keep in mind that the state you pass in will NOT be copied, so be sure to make a copy if you want to use it again!
 
@@ -192,11 +191,10 @@ What if you don't?
 There's an alternate interface for hooking, a user hook, that lets you streamline the process of hooking sections of code.
 
 ```python
->>> @Hook.wrap(length=5)
+>>> @project.hook(0x1234, length=5)
 ... def set_rax(state):
 ...     state.regs.rax = 1
 
->>> project.hook(0x1234, set_rax)
 ```
 
 This is a lot simpler!
@@ -250,7 +248,7 @@ For instance, to replace `rand()` with a function that always returns a consiste
 ...         self.state.procedure_data.global_variables['rand_idx'] = rand_idx + 1
 ...         return out
 
->>> project.hook_symbol('rand', Hook(NotVeryRand, return_values=[413, 612, 1025, 1111]))
+>>> project.hook_symbol('rand', NotVeryRand(return_values=[413, 612, 1025, 1111]))
 ```
 
 Now, whenever the program tries to call `rand()`, it'll return the integers from the `return_values` array in a loop.

@@ -43,14 +43,13 @@ def main():
     state.posix.files[0].length = 100
 
     print('creating path and explorer')
-    path = p.factory.path(state)
-    ex = p.surveyors.Explorer(start=path, find=FIND, avoid=AVOID)
+    ex = p.surveyors.Explorer(start=state, find=FIND, avoid=AVOID)
 
     print('running explorer')
     ex.run()
 
     print('found solution')
-    correct_input = ex._f.state.posix.dumps(0) # ex._f is equiv. to ex.found[0]
+    correct_input = ex._f.posix.dumps(0) # ex._f is equiv. to ex.found[0]
 
     # we didn't know how long the input had to be except < 100 bytes
     team_name = correct_input[:correct_input.index('\x00')]

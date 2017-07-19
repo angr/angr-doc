@@ -79,12 +79,9 @@ It is not a factory in the Java sense, it is merely a home for all the functions
 >>> state = b.factory.call_state(0x1000, "hello", "world")
 >>> state = b.factory.full_init_state(args=['./program', claripy.BVS('arg1', 20*8)])
 
->>> path = b.factory.path()
->>> path = b.factory.path(state)
-
->>> group = b.factory.path_group()
->>> group = b.factory.path_group(path)
->>> group = b.factory.path_group([path, state])
+>>> sim_manager = b.factory.simgr()
+>>> sim_manager = b.factory.simgr(state)
+>>> sim_manager = b.factory.simgr([state])
 
 >>> strlen_addr = b.loader.main_bin.plt['strlen']
 >>> strlen = b.factory.callable(strlen_addr)
@@ -123,8 +120,7 @@ Setting the `concrete_fs` option to `True` will cause angr to respect the files 
 The `chroot` option allows you to specify an optional root to use while using the `concrete_fs` option. This can be convenient if the program you're analyzing references files using an absolute path. For example, if the program you are analyzing attempts to open '/etc/passwd', you can set the chroot to your current working directory so that attempts to access '/etc/passwd' will read from '$CWD/etc/passwd'.
 
 ```python
->>> import simuvex
->>> files = {'/dev/stdin': simuvex.storage.file.SimFile("/dev/stdin", "r", size=30)}
+>>> files = {'/dev/stdin': angr.storage.file.SimFile("/dev/stdin", "r", size=30)}
 >>> s = b.factory.entry_state(fs=files, concrete_fs=True, chroot="angr-chroot/")
 ```
 
@@ -143,7 +139,7 @@ the `args` and `env` keyword args work on `entry_state` and `full_init_state`, a
 >>> b.is_hooked(0x10000)
 True
 >>> b.unhook(0x10000)
->>> b.hook_symbol('strlen', simuvex.SimProcedures['stubs']['ReturnUnconstrained'])
+>>> b.hook_symbol('strlen', angr.SIM_PROCEDURES['stubs']['ReturnUnconstrained'])
 ```
 
 A hook allows you to intercept the program's execution at specific points.
@@ -152,7 +148,7 @@ Execution will then skip `length` bytes ahead of the hooked address and resume.
 You can omit the `length` argument for execution to skip zero bytes and resume at the hooked address.
 
 In addition to a basic function, you can hook an address with a `SimProcedure`, which is a more complex system for having fine-grained control over program execution.
-To do this, use the exact same `hook` function, but supply a class (not an instance!) that subclasses `simuvex.SimProcedure`.
+To do this, use the exact same `hook` function, but supply a class (not an instance!) that subclasses `angr.SimProcedure`.
 
 The `is_hooked` and `unhook` methods should be self-explanitory.
 

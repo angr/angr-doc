@@ -5,7 +5,7 @@
 # It takes a VERY long time to run! I took a well-deserved nap while it was solving :)
 #
 
-import angr, simuvex, claripy
+import angr, claripy
 p = angr.Project('nobranch')
 all_blocks = []
 mainaddr = 0x400400
@@ -31,33 +31,31 @@ def main():
     state.regs.rsi = state.regs.rsp + 64                                                            # set argv = args
     state.regs.rdx = state.regs.rsp + 80                                                            # set envp = empty list
 
-    path = p.factory.path(state)
     i = 0
-    while path.jumpkind == 'Ijk_Boring':                                                            # symbolically execute until we hit the syscall at the end
+    while state.history.jumpkind == 'Ijk_Boring':                                                   # symbolically execute until we hit the syscall at the end
         i += 1
         print i
-        path.step(num_inst=1)                                                                       # only step one instruction at a time
-        opath = path
-        path = path.successors[0]
+        ss = p.factory.successors(state, num_inst=1)                                                # only step one instruction at a time
+        state = ss.successors[0]
         reg_names = ['rax', 'rbx', 'rcx', 'rdx', 'rsi', 'rdi', 'rbp', 'rsp', 'r8', 'r9', 'r10', 'r11', 'r12', 'r13', 'r14', 'r15']
 
-        assert not path.state.regs.rsp.symbolic
+        assert not state.regs.rsp.symbolic
 
         for reg_name in reg_names:                                                                  # for each register and memory location that matters in the program,
-            val = path.state.registers.load(reg_name)                                               # after each step, if the symbolic AST for that value has become larger than
+            val = state.registers.load(reg_name)                                               # after each step, if the symbolic AST for that value has become larger than
             if val.symbolic and val.depth > 3:                                                      # three nodes deep, stub it out by replacing it with a single symbolic value
                 newval = claripy.BVS('replacement', len(val))                                       # constrained to be equal to the original value. This makes the constraints much
-                path.state.se.add(newval == val)                                                    # easier for z3 to bite into in smaller chunks. It might also indicate that there
-                path.state.registers.store(reg_name, newval)                                        # some issues with angr's current usage of z3 :-)
+                state.se.add(newval == val)                                                    # easier for z3 to bite into in smaller chunks. It might also indicate that there
+                state.registers.store(reg_name, newval)                                        # some issues with angr's current usage of z3 :-)
 
-        for mem_addr in range(outaddr, outaddr + 0x1f) + [path.state.regs.rsp - x for x in xrange(0x40)]:
-            val = path.state.memory.load(mem_addr, 1)
+        for mem_addr in range(outaddr, outaddr + 0x1f) + [state.regs.rsp - x for x in xrange(0x40)]:
+            val = state.memory.load(mem_addr, 1)
             if val.symbolic and val.depth > 3:
                 newval = claripy.BVS('replacement', len(val))
-                path.state.se.add(newval == val)
-                path.state.memory.store(mem_addr, newval)
+                state.se.add(newval == val)
+                state.memory.store(mem_addr, newval)
 
-    fstate = path.state.copy()
+    fstate = state.copy()
     fstate.se._solver.timeout = 0xfffffff                                                           # turn off z3's timeout for solving :^)
     for i, c in enumerate(shouldbe):
         fstate.se.add(fstate.memory.load(0x616050 + i, 1) == ord(c))                                # constrain the output to what we were told it should be

@@ -1,24 +1,23 @@
-## Full writeup on flag 2 found on http://www.ctfhacker.com		
+## Full writeup on flag 2 found on http://www.ctfhacker.com     
 ## Binary found here: http://csapp.cs.cmu.edu/3e/bomb.tar
 import sys
 import angr
 import logging
 import claripy
-import simuvex
 from struct import unpack
 
-class readline_hook(simuvex.SimProcedure):
+class readline_hook(angr.SimProcedure):
     def run(self):
         pass
 
-class strtol_hook(simuvex.SimProcedure):
+class strtol_hook(angr.SimProcedure):
     def run(self, str, end, base):
         return self.state.se.BVS("flag", 64, explicit_name=True)
 
 def solve_flag_1():
 
     # shutdown some warning produced by this example
-    logging.getLogger('simuvex.vex.irsb').setLevel(logging.ERROR)
+    logging.getLogger('angr.engines.vex.irsb').setLevel(logging.ERROR)
 
     proj = angr.Project('bomb', load_options={'auto_load_libs':False})
 
@@ -42,15 +41,13 @@ def solve_flag_1():
     state.add_constraints(state.regs.rdi == bind_addr)
 
     # Attempt to find a path to the end of the phase_1 function while avoiding the bomb_explode
-    path = proj.factory.path(state=state)
-
-    ex = proj.surveyors.Explorer(start=path, find=(end,),
+    ex = proj.surveyors.Explorer(start=state, find=(end,),
                                  avoid=(bomb_explode,),
                                  enable_veritesting=True)
     ex.run()
-    if ex.found:
 
-        found = ex.found[0].state
+    if ex.found:
+        found = ex.found[0]
         return found.se.any_str(arg).rstrip(chr(0)) # remove ending \0
 
     pass
@@ -69,13 +66,13 @@ def solve_flag_2():
         state.stack_push(state.se.BVS('int{}'.format(i), 4*8))
 
     # Attempt to find a path to the end of the phase_2 function while avoiding the bomb_explode
-    path = proj.factory.path(state=state)
-    ex = proj.surveyors.Explorer(start=path, find=(0x400f3c,),
+    ex = proj.surveyors.Explorer(start=state, find=(0x400f3c,),
                                  avoid=(bomb_explode,),
                                  enable_veritesting=True)
     ex.run()
+
     if ex.found:
-        found = ex.found[0].state
+        found = ex.found[0]
 
         answer = []
 
@@ -112,8 +109,7 @@ def solve_flag_3():
         state = queue.pop()
         #print "\nStarting symbolic execution..."
 
-        path = proj.factory.path(state=state)
-        ex = proj.surveyors.Explorer(start=path, find=(end,),
+        ex = proj.surveyors.Explorer(start=state, find=(end,),
                                      avoid=(bomb_explode,),
                                      enable_veritesting=True,
                                      max_active=8)
@@ -121,16 +117,14 @@ def solve_flag_3():
 
         #print "Inserting in queue " + str(len(ex.active)) + " paths (not yet finished)"
         for p in ex.active:
-            queue.append(p.state)
+            queue.append(p)
 
         #print "Found states are " + str(len(ex.found))
         #print "Enumerating up to 10 solutions for each found state"
 
         if ex.found:
-
             for p in ex.found:
-
-                found = p.state
+                found = p
                 found.stack_pop() # ignore, our args start at offset 0x8
 
                 iter_sol = found.se.any_n_int(found.stack_pop(), 10) # ask for up to 10 solutions if possible
@@ -160,11 +154,11 @@ def solve_flag_4():
         # addr=proj.kb.functions.get('phase_4').addr,
         # we will just use the obj's symbol directly
         addr=proj.kb.obj.get_symbol('phase_4').addr,
-        remove_options={simuvex.o.LAZY_SOLVES})
-    pg = proj.factory.path_group(state)
-    pg.explore(find=find, avoid=avoid)
+        remove_options={angr.options.LAZY_SOLVES})
+    sm = proj.factory.simgr(state)
+    sm.explore(find=find, avoid=avoid)
 
-    found = pg.found[0].state
+    found = sm.found[0]
 
     # stopped on the ret account for the stack
     # that has already been moved
@@ -199,13 +193,13 @@ def solve_flag_5():
     find = proj.kb.functions.get('phase_5').ret_sites[0].addr
 
     state = proj.factory.blank_state(
-        addr=start, remove_options={simuvex.o.LAZY_SOLVES})
+        addr=start, remove_options={angr.options.LAZY_SOLVES})
     # retrofit the input string on the stack
     state.regs.rdi = state.regs.rsp - 0x1000
     string_addr = state.regs.rdi
-    pg = proj.factory.path_group(state)
-    pg.explore(find=find, avoid=avoid)
-    found = pg.found[0].state
+    sm = proj.factory.simgr(state)
+    sm.explore(find=find, avoid=avoid)
+    found = sm.found[0]
 
     mem = found.memory.load(string_addr, 32)
     for i in xrange(32):
@@ -215,7 +209,7 @@ def solve_flag_5():
     # return map(lambda s: s.split('\x00')[0], found.se.any_n_str(mem, 10))
 
 
-class read_6_ints(simuvex.SimProcedure):
+class read_6_ints(angr.SimProcedure):
     answer_ints = []  # class variable
     int_addrs = []
 
@@ -228,7 +222,6 @@ class read_6_ints(simuvex.SimProcedure):
 
         return 6
 
-
 def solve_flag_6():
     start = 0x4010f4
     read_num = 0x40145c
@@ -236,10 +229,10 @@ def solve_flag_6():
     avoid = 0x40143A
     p = angr.Project("./bomb", load_options={'auto_load_libs': False})
     p.hook(read_num, read_6_ints)
-    state = p.factory.blank_state(addr=start, remove_options={simuvex.o.LAZY_SOLVES})
-    pg = p.factory.path_group(state)
-    pg.explore(find=find, avoid=avoid)
-    found = pg.found[0].state
+    state = p.factory.blank_state(addr=start, remove_options={angr.options.LAZY_SOLVES})
+    sm = p.factory.simgr(state)
+    sm.explore(find=find, avoid=avoid)
+    found = sm.found[0]
 
     answer = [found.se.any_int(x) for x in read_6_ints.answer_ints]
     return ' '.join(map(str, answer))
@@ -254,18 +247,18 @@ def solve_secret():
     p = angr.Project("./bomb", load_options={'auto_load_libs':False})
     p.hook(readline, readline_hook)
     p.hook(strtol, strtol_hook)
-    state = p.factory.blank_state(addr=start, remove_options={simuvex.o.LAZY_SOLVES})
+    state = p.factory.blank_state(addr=start, remove_options={angr.options.LAZY_SOLVES})
     flag = claripy.BVS("flag", 64, explicit_name=True)
     state.add_constraints(flag -1 <= 0x3e8)
-    pg = p.factory.path_group(state)
-    pg.explore(find=find, avoid=avoid)
+    sm = p.factory.simgr(state)
+    sm.explore(find=find, avoid=avoid)
     ### flag found
-    found = pg.found[0]
-    flag = found.state.se.BVS("flag", 64, explicit_name="True")
-    return str(found.state.se.any_int(flag))
+    found = sm.found[0]
+    flag = found.se.BVS("flag", 64, explicit_name="True")
+    return str(found.se.any_int(flag))
 
 def main():
-    print "Flag    1: " + solve_flag_1()
+#   print "Flag    1: " + solve_flag_1()
     print "Flag    2: " + solve_flag_2()
     print "Flag(s) 3: " + str(solve_flag_3())
     print "Flag    4: " + solve_flag_4()
@@ -274,8 +267,8 @@ def main():
     print "Secret   : " + solve_secret()
 
 def test():
-    assert solve_flag_1() == 'Border relations with Canada have never been better.'
-    print "Stage 1 ok!"
+#   assert solve_flag_1() == 'Border relations with Canada have never been better.'
+#   print "Stage 1 ok!"
 
     assert solve_flag_2() == '1 2 4 8 16 32'
     print "Stage 2 ok!"
@@ -287,17 +280,17 @@ def test():
         assert s in res_3
     print "Stage 3 ok!"
 
-    #assert solve_flag_4() == '7 0'
-    #print "Stage 4 ok!"
+    assert solve_flag_4() == '7 0'
+    print "Stage 4 ok!"
 
     assert solve_flag_5().lower() == 'ionefg'
     print "Stage 5 ok!"
 
-    #assert solve_flag_6() == '4 3 2 1 6 5'
-    #print "Stage 6 ok!"
+    assert solve_flag_6() == '4 3 2 1 6 5'
+    print "Stage 6 ok!"
 
-    #assert solve_secret() == '22'
-    #print "Secret stage ok!"
+    assert solve_secret() == '22'
+    print "Secret stage ok!"
 
 if __name__ == '__main__':
 

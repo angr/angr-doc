@@ -11,10 +11,10 @@ AVOID_ADDR = 0x08048554 # mov dword [esp], str.Wrong_ ; [0x804865e:4]=0x6e6f7257
 
 
 def main():
-	proj = angr.Project('crackme0x00a', load_options={"auto_load_libs": False}) 
-	path_group = proj.factory.path_group()
-	path_group.explore(find=FIND_ADDR, avoid=AVOID_ADDR) 
-	return path_group.found[0].state.posix.dumps(0).split('\0')[0] # stdin
+	proj = angr.Project('crackme0x00a', load_options={"auto_load_libs": False})
+	sm = proj.factory.simgr()
+	sm.explore(find=FIND_ADDR, avoid=AVOID_ADDR)
+	return sm.found[0].posix.dumps(0).split('\0')[0] # stdin
 
 def test():
 	assert main() == 'g00dJ0B!'

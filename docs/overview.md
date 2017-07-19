@@ -47,7 +47,7 @@ angr exposes information about what the paths execute and *do*.
 
 A powerful feature of angr is the ability to represent basic blocks in terms of their effects on a program state.
 In other words, angr can reason about what basic blocks *do*, not just what they *are*.
-This is accomplished by a module named SimuVEX, further described [here](./simuvex.md).
+This is accomplished by a code simulation engine, further described [here](./simulation.md).
 
 ## Symbolic Execution
 

@@ -1,7 +1,7 @@
 
 import logging
 
-#l = logging.getLogger('angr.path_group').setLevel(logging.DEBUG)
+#l = logging.getLogger('angr.manager').setLevel(logging.DEBUG)
 
 import angr
 
@@ -12,9 +12,9 @@ def solve(s):
     cfg = p.analyses.CFG()
 
     state = p.factory.blank_state(addr=0x400770)
-    pg = p.factory.path_group(state)
-    pg.explore()
-    sol = pg.deadended[-1].state.posix.dumps(0).replace("\x00", "").replace("\n", "")
+    sm = p.factory.simgr(state)
+    sm.explore()
+    sol = sm.deadended[-1].posix.dumps(0).replace("\x00", "").replace("\n", "")
     return sol
 
 def main():

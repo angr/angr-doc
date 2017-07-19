@@ -27,20 +27,12 @@ def basic_symbolic_execution():
 
     state = p.factory.entry_state()
 
-    # States are relatively static objects, they don't do anything "smart".
-    # You can read data into and out of them, but that's about it.
-    # In order to actually perform symbolic execution, you need a Path.
-    # Paths wrap states and are your interface for stepping them forward and
-    # tracking their history.
-
-    path = p.factory.path(state)
-
     # Now, in order to manage the symbolic execution process from a very high
-    # level, we have a PathGroup. Path groups are just collections of paths
-    # with various tags attached with a number of convenient interfaces for
-    # managing them.
+    # level, we have a SimulationManager. SimulationManager is just collections
+    # of states with various tags attached with a number of convenient
+    # interfaces for managing them.
 
-    pathgroup = p.factory.path_group(path)
+    sm = p.factory.simgr(state)
 
     # Uncomment the following line to spawn an IPython shell when the program
     # gets to this point so you can poke around at the four objects we just
@@ -53,13 +45,13 @@ def basic_symbolic_execution():
     # Now, we begin execution. This will symbolically execute the program until
     # we reach a branch statement for which both branches are satisfiable.
 
-    pathgroup.step(until=lambda lpg: len(lpg.active) > 1)
+    sm.step(until=lambda lpg: len(lpg.active) > 1)
 
     # If you look at the C code, you see that the first "if" statement that the
     # program can come across is comparing the result of the strcmp with the
     # backdoor password. So, we have halted execution with two states, each of
     # which has taken a different arm of that conditional branch. If you drop
-    # an IPython shell here and examine pathgroup.active[n].state.se.constraints
+    # an IPython shell here and examine sm.active[n].se.constraints
     # you will see the encoding of the condition that was added to the state to
     # constrain it to going down this path, instead of the other one. These are
     # the constraints that will eventually be passed to our constraint solver
@@ -67,8 +59,8 @@ def basic_symbolic_execution():
 
     # As a matter of fact, we'll do that now.
 
-    input_0 = pathgroup.active[0].state.posix.dumps(0)
-    input_1 = pathgroup.active[1].state.posix.dumps(0)
+    input_0 = sm.active[0].posix.dumps(0)
+    input_1 = sm.active[1].posix.dumps(0)
 
     # We have used a utility function on the state's posix plugin to perform a
     # quick and dirty concretization of the content in file descriptor zero,

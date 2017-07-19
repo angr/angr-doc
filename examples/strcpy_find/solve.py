@@ -54,7 +54,7 @@ def main():
      Create the list of command-line arguments and add the program name
     '''
     argv = [project.filename]   #argv[0]
-    ''' 
+    '''
      Add symbolic variable for the password buffer which we are solving for:
     '''
     sym_arg_size = 40   #max number of bytes we'll try to solve for
@@ -70,7 +70,7 @@ def main():
      that this is the value that is being copied!
     '''
     argv.append("HAHAHAHA") # argv[2]
-     
+
     '''
      Initializes an entry state starting at the address of the program entry point
      We simply pass it the same kind of argument vector that would be passed to the
@@ -79,10 +79,10 @@ def main():
     state = project.factory.entry_state(args=argv)
 
     '''
-     Create a new path group from the entry state
+     Create a new SimulationManager from the entry state
     '''
-    path_group = project.factory.path_group(state)
-     
+    sm = project.factory.simgr(state)
+
     '''
      Since we want to find a path to strcpy ONLY where we have control of the
      source buffer, we have to have a custom check function which takes a Path
@@ -94,20 +94,20 @@ def main():
      pointer) to make sure we're at our intended path destination before checking
      to make sure the other conditions are satisfied.
     '''
-    def check(p):
-        if (p.state.ip.args[0] == addrStrcpy):    # Ensure that we're at strcpy
+    def check(state):
+        if (state.ip.args[0] == addrStrcpy):    # Ensure that we're at strcpy
             '''
              By looking at the disassembly, I've found that the pointer to the
              source buffer given to strcpy() is kept in RSI.  Here, we dereference
              the pointer in RSI and grab 8 bytes (len("HAHAHAHA")) from that buffer.
             '''
-            BV_strCpySrc = p.state.memory.load( p.state.regs.rsi, len(argv[2]) )
+            BV_strCpySrc = state.memory.load( state.regs.rsi, len(argv[2]) )
             '''
              Now that we have the contents of the source buffer in the form of a bit
              vector, we grab its string representation using the current state's
              solver engine's function "any_str".
             '''
-            strCpySrc = p.state.se.any_str( BV_strCpySrc )
+            strCpySrc = state.se.any_str( BV_strCpySrc )
             '''
              Now we simply return True (found path) if we've found a path to strcpy
              where we control the source buffer, or False (keep looking for paths) if we
@@ -130,18 +130,18 @@ def main():
      Here, we tell the explore function to find a path that satisfies our check
      method and avoids any paths that end up in addrBadFunc ('func3')
     '''
-    path_group = path_group.explore(find=check, avoid=(addrBadFunc,))
+    sm = sm.explore(find=check, avoid=(addrBadFunc,))
 
-    found = path_group.found
-    ''' 
+    found = sm.found
+    '''
      Retrieve a concrete value for the password value from the found path.
      If you put this password in the program's first argument, you should be
      able to strcpy() any string you want into the destination buffer and
      cause a segmentation fault if it is too large :)
     '''
     if ( len( found ) > 0 ):    #   Make sure we found a path before giving the solution
-        found = path_group.found[0]
-        result = found.state.se.any_str(argv[1])
+        found = sm.found[0]
+        result = found.se.any_str(argv[1])
         try:
             result = result[:result.index('\0')]
         except ValueError:

@@ -1,15 +1,15 @@
-SimuVEX and Bare-Bones Symbolic Execution
-=========================================
+The Simulation Engine
+=====================
 
 Most analyses require an understanding of what the code is *doing* (semantic meaning), not just what the code *is* (syntactic meaning).
-For this, we developed a module called SimuVEX (https://github.com/angr/simuvex). SimuVEX provides a semantic understanding of what a given piece of VEX code does on a given machine state.
+For this, angr includes a simulation engine.
+This engine provides a semantic understanding of what a given piece of code does on a given machine state.
 
-In a nutshell, SimuVEX is a symbolic VEX emulator.
-Given a machine state and a VEX IR block, SimuVEX provides a resulting machine state (or, in the case of condition jumps, *several* resulting machine states).
+Given a machine state and a code block (usually a VEX IR block), angr provides a resulting machine state (or, in the case of condition jumps, *several* resulting machine states).
 
 # SimEngines
 
-SimuVEX uses a series of engines to emulate the effects that of a given section of code has on an input state.
+angr uses a series of engines (subclasses of the `SimEngine` class) to emulate the effects that of a given section of code has on an input state.
 This mechanism has changed recently, so we have removed much related documentation pending a rewrite.
 This information is not critical to the use of angr, since it is abstracted away by `Path` and `PathGroup`, but it provides useful insight into angr's functionality.
 
@@ -18,7 +18,7 @@ TODO: much things
 ## SimSuccessors
 
 `SimEngine.process` takes an input state and engine-specific arguments (such as a block of VEX IR for `SimEngineVEX`) and returns a SimSuccessors object that contains the successor states, with modifications applied.
-Since simuvex supports symbolic execution, there can be *multiple* output successor states for a single input state.
+Since angr supports symbolic execution, there can be *multiple* output successor states for a single input state.
 The successor states are stored in individual lists.
 They are:
 
@@ -33,20 +33,20 @@ They are:
 
 # SimProcedures
 
-SimProcedures are, first and foremost, *symbolic function summaries*: angr handles functions imported into the binary by executing a SimProcedure that symbolically implements the given library function, if one exists. SimProcedures are a generic enough interface to do more than this, though - they can be used to run Python code to mutate a state at any point in execution.
+SimProcedures are *symbolic function summaries*: angr handles functions imported into the binary by executing a SimProcedure that symbolically implements the given library function, if one exists. SimProcedures are a generic enough interface to do more than this, though - they can be used to run Python code to mutate a state at any point in execution.
 
 SimProcedures are injected into angr's execution pipeline through an interface called *hooking*. The full interface is described [here](toplevel.md#hooking), but the most important part is the `Project.hook(address, procedure)` method. After running this, whenever execution in this project reaches `address`, instead of running the binary code at that address, we run the SimProcedure specified by the `procedure` argument.
 
 `Project.hook` can also take a plain python function as an argument, instead of a SimProcedure class. That function will be automatically wrapped by a SimProcedure and executed (with the current SimState) as its argument.
-
-TODO: Programming SimProcedures. Cover all the kinds of control flow, inline calls, etc. If you want to program a SimProcedure now, look at [the library of already-written ones](https://github.com/angr/simuvex/tree/master/simuvex/procedures).
+Of course, you can write your own SimProcedures to simplify execution and allow it to scale to larger programs.
+Check out the [the library of already-written ones](https://github.com/angr/angr/tree/master/angr/procedures) or the [howto](simprocedures.md).
 
 # Breakpoints
 
-Like any decent execution engine, SimuVEX supports breakpoints. This is pretty cool! A point is set as follows:
+Like any decent execution engine, angr supports breakpoints. This is pretty cool! A point is set as follows:
 
 ```python
->>> import angr, simuvex
+>>> import angr
 >>> b = angr.Project('examples/fauxware/fauxware')
 
 # get our state
@@ -60,10 +60,10 @@ Like any decent execution engine, SimuVEX supports breakpoints. This is pretty c
 >>> def debug_func(state):
 ...     print "State %s is about to do a memory write!"
 
->>> s.inspect.b('mem_write', when=simuvex.BP_AFTER, action=debug_func)
+>>> s.inspect.b('mem_write', when=angr.BP_AFTER, action=debug_func)
 
 # or, you can have it drop you in an embedded IPython!
->>> s.inspect.b('mem_write', when=simuvex.BP_AFTER, action='IPython')
+>>> s.inspect.b('mem_write', when=angr.BP_AFTER, action='IPython')
 ```
 
 There are many other places to break than a memory write. Here is the list. You can break at BP_BEFORE or BP_AFTER for each of these events.
@@ -132,7 +132,7 @@ You can even modify these value to modify further uses of the values!
 >>> def track_reads(state):
 ...     print 'Read', state.inspect.mem_read_expr, 'from', state.inspect.mem_read_address
 ...
->>> s.inspect.b('mem_read', when=simuvex.BP_AFTER, action=track_reads)
+>>> s.inspect.b('mem_read', when=angr.BP_AFTER, action=track_reads)
 ```
 
 Additionally, each of these properties can be used as a keyword argument to `inspect.b` to make the breakpoint conditional:
@@ -145,7 +145,7 @@ Additionally, each of these properties can be used as a keyword argument to `ins
 >>> s.inspect.b('mem_write', mem_write_address=0x1000, mem_write_address_unique=True)
 
 # This will break after instruction 0x8000, but only 0x1000 is a possible value of the last expression that was read from memory
->>> s.inspect.b('instruction', when=simuvex.BP_AFTER, instruction=0x8000, mem_read_expr=0x1000)
+>>> s.inspect.b('instruction', when=angr.BP_AFTER, instruction=0x8000, mem_read_expr=0x1000)
 ```
 
 Cool stuff! In fact, we can even specify a function as a condition:
@@ -162,26 +162,26 @@ That is some cool stuff!
 
 # Symbolic memory indexing
 
-SimuVEX supports *symbolic memory addressing*, meaning that offsets into memory may be symbolic.
+angr supports *symbolic memory addressing*, meaning that offsets into memory may be symbolic.
 Our implementation of this is inspired by "Mayhem".
 Specifically, this means that angr concretizes symbolic addresses when they are used as the target of a write.
 This causes some surprises, as users tend to expect symbolic writes to be treated purely symbolically, or "as symbolically" as we treat symbolic reads, but that is not the default behavior.
 However, like most things in angr, this is configurable.
 
-The address resolution behavior is governed by *concretization strategies*, which are subclasses of `simuvex.concretization_strategies.SimConcretizationStrategy`.
+The address resolution behavior is governed by *concretization strategies*, which are subclasses of `angr.concretization_strategies.SimConcretizationStrategy`.
 Concretization strategies for reads are set in `state.memory.read_strategies` and for writes in `state.memory.write_strategies`.
 These strategies are called, in order, until one of them is able to resolve addresses for the symbolic index.
-By setting your own concretization strategies (or through the use of SimInspect `address_concretization` breakpoints, described above), you can change the way SimuVEX resolves symbolic addresses.
+By setting your own concretization strategies (or through the use of SimInspect `address_concretization` breakpoints, described above), you can change the way angr resolves symbolic addresses.
 
 For example, angr's default concretization strategies for writes are:
 
-1. A conditional concretization strategy that allows symbolic writes (with a maximum range of 128 possible solutions) for any indices that are annotated with `simuvex.plugins.symbolic_memory.MultiwriteAnnotation`.
+1. A conditional concretization strategy that allows symbolic writes (with a maximum range of 128 possible solutions) for any indices that are annotated with `angr.plugins.symbolic_memory.MultiwriteAnnotation`.
 2. A concretization strategy that simply selects the maximum possible solution of the symbolic index.
 
-To enable symbolic writes for all indices, you can either add the `SYMBOLIC_WRITE_ADDRESSES` state option at state creation time or manually insert a `simuvex.concretization_strategies.SimConcretizationStrategyRange` object into `state.memory.write_strategies`.
+To enable symbolic writes for all indices, you can either add the `SYMBOLIC_WRITE_ADDRESSES` state option at state creation time or manually insert a `angr.concretization_strategies.SimConcretizationStrategyRange` object into `state.memory.write_strategies`.
 The strategy object takes a single argument, which is the maximum range of possible solutions that it allows before giving up and moving on to the next (presumably non-symbolic) strategy.
 
-# SimuVEX Options
+# Simulation Options
 
-SimuVEX is extremely customizable through the use of _state options_, a set of constants stored in `state.options`.
-These options are documented in the [source code](https://github.com/angr/simuvex/blob/master/simuvex/s_options.py).
+angr's simulation engine is extremely customizable through the use of _state options_, a set of constants stored in `state.options`.
+These options are documented in the [source code](https://github.com/angr/angr/blob/master/angr/s_options.py).

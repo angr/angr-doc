@@ -8,27 +8,28 @@
 import angr
 
 def main():
-	proj = angr.Project('crackme0x05', load_options={"auto_load_libs": False}) 
+    proj = angr.Project('crackme0x05', load_options={"auto_load_libs": False})
 
-	def correct(path):
-		try:
-			return 'Password OK' in path.state.posix.dumps(1)
-		except:
-			return False
-	def wrong(path):
-	 	try:
-	 		return 'Password Incorrect' in path.state.posix.dumps(1)
-	 	except:
-	 		return False
+    def correct(state):
+        try:
+            return 'Password OK' in state.posix.dumps(1)
+        except:
+            return False
 
-	path_group = proj.factory.path_group()
-	path_group.explore(find=correct, avoid=wrong)
+    def wrong(state):
+        try:
+            return 'Password Incorrect' in state.posix.dumps(1)
+        except:
+            return False
 
-	print path_group.found[0].state.posix.dumps(1) 
-	return path_group.found[0].state.posix.dumps(0) # .lstrip('+0').rstrip('B')
+    sm = proj.factory.simgr()
+    sm.explore(find=correct, avoid=wrong)
+
+    print sm.found[0].posix.dumps(1)
+    return sm.found[0].posix.dumps(0) # .lstrip('+0').rstrip('B')
 
 def test():
-	assert main() == ''
+	assert main() == '79652222\x0091\x01\x01\x01\x01\x01\x01\x01\x01\x01\x01\x01\x01\x01\x01\x01\x01\x01\x01\x01\x01\x01\x01\x01\x01\x01\x01\x01\x01\x01\x01\x01\x01\x01\x01\x01\x01\x01\x01\x01\x01\x01\x01\x01\x01\x01\x01\x01\x01\x01\x01\x01\x01\x01\x01\x01\x01\x01\x01\x01\x01\x01\x01\x01\x01\x01\x01\x01\x01\x01\x01\x01\x01\x01\x01\x01\x01\x01\x01\x01\x01\x01\x01\x01\x01\x01\x01\x01\x01\x01\x01\x01\x01\x01\x00\x00\x01\x00\x01\x00\x00\x01\x00\x00\x01\x01\x01\x00\x00\x01\x00\x00\x01\x01\x00\x01\x01\x01\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00'
 
 if __name__ == '__main__':
 	print(repr(main()))
@@ -63,9 +64,9 @@ if __name__ == '__main__':
 │           0x0804858d      890424         dword [esp] = eax
 │           0x08048590      e833ffffff     sym.check ()
 │           0x08048595      b800000000     eax = 0
-│           0x0804859a      c9             
-╘           0x0804859b      c3  
-[0x080483d0]> pdf @ sym.check 
+│           0x0804859a      c9
+╘           0x0804859b      c3
+[0x080483d0]> pdf @ sym.check
 ╒ (fcn) sym.check 120
 │           ; arg int arg_8h @ ebp+0x8
 │           ; arg int arg_10h @ ebp+0x10
@@ -83,7 +84,7 @@ if __name__ == '__main__':
 │       │   0x080484df      890424         dword [esp] = eax
 │       │   0x080484e2      e89dfeffff     sym.imp.strlen ()
 │       │   0x080484e7      3945f4         if (dword [ebp - local_ch] == eax ; [0x13:4]=256
-│      ┌──< 0x080484ea      7346           jae 0x8048532 
+│      ┌──< 0x080484ea      7346           jae 0x8048532
 │      ││   0x080484ec      8b45f4         eax = dword [ebp - local_ch]
 │      ││   0x080484ef      034508         eax += dword [ebp + arg_8h]
 │      ││   0x080484f2      0fb600         eax = byte [eax]
@@ -107,6 +108,6 @@ if __name__ == '__main__':
 │      │└─< 0x08048530      ebaa           goto 0x80484dc
 │      └──> 0x08048532      c70424798604.  dword [esp] = str.Password_Incorrect__n ; [0x8048679:4]=0x73736150 LEA str.Password_Incorrect__n ; "Password Incorrect!." @ 0x8048679
 │           0x08048539      e856feffff     sym.imp.printf ()
-│           0x0804853e      c9             
-╘           0x0804853f      c3 
+│           0x0804853e      c9
+╘           0x0804853f      c3
 """

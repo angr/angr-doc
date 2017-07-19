@@ -2,10 +2,9 @@
 import logging
 import sys
 
-l = logging.getLogger('angr.path_group').setLevel(logging.DEBUG)
+l = logging.getLogger('angr.manager').setLevel(logging.DEBUG)
 
 import angr
-import simuvex
 
 pos = 0xd000000
 
@@ -20,7 +19,7 @@ def recvuntil(sock, s):
             break
     return data
 
-class Alloca(simuvex.SimProcedure):
+class Alloca(angr.SimProcedure):
     def run(self):
         return self.state.se.BVV(pos, 64)
 
@@ -36,7 +35,7 @@ def solve(s):
     caller_func = sorted(caller_funcs, key=lambda f: f.size)[-1]
 
     print hex(caller_func.addr)
-    state = p.factory.blank_state(addr=caller_func.addr, add_options={simuvex.o.LAZY_SOLVES})
+    state = p.factory.blank_state(addr=caller_func.addr, add_options={angr.options.LAZY_SOLVES})
     state.regs.rbx = 0
 
     # get the function to hook
@@ -56,13 +55,13 @@ def solve(s):
 
     print "swift_retain:", hex(swift_retain)
     print "Alloca:", hex(alloca)
-    p.hook(swift_retain, simuvex.SimProcedures['stubs']['ReturnUnconstrained'])
+    p.hook(swift_retain, angr.SIM_PROCEDURES['stubs']['ReturnUnconstrained'])
     p.hook(alloca, Alloca)
 
-    pg = p.factory.path_group(state)
-    pg.explore()
+    sm = p.factory.simgr(state)
+    sm.explore()
 
-    state = pg.deadended[-1].state
+    state = sm.deadended[-1]
     mem = state.memory.load(pos + 0x20, 60)
     mem_str = state.se.any_str(mem).replace("\x00", "")
     return mem_str

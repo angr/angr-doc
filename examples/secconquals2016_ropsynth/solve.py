@@ -17,7 +17,6 @@ import time
 
 import angr
 import angrop #pylint:disable=unused-variable
-import simuvex
 import claripy
 
 def make_elf(gadgets):
@@ -85,32 +84,32 @@ def get_gadgets():
             continue
 
         #
-        # First, let's get the path group.
+        # First, let's get the SimulationManager.
         #
 
         # Here, we set up a stack full of symbolic data so that we can resolve it for the necessary values later.
         # We enable history tracking, since we'll use recorded actions to detect the input checks. Also, since
         # we'll trigger random syscall gadgets, we tell angr to ignore unknown syscalls.
-        state = p.factory.blank_state(add_options={simuvex.o.TRACK_ACTION_HISTORY, simuvex.o.BYPASS_UNSUPPORTED_SYSCALL})
+        state = p.factory.blank_state(add_options={angr.options.TRACK_ACTION_HISTORY, angr.options.BYPASS_UNSUPPORTED_SYSCALL})
         stack_words = [ claripy.BVS('w%d'%i, 64) for i in range(20) ]
         state.memory.store(state.regs.rsp, claripy.Concat(*stack_words))
 
-        # We symbolically explore the function. We are looking for the path that returns to an address popped off our
+        # We symbolically explore the function. We are looking for the state that returns to an address popped off our
         # symbolic stack, so we want to save unconstrained states.
-        pg = p.factory.path_group(state, save_unconstrained=True)
-        pg.active[0].state.rip = f.addr # this is a workaround for a perceived (maybe not actual) but in angr
-        pg.active[0].addr = f.addr # same here
-        pg.explore(n=200)
+        sm = p.factory.simgr(state, save_unconstrained=True)
+        sm.active[0].rip = f.addr # this is a workaround for a perceived (maybe not actual) but in angr
+        sm.active[0].ip = f.addr # same here
+        sm.explore(n=200)
 
         #
         # Now, we figure out the guards on our unconstrained state.
         #
-        good_path = pg.unconstrained[0]
+        good_state = sm.unconstrained[0]
 
         # Get the variables that were actually used for the guards by looking at the expressions of the symbolic constraints.
         # We know (from reversing) that each guard condition will contain one variable, so we just get the first from each.
         symbolic_guard_guys = sorted(
-            (next(ast for ast in guard.recursive_leaf_asts if ast.symbolic) for guard in good_path.guards if guard.symbolic),
+            (next(ast for ast in guard.recursive_leaf_asts if ast.symbolic) for guard in good_state.history.jump_guards if guard.symbolic),
             key=lambda v: next(iter(v.variables))
         )
 
@@ -122,7 +121,7 @@ def get_gadgets():
         # that we identified as being part of our guard conditions.
         start_of_checks = min(
             action.ins_addr
-            for action in good_path.actions
+            for action in good_state.history.actions
             if action.type == 'mem' and action.action == 'read' and (
                 action.data.variables & frozenset.union(*(a.variables for a in symbolic_guard_guys))
             )
@@ -132,7 +131,7 @@ def get_gadgets():
         # we save off inputs needed to pass the checks for any given gadget before the start of the checks.
         # Since the checks pop data in order, we can just concat all the checked input.
         for a in range(f.addr, start_of_checks):
-            guard_solutions[a] = good_path.state.se.any_str(claripy.Concat(*symbolic_guard_guys))
+            guard_solutions[a] = good_state.se.any_str(claripy.Concat(*symbolic_guard_guys))
 
         #
         # With the checks recovered, we now overwrite them with a ret, so that angrop considers the gadgets

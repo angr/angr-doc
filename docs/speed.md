@@ -17,12 +17,12 @@ Regardless, there are a lot of optimizations and tweaks you can use to make angr
   If you're enabling shared libraries, then you definitely want to have SimProcedures written for any complicated library function you're jumping into.
   If there's no autonomy requirement for this project, you can often isolate individual problem spots where analysis hangs up and summarize them with a hook.
 - *Use SimInspect*.
-  [SimInspect](simuvex.html#breakpoints) is the most underused and one of the most powerful features of angr.
+  [SimInspect](simulation.html#breakpoints) is the most underused and one of the most powerful features of angr.
   You can hook and modify almost any behavior of angr, including memory index resolution (which is often the slowest part of any angr analysis).
 - *Write a concretization strategy*.
-  A more powerful solution to the problem of memory index resolution is a [concretization strategy](https://github.com/angr/simuvex/tree/master/simuvex/concretization_strategies).
+  A more powerful solution to the problem of memory index resolution is a [concretization strategy](https://github.com/angr/angr/tree/master/angr/concretization_strategies).
 - *Use the Replacement Solver*.
-  You can enable it with the `simuvex.o.REPLACEMENT_SOLVER` state option.
+  You can enable it with the `angr.options.REPLACEMENT_SOLVER` state option.
   The replacement solver allows you to specify AST replacements that are applied at solve-time.
   If you add replacements so that all symbolic data is replaced with concrete data when it comes time to do the solve, the runtime is greatly reduced.
   The API for adding a replacement is `state.se._solver.add_replacement(old, new)`.
@@ -31,13 +31,13 @@ Regardless, there are a lot of optimizations and tweaks you can use to make angr
 ## If you're performing lots of concrete or partially-concrete execution
 
 - *Use the unicorn engine*.
-  If you have [unicorn engine](https://github.com/unicorn-engine/unicorn/) installed, Simuvex can be built to take advantage of it for concrete emulation.
-  To enable it, add the options in the set `simuvex.o.unicorn` to your state.
-  Keep in mind that while most items under `simuvex.o` are individual options, `simuvex.o.unicorn` is a bundle of options, and is thus a set.
+  If you have [unicorn engine](https://github.com/unicorn-engine/unicorn/) installed, angr can be built to take advantage of it for concrete emulation.
+  To enable it, add the options in the set `angr.options.unicorn` to your state.
+  Keep in mind that while most items under `angr.options` are individual options, `angr.options.unicorn` is a bundle of options, and is thus a set.
   *NOTE*: At time of writing the official version of unicorn engine will not work with angr - we have a lot of patches to it to make it work well with angr.
   They're all pending pull requests at this time, so sit tight. If you're really impatient, ping us about uploading our fork!
 - *Enable fast memory and fast registers*.
-  The state options `simuvex.o.FAST_MEMORY` and `simuvex.o.FAST_REGISTERS` will do this.
+  The state options `angr.options.FAST_MEMORY` and `angr.options.FAST_REGISTERS` will do this.
   These will switch the memory/registers over to a less intensive memory model that sacrifices accuracy for speed.
   TODO: document the specific sacrifices. Should be safe for mostly concrete access though.
   NOTE: not compatible with concretization strategies.
@@ -47,7 +47,7 @@ Regardless, there are a lot of optimizations and tweaks you can use to make angr
   If you don't require any tracking of the data coming from stdin, you can forego the symbolic part and just fill it with concrete data.
   If there are other sources of input besides standard input, do the same for those.
 - *Use the afterburner*.
-  While using unicorn, if you add the `UNICORN_THRESHOLD_CONCRETIZATION` state option, SimuVEX will accept thresholds after which it causes symbolic values to be concretized so that execution can spend more time in Unicorn. Specifically, the following thresholds exist:
+  While using unicorn, if you add the `UNICORN_THRESHOLD_CONCRETIZATION` state option, angr will accept thresholds after which it causes symbolic values to be concretized so that execution can spend more time in Unicorn. Specifically, the following thresholds exist:
 
   - `state.se.unicorn.concretization_threshold_memory` - this is the number of times a symbolic variable, stored in memory, is allowed to kick execution out of Unicorn before it is forcefully concretized and forced into Unicorn anyways.
   - `state.se.unicorn.concretization_threshold_registers` - this is the number of times a symbolic variable, stored in a register, is allowed to kick execution out of Unicorn before it is forcefully concretized and forced into Unicorn anyways.

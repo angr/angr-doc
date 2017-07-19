@@ -31,14 +31,13 @@
 #
 
 import angr
-import simuvex
 
 #
 # These are our symbolic summary functions for modular multiplication, modulo,
 # and isalnum.
 #
 
-class mm(simuvex.SimProcedure):
+class mm(angr.SimProcedure):
     def run(self, low1, high1, low2, high2):
         first = high1.concat(low1)
         second = high2.concat(low2)
@@ -46,7 +45,7 @@ class mm(simuvex.SimProcedure):
         self.state.regs.edx = self.state.se.Extract(63, 32, result)
         return self.state.se.Extract(31, 0, result)
 
-class moddi3(simuvex.SimProcedure):
+class moddi3(angr.SimProcedure):
     def run(self, a, a2, b, b2):
         first = a2.concat(a)
         second = b2.concat(b)
@@ -54,7 +53,7 @@ class moddi3(simuvex.SimProcedure):
         self.state.regs.edx = self.state.se.Extract(63, 32, result)
         return self.state.se.Extract(31, 0, result)
 
-class isalnum(simuvex.SimProcedure):
+class isalnum(angr.SimProcedure):
     def run(self, c):
         is_num = self.state.se.And(c >= ord("0"), c <= ord("9"))
         is_alpha_lower = self.state.se.And(c >= ord("a"), c <= ord("z"))
@@ -86,15 +85,15 @@ def main():
 
     # Now, we start the symbolic execution. We create a PathGroup and set up some
     # logging (so that we can see what's happening).
-    pg = b.factory.path_group(s, immutable=False)
-    angr.path_group.l.setLevel("DEBUG")
+    sm = b.factory.simgr(s, immutable=False)
+    angr.manager.l.setLevel("DEBUG")
 
     # We want to explore to the "success" state (0x8048A94) while avoiding the
     # "failure" state (0x8048AF6). This takes a loong time (about an hour).
-    pg.explore(find=0x8048A94, avoid=0x8048AF6)
+    sm.explore(find=0x8048A94, avoid=0x8048AF6)
 
     # We're done!
-    return pg.found[0].state.se.any_str(pg.found[0].state.memory.load(0x080491A0, 100)).strip('\0\n')
+    return sm.found[0].se.any_str(sm.found[0].memory.load(0x080491A0, 100)).strip('\0\n')
 
 def test():
     assert main() == 'EwgHWpyND'

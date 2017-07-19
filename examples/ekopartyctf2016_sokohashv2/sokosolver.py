@@ -1,5 +1,4 @@
 import logging
-import simuvex
 import logging
 import struct
 import sys
@@ -28,7 +27,7 @@ def to_asmstring(state, addr, length):
 def debug_func(state):
     print to_asmstring(state, state.regs.eip, 10)
 
-    addr = state.se.any_int(state.regs.eip) 
+    addr = state.se.any_int(state.regs.eip)
     print hex(addr)
 
 #######################################
@@ -56,15 +55,15 @@ def get_hash_map(init_addr):
         pair = WIN_HASH[i:i+2]
         hash_map.append((addr, ord(pair[1])))
         hash_map.append((addr+1, ord(pair[0])))
-        addr += 8    
+        addr += 8
 
     return hash_map
-    
+
 #logging.getLogger('angr').setLevel(logging.DEBUG)
-#logging.getLogger('angr.path_group').setLevel(logging.DEBUG)
+#logging.getLogger('angr.manager').setLevel(logging.DEBUG)
 
 def hook_printf(state):
-    pass 
+    pass
 
 def hook_security_check_cookie(state):
     pass
@@ -82,8 +81,8 @@ def get_table(state):
 		pn = struct.unpack(">Q", struct.pack("<Q", n))[0]
 		t.append(pn)
 		current_addr += 8
-	
-	return t	
+
+	return t
 
 
 ###############################################
@@ -119,13 +118,13 @@ print "Setting params restrictions (precontions)"
 #first of all we will set the restrictions for out parameters in the initial
 #state. to set that, we will load the addresses (this load will return a
 #symbolic memory (another alternative can be use BVS and memory.store these bit
-#vectors 
+#vectors
 
 r1 = initial_state.memory.load(start+0x08, 8, endness=p.arch.memory_endness)
 r2 = initial_state.memory.load(start+0x10, 8, endness=p.arch.memory_endness)
 r3 = initial_state.memory.load(start+0x18, 8, endness=p.arch.memory_endness)
 r4 = initial_state.memory.load(start+0x20, 8, endness=p.arch.memory_endness)
-    
+
 list_cons_v1 = []
 list_cons_v2 = []
 list_cons_v3 = []
@@ -135,7 +134,7 @@ for i in get_table(initial_state):
 	list_cons_v2.append(r2==i)
 	list_cons_v3.append(r3==i)
 	list_cons_v4.append(r4==i)
-	
+
 or_v1 = initial_state.se.Or(*list_cons_v1)
 or_v2 = initial_state.se.Or(*list_cons_v2)
 or_v3 = initial_state.se.Or(*list_cons_v3)
@@ -146,7 +145,7 @@ initial_state.add_constraints(initial_state.se.And(or_v1,or_v2,or_v3,or_v4))
 ##############################################
 
 #for debugging only
-#initial_state.inspect.b('instruction', when=simuvex.BP_BEFORE, action=debug_func)
+#initial_state.inspect.b('instruction', when=angr.BP_BEFORE, action=debug_func)
 
 # Explore the paths until after the hash is computed
 #path = p.factory.path(initial_state)
@@ -166,11 +165,11 @@ initial_state.add_constraints(initial_state.se.And(or_v1,or_v2,or_v3,or_v4))
 ##############################################
 FIND=0x40123E
 #run sym execute
-pg = p.factory.path_group(initial_state, threads=8)
-pg.explore(find=FIND)
+sm = p.factory.simgr(initial_state, threads=8)
+sm.explore(find=FIND)
 
 #now we will get the supposed final state (the state after the symbolic execution)
-found_s = pg.found[0].state
+found_s = sm.found[0]
 
 conds=[]
 
@@ -189,7 +188,7 @@ found_s.add_constraints(found_s.se.And(*conds))
 ##############################################
 #step 3:
 #	This step is used to ask the model differents thinks. In this case
-#	we will ask about the values in the init state (r1, r2, r3, r4), and the 
+#	we will ask about the values in the init state (r1, r2, r3, r4), and the
 #	model will returns the values expected to reath the model in found_s state
 
 import binascii

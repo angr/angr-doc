@@ -3,12 +3,11 @@ import logging
 import sys
 
 import angr
-import simuvex
 import capstone
 import r2pipe
 
-l = logging.getLogger('angr.path_group').setLevel(logging.WARNING)
-l = logging.getLogger('simuvex.engines.vex.engine').setLevel(logging.ERROR)
+l = logging.getLogger('angr.manager').setLevel(logging.WARNING)
+l = logging.getLogger('angr.engines.vex.engine').setLevel(logging.ERROR)
 
 pos = 0xd000000
 
@@ -91,7 +90,7 @@ def solve(s):
         if char_offset is None:
             continue
 
-        state = p.factory.blank_state(addr=check_func.addr, add_options={simuvex.o.LAZY_SOLVES, simuvex.o.NO_SYMBOLIC_JUMP_RESOLUTION})
+        state = p.factory.blank_state(addr=check_func.addr, add_options={angr.options.LAZY_SOLVES, angr.options.NO_SYMBOLIC_JUMP_RESOLUTION})
 
         char = state.se.BVS("chr", 64)
 
@@ -100,14 +99,14 @@ def solve(s):
         state.memory.store(0xd000000 + 16, state.se.BVV(0xd000040, 64), endness='Iend_LE')
         state.memory.store(0xd000040 + 8, char, endness='Iend_LE')
 
-        pg = p.factory.path_group(state)
-        pg.explore(avoid=(c_mutate_slot,))
+        sm = p.factory.simgr(state)
+        sm.explore(avoid=(c_mutate_slot,))
 
         the_char = None
-        for path in pg.deadended:
-            if not path.state.satisfiable():
+        for state in sm.deadended:
+            if not state.satisfiable():
                 continue
-            char_n = path.state.se.any_n_int(char, 2)
+            char_n = state.se.any_n_int(char, 2)
             if len(char_n) == 2:
                 continue
             the_char = char_n[0]

@@ -6,7 +6,7 @@
 # verified, and then run that single part of code inside angr to solve the 
 # password.
 
-from simuvex.procedures.stubs.UserHook import UserHook
+from angr.procedures.stubs.UserHook import UserHook
 import angr
 
 def prepare_state(state, known_passwords):
@@ -49,15 +49,15 @@ def hook_rdi(state):
 def calc_one_byte(p, known_passwords, hook_func, start_addr, load_addr1, load_addr2, cmp_flag_reg, cmp_addr):
     byte_pos = len(known_passwords)
 
-    p.hook(load_addr1, angr.Hook(UserHook, user_func=hook_func, length=14))
-    p.hook(load_addr2, angr.Hook(UserHook, user_func=hook_func, length=14))
+    p.hook(load_addr1, UserHook(user_func=hook_func, length=14))
+    p.hook(load_addr2, UserHook(user_func=hook_func, length=14))
     state = p.factory.blank_state(addr=start_addr)
     state, password = prepare_state(state, known_passwords)
-    pg = p.factory.path_group(state, immutable=False)
-    pg.step(4)
-    pg.step(max_size=cmp_addr - load_addr2)
+    sm = p.factory.simgr(state, immutable=False)
+    sm.step(4)
+    sm.step(size=cmp_addr - load_addr2)
 
-    s0 = pg.active[0].state.copy()
+    s0 = sm.active[0].copy()
     s0.add_constraints(getattr(s0.regs, cmp_flag_reg) == 0x1)
     candidates = s0.se.any_n_int(password[byte_pos], 256)
     # assert len(candidates) == 1

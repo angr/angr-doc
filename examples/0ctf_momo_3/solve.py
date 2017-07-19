@@ -13,7 +13,7 @@
 import sys
 import string
 import angr
-from angr.lifter import CapstoneInsn, CapstoneBlock
+from angr.block import CapstoneInsn, CapstoneBlock
 
 
 ins_char = 0x81fe6e0
@@ -70,8 +70,7 @@ def main():
             state = p.factory.entry_state()
             state.posix.files[0].content.store(0, flag + "\n")
 
-            path = p.factory.path(state=state)
-            e = p.surveyors.Explorer(start=path, find=(target,))
+            e = p.surveyors.Explorer(start=state, find=(target,))
             e.run()
 
             assert len(e.found) == 1
@@ -81,11 +80,11 @@ def main():
                 nb_size = target - np.addr
                 if nb_size <= 0:
                     break
-                np = np.step(max_size=nb_size)[0]
+                np = p.factory.successors(np, size=nb_size).flat_successors[0]
             assert nb_size == 0
 
-            al = np.state.regs.eax[7:0]
-            dl = np.state.regs.edx[7:0]
+            al = np.regs.eax[7:0]
+            dl = np.regs.edx[7:0]
             al_val = al._model_concrete.value
             dl_val = dl._model_concrete.value
 

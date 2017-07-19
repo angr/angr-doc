@@ -16,7 +16,6 @@ Team: bitsforeveryone (USMA)
 """
 
 import angr
-import simuvex
 
 
 START_ADDR = 0x4005bd # first part of program that does computation
@@ -39,7 +38,7 @@ def main():
     p = angr.Project('unbreakable')
 
     print('adding BitVectors and constraints')
-    state = p.factory.blank_state(addr=START_ADDR, add_options={simuvex.o.LAZY_SOLVES})
+    state = p.factory.blank_state(addr=START_ADDR, add_options={angr.options.LAZY_SOLVES})
     for i in range(INPUT_LENGTH):
         c, cond = char(state, i)
         # the first command line argument is copied to INPUT_ADDR in memory
@@ -48,13 +47,12 @@ def main():
         state.add_constraints(cond)
 
     print('creating path and explorer')
-    path = p.factory.path(state)
-    ex = p.surveyors.Explorer(start=path, find=(FIND_ADDR,), avoid=(AVOID_ADDR,))
+    ex = p.surveyors.Explorer(start=state, find=(FIND_ADDR,), avoid=(AVOID_ADDR,))
 
     print('running explorer')
     ex.run()
 
-    flag = extract_memory(ex._f.state) # ex._f is equiv. to ex.found[0]
+    flag = extract_memory(ex._f) # ex._f is equiv. to ex.found[0]
     print('found flag: {}'.format(flag))
 
     return flag

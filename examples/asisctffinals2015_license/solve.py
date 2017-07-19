@@ -1,5 +1,4 @@
 import angr
-import simuvex
 
 def main():
     p = angr.Project("license", load_options={'auto_load_libs': False})
@@ -27,11 +26,11 @@ def main():
             bytes = state.se.Concat(*line)
         else:
             bytes = state.se.Concat(bytes, state.se.BVV(0x0a, 8), *line)
-    content = simuvex.SimSymbolicMemory(memory_id="file_%s" % license_name)
+    content = angr.state_plugins.SimSymbolicMemory(memory_id="file_%s" % license_name)
     content.set_state(state)
     content.store(0, bytes)
 
-    license_file = simuvex.SimFile(license_name, 'rw', content=content, size=len(bytes) / 8)
+    license_file = angr.storage.SimFile(license_name, 'rw', content=content, size=len(bytes) / 8)
 
     # Build the file system dict
     # This interface might change in the near future
@@ -40,32 +39,30 @@ def main():
     }
     state.posix.fs = fs
 
-    path = p.factory.path(state=state)
-
     ex = p.surveyors.Explorer(
-                            start=path,
-                            find=(0x400e93, ), 
-                            avoid=(0x400bb1, 0x400b8f, 0x400b6d, 0x400a85, 
+                            start=state,
+                            find=(0x400e93, ),
+                            avoid=(0x400bb1, 0x400b8f, 0x400b6d, 0x400a85,
                                    0x400ebf, 0x400a59)
                             )
     ex.run()
 
     # One path will be found
     found = ex.found[0]
-    rsp = found.state.regs.rsp
+    rsp = found.regs.rsp
     flag_addr = rsp + 0x278 - 0xd8 # Ripped from IDA
     # Perform an inline call to strlen() in order to determine the length of the 
     # flag
     FAKE_ADDR = 0x100000
     strlen = lambda state, arguments: \
-        simuvex.SimProcedures['libc.so.6']['strlen'](FAKE_ADDR, p.arch).execute(
+        angr.SIM_PROCEDURES['libc']['strlen'](p, FAKE_ADDR, p.arch).execute(
             state, arguments=arguments
         )
-    flag_length = strlen(found.state, arguments=[flag_addr]).ret_expr
+    flag_length = strlen(found, arguments=[flag_addr]).ret_expr
     # In case it's not null-terminated, we get the least number as the length
-    flag_length_int = min(found.state.se.any_n_int(flag_length, 3))
+    flag_length_int = min(found.se.any_n_int(flag_length, 3))
     # Read out the flag!
-    flag_int = found.state.se.any_int(found.state.memory.load(flag_addr, flag_length_int))
+    flag_int = found.se.any_int(found.memory.load(flag_addr, flag_length_int))
     flag = hex(flag_int)[2:-1].decode("hex")
     return flag
 
