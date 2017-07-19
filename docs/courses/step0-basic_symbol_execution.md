@@ -59,14 +59,15 @@ The binary and source code for this course can be found [here](./src/).
 
 
 # Good, we now have three states
-# - The two first states reached the endpoint, and thus became deadended.
+# - The two first states reached the endpoint, and became unconstrained, since
+# we started executing directly at main function. We would have seen these 2 states
+# if we had enabled save_unconstrained option of our SimulationManager.
 # - The other one will have the same history thus stop stepping at the endpoint
 >>> sm.step()
 >>> print(sm)
 >>> for i, s in enumerate(sm.active):
 ...     print 'Active state %d: %s' % (i, hex(s.addr))
 >>> assert len(sm.active) == 1
->>> # assert len(sm.deadended) == 2
 >>> assert sm.active[0].addr == endpoint
 
 

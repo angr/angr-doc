@@ -9,6 +9,7 @@ This is an example that uses angr to solve a challenge from Layer7 CTF 2015.
 """
 
 import angr
+import logging
 
 def decrypt(state):
     buf = state.regs.edx # The second argument
@@ -20,7 +21,7 @@ def main():
     # Load the project
     p = angr.Project("onlyone.exe", use_sim_procedures=True)
     # Hook the malloc - we cannot automatically use SimProcedures for it, which will be fixed soon
-    p.hook(0x2398, angr.SIM_PROCEDURES['libc.so.6']['malloc'])
+    p.hook(0x2398, angr.SIM_PROCEDURES['libc']['malloc'])
     # Hook the decrypt function merely because we don't support pow/sqrt/floor
     p.hook(0x401038, decrypt, length=5)
 
@@ -49,16 +50,17 @@ def main():
     initial_state.stack_push(initial_state.se.BVV(0, 32))
 
     # Create the initial path
-    initial_path = p.factory.path(state=initial_state)
 
     # Call explorer to execute the function
     # Note that Veritesting is important since we want to avoid unnecessary branching
-    ex = angr.surveyors.Explorer(p, start=initial_path, find=(0x4010c9, ), enable_veritesting=True)
+    ex = angr.surveyors.Explorer(p, start=initial_state, find=(0x4010c9, ), enable_veritesting=True)
     print "Executing..."
+    angr.surveyors.explorer.l.setLevel(logging.DEBUG)
+    angr.surveyors.surveyor.l.setLevel(logging.DEBUG)
     r = ex.run()
 
     if r.found:
-        final_state = r.found[0].state
+        final_state = r.found[0]
     else:
         final_state = r.errored[0].previous_run.initial_state
 

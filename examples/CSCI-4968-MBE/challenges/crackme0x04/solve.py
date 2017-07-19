@@ -10,27 +10,27 @@ import angr
 # from IPython import embed # pop iPython at the end
 
 def main():
-	proj = angr.Project('crackme0x04', load_options={"auto_load_libs": False}) 
+	proj = angr.Project('crackme0x04', load_options={"auto_load_libs": False})
 
 	cfg = proj.analyses.CFG()
 	FIND_ADDR = cfg.kb.functions.function(name="exit").addr
 	AVOID_ADDR = 0x080484fb # dword [esp] = str.Password_Incorrect__n ; [0x8048649:4]=0x73736150 LEA str.Password_Incorrect__n ; "Password Incorrect!." @ 0x8048649
 
-	path_group = proj.factory.path_group()
-	path_group.explore(find=FIND_ADDR, avoid=AVOID_ADDR)
+	sm = proj.factory.simgr()
+	sm.explore(find=FIND_ADDR, avoid=AVOID_ADDR)
 
 	# embed()
-	print path_group.found[0].state.posix.dumps(1) 
-	return path_group.found[0].state.posix.dumps(0) # .lstrip('+0').rstrip('B')
+	print sm.found[0].posix.dumps(1)
+	return sm.found[0].posix.dumps(0) # .lstrip('+0').rstrip('B')
 
 def test():
-	assert main() == ''
+	assert main() == '96\x01\x01\x01\x01\x01\x01\x01\x01\x01\x01\x01\x01\x01\x01\x01\x01\x01\x01\x01\x01\x01\x01\x01\x01\x01\x01\x01\x01\x01\x01\x01\x01\x01\x01\x01\x01\x01\x01\x01\x01\x01\x01\x01\x01\x01\x01\x01\x01\x01\x01\x01\x01\x01\x01\x01\x00\x01\x01\x01\x01\x01\x01\x01\x01\x01\x01\x01\x01\x01\x01\x01\x01\x01\x01\x01\x01\x01\x01\x01\x01\x01\x01\x01\x01\x01\x01\x01\x01\x01\x01\x01\x01\x01\x01\x01\x01\x01\x01\x01\x01\x01\x01\x01\x01\x01\x01\x01\x01\x01\x01\x01\x01\x01\x01\x01\x01\x01\x00\x01\x01\x01\x01\x01\x01\x01\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00'
 
 if __name__ == '__main__':
 	print(repr(main()))
 
 """
-[0x080483d0]> pdf @ main   
+[0x080483d0]> pdf @ main
             ;-- main:
 ╒ (fcn) sym.main 92
 │           ; var int local_78h @ ebp-0x78
@@ -59,9 +59,9 @@ if __name__ == '__main__':
 │           0x08048556      890424         dword [esp] = eax
 │           0x08048559      e826ffffff     sym.check ()
 │           0x0804855e      b800000000     eax = 0
-│           0x08048563      c9             
-╘           0x08048564      c3             
-[0x080483d0]> pdf @ sym.check   
+│           0x08048563      c9
+╘           0x08048564      c3
+[0x080483d0]> pdf @ sym.check
 ╒ (fcn) sym.check 133
 │           ; arg int arg_8h @ ebp+0x8
 │           ; arg int arg_fh @ ebp+0xf
@@ -79,7 +79,7 @@ if __name__ == '__main__':
 │       │   0x0804849b      890424         dword [esp] = eax
 │       │   0x0804849e      e8e1feffff     sym.imp.strlen ()
 │       │   0x080484a3      3945f4         if (dword [ebp - local_ch] == eax ; [0x13:4]=256
-│      ┌──< 0x080484a6      7353           jae 0x80484fb 
+│      ┌──< 0x080484a6      7353           jae 0x80484fb
 │      ││   0x080484a8      8b45f4         eax = dword [ebp - local_ch]
 │      ││   0x080484ab      034508         eax += dword [ebp + arg_8h]
 │      ││   0x080484ae      0fb600         eax = byte [eax]
@@ -104,6 +104,6 @@ if __name__ == '__main__':
 │      │└─< 0x080484f9      eb9d           goto 0x8048498
 │      └──> 0x080484fb      c70424498604.  dword [esp] = str.Password_Incorrect__n ; [0x8048649:4]=0x73736150 LEA str.Password_Incorrect__n ; "Password Incorrect!." @ 0x8048649
 │           0x08048502      e88dfeffff     sym.imp.printf ()
-│           0x08048507      c9             
-╘           0x08048508      c3     
+│           0x08048507      c9
+╘           0x08048508      c3
 """

@@ -96,17 +96,17 @@ def solve(_file):
     state = project.factory.entry_state(args=argv)
 
     # Now, Angr will start to execute the binary from this initial state
-    # and explore many paths until it reaches a certain condition. In this
+    # and explore many state until it reaches a certain condition. In this
     # case, we want to run until we reached our stop_addr.
-    path_group = project.factory.path_group(state)
-    path_group.explore(find=stop_addr)
+    sm = project.factory.simgr(state)
+    sm.explore(find=stop_addr)
 
     # At this point, the first active path reached our stop address
     # and therefore, the de-obfuscated string is in memory. So we will
     # retrieve the 43 bytes (e.g. len(flag)) at flag_addr
-    solve_var = path_group.found[0].state.memory.load(flag_addr, len(FLAG_STR))
+    solve_var = sm.found[0].memory.load(flag_addr, len(FLAG_STR))
     # and convert it into a string:
-    solved_flag = path_group.found[0].state.se.any_str(solve_var)
+    solved_flag = sm.found[0].se.any_str(solve_var)
 
     return solved_flag
 

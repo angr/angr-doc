@@ -41,7 +41,7 @@ def get_valid_coords():
                 if (x,y) not in invalid:
                     valid.append((x,y))
             y += 1
-        x += 1   
+        x += 1
 
     return valid
 
@@ -49,14 +49,14 @@ def do_memset(state):
     addr = 0x417490
     with open("matrix.bin","rb") as f:
         content = f.read()
-        for i in content:            
+        for i in content:
             state.memory.store(addr, state.se.BVV(ord(i), 8 * 1))
             addr += 1
 
     start_off = 0x41d450 - addr
     end_off = 0x41e0c8 - addr
     coords = []
-    for i in xrange(start_off, end_off+8, 8):        
+    for i in xrange(start_off, end_off+8, 8):
         coords.append(struct.unpack("<Q", content[i:i+8])[0])
 
     return coords
@@ -77,7 +77,7 @@ def get_hash_map(init_addr):
         pair = WIN_HASH[i:i+2]
         hash_map.append((addr, ord(pair[1])))
         hash_map.append((addr+1, ord(pair[0])))
-        addr += 8    
+        addr += 8
 
     return hash_map
 
@@ -85,7 +85,7 @@ def get_hash_map(init_addr):
 def main():
     proj = angr.Project('sokohashv2.0.exe', use_sim_procedures=True, load_options={"auto_load_libs": False})
 
-    # addrs 
+    # addrs
     main = 0x401013
     to_find = 0x0040123E
     hash_addr = 0x04216C0
@@ -93,21 +93,21 @@ def main():
     # hooks
     func_hooks = [0x0040102C, 0x0401033]
     for addr in func_hooks:
-        proj.hook(addr, do_nothing, length=6) 
+        proj.hook(addr, do_nothing, length=6)
 
     func_hooks = [0x401215, 0x40121E, 0x401239, 0x40123C]
     for addr in func_hooks:
-        proj.hook(addr, do_nothing, length=2) 
+        proj.hook(addr, do_nothing, length=2)
 
     proj.hook(0x0401028, do_repmovsd, length=2)
-    proj.hook(0x0401253, do_nothing, length=5) 
-    proj.hook(0x040103E, do_nothing, length=5) 
-    proj.hook(0x0401225, do_nothing, length=5) 
-    proj.hook(0x0401243, do_nothing, length=5) 
+    proj.hook(0x0401253, do_nothing, length=5)
+    proj.hook(0x040103E, do_nothing, length=5)
+    proj.hook(0x0401225, do_nothing, length=5)
+    proj.hook(0x0401243, do_nothing, length=5)
 
     # initial state
     init = proj.factory.blank_state(addr=main)
-    
+
     coords = do_memset(init)
     coord_dict = {}
     count = 0
@@ -121,7 +121,7 @@ def main():
     # search only for possible coords
     variables = []
     for i in xrange(0, 4):
-        var = init.memory.load(init.regs.ebp + 0x8 + (0x8*i), 0x8, endness=proj.arch.memory_endness) 
+        var = init.memory.load(init.regs.ebp + 0x8 + (0x8*i), 0x8, endness=proj.arch.memory_endness)
         variables.append(var)
         conds = []
         for p in coords:
@@ -133,21 +133,19 @@ def main():
         init.add_constraints(v1 != v2)
 
     buffer = init.memory.load(init.regs.ebp + 0x8, 0x20)
-        
-    pg = proj.factory.path_group(init, threads=8, save_unconstrained=True)
-    pg.explore(find=to_find)
 
-    path = pg.found[0]
+    sm = proj.factory.simgr(init, threads=8, save_unconstrained=True)
+    sm.explore(find=to_find)
 
-    found = path.state
+    found = sm.found[0]
 
     # Resulting hash must be winning hash
     # Print expected hash and resulting hash for verification
     conds = []
     expected = []
     hash_map = get_hash_map(hash_addr)
-    for addr, value in hash_map:       
-        memory = found.memory.load(addr, 1, endness=proj.arch.memory_endness) 
+    for addr, value in hash_map:
+        memory = found.memory.load(addr, 1, endness=proj.arch.memory_endness)
         conds.append((memory == value))
         expected.append((hex(addr), hex(value)))
     print "Expected is '%s'\n\n" % expected
@@ -156,7 +154,7 @@ def main():
 
     result = []
     hash_map = get_hash_map(hash_addr)
-    for addr, value in hash_map:       
+    for addr, value in hash_map:
         buf_ptr = found.memory.load(addr, 1)
         possible = found.se.any_int(buf_ptr)
         result.append((hex(addr), "0x%x" % possible))
@@ -181,6 +179,6 @@ def main():
 
 
 if __name__ == '__main__':
-    #angr.path_group.l.setLevel('DEBUG')
+    #angr.manager.l.setLevel('DEBUG')
     main()
     sys.stdout.flush()

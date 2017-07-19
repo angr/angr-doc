@@ -35,7 +35,7 @@ def main():
 
     # Patch scanfs (don't know how angr handles it)
     for offst in scanf_offsets:
-        p.hook(main + offst, angr.Hook(UserHook, user_func=patch_scanf, length=5))
+        p.hook(main + offst, UserHook(user_func=patch_scanf, length=5))
 
 
     sm = p.factory.simgr(init)

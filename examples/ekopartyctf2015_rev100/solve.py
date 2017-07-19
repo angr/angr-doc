@@ -49,8 +49,8 @@ def hook_rdi(state):
 def calc_one_byte(p, known_passwords, hook_func, start_addr, load_addr1, load_addr2, cmp_flag_reg, cmp_addr):
     byte_pos = len(known_passwords)
 
-    p.hook(load_addr1, angr.Hook(UserHook, user_func=hook_func, length=14))
-    p.hook(load_addr2, angr.Hook(UserHook, user_func=hook_func, length=14))
+    p.hook(load_addr1, UserHook(user_func=hook_func, length=14))
+    p.hook(load_addr2, UserHook(user_func=hook_func, length=14))
     state = p.factory.blank_state(addr=start_addr)
     state, password = prepare_state(state, known_passwords)
     sm = p.factory.simgr(state, immutable=False)

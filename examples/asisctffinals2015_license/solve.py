@@ -55,7 +55,7 @@ def main():
     # flag
     FAKE_ADDR = 0x100000
     strlen = lambda state, arguments: \
-        angr.SIM_PROCEDURES['libc.so.6']['strlen'](FAKE_ADDR, p.arch).execute(
+        angr.SIM_PROCEDURES['libc']['strlen'](p, FAKE_ADDR, p.arch).execute(
             state, arguments=arguments
         )
     flag_length = strlen(found, arguments=[flag_addr]).ret_expr

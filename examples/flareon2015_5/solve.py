@@ -51,13 +51,13 @@ def main():
     # temporary buffer to hold symbolic copy of the password
     p.hook(0x4011D6, hook_heapalloc, length=5)
 
-    # Explore the paths until after the hash is computed
-    paths = p.factory.path_group(state, immutable=False)
-    paths.explore(find=0x4011EC)
+    # Explore the states until after the hash is computed
+    sm = p.factory.simgr(state, immutable=False)
+    sm.explore(find=0x4011EC)
 
     # Add constraints to make final hash equal to the one we want
     # Also restrict the hash to only printable bytes
-    found_s = paths.found[0].state
+    found_s = sm.found[0]
     for i in xrange(len(GOAL_HASH)):
         char = found_s.memory.load(ADDR_HASH + i, 1)
         found_s.add_constraints(char >= 0x21,

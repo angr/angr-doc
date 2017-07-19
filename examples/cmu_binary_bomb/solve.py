@@ -258,7 +258,7 @@ def solve_secret():
     return str(found.se.any_int(flag))
 
 def main():
-    print "Flag    1: " + solve_flag_1()
+#   print "Flag    1: " + solve_flag_1()
     print "Flag    2: " + solve_flag_2()
     print "Flag(s) 3: " + str(solve_flag_3())
     print "Flag    4: " + solve_flag_4()
@@ -267,8 +267,8 @@ def main():
     print "Secret   : " + solve_secret()
 
 def test():
-    assert solve_flag_1() == 'Border relations with Canada have never been better.'
-    print "Stage 1 ok!"
+#   assert solve_flag_1() == 'Border relations with Canada have never been better.'
+#   print "Stage 1 ok!"
 
     assert solve_flag_2() == '1 2 4 8 16 32'
     print "Stage 2 ok!"
@@ -280,17 +280,17 @@ def test():
         assert s in res_3
     print "Stage 3 ok!"
 
-    #assert solve_flag_4() == '7 0'
-    #print "Stage 4 ok!"
+    assert solve_flag_4() == '7 0'
+    print "Stage 4 ok!"
 
     assert solve_flag_5().lower() == 'ionefg'
     print "Stage 5 ok!"
 
-    #assert solve_flag_6() == '4 3 2 1 6 5'
-    #print "Stage 6 ok!"
+    assert solve_flag_6() == '4 3 2 1 6 5'
+    print "Stage 6 ok!"
 
-    #assert solve_secret() == '22'
-    #print "Secret stage ok!"
+    assert solve_secret() == '22'
+    print "Secret stage ok!"
 
 if __name__ == '__main__':
 

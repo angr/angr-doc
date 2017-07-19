@@ -1,7 +1,7 @@
 
 import logging
 
-#l = logging.getLogger('angr.path_group').setLevel(logging.DEBUG)
+#l = logging.getLogger('angr.manager').setLevel(logging.DEBUG)
 
 import angr
 

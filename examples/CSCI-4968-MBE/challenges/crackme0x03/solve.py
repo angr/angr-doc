@@ -11,21 +11,21 @@ FIND_ADDR = 0x0804848a
 AVOID_ADDR = 0x0804847c
 
 def main():
-	proj = angr.Project('crackme0x03', load_options={"auto_load_libs": False}) 
+	proj = angr.Project('crackme0x03', load_options={"auto_load_libs": False})
 
-	path_group = proj.factory.path_group()
-	path_group.explore(find=FIND_ADDR, avoid=AVOID_ADDR)
+	sm = proj.factory.simgr()
+	sm.explore(find=FIND_ADDR, avoid=AVOID_ADDR)
 
-	return path_group.found[0].state.posix.dumps(0).lstrip('+0').rstrip('B')
+	return sm.found[0].posix.dumps(0).lstrip('+0').rstrip('B')
 
 def test():
-	assert main() == '338724'
+	assert main() == '338724\00'
 
 if __name__ == '__main__':
-	print(main())
+    print(repr(main()))
 
 """
-[0x08048360]> pdf @ main  
+[0x08048360]> pdf @ main
             ;-- main:
 ╒ (fcn) sym.main 128
 │           ; var int local_4h @ ebp-0x4
@@ -66,9 +66,9 @@ if __name__ == '__main__':
 │           0x08048509      890424         dword [esp] = eax
 │           0x0804850c      e85dffffff     sym.test ()
 │           0x08048511      b800000000     eax = 0
-│           0x08048516      c9             
-╘           0x08048517      c3   
-[0x08048460]> pdf @ sym.test 
+│           0x08048516      c9
+╘           0x08048517      c3
+[0x08048460]> pdf @ sym.test
 ╒ (fcn) sym.test 42
 │           ; arg int arg_8h @ ebp+0x8
 │           ; arg int arg_ch @ ebp+0xc
@@ -85,6 +85,6 @@ if __name__ == '__main__':
 │      │└─> 0x0804848a      c70424fe8504.  dword [esp] = str.Sdvvzrug_RN______ ; [0x80485fe:4]=0x76766453 LEA str.Sdvvzrug_RN______ ; "Sdvvzrug#RN$$$#=," @ 0x80485fe
 │      │    0x08048491      e87effffff     sym.shift ()
 │      │    ; JMP XREF from 0x08048488 (sym.test)
-│      └──> 0x08048496      c9             
-╘           0x08048497      c3             
+│      └──> 0x08048496      c9
+╘           0x08048497      c3
 """

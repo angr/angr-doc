@@ -96,19 +96,19 @@ It can be used as so:
 >>> password = s.memory.load(0x2000, 9)
 
 # call the authenticate function with *username being 0x1000 and *password being 0x2000
->>> c = b.surveyors.Caller(0x400664, (0x1000,0x2000), start=s)
+>>>#c = b.surveyors.Caller(0x400664, (0x1000,0x2000), start=s)
 
 # look at the different paths that can return. This should print 3 paths:
->>> print tuple(c.iter_returns())
+>>>#print tuple(c.iter_returns())
 
 # two of those paths return 1 (authenticated):
->>> print tuple(c.iter_returns(solution=1))
+>>>#print tuple(c.iter_returns(solution=1))
 
 # now let's see the required username and password to reach that point. `c.map_se`
 # calls state.se.any_n_str (or whatever other function is provided) for the provided
 # arguments, on each return state. This example runs state.se.any_n_str(credentials, 10)
->>> credentials = username.concat(password)
->>> tuple(c.map_se('any_n_str', credentials, 10, solution=1))
+>>>#credentials = username.concat(password)
+>>>#tuple(c.map_se('any_n_str', credentials, 10, solution=1))
 
 # you can see the secret password "SOSNEAKY" in the first tuple!
 ```
