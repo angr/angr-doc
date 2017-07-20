@@ -1,65 +1,20 @@
-# What is angr?
+# NOTE: this page is largely superfluous and exists more or less as a staging ground for the wip/the\_end\_times rewrite. It should not exist by the time we're done.
 
-angr is a multi-architecture binary analysis platform, with the capability to perform dynamic symbolic execution (like Mayhem, KLEE, etc.) and various static analyses on binaries.
- Several challenges must be overcome to do this. 
- They are, roughly:
+These are blurbs describing each of the sections that need to be rewritten.
 
-- Loading a binary into the analysis program.
-- Translating a binary into an intermediate representation (IR).
-- Translating that IR into a semantic representation (i.e., what it *does*, not just what it *is*).
-- Performing the actual analysis. This could be:
- - A partial or full-program static analysis (i.e., dependency analysis, program slicing).
- - A symbolic exploration of the program's state space (i.e., "Can we execute it until we find an overflow?").
- - Some combination of the above (i.e., "Let's execute only program slices that lead to a memory write, to find an overflow.")
+### Solver Engine
 
-angr has components that meet all of these challenges. 
-This book will explain how each one works, and how they can all be used to accomplish your evil goals.
+angr's power comes not from it being an emulator, but from being able to execute with what we call _symbolic variables_. Instead of saying that a variable has a _concrete_ numerical value, we can say that it holds a _symbol_, effectively just a name. Then, performing arithmetic operations with that variable will yield a tree of operations \(termed an _abstract syntax tree \_or \_AST_, from compiler theory\). ASTs can be translated into constraints for an _SMT solver_, like z3, in order to ask questions like _"given the output of this sequence of operations, what must the input have been?"_ Here, you'll learn how to use angr to answer this.
 
-## Loading a Binary
+### Program States
 
-After angr is installed, you can load a binary for analysis.
-This process, and the angr component that powers it (called CLE) is described [here](./loading.md).
+So far, we've only used angr's simulated program states \(SimState objects\) in the barest possible way in order to demonstrate basic concepts about angr's operation. Here, you'll learn about the structure of a state object and how to interact with it in a variety of useful ways.
 
-## Intermediate Representation
+### The Simulation Manager
 
-angr uses an intermediate representation (specifically, VEX) to enable it to run analyses on binaries of different architectures.
-This IR is described [here](./ir.md).
+The most important control interface in angr is the SimulationManager, which allows you to control symbolic execution over groups of states simultaneously, applying search strategies to explore a program's state space. Here, you'll learn how to use it.
 
-## Solver Engine
+### Intermediate Representation
 
-Constraint solving and other computational needs are provided by an angr sub-module called Claripy.
-Most users of angr will not need to know anything about Claripy, but documentation is provided in case it is needed.
-Claripy is detailed [here](./claripy.md).
+In order to be able to analyze and execute machine code from different CPU architectures, such as MIPS, ARM, and PowerPC in addition to the classic x86, angr performs most of its analysis on an _intermediate representation_, a structured description of the fundamental actions performed by each CPU instruction. By understanding angr's IR, VEX \(which we borrowed from Valgrind\), you will be able to write very quick static analyses and have a better understanding of how angr works.
 
-## Program States
-
-angr provides an interface to the emulated machine states.
-Understanding this is critical to successfully using angr.
-It is detailed [here](./states.md).
-
-## Program Paths
-
-Programs can be analyzed in terms of the possible *path* that execution takes through them.
-angr exposes information about what the paths execute and *do*.
-[This section](./paths.md) gives an overview of how to use this capability of angr.
-
-## Semantic Representation
-
-A powerful feature of angr is the ability to represent basic blocks in terms of their effects on a program state.
-In other words, angr can reason about what basic blocks *do*, not just what they *are*.
-This is accomplished by a code simulation engine, further described [here](./simulation.md).
-
-## Symbolic Execution
-
-angr provides a capable symbolic execution engine.
-The interface to this engine, and how to use it, is described [here](./surveyors.md).
-
-## Full-program Analysis
-
-All of the above components come together to enable complex, full-program analyses to be easily run with angr.
-The mechanism for running and writing these analyses is detailed [here](./analyses.md).
-
-# Examples
-
-We've written some examples for using angr!
-You can read more [here](./examples.md).

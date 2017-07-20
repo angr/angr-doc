@@ -1,8 +1,8 @@
 # Machine State - memory, registers, and so on
 
-angr tracks machine states in a `SimState` object.
-This object tracks concrete and/or symbolic values for the machine's memory, registers, along with various other information, such as open files.
-You can get a `SimState` by using one of a number of convenient constructors in `Project.factory`.
+angr tracks machine states in a `SimState` object.  
+This object tracks concrete and/or symbolic values for the machine's memory, registers, along with various other information, such as open files.  
+You can get a `SimState` by using one of a number of convenient constructors in `Project.factory`.  
 The different basic states you can construct are described [here](toplevel.md).
 
 ```python
@@ -25,7 +25,7 @@ The different basic states you can construct are described [here](toplevel.md).
 
 ## Accessing Data
 
-The data that's stored in the state (i.e., data in registers, memory, temps, etc) is stored as an internal *expression*. This exposes a single interface to concrete (i.e., `0x41414141`) and symbolic (i.e., "whatever the user might input on stdin") expressions. In fact, this is the core of what enables angr to analyze binaries *symbolically*. However, this complicates matters by not exposing the actual *value*, if it's concrete, directly. For example, if you try the above examples, you will see that the type that is printed is a [claripy AST](claripy.md), which is the internal expression representation. For now, you might want to know how to get the actual values out of these expressions.
+The data that's stored in the state \(i.e., data in registers, memory, temps, etc\) is stored as an internal _expression_. This exposes a single interface to concrete \(i.e., `0x41414141`\) and symbolic \(i.e., "whatever the user might input on stdin"\) expressions. In fact, this is the core of what enables angr to analyze binaries _symbolically_. However, this complicates matters by not exposing the actual _value_, if it's concrete, directly. For example, if you try the above examples, you will see that the type that is printed is a [claripy AST](claripy.md), which is the internal expression representation. For now, you might want to know how to get the actual values out of these expressions.
 
 ```python
 # get the integer value of the content of rax:
@@ -41,7 +41,7 @@ The data that's stored in the state (i.e., data in registers, memory, temps, etc
 
 Here, `s.se` is a [solver engine](claripy.md) that holds the symbolic constraints on the state.
 
-This syntax might seem a bit strange -- we get the expression from the state, and then we pass it back *into* the state to get its actual value. This is, in fact, quite intentional. As we mentioned earlier, these expressions could be either concrete or symbolic. In the case of the latter, a symbolic expression might resolve to two different meanings in two different states. We'll go over symbolic expressions in more detail later on. For now, accept the mystery.
+This syntax might seem a bit strange -- we get the expression from the state, and then we pass it back _into_ the state to get its actual value. This is, in fact, quite intentional. As we mentioned earlier, these expressions could be either concrete or symbolic. In the case of the latter, a symbolic expression might resolve to two different meanings in two different states. We'll go over symbolic expressions in more detail later on. For now, accept the mystery.
 
 ## Storing Data
 
@@ -129,7 +129,7 @@ Of course, there are other ways to encounter symbolic expression than merging. F
 >>> v = s.se.BVS("some_name", 32, explicit_name=True)
 ```
 
-Symbolic expressions can be interacted with in the same way as normal (concrete) bitvectors. In fact, you can even mix them:
+Symbolic expressions can be interacted with in the same way as normal \(concrete\) bitvectors. In fact, you can even mix them:
 
 ```python
 # Create a concrete and a symbolic expression
@@ -151,7 +151,7 @@ Symbolic expressions can be interacted with in the same way as normal (concrete)
 # This assertion will fail because it depends on precisely the number of symbolic values previously created
 ```
 
-As you can see, symbolic and concrete expressions are pretty interchangeable, which is an extremely useful abstraction.
+As you can see, symbolic and concrete expressions are pretty interchangeable, which is an extremely useful abstraction.  
 You might also notice that, when you read from memory locations that were never written to, you receive symbolic expressions:
 
 ```python
@@ -168,6 +168,7 @@ You might also notice that, when you read from memory locations that were never 
 >>> print s.se.any_n_int(m, 10)
 >>> print s.se.any_str(m)
 ```
+
 So far, we've seen addition being used. But we can do much more. All of the following examples return new expressions, with the operation applied.
 
 ```python
@@ -212,7 +213,7 @@ More details on the operations supported by the solver engine are available at t
 
 ## Symbolic Constraints
 
-Symbolic expressions would be pretty boring on their own. After all, the last few that we created could take *any* numerical value, as they were completely unconstrained. This makes them uninteresting. To spice things up, angr has the concept of symbolic constraints. Symbolic constraints represent, aptly, constraints (or restrictions) on symbolic expressions. It might be easier to show you:
+Symbolic expressions would be pretty boring on their own. After all, the last few that we created could take _any_ numerical value, as they were completely unconstrained. This makes them uninteresting. To spice things up, angr has the concept of symbolic constraints. Symbolic constraints represent, aptly, constraints \(or restrictions\) on symbolic expressions. It might be easier to show you:
 
 ```python
 # make a copy of the state so that we don't screw up the original with our experimentation
@@ -244,15 +245,15 @@ Symbolic expressions would be pretty boring on their own. After all, the last fe
 >>> assert s.se.solution(m, 30)
 ```
 
-One cautionary piece of advice is that the comparison operators (`>`, `<`, `>=`, `<=`) are *unsigned* by default. That means that, in the above example, this is the case:
+One cautionary piece of advice is that the comparison operators \(`>`, `<`, `>=`, `<=`\) are _unsigned_ by default. That means that, in the above example, this is the case:
 
 ```python
 # This is actually -1
 assert not s3.se.solution(m, 0xff)
 ```
 
-If we want *signed* comparisons, we need to use the signed versions of the operators (`SGT`, `SLT`, `SGE`, `SLE`).
-If you'd like to be explicit about your unsigned comparisons, the operators (`UGT`, `ULT`, `UGE`, `ULE`) are available.
+If we want _signed_ comparisons, we need to use the signed versions of the operators \(`SGT`, `SLT`, `SGE`, `SLE`\).  
+If you'd like to be explicit about your unsigned comparisons, the operators \(`UGT`, `ULT`, `UGE`, `ULE`\) are available.
 
 ```python
 # Add an unsigned comparison
@@ -272,13 +273,13 @@ Amazing. Of course, constraints can be arbitrarily complex:
 >>> s4.add_constraints(claripy.And(claripy.UGT(m, 10), claripy.Or(claripy.ULE(m, 100), m % 200 != 123, claripy.LShR(m, 8) & 0xff != 0xa)))
 ```
 
-There's a lot there, but, basically, m has to be greater than 10 *and* either has to be less than 100, or has to be 123 when modded with 200, or, when logically shifted right by 8, the least significant byte must be 0x0a.
+There's a lot there, but, basically, m has to be greater than 10 _and_ either has to be less than 100, or has to be 123 when modded with 200, or, when logically shifted right by 8, the least significant byte must be 0x0a.
 
 ## State Options
 
 There are a lot of little tweaks that can be made to the internals of angr that will optimize behavior in some situations and be a detriment in others. These tweaks are controlled through state options.
 
-On each SimState object, there is a set (state.options) of all its enabled options. The full domain of options, along with the defaults for different state types, can be found in (s_options.py)[https://github.com/angr/angr/blob/master/angr/sim_options.py], available as `angr.options`.
+On each SimState object, there is a set \(state.options\) of all its enabled options. The full domain of options, along with the defaults for different state types, can be found in \(s\_options.py\)\[[https://github.com/angr/angr/blob/master/angr/sim\_options.py](https://github.com/angr/angr/blob/master/angr/sim_options.py)\], available as `angr.options`.
 
 When creating a SimState through any method, you may pass the keyword arguments `add_options` and `remove_options`, which should be sets of options that modify the initial options set from the default.
 
@@ -290,3 +291,24 @@ When creating a SimState through any method, you may pass the keyword arguments 
 # Create a new state with lazy solves enabled
 >>> s9 = b.factory.entry_state(add_options={angr.options.LAZY_SOLVES})
 ```
+
+### Filesystem Options
+
+There are a number of options which can be passed to the state initialization routines which affect filesystem usage. These include the `fs`, `concrete_fs`, and `chroot` options.
+
+The `fs` option allows you to pass in a dictionary of file names to preconfigured SimFile objects. This allows you to do things like set a concrete size limit on a file's content.
+
+Setting the `concrete_fs` option to `True` will cause angr to respect the files on disk. For example, if during simulation a program attempts to open 'banner.txt' when `concrete_fs` is set to `False` \(the default\), a SimFile with a symbolic memory backing will be created and simulation will continue as though the file exists. When `concrete_fs` mode is set to `True`, if 'banner.txt' exists a new SimFile object will be created with a concrete backing, reducing the resulting state explosion which would be caused by operating on a completely symbolic file. Additionally in `concrete_fs` mode if 'banner.txt' mode does not exist, a SimFile object will not be created upon calls to open during simulation and an error code will be returned. Additionally, it's important to note that attempts to open files whose path begins with '/dev/' will never be opened concretely even with `concrete_fs` set to `True`.
+
+The `chroot` option allows you to specify an optional root to use while using the `concrete_fs` option. This can be convenient if the program you're analyzing references files using an absolute path. For example, if the program you are analyzing attempts to open '/etc/passwd', you can set the chroot to your current working directory so that attempts to access '/etc/passwd' will read from '$CWD/etc/passwd'.
+
+```python
+>>> files = {'/dev/stdin': angr.storage.file.SimFile("/dev/stdin", "r", size=30)}
+>>> s = b.factory.entry_state(fs=files, concrete_fs=True, chroot="angr-chroot/")
+```
+
+This example will create a state which constricts at most 30 symbolic bytes from being read from stdin and will cause references to files to be resolved concretely within the new root directory `angr-chroot`.
+
+Important note that needs to go in this initial version before I write the rest of the stuff:  
+the `args` and `env` keyword args work on `entry_state` and `full_init_state`, and are a list and a dict, respectively, of strings or [claripy](./claripy.md) BV objects, which can represent a variety of concrete and symbolic strings. Read the source if you wanna know more about these!
+
