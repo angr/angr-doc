@@ -137,7 +137,7 @@ def get_gadgets():
         # With the checks recovered, we now overwrite them with a ret, so that angrop considers the gadgets
         # valid.
         #
-        p.loader.main_bin.memory.write_bytes(start_of_checks, '\xc3')
+        p.loader.main_object.memory.write_bytes(start_of_checks, '\xc3')
         p.factory.default_engine.clear_cache()
 
     #

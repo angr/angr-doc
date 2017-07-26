@@ -45,7 +45,7 @@ def main():
 
     # Now we can simply tell angr to set the instruction pointer to point at the
     # win function to give us execution
-    s.add_constraints(s.regs.rip == proj.loader.main_bin.get_symbol('win').addr)
+    s.add_constraints(s.regs.rip == proj.loader.find_symbol('win').addr)
 
     print s.se.constraints
     assert s.satisfiable()
