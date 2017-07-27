@@ -8,13 +8,13 @@ It is an easy crackme challenge. It checks the command line argument.
 '''
 
 import angr
-
+import claripy
 
 def main():
     project = angr.Project("./ais3_crackme")
 
     #create an initial state with a symbolic bit vector as argv1
-    argv1 = angr.claripy.BVS("argv1",100*8) #since we do not the length now, we just put 100 bytes
+    argv1 = claripy.BVS("argv1",100*8) #since we do not the length now, we just put 100 bytes
     initial_state = project.factory.path(args=["./crackme1",argv1])
 
     #create a path group using the created initial state 

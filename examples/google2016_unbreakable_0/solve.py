@@ -8,14 +8,14 @@
 
 import angr
 import simuvex
-
+import claripy
 
 def main():
     proj = angr.Project('./unbreakable-enterprise-product-activation', load_options={"auto_load_libs": False}) # Disabling the automatic library loading saves a few milliseconds.
 
     input_size = 0x43; # Max length from strncpy, see 0x4005ae.
 
-    argv1 = angr.claripy.BVS("argv1", input_size * 8)
+    argv1 = claripy.BVS("argv1", input_size * 8)
 
     initial_state = proj.factory.entry_state(args=["./unbreakable-enterprise-product-activation", argv1], add_options={simuvex.o.LAZY_SOLVES})
     initial_state.libc.buf_symbolic_bytes=input_size + 1 # Thanks to Christopher Salls (@salls) for pointing this out. By default there's only 60 symbolic bytes, which is too small.
