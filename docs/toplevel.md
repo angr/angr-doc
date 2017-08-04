@@ -44,12 +44,12 @@ Getting from a binary file to its representation in a virtual address space is p
 >>> proj.loader.max_addr()
 0x5004000
 
->>> proj.loader.main_bin  # we've loaded several binaries into this project. Here's the main one!
+>>> proj.loader.main_object  # we've loaded several binaries into this project. Here's the main one!
 <ELF Object true, maps [0x400000:0x60721f]>
 
->>> proj.loader.main_bin.execstack  # sample query: does this binary have an executable stack?
+>>> proj.loader.main_object.execstack  # sample query: does this binary have an executable stack?
 False
->>> proj.loader.main_bin.pic  # sample query: is this binary position-independent?
+>>> proj.loader.main_object.pic  # sample query: is this binary position-independent?
 True
 ```
 

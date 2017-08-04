@@ -20,7 +20,7 @@ CLE can be interfaced with as follows:
 >>> print b.loader.memory[b.loader.min_addr()]
 
 # this is the object for the main binary (its type depends on the backend)
->>> print b.loader.main_bin
+>>> print b.loader.main_object
 
 # this retrieves the binary object which maps memory at the specified address
 >>> print b.loader.addr_belongs_to_object(b.loader.max_addr())
@@ -35,10 +35,10 @@ It is also possible to interface directly with individual binary objects:
 # this is a list of the names of libraries the program depend on. We obtain it
 # *statically* by reading the DT_NEEDED field of the dynamic section of the ELF
 # binary.
->>> print b.loader.main_bin.deps
+>>> print b.loader.main_object.deps
 
 # this is the memory contents of *just* the main binary, based at the zero-address
->>> print b.loader.main_bin.memory
+>>> print b.loader.main_object.memory
 
 # this is a dict (name->ELFRelocation) of imports required by the libc which was loaded
 >>> b.loader.shared_objects['libc.so.6'].imports
