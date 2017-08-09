@@ -1,4 +1,7 @@
-# Top-level interfaces
+# Core Concepts
+
+Before getting started with angr, you'll need to have a basic overview of some fundamental angr concepts and how to construct some basic angr objects.
+We'll go over this by examining what's directly available to you after you've loaded a binary!
 
 Your first action with angr will always be to load a binary into a _project_. We'll use `/bin/true` for these examples.
 
@@ -7,7 +10,9 @@ Your first action with angr will always be to load a binary into a _project_. We
 >>> proj = angr.Project('/bin/true')
 ```
 
-Before getting started with angr, you'll need to have a basic overview of some fundamental angr concepts and how to construct some basic angr objects. We'll go over this by examining what's directly available to you after you've loaded a project!
+A project is your control base in angr.
+With it, you will be able to dispatch analyses and simulations on the executable you just loaded.
+Almost every single object you work with in angr will depend on the existence of a project in some form.
 
 ## Basic properties
 
@@ -31,7 +36,7 @@ First, we have some basic properties about the project: its CPU architecture, it
 
 Getting from a binary file to its representation in a virtual address space is pretty complicated! We have a module called CLE to handle that. CLE's result, called the loader, is available in the `.loader` property. We'll get into detail on how to use this [soon](./loading.md), but for now just know that you can use it to see the shared libraries that angr loaded alongside your program and perform basic queries about the loaded address space.
 
-```py
+```python
 >>> proj.loader
 <Loaded true, maps [0x400000:0x5004000]>
 
@@ -39,9 +44,9 @@ Getting from a binary file to its representation in a virtual address space is p
 {'ld-linux-x86-64.so.2': <ELF Object ld-2.24.so, maps [0x2000000:0x2227167]>,
  'libc.so.6': <ELF Object libc-2.24.so, maps [0x1000000:0x13c699f]>}
 
->>> proj.loader.min_addr()
+>>> proj.loader.min_addr
 0x400000
->>> proj.loader.max_addr()
+>>> proj.loader.max_addr
 0x5004000
 
 >>> proj.loader.main_object  # we've loaded several binaries into this project. Here's the main one!
@@ -141,7 +146,7 @@ You can store these bitvectors back to registers and memory, or you can directly
 The `mem` interface is a little confusing at first, since it's using some pretty hefty python magic. The short version of how to use it is:
 
 * Use array\[index\] notation to specify an address
-* Use .&lt;type&gt; to specify that the memory should be interpreted as &lt;type&gt; \(common values: char, short, int, long, size\_t, dword, qword\)
+* Use `.<type>` to specify that the memory should be interpreted as &lt;type&gt; \(common values: char, short, int, long, size\_t, dword, qword\)
 * From there, you can either:
   * Store a value to it, either a bitvector or a python int
   * Use `.resolved` to get the value as a bitvector

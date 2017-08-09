@@ -2,10 +2,6 @@
 
 These are blurbs describing each of the sections that need to be rewritten.
 
-### Solver Engine
-
-angr's power comes not from it being an emulator, but from being able to execute with what we call _symbolic variables_. Instead of saying that a variable has a _concrete_ numerical value, we can say that it holds a _symbol_, effectively just a name. Then, performing arithmetic operations with that variable will yield a tree of operations \(termed an _abstract syntax tree \_or \_AST_, from compiler theory\). ASTs can be translated into constraints for an _SMT solver_, like z3, in order to ask questions like _"given the output of this sequence of operations, what must the input have been?"_ Here, you'll learn how to use angr to answer this.
-
 ### Program States
 
 So far, we've only used angr's simulated program states \(SimState objects\) in the barest possible way in order to demonstrate basic concepts about angr's operation. Here, you'll learn about the structure of a state object and how to interact with it in a variety of useful ways.
