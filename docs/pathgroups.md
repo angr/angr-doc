@@ -3,147 +3,146 @@
 The most important control interface in angr is the SimulationManager, which allows you to control symbolic execution over groups of states simultaneously, applying search strategies to explore a program's state space.
 Here, you'll learn how to use it.
 
-Path groups are just a bunch of paths being executed at once. They are also the future.
+Simulation managers let you wrangle multiple states in a slick way.
+States are organized into “stashes”, which you can step forward, filter, merge, and move around as you wish.
+This allows you to, for example, step two different stashes of states at different rates, then merge them together.
+The default stash for most operations is the `active` stash, which is where your states get put when you initialize a new simulation manager.
 
-Path groups let you wrangle multiple paths in a slick way.
-Paths are organized into “stashes”, which you can step forward, filter, merge,
-and move around as you wish. There are different kind of stashes, which are
-specified in [Paths](./paths.md#path-types). This allows you to, for example,
-step two different stashes of paths at different rates, then merge them together.
+### Stepping
 
+The most basic capability of a simulation manager is to step forward all states in a given stash by one basic block.
+You do this with `.step()`.
 
-Here are some basic examples of SimulationManager capabilities:
 ```python
 >>> import angr
+>>> proj = angr.Project('examples/fauxware/fauxware', auto_load_libs=False)
+>>> state = proj.factory.entry_state()
+>>> simgr = proj.factory.simgr(state)
+>>> simgr.active
+[<SimState @ 0x400580>]
 
-
->>> p = angr.Project('examples/fauxware/fauxware', load_options={'auto_load_libs': False})
->>> sm = p.factory.simgr()
+>>> simgr.step()
+>>> simgr.active
+[<SimState @ 0x400540>]
 ```
 
-Exploring a state:
-```python
-# While there are active path, we step
->>> while len(sm.active) > 0:
-...    sm.step()
+Of course, the real power of the stash model is that when a state encounters a symbolic branch condition, both of the successor states appear in the stash, and you can step both of them in sync.
+When you don't really care about controlling analysis very carefully and you just want to step until there's nothing left to step, you can just use the `.run()` method.
 
->>> print(sm)
+```python
+# Step until the first symbolic branch
+>>> while len(simgr.active) == 1:
+...    simgr.step()
+
+>>> simgr
+<SimulationManager with 2 active>
+>>> simgr.active
+[<SimState @ 0x400692>, <SimState @ 0x400699>]
+
+# Step until everything terminates
+>>> simgr.run()
+>>> simgr
 <SimulationManager with 3 deadended>
 ```
 
-We now have 3 deadended states, let's see what we can do with it
+We now have 3 deadended states!
+When a state fails to produce any successors during execution, for example, because it reached an `exit` syscall, it is removed from the active stash and placed in the `deadended` stash.
+
+### Stash Management
+
+Let's see how to work with other stashes.
+
+To move states between stashes, use `.move()`,  which takes `from_stash` (optional, default "active"), `to_stash`, and `filter_func` (optional, default is to move everything).
+For example, let's move everything that has a certain string in its output:
+
 ```python
->>> state = sm.deadended[0]
->>> print 'State length: %d steps' % len(state.history.descriptions)
-State length: 51 steps
+>>> simgr.move(from_stash='deadended', to_stash='authenticated', filter_func=lambda s: 'Welcome' in s.posix.dumps(1))
+>>> simgr
+<SimulationManager with 2 authenticated, 1 deadended>
 ```
 
-Get state trace:
+We were able to just create a new stash named "authenticated" just by asking for states to be moved to it.
+All the states in this stash have "Welcome" in their stdout, which is a fine metric for now.
+
+Each stash is just a list, and you can index into or iterate over the list to access each of the individual states, but there are some alternate methods to access the states too.
+If you prepend the name of a stash with `one_`, you will be given the first state in the stash.
+If you prepend the name of a stash with `mp_`, you will be given a [mulpyplexed](https://github.com/zardus/mulpyplexer) version of the stash.
+
 ```python
->>> print 'Trace:'
->>> for step in state.history.descriptions:
-...    print step
-Trace:
-<IRSB from 0x400580: 1 sat>
-<IRSB from 0x400540: 1 sat>
-<SimProcedure __libc_start_main from 0x1000030: 1 sat>
-<IRSB from 0x4007e0: 1 sat>
-<IRSB from 0x4004e0: 1 sat>
-<IRSB from 0x4005ac: 1 sat 1 unsat>
-<IRSB from 0x4005be: 1 sat>
-<IRSB from 0x4004e9: 1 sat>
-<IRSB from 0x400640: 1 sat 1 unsat>
-<IRSB from 0x400660: 1 sat>
-<IRSB from 0x4004ee: 1 sat>
-<IRSB from 0x400880: 1 sat 1 unsat>
-<IRSB from 0x4008af: 1 sat>
-<IRSB from 0x4004f3: 1 sat>
-<IRSB from 0x400825: 1 sat 1 unsat>
-<IRSB from 0x400846: 1 sat>
-<SimProcedure __libc_start_main from 0x1000040: 1 sat>
-<IRSB from 0x40071d: 1 sat>
-<IRSB from 0x400510: 1 sat>
-<SimProcedure puts from 0x1000000: 1 sat>
-<IRSB from 0x40073e: 1 sat>
-<IRSB from 0x400530: 1 sat>
-<SimProcedure read from 0x1000020: 1 sat>
-<IRSB from 0x400754: 1 sat>
-<IRSB from 0x400530: 1 sat>
-<SimProcedure read from 0x1000020: 1 sat>
-<IRSB from 0x40076a: 1 sat>
-<IRSB from 0x400510: 1 sat>
-<SimProcedure puts from 0x1000000: 1 sat>
-<IRSB from 0x400774: 1 sat>
-<IRSB from 0x400530: 1 sat>
-<SimProcedure read from 0x1000020: 1 sat>
-<IRSB from 0x40078a: 1 sat>
-<IRSB from 0x400530: 1 sat>
-<SimProcedure read from 0x1000020: 1 sat>
-<IRSB from 0x4007a0: 1 sat>
-<IRSB from 0x400664: 1 sat>
-<IRSB from 0x400550: 1 sat>
-<SimProcedure strcmp from 0x1000050: 1 sat>
-<IRSB from 0x40068e: 2 sat>
-<IRSB from 0x400692: 1 sat>
-<IRSB from 0x4006eb: 1 sat>
-<IRSB from 0x4007b3: 1 sat 1 unsat>
-<IRSB from 0x4007bd: 1 sat>
-<IRSB from 0x4006ed: 1 sat>
-<IRSB from 0x400510: 1 sat>
-<SimProcedure puts from 0x1000000: 1 sat>
-<IRSB from 0x4006fb: 1 sat>
-<IRSB from 0x4007c7: 1 sat>
-<IRSB from 0x4007d3: 1 sat>
-<SimProcedure __libc_start_main from 0x1000040: 1 sat>
+>>> for s in simgr.deadended + simgr.authenticated:
+...     print hex(s.addr)
+0x1000030
+0x1000078
+0x1000078
+
+>>> simgr.one_deadended
+<SimState @ 0x1000030>
+>>> simgr.mp_authenticated
+MP([<SimState @ 0x1000078>, <SimState @ 0x1000078>])
+>>> simgr.mp_authenticated.posix.dumps(0)
+MP(['\x00\x00\x00\x00\x00\x00\x00\x00\x00SOSNEAKY\x00',
+    '\x00\x00\x00\x00\x00\x00\x00\x00\x00S\x80\x80\x80\x80@\x80@\x00'])
 ```
 
-Get constraints applied to the state:
-```python
->>> print 'There are %d constraints.' % len(state.se.constraints)
-There are 2 constraints.
-```
+Of course, `step`, `run`, and any other method that operates on a single stash of paths can take a `stash` argument, specifying which stash to operate on.
 
-Get memory state at the end of the traversal:
-```python
->>> print 'rax: %s' % state.regs.rax
-rax: <BV64 0x37>
->>> assert state.se.any_int(state.regs.rip) == state.addr  # regs are BitVectors
-```
+There are lots of fun tools that the simulation manager provides you for managing your stashes.
+We won't go into the rest of them for now, but you should check out the API documentation. TODO: link
 
-### PathGroup.Explorer()
-Pathgroups are supposed to replace `surveyors.Explorer`, being more clever and
-efficient. When launching path_group.Explore with a `find` argument, multiple
-paths will be launched and step until one of them finds one of the address we
-are looking for. Paths reaching the `avoided` addresses, if any, will be put
-into the `avoided` stash. If an active path reaches an interesting address, it
-will be stashed into the `found` stash, and the other ones will remain active.
-You can then explore the found path, or decide to discard it and continue with
-the other ones.
+## Stash types
+
+You can use stashes for whatever you like, but there are a few stashes that will be used to categorize some special kinds of states.
+These are:
+
+| Stash | Description |
+|-------|-------------|
+| active     | This stash contains the states that will be stepped by default, unless an alternate stash is specified. |
+| deadended     | A state goes to the deadended stash when it cannot continue the execution for some reason, including no more valid instructions, unsat state of all of its successors, or an invalid instruction pointer. |
+| pruned        | When using `LAZY_SOLVES`, states are not checked for satisfiability unless absolutely necessary. When a state is found to be unsat in the presence of `LAZY_SOLVES`, the state hierarchy is traversed to identify when, in its history, it initially became unsat. All states that are descendants of that point (which will also be unsat, since a state cannot become un-unsat) are pruned and put in this stash. |
+| unconstrained | If the `save_unconstrained` option is provided to the SimulationManager constructor, states that are determined to be unconstrained (i.e., with the instruction pointer controlled by user data or some other source of symbolic data) are placed here. |
+| unsat | If the `save_unsat` option is provided to the SimulationManager constructor, states that are determined to be unsatisfiable (i.e., they have constraints that are contradictory, like the input having to be both "AAAA" and "BBBB" at the same time) are placed here. |
+
+There is another list of states that is not a stash: `errored`.
+If, during execution, an error is raised, then the state will be wrapped in an `ErrorRecord` object, which contains the state and the error it raised, and then the record will be inserted into `errored`.
+You can get at the state as it was at the beginning of the execution tick that caused the error with `record.state`, you can see the error that was raised with `record.error`, and you can launch a debug shell at the site of the error with `record.debug()`.
+This is an invaluable debugging tool!
+
+### Simple Exploration
+
+An extremely common operation in symbolic execution is to find a state that reaches a certain address, while discarding all states that go through another address.
+Simulation manager has a shortcut for this pattern, the `.explore()` method.
+
+When launching `.explore()` with a `find` argument, execution will run until a state is found that matches the find condition, which can be the address of an instruction to stop at, a list of addresses to stop at, or a function which takes a state and returns whether it meets some criteria.
+When any of the states in the active stash match the `find` condition, they are placed in the `found` stash, and execution terminates.
+You can then explore the found state, or decide to discard it and continue with the other ones.
+You can also specify an `avoid` condition in the same format as `find`.
+When a state matches the avoid condition, it is put in the `avoided` stash, and execution continues.
+Finally, the `num_find` argument controls the number of states that should be found before returning, with a default of 1.
+Of course, if you run out of states in the active stash before finding this many solutions, execution will stop anyway.
 
 Let's look at a simple crackme [example](./examples.md#reverseme-modern-binary-exploitation---csci-4968):
 
 First, we load the binary.
 ```python
->>> p = angr.Project('examples/CSCI-4968-MBE/challenges/crackme0x00a/crackme0x00a')
+>>> proj = angr.Project('examples/CSCI-4968-MBE/challenges/crackme0x00a/crackme0x00a')
 ```
 
 Next, we create a SimulationManager.
 ```python
->>> sm = p.factory.simgr()
+>>> simgr = p.factory.simgr()
 ```
 
 Now, we symbolically execute until we find a state that matches our condition (i.e., the "win" condition).
 ```python
->> sm.explore(find=lambda s: "Congrats" in s.posix.dumps(1))
+>> simgr.explore(find=lambda s: "Congrats" in s.posix.dumps(1))
 <SimulationManager with 1 active, 1 found>
 ```
 
 Now, we can get the flag out of that state!
-```
->>> s = sm.found[0]
+```python
+>>> s = simgr.found[0]
 >>> print s.posix.dumps(1)
 Enter password: Congrats!
-
 
 >>> flag = s.posix.dumps(0)
 >>> print(flag)
@@ -154,24 +153,17 @@ Pretty simple, isn't it?
 
 Other examples can be found by browsing the [examples](./examples.md).
 
+## Exploration Techniques
 
-## TODO: STASHES
+angr ships with several pieces of canned functionality that let you customize the behavior of a simulation manager, called _exploration techniques_.
+The archetypical exploration technique is depth-first search, which puts all active paths except one in a stash called `deferred`, and whenever `active` goes empty, pops a state out of `deferred` and continues.
 
-## Stash types
+To use an exploration technique, call `simgr.use_technique(tech)`, where tech is an instance of an ExplorationTechnique subclass.
+angr's built-in exploration techniques can be found under `angr.exploration_techniques`.
 
-Paths are put into different stashes during a PathGroup's execution.
-These are:
+Here's a quick overview of some of the built-in ones:
 
-| Stash | Description |
-|-------|-------------|
-| active     | This stash contains the paths that will be stepped by default (unless an alternate stash is specified for `path_group.step()`. |
-| deadended     | A path goes to the deadended stash when it cannot continue the execution for some reason, including no more valid instructions, unsat state of all of its successors, or an invalid instruction pointer. |
-| found         | A path goes to the found stash when the path group determines that it matches the condition passed to the `find` argument of `path_group.explore`. |
-| avoided         | A path goes to the avoided stash when the path group determines that it matches the condition passed to the `avoid` argument of `path_group.explore`. |
-| pruned        | When using `LAZY_SOLVES`, paths are not checked for satisfiability unless absolutely necessary. When a state is found to be unsat in the presence of `LAZY_SOLVES`, the path hierarchy is traversed to identify when, in its history, it initially became unsat. All paths that are descendent from that point (which will also be unsat, since a state cannot become un-unsat) are pruned and put in this stash. |
-| errored       | Paths are put in this stash when they cause a Python exception to be raised during execution. This implies a bug in angr or in your custom code (if any). |
-| unconstrained | If the `save_unconstrained` option is provided to the PathGroup constructor, paths that are determined to be unconstrained (i.e., with the instruction pointer controlled by user data or some other source of symbolic data) are placed here. |
-| unsat | If the `save_unsat` option is provided to the PathGroup constructor, paths that are determined to be unsatisfiable (i.e., they have constraints that are contradictory, like the input having to be both "AAAA" and "BBBB" at the same time) are placed here. |
+- TODO
 
-You can move paths between stashes by using the `path_group.move` function.
-This function accepts many options to control which paths are moved between which stashes.
+You can also write your own exploration techniques!
+This will be covered in a later chapter.
