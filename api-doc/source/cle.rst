@@ -14,13 +14,27 @@ Backends
 --------
 
 .. automodule:: cle.backends
-.. automodule:: cle.backends.elf
-.. automodule:: cle.backends.pe
+.. automodule:: cle.backends.externs
+.. automodule:: cle.backends.symbol
+.. automodule:: cle.backends.regions
+.. automodule:: cle.backends.elf.elf
+.. automodule:: cle.backends.elf.elfcore
+.. automodule:: cle.backends.elf.metaelf
+.. automodule:: cle.backends.elf.symbol
+.. automodule:: cle.backends.elf.regions
+.. automodule:: cle.backends.elf.hashtable
+.. automodule:: cle.backends.pe.pe
+.. automodule:: cle.backends.pe.symbol
+.. automodule:: cle.backends.pe.regions
+.. automodule:: cle.backends.macho.macho
+.. automodule:: cle.backends.macho.symbol
+.. automodule:: cle.backends.macho.section
+.. automodule:: cle.backends.macho.segment
+.. automodule:: cle.backends.macho.binding
+.. automodule:: cle.backends.cgc.cgc
+.. automodule:: cle.backends.cgc.backedcgc
+.. automodule:: cle.backends.hex
 .. automodule:: cle.backends.blob
-.. automodule:: cle.backends.cgc
-.. automodule:: cle.backends.backedcgc
-.. automodule:: cle.backends.metaelf
-.. automodule:: cle.backends.elfcore
 .. automodule:: cle.backends.idabin
 
 
@@ -34,19 +48,28 @@ The name of the subclass will be used to determine when to use it!
 Look at the existing versions for details.
 
 .. automodule:: cle.backends.relocations
+.. automodule:: cle.backends.pe.reloc
 
 
 Thread-local storage
 --------------------
 
-.. automodule:: cle.tls
-.. automodule:: cle.tls.elf_tls
-.. automodule:: cle.tls.pe_tls
+.. automodule:: cle.backends.tls
+.. automodule:: cle.backends.tls.elf_tls
+.. automodule:: cle.backends.tls.pe_tls
 
 
 Misc. Utilities
 ---------------
 
-.. automodule:: cle.errors
+.. automodule:: cle.gdb
 .. automodule:: cle.memory
 .. automodule:: cle.patched_stream
+.. automodule:: cle.address_translator
+.. automodule:: cle.utils
+
+
+Errors
+------
+
+.. automodule:: cle.errors

@@ -6,27 +6,7 @@ Project
 -------
 
 .. automodule:: angr.project
-
-
-Factory
--------
-
 .. automodule:: angr.factory
-
-
-Paths & Path Groups
--------------------
-
-.. automodule:: angr.path
-.. automodule:: angr.path_group
-.. automodule:: angr.exploration_techniques
-.. automodule:: angr.exploration_techniques.dfs
-.. automodule:: angr.exploration_techniques.explorer
-.. automodule:: angr.exploration_techniques.looplimiter
-.. automodule:: angr.exploration_techniques.threading
-.. automodule:: angr.exploration_techniques.veritesting
-.. automodule:: angr.path_hierarchy
-.. automodule:: angr.pathprioritizer
 
 Program State
 -------------
@@ -41,15 +21,27 @@ Program State
 Storage
 -------
 .. automodule:: angr.storage
+.. automodule:: angr.state_plugins.view
 .. automodule:: angr.storage.file
 .. automodule:: angr.storage.memory
-.. automodule:: angr.plugins.symbolic_memory
-.. automodule:: angr.plugins.abstract_memory
+.. automodule:: angr.state_plugins.symbolic_memory
+.. automodule:: angr.state_plugins.abstract_memory
 .. automodule:: angr.storage.memory_object
 .. automodule:: angr.storage.paged_memory
 .. automodule:: angr.concretization_strategies
-.. automodule:: angr.sim_pcap
-.. automodule:: angr.state_plugins.view
+
+Simulation Manager
+------------------
+
+.. automodule:: angr.manager
+.. automodule:: angr.exploration_techniques
+.. automodule:: angr.exploration_techniques.dfs
+.. automodule:: angr.exploration_techniques.explorer
+.. automodule:: angr.exploration_techniques.looplimiter
+.. automodule:: angr.exploration_techniques.threading
+.. automodule:: angr.exploration_techniques.veritesting
+.. automodule:: angr.state_hierarchy
+.. automodule:: angr.pathprioritizer
 
 Simulation Engines
 ------------------
@@ -62,20 +54,20 @@ Simulation Engines
 .. automodule:: angr.engines.procedure
 .. automodule:: angr.engines.hook
 .. automodule:: angr.engines.syscall
-.. automodule:: angr.engines.unicorn_engine
+.. automodule:: angr.engines.unicorn
 .. automodule:: angr.engines.failure
 
 Simulation Logging
 ------------------
-.. automodule:: simuvex.s_action
-.. automodule:: simuvex.s_action_object
-.. automodule:: simuvex.s_event
+.. automodule:: angr.state_plugins.sim_action
+.. automodule:: angr.state_plugins.sim_action_object
+.. automodule:: angr.state_plugins.sim_event
 
 Procedures
 ----------
 .. automodule:: angr.sim_procedure
 .. automodule:: angr.procedures
-.. automodule:: angr.misc.format_parser
+.. automodule:: angr.procedures.stubs.format_parser
 
 Calling Conventions and Types
 -----------------------------
@@ -99,17 +91,16 @@ Knowledge Base
 Analysis
 --------
 
-.. automodule:: angr.analysis
-.. automodule:: angr.annocfg
 .. automodule:: angr.analyses
+.. automodule:: angr.analyses.analysis
 .. automodule:: angr.analyses.backward_slice
 .. automodule:: angr.analyses.bindiff
 .. automodule:: angr.analyses.boyscout
 .. automodule:: angr.analyses.cdg
-.. automodule:: angr.analyses.cfg_accurate
-.. automodule:: angr.analyses.cfg_base
-.. automodule:: angr.analyses.cfg_fast
-.. automodule:: angr.analyses.cfg_node
+.. automodule:: angr.analyses.cfg.cfg_accurate
+.. automodule:: angr.analyses.cfg.cfg_base
+.. automodule:: angr.analyses.cfg.cfg_fast
+.. automodule:: angr.analyses.cfg.cfg_node
 .. automodule:: angr.analyses.code_location
 .. automodule:: angr.analyses.datagraph_meta
 .. automodule:: angr.analyses.ddg
@@ -121,23 +112,10 @@ Analysis
 .. automodule:: angr.analyses.vfg
 .. automodule:: angr.analyses.vsa_ddg
 .. automodule:: angr.blade
-.. automodule:: angr.sim_slicer
+.. automodule:: angr.slicer
+.. automodule:: angr.annocfg
 
 SimOS
 -----
 
 .. automodule:: angr.simos
-
-
-Surveyors
----------
-
-Do not use surveyors. They are a legacy interface.
-
-.. automodule:: angr.surveyor
-.. automodule:: angr.surveyors
-.. automodule:: angr.surveyors.caller
-.. automodule:: angr.surveyors.escaper
-.. automodule:: angr.surveyors.executor
-.. automodule:: angr.surveyors.explorer
-.. automodule:: angr.surveyors.slicecutor
