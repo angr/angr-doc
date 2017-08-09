@@ -1,7 +1,6 @@
 # Summary
 
 * [Introduction](README.md)
-  * [Overview](docs/overview.md)
   * [Installing](INSTALL.md)
   * [How to Contribute](HACKING.md)
   * [What to Contribute](HELPWANTED.md)
