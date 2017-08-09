@@ -1,5 +1,7 @@
-Bulk Execution and Exploration - Path Groups
-============================================
+# Simulation Managers
+
+The most important control interface in angr is the SimulationManager, which allows you to control symbolic execution over groups of states simultaneously, applying search strategies to explore a program's state space.
+Here, you'll learn how to use it.
 
 Path groups are just a bunch of paths being executed at once. They are also the future.
 

@@ -161,7 +161,10 @@ Finally, if you try reading some more registers you may encounter a very strange
 <BV64 reg_48_11_64{UNINITIALIZED}>
 ```
 
-This is still a 64-bit bitvector, but it doesn't contain a numerical value. Instead, it has a name! This is called a _symbolic variable_ and it is the underpinning of symbolic execution. Don't panic! We will discuss all of this in detail in the _very_ next chapter of this book.
+This is still a 64-bit bitvector, but it doesn't contain a numerical value.
+Instead, it has a name!
+This is called a _symbolic variable_ and it is the underpinning of symbolic execution.
+Don't panic! We will discuss all of this in detail exactly two chapters from now.
 
 #### Simulation Managers
 

@@ -232,7 +232,7 @@ Variables are not tied to any one state, and can exist freely.
 
 ## More Solving Methods
 
-TODO: write this as soon as the new API exists
+TODO: write this as soon as the new API exists. Include any_n_int, solve-as-string
 
 ## Floating point numbers
 
@@ -249,7 +249,6 @@ TODO
 | Concat | Concatenates any number of expressions together into a new expression. | `x.concat(y, ...)` |
 | RotateLeft | Rotates an expression left. | `x.RotateLeft(8)` |
 | RotateRight | Rotates an expression right. | `x.RotateRight(8)` |
-| Reverse | Reverses the bytes of an expression. | `x.reversed` |
 | And | Logical And (on boolean expressions) | `solver.And(x == y, x > 0)` |
 | Or | Logical Or (on boolean expressions) | `solver.Or(x == y, y < 10)` |
 | Not | Logical Not (on a boolean expression) | `solver.Not(x == y)` is the same as `x != y` |
@@ -263,3 +262,6 @@ TODO
 | SGE | Signed greater than or equal to. | Check if x is greater than or equal to y: `x.SGE(y)` |
 | SGT | Signed greater than. | Check if x is greater than y: `x.SGT(y)` |
 
+## Extra Operations
+
+TODO: document fun stuff like chop, reverse, variables, symbolic...

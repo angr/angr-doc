@@ -11,7 +11,7 @@ Regardless, there are a lot of optimizations and tweaks you can use to make angr
 - *Don't load shared libraries unless you need them*.
   The default setting in angr is to try at all costs to find shared libraries that are compatible with the binary you've loaded, including loading them straight out of your OS libraries.
   This can complicate things in a lot of scenarios.
-  If you're performing an analysis that's anything more abstract than bare-bones symbolic execution, you might want to make the tradeoff of sacrificing accuracy for tractability.
+  If you're performing an analysis that's anything more abstract than bare-bones symbolic execution, ESPECIALLY control-flow graph construction, you might want to make the tradeoff of sacrificing accuracy for tractability.
   angr does a reasonable job of making sane things happen when library calls to functions that don't exist try to happen.
 - *Use hooking and SimProcedures*.
   If you're enabling shared libraries, then you definitely want to have SimProcedures written for any complicated library function you're jumping into.

@@ -273,6 +273,8 @@ True
 ```
 
 Furthermore, you can use `proj.hook_symbol(name, hook)`, providing the name of a symbol as the first argument, to hook the address where the symbol lives.
+One very important usage of this is to extend the behavior of angr's built-in library SimProcedures.
+Since these library functions are just classes, you can subclass them, overriding pieces of their behavior, and then use your subclass in a hook.
 
 ## So far so good!
 

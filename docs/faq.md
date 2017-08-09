@@ -1,59 +1,43 @@
-# FAQ
+# Frequently Asked Questions
 
 This is a collection of commonly-asked "how do I do X?" questions and other general questions about angr, for those too lazy to read this whole document.
 
-## How do I load a binary?
+If your question is of the form "how do I fix X issue", see also the Troubleshooting section of the [install instructions](../INSTALL.md).
 
-A binary is loaded by doing:
+## Why is it named angr?
+The core of angr's analysis is on VEX IR, and when something is vexing, it makes you angry.
 
-```python
-p = angr.Project("/path/to/your/binary")
-```
+## How should "angr" be stylized?
+All lowercase, even at the beginning of sentences. It's an anti-proper noun.
 
-## Why am I getting terrifying error messages from LibVEX printed to stderr?
-
-This is something that LibVEX does when it gets fed invalid instructions.
-VEX is not designed for static analysis, it's designed for instrumentation, so it's mode of handling bad data is to freak out as badly as it possibly can.
-There's no way of shutting it up, short of patching it.
-
-We've already patched VEX so that instead of exiting, bringing down the python interpreter with it, it sends up a message that turns into a python exception than can later be caught by analysis.
-Long story short, *this should not affect your analysis if you're just using builtin angr routines.*
-
-## How can I get verbose debug messages for specific angr modules ?
-
+## How can I get diagnostic information about what angr is doing?
 angr uses the standard `logging` module for logging, with every package and submodule creating a new logger.
 
-### Debug messages for everything
-The most simple way to get a debug output is the following:
+The simplest way to get debug output is the following:
 ```python
 import logging
-logging.basicConfig(level=logging.DEBUG) # ajust to the wanted debug level
+logging.getLogger('angr').setLevel('DEBUG')
 ```
 
-You may want to use `logging.INFO` or whatever else instead.
+You may want to use `INFO` or whatever else instead.
+By default, angr will enable logging at the `WARNING` level.
 
-### More granular control
-Each angr module has its own logger string, usually all the python modules
-above it in the hierarchy, plus itself, joined with dots. For example,
-`angr.analyses.cfg`. Because of the way the python logging module works, you
-can set the verbosity for all submodules in a module by setting a verbosity
-level for the parent module. For example, `logging.getLogger('angr.analyses').setLevel(logging.INFO)`
-will make the CFG, as well as all other analyses, log at the INFO level.
+Each angr module has its own logger string, usually all the python modules above it in the hierarchy, plus itself, joined with dots.
+For example, `angr.analyses.cfg`.
+Because of the way the python logging module works, you can set the verbosity for all submodules in a module by setting a verbosity level for the parent module.
+For example, `logging.getLogger('angr.analyses').setLevel('INFO')` will make the CFG, as well as all other analyses, log at the INFO level.
 
-### Automatic log settings
-If you're using angr through IPython, you can add a startup script in your
-IPython profile to set various logging levels.
+## Why is angr so slow?
+[It's complicated!](speed.md)
 
-
-## Why is a CFG taking forever to construct?
-You want to load the binary without shared libraries loaded. If they are loaded,
-like they are by default, the analysis will try to construct a CFG through your
-libraries, which is almost always a really bad idea. Add the following option
-to your `Project` constructor call: `load_options={'auto_load_libs': False}`
-
+## How do I find bugs using angr?
+It's complicated!
+The easiest way to do this is to define a "bug condition", for example, "the instruction pointer has become a symbolic variable", and run symbolic exploration until you find a state matching that condition, then dump the input as a testcase.
+However, you will quickly run into the state explosion problem.
+How you address this is up to you.
+Your solution may be as simple as adding an `avoid` condition or as complicated as implementing CMU's MAYHEM system as an [Exploration Technique](otiegnqwvk.md).
 
 ## Why did you choose VEX instead of another IR (such as LLVM, REIL, BAP, etc)?
-
 We had two design goals in angr that influenced this choice:
 
 1. angr needed to be able to analyze binaries from multiple architectures. This mandated the use of an IR to preserve our sanity, and required the IR to support many architectures.
@@ -76,7 +60,6 @@ To support multiple IRs, we'll either want to abstract these things or translate
 
 
 ### My load options are ignored when creating a Project.
-
 CLE options are an optional argument. Make sure you call Project with the following syntax:
 
 ```python
@@ -89,29 +72,11 @@ b = angr.Project('/bin/true', load_options)
 ```
 
 ## Why are some ARM addresses off-by-one?
-
 In order to encode THUMB-ness of an ARM code address, we set the lowest bit to one.
 This convention comes from LibVEX, and is not entirely our choice!
 If you see an odd ARM address, that just means the code at `address - 1` is in THUMB mode.
 
-## I get an exception that says ```AttributeError: 'FFI' object has no attribute 'unpack'``` What do I do?
-
-You have an outdated version of the `cffi` Python module.  angr now requires at least version 1.7 of cffi.
-Try `pip install --upgrade cffi`.  If the problem persists, make sure your operating system hasn't pre-installed an old version of cffi, which pip may refuse to uninstall.
-If you're using a Python virtual environment with the pypy interpreter, ensure you have a recent version of pypy, as it includes a version of cffi which pip will not upgrade.
-
-## When importing angr, I get an exception that says `ImportError: ERROR: fail to load the dynamic library.`
-
-The capstone pip package is sometimes broken. You can reinstall capstone with:
-
-```bash
-pip install -I --no-use-wheel capstone
-```
-
-This will rebuild the dynamic library and your install will work.
-
 ## How do I serialize angr objects?
-
 [Pickle](https://docs.python.org/2/library/pickle.html) will work.
 However, python will default to using an extremely old pickle protocol that does not support more complex python data structures, so you must specify a [more advanced data stream format](https://docs.python.org/2/library/pickle.html#data-stream-format).
 The easiest way to do this is `pickle.dumps(obj, -1)`.
