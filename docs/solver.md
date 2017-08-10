@@ -215,7 +215,7 @@ You can also evaluate more complex expressions, not just single variables.
 # fresh state
 >>> state = proj.factory.entry_state()
 >>> state.add_constraints(x - y >= 4)
->>> state.add_constraints(y > 0))
+>>> state.add_constraints(y > 0)
 >>> state.solver.eval(x)
 5
 >>> state.solver.eval(y)

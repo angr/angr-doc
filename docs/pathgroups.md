@@ -129,7 +129,7 @@ First, we load the binary.
 
 Next, we create a SimulationManager.
 ```python
->>> simgr = p.factory.simgr()
+>>> simgr = proj.factory.simgr()
 ```
 
 Now, we symbolically execute until we find a state that matches our condition (i.e., the "win" condition).
