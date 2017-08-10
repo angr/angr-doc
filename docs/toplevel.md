@@ -69,7 +69,7 @@ This section will also serve as an introduction to several basic angr concepts. 
 First, we have `project.factory.block()`, which is used to extract a [basic block](https://en.wikipedia.org/wiki/Basic_block) of code from a given address. This is an important fact - _angr analyzes code in units of basic blocks._ You will get back a Block object, which can tell you lots of fun things about the block of code:
 
 ```python
->>> block = proj.factory.block(b.entry) # lift a block of code from the program's entry point
+>>> block = proj.factory.block(proj.entry) # lift a block of code from the program's entry point
 <Block for 0x401670, 42 bytes>
 
 >>> block.pp()                          # pretty-print a disassembly to stdout
