@@ -175,13 +175,13 @@ An example will probably be more clear than an explanation here:
 >>> state.add_constraints(x > y)
 >>> state.add_constraints(y > 2)
 >>> state.add_constraints(10 > x)
->>> state.solver.any_int(x)
+>>> state.solver.eval(x)
 4
 ```
 
 By adding these constraints to the state, we've forced the constraint solver to consider them as assertions that must be satisfied about any values it returns.
 If you run this code, you might get a different value for x, but that value will definitely be greater than 3 (since y must be greater than 2 and x must be greater than y) and less than 10.
-Furthermore, if you then say `state.solver.any_int(y)`, you'll get a value of y which is consistent with the value of x that you got.
+Furthermore, if you then say `state.solver.eval(y)`, you'll get a value of y which is consistent with the value of x that you got.
 If you don't add any constraints between two queries, the results will be consistent with each other.
 
 From here, it's easy to see how to do the task we proposed at the beginning of the chapter - finding the input that produced a given output.
@@ -193,7 +193,7 @@ From here, it's easy to see how to do the task we proposed at the beginning of t
 >>> operation = (((input + 4) * 3) >> 1) + input
 >>> output = 200
 >>> state.add_constraints(operation == output)
->>> state.se.any_int(input)
+>>> state.se.eval(input)
 0x3333333333333381
 ```
 
@@ -216,16 +216,16 @@ You can also evaluate more complex expressions, not just single variables.
 >>> state = proj.factory.entry_state()
 >>> state.add_constraints(x - y >= 4)
 >>> state.add_constraints(y > 0))
->>> state.solver.any_int(x)
+>>> state.solver.eval(x)
 5
->>> state.solver.any_int(y)
+>>> state.solver.eval(y)
 1
->>> state.solver.any_int(x + y)
+>>> state.solver.eval(x + y)
 6
 ```
 
-From this we can see that `any_int` is a general purpose method to convert any bitvector into a python primitive while respecting the integrity of the state.
-This is why we use `any_int` to convert from concrete bitvectors to python ints, too!
+From this we can see that `eval` is a general purpose method to convert any bitvector into a python primitive while respecting the integrity of the state.
+This is why we use `eval` to convert from concrete bitvectors to python ints, too!
 
 Also note that the x and y variables can be used in this new state despite having been created using an old state.
 Variables are not tied to any one state, and can exist freely.

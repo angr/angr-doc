@@ -127,7 +127,7 @@ We'll learn all about how to work with them soon, but for now, here's how to con
 ```python
 >>> bv = state.solver.BVV(0x1234, 32)       # create a 32-bit-wide bitvector with value 0x1234
 <BV32 0x1234>                               # BVV stands for bitvector value
->>> state.solver.any_int(bv)                # convert to python int
+>>> state.solver.eval(bv)                # convert to python int
 0x1234
 ```
 

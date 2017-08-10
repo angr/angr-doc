@@ -206,7 +206,7 @@ def solve_flag_5():
         found.add_constraints(is_alnum(found, mem.get_byte(i)))
     return found.se.eval(mem, cast_to=str).split('\x00')[0]
     # more than one solution could, for example, be returned like this:
-    # return map(lambda s: s.split('\x00')[0], found.se.any_n_str(mem, 10))
+    # return map(lambda s: s.split('\x00')[0], found.se.eval_upto(mem, 10, cast_to=str))
 
 
 class read_6_ints(angr.SimProcedure):
