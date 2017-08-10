@@ -204,7 +204,7 @@ We've just performed a basic block's worth of symbolic execution! We can look at
 
 angr comes pre-packaged with several built-in analyses that you can use to extract some fun kinds of information from a program. Here they are:
 
-```python
+```
 >>> proj.analyses.            # Press TAB here in ipython to get an autocomplete-listing of everything:
  proj.analyses.BackwardSlice        proj.analyses.CongruencyCheck      proj.analyses.reload_analyses       
  proj.analyses.BinaryOptimizer      proj.analyses.DDG                  proj.analyses.StaticHooker          
@@ -222,7 +222,7 @@ A couple of these are documented later in this book, but in general, if you want
 # Originally, when we loaded this binary it also loaded all its dependencies into the same virtual address  space
 # This is undesirable for most analysis.
 >>> proj = angr.Project('/bin/true', auto_load_libs=False)
->>> cfg = proj.CFGFast()
+>>> cfg = proj.analyses.CFGFast()
 <CFGFast Analysis Result at 0x2d85130>
 
 # cfg.graph is a networkx DiGraph full of CFGNode instances
