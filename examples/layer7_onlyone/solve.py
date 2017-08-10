@@ -72,7 +72,7 @@ def main():
     # Our input - solve it!
     input_string = final_state.memory.load(str_ptr, 10)
     print "Solving..."
-    candidates = final_state.se.any_n_int(input_string, 2)
+    candidates = final_state.se.eval_upto(input_string, 2)
 
     assert len(candidates) == 1
     return hex(candidates[0])[2 : -1].decode('hex')

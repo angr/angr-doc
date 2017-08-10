@@ -162,7 +162,7 @@ def main():
 
 
     # Print solutions
-    possible = found.se.any_n_int(buffer, 1)
+    possible = found.se.eval_upto(buffer, 1)
     for i, f in enumerate(possible):
         out = "%x" % f
         if len(out) < (0x20*2):

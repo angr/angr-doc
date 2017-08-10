@@ -127,7 +127,7 @@ def solve_flag_3():
                 found = p
                 found.stack_pop() # ignore, our args start at offset 0x8
 
-                iter_sol = found.se.any_n_int(found.stack_pop(), 10) # ask for up to 10 solutions if possible
+                iter_sol = found.se.eval_upto(found.stack_pop(), 10) # ask for up to 10 solutions if possible
                 for sol in iter_sol:
 
                     if sol == None:
