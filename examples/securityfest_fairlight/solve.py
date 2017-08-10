@@ -21,7 +21,7 @@ def main():
     sm = proj.factory.simgr(initial_state)
     sm.explore(find=0x4018f7, avoid=0x4018f9)
     found = sm.found[0]
-    return found.se.any_str(argv1)
+    return found.se.eval(argv1, cast_to=str)
 
 
 def test():

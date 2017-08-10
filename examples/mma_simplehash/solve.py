@@ -93,7 +93,7 @@ def main():
     sm.explore(find=0x8048A94, avoid=0x8048AF6)
 
     # We're done!
-    return sm.found[0].se.any_str(sm.found[0].memory.load(0x080491A0, 100)).strip('\0\n')
+    return sm.found[0].se.eval(sm.found[0].memory.load(0x080491A0, 100), cast_to=str).strip('\0\n')
 
 def test():
     assert main() == 'EwgHWpyND'

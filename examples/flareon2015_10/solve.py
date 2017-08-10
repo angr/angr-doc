@@ -43,7 +43,7 @@ def main():
     proc_big_68.perform_call(0)
     state = proc_big_68.result_state
     # Load the string from memory
-    return hex(state.se.any_int(state.memory.load(ARRAY_ADDRESS, 40)))[2:-1].decode('hex').strip('\0')
+    return hex(state.se.eval(state.memory.load(ARRAY_ADDRESS, 40)))[2:-1].decode('hex').strip('\0')
 
 def test():
     assert main() == "unconditional_conditions@flare-on.com"

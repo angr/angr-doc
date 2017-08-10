@@ -65,8 +65,8 @@ def main():
                                 char == ord(GOAL_HASH[i]))
 
     # Solve for password that will result in the required hash
-    print found_s.se.any_str(found_s.memory.load(ADDR_PW_ORI+0, 1)) + \
-          found_s.se.any_str(found_s.memory.load(ADDR_PW_ORI+1, LEN_PW-1))
+    print found_s.se.eval(found_s.memory.load(ADDR_PW_ORI+0, 1), cast_to=str) + \
+          found_s.se.eval(found_s.memory.load(ADDR_PW_ORI+1, LEN_PW-1), cast_to=str)
 
 def test():
     main()

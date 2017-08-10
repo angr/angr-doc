@@ -156,7 +156,7 @@ def main():
     hash_map = get_hash_map(hash_addr)
     for addr, value in hash_map:
         buf_ptr = found.memory.load(addr, 1)
-        possible = found.se.any_int(buf_ptr)
+        possible = found.se.eval(buf_ptr)
         result.append((hex(addr), "0x%x" % possible))
     print "Result is '%s'\n\n" % result
 

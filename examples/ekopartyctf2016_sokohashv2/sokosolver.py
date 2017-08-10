@@ -13,7 +13,7 @@ def to_asmstring(state, addr, length):
     global p
     project = p
     try:
-        conc = state.se.any_int
+        conc = state.se.eval
         addr =  conc(addr)
         code = "".join(project.loader.memory.read_bytes(addr,length))
         md = project.arch.capstone
@@ -27,7 +27,7 @@ def to_asmstring(state, addr, length):
 def debug_func(state):
     print to_asmstring(state, state.regs.eip, 10)
 
-    addr = state.se.any_int(state.regs.eip)
+    addr = state.se.eval(state.regs.eip)
     print hex(addr)
 
 #######################################
@@ -75,7 +75,7 @@ def get_table(state):
 	end_addr = 0x0041E0D0
 
 	t = []
-	conc = state.se.any_int
+	conc = state.se.eval
 	while current_addr < end_addr:
 		n = conc(state.memory.load(current_addr, 8))
 		pn = struct.unpack(">Q", struct.pack("<Q", n))[0]
@@ -173,7 +173,7 @@ found_s = sm.found[0]
 
 conds=[]
 
-conc = initial_state.se.any_int #this is used to concrete an symbolic value
+conc = initial_state.se.eval #this is used to concrete an symbolic value
 
 for addr, value in get_hash_map(0x04216C0):
     memory = found_s.memory.load(addr, 1, endness=p.arch.memory_endness)
@@ -192,16 +192,16 @@ found_s.add_constraints(found_s.se.And(*conds))
 #	model will returns the values expected to reath the model in found_s state
 
 import binascii
-solution1 = found_s.se.any_int(r1)
+solution1 = found_s.se.eval(r1)
 print "x: ", hex(solution1)
 
-solution2 = found_s.se.any_int(r2)
+solution2 = found_s.se.eval(r2)
 print "y: ", hex(solution2)
 
-solution3 = found_s.se.any_int(r3)
+solution3 = found_s.se.eval(r3)
 print "z:", hex(solution3)
 
-solution4 = found_s.se.any_int(r4)
+solution4 = found_s.se.eval(r4)
 print "w:", hex(solution4)
 ##############################################
 

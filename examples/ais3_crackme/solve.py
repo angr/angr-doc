@@ -25,8 +25,8 @@ def main():
     sm.explore(find=0x400602) #at this instruction the binary will print the "correct" message
 
     found = sm.found[0]
-    #ask to the symbolic solver to get the value of argv1 in the reached state
-    solution = found.se.any_str(argv1)
+    #ask to the symbolic solver to get the value of argv1 in the reached state as a string
+    solution = found.se.eval(argv1, cast_to=str)
 
     print repr(solution)
     solution = solution[:solution.find("\x00")]

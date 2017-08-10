@@ -60,7 +60,7 @@ def main():
     for i, c in enumerate(shouldbe):
         fstate.se.add(fstate.memory.load(0x616050 + i, 1) == ord(c))                                # constrain the output to what we were told it should be
 
-    cflag = hex(fstate.se.any_int(flag))[2:-1].decode('hex')                                        # solve for the flag!
+    cflag = hex(fstate.se.eval(flag))[2:-1].decode('hex')                                        # solve for the flag!
     return cflag
 
 def test():

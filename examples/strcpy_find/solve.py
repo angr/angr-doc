@@ -105,9 +105,9 @@ def main():
             '''
              Now that we have the contents of the source buffer in the form of a bit
              vector, we grab its string representation using the current state's
-             solver engine's function "any_str".
+             solver engine's function "eval" with cast_to set to str so we get a python string.
             '''
-            strCpySrc = state.se.any_str( BV_strCpySrc )
+            strCpySrc = state.se.eval( BV_strCpySrc , cast_to=str )
             '''
              Now we simply return True (found path) if we've found a path to strcpy
              where we control the source buffer, or False (keep looking for paths) if we
@@ -141,7 +141,7 @@ def main():
     '''
     if ( len( found ) > 0 ):    #   Make sure we found a path before giving the solution
         found = sm.found[0]
-        result = found.se.any_str(argv[1])
+        result = found.se.eval(argv[1], cast_to=str)
         try:
             result = result[:result.index('\0')]
         except ValueError:

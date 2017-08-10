@@ -98,10 +98,10 @@ def generate_input(p, to_find, to_avoid, byte_addresses):
         #Save the solutions
         found = sm.found[0]
         address_local = byte_addresses[i]
-        input[address_local[3]] = found.se.any_int(rdi)
-        input[address_local[2]] = found.se.any_int(rsi)
-        input[address_local[1]] = found.se.any_int(rdx)
-        input[address_local[0]] = found.se.any_int(rcx)
+        input[address_local[3]] = found.se.eval(rdi)
+        input[address_local[2]] = found.se.eval(rsi)
+        input[address_local[1]] = found.se.eval(rdx)
+        input[address_local[0]] = found.se.eval(rcx)
 
     return input
 

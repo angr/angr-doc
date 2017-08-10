@@ -62,7 +62,7 @@ def main():
     # In case it's not null-terminated, we get the least number as the length
     flag_length_int = min(found.se.any_n_int(flag_length, 3))
     # Read out the flag!
-    flag_int = found.se.any_int(found.memory.load(flag_addr, flag_length_int))
+    flag_int = found.se.eval(found.memory.load(flag_addr, flag_length_int))
     flag = hex(flag_int)[2:-1].decode("hex")
     return flag
 

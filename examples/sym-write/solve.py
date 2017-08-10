@@ -39,7 +39,7 @@ def main():
 	# Alternatively, you can hardcode the addresses.
 	# sm.explore(find=0x80484e3, avoid=0x80484f5)
 
-	return sm.found[0].se.any_int(u)
+	return sm.found[0].se.eval(u)
 
 
 def test():

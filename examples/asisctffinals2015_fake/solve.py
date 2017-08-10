@@ -50,10 +50,10 @@ def main():
     # if there are less constraints. I added all constraints just to stay on the 
     # safe side.
 
-    flag = found.se.any_int(found.memory.load(flag_addr, 8 * 5))
+    flag = found.se.eval(found.memory.load(flag_addr, 8 * 5))
     return hex(flag)[2:-1].decode("hex").strip('\0')
 
-    #print "The number to input: ", found.se.any_int(unconstrained_number)
+    #print "The number to input: ", found.se.eval(unconstrained_number)
     #print "Flag:", flag
 
     # The number to input:  25313971399
