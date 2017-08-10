@@ -105,7 +105,7 @@ It can be used as so:
 >>>#print tuple(c.iter_returns(solution=1))
 
 # now let's see the required username and password to reach that point. `c.map_se`
-# calls state.se.any_n_str (or whatever other function is provided) for the provided
+# calls state.se.eval_upto (or whatever other function is provided) for the provided
 # arguments, on each return state. This example runs state.se.eval_upto(credentials, 10)
 >>>#credentials = username.concat(password)
 >>>#tuple(c.map_se('eval_upto', credentials, 10, solution=1, cast_to=str))
