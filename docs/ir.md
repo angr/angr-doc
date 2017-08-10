@@ -67,7 +67,7 @@ Let's play with PyVEX:
 >>> import angr
 
 # load the program binary
->>> b = angr.Project("/bin/true")
+>>> proj = angr.Project("/bin/true")
 
 # translate the starting basic block
 >>> irsb = proj.factory.block(proj.entry).vex

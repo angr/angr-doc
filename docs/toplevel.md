@@ -5,7 +5,7 @@ We'll go over this by examining what's directly available to you after you've lo
 
 Your first action with angr will always be to load a binary into a _project_. We'll use `/bin/true` for these examples.
 
-```py
+```python
 >>> import angr
 >>> proj = angr.Project('/bin/true')
 ```
