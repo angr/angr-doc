@@ -116,11 +116,12 @@ Unless the op is `BVV` or `BVS` (or a few others...), the args are all other AST
 (1, 64)
 ```
 
+From here on out, we will use the word "bitvector" to refer to any AST whose topmost operation produces a bitvector.
+There can be other data types represented through ASTs, including floating point numbers and, as we're about to see, booleans.
+
 ## Symbolic Constraints
 
-We can also perform comparisons with these bitvectors!
-
-Performing comparison operations will yield another AST - not a bitvector, but now a symbolic boolean.
+Performing comparison operations between any two similarly-typed ASTs will yield another AST - not a bitvector, but now a symbolic boolean.
 
 ```python
 >>> x == 1

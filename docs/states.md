@@ -4,13 +4,61 @@ So far, we've only used angr's simulated program states (`SimState` objects) in 
 
 ## Review: Reading and writing memory and registers
 
-TODO: review from toplevel.md
+If you've been reading this book in order (and you should be, at least for this first section), you already saw the basics of how to access memory and registers.
+`state.regs` provides read and write access to the registers through attributes with the names of each register, and `state.mem` provides typed read and write access to memory with index-access notation to specify the address followed by an attribute access to specify the type you would like to interpret the memory as.
 
-## Kinds of States
+Additionally, you should now know how to work with ASTs, so you can now understand that any bitvector-typed AST can be stored in registers or memory.
 
-TODO: blank_state, entry_state, full_init_state, call_state
+Here are some quick examples for copying and performing operations on data from the state:
 
-the `args` and `env` keyword args work on `entry_state` and `full_init_state`, and are a list and a dict, respectively, of strings or bitvectors, which can represent a variety of concrete and symbolic strings.
+```python
+>>> import angr
+>>> proj = angr.Project('/bin/true')
+>>> state = proj.factory.entry_state()
+
+# copy rsp to rbp
+>>> state.regs.rbp = state.regs.rsp
+
+# store rdx to memory at 0x1000
+>>> state.mem[0x1000].uint64_t = state.regs.rdx
+
+# dereference rbp
+>>> state.regs.rbp = state.mem[state.regs.rbp].uint64_t.resolved
+
+# add rax, qword ptr [rsp + 8]
+>>> state.regs.rax += state.mem[state.regs.rsp + 8].uint64_t.resolved
+```
+
+## State Presets
+
+So far, whenever we've been working with a state, we've created it with `project.factory.entry_state()`.
+This is just one of several *state constructors* available on the project factory:
+
+- `.blank_state()` constructs a "blank slate" blank state, with most of its data left uninitialized.
+  When accessing uninitialized data, an unconstrained symbolic value will be returned.
+- `.entry_state()` constructs a state ready to execute at the main binary's entry point.
+- `.full_init_state()` constructs a state that is ready to execute through any initializers that need to be run before the main binary's entry point, for example, shared library constructors or preinitializers.
+  When it is finished with these it will jump to the entry point.
+- `.call_state()` constructs a state ready to execute a given function.
+
+You can customize the state through several arguments to these constructors:
+
+- All of these constructors can take an `addr` argument to specify the exact address to start.
+
+- If you're executing in an environment that can take command line arguments or an environment, you can pass a list of arguments through `args` and a dictionary of environment variables through `env` into `entry_state` and `full_init_state`.
+  The values in these structures can be strings or bitvectors, and will be serialized into the state as the arguments and environment to the simulated execution.
+  The default `args` is an empty list, so if the program you're analyzing expects to find at least an `argv[0]`, you should always provide that!
+
+- If you'd like to have `argc` be symbolic, you can pass a symbolic bitvector as `argc` to the `entry_state` and `full_init_state` constructors.
+  Be careful, though: if you do this, you should also add a constraint to the resulting state that your value for argc cannot be larger than the number of args you passed into `args`.
+  
+- To use the call state, you should call it with `.call_state(addr, (arg1, arg2, ...))`, where `addr` is the address of the function you want to call and `argN` is the Nth argument to that function, either as a python integer, string, or an AST.
+  If you want to have memory allocated and actually pass in a pointer to an object, you should wrap it in a PointerWrapper, i.e. `proj.factory.call_state.PointerWrapper("point to me!")`.
+  The results of this API can be a little unpredictable, but we're working on it.
+  
+- To specify the calling convention used for a function with `call_state`, you can pass a [`SimCC` instance](http://angr.io/api-doc/angr.html#module-angr.calling_conventions) as the `cc` argument.    
+
+There are several more options that can be used in any of these constructors, which we will describe below.
 
 ## Basic Execution
 

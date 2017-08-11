@@ -120,7 +120,7 @@ A SimState contains a program's memory, registers, filesystem data... any "live 
 <BV32 0x8949ed31>
 ```
 
-Those aren't python ints! Those are _bitvectors_. Python integers don't have the same semantics as words on a CPU, e.g. wrapping on overflow, so we work with bitvectors, which you can think of as an integer as represented by a series of bits, to represent CPU data in angr. Note that each bitvector has a `.size` property describing how large it is.
+Those aren't python ints! Those are _bitvectors_. Python integers don't have the same semantics as words on a CPU, e.g. wrapping on overflow, so we work with bitvectors, which you can think of as an integer as represented by a series of bits, to represent CPU data in angr. Note that each bitvector has a `.length` property describing how wide it is in bits.
 
 We'll learn all about how to work with them soon, but for now, here's how to convert from python ints to bitvectors and back again:
 
@@ -146,7 +146,7 @@ You can store these bitvectors back to registers and memory, or you can directly
 The `mem` interface is a little confusing at first, since it's using some pretty hefty python magic. The short version of how to use it is:
 
 * Use array\[index\] notation to specify an address
-* Use `.<type>` to specify that the memory should be interpreted as &lt;type&gt; \(common values: char, short, int, long, size\_t, dword, qword\)
+* Use `.<type>` to specify that the memory should be interpreted as &lt;type&gt; \(common values: char, short, int, long, size_t, uint8_t, uint16_t...\)
 * From there, you can either:
   * Store a value to it, either a bitvector or a python int
   * Use `.resolved` to get the value as a bitvector
