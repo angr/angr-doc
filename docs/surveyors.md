@@ -21,7 +21,7 @@ You have to see it for yourself:
 
 ```python
 >>> import angr
->>> b = angr.Project('examples/fauxware/fauxware')
+>>> proj = angr.Project('examples/fauxware/fauxware')
 
 # By default, a Surveyor starts at the entry point of the program, with
 # an exit created by calling `Project.initial_exit` with default arguments.
