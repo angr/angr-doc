@@ -17,6 +17,7 @@ from angr.procedures.stubs.UserHook import UserHook
 ARRAY_ADDRESS = 0x29f210
 BIG_PROC = 0x2d2e0
 
+@p.hook(0xadc31, length=0)
 def before_tea_decrypt(state):
     # Here we want to set the value of the byte array starting from 0x29f210
     # I got those bytes by using cross-reference in IDA
@@ -33,7 +34,7 @@ def main():
     # Set a zero-length hook, so our function got executed before calling the
     # function tea_decrypt(0x100f0), and then we can keep executing the original
     # code. Thanks to this awesome design by @rhelmot!
-    p.hook(0xadc31, UserHook(), kwargs={'user_func': before_tea_decrypt, 'length': 0})
+    p.hook(0xadc31, before_tea_decrypt, length=0)
 
     # Declare the prototype of the target function
     prototype = SimTypeFunction((SimTypeInt(False),), SimTypeInt(False))
