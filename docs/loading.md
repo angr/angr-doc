@@ -155,7 +155,7 @@ False
 
 # On Loader, the method is find_symbol because it performs a search operation to find the symbol.
 # On an individual object, the method is get_symbol because there can only be one symbol with a given name.
->>> main_malloc = project.loader.main_object.get_symbol("malloc")
+>>> main_malloc = proj.loader.main_object.get_symbol("malloc")
 >>> main_malloc
 <Symbol "malloc" in true (import)>
 >>> main_malloc.is_export
