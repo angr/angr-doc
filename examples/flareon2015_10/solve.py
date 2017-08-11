@@ -17,7 +17,6 @@ from angr.procedures.stubs.UserHook import UserHook
 ARRAY_ADDRESS = 0x29f210
 BIG_PROC = 0x2d2e0
 
-@p.hook(0xadc31, length=0)
 def before_tea_decrypt(state):
     # Here we want to set the value of the byte array starting from 0x29f210
     # I got those bytes by using cross-reference in IDA
