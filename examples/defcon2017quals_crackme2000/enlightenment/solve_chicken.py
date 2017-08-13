@@ -106,7 +106,7 @@ def solve(s):
         for state in sm.deadended:
             if not state.satisfiable():
                 continue
-            char_n = state.se.any_n_int(char, 2)
+            char_n = state.se.eval_upto(char, 2)
             if len(char_n) == 2:
                 continue
             the_char = char_n[0]

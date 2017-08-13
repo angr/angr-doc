@@ -19,7 +19,7 @@ def main():
     sm.explore(find=0x40106b, avoid=0x401072)
     # print the string
     found_state = sm.found[0]
-    return found_state.se.any_str(found_state.memory.load(0x402159, 40)).strip('\0')
+    return found_state.se.eval(found_state.memory.load(0x402159, 40), cast_to=str).strip('\0')
 
 def test():
     assert main() == 'a_Little_b1t_harder_plez@flare-on.com'

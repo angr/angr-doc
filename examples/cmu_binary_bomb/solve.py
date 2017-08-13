@@ -48,7 +48,7 @@ def solve_flag_1():
 
     if ex.found:
         found = ex.found[0]
-        return found.se.any_str(arg).rstrip(chr(0)) # remove ending \0
+        return found.se.eval(arg, cast_to=str).rstrip(chr(0)) # remove ending \0
 
     pass
 
@@ -77,7 +77,7 @@ def solve_flag_2():
         answer = []
 
         for x in xrange(3):
-            curr_int = found.se.any_int(found.stack_pop())
+            curr_int = found.se.eval(found.stack_pop())
 
             # We are popping off 8 bytes at a time
             # 0x0000000200000001
@@ -127,7 +127,7 @@ def solve_flag_3():
                 found = p
                 found.stack_pop() # ignore, our args start at offset 0x8
 
-                iter_sol = found.se.any_n_int(found.stack_pop(), 10) # ask for up to 10 solutions if possible
+                iter_sol = found.se.eval_upto(found.stack_pop(), 10) # ask for up to 10 solutions if possible
                 for sol in iter_sol:
 
                     if sol == None:
@@ -163,8 +163,8 @@ def solve_flag_4():
     # stopped on the ret account for the stack
     # that has already been moved
 
-    answer = unpack('II', found.se.any_str(
-        found.memory.load(found.regs.rsp - 0x18 + 0x8, 8)))
+    answer = unpack('II', found.se.eval(
+        found.memory.load(found.regs.rsp - 0x18 + 0x8, 8), cast_to=str))
 
     return ' '.join(map(str, answer))
 
@@ -204,9 +204,9 @@ def solve_flag_5():
     mem = found.memory.load(string_addr, 32)
     for i in xrange(32):
         found.add_constraints(is_alnum(found, mem.get_byte(i)))
-    return found.se.any_str(mem).split('\x00')[0]
+    return found.se.eval(mem, cast_to=str).split('\x00')[0]
     # more than one solution could, for example, be returned like this:
-    # return map(lambda s: s.split('\x00')[0], found.se.any_n_str(mem, 10))
+    # return map(lambda s: s.split('\x00')[0], found.se.eval_upto(mem, 10, cast_to=str))
 
 
 class read_6_ints(angr.SimProcedure):
@@ -234,7 +234,7 @@ def solve_flag_6():
     sm.explore(find=find, avoid=avoid)
     found = sm.found[0]
 
-    answer = [found.se.any_int(x) for x in read_6_ints.answer_ints]
+    answer = [found.se.eval(x) for x in read_6_ints.answer_ints]
     return ' '.join(map(str, answer))
 
 def solve_secret():
@@ -255,7 +255,7 @@ def solve_secret():
     ### flag found
     found = sm.found[0]
     flag = found.se.BVS("flag", 64, explicit_name="True")
-    return str(found.se.any_int(flag))
+    return str(found.se.eval(flag))
 
 def main():
 #   print "Flag    1: " + solve_flag_1()

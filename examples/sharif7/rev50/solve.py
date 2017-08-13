@@ -106,7 +106,7 @@ def solve(_file):
     # retrieve the 43 bytes (e.g. len(flag)) at flag_addr
     solve_var = sm.found[0].memory.load(flag_addr, len(FLAG_STR))
     # and convert it into a string:
-    solved_flag = sm.found[0].se.any_str(solve_var)
+    solved_flag = sm.found[0].se.eval(solve_var, cast_to=str)
 
     return solved_flag
 

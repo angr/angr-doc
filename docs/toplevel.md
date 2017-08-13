@@ -5,7 +5,7 @@ We'll go over this by examining what's directly available to you after you've lo
 
 Your first action with angr will always be to load a binary into a _project_. We'll use `/bin/true` for these examples.
 
-```py
+```python
 >>> import angr
 >>> proj = angr.Project('/bin/true')
 ```
@@ -69,7 +69,7 @@ This section will also serve as an introduction to several basic angr concepts. 
 First, we have `project.factory.block()`, which is used to extract a [basic block](https://en.wikipedia.org/wiki/Basic_block) of code from a given address. This is an important fact - _angr analyzes code in units of basic blocks._ You will get back a Block object, which can tell you lots of fun things about the block of code:
 
 ```python
->>> block = proj.factory.block(b.entry) # lift a block of code from the program's entry point
+>>> block = proj.factory.block(proj.entry) # lift a block of code from the program's entry point
 <Block for 0x401670, 42 bytes>
 
 >>> block.pp()                          # pretty-print a disassembly to stdout
@@ -127,7 +127,7 @@ We'll learn all about how to work with them soon, but for now, here's how to con
 ```python
 >>> bv = state.solver.BVV(0x1234, 32)       # create a 32-bit-wide bitvector with value 0x1234
 <BV32 0x1234>                               # BVV stands for bitvector value
->>> state.solver.any_int(bv)                # convert to python int
+>>> state.solver.eval(bv)                # convert to python int
 0x1234
 ```
 
@@ -204,7 +204,7 @@ We've just performed a basic block's worth of symbolic execution! We can look at
 
 angr comes pre-packaged with several built-in analyses that you can use to extract some fun kinds of information from a program. Here they are:
 
-```python
+```
 >>> proj.analyses.            # Press TAB here in ipython to get an autocomplete-listing of everything:
  proj.analyses.BackwardSlice        proj.analyses.CongruencyCheck      proj.analyses.reload_analyses       
  proj.analyses.BinaryOptimizer      proj.analyses.DDG                  proj.analyses.StaticHooker          
@@ -222,7 +222,7 @@ A couple of these are documented later in this book, but in general, if you want
 # Originally, when we loaded this binary it also loaded all its dependencies into the same virtual address  space
 # This is undesirable for most analysis.
 >>> proj = angr.Project('/bin/true', auto_load_libs=False)
->>> cfg = proj.CFGFast()
+>>> cfg = proj.analyses.CFGFast()
 <CFGFast Analysis Result at 0x2d85130>
 
 # cfg.graph is a networkx DiGraph full of CFGNode instances

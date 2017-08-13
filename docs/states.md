@@ -73,6 +73,9 @@ TODO: state.memory, state.registers
 A state supports very fast copies, so that you can explore different possibilities:
 
 ```python
+>>> import angr
+>>> proj = angr.Project('/bin/true')
+>>> s = proj.factory.blank_state()
 >>> s1 = s.copy()
 >>> s2 = s.copy()
 
@@ -110,7 +113,7 @@ When creating a SimState through any method, you may pass the keyword arguments 
 >>> s.options.add(angr.options.LAZY_SOLVES)
 
 # Create a new state with lazy solves enabled
->>> s9 = b.factory.entry_state(add_options={angr.options.LAZY_SOLVES})
+>>> s9 = proj.factory.entry_state(add_options={angr.options.LAZY_SOLVES})
 ```
 
 ## State Plugins

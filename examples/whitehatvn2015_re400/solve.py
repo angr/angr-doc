@@ -60,7 +60,7 @@ def main():
     )
     ex.run()
 
-    possible_flags = ex.found[0].se.any_n_int(argv[1], 20)
+    possible_flags = ex.found[0].se.eval_upto(argv[1], 20)
     for i, f in enumerate(possible_flags):
         print "Flag %d:" % i, hex(f)[2:-1].decode("hex")
 

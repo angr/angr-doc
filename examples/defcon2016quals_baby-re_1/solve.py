@@ -45,7 +45,7 @@ def main():
 
     print(ex)
     s = ex.found[0]
-    flag = s.se.any_str(s.memory.load(flag_addr, 50))
+    flag = s.se.eval(s.memory.load(flag_addr, 50), cast_to=str)
 
     # The flag is 'Math is hard!'
     print("The flag is '{0}'".format(flag))

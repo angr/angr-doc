@@ -33,7 +33,7 @@ def main():
     # Set a zero-length hook, so our function got executed before calling the
     # function tea_decrypt(0x100f0), and then we can keep executing the original
     # code. Thanks to this awesome design by @rhelmot!
-    p.hook(0xadc31, angr.Hook(UserHook, user_func=before_tea_decrypt, length=0))
+    p.hook(0xadc31, before_tea_decrypt, length=0)
 
     # Declare the prototype of the target function
     prototype = SimTypeFunction((SimTypeInt(False),), SimTypeInt(False))
@@ -43,7 +43,7 @@ def main():
     proc_big_68.perform_call(0)
     state = proc_big_68.result_state
     # Load the string from memory
-    return hex(state.se.any_int(state.memory.load(ARRAY_ADDRESS, 40)))[2:-1].decode('hex').strip('\0')
+    return hex(state.se.eval(state.memory.load(ARRAY_ADDRESS, 40)))[2:-1].decode('hex').strip('\0')
 
 def test():
     assert main() == "unconditional_conditions@flare-on.com"

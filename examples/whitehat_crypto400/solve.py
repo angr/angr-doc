@@ -24,13 +24,13 @@ def get_possible_flags():
 
     # this is a statically-linked binary, and it's easer for angr if we use Python
     # summaries for the libc functions
-    p.hook(0x4018B0, angr.SIM_PROCEDURES['glibc']['__libc_start_main'])
-    p.hook(0x422690, angr.SIM_PROCEDURES['libc']['memcpy'])
-    p.hook(0x408F10, angr.SIM_PROCEDURES['libc']['puts'])
+    p.hook(0x4018B0, angr.SIM_PROCEDURES['glibc']['__libc_start_main']())
+    p.hook(0x422690, angr.SIM_PROCEDURES['libc']['memcpy']())
+    p.hook(0x408F10, angr.SIM_PROCEDURES['libc']['puts']())
 
     # this is some anti-debugging initialization. It doesn't do much against angr,
     # but wastes time
-    p.hook(0x401438, angr.SIM_PROCEDURES['stubs']['ReturnUnconstrained'](resolves='nothing'))
+    p.hook(0x401438, angr.SIM_PROCEDURES['stubs']['ReturnUnconstrained']())
     # from playing with the binary, we can easily see that it requires strings of
     # length 8, so we'll hook the strlen calls and make sure we pass an 8-byte
     # string
@@ -76,7 +76,7 @@ def get_possible_flags():
     # for all 8 bytes pushes a lot of complexity to the SAT solver, and it chokes.
     # To avoid this, we're going to get the solutions to 2 bytes at a time, and
     # brute force the combinations.
-    possible_values = [ s.se.any_n_str(s.memory.load(0x6C4B20 + i, 2), 65536) for i in range(0, 8, 2) ]
+    possible_values = [ s.se.eval_upto(s.memory.load(0x6C4B20 + i, 2), 65536, cast_to=str) for i in range(0, 8, 2) ]
     possibilities = tuple(itertools.product(*possible_values))
     return possibilities
 

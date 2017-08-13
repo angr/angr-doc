@@ -21,14 +21,14 @@ You have to see it for yourself:
 
 ```python
 >>> import angr
->>> b = angr.Project('examples/fauxware/fauxware')
+>>> proj = angr.Project('examples/fauxware/fauxware')
 
 # By default, a Surveyor starts at the entry point of the program, with
 # an exit created by calling `Project.initial_exit` with default arguments.
 # This involves creating a default state using `Project.initial_state`.
 # A custom SimExit, with a custom state, can be provided via the optional
 # "start" parameter, or a list of them via the optional "starts" parameter.
->>> e = b.surveyors.Explorer()
+>>> e = proj.surveyors.Explorer()
 
 # Now we can take a few steps! Printing an Explorer will tell you how
 # many active paths it currently has.
@@ -62,7 +62,7 @@ For example, in the `fauxware` sample, we can try to find the "authentication su
 # This creates an Explorer that tries to find 0x4006ed (successful auth),
 # while avoiding 0x4006fd (failed auth) or 0x4006aa (the authentication
 # routine). In essense, we are looking for a backdoor.
->>> e = b.surveyors.Explorer(find=(0x4006ed,), avoid=(0x4006aa,0x4006fd))
+>>> e = proj.surveyors.Explorer(find=(0x4006ed,), avoid=(0x4006aa,0x4006fd))
 >>> e.run()
 
 # Print our found backdoor, and how many paths we avoided!
@@ -86,17 +86,17 @@ It can be used as so:
 
 ```python
 # load fauxware
->>> b = angr.Project('examples/fauxware/fauxware')
+>>> proj = angr.Project('examples/fauxware/fauxware')
 
 # get the state ready, and grab our username and password symbolic expressions for later
 # checking. Here, we'll cheat a bit since we know that username and password should both
 # be 8 chars long
->>> s = b.factory.entry_state()
+>>> s = proj.factory.entry_state()
 >>> username = s.memory.load(0x1000, 9)
 >>> password = s.memory.load(0x2000, 9)
 
 # call the authenticate function with *username being 0x1000 and *password being 0x2000
->>>#c = b.surveyors.Caller(0x400664, (0x1000,0x2000), start=s)
+>>>#c = proj.surveyors.Caller(0x400664, (0x1000,0x2000), start=s)
 
 # look at the different paths that can return. This should print 3 paths:
 >>>#print tuple(c.iter_returns())
@@ -105,10 +105,10 @@ It can be used as so:
 >>>#print tuple(c.iter_returns(solution=1))
 
 # now let's see the required username and password to reach that point. `c.map_se`
-# calls state.se.any_n_str (or whatever other function is provided) for the provided
-# arguments, on each return state. This example runs state.se.any_n_str(credentials, 10)
+# calls state.se.eval_upto (or whatever other function is provided) for the provided
+# arguments, on each return state. This example runs state.se.eval_upto(credentials, 10)
 >>>#credentials = username.concat(password)
->>>#tuple(c.map_se('any_n_str', credentials, 10, solution=1))
+>>>#tuple(c.map_se('eval_upto', credentials, 10, solution=1, cast_to=str))
 
 # you can see the secret password "SOSNEAKY" in the first tuple!
 ```

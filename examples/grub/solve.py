@@ -50,7 +50,7 @@ def find_bug():
             if val.symbolic:
                 vals.append('symbolic')
             else:
-                vals.append(state.se.any_int(val))
+                vals.append(state.se.eval(val))
 
         vals = tuple(vals)
         if vals in unique_states:

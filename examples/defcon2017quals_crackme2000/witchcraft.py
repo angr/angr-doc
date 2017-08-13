@@ -63,7 +63,7 @@ def solve(s):
 
     state = sm.deadended[-1]
     mem = state.memory.load(pos + 0x20, 60)
-    mem_str = state.se.any_str(mem).replace("\x00", "")
+    mem_str = state.se.eval(mem, cast_to=str).replace("\x00", "")
     return mem_str
 
 def main():

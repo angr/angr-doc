@@ -36,8 +36,8 @@ def main():
     # Get the solution string from *(R11 - 0x24).
 
     addr = found.memory.load(found.regs.r11 - 0x24, endness='Iend_LE')
-    concrete_addr = found.se.any_int(addr)
-    solution = found.se.any_str(found.memory.load(concrete_addr,10))
+    concrete_addr = found.se.eval(addr)
+    solution = found.se.eval(found.memory.load(concrete_addr,10), cast_to=str)
 
     return base64.b32encode(solution)
 

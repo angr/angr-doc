@@ -94,9 +94,10 @@ You can interact directly with these objects to extract metadata from them:
 <.text | offset 0x580, vaddr 0x400580, size 0x338>
 
 # Get the address of the PLT stub for a symbol
->>> obj.plt['__libc_start_main']
+>>> addr = obj.plt['__libc_start_main']
+>>> addr
 0x400540
->>> obj.reverse_plt[0x400540]
+>>> obj.reverse_plt[addr]
 '__libc_start_main'
 
 # Show the prelinked base of the object and the location it was actually mapped into memory by CLE
@@ -154,7 +155,7 @@ False
 
 # On Loader, the method is find_symbol because it performs a search operation to find the symbol.
 # On an individual object, the method is get_symbol because there can only be one symbol with a given name.
->>> main_malloc = project.loader.main_object.get_symbol("malloc")
+>>> main_malloc = proj.loader.main_object.get_symbol("malloc")
 >>> main_malloc
 <Symbol "malloc" in true (import)>
 >>> main_malloc.is_export

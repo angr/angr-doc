@@ -59,7 +59,7 @@ def calc_one_byte(p, known_passwords, hook_func, start_addr, load_addr1, load_ad
 
     s0 = sm.active[0].copy()
     s0.add_constraints(getattr(s0.regs, cmp_flag_reg) == 0x1)
-    candidates = s0.se.any_n_int(password[byte_pos], 256)
+    candidates = s0.se.eval_upto(password[byte_pos], 256)
     # assert len(candidates) == 1
 
     return chr(candidates[0])

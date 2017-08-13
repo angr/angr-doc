@@ -129,12 +129,12 @@ First, we load the binary.
 
 Next, we create a SimulationManager.
 ```python
->>> simgr = p.factory.simgr()
+>>> simgr = proj.factory.simgr()
 ```
 
 Now, we symbolically execute until we find a state that matches our condition (i.e., the "win" condition).
 ```python
->> simgr.explore(find=lambda s: "Congrats" in s.posix.dumps(1))
+>>> simgr.explore(find=lambda s: "Congrats" in s.posix.dumps(1))
 <SimulationManager with 1 active, 1 found>
 ```
 

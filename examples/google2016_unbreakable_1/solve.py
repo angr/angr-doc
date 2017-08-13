@@ -27,7 +27,7 @@ INPUT_LENGTH = 0xf2 - 0xc0 + 1 # derived from the first and last character
 
 def extract_memory(state):
     """Convience method that returns the flag input memory."""
-    return state.se.any_str(state.memory.load(INPUT_ADDR, INPUT_LENGTH))
+    return state.se.eval(state.memory.load(INPUT_ADDR, INPUT_LENGTH), cast_to=str)
 
 def char(state, n):
     """Returns a symbolic BitVector and contrains it to printable chars for a given state."""

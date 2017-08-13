@@ -1,6 +1,7 @@
 #!/usr/bin/env python
 # coding: utf-8
 import angr
+import time
 
 def main():
     # Load the binary. This is a 64-bit C++ binary, pretty heavily obfuscated.
@@ -47,4 +48,7 @@ def test():
     assert main() == 'flag{dr4g0n_or_p4tric1an_it5_LLVM}'
 
 if __name__ == "__main__":
+    before = time.time()
     print main()
+    after = time.time()
+    print "Time elapsed: {}".format(after - before)

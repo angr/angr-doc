@@ -43,7 +43,7 @@ def main():
 
     found = sm.found[0] # In our case, there's only one printable solution.
 
-    solution = found.se.any_str(argv1)
+    solution = found.se.eval(argv1, cast_to=str)
     solution = solution[:solution.find("}")+1] # Trim off the null bytes at the end of the flag (if any).
     return solution
 
