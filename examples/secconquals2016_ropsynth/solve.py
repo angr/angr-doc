@@ -90,7 +90,7 @@ def get_gadgets():
         # Here, we set up a stack full of symbolic data so that we can resolve it for the necessary values later.
         # We enable history tracking, since we'll use recorded actions to detect the input checks. Also, since
         # we'll trigger random syscall gadgets, we tell angr to ignore unknown syscalls.
-        state = p.factory.blank_state(add_options={angr.options.TRACK_ACTION_HISTORY, angr.options.BYPASS_UNSUPPORTED_SYSCALL})
+        state = p.factory.blank_state(add_options=angr.options.refs | angr.options.resilience)
         stack_words = [ claripy.BVS('w%d'%i, 64) for i in range(20) ]
         state.memory.store(state.regs.rsp, claripy.Concat(*stack_words))
 
