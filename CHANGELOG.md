@@ -44,7 +44,7 @@ As for the improvements:
 
 ## angr 6.7.3.26
 
-Building off of the engine changes from the last release, we have begun to extend angr to other architectures. AVR and MSP430 are in progress. In the meantime, subwire has created a reference implementation of BrainFuck support in angr, done two different ways! Check out [angr-bf](https://github.com/angr/angr-bf) for more info!
+Building off of the engine changes from the last release, we have begun to extend angr to other architectures. AVR and MSP430 are in progress. In the meantime, subwire has created a reference implementation of BrainFuck support in angr, done two different ways! Check out [angr-platforms](https://github.com/angr/angr-platforms) for more info!
 
 - We have rebased our fork of VEX on the latest master branch from Valgrind (as of 2 months ago, at least...). We have also submitted our patches to VEX to upstream, so we should be able to stop maintaining a fork pretty soon.
 - The way we interact with VEX has changed substancially, and should speed things up a bit.
