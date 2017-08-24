@@ -2,7 +2,7 @@
 
 angr is a multi-architecture binary analysis toolkit, with the capability to perform dynamic symbolic execution \(like Mayhem, KLEE, etc.\) and various static analyses on binaries. If you'd like to learn how to use it, you're in the right place!
 
-We've tried to make using angr as pain-free as possible - our goal is to create a user-friendly binary analysis suite, allowing a user to simply start up iPython and easily perform intensive binary analyses with a couple of commands. That being said, binary analysis is complex, which makes angr complex. This documentation is an attempt to help out with that, providing narritive explanation and exploration of angr and its design.
+We've tried to make using angr as pain-free as possible - our goal is to create a user-friendly binary analysis suite, allowing a user to simply start up iPython and easily perform intensive binary analyses with a couple of commands. That being said, binary analysis is complex, which makes angr complex. This documentation is an attempt to help out with that, providing narrative explanation and exploration of angr and its design.
 
 Several challenges must be overcome to programmatically analyze a binary. They are, roughly:
 
