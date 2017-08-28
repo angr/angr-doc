@@ -30,4 +30,4 @@
 * [Examples](docs/examples.md)
 * [FAQ](docs/faq.md)
 * [Changelog](CHANGELOG.md)
-  * [TODO: Migrating from angr 6](MIGRATION.md)
+  * [Migrating from angr 6](MIGRATION.md)
