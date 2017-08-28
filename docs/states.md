@@ -132,8 +132,8 @@ You can use `state.memory` directly with the `.load(addr, size)` and `.store(add
 
 ```python
 >>> s = proj.factory.blank_state()
->>> s.store(0x4000, s.solver.BVV(0x0123456789abcdef0123456789abcdef, 128))
->>> s.load(0x4004, 6) # load-size is in bytes
+>>> s.memory.store(0x4000, s.solver.BVV(0x0123456789abcdef0123456789abcdef, 128))
+>>> s.memory.load(0x4004, 6) # load-size is in bytes
 <BV48 0x89abcdef0123>
 ```
 
@@ -144,7 +144,7 @@ Additionally, the endness of the program being analyzed can be found as `arch.me
 
 ```python
 >>> import archinfo
->>> s.load(0x4000, 4, endness=archinfo.Endness.LE)
+>>> s.memory.load(0x4000, 4, endness=archinfo.Endness.LE)
 <BV32 0x67453201>
 ```
 
