@@ -151,7 +151,9 @@ def main():
     return result
 
 def test():
-    assert main() == "Totally not the password..."
+    output = main()
+    target = "Totally not the password..."
+    assert output[:len(target)] == target
 
 if __name__ == "__main__":
     print 'The password is "%s"' % main()
