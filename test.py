@@ -1,9 +1,12 @@
 # pylint: disable=exec-used
 import os
 import sys
-import claripy
 import itertools
 import traceback
+
+from nose.plugins.attrib import attr
+
+import claripy
 
 def _path(d):
     return os.path.join(os.path.dirname(__file__), d)
@@ -81,6 +84,7 @@ def test_ais3_crackme(): exampletest_single('ais3_crackme')
 def test_asisctffinals2015_fake(): exampletest_single('asisctffinals2015_fake')
 def test_asisctffinals2015_license(): exampletest_single('asisctffinals2015_license')
 def test_CADET_00001(): exampletest_single('CADET_00001')
+@attr(speed='slow')
 def test_cmu_binary_bomb(): exampletest_single('cmu_binary_bomb')
 #def test_csaw_wyvern(): exampletest_single('csaw_wyvern')
 def test_defcamp_r100(): exampletest_single('defcamp_r100')
