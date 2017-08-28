@@ -29,6 +29,69 @@ Here are some quick examples for copying and performing operations on data from 
 >>> state.regs.rax += state.mem[state.regs.rsp + 8].uint64_t.resolved
 ```
 
+## Basic Execution
+
+Earlier, we showed how to use a Simulation Manager to do some basic execution.
+We'll show off the full capabilities of the simulation manager in the next chapter, but for now we can use a much simpler interface to demonstrate how symbolic execution works: `state.step()`.
+This method will perform one step of symbolic execution and return an object called [`SimSuccessors`](http://angr.io/api-doc/angr.html#module-angr.engines.successors).
+Unlike normal emulation, symbolic execution can produce several successor states that can be classified in a number of ways.
+For now, what we care about is the `.successors` property of this object, which is a list containing all the "normal" successors of a given step.
+
+Why a list, instead of just a single successor state?
+Well, angr's process of symbolic execution is just the taking the operations of the individual instructions compiled into the program and performing them to mutate a SimState.
+When a line of code like `if (x > 4)` is reached, what happens if x is a symbolic bitvector?
+Somewhere in the depths of angr, the comparison `x > 4` is going to get performed, and the result is going to be `<Bool x_32_1 > 4>`.
+
+That's fine, but the next question is, do we take the "true" branch or the "false" one?
+The answer is, we take both!
+We generate two entirely separate successor states - one simulating the case where the condition was true and simulating the case where the condition was false.
+In the first state, we add `x > 4` as a constraint, and in the second state, we add `!(x > 4)` as a constraint.
+That way, whenever we perform a constraint solve using either of these successor states, *the conditions on the state ensure that any solutions we get are valid inputs that will cause execution to follow the same path that the given state has followed.*
+
+To demonstrate this, let's use a [fake firmware image](../examples/fauxware/fauxware) as an example.
+If you look at the [source code](../examples/fauxware/fauxware.c) for this binary, you'll see that the authentication mechanism for the firmware is backdoored; any username can be authenticated as an administrator with the password "SOSNEAKY".
+Furthermore, the first comparison against user input that happens is the comparison against the backdoor, so if we step until we get more than one successor state, one of those states will contain conditions constraining the user input to be the backdoor password.
+The following snippet implements this
+
+```python
+>>> proj = angr.Project('examples/fauxware/fauxware')
+>>> state = proj.factory.entry_state()
+>>> while True:
+...     succ = state.step()
+...     if len(succ.successors) == 2:
+...         break
+...     state = succ.successors[0]
+
+>>> state1, state2 = succ.successors
+>>> state1
+<SimState @ 0x400629>
+>>> state2
+<SimState @ 0x400699
+```
+
+Don't look at the constraints on these states directly - the branch we just went through involves the result of `strcmp`, which is a tricky function to emulate symbolically, and the resulting constraints are _very_ complicated.
+
+The program we emulated took data from standard input, which angr treats as an infinite stream of symbolic data by default.
+To perform a constraint solve and get a possible value that input could have taken in order to satisfy the constraints, we'll need to get a reference to the actual contents of stdin.
+We'll go over how our file and input subsystems work later on this very page, but for now, just use `state.posix.files[0].all_bytes()` to retrieve a bitvector represnting all the content read from stdin so far.
+
+```python
+>>> input_data = state1.posix.files[0].all_bytes()
+
+>>> state1.solver.eval(input_data, cast_to=str)
+'\x00\x00\x00\x00\x00\x00\x00\x00\x00SOSNEAKY\x00\x00\x00'
+
+>>> state2.solver.eval(input_data, cast_to=str)
+'\x00\x00\x00\x00\x00\x00\x00\x00\x00S\x00\x80N\x00\x00 \x00\x00\x00\x00'
+```
+
+As you can see, in order to go down the `state1` path, you must have given as a password the backdoor string "SOSNEAKY".
+In order to go down the `state2` path, you must have given something _besides_ "SOSNEAKY".
+z3 has helpfully provided one of the millions of strings fitting this criteria.
+
+Fauxware was the first program angr's symbolic execution ever successfully worked on, back in 2013.
+By finding its backdoor using angr you are participating in a grand tradition of having a bare-bones understanding of how to use symbolic execution to extract meaning from binaries!
+
 ## State Presets
 
 So far, whenever we've been working with a state, we've created it with `project.factory.entry_state()`.
@@ -52,17 +115,14 @@ You can customize the state through several arguments to these constructors:
 - If you'd like to have `argc` be symbolic, you can pass a symbolic bitvector as `argc` to the `entry_state` and `full_init_state` constructors.
   Be careful, though: if you do this, you should also add a constraint to the resulting state that your value for argc cannot be larger than the number of args you passed into `args`.
   
-- To use the call state, you should call it with `.call_state(addr, (arg1, arg2, ...))`, where `addr` is the address of the function you want to call and `argN` is the Nth argument to that function, either as a python integer, string, or an AST.
-  If you want to have memory allocated and actually pass in a pointer to an object, you should wrap it in a PointerWrapper, i.e. `proj.factory.call_state.PointerWrapper("point to me!")`.
+- To use the call state, you should call it with `.call_state(addr, arg1, arg2, ...)`, where `addr` is the address of the function you want to call and `argN` is the Nth argument to that function, either as a python integer, string, or a bitvector.
+  If you want to have memory allocated and actually pass in a pointer to an object, you should wrap it in an PointerWrapper, i.e. `angr.PointerWrapper("point to me!")`.
   The results of this API can be a little unpredictable, but we're working on it.
   
 - To specify the calling convention used for a function with `call_state`, you can pass a [`SimCC` instance](http://angr.io/api-doc/angr.html#module-angr.calling_conventions) as the `cc` argument.    
+  We try to pick a sane default, but for special cases you will need to help angr out.
 
 There are several more options that can be used in any of these constructors, which we will describe below.
-
-## Basic Execution
-
-TODO: state.step()
 
 ## Low level interface for memory and registers
 
@@ -73,7 +133,6 @@ TODO: state.memory, state.registers
 A state supports very fast copies, so that you can explore different possibilities:
 
 ```python
->>> import angr
 >>> proj = angr.Project('/bin/true')
 >>> s = proj.factory.blank_state()
 >>> s1 = s.copy()
