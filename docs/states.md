@@ -87,7 +87,7 @@ We'll go over how our file and input subsystems work later on this very page, bu
 
 As you can see, in order to go down the `state1` path, you must have given as a password the backdoor string "SOSNEAKY".
 In order to go down the `state2` path, you must have given something _besides_ "SOSNEAKY".
-z3 has helpfully provided one of the millions of strings fitting this criteria.
+z3 has helpfully provided one of the billions of strings fitting this criteria.
 
 Fauxware was the first program angr's symbolic execution ever successfully worked on, back in 2013.
 By finding its backdoor using angr you are participating in a grand tradition of having a bare-bones understanding of how to use symbolic execution to extract meaning from binaries!
@@ -115,18 +115,40 @@ You can customize the state through several arguments to these constructors:
 - If you'd like to have `argc` be symbolic, you can pass a symbolic bitvector as `argc` to the `entry_state` and `full_init_state` constructors.
   Be careful, though: if you do this, you should also add a constraint to the resulting state that your value for argc cannot be larger than the number of args you passed into `args`.
   
-- To use the call state, you should call it with `.call_state(addr, arg1, arg2, ...)`, where `addr` is the address of the function you want to call and `argN` is the Nth argument to that function, either as a python integer, string, or a bitvector.
+- To use the call state, you should call it with `.call_state(addr, arg1, arg2, ...)`, where `addr` is the address of the function you want to call and `argN` is the Nth argument to that function, either as a python integer, string, or array, or a bitvector.
   If you want to have memory allocated and actually pass in a pointer to an object, you should wrap it in an PointerWrapper, i.e. `angr.PointerWrapper("point to me!")`.
   The results of this API can be a little unpredictable, but we're working on it.
   
 - To specify the calling convention used for a function with `call_state`, you can pass a [`SimCC` instance](http://angr.io/api-doc/angr.html#module-angr.calling_conventions) as the `cc` argument.    
   We try to pick a sane default, but for special cases you will need to help angr out.
 
-There are several more options that can be used in any of these constructors, which we will describe below.
+There are several more options that can be used in any of these constructors, which will be outlined later on this page!
 
-## Low level interface for memory and registers
+## Low level interface for memory
 
-TODO: state.memory, state.registers
+The `state.mem` interface is convenient for loading typed data from memory, but when you want to do raw loads and stores to and from ranges of memory, it's very cumbersome.
+It turns out that `state.mem` is actually just a bunch of logic to correctly access the underlying memory storage, which is just a flat address space filled with bitvector data: `state.memory`.
+You can use `state.memory` directly with the `.load(addr, size)` and `.store(addr, val)` methods:
+
+```python
+>>> s = proj.factory.blank_state()
+>>> s.store(0x4000, s.solver.BVV(0x0123456789abcdef0123456789abcdef, 128))
+>>> s.load(0x4004, 6) # load-size is in bytes
+<BV48 0x89abcdef0123>
+```
+
+As you can see, the data is loaded and stored in a "big-endian" fashion, since the primary purpose of `state.memory` is to load an store swaths of data with no attached semantics.
+However, if you want to perform a byteswap on the loaded or stored data, you can pass a keyword argument `endness` - if you specify little-endian, byteswap will happen.
+The endness should be one of the members of the `Endness` enum in the `archinfo` package used to hold declarative data about CPU architectures for angr.
+Additionally, the endness of the program being analyzed can be found as `arch.memory_endness` - for instance `state.arch.memory_endness`.
+
+```python
+>>> import archinfo
+>>> s.load(0x4000, 4, endness=archinfo.Endness.LE)
+<BV32 0x67453201>
+```
+
+There is also a low-level interface for register access, `state.registers`, but explaining its behavior involves a [dive](ir.md) into the abstractions that angr uses to seamlessly work with multiple architectures.
 
 ## Copying and Merging
 
