@@ -118,3 +118,20 @@ Let's play with PyVEX:
 # here is one way to get the type of temp 0
 >>> print irsb.tyenv.types[0]
 ```
+
+## Condition flags computation (for x86 and ARM)
+
+One of the most common instruction side-effects on x86 and ARM CPUs is updating condition flags, such as the zero flag, the carry flag, or the overflow flag.
+Computer architects usually put the concatenation of these flags (yes, concatenation of the flags, since each condition flag is 1 bit wide) into a special register (i.e. `EFLAGS`/`RFLAGS` on x86, `APSR`/`CPSR` on ARM).
+This special register stores important information about the program state, and is critical for correct emulation of the CPU.
+
+VEX uses 4 registers as its "Flag thunk descriptors" to record details of the latest flag-setting operation.
+VEX has a lazy strategy to compute the flags: when an operation that would update the flags happens, instead of computing the flags, VEX stores a code representing this operation to the `cc_op` pseudo-register, and the arguments to the operation in `cc_dep1` and `cc_dep2`.
+Then, whenever VEX needs to get the actual flag values, it can figure out what the one bit corresponding to the flag in question actually is, based on its flag thunk descriptors.
+This is an optimization in the flags computation, as VEX can now just directly perform the relevant operation in the IR without bothering to compute and update the flags' value.
+
+Amongst different operations that can be placed in `cc_op`, there is a special value 0 which corresponds to `OP_COPY` operation.
+This operation is supposed to copy the value in `cc_dep1` to the flags.
+It simply means that `cc_dep1` contains the flags' value.
+angr uses this fact to let us efficiently retrieve the flags' value: whenever we ask for the actual flags, angr computes their value, then dumps them back into `cc_dep1` and sets `cc_op = OP_COPY` in order to cache the computation.
+We can also use this operation to allow the user to write to the flags: we just set `cc_op = OP_COPY` to say that a new value being set to the flags, then set `cc_dep1` to that new value.
