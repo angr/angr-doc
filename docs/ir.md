@@ -118,3 +118,34 @@ Let's play with PyVEX:
 # here is one way to get the type of temp 0
 >>> print irsb.tyenv.types[0]
 ```
+
+## Condition flags computation (for x86 and ARM)
+One of the most common instruction side-effects in the classic x86 as well as
+in the classic ARM is probably updating condition flags. That's why computer
+architects usually put the concatenation of these flags (yes, concatenation of
+the flags, since each condition flag is 1 bit wide) into a special register
+(e.g. `RFLAGS` - 64 bits wide in x86-64, `EFLAGS` - 32 bits wide or `FLAGS` -
+16 bits wide in x86, and `APSR` (or `CPSR` if you are used to pre-ARMv7
+terminology) in ARM). This special register is also an important information
+about the program state, along with other registers and the memory.
+
+VEX uses 4 registers as its "Flag thunk descriptors" to record details of the
+latest flag-setting operation. Actually, VEX has a lazy strategy to compute the
+flags: when an operation that would update the flags happens, instead of
+computing the flags, VEX stores this operation (in `cc_op`), and the arguments
+to the operation (in `cc_dep1`, `cc_dep2` and `cc_dep3`). Then, whenever VEX
+needs to get the flag values, it can figure out what the one bit corresponding
+to the flag in question actually is, based on its flag thunk descriptors. This
+is actually an optimization in the flags computation, as VEX can now just
+directly perform the relevant operation in the IR without bothering to compute
+and update the flags' value.
+
+Amongst different operations that can take `cc_op`, there is a special value 0
+which corresponds to `OP_COPY` operation. This operation is supposed to copy
+the value in `cc_dep1` to the flags. It simply means that `cc_dep1` contains
+the flags' value. angr uses this fact to let us retrieve the flags' value:
+whenever we ask for the actual flags, angr computes their value, then dump them
+back into the state with `OP_COPY` operation in order to cache the computation.
+We can also use this operation in the case that we are writing to the
+flags: we just set `cc_op` to `OP_COPY` to say that a new value being set to
+the flags, then set `cc_dep1` to that new value.
