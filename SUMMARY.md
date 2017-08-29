@@ -29,5 +29,8 @@
   * [TODO: Adding Support for New Platforms](docs/angr-bf.md)
 * [Examples](docs/examples.md)
 * [FAQ](docs/faq.md)
+* Appendix
+  * [List of Claripy operations](docs/appendices/ops.md)
+  * [List of state options](docs/appendices/options.md)
 * [Changelog](CHANGELOG.md)
   * [Migrating from angr 6](MIGRATION.md)

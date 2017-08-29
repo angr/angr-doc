@@ -150,33 +150,6 @@ Additionally, the endness of the program being analyzed can be found as `arch.me
 
 There is also a low-level interface for register access, `state.registers`, but explaining its behavior involves a [dive](ir.md) into the abstractions that angr uses to seamlessly work with multiple architectures.
 
-## Copying and Merging
-
-A state supports very fast copies, so that you can explore different possibilities:
-
-```python
->>> proj = angr.Project('/bin/true')
->>> s = proj.factory.blank_state()
->>> s1 = s.copy()
->>> s2 = s.copy()
-
->>> s1.mem[0x1000].uint32_t = 0x41414141
->>> s2.mem[0x1000].uint32_t = 0x42424242
-```
-
-States can also be merged together.
-
-```python
-# merge will return a tuple. the first element is the merged state
-# the second element is a symbolic variable describing a state flag
-# the third element is a boolean describing whether any merging was done
->>> (s_merged, m, anything_merged) = s1.merge(s2)
-
-# this is now an expression that can resolve to "AAAA" *or* "BBBB"
->>> aaaa_or_bbbb = s_merged.mem[0x1000].uint32_t
-```
-
-TODO: describe limitations of merging
 
 ## State Options
 
@@ -184,17 +157,23 @@ There are a lot of little tweaks that can be made to the internals of angr that 
 These tweaks are controlled through state options.
 
 On each SimState object, there is a set (`state.options`) of all its enabled options.
-The full domain of options, along with the defaults for different state types, can be found in [sim_options.py](https://github.com/angr/angr/blob/master/angr/sim_options.py), available as `angr.options`.
+Each option (really just a string) controls the behavior of angr's execution engine in some minute way.
+A listing of the full domain of options, along with the defaults for different state types, can be found in [the appendix](appendices/options.md).
+You can access an individual option for adding to a state through `angr.options`.
+The individual options are named with CAPITAL_LETTERS, but there are also common groupings of objects that you might want to use bundled together, named with lowercase_letters.
 
-When creating a SimState through any method, you may pass the keyword arguments `add_options` and `remove_options`, which should be sets of options that modify the initial options set from the default.
+When creating a SimState through any constructor, you may pass the keyword arguments `add_options` and `remove_options`, which should be sets of options that modify the initial options set from the default.
 
 ```python
-# Example: enable lazy solves, a behavior that causes state satisfiability to be checked as infrequently as possible.
-# This change to the settings will be propogated to all successor states created from this state after this line.
+# Example: enable lazy solves, an option that causes state satisfiability to be checked as infrequently as possible.
+# This change to the settings will be propagated to all successor states created from this state after this line.
 >>> s.options.add(angr.options.LAZY_SOLVES)
 
 # Create a new state with lazy solves enabled
->>> s9 = proj.factory.entry_state(add_options={angr.options.LAZY_SOLVES})
+>>> s = proj.factory.entry_state(add_options={angr.options.LAZY_SOLVES})
+
+# Create a new state without simplification options enabled
+>>> s = proj.factory.entry_state(remove_options=angr.options.simplification)
 ```
 
 ## State Plugins
@@ -229,3 +208,31 @@ For example, if the program you are analyzing attempts to open '/etc/passwd', yo
 ```
 
 This example will create a state which constricts at most 30 symbolic bytes from being read from stdin and will cause references to files to be resolved concretely within the new root directory `angr-chroot`.
+
+## Copying and Merging
+
+A state supports very fast copies, so that you can explore different possibilities:
+
+```python
+>>> proj = angr.Project('/bin/true')
+>>> s = proj.factory.blank_state()
+>>> s1 = s.copy()
+>>> s2 = s.copy()
+
+>>> s1.mem[0x1000].uint32_t = 0x41414141
+>>> s2.mem[0x1000].uint32_t = 0x42424242
+```
+
+States can also be merged together.
+
+```python
+# merge will return a tuple. the first element is the merged state
+# the second element is a symbolic variable describing a state flag
+# the third element is a boolean describing whether any merging was done
+>>> (s_merged, m, anything_merged) = s1.merge(s2)
+
+# this is now an expression that can resolve to "AAAA" *or* "BBBB"
+>>> aaaa_or_bbbb = s_merged.mem[0x1000].uint32_t
+```
+
+TODO: describe limitations of merging
