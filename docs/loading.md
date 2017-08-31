@@ -6,7 +6,7 @@ We briefly mentioned angr's binary loading component, CLE. CLE stands for "CLE L
 
 ## The Loader
 
-Lt's re-load `/bin/true` and take a deeper look at how to interact with the loader.
+Let's re-load `/bin/true` and take a deeper look at how to interact with the loader.
 
 ```python
 >>> import angr, monkeyhex
