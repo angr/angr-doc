@@ -9,7 +9,7 @@
   * [Solver Engine](docs/solver.md)
   * [Program State](docs/states.md)
   * [Simulation Managers](docs/pathgroups.md)
-  * [TODO: Execution Engines](docs/simuvex.md)
+  * [Execution Engines](docs/simulation.md)
 * [Analyses](docs/analyses.md)
   * [CFGAccurate](docs/analyses/cfg_accurate.md)
   * [Backward Slicing](docs/analyses/backward_slice.md)
@@ -20,7 +20,7 @@
   * [Intermediate Representation](docs/ir.md)
   * [Working with Data and Conventions](docs/structured_data.md)
   * [Claripy](docs/claripy.md)
-  * [TODO: Symbolic Memory Addressing](docs/concretization_strategies.md)
+  * [Symbolic Memory Addressing](docs/concretization_strategies.md)
 * Extending angr
   * [Programming SimProcedures](docs/simprocedures.md)
   * [TODO: Extending the Environment Model](docs/environment.md)

@@ -1,27 +1,23 @@
-The Simulation Engine
-=====================
+# Simulation  and Instrumentation
 
-Most analyses require an understanding of what the code is *doing* (semantic meaning), not just what the code *is* (syntactic meaning).
-For this, angr includes a simulation engine.
-This engine provides a semantic understanding of what a given piece of code does on a given machine state.
-
-Given a machine state and a code block (usually a VEX IR block), angr provides a resulting machine state (or, in the case of condition jumps, *several* resulting machine states).
-
-# SimEngines
-
+When you ask for a step of execution to happen in angr, something has to actually perform the step.
 angr uses a series of engines (subclasses of the `SimEngine` class) to emulate the effects that of a given section of code has on an input state.
-This mechanism has changed recently, so we have removed much related documentation pending a rewrite.
-This information is not critical to the use of angr, since it is abstracted away by `Path` and `PathGroup`, but it provides useful insight into angr's functionality.
+The execution core of angr simply tries all the available engines in sequence, taking the first one that is able to handle the step.
+The following is the default list of engines, in order:
 
-TODO: much things
+- The failure engine kicks in when the previous step took us to some uncontinuable state
+- The syscall engine kicks in when the previous step ended in a syscall
+- The hook engine kicks in when the current address is hooked
+- The unicorn engine kicks in when the `UNICORN` state option is enabled and there is no symbolic data in the state
+- The VEX engine kicks in as the final fallback.
 
 ## SimSuccessors
 
-`SimEngine.process` takes an input state and engine-specific arguments (such as a block of VEX IR for `SimEngineVEX`) and returns a SimSuccessors object that contains the successor states, with modifications applied.
-Since angr supports symbolic execution, there can be *multiple* output successor states for a single input state.
-The successor states are stored in individual lists.
+The code that actually tries all the engines in turn is `project.factory.successors(state, **kwargs)`, which passes its arguments onto each of the engines.
+This function is at the heart of `state.step()` and `simulation_manager.step()`.
+It returns a SimSuccessors object, which we discussed briefly before.
+The purpose of SimSuccessors is to perform a simple categorization of the successor states, stored in various list attributes.
 They are:
-
 
 | Attribute | Guard Condition | Instruction Pointer | Description |
 |-----------|-----------------|---------------------|-------------|
@@ -31,17 +27,9 @@ They are:
 | `unconstrained_successors` | True (can be symbolic, but constrained to True). | Symbolic (with more than 256 solutions). | During the flattening procedure described above, if it turns out that there are more than 256 possible solutions for the instruction pointer, we assume that the instruction pointer has been overwritten with unconstrained data (i.e., a stack overflow with user data). *This assumption is not sound in general*. Such states are placed in `unconstrained_successors` and not in `successors`. |
 | `all_successors` | Anything | Can be symbolic. | This is `successors + unsat_successors + unconstrained_successors`. |
 
-# SimProcedures
+## Breakpoints
 
-SimProcedures are *symbolic function summaries*: angr handles functions imported into the binary by executing a SimProcedure that symbolically implements the given library function, if one exists. SimProcedures are a generic enough interface to do more than this, though - they can be used to run Python code to mutate a state at any point in execution.
-
-SimProcedures are injected into angr's execution pipeline through an interface called *hooking*. The full interface is described [here](toplevel.md#hooking), but the most important part is the `Project.hook(address, procedure)` method. After running this, whenever execution in this project reaches `address`, instead of running the binary code at that address, we run the SimProcedure specified by the `procedure` argument.
-
-`Project.hook` can also take a plain python function as an argument, instead of a SimProcedure class. That function will be automatically wrapped by a SimProcedure and executed (with the current SimState) as its argument.
-Of course, you can write your own SimProcedures to simplify execution and allow it to scale to larger programs.
-Check out the [the library of already-written ones](https://github.com/angr/angr/tree/master/angr/procedures) or the [howto](simprocedures.md).
-
-# Breakpoints
+TODO: rewrite this to fix the narrative
 
 Like any decent execution engine, angr supports breakpoints. This is pretty cool! A point is set as follows:
 
@@ -160,28 +148,3 @@ Cool stuff! In fact, we can even specify a function as a condition:
 
 That is some cool stuff!
 
-# Symbolic memory indexing
-
-angr supports *symbolic memory addressing*, meaning that offsets into memory may be symbolic.
-Our implementation of this is inspired by "Mayhem".
-Specifically, this means that angr concretizes symbolic addresses when they are used as the target of a write.
-This causes some surprises, as users tend to expect symbolic writes to be treated purely symbolically, or "as symbolically" as we treat symbolic reads, but that is not the default behavior.
-However, like most things in angr, this is configurable.
-
-The address resolution behavior is governed by *concretization strategies*, which are subclasses of `angr.concretization_strategies.SimConcretizationStrategy`.
-Concretization strategies for reads are set in `state.memory.read_strategies` and for writes in `state.memory.write_strategies`.
-These strategies are called, in order, until one of them is able to resolve addresses for the symbolic index.
-By setting your own concretization strategies (or through the use of SimInspect `address_concretization` breakpoints, described above), you can change the way angr resolves symbolic addresses.
-
-For example, angr's default concretization strategies for writes are:
-
-1. A conditional concretization strategy that allows symbolic writes (with a maximum range of 128 possible solutions) for any indices that are annotated with `angr.plugins.symbolic_memory.MultiwriteAnnotation`.
-2. A concretization strategy that simply selects the maximum possible solution of the symbolic index.
-
-To enable symbolic writes for all indices, you can either add the `SYMBOLIC_WRITE_ADDRESSES` state option at state creation time or manually insert a `angr.concretization_strategies.SimConcretizationStrategyRange` object into `state.memory.write_strategies`.
-The strategy object takes a single argument, which is the maximum range of possible solutions that it allows before giving up and moving on to the next (presumably non-symbolic) strategy.
-
-# Simulation Options
-
-angr's simulation engine is extremely customizable through the use of _state options_, a set of constants stored in `state.options`.
-These options are documented in the [source code](https://github.com/angr/angr/blob/master/angr/s_options.py).

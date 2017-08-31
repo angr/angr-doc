@@ -51,7 +51,7 @@ That way, whenever we perform a constraint solve using either of these successor
 To demonstrate this, let's use a [fake firmware image](../examples/fauxware/fauxware) as an example.
 If you look at the [source code](../examples/fauxware/fauxware.c) for this binary, you'll see that the authentication mechanism for the firmware is backdoored; any username can be authenticated as an administrator with the password "SOSNEAKY".
 Furthermore, the first comparison against user input that happens is the comparison against the backdoor, so if we step until we get more than one successor state, one of those states will contain conditions constraining the user input to be the backdoor password.
-The following snippet implements this
+The following snippet implements this:
 
 ```python
 >>> proj = angr.Project('examples/fauxware/fauxware')
