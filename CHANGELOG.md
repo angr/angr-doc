@@ -3,6 +3,33 @@
 This lists the *major* changes in angr.
 Tracking minor changes are left as an exercise for the reader :-)
 
+## angr 7.7.9.1
+
+Welcome to angr 7!
+We worked long and hard all summer to make this release the best ever.
+It introduces several breaking changes, so for a quick guide on the most common ways you'll need to update your scripts, take a look at the [migration guide](MIGRATION.md).
+
+- SimuVEX has been removed and its components have been integrated into angr
+- Path has been removed and its components have been integrated into SimState, notably the new `history` state plugin
+- PathGroup has been renamed to SimulationManager
+- SimState and SimProcedure now have a reference to their parent Project, though it is verboten to use it in anything other than an append-only fashion
+- A new class SimLibrary is used to track SimProcedure and metadata corresponding to an individual shared library
+- Several CLE interfaces have been refactored up for consistency
+- Hook has been removed. Hooking is now done with individual SimProcedure instances, which are shallow-copied at execution time for thread-safety.
+- The `state.solver` interface has been cleaned up drastically
+
+These are the major refactor-y points.
+As for the improvements:
+
+- Greatly improved support for analyzing 32 bit windows binaries (partial credit @schieb)
+- Unicorn will now stop for stop points and breakpoints in the middle of blocks (credit @bennofs)
+- The processor flags for a state can now be accessed through `state.regs.eflags` on x86 and `state.regs.flags` on ARM (partial credit @tyb0807)
+- Fledgling support for emulating exception handling. Currently the only implementation of this is support for Structured Exception Handling on Windows, see `angr.SimOS.handle_exception` for details
+- Fledgling support for runtime library loading by treating the CLE loader as an append-only interface, though only implemented for windows. See `cle.Loader.dynamic_load` and `angr.procedures.win32.dynamic_loading` for details.
+- The knowledge base has been refactored into a series of plugins similar to SimState (credit @danse-macabre)
+- The testcase-based function identifier we wrote for CGC has been integrated into angr as the Identifier analysis
+- TODO: AIL and NightmaRE
+
 ## angr 6.7.6.9
 
 - angr: A static data-flow analysis framework has been introduced, and implemented as part of the `ForwardAnalysis` class. Additionally, a few exemplary data-flow analyses, like `VariableRecovery` and `VariableRecoveryFast`, have been implemented in angr.
