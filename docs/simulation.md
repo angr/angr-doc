@@ -99,7 +99,7 @@ These events expose different attributes:
 | instruction       | instruction        | BP_BEFORE or BP_AFTER  | The address of the native instruction. |
 | irsb              | address            | BP_BEFORE or BP_AFTER  | The address of the basic block. |
 | constraints       | added_constraints   | BP_BEFORE or BP_AFTER  | The list of constraint expressions being added. |
-| call              | function_name      | BP_BEFORE or BP_AFTER  | The name of the function being called. |
+| call              | function_address      | BP_BEFORE or BP_AFTER  | The name of the function being called. |
 | exit              | exit_target        | BP_BEFORE or BP_AFTER  | The expression representing the target of a SimExit. |
 | exit              | exit_guard         | BP_BEFORE or BP_AFTER  | The expression representing the guard of a SimExit. |
 | exit              | jumpkind           | BP_BEFORE or BP_AFTER  | The expression representing the kind of SimExit. |
