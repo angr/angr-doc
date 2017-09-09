@@ -3,7 +3,7 @@
 This lists the *major* changes in angr.
 Tracking minor changes are left as an exercise for the reader :-)
 
-## angr 7.7.9.1
+## angr 7.7.9.8
 
 Welcome to angr 7!
 We worked long and hard all summer to make this release the best ever.
@@ -28,7 +28,7 @@ As for the improvements:
 - Fledgling support for runtime library loading by treating the CLE loader as an append-only interface, though only implemented for windows. See `cle.Loader.dynamic_load` and `angr.procedures.win32.dynamic_loading` for details.
 - The knowledge base has been refactored into a series of plugins similar to SimState (credit @danse-macabre)
 - The testcase-based function identifier we wrote for CGC has been integrated into angr as the Identifier analysis
-- TODO: AIL and NightmaRE
+- Improved support for writing custom VEX lifters
 
 ## angr 6.7.6.9
 
