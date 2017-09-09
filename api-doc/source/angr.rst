@@ -80,12 +80,19 @@ Knowledge Base
 --------------
 
 .. automodule:: angr.knowledge_base
-.. automodule:: angr.knowledge
-.. automodule:: angr.knowledge.codenode
-.. automodule:: angr.knowledge.data
-.. automodule:: angr.knowledge.function
-.. automodule:: angr.knowledge.function_manager
+.. automodule:: angr.knowledge_plugins
+.. automodule:: angr.knowledge_plugins.plugin
+.. automodule:: angr.knowledge_plugins.comments
+.. automodule:: angr.knowledge_plugins.data
+.. automodule:: angr.knowledge_plugins.indirect_jumps
+.. automodule:: angr.knowledge_plugins.labels
+.. automodule:: angr.knowledge_plugins.functions
+.. automodule:: angr.knowledge_plugins.functions.function_manager
     :members: FunctionManager
+.. automodule:: angr.knowledge_plugins.functions.function
+.. automodule:: angr.knowledge_plugins.variables
+.. automodule:: angr.knowledge_plugins.variables.variable_access
+.. automodule:: angr.knowledge_plugins.variables.variable_manager
 
 
 Analysis
