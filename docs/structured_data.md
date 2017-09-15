@@ -69,10 +69,8 @@ These type objects aren't all that useful on their own, but they can be passed t
 
 ## Accessing typed data from memory
 
-If you're reading this book in order, you'll [recall](states.md) that you can retrieve data from memory with `state.memory.load(addr, len, endness=endness)`.
-This can get to be a little cumbersome when working with structures, strings, etc.
-Instead, there is an alternate interface in `state.mem`, the SimMemView.
-This allows you to specify the type of the data you're looking at.
+Now that you know how angr's type system works, you can unlock the full power of the `state.mem` interface!
+Any type that's registered with the types module can be used to extract data from memory.
 
 ```python
 >>> import angr
@@ -81,11 +79,20 @@ This allows you to specify the type of the data you're looking at.
 >>> s.mem[0x601048]
 <<untyped> <unresolvable> at 0x601048>
 
->>> s.mem[0x601048].int
-<int (32 bits) <BV32 0x4008d0> at 0x601048>
-
 >>> s.mem[0x601048].long
 <long (64 bits) <BV64 0x4008d0> at 0x601048>
+
+>>> s.mem[0x601048].long.resolved
+<BV64 0x4008d0>
+
+>>> s.mem[0x601048].long.concrete
+0x4008d0
+
+>>> s.mem[0x601048].abcd
+<struct abcd {
+  .x = <int (32 bits) <BV32 0x4008d0> at 0x601048>,
+  .y = <int (32 bits) <BV32 0x0> at 0x60104c>
+} at 0x601048>
 
 >>> s.mem[0x601048].long.resolved
 <BV64 0x4008d0>

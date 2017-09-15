@@ -10,6 +10,7 @@
   * [Program State](docs/states.md)
   * [Simulation Managers](docs/pathgroups.md)
   * [Execution Engines](docs/simulation.md)
+  * [Remarks](docs/be_creative.md)
 * [Analyses](docs/analyses.md)
   * [CFGAccurate](docs/analyses/cfg_accurate.md)
   * [Backward Slicing](docs/analyses/backward_slice.md)
