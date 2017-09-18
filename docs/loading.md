@@ -208,7 +208,7 @@ If you want to specify some options that only apply to a specific binary object,
 The options that you can use vary from backend to backend, but some common ones are:
 
 * `backend` - which backend to use, as either a class or a name
-* `custom_base_address` - a base address to use
+* `custom_base_addr` - a base address to use
 * `custom_entry_point` - an entry point to use
 * `custom_arch` - the name of an architecture to use
 
