@@ -260,7 +260,7 @@ You can create floating point symbols and values with `FPV` and `FPS`.
 
 So there's a bit to unpack here - for starters the pretty-printing isn't as smart about floating point numbers.
 But past that, most operations actually have a third parameter, implicitly added when you use the binary operators - the rounding mode.
-The IEE754 spec supports multiple rounding modes (round-to-nearest, round-to-zero, round-to-positive, etc), so z3 has to support them.
+The IEEE754 spec supports multiple rounding modes (round-to-nearest, round-to-zero, round-to-positive, etc), so z3 has to support them.
 If you want to specify the rounding mode for an operation, use the fp operation explicitly (`solver.fpAdd` for example) with a rounding mode (one of `solver.fp.RM_*`) as the first argument.
 
 Constraints and solving work in the same way, but with `eval` returning a floating point number:
@@ -323,7 +323,7 @@ Additionally, all of these methods can take the following keyword arguments:
   These constraints will be taken into account for this evaluation, but will not be added to the state.
 - `cast_to` can be passed a data type to cast the result to.
   Currently, this can only be `str`, which will cause the method to return the byte representation of the underlying data.
-  For example, `state.solver.eval(state.solver.BVV(0x41424344, 32, cast_to=str)` will return `"ABCD"`.
+  For example, `state.solver.eval(state.solver.BVV(0x41424344, 32), cast_to=str)` will return `"ABCD"`.
   
 ## Summary
 
