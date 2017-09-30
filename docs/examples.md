@@ -49,7 +49,7 @@ You can find this script [here](https://github.com/angr/angr-doc/tree/master/exa
 ### CSAW CTF 2015 Quals - Reversing 500, "wyvern"
 
 ```
-Script author: Andrew Dutcher (github: @rhelmot)
+Script author: Audrey Dutcher (github: @rhelmot)
 Script runtime: 15 mins
 Concepts presented: stdin constraining, concrete optimization with Unicorn
 ```
@@ -180,7 +180,7 @@ CADET_00001.adapted (by Jacopo Corbetta) is the same program, modified to be run
 ### Grub "back to 28" bug
 
 ```
-Script author: Andrew Dutcher (github: @rhelmot)
+Script author: Audrey Dutcher (github: @rhelmot)
 Concepts presented: unusal target (custom function hooking required), customized state pruning methods
 ```
 

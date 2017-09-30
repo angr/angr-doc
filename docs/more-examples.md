@@ -124,7 +124,7 @@ It takes a few minutes to run on my laptop.
 
 ## ReverseMe example: MMA CTF 2015 - HowToUse
 
-Author: Andrew Dutcher (github: @rhelmot)
+Author: Audrey Dutcher (github: @rhelmot)
 
 We solved this simple reversing challenge with angr, since we were too lazy to reverse it or run it in Windows.
 The resulting [script](https://github.com/angr/angr-doc/tree/master/examples/mma_howtouse/solve.py) shows how we grabbed the flag out of the [DLL](https://github.com/angr/angr-doc/tree/master/examples/mma_howtouse/howtouse.dll).
@@ -189,7 +189,7 @@ The solving script demonstrates the following:
 
 ## CrackMe example: 9447 CTF 2015 - Reversing 330, "nobranch"
 
-Author: Andrew Dutcher (github: @rhelmot)
+Author: Audrey Dutcher (github: @rhelmot)
 
 angr cannot currently solve this problem natively, as the problem is too complex for z3 to solve.
 Formatting the constraints to z3 a little differently allows z3 to come up with an answer relatively quickly.
