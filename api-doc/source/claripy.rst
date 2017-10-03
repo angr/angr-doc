@@ -36,7 +36,7 @@ AST
 .. automodule:: claripy.ast.fp
 .. automodule:: claripy.ast.int
 .. automodule:: claripy.ast.vs
- 
+
 
 Backends
 --------
@@ -77,6 +77,11 @@ Frontend Mixins
 .. automodule:: claripy.frontend_mixins.simplify_helper_mixin
 .. automodule:: claripy.frontend_mixins.simplify_skipper_mixin
 .. automodule:: claripy.frontend_mixins.solve_block_mixin
+
+
+Annotations
+-----------
+.. automodule:: claripy.annotation
 
 
 VSA
