@@ -234,7 +234,7 @@ A couple of these are documented later in this book, but in general, if you want
 
 # To get the CFGNode for a given address, use cfg.get_any_node
 >>> entry_node = cfg.get_any_node(proj.entry)
->>> len(cfg.graph.successors(entry_node))
+>>> len(list(cfg.graph.successors(entry_node)))
 2
 ```
 
