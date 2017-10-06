@@ -1,22 +1,20 @@
-# Core Concepts
+# 核心概念
 
-Before getting started with angr, you'll need to have a basic overview of some fundamental angr concepts and how to construct some basic angr objects.
-We'll go over this by examining what's directly available to you after you've loaded a binary!
+在使用 angr 之前，您需要了解一些 angr 的基本概念，以及如果构建一些 angr 的基本对象。
+在您装载了二进制程序后，我们将会把那些可以直接展现给你的功能介绍一番！
 
-Your first action with angr will always be to load a binary into a _project_. We'll use `/bin/true` for these examples.
+首先要做的永远都是将一个二进制程序装载进 _project_ 里，我们使用 `/bin/true` 作为示例程序
 
 ```python
 >>> import angr
 >>> proj = angr.Project('/bin/true')
 ```
 
-A project is your control base in angr.
-With it, you will be able to dispatch analyses and simulations on the executable you just loaded.
-Almost every single object you work with in angr will depend on the existence of a project in some form.
+project 是 angr 的基石。利用它，你可以对刚装载的可执行程序进行分析和模拟。几乎所有在 angr 中的可操纵的对象都在某种程度上依赖 project
 
-## Basic properties
+## 基本属性
 
-First, we have some basic properties about the project: its CPU architecture, its filename, and the address of its entry point.
+首先，我们有一些关于 project 的基本属性：CPU 架构、文件名、入口点地址
 
 ```python
 >>> import monkeyhex # this will format numerical results in hexadecimal
@@ -28,19 +26,19 @@ First, we have some basic properties about the project: its CPU architecture, it
 '/bin/true'
 ```
 
-* _arch_ is an instance of an `archinfo.Arch` object for whichever architecture the program is compiled, in this case little-endian amd64. It contains a ton of clerical data about the CPU it runs on, which you can peruse [at your leisure](https://github.com/angr/archinfo/blob/master/archinfo/arch_amd64.py). The common ones you care about are `arch.bits`, `arch.bytes` \(that one is a `@property` declaration on the [main `Arch` class](https://github.com/angr/archinfo/blob/master/archinfo/arch.py)\), `arch.name`, and `arch.memory_endness`.
-* _entry_ is the entry point of the binary!
-* _filename_ is the absolute filename of the binary. Riveting stuff!
+* _arch_ 是一个 `archinfo.Arch` 对象的实例，用于表示被编译程序所面向的任意架构，此时是 little-endian amd64。它包含许多关于程序运行所在 CPU 的信息，详情可以参阅 [这段代码](https://github.com/angr/archinfo/blob/master/archinfo/arch_amd64.py) 来进行细致的了解。通常我们关心的往往是 `arch.bits`， `arch.bytes` \(这是一个在 [main `Arch` class](https://github.com/angr/archinfo/blob/master/archinfo/arch.py) 中 `@property` 的声明\)， `arch.name` 和 `arch.memory_endness`
+* _entry_ 是二进制程序的入口点
+* _filename_ 是二进制程序的绝对路径文件名
 
-## The loader
+## 装载器
 
-Getting from a binary file to its representation in a virtual address space is pretty complicated! We have a module called CLE to handle that. CLE's result, called the loader, is available in the `.loader` property. We'll get into detail on how to use this [soon](./loading.md), but for now just know that you can use it to see the shared libraries that angr loaded alongside your program and perform basic queries about the loaded address space.
+将二进制文件映射到虚拟地址空间表示是相当复杂的！我们开发了一个叫做 CLE 的模块来处理二进制文件的装载。CLE 完成装载后的对象有一个 `.loader` 属性。我们可以在 [文件](./loading.md) 看到其进一步的使用细节，但现在我们只需要知道通过它可以看到 angr 装载的共享库，以及对装载的地址空间进行基本的查询
 
 ```python
 >>> proj.loader
 <Loaded true, maps [0x400000:0x5004000]>
 
->>> proj.loader.shared_objects # may look a little different for you!
+>>> proj.loader.shared_objects # 也许你看到的和示例不相同
 {'ld-linux-x86-64.so.2': <ELF Object ld-2.24.so, maps [0x2000000:0x2227167]>,
  'libc.so.6': <ELF Object libc-2.24.so, maps [0x1000000:0x13c699f]>}
 
@@ -49,30 +47,30 @@ Getting from a binary file to its representation in a virtual address space is p
 >>> proj.loader.max_addr
 0x5004000
 
->>> proj.loader.main_object  # we've loaded several binaries into this project. Here's the main one!
+>>> proj.loader.main_object  # 我们装载了一系列二进制程序到 project 中，这是关键的一个！
 <ELF Object true, maps [0x400000:0x60721f]>
 
->>> proj.loader.main_object.execstack  # sample query: does this binary have an executable stack?
+>>> proj.loader.main_object.execstack  # 示例查询：该二进制程序是否拥有可执行栈？
 False
->>> proj.loader.main_object.pic  # sample query: is this binary position-independent?
+>>> proj.loader.main_object.pic  # 示例查询：该二进制程序是否是地址无关的？
 True
 ```
 
-## The factory
+## 工厂
 
-There are a lot of classes in angr, and most of them require a project to be instantiated. Instead of making you pass around the project everywhere, we provide `project.factory`, which has several convenient constructors for common objects you'll want to use frequently.
+angr 中有许多类，其中大多数类都需要进行实例化。为了避免您需要四处查阅源码，我们提供了 `project.factory`，它提供了一系列您频繁使用的公共对象的构造函数。
 
-This section will also serve as an introduction to several basic angr concepts. Strap in!
+本节还将介绍几个基本的 angr 概念，坐稳扶好！
 
-#### Blocks
+#### 基本块
 
-First, we have `project.factory.block()`, which is used to extract a [basic block](https://en.wikipedia.org/wiki/Basic_block) of code from a given address. This is an important fact - _angr analyzes code in units of basic blocks._ You will get back a Block object, which can tell you lots of fun things about the block of code:
+首先，我们提供 `project.factory.block()` 函数在给定的地址提取代码对应的 [基本块](https://en.wikipedia.org/wiki/Basic_block) 。基本块很重要，因为 - _angr 以基本块为分析代码的基本单位_。执行后你会得到一个 Block 对象，它可以提供关于代码基本块很多有趣的信息：
 
 ```python
 >>> block = proj.factory.block(proj.entry) # lift a block of code from the program's entry point
 <Block for 0x401670, 42 bytes>
 
->>> block.pp()                          # pretty-print a disassembly to stdout
+>>> block.pp()                      # 优雅地输出反汇编
 0x401670:       xor     ebp, ebp
 0x401672:       mov     r9, rdx
 0x401675:       pop     rsi
@@ -85,34 +83,34 @@ First, we have `project.factory.block()`, which is used to extract a [basic bloc
 0x40168d:       lea     rdi, [rip - 0xd4]
 0x401694:       call    qword ptr [rip + 0x205866]
 
->>> block.instructions                  # how many instructions are there?
+>>> block.instructions                  # 基本块中有多少指令？
 0xb
->>> block.instruction_addrs             # what are the addresses of the instructions?
+>>> block.instruction_addrs             # 指令的地址？
 [0x401670, 0x401672, 0x401675, 0x401676, 0x401679, 0x40167d, 0x40167e, 0x40167f, 0x401686, 0x40168d, 0x401694]
 ```
 
-Additionally, you can use a Block object to get other representations of the block of code:
+此外，您还可以使用 Block 对象来得到基本块的其他表示形式：
 
 ```python
->>> block.capstone                       # capstone disassembly
+>>> block.capstone                       # capstone 反汇编
 <CapstoneBlock for 0x401670>
->>> block.vex                            # VEX IRSB (that's a python internal address, not a program address)
+>>> block.vex                            # VEX IRSB （这是一个 Python 内部地址，不是一个程序地址）
 <pyvex.block.IRSB at 0x7706330>
 ```
 
-#### States
+#### 状态
 
-Here's another fact about angr - the `Project` object only represents an "initialization image" for the program. When you're performing execution with angr, you are working with a specific object representing a _simulated program state_ - a `SimState`. Let's grab one right now!
+这是 angr 另一个重要的概念 - `Project` 对象只表示程序的“初始镜像”。当您使用 angr 装载程序时，其实使用的是一个特定的、表示 _simulated program state_ 的对象 - `SimState`。
 
 ```python
 >>> state = proj.factory.entry_state()
 <SimState @ 0x401670>
 ```
 
-A SimState contains a program's memory, registers, filesystem data... any "live data" that can be changed by execution has a home in the state. We'll cover how to interact with states in depth later, but for now, let's use `state.regs`and `state.mem` to access the registers and memory of this state:
+SimState 中提供程序需要的内存、寄存器、文件系统数据等任何可以在程序执行中被改变的“实时数据”。稍后会介绍如何深入交互操作，现在我们使用 `state.regs` 和 `state.mem` 来访问寄存器和内存：
 
 ```python
->>> state.regs.rip        # get the current instruction pointer
+>>> state.regs.rip        # 得到当前指令指针
 <BV64 0x401670>
 >>> state.regs.rax
 <BV64 0x1c>
@@ -120,18 +118,18 @@ A SimState contains a program's memory, registers, filesystem data... any "live 
 <BV32 0x8949ed31>
 ```
 
-Those aren't python ints! Those are _bitvectors_. Python integers don't have the same semantics as words on a CPU, e.g. wrapping on overflow, so we work with bitvectors, which you can think of as an integer as represented by a series of bits, to represent CPU data in angr. Note that each bitvector has a `.length` property describing how wide it is in bits.
+这些不是 Python 的 ints！这些是 _bitvectors_。Python 中的整数和 CPU 中（e.g. wrapping on overflow）并非具有相同的语义，所以我们使用 bitvectors，您可以视其为一系列比特位表示的整数，用以表示 angr 中的 CPU 信息。请注意，每个 bitvector 都具有 `.length` 属性来描述其比特位的宽度
 
-We'll learn all about how to work with them soon, but for now, here's how to convert from python ints to bitvectors and back again:
+我们将会了解它们如何协同工作，但现在我们首先了解如何将 Python 中的正如转换成 bitvectors 以及如何转换回来：
 
 ```python
->>> bv = state.solver.BVV(0x1234, 32)       # create a 32-bit-wide bitvector with value 0x1234
+>>> bv = state.solver.BVV(0x1234, 32)       # 使用 0x1234 创建一个 32 位宽的 bitvector
 <BV32 0x1234>                               # BVV stands for bitvector value
->>> state.solver.eval(bv)                # convert to python int
+>>> state.solver.eval(bv)                # 转换为 Python 中的 int 型
 0x1234
 ```
 
-You can store these bitvectors back to registers and memory, or you can directly store a python integer and it'll be converted to a bitvector of the appropriate size:
+您可以将 bitvectors 存回寄存器和内存，或者直接存一个 Python 整型数，它也可以直接转换成合适大小的 bitvector：
 
 ```python
 >>> state.regs.rsi = state.solver.BVV(3, 64)
@@ -143,34 +141,32 @@ You can store these bitvectors back to registers and memory, or you can directly
 <BV64 0x4>
 ```
 
-The `mem` interface is a little confusing at first, since it's using some pretty hefty python magic. The short version of how to use it is:
+  起初，因为使用了一些 Python 中的奇技淫巧，`mem` 接口有点混乱。简化版本如下：
 
-* Use array\[index\] notation to specify an address
-* Use `.<type>` to specify that the memory should be interpreted as &lt;type&gt; \(common values: char, short, int, long, size_t, uint8_t, uint16_t...\)
-* From there, you can either:
-  * Store a value to it, either a bitvector or a python int
-  * Use `.resolved` to get the value as a bitvector
-  * Use `.concrete` to get the value as a python int
+* 使用 array\[index\] 表示法来指定一个地址
+* 使用 `.<type>` 来指定内存类型的 &lt;类型&gt; \(common values: char, short, int, long, size_t, uint8_t, uint16_t...\)
+* 从现在起，你可以：
+  * 存储一个数，不论是 bitvector 还是 Python 中的整型数
+  * 使用 `.resolved` 来获取一个 bitvector 型的数
+  * 使用 `.concrete` 来获取一个 Python 整型的数
 
-There are more advanced usages that will be covered later!
+更高级的用法将会在后面介绍！
 
-Finally, if you try reading some more registers you may encounter a very strange looking value:
+最后，如果想要更多关于寄存器的信息，也许会遇到一个非常奇怪的值：
 
 ```python
 >>> state.regs.rdi
 <BV64 reg_48_11_64{UNINITIALIZED}>
 ```
 
-This is still a 64-bit bitvector, but it doesn't contain a numerical value.
-Instead, it has a name!
-This is called a _symbolic variable_ and it is the underpinning of symbolic execution.
-Don't panic! We will discuss all of this in detail exactly two chapters from now.
+该值仍然是一个 64 位的 bitvector，但它没有包含十六进制数据。相反它有一个名字，这被称为 _符号变量_，它是符号执行的基础。
+别急，我们会详细讨论其技术细节的！
 
-#### Simulation Managers
+#### 模拟管理器
 
-If a state lets us represent a program at a given point in time, there must be a way to get it to the _next_ point in time. A simulation manager is the primary interface in angr for performing execution, simulation, whatever you want to call it, with states. As a brief introduction, let's show how to tick that state we created earlier forward a few basic blocks.
+如果 state 让我们可以找到程序在某个时刻的代表，那就必须有方法可以得到 _next_ 下一个时间点的位置。模拟管理器是 angr 中用于执行、模拟的主要接口，无论调用它是为了什么，只要和 state 有联系，就与它有关。作为简要介绍，我们将会展示一下如何 tick 我们之前创建的几个基本块的 state
 
-First, we create the simulation manager we're going to be using. The constructor can take a state or a list of states.
+首先，创建我们要使用的模拟管理器。构造函数可以使用 state 或者一个 state 列表
 
 ```python
 >>> simgr = proj.factory.simgr(state) # TODO: change name before merge
@@ -179,30 +175,30 @@ First, we create the simulation manager we're going to be using. The constructor
 [<SimState @ 0x401670>]
 ```
 
-A simulation manager can contain several _stashes_ of states. The default stash, `active`, is initialized with the state we passed in. We could look at `simgr.active[0]` to look at our state some more, if we haven't had enough!
+模拟管理器可以包含多个 _stashes_ 的 state。默认的存储空间， `active` 是用我们传入的 state 进行初始化的。如果觉得还不够，可以进一步查看 `simgr.active[0]` 来得到更进一步的 state 信息！
 
-Now... get ready, we're going to do some execution.
+准备完成，我们准备要执行了！
 
 ```python
 >>> simgr.step()
 ```
 
-We've just performed a basic block's worth of symbolic execution! We can look at the active stash again, noticing that it's been updated, and furthermore, that it has **not** modified our original state. SimState objects are treated as immutable by execution - you can safely use a single state as a "base" for multiple rounds of execution.
+我们刚刚用符号执行的方法执行了一个基本块！我们可以再次查看 active stash，可以发现它已经改变了，而且**没有**修改我们的原始 state。通过执行将 SimState 对象视为不可变，你可以安全地使用一个单独的 state 作为多轮执行的“基底”
 
 ```python
 >>> simgr.active
 [<SimState @ 0x1020300>]
 >>> simgr.active[0].regs.rip                 # new and exciting!
 <BV64 0x1020300>
->>> state.regs.rip                           # still the same!
+>>> state.regs.rip                           # 仍然相同！
 <BV64 0x401670>
 ```
 
-`/bin/true` isn't a very good example for describing how to do interesting things with symbolic execution, so we'll stop here for now.
+`/bin/true` 不是用来展示符号执行能力的好例子，所以我们点到为止
 
-## Analyses
+## 分析
 
-angr comes pre-packaged with several built-in analyses that you can use to extract some fun kinds of information from a program. Here they are:
+angr 内置了几个预先打包好的分析工具，您可以使用它从程序中提取有用的信息：
 
 ```
 >>> proj.analyses.            # Press TAB here in ipython to get an autocomplete-listing of everything:
@@ -216,29 +212,28 @@ angr comes pre-packaged with several built-in analyses that you can use to extra
  proj.analyses.CFGFast              proj.analyses.Reassembler
 ```
 
-A couple of these are documented later in this book, but in general, if you want to find how to use a given analysis, you should look in the [api documentation. ](http://angr.io/api-doc/angr.html?highlight=cfg#module-angr.analysis)As an extremely brief example: here's how you construct and use a quick control-flow graph:
+这些工具有几个将会在后面提到，但一般来说，如果您要查找如何使用给定的分析工具，您应该查看 [API 文档](http://angr.io/api-doc/angr.html?highlight=cfg#module-angr.analysis)。一个非常简单的例子：如何构建快速控制流图：
 
 ```python
-# Originally, when we loaded this binary it also loaded all its dependencies into the same virtual address  space
-# This is undesirable for most analysis.
+# 最初，当我们装载这个二进制程序时，会将所有的依赖项都装载到相同的虚拟地址空间中，在大多数分析场景下这是不可取的
 >>> proj = angr.Project('/bin/true', auto_load_libs=False)
 >>> cfg = proj.analyses.CFGFast()
 <CFGFast Analysis Result at 0x2d85130>
 
 # cfg.graph is a networkx DiGraph full of CFGNode instances
-# You should go look up the networkx APIs to learn how to use this!
+# 您应该查看 networkx 的 API 来学习如何使用它！
 >>> cfg.graph
 <networkx.classes.digraph.DiGraph at 0x2da43a0>
 >>> len(cfg.graph.nodes())
 951
 
-# To get the CFGNode for a given address, use cfg.get_any_node
+# 想要得到某一地址的 CFGNode 要使用 cfg.get_any_node
 >>> entry_node = cfg.get_any_node(proj.entry)
 >>> len(list(cfg.graph.successors(entry_node)))
 2
 ```
 
-## Now what?
+## 然后呢？
 
-Having read this page, you should now be aquainted with several important angr concepts: basic blocks, states, bitvectors, simulation managers, and analyses. You can't really do anything interesting besides just use angr as a glorified debugger, though! Keep reading, and you will unlock deeper powers...
+看完本页后，您应该了解了 angr 的几个基本概念：基本块，state，bitvectors，模拟管理器与分析工具。尽管如此，此刻您仍不能利用 angr 真正完成一些有趣的事情，请继续阅读！将会解锁更强大的力量...
 
