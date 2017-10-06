@@ -1,31 +1,31 @@
-# What is angr, and how do I use it?
+# angr 是什么？该如何使用？
 
-angr is a multi-architecture binary analysis toolkit, with the capability to perform dynamic symbolic execution \(like Mayhem, KLEE, etc.\) and various static analyses on binaries. If you'd like to learn how to use it, you're in the right place!
+angr 是一个多架构二进制分析工具集，整合了动态符号执行（像 Mayhem、KLEE 等）和各种二进制静态分析的技术。如果你想了解如何使用 angr，那就继续阅读吧！
 
-We've tried to make using angr as pain-free as possible - our goal is to create a user-friendly binary analysis suite, allowing a user to simply start up iPython and easily perform intensive binary analyses with a couple of commands. That being said, binary analysis is complex, which makes angr complex. This documentation is an attempt to help out with that, providing narrative explanation and exploration of angr and its design.
+We've tried to make using angr as pain-free as possible - 我们的目标是建立一个用户友好的二进制分析工具集，使得用户可以简单地通过 iPython 中执行几个命令来完成复杂的二进制分析工作。话虽如此，但二进制分析工作毕竟是复杂的，angr 其实也是复杂的。这份文档旨在提供关于 angr 的表述，帮助您探索、理解 angr 的设计。
 
-Several challenges must be overcome to programmatically analyze a binary. They are, roughly:
+试图将二进制分析工作可编程化有以下几个难点：
 
-* Loading a binary into the analysis program.
-* Translating a binary into an intermediate representation \(IR\).
-* Performing the actual analysis. This could be:
-  * A partial or full-program static analysis \(i.e., dependency analysis, program slicing\).
-  * A symbolic exploration of the program's state space \(i.e., "Can we execute it until we find an overflow?"\).
-  * Some combination of the above \(i.e., "Let's execute only program slices that lead to a memory write, to find an overflow."\)
+* 分析程序可以正确加载二进制程序
+* 将二进制程序翻译成中间表示（IR）
+* 实际分析工作中，可能还有如下情形：
+  * 部分、全程序静态分析（如依赖分析、程序切片）
+  * 程序状态空间的符号执行探索（如“我们可以一直执行，直到发现溢出吗？”）
+  * 上述技术的一些组合（如“只执行那些存在内存写入的程序切片，直到发现溢出。”）
 
-angr has components that meet all of these challenges. This book will explain how each one works, and how they can all be used to accomplish your evil goals.
+angr 提供许多组件可以很好的满足这些需要，这份文档将解释各个组件是如何工作的，以及如何利用这些组件来完成你的目的
 
-## Get Started
+## 开始使用
 
-Installation instructions can be found [here](./INSTALL.md).
+安装说明可以在 [这里](./INSTALL.md) 找到
 
-To dive right into angr's capabilities, start with the [top level methods](./docs/toplevel.md) and read forward from there.
+要更深入的理解 angr 的功能，需要从 [顶层设计](./docs/toplevel.md) 入手
 
-A searchable HTML version of this documentation is hosted at [docs.angr.io](http://docs.angr.io/), and an HTML API reference can be found at [angr.io/api-doc](http://angr.io/api-doc/).
+这份文档的可搜索 HTML 版托管在 [docs.angr.io](http://docs.angr.io/) 上，API 参考的 HTML 页面托管在 [angr.io/api-doc](http://angr.io/api-doc/) 上。
 
-## Citing angr
+## 引用
 
-If you use angr in an academic work, please cite the papers for which it was developed:
+如果您要在学术研究中使用 angr，请引用如下的论文
 
 ```bibtex
 @article{shoshitaishvili2016state,
@@ -50,18 +50,15 @@ If you use angr in an academic work, please cite the papers for which it was dev
 }
 ```
 
-## Support
+## 寻求帮助
 
-To get help with angr, you can ask via:
+要获得帮助，您可以通过以下方式：
 
-* the mailing list: angr@lists.cs.ucsb.edu
-* the slack channel: [angr.slack.com](https://angr.slack.com), for which you can get an account [here](http://angr.io/invite.html).
-* the IRC channel: **\#angr** on [freenode](https://freenode.net/)
-* opening an issue on the appropriate github repository
+* 邮件列表： angr@lists.cs.ucsb.edu
+* slack 频道： [angr.slack.com](https://angr.slack.com)，您可以在 [这里](http://angr.io/invite.html) 注册一个账户
+* IRC 频道： **\#angr** 在 [freenode](https://freenode.net/)
+* 在 GitHub 上开一个新的 issue 页
 
-## Going further:
+## 进一步了解
 
-You can read this [paper](https://www.cs.ucsb.edu/~vigna/publications/2016_SP_angrSoK.pdf), explaining some of the internals, algorithms,  
-and used techniques to get a better understanding on what's going on under the  
-hood.
-
+您可以阅读这篇 [论文](https://www.cs.ucsb.edu/~vigna/publications/2016_SP_angrSoK.pdf) 来进一步了解 angr，这篇论文解释了内部设计、算法和使用的相关技术,这样可以帮助您进一步了解 angr
