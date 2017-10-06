@@ -1,4 +1,4 @@
-# Loading a Binary - CLE and angr Projects
+# 装载二进制程序 - CLE 和 angr Projects
 
 Previously, you saw just the barest taste of angr's loading facilities - you loaded `/bin/true`, and then loaded it again without its shared libraries. You also saw `proj.loader` and a few things it could do. Now, we'll dive into the nuances of these interfaces and the things they can tell you.
 
