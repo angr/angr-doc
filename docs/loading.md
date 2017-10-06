@@ -1,12 +1,12 @@
 # 装载二进制程序 - CLE 和 angr Projects
 
-Previously, you saw just the barest taste of angr's loading facilities - you loaded `/bin/true`, and then loaded it again without its shared libraries. You also saw `proj.loader` and a few things it could do. Now, we'll dive into the nuances of these interfaces and the things they can tell you.
+先前，您对 angr 的装载能力只是浅尝辄止 - 您装载了 `/bin/true`，,并且不使用共享库又装载了一次。`proj.loader` 与其能做的事儿也略有展现。现在，我们将介绍这些接口的细微差别，以及这些接口可以提供哪些信息
 
-We briefly mentioned angr's binary loading component, CLE. CLE stands for "CLE Loads Everything", and is responsible for taking a binary \(and any libraries that it depends on\) and presenting it to the rest of angr in a way that is easy to work with.
+我们简要的介绍了 angr 的二进制装载组件 CLE。CLE 代表着 "CLE Loads Everything"，主要负责装载一个二进制文件 \(与其依赖的任意库\) 并以易于使用的方式传递给其他 angr 组件
 
-## The Loader
+## 装载器
 
-Let's re-load `/bin/true` and take a deeper look at how to interact with the loader.
+我们重新装载 `/bin/true` 并且深入了解如何和装载器进行交互
 
 ```python
 >>> import angr, monkeyhex
@@ -15,19 +15,17 @@ Let's re-load `/bin/true` and take a deeper look at how to interact with the loa
 <Loaded true, maps [0x400000:0x5008000]>
 ```
 
-### Loaded Objects
+### 装载对象
 
-The CLE loader \(`cle.Loader`\) represents an entire conglomerate of loaded _binary objects_, loaded and mapped into a single memory space.
-Each binary object is loaded by a loader backend that can handle its filetype \(a subclass of `cle.Backend`\).
-For example, `cle.ELF` is used to load ELF binaries.
+CLE 装载器 \(`cle.Loader`\) 表示加载的 _binary objects_ 的整个集合，装载并映射到单个内存空间。
+每个二进制对象都由装载器后端装载，该后端可以根据其类型进行处理 \(`cle.Backend` 的一个子类\)。例如 `cle.ELF` 被用于装载 ELF 二进制程序
 
-There will also be objects in memory that don't correspond to any loaded binary.
-For example, an object used to provide thread-local storage support, and an externs object used to provide unresolved symbols.
+内存中也存在着不与任何装载的二进制程序对应的对象，例如，用于提供线程本地存储的对象、用于提供未解析符号的外部对象
 
-You can get the full list of objects that CLE has loaded with `loader.all_objects`, as well as several more targeted classifications:
+使用 `loader.all_objects` 可以获得 CLE 装载对象的完整列表，以及几个更有针对性的分类：
 
 ```python
-# All loaded objects
+# 所有装载对象
 >>> proj.loader.all_objects
 [<ELF Object fauxware, maps [0x400000:0x60105f]>,
  <ELF Object libc.so.6, maps [0x1000000:0x13c42bf]>,
@@ -40,44 +38,44 @@ You can get the full list of objects that CLE has loaded with `loader.all_object
 >>> proj.loader.main_object
 <ELF Object true, maps [0x400000:0x60105f]>
 
-# This is a dictionary mapping from shared object name to object
+# 从共享对象名字到对象的字典映射
 >>> proj.loader.shared_objects
 { 'libc.so.6': <ELF Object libc.so.6, maps [0x1000000:0x13c42bf]>
   'ld-linux-x86-64.so.2': <ELF Object ld-linux-x86-64.so.2, maps [0x2000000:0x22241c7]>}
 
-# Here's all the objects that were loaded from ELF files
-# If this were a windows program we'd use all_pe_objects!
+# 这是从 ELF 文件装载的所有对象
+# 如果这是一个 Windows 程序，我们将使用 all_pe_objects！
 >>> proj.loader.all_elf_objects
 [<ELF Object true, maps [0x400000:0x60105f]>,
  <ELF Object libc.so.6, maps [0x1000000:0x13c42bf]>,
  <ELF Object ld-linux-x86-64.so.2, maps [0x2000000:0x22241c7]>]
  
-# Here's the "externs object", which we use to provide addresses for unresolved imports and angr internals
+# 这是“外部对象”，我们用它来提供未解析的 import 的地址与 angr 内部对象
 >>> proj.loader.extern_object
 <ExternObject Object cle##externs, maps [0x5000000:0x5008000]>
 
-# This object is used to provide addresses for emulated syscalls
+# 该对象用来为仿真的系统调用提供地址
 >>> proj.loader.kernel_object
 <KernelObject Object cle##kernel, maps [0x4000000:0x4008000]>
 
-# Finally, you can to get a reference to an object given an address in it
+# 最后，我们可以得到给定地址对象的引用
 >>> proj.loader.find_object_containing(0x400000)
 <ELF Object true, maps [0x400000:0x60105f]>
 ```
 
-You can interact directly with these objects to extract metadata from them:
+您可以直接和这些对象进行交互，从中提取元数据：
 
 ```python
 >>> obj = proj.loader.main_object
 
-# The entry point of the object
+# 对象的入口点
 >>> obj.entry
 0x400580
 
 >>> obj.min_addr, obj.max_addr
 (0x400000, 0x60105f)
 
-# Retrieve this ELF's segments and sections
+# 检索 ELF 的 segment 和 section 
 >>> obj.segments
 <Regions: [<ELFSegment offset=0x0, flags=0x5, filesize=0xa74, vaddr=0x400000, memsize=0xa74>,
            <ELFSegment offset=0xe28, flags=0x6, filesize=0x228, vaddr=0x600e28, memsize=0x238>]>
@@ -87,7 +85,7 @@ You can interact directly with these objects to extract metadata from them:
            <.note.ABI-tag | offset 0x254, vaddr 0x400254, size 0x20>,
             ...etc
             
-# You can get an individual segment or section by an address it contains:
+# 可以通过一个给定的地址得到一个单独的 segment 或 section
 >>> obj.find_segment_containing(obj.entry)
 <ELFSegment offset=0x0, flags=0x5, filesize=0xa74, vaddr=0x400000, memsize=0xa74>
 >>> obj.find_section_containing(obj.entry)
@@ -107,12 +105,11 @@ You can interact directly with these objects to extract metadata from them:
 0x400000
 ```
 
-### Symbols and Relocations
+### 符号与重定向
 
-You can also work with symbols while using CLE.
-A symbol is a fundamental concept in the world of executable formats, effectively mapping a name to an address.
+您也可以在使用 CLE 时使用符号，符号是可执行格式世界中的基本概念，可以有效地将 name 映射到地址
 
-The easiest way to get a symbol from CLE is to use `loader.find_symbol`, which takes either a name or an address and returns a Symbol object.
+从 CLE 获取符号最简单的方法就是 `loader.find_symbol`，给它一个 name 或地址可以返回一个 Symbol 对象
 
 ```python
 >>> malloc = proj.loader.find_symbol('malloc')
@@ -120,12 +117,12 @@ The easiest way to get a symbol from CLE is to use `loader.find_symbol`, which t
 <Symbol "malloc" in libc.so.6 at 0x1054400>
 ```
 
-The most useful attributes on a symbol are its name, its owner, and its address, but the "address" of a symbol can be ambiguous.
-The Symbol object has three ways of reporting its address:
+符号中最有用的属性就是其 name、owner 和地址，但符号的地址可能是不确定的。
+有三种方式得到 Symbol 对象的地址：
 
-- `.rebased_addr` is its address in the global address space. This is what is shown in the print output.
-- `.linked_addr` is its address relative to the prelinked base of the binary. This is the address reported in, for example, `readelf(1)`.
-- `.relative_addr` is its address relative to the object base. This is known in the literature (particularly the Windows literature) as an RVA (relative virtual address).
+- `.rebased_addr` 是其在全局地址空间的地址，也是输出的默认值
+- `.linked_addr` 是其相对于二进制文件预链接基址的地址，例如 `readelf(1)`
+- `.relative_addr` 是其相对于对象库基址的地址，特别是在 Windows 系统中叫做 RVA（相对虚拟地址）
 
 ```python
 >>> malloc.name
@@ -142,10 +139,9 @@ The Symbol object has three ways of reporting its address:
 0x54400
 ```
 
-In addition to providing debug information, symbols also support the notion of dynamic linking.
-libc provides the malloc symbol as an export, and the main binary depends on it.
-If we ask CLE to give us a malloc symbol from the main object directly, it'll tell us that this is an _import symbol_.
-Import symbols do not have meaningful addresses associated with them, but they do provide a reference to the symbol that was used to resolve them, as `.resolvedby`.
+除了提供调试信息外，symbol 还支持动态链接。libc 将 malloc symbol 作为 export，主要的二进制程序都依赖它
+如果我们要求 CLE 直接从主对象给我们一个 malloc symbol，它会告诉我们这是一个 _import symbol_。
+导入符号没有明确意义上的地址，但是确实提供了用于解析它们的符号的引用 `.resolvedby`
 
 ```python
 >>> malloc.is_export
@@ -166,16 +162,16 @@ True
 <Symbol "malloc" in libc.so.6 at 0x1054400>
 ```
 
-The specific ways that the links between imports and exports should be registered in memory are handled by another notion called _relocations_. 
-A relocation says, "when you match _\[import\]_ up with an export symbol, please write the export's address to _\[location\]_, formatted as _\[format\]_."
-We can see the full list of relocations for an object (as `Relocation` instances) as `obj.relocs`, or just a mapping from symbol name to Relocation as `obj.imports`.
-There is no corresponding list of export symbols.
+import 和 export 之间的连接关系应该在内存中注册，这种具体的方式由拎一个成为 _重定向_ 的概念来处理
+重定向的意思是说：当您用一个 export symbol 匹配到一个 import 时，请将 export 的地址写入 _\[location\]_，格式为 _\[format\]_
+我们可以使用 `obj.relocs` 看到一个对象（`Relocation` 实例）的重定向清单，或者只映射 symbol name 到 Relocation 上作为 `obj.imports`
+这里没有 export symbol 的相应清单
 
-A relocation's corresponding import symbol can be accessed as `.symbol`.
-The address the relocation will write to is accessable through any of the address identifiers you can use for Symbol, and you can get a reference to the object requesting the relocation with `.owner_obj` as well.
+重定向对应的 import symbol 可以作为 `.symbol` 被访问
+重定向将要写入的地址是可以通过任意可以用于 Symbol 的地址识别符进行访问，还可以用 `.owner_obj` 得到重定向的对象的引用
 
 ```python
-# Relocations don't have a good pretty-printing, so those addresses are python-internal, unrelated to our program
+# 重定向不会有良好的格式，所以这些地址是 Python 内部的，和我们的程序无关
 >>> proj.loader.shared_objects['libc.so.6'].imports
 {u'__libc_enable_secure': <cle.backends.relocations.generic.GenericJumpslotReloc at 0x4221fb0>,
  u'__tls_get_addr': <cle.backends.relocations.generic.GenericJumpslotReloc at 0x425d150>,
@@ -186,74 +182,78 @@ The address the relocation will write to is accessable through any of the addres
  u'_rtld_global_ro': <cle.backends.relocations.generic.GenericJumpslotReloc at 0x4254210>}
 ```
 
-If an import cannot be resolved to any export, for example, because a shared library could not be found, CLE will automatically update the externs object (`loader.extern_obj`) to claim it provides the symbol as an export.
+如果一个 import 不能解析为任何一个 export。例如，无法找到共享库，CLE 将会自动更新外部对象 (`loader.extern_obj`) 来声明它将识别该 symbol 为一个 export
 
-## Loading Options
+## 装载选项
 
-If you are loading something with `angr.Project` and you want to pass an option to the `cle.Loader` instance that Project implicitly creates, you can just pass the keyword argument directly to the Project constructor, and it will be passed on to CLE.
-You should look at the [CLE API docs.](http://angr.io/api-doc/cle.html) if you want to know everything that could possibly be passed in as an option, but we will go over some important and frequently used options here.
+如果您正在使用 `angr.Project` 装载某些程序，并且想要为 Project 隐式创建的 `cle.Loader` 实例传递一些选项，您可以直接将关键字参数传递给 Project 的构造函数，通过它传递给 CLE。
+如果您想知道所有可能的选项参数，您应该查看 CLE 的 [API 文档](http://angr.io/api-doc/cle.html)
+我们现在只会介绍一些重要且常用的选项
 
-#### Basic Options
+#### 基本选项
 
-We've discussed `auto_load_libs` already - it enables or disables CLE's attempt to automatically resolve shared library dependencies, and is on by default.
-Additionally, there is the opposite, `except_missing_libs`, which, if set to true, will cause an exception to be thrown whenever a binary has a shared library dependency that cannot be resolved.
+我们已经讨论过 `auto_load_libs` - 它可以启用/禁用 CLE 自动尝试解析共享库依赖，默认是开启的。
+此外，如果 `except_missing_libs` 被设置为 true，在二进制文件具有无法解析的共享库依赖时抛出异常
 
-You can pass a list of strings to `force_load_libs` and anything listed will be treated as an unresolved shared library dependency right out of the gate, or you can pass a list of strings to `skip_libs` to prevent any library of that name from being resolved as a dependency.
-Additionally, you can pass a list of strings \(or a single string\) to `custom_ld_path`, which will be used as an additional search path for shared libraries, before any of the defaults: the same directory as the loaded program, the current working directory, and your system libraries.
+您可以传递一个字符串列表给 `force_load_libs`，列表中的任何东西都会被认为是未解析的共享库依赖，或者可以传递字符串列表给 `skip_libs` 来阻止这些名称的库被解析为依赖关系。
+此外，您可以传递字符串列表给 `custom_ld_path`，将会将其作为共享库搜索的附加路径放在所有默认路径之前，被装载程序目录、当前工作目录与系统库目录
 
-#### Per-Binary Options
+#### 特定二进制选项
 
-If you want to specify some options that only apply to a specific binary object, CLE will let you do that too. The parameters `main_ops` and `lib_opts` do this by taking dictionaries of options. `main_opts` is a mapping from option names to option values, while `lib_opts` is a mapping from library name to dictionaries mapping option names to option values.
+CLE 也可以指定一些仅适用于特定二进制对象的选项，参数 `main_ops` 和 `lib_opts` 通过选项字典来实现这一功能。
+`main_opts` 提供从选项名到选项值的映射，`lib_opts` 提供库名到前一个字典的映射，该字典提供从选项名到选项值的映射
 
-The options that you can use vary from backend to backend, but some common ones are:
+每个后端对应的选项不同，但是有一些是通用的：
 
-* `backend` - which backend to use, as either a class or a name
-* `custom_base_addr` - a base address to use
-* `custom_entry_point` - an entry point to use
-* `custom_arch` - the name of an architecture to use
+* `backend` - 使用的后端，作为一个类或者一个名字
+* `custom_base_addr` - 使用的基地址
+* `custom_entry_point` - 使用的入口点
+* `custom_arch` - 使用的架构
 
-Example:
+例如:
 
 ```python
 angr.Project(main_opts={'backend': 'ida', 'custom_arch': 'i386'}, lib_opts={'libc.so.6': {'backend': 'elf'}})
 ```
 
-### Backends
+### 后端
 
-CLE currently has backends for statically loading ELF, PE, CGC, Mach-O and ELF core dump files, as well as loading binaries with IDA and loading files into a flat address space. CLE will automatically detect the correct backend to use in most cases, so you shouldn't need to specify which backend you're using unless you're doing some pretty weird stuff.
+CLE 目前拥有用于静态装载 ELF, PE, CGC, Mach-O 与 ELF core dump 文件的后端，其功能与使用 IDA 装载、将文件装载到 flat 地址空间相同。CLE 会自动检测并匹配正确的后端来使用，所以不需要手动指定
 
-You can force CLE to use a specific backend for an object by by including a key in its options dictionary, as described above. Some backends cannot autodetect which architecture to use and _must_ have a `custom_arch` specified. The key doesn't need to match any list of architectures; angr will identify which architecture you mean given almost any common identifier for any supported arch.
+当然，也可以在选项中强制指定 CLE 使用某一个后端来进行装载，某些后端无法自动检测需要使用的架构，_必须_ 使用 `custom_arch` 手动指定。如果和任何一个架构都不匹配，angr 会确定您所指定的架构，其几乎可以为任何受支持的架构提供任意通用标识符
 
-To refer to a backend, use the name from this table:
+要引用后端，请使用下表中的名字：
 
-| backend name | description | requires `custom_arch`? |
+| 后端名称 | 描述 | 需要 `custom_arch`? |
 | --- | --- | --- |
-| elf | Static loader for ELF files based on PyELFTools | no |
-| pe | Static loader for PE files based on PEFile | no |
-| mach-o | Static loader for Mach-O files. Does not support dynamic linking or rebasing. | no |
-| cgc | Static loader for Cyber Grand Challenge binaries | no |
-| backedcgc | Static loader for CGC binaries that allows specifying memory and register backers | no |
-| elfcore | Static loader for ELF core dumps | no |
-| ida | Launches an instance of IDA to parse the file | yes |
-| blob | Loads the file into memory as a flat image | yes |
+| elf | 基于 PyELFTools 的 ELF 文件静态装载器 | no |
+| pe | 基于 PEFile 的 PE 文件静态装载器 | no |
+| mach-o | Mach-O 文件的静态装载器，不支持动态链接或 rebasing | no |
+| cgc | CGC 二进制程序静态装载器 | no |
+| backedcgc | 允许指定内存和寄存器的 CGC 静态装载器 | no |
+| elfcore | ELF core dumps 的静态装载器 | no |
+| ida | 启动一个 IDA 实例来解析这个文件 | yes |
+| blob | 以 flat image 加载该文件进入内存 | yes |
 
-## Symbolic Function Summaries
+## 符号化函数摘要 Symbolic Function Summaries
 
-By default, Project tries to replace external calls to library functions by using symbolic summaries termed _SimProcedures_ - effectively just python functions that imitate the library function's effect on the state. We've implemented [a whole bunch of functions](https://github.com/angr/angr/tree/master/angr/procedures) as SimProcedures. These builtin procedures are available in the `angr.SIM_PROCEDURES` dictionary, which is two-leveled, keyed first on the package name \(libc, posix, win32, stubs\) and then on the name of the library function. Executing a SimProcedure instead of the actual library function that gets loaded from your system makes analysis a LOT more tractable, at the cost of [some potential inaccuracies](/docs/gotchas.md).
+默认情况下， Project 试着通过称为 _SimProcedures_ 的符号化摘要来替换对库函数的外部调用 - 实际上是用 Python 模拟库函数对 state 的影响
+我们已经实现了 SimProcedures 中的 [一系列功能](https://github.com/angr/angr/tree/master/angr/procedures) ，这些内置的功能更可以在字典 `angr.SIM_PROCEDURES` 中得到，该字典是双层的，第一层的键是包名 \(libc, posix, win32, stubs\)，第二层的键是库函数的名字。执行 SimProcedure 代替从系统装载的实际库函数开始分析更易于处理，当然是以 [一些潜在的不准确](/docs/gotchas.md) 作为代价。
 
-When no such summary is available for a given function:
+当给定的函数没有此类摘要时：
 
-* if `auto_load_libs` is `True` \(this is the default\), then the _real_ library function is executed instead. This may or may not be what you want, depending on the actual function. For example, some of libc's functions are extremely complex to analyze and will most likely cause an explosion of the number of states for the path trying to execute them.
-* if `auto_load_libs` is `False`, then external functions are unresolved, and Project will resolve them to a generic "stub" SimProcedure called `ReturnUnconstrained`. It does what its name says: it returns a unique unconstrained symbolic value each time it is called.
-* if `use_sim_procedures` \(this is a parameter to `angr.Project`, not `cle.Loader`\) is `False` \(it is `True` by default\), then only symbols provided by the extern object will be replaced with SimProcedures, and they will be replaced by a stub `ReturnUnconstrained`, which does nothing but return a symbolic value.
-* you may specify specific symbols to exclude from being replaced with SimProcedures with the parameters to `angr.Project`: `exclude_sim_procedures_list` and `exclude_sim_procedures_func`.
-* Look at the code for `angr.Project._register_object` for the exact algorithm.
+* 如果 `auto_load_libs` 是 `True` \(这也是默认值\)，则会执行真正的库函数。这取决于具体的功能，例如一些 libc 的函数的分析非常复杂，很可能因为试着执行导致路径状态数量爆炸
+* 如果 `auto_load_libs` 是 `False`，则外部函数无法解析，Project 将会解析它们到一个通用的、被叫做 `ReturnUnconstrained` 的 "stub" SimProcedure 上。它会在每次被调用时返回唯一的无约束符号化值
+* 如果 `use_sim_procedures` \(这个参数是 `angr.Project` 的，不是 `cle.Loader` 的\) 是 `False` \(默认为 `True`\)，则只有外部对象提供的符号被 SimProcedures 替换，并且它们会被 stub `ReturnUnconstrained` 替换，它不会执行任何操作只返回一个符号化值
+* 通过将参数 `exclude_sim_procedures_list` 和 `exclude_sim_procedures_func` 送给 `angr.Project` 可以指定特定的符号排除在 SimProcedures 替换的范围之外
+* 可以查看 `angr.Project._register_object` 的代码来确定具体的算法
 
 #### Hooking
 
-The mechanism by which angr replaces library code with a python summary is called hooking, and you can do it too! When performing simulation, at every step angr checks if the current address has been hooked, and if so, runs the hook instead of the binary code at that address. The API to let you do this is `proj.hook(addr, hook)`, where `hook` is a SimProcedure instance. You can manage your project's hooks with `.is_hooked`, `.unhook`, and `.hooked_by`, which should hopefully not require explanation.
+angr 用 Python 摘要代替库函数的机制叫做 Hooking。执行仿真时，每一步 angr 都会检查当前地址是否被 Hook，如果成功则在在地址运行 Hook 代码而不是二进制代码。
+Hooking 的函数是 `proj.hook(addr, hook)`，Hook 的位置是一个 SimProcedure 实例。您可以通过 `.is_hooked`、`.unhook` 和 `.hooked_by` 来管理您工程中的钩子
 
-There is an alternate API for hooking an address that lets you specify your own off-the-cuff function to use as a hook, by using `proj.hook(addr)` as a function decorator. If you do this, you can also optionally specify a `length` keyword argument to make execution jump some number of bytes forward after your hook finishes.
+Hooking 一个地址还有一个可替代的 API，通过使用 `proj.hook(addr)` 作为函数装饰器，可以自己指定 off-the-cuff 函数用作钩子。还可以选择指定一个 `length` 参数来确定钩子执行完成后向前跳转一些字节
 
 ```python
 >>> stub_func = angr.SIM_PROCEDURES['stubs']['ReturnUnconstrained'] # this is a CLASS
@@ -273,13 +273,11 @@ True
 True
 ```
 
-Furthermore, you can use `proj.hook_symbol(name, hook)`, providing the name of a symbol as the first argument, to hook the address where the symbol lives.
-One very important usage of this is to extend the behavior of angr's built-in library SimProcedures.
-Since these library functions are just classes, you can subclass them, overriding pieces of their behavior, and then use your subclass in a hook.
+此外，我们可以使用 `proj.hook_symbol(name, hook)` 作为第一个参数提供 symbol 的名字，来勾住 symbol 所在的地址。一个非常重要的用途就是用来扩展 angr 内建库 SimProcedures 的行为
+由于这些库函数只是类，您可以进行子类化，覆写他们的函数，然后在 Hook 中使用您的子类
 
 ## So far so good!
 
-By now, you should have a reasonable understanding of how to control the environment in which your analysis happens, on the level of the CLE loader and the angr Project.
-You should also understand that angr makes a reasonable attempt to simplify its analysis by hooking complex library functions with SimProcedures that summarize the effects of the functions.
+到目前为止，您应该对 CLE 装载器和 angr Project 各级如何控制您分析环境中的各种使用方法有所了解了。还应该了解了 angr 通过 SimProcedures 挂钩复杂函数库提供函数摘要来简化分析。
 
-In order to see all the things you can do with the CLE loader and its backends, look at the [CLE API docs.](http://angr.io/api-doc/cle.html)
+为了查看 CLE 装载器中所有可用的信息以及后端的内容，请查看 [CLE API 文档](http://angr.io/api-doc/cle.html)
