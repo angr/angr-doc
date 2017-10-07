@@ -1,6 +1,6 @@
 # angr courses - Step 0 - Basic symbolic execution
 
-第一个尝试就是使用符号执行。提醒您，关于富豪执行，您可以在 [文档](/docs/symbolic.md) 中了解更多
+第一个尝试就是使用符号执行。提醒您，关于符号执行，您可以在 [文档](/docs/symbolic.md) 中了解更多
 
 The binary and source code for this course can be found [here](./).
 
