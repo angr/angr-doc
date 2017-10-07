@@ -5,48 +5,49 @@
 
 在处理不同架构时，VEX IR 会提取不同架构之间的差异，从而可以对这些架构进行单个分析
 
-- **寄存器名** The quantity and names of registers differ between architectures, but modern CPU designs hold to a common theme: each CPU contains several general purpose registers, a register to hold the stack pointer, a set of registers to store condition flags, and so forth. The IR provides a consistent, abstracted interface to registers on different platforms. Specifically, VEX models the registers as a separate memory space, with integer offsets (e.g., AMD64's `rax` is stored starting at address 16 in this memory space).
-- **内存访问** Different architectures access memory in different ways. For example, ARM can access memory in both little-endian and big-endian modes. The IR abstracts away these differences.
-- **内存分割** Some architectures, such as x86, support memory segmentation through the use of special segment registers. The IR understands such memory access mechanisms.
-- **Instruction side-effects.** Most instructions have side-effects. For example, most operations in Thumb mode on ARM update the condition flags, and stack push/pop instructions update the stack pointer. Tracking these side-effects in an *ad hoc* manner in the analysis would be crazy, so the IR makes these effects explicit.
+- **寄存器名** 寄存器的数量和名字在不同的架构中存在差别，但现代 CPU 设计都遵循一个共识：每个 CPU 都包含几个通用寄存器，一个用来保存堆栈指针的寄存器，一系列用来存储条件旗标的寄存器，等等。IR 为不同平台的寄存器提供了一致的抽象接口。具体来说，VEX 将寄存器视为单独的、带有整数偏移的内存空间（例如，AMD64 的 `rax` 会从内存空间的 16 位置开始存储）
+- **内存访问** 不同的架构访问内存的方式不同。例如，ARM 可以以小端和大端模式访问内存。IR 会抽象这些差异
+- **内存分割** 一些架构，比如 x86 通过特殊的段寄存器来实现内存分段，IR 支持这种内存访问机制
+- **指令副产物** 大多数指令都有副产物，例如，ARM 上的 Thumb 模式中的大多数操作都会更新条件旗标、栈操作指令会更新栈指针。在分析中以 *ad hoc* 的方式对副产物进行跟踪是疯狂的，所以 IR 使这些操作的副产物变得更明显
 
 IR 有很多选择，我们选择使用 VEX，因为将二进制代码转换到 VEX 有着相当好的支持。VEX 是架构无关的、side-effects-free 的，许多目标机器语言的中间表示。它将机器代码抽象为易于程序分析的中间表示，其有四个主要的类：
 
-- **表达式** IR Expressions represent a calculated or constant value. This includes memory loads, register reads, and results of arithmetic operations.
-- **Operations.** IR Operations describe a *modification* of IR Expressions. This includes integer arithmetic, floating-point arithmetic, bit operations, and so forth. An IR Operation applied to IR Expressions yields an IR Expression as a result.
-- **临时变量** VEX uses temporary variables as internal registers: IR Expressions are stored in temporary variables between use. The content of a temporary variable can be retrieved using an IR Expression. These temporaries are numbered, starting at `t0`. These temporaries are strongly typed (e.g., "64-bit integer" or "32-bit float").
-- **Statements.** IR Statements model changes in the state of the target machine, such as the effect of memory stores and register writes. IR Statements use IR Expressions for values they may need. For example, a memory store *IR Statement* uses an *IR Expression* for the target address of the write, and another *IR Expression* for the content.
-- **块** An IR Block is a collection of IR Statements, representing an extended basic block (termed "IR Super Block" or "IRSB") in the target architecture. A block can have several exits. For conditional exits from the middle of a basic block, a special *Exit* IR Statement is used. An IR Expression is used to represent the target of the unconditional exit at the end of the block.
+- **表达式** IR 表达式表示计算过的值或不变量，包括内存加载、寄存器读取和算术运算的结果
+- **运算** IR 运算描述了 IR 表达式的 *修改*。包括整数运算、浮点运算、位运算等，IR 表达式的 IR 操作会产生 IR 表达式
+- **临时变量** VEX 使用临时变量作为内部寄存器：IR 表达式存储在临时变量中。可以用 IR 表达式检索临时变量的内容。临时变量是数字型的，从 `t0` 开始，而且是强类型的（例如，64 位整数、32 位浮点数）
+- **语句** IR 语句模型随着目标机的语句改变，例如内存存储与寄存器写入的副产物。IR Statements 使用 IR 表达式可能用到得值。例如内存使用一个 *IR 表达式* 存储 *IR Statement* 要写入的地址，使用另一个 *IR 表达式* 来存储内容
+- **块** IR 块是 IR 语句的集合，表示目标架构上的扩展基本块（称为 IR 超级块或 IRSB）一个块可以有多个出口。块中的条件退出用特殊的 *Exit* IR 语句表示。IR 表达式用来表示基本块末尾无条件退出的目标
 
-VEX IR is actually quite well documented in the `libvex_ir.h` file (https://github.com/angr/vex/blob/master/pub/libvex_ir.h) in the VEX repository. For the lazy, we'll detail some parts of VEX that you'll likely interact with fairly frequently. To begin with, here are some IR Expressions:
+VEX IR 提供了相当好的文档在 `libvex_ir.h` 中(https://github.com/angr/vex/blob/master/pub/libvex_ir.h)。由于懒惰，我们只为您介绍高频使用的部分。首先，这里有一些 IR 表达式：
 
 | IR Expression | Evaluated Value | VEX Output Example |
 | ------------- | --------------- | ------- |
-| Constant | A constant value. | 0x4:I32 |
-| Read Temp | The value stored in a VEX temporary variable. | RdTmp(t10) |
-| Get Register | The value stored in a register. | GET:I32(16) |
-| Load Memory | The value stored at a memory address, with the address specified by another IR Expression. | LDle:I32 / LDbe:I64 |
-| Operation | A result of a specified IR Operation, applied to specified IR Expression arguments. | Add32 |
-| If-Then-Else | If a given IR Expression evaluates to 0, return one IR Expression. Otherwise, return another. | ITE |
-| Helper Function | VEX uses C helper functions for certain operations, such as computing the conditional flags registers of certain architectures. These functions return IR Expressions. | function\_name() |
+| Constant | 恒定不变的值 | 0x4:I32 |
+| Read Temp | 存储在 VEX 临时变量中的值 | RdTmp(t10) |
+| Get Register | 存储在寄存器中的值 | GET:I32(16) |
+| Load Memory | 存储在内存地址中的值，由另一个 IR 表达式指定地址 | LDle:I32 / LDbe:I64 |
+| Operation | 指定 IR 操作的结果，应用于指定的 IR 表达式参数 | Add32 |
+| If-Then-Else | 如果给定的 IR 表达式求值为 0，返回一个 IR 表达式，否则返回另一个 | ITE |
+| Helper Function | VEX 使用 C 辅助函数来进行某些运算，例如计算某些架构下的条件旗标。这些函数会返回 IR 表达式 | function\_name() |
 
-These expressions are then, in turn, used in IR Statements. Here are some common ones:
+这些表达式也可以被用在 IR 语句中，这有一些常见的：
 
 | IR Statement | Meaning | VEX Output Example |
 | ------------ | ------- | ------------------ |
-| Write Temp | Set a VEX temporary variable to the value of the given IR Expression. | WrTmp(t1) = (IR Expression) |
-| Put Register | Update a register with the value of the given IR Expression. | PUT(16) = (IR Expression) |
-| Store Memory | Update a location in memory, given as an IR Expression, with a value, also given as an IR Expression. | STle(0x1000) = (IR Expression) |
-| Exit | A conditional exit from a basic block, with the jump target specified by an IR Expression. The condition is specified by an IR Expression. | if (condition) goto (Boring) 0x4000A00:I32 |
+| Write Temp | 将 VEX 临时变量设置为给定的 IR 表达式的值 | WrTmp(t1) = (IR Expression) |
+| Put Register | 使用给定的 IR 表达式更新寄存器 | PUT(16) = (IR Expression) |
+| Store Memory | 根据 IR 表达式更新内存，位置与值都通过 IR 表达式给出 | STle(0x1000) = (IR Expression) |
+| Exit | 基本块中的条件退出，条件与跳转目标位置都由 IR 表达式指定 | if (condition) goto (Boring) 0x4000A00:I32 |
 
-An example of an IR translation, on ARM, is produced below. In the example, the subtraction operation is translated into a single IR block comprising 5 IR Statements, each of which contains at least one IR Expression (although, in real life, an IR block would typically consist of more than one instruction). Register names are translated into numerical indices given to the *GET* Expression and *PUT* Statement.
-The astute reader will observe that the actual subtraction is modeled by the first 4 IR Statements of the block, and the incrementing of the program counter to point to the next instruction (which, in this case, is located at `0x59FC8`) is modeled by the last statement.
+以下是一个在 ARM 上进行 IR 转换的例子。示例中，减法指令被转换成了一个包含五个 IR 语句的 IR 块，每个语句都包含一个 IR 表达式（虽然实际中 IR 块通常包含超过一个指令）。寄存器也转换成了 *GET* 表达式/*PUT* 语句中的数值型指标。
 
-The following ARM instruction:
+精明的读者应该已经发现了，实际上减法指令是由块中的前四个 IR 语句构成的，程序计数器递增指向下一条指令（本例中是 `0x59FC8`）是由最后一条语句完成的
+
+ARM 指令如下：
 
     subs R2, R2, #8
     
-Becomes this VEX IR:
+转换成 VEX IR：
 
     t0 = GET:I32(16)
     t1 = 0x8:I32
@@ -54,37 +55,37 @@ Becomes this VEX IR:
     PUT(16) = t3
     PUT(68) = 0x59FC8:I32
 
-Now that you understand VEX, you can actually play with some VEX in angr: We use a library called [PyVEX](https://github.com/angr/pyvex) that exposes VEX into Python. In addition, PyVEX implements its own pretty-printing so that it can show register names instead of register offsets in PUT and GET instructions.
+现在，您了解了 VEX，您可以在 angr 里使用 VEX 了，我们使用名为 [PyVEX](https://github.com/angr/pyvex) 的库来将 VEX 在 Python 中可用。另外，PyVEX 已经实现了优雅的输出，可以在 PUT/GET 指令中显示寄存器的名字而非寄存器偏移量
 
-PyVEX is accessable through angr through the `Project.factory.block` interface. There are many different representations you could use to access syntactic properties of a block of code, but they all have in common the trait of analyzing a particular sequence of bytes. Through the `factory.block` constructor, you get a `Block` object that can be easily turned into several different representations. Try `.vex` for a PyVEX IRSB, or `.capstone` for a Capstone block.
+可以通过 `Project.factory.block` 接口访问 PyVEX。您有很多不同的表示方法来访问代码块的语义属性，但它们都具有特定字节序列分析的共同特征。通过 `factory.block` 构造函数，您可以得到一个 `Block` 对象，它可以很容易地转换为多种不同的表示形式。尝试使用 `.vex` 来查看 PyVEX IRSB，或者使用 `.capstone` 得到 Capstone 块
 
-Let's play with PyVEX:
+来试试 PyVEX 吧！
 
 ```python
 >>> import angr
 
-# load the program binary
+# 装载二进制程序
 >>> proj = angr.Project("/bin/true")
 
-# translate the starting basic block
+# 转换起始基本块
 >>> irsb = proj.factory.block(proj.entry).vex
-# and then pretty-print it
+# 将其打印出来
 >>> irsb.pp()
 
-# translate and pretty-print a basic block starting at an address
+# 转换并打印一个地址开始的基本块
 >>> irsb = proj.factory.block(0x401340).vex
 >>> irsb.pp()
 
-# this is the IR Expression of the jump target of the unconditional exit at the end of the basic block
+# 基本块结尾的无条件退出的跳转目标的 IR 表达式
 >>> print irsb.next
 
-# this is the type of the unconditional exit (e.g., a call, ret, syscall, etc)
+# 无条件退出的类型（例如，调用，返回，系统调用等）
 >>> print irsb.jumpkind
 
-# you can also pretty-print it
+# 将其打印出来
 >>> irsb.next.pp()
 
-# iterate through each statement and print all the statements
+# 遍历所有语句并全部打印出来
 >>> for stmt in irsb.statements:
 ...     stmt.pp()
 
@@ -99,7 +100,7 @@ Let's play with PyVEX:
 ...         print stmt.data.result_type
 ...         print ""
 
-# pretty-print the condition and jump target of every conditional exit from the basic block
+# 打印基本块的每个条件退出的条件和目的地址
 >>> for stmt in irsb.statements:
 ...     if isinstance(stmt, pyvex.IRStmt.Exit):
 ...         print "Condition:",
@@ -116,19 +117,16 @@ Let's play with PyVEX:
 >>> print irsb.tyenv.types[0]
 ```
 
-## Condition flags computation (for x86 and ARM)
+## 条件旗标计算（x86 与 ARM）
 
-One of the most common instruction side-effects on x86 and ARM CPUs is updating condition flags, such as the zero flag, the carry flag, or the overflow flag.
-Computer architects usually put the concatenation of these flags (yes, concatenation of the flags, since each condition flag is 1 bit wide) into a special register (i.e. `EFLAGS`/`RFLAGS` on x86, `APSR`/`CPSR` on ARM).
-This special register stores important information about the program state, and is critical for correct emulation of the CPU.
+x86 和 ARM 的 CPU 上最常见的指令副产物之一就是更新条件旗标，例如零标志位，进位标志位或溢出标志位。
+计算机中常常将这些标志位连接起来，存在一个特殊的寄存器中（在 x86 中是 `EFLAGS`/`RFLAGS`，在 ARM 中是 `APSR`/`CPSR`）
+该寄存器中存储着有关程序状态的重要信息，对 CPU 仿真的正确性至关重要
 
-VEX uses 4 registers as its "Flag thunk descriptors" to record details of the latest flag-setting operation.
-VEX has a lazy strategy to compute the flags: when an operation that would update the flags happens, instead of computing the flags, VEX stores a code representing this operation to the `cc_op` pseudo-register, and the arguments to the operation in `cc_dep1` and `cc_dep2`.
-Then, whenever VEX needs to get the actual flag values, it can figure out what the one bit corresponding to the flag in question actually is, based on its flag thunk descriptors.
-This is an optimization in the flags computation, as VEX can now just directly perform the relevant operation in the IR without bothering to compute and update the flags' value.
+VEX 使用四个寄存器作为 "Flag thunk descriptors" 来记录最新的旗标信息。VEX 只在操作触发旗标更新时计算旗标，VEX 存储操作的代码表示到 `cc_op` 伪寄存器，参数存在 `cc_dep1` 和 `cc_dep2` 中。
+当 VEX 需要获取实际的旗标值时，可以根据 "Flag thunk descriptors" 来计算出与该旗标相对应的位上是什么。这是旗标计算中的优化，因为 VEX 现在可以直接在 IR 中执行相关操作，不用干扰计算、更新旗标
 
-Amongst different operations that can be placed in `cc_op`, there is a special value 0 which corresponds to `OP_COPY` operation.
-This operation is supposed to copy the value in `cc_dep1` to the flags.
-It simply means that `cc_dep1` contains the flags' value.
-angr uses this fact to let us efficiently retrieve the flags' value: whenever we ask for the actual flags, angr computes their value, then dumps them back into `cc_dep1` and sets `cc_op = OP_COPY` in order to cache the computation.
-We can also use this operation to allow the user to write to the flags: we just set `cc_op = OP_COPY` to say that a new value being set to the flags, then set `cc_dep1` to that new value.
+`cc_op` 存放着不同的操作指令，也存放着对应于 `OP_COPY` 操作的特殊值 0。 
+这个操作被假定拷贝 `cc_dep1` 的值到旗标中。这意味着 `cc_dep1` 包含旗标的值。
+angr 利用这一点来有效地检索旗标的值：当需要实际旗标的值时，angr 计算其值之后存到 `cc_dep1` 中，并设置 `cc_op = OP_COPY` 来缓存计算结果。
+我们也允许用户来对旗标进行写入，设置 `cc_op = OP_COPY` 表明一个新值要被写入旗标了，然后设置 `cc_dep1` 为新值
