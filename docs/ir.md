@@ -1,25 +1,22 @@
-# Intermediate Representation
+# 中间表示
 
-In order to be able to analyze and execute machine code from different CPU architectures, such as MIPS, ARM, and PowerPC in addition to the classic x86, angr performs most of its analysis on an _intermediate representation_, a structured description of the fundamental actions performed by each CPU instruction.
-By understanding angr's IR, VEX \(which we borrowed from Valgrind\), you will be able to write very quick static analyses and have a better understanding of how angr works.
+为了在不同的 CPU 架构上分析和执行机器代码，例如 MIPS、ARM 和 PowerPC 与经典的 x86，angr 对其中大部分的中间表示进行了分析，对每一个 CPU 指令所执行基本操作的结构化描述
+通过理解 angr 的 IR - VEX \(我们借鉴了 Valgrind\)，你能够快速地进行静态分析并且可以更好的理解 angr 是如何工作的
 
-The VEX IR abstracts away several architecture differences when dealing with different architectures, allowing a single analysis to be run on all of them:
+在处理不同架构时，VEX IR 会提取不同架构之间的差异，从而可以对这些架构进行单个分析
 
-- **Register names.** The quantity and names of registers differ between architectures, but modern CPU designs hold to a common theme: each CPU contains several general purpose registers, a register to hold the stack pointer, a set of registers to store condition flags, and so forth. The IR provides a consistent, abstracted interface to registers on different platforms. Specifically, VEX models the registers as a separate memory space, with integer offsets (e.g., AMD64's `rax` is stored starting at address 16 in this memory space).
-- **Memory access.** Different architectures access memory in different ways. For example, ARM can access memory in both little-endian and big-endian modes. The IR abstracts away these differences.
-- **Memory segmentation.** Some architectures, such as x86, support memory segmentation through the use of special segment registers. The IR understands such memory access mechanisms.
+- **寄存器名** The quantity and names of registers differ between architectures, but modern CPU designs hold to a common theme: each CPU contains several general purpose registers, a register to hold the stack pointer, a set of registers to store condition flags, and so forth. The IR provides a consistent, abstracted interface to registers on different platforms. Specifically, VEX models the registers as a separate memory space, with integer offsets (e.g., AMD64's `rax` is stored starting at address 16 in this memory space).
+- **内存访问** Different architectures access memory in different ways. For example, ARM can access memory in both little-endian and big-endian modes. The IR abstracts away these differences.
+- **内存分割** Some architectures, such as x86, support memory segmentation through the use of special segment registers. The IR understands such memory access mechanisms.
 - **Instruction side-effects.** Most instructions have side-effects. For example, most operations in Thumb mode on ARM update the condition flags, and stack push/pop instructions update the stack pointer. Tracking these side-effects in an *ad hoc* manner in the analysis would be crazy, so the IR makes these effects explicit.
 
-There are lots of choices for an IR. We use VEX, since the uplifting of binary code into VEX is quite well supported.
-VEX is an architecture-agnostic, side-effects-free representation of a number of target machine languages.
-It abstracts machine code into a representation designed to make program analysis easier.
-This representation has four main classes of objects:
+IR 有很多选择，我们选择使用 VEX，因为将二进制代码转换到 VEX 有着相当好的支持。VEX 是架构无关的、side-effects-free 的，许多目标机器语言的中间表示。它将机器代码抽象为易于程序分析的中间表示，其有四个主要的类：
 
-- **Expressions.** IR Expressions represent a calculated or constant value. This includes memory loads, register reads, and results of arithmetic operations.
+- **表达式** IR Expressions represent a calculated or constant value. This includes memory loads, register reads, and results of arithmetic operations.
 - **Operations.** IR Operations describe a *modification* of IR Expressions. This includes integer arithmetic, floating-point arithmetic, bit operations, and so forth. An IR Operation applied to IR Expressions yields an IR Expression as a result.
-- **Temporary variables.** VEX uses temporary variables as internal registers: IR Expressions are stored in temporary variables between use. The content of a temporary variable can be retrieved using an IR Expression. These temporaries are numbered, starting at `t0`. These temporaries are strongly typed (e.g., "64-bit integer" or "32-bit float").
+- **临时变量** VEX uses temporary variables as internal registers: IR Expressions are stored in temporary variables between use. The content of a temporary variable can be retrieved using an IR Expression. These temporaries are numbered, starting at `t0`. These temporaries are strongly typed (e.g., "64-bit integer" or "32-bit float").
 - **Statements.** IR Statements model changes in the state of the target machine, such as the effect of memory stores and register writes. IR Statements use IR Expressions for values they may need. For example, a memory store *IR Statement* uses an *IR Expression* for the target address of the write, and another *IR Expression* for the content.
-- **Blocks.** An IR Block is a collection of IR Statements, representing an extended basic block (termed "IR Super Block" or "IRSB") in the target architecture. A block can have several exits. For conditional exits from the middle of a basic block, a special *Exit* IR Statement is used. An IR Expression is used to represent the target of the unconditional exit at the end of the block.
+- **块** An IR Block is a collection of IR Statements, representing an extended basic block (termed "IR Super Block" or "IRSB") in the target architecture. A block can have several exits. For conditional exits from the middle of a basic block, a special *Exit* IR Statement is used. An IR Expression is used to represent the target of the unconditional exit at the end of the block.
 
 VEX IR is actually quite well documented in the `libvex_ir.h` file (https://github.com/angr/vex/blob/master/pub/libvex_ir.h) in the VEX repository. For the lazy, we'll detail some parts of VEX that you'll likely interact with fairly frequently. To begin with, here are some IR Expressions:
 

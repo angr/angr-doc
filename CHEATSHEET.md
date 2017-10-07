@@ -1,41 +1,41 @@
-# Intro
+# 介绍
 
-The following cheatsheet aims to give a an overview of various things you can do with angr and as a quick reference to check what exactly the syntax for something was without having to dig through the deeper docs.
+本节旨在提供一个 angr 能做什么的概览，作为使用者的快速参考，不需要深入了解文档就可以学会一些用法
 
-WARNING: This page is for angr 6 and some parts will not be correct for angr 7
+警告：该页面面向 angr 6，某些部分不适用于 angr 7
 
-## General getting started
+## 通用开始
 
-Some useful imports
+一些有用的 imports
 
 ```python
-import angr #the main framework
-import claripy #the solver engine
+import angr # 主框架
+import claripy # 求解引擎
 ```
 
-Loading the binary
+装载二进制程序
 
 ```python
-proj = angr.Project("/path/to/binary", load_options={'auto_load_libs': False} ) # auto_load_libs False for improved performance
+proj = angr.Project("/path/to/binary", load_options={'auto_load_libs': False} ) # auto_load_libs 设置为 False 可以提高性能表现
 ```
 
 ## Path Groups
 
-Generate a path group object
+生成路径组对象
 
 ```python
 path_group = proj.factory.path_group(state, threads=4)
 ```
 
-## Exploring and analysing pathgroups
+## 探索分析路径组
 
-Choosing a different Exploring strategy
+选择不同的探索策略
 
 ```python
 path_group.use_technique(angr.exploration_techniques.DFS())
 ```
 
-Explore Pathgroup until one pathgroup at one of the adresses from `find=` is found
+直到一个路径组在 `find=` 的位置被发现，否则一直探索路径组
 
 ```python
 avoid_addr = [0x400c06, 0x400bc7]
@@ -48,25 +48,25 @@ found = path_group.found[] # The list of paths that reached find condition from 
 found.state.se.any_str(sym_arg) # Return a concrete string value for the sym arg to reach this state
 ```
 
-Explore pathgroup until lambda is `True`
+直到 lambda 表达式为 `True`，否则不停止探索路径组
 
 ```python
 path_group.step(until=lambda p: p.active[0].addr >= first_jmp)
 ```
 
-This is especially useful with the ability to access the current STDOUT or STDERR (1 here is the File Descriptor for STDOUT)
+访问当前 STOUT 或 STDERR 是特别有用的（1 是 STDOUT 的文件描述符）
 
 ```python
 path_group.explore(find=lambda p: "correct" in p.state.posix.dumps(1))
 ```
 
-Memory Managment on big searches (Auto Drop Stashes):
+大搜索内存管理（自动丢弃 Stashes）
 
 ```python
 path_group.explore(find=find_addr, avoid=avoid_addr, step_func=lambda lpg: lpg.drop(stash='avoid'))
 ```
 
-### Manually Exploring
+### 手动探索
 
 ```python
 path_group.step(step_func=step_func, until=lambda lpg: len(lpg.found) > 0)
@@ -78,7 +78,7 @@ def step_func(lpg):
     return lpg
 ```
 
-Enable Logging:
+启用日志记录：
 
 ```python
 angr.path_group.l.setLevel("DEBUG")
@@ -86,28 +86,28 @@ angr.path_group.l.setLevel("DEBUG")
 
 ### Stashes
 
-Move Stash:
+移动 Stash：
 
 ```python
 path_group.stash(from_stash="found", to_stash="active")
 ```
 
-Drop Stashes:
+丢弃 Stashes：
 
 ```python
 path_group.drop(stash="avoid")
 ```
 
-## Constraint Solver (claripy)
+## 约束求解器
 
-Create symbolic object
+创建一个符号化对象
 
 ```python
 sym_arg_size = 15 #Length in Bytes because we will multiply with 8 later
 sym_arg = claripy.BVS('sym_arg', 8*sym_arg_size)
 ```
 
-Restrict sym_arg to typical char range
+将 sym_arg 限制在典型的 char 范围
 
 ```python
 for byte in sym_arg.chop(8):
@@ -116,7 +116,7 @@ for byte in sym_arg.chop(8):
     initial_state.add_constraints(byte <= '~') # '\x7e'
 ```
 
-Use the argument to create a state
+使用参数来创建一个 state：
 
 ```python
 argv = [project.filename]
@@ -124,16 +124,16 @@ argv.append(sym_arg)
 state = project.factory.entry_state(args=argv)
 ```
 
-Use argument for solving:
+使用参数来求解：
 
 ```python
 argv1 = angr.claripy.BVS("argv1", flag_size * 8)
 initial_state = b.factory.full_init_state(args=["./antidebug", argv1], add_options=simuvex.o.unicorn, remove_options={simuvex.o.LAZY_SOLVES})
 ```
 
-## FFI and Hooking
+## FFI 与 Hooking
 
-Calling a function from ipython
+在 ipython 中调用函数
 
 ```python
 f = proj.factory.callable(adress)
@@ -142,7 +142,9 @@ x=claripy.BVS('x', 64)
 f(x) #TODO: Find out how to make that result readable
 ```
 
-If what you are interested in is not directly returned because for example the function returns the pointer to a buffer you can access the state after the function returns with
+如果你感兴趣的内容没有直接返回，可能是因为：
+例如，函数返回指向缓冲区的指针，仍然可以在函数返回后访问该 state
+
 
 ```python
 >>> f.result_state
@@ -155,14 +157,14 @@ Hooking
 hook(addr, hook, length=0, kwargs=None)
 ```
 
-There are already predefined hooks for libc.so.6 functions (useful for staticly compiled libraries)
+已有用于 libc.so.6  函数的预定义钩子（对静态编译库有用）
 
 ```python
 hook = simuvex.SimProcedures['libc.so.6']['atoi']
 hook(addr, hook, length=4, kwargs=None)
 ```
 
-Hooking with Simprocedure:
+使用 Simprocedure 进行 Hooking：
 
 ```python
 class fixpid(SimProcedure):
@@ -172,9 +174,9 @@ class fixpid(SimProcedure):
 b.hook(0x4008cd, fixpid, length=5)
 ```
 
-## Other useful tricks
+## 其他有用的技巧
 
-Drop into an ipython if a ctr+c is recieved (useful for debugging scripts that are running forever)
+Drop into an ipython if a ctr+c is recieved (调试正在运行的脚本很有用)
 
 ```python
 import signal
@@ -189,14 +191,14 @@ def sigint_handler(signum, frame):
 signal.signal(signal.SIGINT, sigint_handler)
 ```
 
-Get the calltrace of a pathgroup to find out where we got stuck
+得到路径组的调用跟踪，以发现我们 stuck 的位置
 
 ```python
 path = path_group.active[0]
 path.callstack_backtrace
 ```
 
-Get a basic block
+获取基本块
 
 ```python
 block = proj.factory.block(address)
@@ -204,9 +206,9 @@ block.capstone.pp() #Capstone object has pretty print and other data about the d
 block.vex.pp()      #Print vex representation
 ```
 
-## State manipulation
+## State 操纵
 
-Write to state:
+写入 state:
 
 ```python
 aaaa = claripy.BVV(0x41414141, 32) # 32 = Bits
@@ -222,7 +224,7 @@ poi1 += 0x8
 ptr1 = (new_state.se.any_int(new_state.memory.load(poi1, 8, endness='Iend_LE')))
 ```
 
-Read from State:
+从 State 中读取：
 
 ```python
 key = []
@@ -230,9 +232,9 @@ for i in range(38):
     key.append(extractkey.se.any_int(extractkey.memory.load(0x602140+(i*4), 4, endness='Iend_LE')))
 ```
 
-## Debugging angr
+## 调试 angr
 
-Set Breakpoint at every Memory read/write:
+在每次内存读/写设置断点：
 
 ```python
 new_state.inspect.b('mem_read', when=simuvex.BP_AFTER, action=debug_funcRead)
@@ -240,7 +242,7 @@ def debug_funcRead(state):
     print 'Read', state.inspect.mem_read_expr, 'from', state.inspect.mem_read_address
 ```
 
-Set Breakpoint at specific Memory location:
+在特定内存位置上设定断点：
 
 ```python
 new_state.inspect.b('mem_write', mem_write_address=0x6021f1, when=simuvex.BP_AFTER, action=debug_funcWrite)
