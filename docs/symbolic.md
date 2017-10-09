@@ -1,11 +1,9 @@
-Symbolic Execution
+符号执行
 ==================
 
-Symbolic execution allows at a time in emulation to determine for a branch all conditions necessary to take a branch or not.
-Every variable is represented as a symbolic value, and each branch as a constraint.
-Thus, symbolic execution allows us to see which conditions allows the program to go from a point A to a point B, by resolving the constraints.
+符号执行用来在仿真时确定分支所需要的条件来执行分支。每个变量都可以表示为一个符号值，每个分支都是一个约束。
+因此，符号执行赋予我们通过约束求解来查看满足哪些条件就可以让程序从 A 点到 B 点的能力。
 
-If you've read this far, you can see how the components of angr work together to make this possible.
-Read on to learn about how to make the leap from tools to results.
+如果您已经阅读了这么多，您应该已经了解了 angr 的各部分组件是如何协同工作的。继续阅读可以了解更多。
 
-TODO: A real introduction to the concept of symbolic execution.
+TODO: 符号执行真正概念的介绍
