@@ -1,14 +1,10 @@
-# Symbolic Expressions and Constraint Solving
+# 符号表达与约束求解
 
-angr's power comes not from it being an emulator, but from being able to execute with what we call _symbolic variables_.
-Instead of saying that a variable has a _concrete_ numerical value, we can say that it holds a _symbol_, effectively just a name.
-Then, performing arithmetic operations with that variable will yield a tree of operations (termed an _abstract syntax tree_ or _AST_, from compiler theory).
-ASTs can be translated into constraints for an _SMT solver_, like z3, in order to ask questions like _"given the output of this sequence of operations, what must the input have been?"_
-Here, you'll learn how to use angr to answer this.
+`angr` 的强大并不是因为它是一个仿真器，而是能够执行我们所说的符号变量。变量拥有一个符号，而不是一个具体的值，实际上只是一个名字。在使用该变量进行算数运算时将产生一个操作树（从编译器理论可以称为抽象语法树或 `AST` ）。为了提出类似于"给定操作序列的输出，那输入必须是什么？"的问题，可以将 `AST` 转换为类似于 `z3` 的 `SMT` 求解器的约束
 
-## Working with Bitvectors
+## Bitvectors使用
 
-Let's get a dummy project and state so we can start playing with numbers.
+让我们使用样本 `project` 和 `state` 来开始数字之旅
 
 ```python
 >>> import angr, monkeyhex
@@ -16,8 +12,7 @@ Let's get a dummy project and state so we can start playing with numbers.
 >>> state = proj.factory.entry_state()
 ```
 
-A bitvector is just a sequence of bits, interpreted with the semantics of a bounded integer for arithmetic.
-Let's make a few.
+`bitvector` 只是用有界整数的语义来解释的一个比特序列，下面是一些例子
 
 ```python
 # 64-bit bitvectors with concrete values 1 and 100
@@ -34,8 +29,7 @@ Let's make a few.
 <BV27 0x9>
 ```
 
-As you can see, you can have any sequence of bits and call them a bitvector.
-You can do math with them too:
+正如您看到的，您可以拥有一个任意位的比特序列，称之为 `bitvector`。您也可以使用它们做算数运算：
 
 ```python
 >>> one + one_hundred
@@ -50,9 +44,9 @@ You can do math with them too:
 <BV64 0xffffffffffffff9c>
 ```
 
-You _cannot_ say `one + weird_nine`, though.
-It is a type error to perform an operation on bitvectors of differing lengths.
-You can, however, extend `weird_nine` so it has an appropriate number of bits:
+不过 `one + weird_nine` 是不正确的。
+不同长度的 `bitvector` 进行运算时会发生类型错误。
+但是您可以通过扩张 `weird_nine` 使其具有合适的位数:
 
 ```python
 >>> weird_nine.zero_extend(64 - 27)
@@ -61,10 +55,10 @@ You can, however, extend `weird_nine` so it has an appropriate number of bits:
 <BV64 0xa>
 ```
 
-`zero_extend` will pad the bitvector on the left with the given number of zero bits.
-You can also use `sign_extend` to pad with a duplicate of the highest bit, preserving the value of the bitvector under two's compliment signed integer semantics.
+`zero_extend` 将会在 `bitvector` 左边填充适当位数的 `0` 。
+您还可以使用 `sign_extend` 来填充， `bitvector` 符号位的值将会在左边被填充。
 
-Now, let's introduce some symbols into the mix.
+现在我们来混合介绍一些符号。
 
 ```python
 # Create a bitvector symbol named "x" of length 64 bits
@@ -76,9 +70,7 @@ Now, let's introduce some symbols into the mix.
 <BV64 y_10_64>
 ```
 
-`x` and `y` are now _symbolic variables_, which are kind of like the variables you learned to work with in 7th grade algebra.
-Notice that the name you provided has been been mangled by appending an incrementing counter and 
-You can do as much arithmetic as you want with them, but you won't get a number back, you'll get an AST instead.
+`x` 和 `y` 现在是一个_符号变量_，有点像七年级代数中学习的变量。请注意，您提供的名称因为追加了一个递增计数器而损坏，您可以根据需要对他们进行尽可能多的算数运算，但是您不会得到一个数字，而是一个 `AST`。
 
 ```python
 >>> x + one
@@ -91,12 +83,11 @@ You can do as much arithmetic as you want with them, but you won't get a number 
 <BV64 x_9_64 - y_10_64>
 ```
 
-Technically `x` and `y` and even `one` are also ASTs - any bitvector is a tree of operations, even if that tree is only one layer deep.
-To understand this, let's learn how to process ASTs.
+从技术上来说 `x` 和 `y` 甚至 `one` 都是 `ASTs` - 任何 `bitvector` 都是一个操作树，即使这个操作树只有一层。
+为了理解这一点，让我们来学习下如何处理 `ASTs`。
 
-Each AST has a `.op` and a `.args`.
-The op is a string naming the operation being performed, and the args are the values the operation takes as input.
-Unless the op is `BVV` or `BVS` (or a few others...), the args are all other ASTs, the tree eventually terminating with BVVs or BVSs.
+每个 `AST` 都有一个 `.op` 和 `.args`。
+`op` 是正在执行的操作的名字的字符串表示，`args` 是执行操作时作为输入的值。除非 `op` 是 `"BVV"` 或 `"BVS"` (或者其他几个)，`args` 都是其他的 `ASTs`，操作树将会在 `BVVs` 或 `BVSs` 终止。
 
 ```python
 >>> tree = (x + 1) / (y + 2)
@@ -116,12 +107,12 @@ Unless the op is `BVV` or `BVS` (or a few others...), the args are all other AST
 (1, 64)
 ```
 
-From here on out, we will use the word "bitvector" to refer to any AST whose topmost operation produces a bitvector.
-There can be other data types represented through ASTs, including floating point numbers and, as we're about to see, booleans.
+从这里开始，我们将使用 `bitvector` 这个词来指代任何一个最顶端的操作产生一个 `bitvector` 的 `AST`。
+也可以使用 `AST` 来表示其他数据类型，包括浮点数，以及我们即将看到的布尔值。
 
-## Symbolic Constraints
+## 符号约束
 
-Performing comparison operations between any two similarly-typed ASTs will yield another AST - not a bitvector, but now a symbolic boolean.
+在任何两个类型相似的 `AST` 之间进行比较操作会产生另一个 `AST` - 而不是一个 `bitvector`,而是一个符号表达的布尔类型的值。
 
 ```python
 >>> x == 1
@@ -138,14 +129,14 @@ Performing comparison operations between any two similarly-typed ASTs will yield
 <Bool False>
 ```
 
-One tidbit you can see from this is that the comparisons are unsigned by default.
-The -5 in the last example is coerced to `<BV64 0xfffffffffffffffb>`, which is definitely not less than one hundred.
-If you want the comparison to be signed, you can say `one_hundred.SGT(-5)` (that's "signed greater-than").
-A full list of operations can be found at the end of this chapter.
+默认情况下比较是无符号的。
+在最后一个例子中 `-5` 被转换为了 `<BV64 0xfffffffffffffffb>` ,肯定不会小于 `100`。
+您如果想进行有符号之间的比较，可以通过使用 `one_hundred.SGT(-5)` 在本章末尾可以找到完整的操作列表。
 
-This snippet also illustrates an important point about working with angr - you should never directly use a comparison between variables in the condition for an if- or while-statement, since the answer might not have a concrete truth value.
-Even if there is a concrete truth value, `if one > one_hundred` will raise an exception.
-Instead, you should use `solver.is_true` and `solver.is_false`, which test for concrete truthyness/falsiness without performing a constraint solve.
+这段代码也说明了在使用 `angr` 的重要一点，您不应该直接在 `if` 或 `while` 语句的条件下进行变量的比较，因为不会得到一个确定的值。
+
+即使有一个确定的值，`if one > one_hundred` 也会引起异常。
+相反，你应该使用 `solver.is_true` 和 `solver.is_false`,可以在不执行约束求解的时候测试真假。
 
 ```python
 >>> yes = one == 1
@@ -165,13 +156,12 @@ False
 False
 ```
 
-## Constraint Solving
+## 约束求解
 
-You can use treat any symbolic boolean as an assertion about the valid values of a symbolic variable by adding it as a _constraint_ to the state.
-You can then query for a valid value of a symbolic variable by asking for an evaluation of a symbolic expression.
+您可以通过使用任何符号布尔值作为符号变量有效值的断言，并将其作为_约束_添加到对应的 `state` 。
+然后您可以通过符号表达式的求值来产生一个具体的值。
 
-An example will probably be more clear than an explanation here:
-
+一个例子可能比这里的解释更清楚：
 ```python
 >>> state.solver.add(x > y)
 >>> state.solver.add(y > 2)
@@ -180,12 +170,12 @@ An example will probably be more clear than an explanation here:
 4
 ```
 
-By adding these constraints to the state, we've forced the constraint solver to consider them as assertions that must be satisfied about any values it returns.
-If you run this code, you might get a different value for x, but that value will definitely be greater than 3 (since y must be greater than 2 and x must be greater than y) and less than 10.
-Furthermore, if you then say `state.solver.eval(y)`, you'll get a value of y which is consistent with the value of x that you got.
-If you don't add any constraints between two queries, the results will be consistent with each other.
+通过将这些约束添加到 `state` ，我们迫使约束求解器将它们视为必须满足其返回值的断言。
+如果您运行这些代码，你可能会得到一个不同于 `x` 的值，但是这个值肯定大于3（因为 `y` 必须大于 `2`，而 `x` 必须大于 `y` ）,小于 `10`。
+此外，如果你输入  `state.solver.eval(y)`，您得到的 `y` 值和 `x` 值是一致的。
+如果在两次查询之间没有添加任何约束，那么结果将是一致的。
 
-From here, it's easy to see how to do the task we proposed at the beginning of the chapter - finding the input that produced a given output.
+从这里开始，我们将看到如何完成在本章开头提到的任务 - 找到产生给定输出的输入值。
 
 ```python
 # get a fresh state without constraints
@@ -198,11 +188,11 @@ From here, it's easy to see how to do the task we proposed at the beginning of t
 0x3333333333333381
 ```
 
-Note that, again, this solution only works because of the bitvector semantics.
-If we were operating over the domain of integers, there would be no solutions!
+请注意，这个方法只适用于在 `bitvector` 语义。
+如果我们在整数域上运行，将会无解。
 
-If we add conflicting or contradictory constraints, such that there are no values that can be assigned to the variables such that the constraints are satisfied, the state becomes _unsatisfiable_, or unsat, and queries against it will raise an exception.
-You can check the satisfiability of a state with `state.satisfiable()`.
+如果我们添加冲突或矛盾的约束，使得没有可以使约束得到满足的变量的值分配， `state` 变为不满足的，查询时将会产生异常。
+您可以使用 `state.satisfiable()` 来检查一个 `state` 的可满足性。
 
 ```python
 >>> state.solver.add(input < 2**32)
@@ -210,7 +200,7 @@ You can check the satisfiability of a state with `state.satisfiable()`.
 False
 ```
 
-You can also evaluate more complex expressions, not just single variables.
+您也可以计算更复杂的表达式，而不仅仅是单个变量。
 
 ```python
 # fresh state
@@ -225,17 +215,17 @@ You can also evaluate more complex expressions, not just single variables.
 6
 ```
 
-From this we can see that `eval` is a general purpose method to convert any bitvector into a python primitive while respecting the integrity of the state.
-This is why we use `eval` to convert from concrete bitvectors to python ints, too!
+由此我们可以看到 `eval` 是将任何 `bitvector` 转化为 `python` 原语，同时又保持 `state` 完整性的一种通用方法。
+这也是为什么我们是有 `eval` 将具体的 `bitvector` 转化为 `python` 整形的原因。
 
-Also note that the x and y variables can be used in this new state despite having been created using an old state.
-Variables are not tied to any one state, and can exist freely.
+还要注意的是尽管变量 `x` 和 `y` 在旧 `state` 创建，但仍可以在新 `state` 使用。
+变量不与任何一个 `state` 绑定，可以自由存在。
 
-## Floating point numbers
+## 浮点数
 
-z3 has support for the theory of IEEE754 floating point numbers, and so angr can use them as well.
-The main difference is that instead of a width, a floating point number has a _sort_.
-You can create floating point symbols and values with `FPV` and `FPS`.
+`z3` 已经支持 `IEEE754` 标准，所以 `angr` 也可以使用它们。
+主要的区别不是宽度，而是一个浮点数有一个排序。
+您可以使用 `FPV` 和 `FPS` 来创建符号变量和具体的值。 
 
 ```python
 # fresh state
@@ -258,12 +248,12 @@ You can create floating point symbols and values with `FPV` and `FPS`.
 <Bool fpLT(fpAdd('RNE', FPS('FP_b_0_64', DOUBLE), FPV(2.0, DOUBLE)), FPV(0.0, DOUBLE))>
 ```
 
-So there's a bit to unpack here - for starters the pretty-printing isn't as smart about floating point numbers.
-But past that, most operations actually have a third parameter, implicitly added when you use the binary operators - the rounding mode.
-The IEEE754 spec supports multiple rounding modes (round-to-nearest, round-to-zero, round-to-positive, etc), so z3 has to support them.
-If you want to specify the rounding mode for an operation, use the fp operation explicitly (`solver.fpAdd` for example) with a rounding mode (one of `solver.fp.RM_*`) as the first argument.
+有一点需要在这里说明 - 对于初学者来说，在浮点数上使用预印版并不太好。
+但在过去，大多数操作都有一个第三操作数，在使用二进制运算符时隐式地添加 - 舍入模式。
+`IEEE754` 支持多种舍入模式(圆到近，整数到零，圆到整等等)，所以 `z3` 也支持它们。
+如果您想指定一个操作的舍入模式，请指明 `fp` 的操作（例如：`solver.fpAdd`）,并且使用一个舍入模式( `solver.fp.RM_*` 里面的一个) 作为第一个参数。
 
-Constraints and solving work in the same way, but with `eval` returning a floating point number:
+约束和求解原理相同，使用 `eval` 会返回一个浮点数:
 
 ```python
 >>> state.solver.add(b + 2 < 0)
@@ -272,8 +262,8 @@ Constraints and solving work in the same way, but with `eval` returning a floati
 -2.4999999999999996
 ```
 
-This is nice, but sometimes we need to be able to work directly with the representation of the float as a bitvector.
-You can interpret bitvectors as floats and vice versa, with the methods `raw_to_bv` and `raw_to_fp`:
+这很好，但有时候我们需要直接使用用 `bitvector` 表示的浮点数。
+你可以将 `bitvector` 解释为浮点数，反之亦然，使用 `raw_to_bv` 和 `raw_to_fp`：
 
 ```python
 >>> a.raw_to_bv()
@@ -287,9 +277,9 @@ You can interpret bitvectors as floats and vice versa, with the methods `raw_to_
 <FP64 fpToFP(x_1_64, DOUBLE)>
 ```
 
-These conversions preserve the bit-pattern, as if you casted a float pointer to an int pointer or vice versa.
-However, if you want to preserve the value as closely as possible, as if you casted a float to an int (or vice versa), you can use a different set of methods, `val_to_fp` and `val_to_bv`.
-These methods must take the size or sort of the target value as a parameter, due to the floating-point nature of floats.
+这些转换保留了位模式，就像您将一个浮点数转化为一个整型指针，反之亦然。
+但是，如果您想尽可能的保留原值，就像将浮点类型转换为整型（反之亦然），则可以使用另一组方法，`val_to_fp` 和 `val_to_bv`。
+这些方法因为浮点数的性质必须使用目标值的大小或类型作为参数 
 
 ```python
 >>> a
@@ -300,35 +290,32 @@ These methods must take the size or sort of the target value as a parameter, due
 <FP32 FPV(3.0, FLOAT)>
 ```
 
-These methods can also take a `signed` parameter, designating the signedness of the source or target bitvector.
+这些方法也可以使用 `signed` 作为参数，指定源参数和目标参数的符号。
 
+## 其他方法
 
-## More Solving Methods
+`eval` 将会给你的表达式一个可能的解决方案，但是如果你想得到多个呢？
+如果你想确保解决方案是唯一的呢？
+求解器提供了几种常见的求解模式:
 
-`eval` will give you one possible solution to an expression, but what if you want several?
-What if you want to ensure that the solution is unique?
-The solver provides you with several methods for common solving patterns:
+- `solver.eval(expression)` 对给定的表达式提供一个解决方案
+- `solver.eval_one(expression)` 对给定的表达式提供一个解决方案，如果大于一个则会抛出异常。
+- `solver.eval_upto(expression, n)` 对给定的表达式提供 `n` 种解决方案，如果少于 `n` ,则返回小于 `n` 。
+- `solver.eval_atleast(expression, n)` 对给定的表达式提供 `n` 种解决方案，如果少于 `n` ，则会抛出错误。
+- `solver.eval_exact(expression, n)` 对给定的表达式提供 `n` 中解决方案，多于或者少于都会抛出错误。
+- `solver.min(expression)` 对给定的表达式提供最小可能的解决方案。
+- `solver.max(expression)` 对给定的表达式提供最大可能的解决方案。
 
-- `solver.eval(expression)` will give you one possible solution to the given expression.
-- `solver.eval_one(expression)` will give you the solution to the given expression, or throw an error if more than one solution is possible.
-- `solver.eval_upto(expression, n)` will give you up to n solutions to the given expression, returning fewer than n if fewer than n are possible.
-- `solver.eval_atleast(expression, n)` will give you n solutions to the given expression, throwing an error if fewer than n are possible.
-- `solver.eval_exact(expression, n)` will give you n solutions to the given expression, throwing an error if fewer or more than are possible.
-- `solver.min(expression)` will give you the minimum possible solution to the given expression.
-- `solver.max(expression)` will give you the maximum possible solution to the given expression.
+此外，所有这些方法都可以使用以下关键字参数：
 
-Additionally, all of these methods can take the following keyword arguments:
-
-- `extra_constraints` can be passed as a tuple of constraints.
-  These constraints will be taken into account for this evaluation, but will not be added to the state.
-- `cast_to` can be passed a data type to cast the result to.
-  Currently, this can only be `str`, which will cause the method to return the byte representation of the underlying data.
-  For example, `state.solver.eval(state.solver.BVV(0x41424344, 32), cast_to=str)` will return `"ABCD"`.
+- `extra_constraints` 可以作为约束条件的元组传递，这些约束将会在求解是被考虑，但是不会被增加到 `state`。
+- `cast_to` 可以将结果转换成某一数据类型。
+现在只能是 `str` 类型，这将会返回底层数据的字节表示。
+例如： `state.solver.eval(state.solver.BVV(0x41424344, 32), cast_to=str)` 将返回 `"ABCD"`。
   
-## Summary
+## 总结
 
-That was a lot!!
-After reading this, you should be able to create and manipulate bitvectors, booleans, and floating point values to form trees of operations, and then query the constraint solver attached to a state for possible solutions under a set of constraints.
-Hopefully by this point you understand the power of using ASTs to represent computations, and the power of a constraint solver.
+在读完本章后，您应该能创建和操作 `bitvector`,布尔值和浮点值来形成操作数，然后在一组约束条件下求解某一个 `state`。
+希望通过这一点您可以了解到使用 `ASTs` 表示计算和约束求解器的强大。
 
-[In the appendix](appendices/options.md), you can find a reference for all the additional operations you can apply to ASTs, in case you ever need a quick table to look at.
+[附录](appendices/options.md), 你可以找到应用于 `ASTs` 的其他操作的引用。
