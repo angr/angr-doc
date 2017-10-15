@@ -1,22 +1,22 @@
-# Installing angr
+# 安装 angr
 
-angr is a python library, so it must be installed into your python environment before it can be used. It is built for Python 2: Py3k support is feasible somewhere out in the future, but we are a little hesitant to make that commitment right now (pull requests welcome!).
+angr 是一个 Python 库，所以必须被安装在 Python 环境中才可以使用。目前 angr 使用 Python 2，对 Python 3 的支持也许将来会实现，我们很犹豫现在就要做出如此承诺（不过我们欢迎您提交 PR！）
 
-We highly recommend using a [python virtual environment](https://virtualenvwrapper.readthedocs.org/en/latest/) to install and use angr. Several of angr's dependencies (z3, pyvex) require libraries of native code that are forked from their originals, and if you already have libz3 or libVEX installed, you definitely don't want to overwrite the official shared objects with ours. In general, don't expect support for problems arising from installing angr outside of a virtualenv.
+我们强烈推荐您使用 [Python 虚拟环境](https://virtualenvwrapper.readthedocs.org/en/latest/) 来安装、使用 angr。因为 angr 的一些依赖（Z3,pyvex）需要的库经过我们的修改了，如果您早已安装了 libz3 或 libVEX，您一定不想让我们的库覆盖官方的库。通常来说，在虚拟环境之外安装的 angr 出现问题，不要期望会得到解答。
 
-### Dependencies
+### 依赖
 
-All of the python dependencies should be handled by pip and/or the setup.py scripts. You will, however, need to build some C to get from here to the end, so you'll need a good build environment as well as the python development headers. At some point in the dependency install process, you'll install the python library cffi, but (on linux, at least) it won't run unless you install your operating system's libffi package.
+通常，所有 Python 的依赖都应该由 pip 或 setup.py 处理。然而，当你想从头到尾构建一个工具的时候，你最好可以构建一个和开发者相同的环境。在你进行依赖安装过程中时，也许你在安装 Python 库 cffi，但是（至少在 linux 上），除非你安装了操作系统的 libffi 包，否则你不可能安装成功。
 
-On Ubuntu, you will want: `sudo apt-get install python-dev libffi-dev build-essential virtualenvwrapper`. If you are trying out angr-management, you will need `sudo apt-get install libqt4-dev graphviz-dev`.
+Ubuntu 需要执行 `sudo apt-get install python-dev libffi-dev build-essential virtualenvwrapper`，如果你想试用 angr-management 的话，还需要执行 `sudo apt-get install libqt4-dev graphviz-dev`
 
-### Most Operating systems, all \*nix systems
+### 大多数操作系统，所有 \*nix 操作系统
 
-`mkvirtualenv angr && pip install angr` should usually be sufficient to install angr in most cases, since angr is published on the Python Package Index.
+`mkvirtualenv angr && pip install angr` 绝大多数情况下就可以成功安装 angr 了，因为 angr 是在 Python Package Index 上发布的库。
 
-Fish (shell) users can either use [virtualfish](https://github.com/adambrenecki/virtualfish) or the [virtualenv](https://pypi.python.org/pypi/virtualenv) package: `vf new angr && vf activate angr && pip install angr`
+Fish (shell) 用户可以使用 [virtualfish](https://github.com/adambrenecki/virtualfish) 或者 [virtualenv](https://pypi.python.org/pypi/virtualenv) 来执行 `vf new angr && vf activate angr && pip install angr`
 
-Failing that, you can install angr by installing the following repositories (and the dependencies listed in their requirements.txt files), in order, from https://github.com/angr:
+或者，您可以通过安装以下组件（以及它们在 requirements.txt 中列出的依赖项）来安装 [angr](https://github.com/angr:)
 
 - [claripy](https://github.com/angr/claripy)
 - [archinfo](https://github.com/angr/archinfo)
@@ -26,16 +26,16 @@ Failing that, you can install angr by installing the following repositories (and
 
 ### Mac OS X
 
-`pip install angr` should work, but there are some caveats.
+`pip install angr` 应该是可以的，但仍然有一些注意事项
 
-If you're unlucky and run into a broken build script with Clang, try using GCC.
+如果用 Clang 不幸遇到构建失败，请试试 GCC
 
 ```bash
 brew install gcc
 env CC=/usr/local/bin/gcc-6 pip install angr
 ```
 
-After installing angr, you will need to fix some shared library paths for the angr native libraries.
+安装 angr 后，您需要修正一些共享库的路径为 angr 自带的库路径
 
 ```bash
 BASEDIR=/usr/local/lib/python2.7/site-packages
@@ -48,14 +48,13 @@ install_name_tool -change libpyvex.dylib "$BASEDIR"/pyvex/lib/libpyvex.dylib "$B
 
 ### Windows
 
-angr can _probably_ be installed from pip on Windows, given that you're in a shell with the visual studio build tools loaded.
+angr  _也许可以_ 使用 pip 在 Windows 上安装成功，你可以通过 visual studio 来进行构建
 
-Capstone is difficult to install on windows. You might need to manually specify a wheel to install, but sometimes it installs under a name different from "capstone", so if that happens you want to just remove capstone from the requirements.txt files in angr and archinfo.
+Capstone 很难安装在 Windows 上，您也许需要手动安装 wheel 版，但有时名字会发生改变，和 capstone 略有出入，此时您只需要在 angr 和 archinfo 的 requirements.txt 中移除 capstone 即可
 
-# Development install
+# 开发者安装
 
-We created a repo with scripts to make life easier for angr developers.
-You can set up angr in development mode by running:
+我们创建了一个方便 angr 开发者的仓库，您可以通过以下方式在开发模式下运行 angr：
 
 ```bash
 git clone git@github.com:angr/angr-dev.git
@@ -64,15 +63,13 @@ mkvirtualenv angr
 ./setup.sh
 ```
 
-This clones all of the repositories and installs them in editable mode.
-`setup.sh` can even create a PyPy virtualenv for you, resulting in significantly faster performance and lower memory usage.
+这将克隆整个仓库并以可编辑模式进行安装，`setup.sh` 甚至可以为您创建一个 PyPy virtualenv 虚拟环境，从而显著提高性能表现并降低内存使用
 
-You can branch/edit/recompile the various modules in-place, and it will automatically reflect in your virtual environment.
+您可以分支、编辑、重编译任何一个模块， 并在虚拟环境中进行测试
 
-## Docker install
+## Docker 安装
 
-For convenience, we ship a Docker image that is 99% guaranteed to work.
-You can install via docker by doing:
+为方便起见，我们上传了一个 Docker 镜像，在绝大多数情况下（99%）它都可以正常工作。您可以通过 docker 来进行安装:
 
 ```bash
 # install docker
@@ -85,13 +82,13 @@ sudo docker pull angr/angr
 sudo docker run -it angr/angr
 ```
 
-Synchronization of files in and out of docker is left as an exercise to the user (hint: check out `docker -v`).
+Docker 的文件同步留给使用者进行练习（提示：check out `docker -v`）
 
-### Modifying the angr container
+### 修改 angr 容器
 
-You might find yourself needing to install additional packages via apt. The vanilla version of the container does not have the sudo package installed, which means the default user in the container cannot escalate privilege to install additional packages. 
+您可能会发现需要通过 apt 来安装其他软件包，容器的 vanilla 版没有安装 sudo 包，这意味着容器中的默认用户没有权限来升级、安装其他包
 
-To over come this hurdle, use the following docker command to grant yourself root access:
+要绕过这个限制，请使用以下 docker 命令来授予 root 权限：
 
 ```bash
 # assuming the docker container is running 
@@ -100,11 +97,11 @@ To over come this hurdle, use the following docker command to grant yourself roo
 docker exec -ti -u root angr bash
 ```
 
-# Troubleshooting
+# 故障排除
 
 ## libgomp.so.1: version GOMP_4.0 not found, or other z3 issues
 
-This specific error represents an incompatibility between the pre-compiled version of `angr-only-z3-custom` and the installed version of `libgomp`. A Z3 recompile is required. You can do this by executing:
+这是一个典型错误，表示预编译版本 `angr-only-z3-custom` 和 `libgomp` 的已安装版本不兼容。需要对 Z3 进行重编译，可以使用以下命令：
 
 ```bash
 pip install -I --no-use-wheel z3-solver
@@ -112,28 +109,27 @@ pip install -I --no-use-wheel z3-solver
 
 ## Can't import angr because of capstone
 
-Sometimes capstone isn't installed correctly for use by angr. There's a good chance just rebuilding capstone, making sure to use the pre-release version (capstone's distribution is very strange) will solve this issue:
+有时候 capstone 安装不正确，也是一个重新构建 capstone 的好机会，确保使用预发行版本（capstone 的版本发行很奇怪）就可以解决这个问题
 
 ```bash
 pip install -I --pre --no-use-wheel capstone
 ```
 
-If this doesn't work, there's a known [issue](https://github.com/aquynh/capstone/issues/445) in installing capstone_3.0.4 using pip in virtualenv/virtualenvwrapper environment. Several users have further reported to be affected by the same bug in native Python installation, too. (See the discussion in Github bug report).
+如果没能解决，可能是一个在 virtualenv/virtualenvwrapper 虚拟环境中使用 pip 安装 capstone_3.0.4 时已知的 [issue](https://github.com/aquynh/capstone/issues/445)，有一些用户报告在非虚拟环境中安装时也遇到了相同的错误（请参看 GitHub 错误报告中的讨论）
 
-In virtual environment, if capstone Python files are installed in `/home/<username>/.virtualenvs/<virtualenv>/lib/python2.7/site-packages/capstone/*.py(c)`, capstone library file will be found in `/home/<username>/.virtualenvs/<virtualenv>/lib/python2.7/site-packages/home/<username>/.virtualenvs/<virtualenv>/lib/python2.7/site-packages/capstone/libcapstone.so`
+在虚拟环境中，如果 capstone 被安装在 `/home/<username>/.virtualenvs/<virtualenv>/lib/python2.7/site-packages/capstone/*.py(c)` 中，capstone 的库文件将会在 `/home/<username>/.virtualenvs/<virtualenv>/lib/python2.7/site-packages/home/<username>/.virtualenvs/<virtualenv>/lib/python2.7/site-packages/capstone/libcapstone.so`
 
-In native environment, if capstone Python files are installed in `/usr/local/lib/python2.7/dist-packages/capstone/*.py(c)`, capstone library file will be found in `/usr/local/lib/python2.7/dist-packages/usr/lib/python2.7/dist-packages/capstone/libcapstone.so`
+在非虚拟环境中，如果 capstone 被安装在 `/usr/local/lib/python2.7/dist-packages/capstone/*.py(c)`中，capstone 的库文件将会在 `/usr/local/lib/python2.7/dist-packages/usr/lib/python2.7/dist-packages/capstone/libcapstone.so`
 
-Moving `libcapstone.so` to the same directory as that of Python files will fix the problem.
+移动 `libcapstone.so` 到和 python 文件相同的目录即可解决这个问题
 
 ## No such file or directory: 'pyvex_c'
 
-Are you running Ubuntu 12.04? If so, please stop using a 5 year old operating system! Upgrading is free!
+您正在使用的环境是 Ubuntu 12.04 吗？如果是，请停止使用这款发布超过五年的操作系统吧！升级是免费的！
 
-You can also try upgrading pip (`pip install -U pip`), which might solve the issue.
+您也可以尝试升级 pip（pip install -U pip），也许可能会解决该问题
 
 ## AttributeError: 'FFI' object has no attribute 'unpack'
 
-You have an outdated version of the `cffi` Python module.  angr now requires at least version 1.7 of cffi.
-Try `pip install --upgrade cffi`.  If the problem persists, make sure your operating system hasn't pre-installed an old version of cffi, which pip may refuse to uninstall.
-If you're using a Python virtual environment with the pypy interpreter, ensure you have a recent version of pypy, as it includes a version of cffi which pip will not upgrade.
+您的 `cffi` Python 模块过时了，angr 需要至少 1.7 版本的 cffi。试着执行 `pip install --upgrade cffi`。如果问题仍然存在，请确保系统中预安装旧版本的 cffi 都被清除了，否则 pip 可能会拒绝卸载
+如果您使用 pypy 作为 Python 的虚拟环境，请确保您使用的是最新版本的 pypy，因为其中包含了一个 pip 是不会为它升级的 cffi 的旧版本

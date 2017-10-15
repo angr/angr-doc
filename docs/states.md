@@ -1,57 +1,53 @@
-# Machine State - memory, registers, and so on
+# 机器 State - 内存、寄存器等
 
-So far, we've only used angr's simulated program states (`SimState` objects) in the barest possible way in order to demonstrate basic concepts about angr's operation. Here, you'll learn about the structure of a state object and how to interact with it in a variety of useful ways.
+到目前为止，我们只是使用了 angr 的 `SimState` 对象来模拟程序 state 来演示有关 angr 的基本概念。在本节中，您将会了解到一个 state 对象的结构以及如何以各种有用的方式与其进行交互
 
-## Review: Reading and writing memory and registers
+## Review: 读写内存与寄存器
 
-If you've been reading this book in order (and you should be, at least for this first section), you already saw the basics of how to access memory and registers.
-`state.regs` provides read and write access to the registers through attributes with the names of each register, and `state.mem` provides typed read and write access to memory with index-access notation to specify the address followed by an attribute access to specify the type you would like to interpret the memory as.
+如果您是从头开始阅读的，您应该已经看到了关于如何访问内存和寄存器的这部分基础知识。
+`state.regs` 通过每个寄存器的名字这一属性来提供对寄存器的读写访问，`state.mem` 通过索引访问符号来对内存进行类型化读写访问，这些索引访问符号用来指定要访问的地址与你想要把内存解释为的类型
 
-Additionally, you should now know how to work with ASTs, so you can now understand that any bitvector-typed AST can be stored in registers or memory.
+另外，您现在应该知道如何使用 AST 了，所以您现在应该清楚，任何 bitvector 型的 AST 都可以存储在寄存器或内存中
 
-Here are some quick examples for copying and performing operations on data from the state:
+这有一些关于在 state 中拷贝数据或执行操作的示例：
 
 ```python
 >>> import angr
 >>> proj = angr.Project('/bin/true')
 >>> state = proj.factory.entry_state()
 
-# copy rsp to rbp
+# 拷贝 rsp 到 rbp
 >>> state.regs.rbp = state.regs.rsp
 
-# store rdx to memory at 0x1000
+# 存储 rdx 到内存 0x1000 处
 >>> state.mem[0x1000].uint64_t = state.regs.rdx
 
-# dereference rbp
+# rbp 解除引用
 >>> state.regs.rbp = state.mem[state.regs.rbp].uint64_t.resolved
 
 # add rax, qword ptr [rsp + 8]
 >>> state.regs.rax += state.mem[state.regs.rsp + 8].uint64_t.resolved
 ```
 
-## Basic Execution
+## 基本执行
 
-Earlier, we showed how to use a Simulation Manager to do some basic execution.
-We'll show off the full capabilities of the simulation manager in the next chapter, but for now we can use a much simpler interface to demonstrate how symbolic execution works: `state.step()`.
-This method will perform one step of symbolic execution and return an object called [`SimSuccessors`](http://angr.io/api-doc/angr.html#module-angr.engines.successors).
-Unlike normal emulation, symbolic execution can produce several successor states that can be classified in a number of ways.
-For now, what we care about is the `.successors` property of this object, which is a list containing all the "normal" successors of a given step.
+在前节，我们为您展示了如何使用 Simulation Manager 来进行一些基本的执行。我们将在下一章详细讲解 Simulation Manager 的全部功能，但此时我们可以用一个更简单的接口 `state.step()` 来解释符号执行是如何工作的。
+该方法将执行符号执行的一步并返回一个被调用对象 [`SimSuccessors`](http://angr.io/api-doc/angr.html#module-angr.engines.successors)，与正常的仿真不同，符号执行会产生以多种方式分类的后继 state。现在，我们关心的是这个对象的 `.successors` 属性，其中包含了给定 step 下的全部正常后继 state 列表
 
-Why a list, instead of just a single successor state?
-Well, angr's process of symbolic execution is just the taking the operations of the individual instructions compiled into the program and performing them to mutate a SimState.
-When a line of code like `if (x > 4)` is reached, what happens if x is a symbolic bitvector?
-Somewhere in the depths of angr, the comparison `x > 4` is going to get performed, and the result is going to be `<Bool x_32_1 > 4>`.
+为什么是一个列表而不是单独的后继 state ？
+angr 符号执行的希望就是将编译进程序的每一条指令都执行，以此来畸变 SimState。当执行到例如 `if (x > 4)` 这样的代码时，如果 x 是符号化的 bitvector 会发生什么？
+在 angr 的某处，比较表达式 `x > 4` 会被执行，结果 `<Bool x_32_1 > 4>` 会返回
 
-That's fine, but the next question is, do we take the "true" branch or the "false" one?
-The answer is, we take both!
-We generate two entirely separate successor states - one simulating the case where the condition was true and simulating the case where the condition was false.
-In the first state, we add `x > 4` as a constraint, and in the second state, we add `!(x > 4)` as a constraint.
-That way, whenever we perform a constraint solve using either of these successor states, *the conditions on the state ensure that any solutions we get are valid inputs that will cause execution to follow the same path that the given state has followed.*
+下一个问题就是：我们要执行 true 分支还是 false 分支？
+显然我们都想要执行！
+我们会生成两个完全独立的后继 state - 一个模拟进入 true 分支，另一个模拟进入 flase 分支。
+在第一个 state，我们添加约束 `x > 4`，在第二个 state，我们添加约束 `!(x > 4)`。
+这样，在我们进行约束求解使用这些后继 state 时，*state 对应的条件可以确保得到有效的输入，这些输入可以保证以相同的路径执行到相同的 state*
 
-To demonstrate this, let's use a [fake firmware image](../examples/fauxware/fauxware) as an example.
-If you look at the [source code](../examples/fauxware/fauxware.c) for this binary, you'll see that the authentication mechanism for the firmware is backdoored; any username can be authenticated as an administrator with the password "SOSNEAKY".
-Furthermore, the first comparison against user input that happens is the comparison against the backdoor, so if we step until we get more than one successor state, one of those states will contain conditions constraining the user input to be the backdoor password.
-The following snippet implements this:
+为了说明这一点，我们以一个 [虚假固件镜像](../examples/fauxware/fauxware) 为例。查看[源码](../examples/fauxware/fauxware.c)可以发现验证机制存在后门。任何用户都可以通过密码 "SOSNEAKY" 来作为管理员通过身份认证。
+此外，用户输入的第一次比较发生在后门处，如果我们执行到可以获得超过一个后继 state 时，那么这些 state 中一定有一个 state 包含用户输入中包含后门密码的条件约束
+
+以下这段代码实现了这个功能：
 
 ```python
 >>> proj = angr.Project('examples/fauxware/fauxware')
@@ -69,11 +65,11 @@ The following snippet implements this:
 <SimState @ 0x400699
 ```
 
-Don't look at the constraints on these states directly - the branch we just went through involves the result of `strcmp`, which is a tricky function to emulate symbolically, and the resulting constraints are _very_ complicated.
+不需要直接看这些 state 的约束，因为我们刚经过的分支是 `strcmp` 的结果。这个函数在模拟符号化的过程中很难处理，结果的约束条件 _非常_ 复杂
 
-The program we emulated took data from standard input, which angr treats as an infinite stream of symbolic data by default.
-To perform a constraint solve and get a possible value that input could have taken in order to satisfy the constraints, we'll need to get a reference to the actual contents of stdin.
-We'll go over how our file and input subsystems work later on this very page, but for now, just use `state.posix.files[0].all_bytes()` to retrieve a bitvector represnting all the content read from stdin so far.
+我们的程序从标准输入获取数据，默认情况下，它被 angr 视为无限符号数据流。
+为了执行约束求解得到输入的可能值，这些输入可以满足这些约束条件，我们需要获得标准输入实际内容的引用。
+我们在本节稍后会介绍我们的文件与输入子系统是如何工作的。但现在我们使用 `state.posix.files[0].all_bytes()` 来检索一个代表目前为止从标准输入读取所有内容的 bitvector 
 
 ```python
 >>> input_data = state1.posix.files[0].all_bytes()
@@ -85,50 +81,48 @@ We'll go over how our file and input subsystems work later on this very page, bu
 '\x00\x00\x00\x00\x00\x00\x00\x00\x00S\x00\x80N\x00\x00 \x00\x00\x00\x00'
 ```
 
-As you can see, in order to go down the `state1` path, you must have given as a password the backdoor string "SOSNEAKY".
-In order to go down the `state2` path, you must have given something _besides_ "SOSNEAKY".
-z3 has helpfully provided one of the billions of strings fitting this criteria.
+如您所见，为了让 `state1` 路径执行下去，您必须给出后门密码字符串 "SOSNEAKY"。为了让 `state2` 路径执行下去，您必须给出非 "SOSNEAKY" 的字符串。
+Z3 将会在符合此约束条件的数十亿个字符串中找到一个返回给您
 
-Fauxware was the first program angr's symbolic execution ever successfully worked on, back in 2013.
-By finding its backdoor using angr you are participating in a grand tradition of having a bare-bones understanding of how to use symbolic execution to extract meaning from binaries!
+Fauxware 是 2013 年 angr 第一个符号执行的程序。
+我们使用 angr 找到了它的后门，angr 的能力由来已久。
+希望您能对于如何使用符号执行在二进制程序中提取有意义的信息有一个清楚的认识！
 
 ## State Presets
 
-So far, whenever we've been working with a state, we've created it with `project.factory.entry_state()`.
-This is just one of several *state constructors* available on the project factory:
+到目前为止，只要我们使用了 state 就需要创建 `project.factory.entry_state()`。
+这只是一系列 *state 构造函数* 中的一个：
 
-- `.blank_state()` constructs a "blank slate" blank state, with most of its data left uninitialized.
-  When accessing uninitialized data, an unconstrained symbolic value will be returned.
-- `.entry_state()` constructs a state ready to execute at the main binary's entry point.
-- `.full_init_state()` constructs a state that is ready to execute through any initializers that need to be run before the main binary's entry point, for example, shared library constructors or preinitializers.
-  When it is finished with these it will jump to the entry point.
-- `.call_state()` constructs a state ready to execute a given function.
+- `.blank_state()` 构建一个大部分数据为初始化的空白 state，访问未初始化的数据时，将返回无约束的符号值
+- `.entry_state()` 构建一个要从二进制程序入口点开始执行的 state
+- `.full_init_state()` 准备通过任意初始化器来构造一个 state，这些初始化器需要在二进制程序的入口点前执行，例如，共享库构造器或预初始化器。完成后会跳进入口点
+- `.call_state()` 构建一个从给定函数开始执行的 state
 
-You can customize the state through several arguments to these constructors:
+您可以通过这些构造函数的参数来自定义 state：
 
-- All of these constructors can take an `addr` argument to specify the exact address to start.
+- 所有构造函数都可以通过引用一个 `addr` 参数来指定开始地址
 
-- If you're executing in an environment that can take command line arguments or an environment, you can pass a list of arguments through `args` and a dictionary of environment variables through `env` into `entry_state` and `full_init_state`.
-  The values in these structures can be strings or bitvectors, and will be serialized into the state as the arguments and environment to the simulated execution.
-  The default `args` is an empty list, so if the program you're analyzing expects to find at least an `argv[0]`, you should always provide that!
+- 如果程序在需要命令行参数或者环境变量的情况下执行，可以将参数列表作为 `args`、环境变量的列表作为 `env` 传递给 `entry_state` 和 `full_init_state`。
+  这些结构中的值可以是字符串或 bitvector，序列化后作为模拟执行环境中的参数和环境变量送入 state。
+  默认参数 `args` 是一个空列表，所以如果您正在分析的程序希望至少可以获得 `argv[0]`，那么您应该提供一个！
 
-- If you'd like to have `argc` be symbolic, you can pass a symbolic bitvector as `argc` to the `entry_state` and `full_init_state` constructors.
-  Be careful, though: if you do this, you should also add a constraint to the resulting state that your value for argc cannot be larger than the number of args you passed into `args`.
+- 如果您希望 `argc` 作为符号变量，您应该传递一个符号化的 bitvector 作为 `argc` 传给 `entry_state` 和 `full_init_state` 的构造函数。
+  需要注意的是，如果您需要这样做，还应该为结果 state 添加一些约束，即 argc 的值不能超过你传入 `args` 参数的数量
   
-- To use the call state, you should call it with `.call_state(addr, arg1, arg2, ...)`, where `addr` is the address of the function you want to call and `argN` is the Nth argument to that function, either as a python integer, string, or array, or a bitvector.
-  If you want to have memory allocated and actually pass in a pointer to an object, you should wrap it in an PointerWrapper, i.e. `angr.PointerWrapper("point to me!")`.
-  The results of this API can be a little unpredictable, but we're working on it.
+- 为了使用 call state，您应该调用 `.call_state(addr, arg1, arg2, ...)`，其中 `addr` 是你想要调用的函数的地址，`argN` 是函数的第 N 个参数，可以是整型、字符串、数组或者 bitvector。
+  如果您想分配内存并实际为对象传递一个指针过去，您应该将其置于 PointerWrapper 中，例如 `angr.PointerWrapper("point to me!")`。
+  该 API 的结果可能有些问题，我们会努力确保其正确
   
-- To specify the calling convention used for a function with `call_state`, you can pass a [`SimCC` instance](http://angr.io/api-doc/angr.html#module-angr.calling_conventions) as the `cc` argument.    
-  We try to pick a sane default, but for special cases you will need to help angr out.
+- 为指定用于 `call_state` 的函数的调用约定，您可以以参数 `cc` 的形式传递一个 [`SimCC` 实例](http://angr.io/api-doc/angr.html#module-angr.calling_conventions)。
+  我们会尝试选择合理的默认值，但对于特殊情况需要您手动来解决！
+  
+还有几个可以在这些构造函数中使用的参数，本节稍后将会为您介绍！
 
-There are several more options that can be used in any of these constructors, which will be outlined later on this page!
+## 内存低级接口
 
-## Low level interface for memory
-
-The `state.mem` interface is convenient for loading typed data from memory, but when you want to do raw loads and stores to and from ranges of memory, it's very cumbersome.
-It turns out that `state.mem` is actually just a bunch of logic to correctly access the underlying memory storage, which is just a flat address space filled with bitvector data: `state.memory`.
-You can use `state.memory` directly with the `.load(addr, size)` and `.store(addr, val)` methods:
+接口 `state.mem` 便于从内存中加载类型数据，但想要加载与存储指定内存范围的数据就非常麻烦了。
+`state.mem` 实际实际上只是正确访问低级内存存储的逻辑，只是一个填充了 bitvector 数据：`state.memory` 的平面地址空间。
+您可以使用 `.load(addr, size)` 或 `.store(addr, val)` 作为 `state.memory` 的附属：
 
 ```python
 >>> s = proj.factory.blank_state()
@@ -137,10 +131,10 @@ You can use `state.memory` directly with the `.load(addr, size)` and `.store(add
 <BV48 0x89abcdef0123>
 ```
 
-As you can see, the data is loaded and stored in a "big-endian" fashion, since the primary purpose of `state.memory` is to load an store swaths of data with no attached semantics.
-However, if you want to perform a byteswap on the loaded or stored data, you can pass a keyword argument `endness` - if you specify little-endian, byteswap will happen.
-The endness should be one of the members of the `Endness` enum in the `archinfo` package used to hold declarative data about CPU architectures for angr.
-Additionally, the endness of the program being analyzed can be found as `arch.memory_endness` - for instance `state.arch.memory_endness`.
+如您所见，数据以大端方式加载与存储，因为 `state.memory` 的主要目的是加载没有附属语义的数据。
+但是，如果想要在存储或加载数据上进行 byteswap，您可以传递一个关键参数 `endness` - 如果您指定为小段序，则会发生字节交换 byteswap。
+endness 应该是 `archinfo` 包中枚举变量 `Endness` 中的一个，`archinfo` 中为 angr 保存着有关 CPU 架构的声明性数据。
+另外，正在分析程序的 endness 可以在 `arch.memory_endness` 中找到，例如 `state.arch.memory_endness`
 
 ```python
 >>> import archinfo
@@ -148,21 +142,20 @@ Additionally, the endness of the program being analyzed can be found as `arch.me
 <BV32 0x67453201>
 ```
 
-There is also a low-level interface for register access, `state.registers`, but explaining its behavior involves a [dive](ir.md) into the abstractions that angr uses to seamlessly work with multiple architectures.
+对寄存器访问的低级接口 `state.registers`，但是解释其涉及到 angr 中的 [dive](ir.md)，这个抽象定义用于多架构的无缝协作
 
 
-## State Options
+## State 选项
 
-There are a lot of little tweaks that can be made to the internals of angr that will optimize behavior in some situations and be a detriment in others.
-These tweaks are controlled through state options.
+某些情况下，对 angr 内部的小调整是可以优化其效果的，有时候是有害的。这些都通过控制 state 选项来进行。
 
-On each SimState object, there is a set (`state.options`) of all its enabled options.
-Each option (really just a string) controls the behavior of angr's execution engine in some minute way.
-A listing of the full domain of options, along with the defaults for different state types, can be found in [the appendix](appendices/options.md).
-You can access an individual option for adding to a state through `angr.options`.
-The individual options are named with CAPITAL_LETTERS, but there are also common groupings of objects that you might want to use bundled together, named with lowercase_letters.
+每个 SimState 对象，都有一个选项 `state.options`，
+每个选项（只需要一个字符串）控制着 angr 执行引擎的行为。
+选项的完整列表以及不同 state 类型下的默认值需要参看 [附录](appendices/options.md)。
+您可以通过 `angr.options` 来添加一个单独的选项到 state 中。
+单个选项以 CAPITAL_LETTERS 命名，当您想联合使用时也可以使用对象组，叫做 lowercase_letters
 
-When creating a SimState through any constructor, you may pass the keyword arguments `add_options` and `remove_options`, which should be sets of options that modify the initial options set from the default.
+当您通过构造函数创建 SimState 时，您可以传送关键参数 `add_options` 和 `remove_options`，这些参数是那些默认值被修改了的初始选项的集合
 
 ```python
 # Example: enable lazy solves, an option that causes state satisfiability to be checked as infrequently as possible.
@@ -176,42 +169,41 @@ When creating a SimState through any constructor, you may pass the keyword argum
 >>> s = proj.factory.entry_state(remove_options=angr.options.simplification)
 ```
 
-## State Plugins
+## State 插件
 
 TODO: lord almighty
 
-Common plugins: state.history, state.globals, state.posix (ew), state.callstack
+通用插件： state.history, state.globals, state.posix (ew), state.callstack
 
-## Working with the Filesystem
+## 文件系统
 
-TODO: Describe what a SimFile is
+TODO: 描述什么是 SimFile
 
-There are a number of options which can be passed to the state initialization routines which affect filesystem usage.
-These include the `fs`, `concrete_fs`, and `chroot` options.
+文件系统有很多选项来控制 state 初始化，包括 `fs`、`concrete_fs` 和 `chroot` 选项
 
-The `fs` option allows you to pass in a dictionary of file names to preconfigured SimFile objects.
-This allows you to do things like set a concrete size limit on a file's content.
+`fs` 选项允许您将文件名的字典传给预配置好的 SimFile 对象。
+您可以对文件内容具体设置大小的限制。
 
-Setting the `concrete_fs` option to `True` will cause angr to respect the files on disk.
-For example, if during simulation a program attempts to open 'banner.txt' when `concrete_fs` is set to `False` \(the default\), a SimFile with a symbolic memory backing will be created and simulation will continue as though the file exists.
-When `concrete_fs` mode is set to `True`, if 'banner.txt' exists a new SimFile object will be created with a concrete backing, reducing the resulting state explosion which would be caused by operating on a completely symbolic file.
-Additionally in `concrete_fs` mode if 'banner.txt' mode does not exist, a SimFile object will not be created upon calls to open during simulation and an error code will be returned.
-Additionally, it's important to note that attempts to open files whose path begins with '/dev/' will never be opened concretely even with `concrete_fs` set to `True`.
+设置 `concrete_fs` 选项为 `True`，angr 会 respect 磁盘上的文件。
+例如，在仿真时尝试打开文件 'banner.txt'，此时 `concrete_fs` 置为 `False`（默认为 False），将会创建一个带有符号内存的 SimFile 对象，尽管文件存在，仿真仍会继续。
+当 `concrete_fs` 置为 `True` 时，如果 'banner.txt' 存在，一个新的 SimFile 对象将会具体地创建，这样可以减少在完全符号化的文件上进行操作而导致的状态爆炸。
+此时，若 'banner.txt' 不存在，仿真时的调用 SimFile 对象就不会被创建，并且返回一个错误码。
+此外，需要强调地是：尝试打开那些以 '/dev/' 开头的文件，即使 `concrete_fs` 被设置为 `True` 也不会被具体打开
 
-The `chroot` option allows you to specify an optional root to use while using the `concrete_fs` option.
-This can be convenient if the program you're analyzing references files using an absolute path.
-For example, if the program you are analyzing attempts to open '/etc/passwd', you can set the chroot to your current working directory so that attempts to access '/etc/passwd' will read from '$CWD/etc/passwd'.
+`chroot` 选项，允许您在使用 `concrete_fs` 选项时，指定一个可选的 root 来使用。
+如果您正在分析的程序使用绝对路径，是很便利的。
+例如，程序正在尝试打开 '/etc/passwd'，可以将当前工作目录设置为 chroot，之后对 '/etc/passwd' 的访问尝试都会被视为 '$CWD/etc/passwd'
 
 ```python
 >>> files = {'/dev/stdin': angr.storage.file.SimFile("/dev/stdin", "r", size=30)}
 >>> s = proj.factory.entry_state(fs=files, concrete_fs=True, chroot="angr-chroot/")
 ```
 
-This example will create a state which constricts at most 30 symbolic bytes from being read from stdin and will cause references to files to be resolved concretely within the new root directory `angr-chroot`.
+这个例子会创建一个 state，该 state 限制从标准输入中最多读取 30 个符号字节，对文件的引用都会在新根目录 `angr-chroot` 内被直接解析
 
-## Copying and Merging
+## 复制与合并
 
-A state supports very fast copies, so that you can explore different possibilities:
+state 支持快速拷贝，以便探索不同的可能性：
 
 ```python
 >>> proj = angr.Project('/bin/true')
@@ -223,7 +215,7 @@ A state supports very fast copies, so that you can explore different possibiliti
 >>> s2.mem[0x1000].uint32_t = 0x42424242
 ```
 
-States can also be merged together.
+States 也可以合并在一起
 
 ```python
 # merge will return a tuple. the first element is the merged state
@@ -235,4 +227,4 @@ States can also be merged together.
 >>> aaaa_or_bbbb = s_merged.mem[0x1000].uint32_t
 ```
 
-TODO: describe limitations of merging
+TODO: 描述合并的局限性
