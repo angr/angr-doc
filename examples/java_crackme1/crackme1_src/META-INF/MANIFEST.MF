@@ -1,0 +1,2 @@
+Manifest-Version: 1.0
+Main-Class: crackme1.Class1
