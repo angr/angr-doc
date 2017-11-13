@@ -1,78 +1,79 @@
 #!/usr/bin/env python
 
 import angr
+import logging
 
-def find_bug():
-    p = angr.Project('crypto.mod', load_options={'main_opts': {'custom_base_addr': 0x8000000}})
-    # custom base addr to match what IDA says
+logging.getLogger('angr.manager').setLevel('DEBUG')
 
-    # This might be a method that gets migrated into angr proper soon
-    # the functionality in CLE that it uses is very new (I wrote it 24h before the presentation) :)
-    def resolve_dependancy(name, func):
-        pseudo_addr = p._extern_obj.get_pseudo_addr(name)
-        pseudo_offset = pseudo_addr - p._extern_obj.rebase_addr
-        p.loader.provide_symbol(p._extern_obj, name, pseudo_offset)
-        p.hook(pseudo_addr, func)
+# This is the important logic that makes this problemt tractable
+class CheckUniqueness(angr.ExplorationTechnique):
+    def __init__(self):
+        self.unique_states = set()
 
-    # use libc functions as stand-ins for grub functions
-    grub_memset = angr.SIM_PROCEDURES['libc.so.6']['memset']
-    grub_getkey = angr.SIM_PROCEDURES['libc.so.6']['getchar']
-    grub_puts = angr.SIM_PROCEDURES['stubs']['ReturnUnconstrained']
-    grub_refresh = angr.SIM_PROCEDURES['stubs']['ReturnUnconstrained']
-    resolve_dependancy('grub_getkey', grub_getkey)
-    resolve_dependancy('grub_memset', grub_memset)
-    resolve_dependancy('grub_refresh', grub_refresh)
-
-    # I don't know why, but the grub_xputs symbol is apparently a pointer to a pointer to the function. why.
-    p.hook(p._extern_obj.get_pseudo_addr('grub_puts'), grub_puts)
-    p.loader.provide_symbol(p._extern_obj, 'grub_xputs', p._extern_obj.get_pseudo_addr('grub_xputs') - p._extern_obj.rebase_addr)
-
-    exec_sink = p._extern_obj.get_pseudo_addr('exec_sink')
-    p.hook(exec_sink, angr.SIM_PROCEDURES['stubs']['PathTerminator'])
-
-    # set up the most generic state that could enter this function
-    start_state = p.factory.blank_state(addr=0x80008A1)
-    start_state.stack_push(256)              # buffer size: 256
-    start_state.stack_push(start_state.regs.esp + 20)      # buffer: space on previous stack frame
-    start_state.stack_push(exec_sink)   # return address: terminate execution
-
-    # additional kludge to deal with the xputs call
-    start_state.memory.store(p._extern_obj.get_pseudo_addr('grub_xputs'), p._extern_obj.get_pseudo_addr('grub_puts'), size=4, endness='Iend_LE')
-
-    # create a new path group to explore the state space of this function
-    sm = p.factory.simgr(start_state)
-
-    unique_states = set()
-    def check_uniqueness(state):
+    def filter(self, state):
         vals = []
         for reg in ('eax', 'ebx', 'ecx', 'edx', 'esi', 'edi', 'ebp', 'esp', 'eip'):
             val = state.registers.load(reg)
             if val.symbolic:
                 vals.append('symbolic')
             else:
-                vals.append(state.se.eval(val))
+                vals.append(state.solver.eval(val))
 
         vals = tuple(vals)
-        if vals in unique_states:
-            return True
+        if vals in self.unique_states:
+            return 'not_unique'
 
-        unique_states.add(vals)
-        return False
+        self.unique_states.add(vals)
+        return None
 
-    def step_func(lsm):
-        print lsm
-        lsm.stash(filter_func=check_uniqueness, from_stash='active', to_stash='not_unique')
-        lsm.stash(filter_func=lambda state: state.addr == 0, from_stash='active', to_stash='found')
-        return lsm
 
-    sm.step(step_func=step_func, until=lambda lsm: len(lsm.found) > 0)
+class SearchForNull(angr.ExplorationTechnique):
+    def setup(self, simgr):
+        if 'found' not in simgr.stashes:
+            simgr.stashes['found'] = []
+
+    def filter(self, state):
+        if state.addr == 0:
+            return 'found'
+        return None
+
+    def complete(self, simgr):
+        return len(simgr.found)
+
+def setup_project():
+    project = angr.Project('crypto.mod')
+
+    # use libc functions as stand-ins for grub functions
+    memset = angr.SIM_PROCEDURES['libc']['memset']
+    getchar = angr.SIM_PROCEDURES['libc']['getchar']
+    do_nothing = angr.SIM_PROCEDURES['stubs']['ReturnUnconstrained']
+
+    project.hook_symbol('grub_memset', memset())
+    project.hook_symbol('grub_getkey', getchar())
+
+    # I don't know why, but grub_xputs is apparently not the function but a pointer to it?
+    xputs_pointer_addr = project.loader.find_symbol('grub_xputs').rebased_addr
+    xputs_func_addr = project.loader.extern_object.allocate()
+    project.hook(xputs_func_addr, do_nothing())
+    project.loader.memory.write_addr_at(xputs_pointer_addr, xputs_func_addr)
+
+    return project
+
+def find_bug(project, function, args):
+    # set up the most generic state that could enter this function
+    func_addr = project.loader.find_symbol(function).rebased_addr
+    start_state = project.factory.call_state(func_addr, *args)
+
+    # create a new simulation manager to explore the state space of this function
+    simgr = project.factory.simulation_manager(start_state)
+    simgr.use_technique(SearchForNull())
+    simgr.use_technique(CheckUniqueness())
+    simgr.run()
 
     print 'we found a crashing input!'
-    print 'path:', sm.found[0]
-    print 'input:', repr(sm.found[0].posix.dumps(0))
-
-def test():
-    pass        # this is not a CI test
+    print 'crashing state:', simgr.found[0]
+    print 'input:', repr(simgr.found[0].posix.dumps(0))
 
 if __name__ == '__main__':
-    find_bug()
+    p = setup_project()
+    find_bug(p, 'grub_password_get', (angr.PointerWrapper('\0'*64), 64))

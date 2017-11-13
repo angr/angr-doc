@@ -181,7 +181,7 @@ CADET_00001.adapted (by Jacopo Corbetta) is the same program, modified to be run
 
 ```
 Script author: Audrey Dutcher (github: @rhelmot)
-Concepts presented: unusal target (custom function hooking required), customized state pruning methods
+Concepts presented: unusal target (custom function hooking required), use of exploration techniques to categorize and prune the program's state space
 ```
 
 This is the demonstration presented at 32c3. The script uses angr to discover the input to crash grub's password entry prompt.
