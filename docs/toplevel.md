@@ -173,7 +173,7 @@ If a state lets us represent a program at a given point in time, there must be a
 First, we create the simulation manager we're going to be using. The constructor can take a state or a list of states.
 
 ```python
->>> simgr = proj.factory.simgr(state) # TODO: change name before merge
+>>> simgr = proj.factory.simulation_manager(state)
 <SimulationManager with 1 active>
 >>> simgr.active
 [<SimState @ 0x401670>]
@@ -241,4 +241,3 @@ A couple of these are documented later in this book, but in general, if you want
 ## Now what?
 
 Having read this page, you should now be aquainted with several important angr concepts: basic blocks, states, bitvectors, simulation managers, and analyses. You can't really do anything interesting besides just use angr as a glorified debugger, though! Keep reading, and you will unlock deeper powers...
-
