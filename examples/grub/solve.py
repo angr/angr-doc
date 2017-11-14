@@ -3,8 +3,6 @@
 import angr
 import logging
 
-logging.getLogger('angr.manager').setLevel('DEBUG')
-
 # This is the important logic that makes this problemt tractable
 class CheckUniqueness(angr.ExplorationTechnique):
     def __init__(self):
@@ -73,7 +71,12 @@ def find_bug(project, function, args):
     print 'we found a crashing input!'
     print 'crashing state:', simgr.found[0]
     print 'input:', repr(simgr.found[0].posix.dumps(0))
+    return simgr.found[0].posix.dumps(0)
+
+def test():
+    assert find_bug(setup_project(), 'grub_password_get', (angr.PointerWrapper('\0'*64), 64)) == '\x08\x08\x08\x08\x08\x08\x08\x08\x08\x08\x08\x08\r'
 
 if __name__ == '__main__':
+    logging.getLogger('angr.manager').setLevel('DEBUG')
     p = setup_project()
     find_bug(p, 'grub_password_get', (angr.PointerWrapper('\0'*64), 64))
