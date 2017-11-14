@@ -148,7 +148,8 @@ Additionally, the endness of the program being analyzed can be found as `arch.me
 <BV32 0x67453201>
 ```
 
-There is also a low-level interface for register access, `state.registers`, but explaining its behavior involves a [dive](ir.md) into the abstractions that angr uses to seamlessly work with multiple architectures.
+There is also a low-level interface for register access, `state.registers`, that uses the exact same API as `state.memory`, but explaining its behavior involves a [dive](ir.md) into the abstractions that angr uses to seamlessly work with multiple architectures.
+The short version is that it is simply a register file, with the mapping between registers and offsets defined in [archinfo](https://github.com/angr/archinfo).
 
 
 ## State Options
@@ -178,9 +179,55 @@ When creating a SimState through any constructor, you may pass the keyword argum
 
 ## State Plugins
 
-TODO: lord almighty
+With the exception of the set of options just discussed, everything stored in a SimState is actually stored in a _plugin_ attached to the state.
+Almost every property on the state we've discussed so far is a plugin - `memory`, `registers`, `mem`, `regs`, `solver`, etc.
+This design allows for code modularity as well as the ability to easily [implement new kinds of data storage](state_plugins.md) for other aspects of an emulated state, or the ability to provide alternate implementations of plugins.
 
-Common plugins: state.history, state.globals, state.posix (ew), state.callstack
+For example, the normal `memory` plugin simulates a flat memory space, but analyses can choose to enable the "abstract memory" plugin, which uses alternate data types for addresses to simulate free-floating memory mappings independent of address, to provide `state.memory`.
+Conversely, plugins can reduce code complexity: `state.memory` and `state.registers` are actually two different instances of the same plugin, since the registers are emulated with an address space as well.
+
+### The globals plugin
+
+`state.globals` is an extremely simple plugin: it implements the interface of a standard python dict, allowing you to store arbitrary data on a state.
+
+### The history plugin
+
+`state.history` is a very important plugin storing historical data about the path a state has taken during execution.
+It is actually a linked list of several history nodes, each one representing a single round of execution---you can traverse this list with `state.history.parent.parent` etc.
+
+To make it more convenient to work with this structure, the history also provides several efficient iterators over the history of certain values.
+In general, these values are stored as `history.recent_NAME` and the iterator over them is just `history.NAME`.
+For example, `for addr in state.history.bbl_addrs: print hex(addr)` will print out a basic block address trace for the binary, while `state.history.recent_bbl_addrs` is the list of basic blocks executed in the most recent step, `state.history.parent.recent_bbl_addrs` is the list of basic blocks executed in the previous step, etc.
+If you ever need to quickly obtain a flat list of these values, you can access `.hardcopy`, e.g. `state.history.bbl_addrs.hardcopy`.
+Keep in mind though, index-based accessing is implemented on the interators.
+
+Here is a brief listing of some of the values stored in the history:
+
+- `history.descriptions` is a listing of string descriptions of each of the rounds of execution performed on the state.
+- `history.bbl_addrs` is a listing of the basic block addresses executed by the state.
+  There may be more than one per round of execution, and not all addresses may correspond to binary code - some may be addresses at which SimProcedures are hooked.
+- `history.jumpkinds` is a listing of the disposition of each of the control flow transitions in the state's history, as VEX enum strings.
+- `history.guards` is a listing of the conditions guarding each of the branches that the state has encountered.
+- `history.events` is a semantic listing of "interesting events" which happened during execution, such as the presence of a symbolic jump condition, the program popping up a message box, or execution terminating with an exit code.
+- `history.actions` is usually empty, but if you add the `angr.options.refs` options to the state, it will be popluated with a log of all the memory, register, and temporary value accesses performed by the program.
+
+### The callstack plugin
+
+angr will track the call stack for the emulated program.
+On every call instruction, a frame will be added to the top of the tracked callstack, and whenever the stack pointer drops below the point where the topmost frame was called, a frame is popped.
+This allows angr to robustly store data local to the current emulated function.
+
+Similar to the history, the callstack is also a linked list of nodes, but there are no provided iterators over the contents of the nodes - instead you can directly iterate over `state.callstack` to get the callstack frames for each of the active frames, in order from most recent to oldest.
+If you just want the topmost frame, this is `state.callstack`.
+
+- `callstack.func_addr` is the address of the function currently being executed
+- `callstack.call_site_addr` is the address of the basic block which called the current function
+- `callstack.stack_ptr` is the value of the stack pointer from the beginning of the current function
+- `callstack.ret_addr` is the location that the current function will return to if it returns
+
+### The posix plugin
+
+TODO
 
 ## Working with the Filesystem
 
