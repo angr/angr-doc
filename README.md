@@ -30,14 +30,14 @@ If you use angr in an academic work, please cite the papers for which it was dev
 ```bibtex
 @article{shoshitaishvili2016state,
   title={SoK: (State of) The Art of War: Offensive Techniques in Binary Analysis},
-  author={Shoshitaishvili, Yan and Wang, Ruoyu and Salls, Christopher and Stephens, Nick and Polino, Mario and Dutcher, Andrew and Grosen, John and Feng, Siji and Hauser, Christophe and Kruegel, Christopher and Vigna, Giovanni},
+  author={Shoshitaishvili, Yan and Wang, Ruoyu and Salls, Christopher and Stephens, Nick and Polino, Mario and Dutcher, Audrey and Grosen, John and Feng, Siji and Hauser, Christophe and Kruegel, Christopher and Vigna, Giovanni},
   booktitle={IEEE Symposium on Security and Privacy},
   year={2016}
 }
 
 @article{stephens2016driller,
   title={Driller: Augmenting Fuzzing Through Selective Symbolic Execution},
-  author={Stephens, Nick and Grosen, John and Salls, Christopher and Dutcher, Andrew and Wang, Ruoyu and Corbetta, Jacopo and Shoshitaishvili, Yan and Kruegel, Christopher and Vigna, Giovanni},
+  author={Stephens, Nick and Grosen, John and Salls, Christopher and Dutcher, Audrey and Wang, Ruoyu and Corbetta, Jacopo and Shoshitaishvili, Yan and Kruegel, Christopher and Vigna, Giovanni},
   booktitle={NDSS},
   year={2016}
 }
