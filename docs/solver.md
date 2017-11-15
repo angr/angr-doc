@@ -331,4 +331,4 @@ That was a lot!!
 After reading this, you should be able to create and manipulate bitvectors, booleans, and floating point values to form trees of operations, and then query the constraint solver attached to a state for possible solutions under a set of constraints.
 Hopefully by this point you understand the power of using ASTs to represent computations, and the power of a constraint solver.
 
-[In the appendix](appendices/options.md), you can find a reference for all the additional operations you can apply to ASTs, in case you ever need a quick table to look at.
+[In the appendix](appendices/ops.md), you can find a reference for all the additional operations you can apply to ASTs, in case you ever need a quick table to look at.
