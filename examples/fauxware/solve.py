@@ -51,7 +51,7 @@ def basic_symbolic_execution():
     # program can come across is comparing the result of the strcmp with the
     # backdoor password. So, we have halted execution with two states, each of
     # which has taken a different arm of that conditional branch. If you drop
-    # an IPython shell here and examine sm.active[n].se.constraints
+    # an IPython shell here and examine sm.active[n].solver.constraints
     # you will see the encoding of the condition that was added to the state to
     # constrain it to going down this path, instead of the other one. These are
     # the constraints that will eventually be passed to our constraint solver

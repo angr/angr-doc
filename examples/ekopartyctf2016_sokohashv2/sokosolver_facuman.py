@@ -50,7 +50,7 @@ def do_memset(state):
     with open("matrix.bin","rb") as f:
         content = f.read()
         for i in content:
-            state.memory.store(addr, state.se.BVV(ord(i), 8 * 1))
+            state.memory.store(addr, state.solver.BVV(ord(i), 8 * 1))
             addr += 1
 
     start_off = 0x41d450 - addr
@@ -126,7 +126,7 @@ def main():
         conds = []
         for p in coords:
             conds.append(p == var)
-        init.add_constraints(init.se.Or(*conds))
+        init.add_constraints(init.solver.Or(*conds))
 
     # each coordinate must be distinct
     for v1,v2 in combinations(variables, 2):
@@ -150,19 +150,19 @@ def main():
         expected.append((hex(addr), hex(value)))
     print "Expected is '%s'\n\n" % expected
 
-    found.add_constraints(init.se.And(*conds))
+    found.add_constraints(init.solver.And(*conds))
 
     result = []
     hash_map = get_hash_map(hash_addr)
     for addr, value in hash_map:
         buf_ptr = found.memory.load(addr, 1)
-        possible = found.se.eval(buf_ptr)
+        possible = found.solver.eval(buf_ptr)
         result.append((hex(addr), "0x%x" % possible))
     print "Result is '%s'\n\n" % result
 
 
     # Print solutions
-    possible = found.se.eval_upto(buffer, 1)
+    possible = found.solver.eval_upto(buffer, 1)
     for i, f in enumerate(possible):
         out = "%x" % f
         if len(out) < (0x20*2):

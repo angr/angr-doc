@@ -13,7 +13,7 @@ def to_asmstring(state, addr, length):
     global p
     project = p
     try:
-        conc = state.se.eval
+        conc = state.solver.eval
         addr =  conc(addr)
         code = "".join(project.loader.memory.read_bytes(addr,length))
         md = project.arch.capstone
@@ -27,7 +27,7 @@ def to_asmstring(state, addr, length):
 def debug_func(state):
     print to_asmstring(state, state.regs.eip, 10)
 
-    addr = state.se.eval(state.regs.eip)
+    addr = state.solver.eval(state.regs.eip)
     print hex(addr)
 
 #######################################
@@ -75,7 +75,7 @@ def get_table(state):
 	end_addr = 0x0041E0D0
 
 	t = []
-	conc = state.se.eval
+	conc = state.solver.eval
 	while current_addr < end_addr:
 		n = conc(state.memory.load(current_addr, 8))
 		pn = struct.unpack(">Q", struct.pack("<Q", n))[0]
@@ -135,13 +135,13 @@ for i in get_table(initial_state):
 	list_cons_v3.append(r3==i)
 	list_cons_v4.append(r4==i)
 
-or_v1 = initial_state.se.Or(*list_cons_v1)
-or_v2 = initial_state.se.Or(*list_cons_v2)
-or_v3 = initial_state.se.Or(*list_cons_v3)
-or_v4 = initial_state.se.Or(*list_cons_v4)
+or_v1 = initial_state.solver.Or(*list_cons_v1)
+or_v2 = initial_state.solver.Or(*list_cons_v2)
+or_v3 = initial_state.solver.Or(*list_cons_v3)
+or_v4 = initial_state.solver.Or(*list_cons_v4)
 
 
-initial_state.add_constraints(initial_state.se.And(or_v1,or_v2,or_v3,or_v4))
+initial_state.add_constraints(initial_state.solver.And(or_v1,or_v2,or_v3,or_v4))
 ##############################################
 
 #for debugging only
@@ -173,14 +173,14 @@ found_s = sm.found[0]
 
 conds=[]
 
-conc = initial_state.se.eval #this is used to concrete an symbolic value
+conc = initial_state.solver.eval #this is used to concrete an symbolic value
 
 for addr, value in get_hash_map(0x04216C0):
     memory = found_s.memory.load(addr, 1, endness=p.arch.memory_endness)
     print "Addr: %x --> %s" % (addr, hex(value))
     conds.append((memory == value))
 
-found_s.add_constraints(found_s.se.And(*conds))
+found_s.add_constraints(found_s.solver.And(*conds))
 ##############################################
 
 
@@ -192,16 +192,16 @@ found_s.add_constraints(found_s.se.And(*conds))
 #	model will returns the values expected to reath the model in found_s state
 
 import binascii
-solution1 = found_s.se.eval(r1)
+solution1 = found_s.solver.eval(r1)
 print "x: ", hex(solution1)
 
-solution2 = found_s.se.eval(r2)
+solution2 = found_s.solver.eval(r2)
 print "y: ", hex(solution2)
 
-solution3 = found_s.se.eval(r3)
+solution3 = found_s.solver.eval(r3)
 print "z:", hex(solution3)
 
-solution4 = found_s.se.eval(r4)
+solution4 = found_s.solver.eval(r4)
 print "w:", hex(solution4)
 ##############################################
 

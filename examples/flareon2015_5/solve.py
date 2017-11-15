@@ -41,7 +41,7 @@ def main():
     # Setup stack to simulate the state after which the "key.txt" is read
     state.regs.esi = LEN_PW
     for i in xrange(LEN_PW):
-        state.mem[ADDR_PW_ORI+i:].byte = state.se.BVS('pw', 8)
+        state.mem[ADDR_PW_ORI+i:].byte = state.solver.BVS('pw', 8)
 
     # Hook instructions to use a separate buffer for the XOR-ing function
     p.hook(0x401259, hook_duplicate_pw_buf, length=0)
@@ -65,8 +65,8 @@ def main():
                                 char == ord(GOAL_HASH[i]))
 
     # Solve for password that will result in the required hash
-    print found_s.se.eval(found_s.memory.load(ADDR_PW_ORI+0, 1), cast_to=str) + \
-          found_s.se.eval(found_s.memory.load(ADDR_PW_ORI+1, LEN_PW-1), cast_to=str)
+    print found_s.solver.eval(found_s.memory.load(ADDR_PW_ORI+0, 1), cast_to=str) + \
+          found_s.solver.eval(found_s.memory.load(ADDR_PW_ORI+1, LEN_PW-1), cast_to=str)
 
 def test():
     main()

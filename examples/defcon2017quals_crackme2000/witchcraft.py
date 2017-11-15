@@ -21,7 +21,7 @@ def recvuntil(sock, s):
 
 class Alloca(angr.SimProcedure):
     def run(self):
-        return self.state.se.BVV(pos, 64)
+        return self.state.solver.BVV(pos, 64)
 
 def solve(s):
     p = angr.Project("witchcraft_dist/%s" % s,
@@ -63,7 +63,7 @@ def solve(s):
 
     state = sm.deadended[-1]
     mem = state.memory.load(pos + 0x20, 60)
-    mem_str = state.se.eval(mem, cast_to=str).replace("\x00", "")
+    mem_str = state.solver.eval(mem, cast_to=str).replace("\x00", "")
     return mem_str
 
 def main():

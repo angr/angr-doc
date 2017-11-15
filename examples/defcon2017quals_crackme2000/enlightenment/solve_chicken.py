@@ -92,11 +92,11 @@ def solve(s):
 
         state = p.factory.blank_state(addr=check_func.addr, add_options={angr.options.LAZY_SOLVES, angr.options.NO_SYMBOLIC_JUMP_RESOLUTION})
 
-        char = state.se.BVS("chr", 64)
+        char = state.solver.BVS("chr", 64)
 
         # rsi is a2
-        state.regs.rsi = state.se.BVV(0xd000000, 64)
-        state.memory.store(0xd000000 + 16, state.se.BVV(0xd000040, 64), endness='Iend_LE')
+        state.regs.rsi = state.solver.BVV(0xd000000, 64)
+        state.memory.store(0xd000000 + 16, state.solver.BVV(0xd000040, 64), endness='Iend_LE')
         state.memory.store(0xd000040 + 8, char, endness='Iend_LE')
 
         sm = p.factory.simulation_manager(state)
@@ -106,7 +106,7 @@ def solve(s):
         for state in sm.deadended:
             if not state.satisfiable():
                 continue
-            char_n = state.se.eval_upto(char, 2)
+            char_n = state.solver.eval_upto(char, 2)
             if len(char_n) == 2:
                 continue
             the_char = char_n[0]

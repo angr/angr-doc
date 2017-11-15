@@ -13,17 +13,17 @@ def prepare_state(state, known_passwords):
     state = state.copy()
     password = [ ]
     for i in xrange(0, len(known_passwords) + 1):
-        password.append(state.se.BVS('password_%d' % i, 8))
+        password.append(state.solver.BVS('password_%d' % i, 8))
         state.memory.store(0xd0000000 + i, password[-1])
 
     for i, char in enumerate(known_passwords):
         state.add_constraints(password[i] == ord(char))
-    state.memory.store(0x6a3b7c, state.se.BVV(0, 32))
-    state.memory.store(0x6a3b80, state.se.BVV(0, 32))
+    state.memory.store(0x6a3b7c, state.solver.BVV(0, 32))
+    state.memory.store(0x6a3b80, state.solver.BVV(0, 32))
 
     state.regs.rbp = 0xffffffff00000000
-    state.memory.store(state.regs.rbp-0x148, state.se.BVV(0xd0000100, 64), endness=state.arch.memory_endness)
-    state.memory.store(state.regs.rbp-0x140, state.se.BVV(0xd0000100, 64), endness=state.arch.memory_endness)
+    state.memory.store(state.regs.rbp-0x148, state.solver.BVV(0xd0000100, 64), endness=state.arch.memory_endness)
+    state.memory.store(state.regs.rbp-0x140, state.solver.BVV(0xd0000100, 64), endness=state.arch.memory_endness)
 
     return state, password
 
@@ -59,7 +59,7 @@ def calc_one_byte(p, known_passwords, hook_func, start_addr, load_addr1, load_ad
 
     s0 = sm.active[0].copy()
     s0.add_constraints(getattr(s0.regs, cmp_flag_reg) == 0x1)
-    candidates = s0.se.eval_upto(password[byte_pos], 256)
+    candidates = s0.solver.eval_upto(password[byte_pos], 256)
     # assert len(candidates) == 1
 
     return chr(candidates[0])

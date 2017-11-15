@@ -47,7 +47,7 @@ def main():
     # win function to give us execution
     s.add_constraints(s.regs.rip == proj.loader.find_symbol('win').addr)
 
-    print s.se.constraints
+    print s.solver.constraints
     assert s.satisfiable()
 
     # Call the solving engine and write the solution out to a file called "exploit"

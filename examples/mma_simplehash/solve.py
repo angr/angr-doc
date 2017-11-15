@@ -42,24 +42,24 @@ class mm(angr.SimProcedure):
         first = high1.concat(low1)
         second = high2.concat(low2)
         result = (first * second) % 1000000000000037
-        self.state.regs.edx = self.state.se.Extract(63, 32, result)
-        return self.state.se.Extract(31, 0, result)
+        self.state.regs.edx = self.state.solver.Extract(63, 32, result)
+        return self.state.solver.Extract(31, 0, result)
 
 class moddi3(angr.SimProcedure):
     def run(self, a, a2, b, b2):
         first = a2.concat(a)
         second = b2.concat(b)
         result = first % second
-        self.state.regs.edx = self.state.se.Extract(63, 32, result)
-        return self.state.se.Extract(31, 0, result)
+        self.state.regs.edx = self.state.solver.Extract(63, 32, result)
+        return self.state.solver.Extract(31, 0, result)
 
 class isalnum(angr.SimProcedure):
     def run(self, c):
-        is_num = self.state.se.And(c >= ord("0"), c <= ord("9"))
-        is_alpha_lower = self.state.se.And(c >= ord("a"), c <= ord("z"))
-        is_alpha_upper = self.state.se.And(c >= ord("A"), c <= ord("Z"))
-        isalphanum = self.state.se.Or(is_num, is_alpha_lower, is_alpha_upper)
-        return self.state.se.If(isalphanum, self.state.se.BVV(1, self.state.arch.bits), self.state.se.BVV(0, self.state.arch.bits))
+        is_num = self.state.solver.And(c >= ord("0"), c <= ord("9"))
+        is_alpha_lower = self.state.solver.And(c >= ord("a"), c <= ord("z"))
+        is_alpha_upper = self.state.solver.And(c >= ord("A"), c <= ord("Z"))
+        isalphanum = self.state.solver.Or(is_num, is_alpha_lower, is_alpha_upper)
+        return self.state.solver.If(isalphanum, self.state.solver.BVV(1, self.state.arch.bits), self.state.solver.BVV(0, self.state.arch.bits))
 
 def main():
     # Let's load the file and hook the problem functions to get around issues 3
@@ -77,11 +77,11 @@ def main():
     # milliseconds) to avoid situations where Z3 times out. Without this, with the
     # current way Z3 is used in angr, valid solutions end up being discarded
     # because Z3 can't find them fast enough.
-    s.se._solver.timeout=30000000
+    s.solver._solver.timeout=30000000
 
     # Since we started execution partway through main(), after the user input was
     # read, we need to manually set the user input.
-    s.memory.store(0x080491A0, s.se.BVS("ans", 999*8))
+    s.memory.store(0x080491A0, s.solver.BVS("ans", 999*8))
 
     # Now, we start the symbolic execution. We create a PathGroup and set up some
     # logging (so that we can see what's happening).
@@ -93,7 +93,7 @@ def main():
     sm.explore(find=0x8048A94, avoid=0x8048AF6)
 
     # We're done!
-    return sm.found[0].se.eval(sm.found[0].memory.load(0x080491A0, 100), cast_to=str).strip('\0\n')
+    return sm.found[0].solver.eval(sm.found[0].memory.load(0x080491A0, 100), cast_to=str).strip('\0\n')
 
 def test():
     assert main() == 'EwgHWpyND'

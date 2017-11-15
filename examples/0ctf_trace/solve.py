@@ -56,7 +56,7 @@ def main():
     })
 
     state = project.factory.blank_state(addr=MAIN_START)
-    state.memory.store(FLAG_LOCATION, state.se.BVS("flag", 8*32))
+    state.memory.store(FLAG_LOCATION, state.solver.BVS("flag", 8*32))
     state.memory.store(FLAG_PTR_LOCATION, struct.pack("<I", FLAG_LOCATION))
 
     sm = project.factory.simulation_manager(state)
@@ -89,7 +89,7 @@ def main():
 
     print("Running solver...")
 
-    solution = state.se.eval(state.memory.load(FLAG_LOCATION, 32), cast_to=str).rstrip(b'\0').decode('ascii')
+    solution = state.solver.eval(state.memory.load(FLAG_LOCATION, 32), cast_to=str).rstrip(b'\0').decode('ascii')
     print("The flag is", solution)
 
     return solution

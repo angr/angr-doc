@@ -45,22 +45,22 @@ def main():
             val = state.registers.load(reg_name)                                               # after each step, if the symbolic AST for that value has become larger than
             if val.symbolic and val.depth > 3:                                                      # three nodes deep, stub it out by replacing it with a single symbolic value
                 newval = claripy.BVS('replacement', len(val))                                       # constrained to be equal to the original value. This makes the constraints much
-                state.se.add(newval == val)                                                    # easier for z3 to bite into in smaller chunks. It might also indicate that there
+                state.solver.add(newval == val)                                                    # easier for z3 to bite into in smaller chunks. It might also indicate that there
                 state.registers.store(reg_name, newval)                                        # some issues with angr's current usage of z3 :-)
 
         for mem_addr in range(outaddr, outaddr + 0x1f) + [state.regs.rsp - x for x in xrange(0x40)]:
             val = state.memory.load(mem_addr, 1)
             if val.symbolic and val.depth > 3:
                 newval = claripy.BVS('replacement', len(val))
-                state.se.add(newval == val)
+                state.solver.add(newval == val)
                 state.memory.store(mem_addr, newval)
 
     fstate = state.copy()
-    fstate.se._solver.timeout = 0xfffffff                                                           # turn off z3's timeout for solving :^)
+    fstate.solver._solver.timeout = 0xfffffff                                                           # turn off z3's timeout for solving :^)
     for i, c in enumerate(shouldbe):
-        fstate.se.add(fstate.memory.load(0x616050 + i, 1) == ord(c))                                # constrain the output to what we were told it should be
+        fstate.solver.add(fstate.memory.load(0x616050 + i, 1) == ord(c))                                # constrain the output to what we were told it should be
 
-    cflag = hex(fstate.se.eval(flag))[2:-1].decode('hex')                                        # solve for the flag!
+    cflag = hex(fstate.solver.eval(flag))[2:-1].decode('hex')                                        # solve for the flag!
     return cflag
 
 def test():

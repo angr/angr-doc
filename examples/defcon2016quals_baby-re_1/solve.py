@@ -25,7 +25,7 @@ def main():
 
     def patch_scanf(state):
         print(state.regs.rsi)
-        state.mem[state.regs.rsi:].char = state.se.BVS('c', 8)
+        state.mem[state.regs.rsi:].char = state.solver.BVS('c', 8)
 
     # IDA xrefs
     scanf_offsets = (0x4d, 0x85, 0xbd, 0xf5, 0x12d, 0x165, 0x19d, 0x1d5, 0x20d, 0x245, 0x27d, 0x2b5, 0x2ed)
@@ -45,7 +45,7 @@ def main():
 
     print(ex)
     s = ex.found[0]
-    flag = s.se.eval(s.memory.load(flag_addr, 50), cast_to=str)
+    flag = s.solver.eval(s.memory.load(flag_addr, 50), cast_to=str)
 
     # The flag is 'Math is hard!'
     print("The flag is '{0}'".format(flag))

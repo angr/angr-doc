@@ -12,7 +12,7 @@ class readline_hook(angr.SimProcedure):
 
 class strtol_hook(angr.SimProcedure):
     def run(self, str, end, base):
-        return self.state.se.BVS("flag", 64, explicit_name=True)
+        return self.state.solver.BVS("flag", 64, explicit_name=True)
 
 def solve_flag_1():
 
@@ -29,7 +29,7 @@ def solve_flag_1():
     state = proj.factory.blank_state(addr=start)
 
     # a symbolic input string with a length up to 128 bytes
-    arg = state.se.BVS("input_string", 8 * 128)
+    arg = state.solver.BVS("input_string", 8 * 128)
 
     # read_line() reads a line from stdin and stores it a this address
     bind_addr = 0x603780
@@ -48,7 +48,7 @@ def solve_flag_1():
 
     if ex.found:
         found = ex.found[0]
-        return found.se.eval(arg, cast_to=str).rstrip(chr(0)) # remove ending \0
+        return found.solver.eval(arg, cast_to=str).rstrip(chr(0)) # remove ending \0
 
     pass
 
@@ -63,7 +63,7 @@ def solve_flag_2():
     # Sscanf is looking for '%d %d %d %d %d %d' which ends up dropping 6 ints onto the stack
     # We will create 6 symbolic values onto the stack to mimic this
     for i in xrange(6):
-        state.stack_push(state.se.BVS('int{}'.format(i), 4*8))
+        state.stack_push(state.solver.BVS('int{}'.format(i), 4*8))
 
     # Attempt to find a path to the end of the phase_2 function while avoiding the bomb_explode
     ex = proj.surveyors.Explorer(start=state, find=(0x400f3c,),
@@ -77,7 +77,7 @@ def solve_flag_2():
         answer = []
 
         for x in xrange(3):
-            curr_int = found.se.eval(found.stack_pop())
+            curr_int = found.solver.eval(found.stack_pop())
 
             # We are popping off 8 bytes at a time
             # 0x0000000200000001
@@ -127,7 +127,7 @@ def solve_flag_3():
                 found = p
                 found.stack_pop() # ignore, our args start at offset 0x8
 
-                iter_sol = found.se.eval_upto(found.stack_pop(), 10) # ask for up to 10 solutions if possible
+                iter_sol = found.solver.eval_upto(found.stack_pop(), 10) # ask for up to 10 solutions if possible
                 for sol in iter_sol:
 
                     if sol == None:
@@ -163,7 +163,7 @@ def solve_flag_4():
     # stopped on the ret account for the stack
     # that has already been moved
 
-    answer = unpack('II', found.se.eval(
+    answer = unpack('II', found.solver.eval(
         found.memory.load(found.regs.rsp - 0x18 + 0x8, 8), cast_to=str))
 
     return ' '.join(map(str, answer))
@@ -174,11 +174,11 @@ def solve_flag_5():
     def is_alnum(state, c):
         # set some constraints on the char, let it
         # be a null char or alphanumeric
-        is_num = state.se.And(c >= ord("0"), c <= ord("9"))
-        is_alpha_lower = state.se.And(c >= ord("a"), c <= ord("z"))
-        is_alpha_upper = state.se.And(c >= ord("A"), c <= ord("Z"))
+        is_num = state.solver.And(c >= ord("0"), c <= ord("9"))
+        is_alpha_lower = state.solver.And(c >= ord("a"), c <= ord("z"))
+        is_alpha_upper = state.solver.And(c >= ord("A"), c <= ord("Z"))
         is_zero = (c == ord('\x00'))
-        isalphanum = state.se.Or(
+        isalphanum = state.solver.Or(
             is_num, is_alpha_lower, is_alpha_upper, is_zero)
         return isalphanum
 
@@ -204,9 +204,9 @@ def solve_flag_5():
     mem = found.memory.load(string_addr, 32)
     for i in xrange(32):
         found.add_constraints(is_alnum(found, mem.get_byte(i)))
-    return found.se.eval(mem, cast_to=str).split('\x00')[0]
+    return found.solver.eval(mem, cast_to=str).split('\x00')[0]
     # more than one solution could, for example, be returned like this:
-    # return map(lambda s: s.split('\x00')[0], found.se.eval_upto(mem, 10, cast_to=str))
+    # return map(lambda s: s.split('\x00')[0], found.solver.eval_upto(mem, 10, cast_to=str))
 
 
 class read_6_ints(angr.SimProcedure):
@@ -216,7 +216,7 @@ class read_6_ints(angr.SimProcedure):
     def run(self, s1_addr, int_addr):
         self.int_addrs.append(int_addr)
         for i in range(6):
-            bvs = self.state.se.BVS("phase6_int_%d" % i, 32)
+            bvs = self.state.solver.BVS("phase6_int_%d" % i, 32)
             self.answer_ints.append(bvs)
             self.state.mem[int_addr].int.array(6)[i] = bvs
 
@@ -234,7 +234,7 @@ def solve_flag_6():
     sm.explore(find=find, avoid=avoid)
     found = sm.found[0]
 
-    answer = [found.se.eval(x) for x in read_6_ints.answer_ints]
+    answer = [found.solver.eval(x) for x in read_6_ints.answer_ints]
     return ' '.join(map(str, answer))
 
 def solve_secret():
@@ -254,8 +254,8 @@ def solve_secret():
     sm.explore(find=find, avoid=avoid)
     ### flag found
     found = sm.found[0]
-    flag = found.se.BVS("flag", 64, explicit_name="True")
-    return str(found.se.eval(flag))
+    flag = found.solver.BVS("flag", 64, explicit_name="True")
+    return str(found.solver.eval(flag))
 
 def main():
 #   print "Flag    1: " + solve_flag_1()

@@ -27,12 +27,12 @@ INPUT_LENGTH = 0xf2 - 0xc0 + 1 # derived from the first and last character
 
 def extract_memory(state):
     """Convience method that returns the flag input memory."""
-    return state.se.eval(state.memory.load(INPUT_ADDR, INPUT_LENGTH), cast_to=str)
+    return state.solver.eval(state.memory.load(INPUT_ADDR, INPUT_LENGTH), cast_to=str)
 
 def char(state, n):
     """Returns a symbolic BitVector and contrains it to printable chars for a given state."""
-    vec = state.se.BVS('c{}'.format(n), 8, explicit_name=True)
-    return vec, state.se.And(vec >= ord(' '), vec <= ord('~'))
+    vec = state.solver.BVS('c{}'.format(n), 8, explicit_name=True)
+    return vec, state.solver.And(vec >= ord(' '), vec <= ord('~'))
 
 def main():
     p = angr.Project('unbreakable')

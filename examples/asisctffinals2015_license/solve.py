@@ -20,12 +20,12 @@ def main():
     for i in xrange(5):
         line = [ ]
         for j in xrange(6):
-            line.append(state.se.BVS('license_file_byte_%d_%d' % (i, j), 8))
+            line.append(state.solver.BVS('license_file_byte_%d_%d' % (i, j), 8))
             state.add_constraints(line[-1] != 0x0a)
         if bytes is None:
-            bytes = state.se.Concat(*line)
+            bytes = state.solver.Concat(*line)
         else:
-            bytes = state.se.Concat(bytes, state.se.BVV(0x0a, 8), *line)
+            bytes = state.solver.Concat(bytes, state.solver.BVV(0x0a, 8), *line)
     content = angr.state_plugins.SimSymbolicMemory(memory_id="file_%s" % license_name)
     content.set_state(state)
     content.store(0, bytes)
@@ -60,9 +60,9 @@ def main():
         )
     flag_length = strlen(found, arguments=[flag_addr]).ret_expr
     # In case it's not null-terminated, we get the least number as the length
-    flag_length_int = min(found.se.eval_upto(flag_length, 3))
+    flag_length_int = min(found.solver.eval_upto(flag_length, 3))
     # Read out the flag!
-    flag_int = found.se.eval(found.memory.load(flag_addr, flag_length_int))
+    flag_int = found.solver.eval(found.memory.load(flag_addr, flag_length_int))
     flag = hex(flag_int)[2:-1].decode("hex")
     return flag
 

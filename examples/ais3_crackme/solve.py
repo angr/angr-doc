@@ -26,7 +26,7 @@ def main():
 
     found = sm.found[0]
     #ask to the symbolic solver to get the value of argv1 in the reached state as a string
-    solution = found.se.eval(argv1, cast_to=str)
+    solution = found.solver.eval(argv1, cast_to=str)
 
     print repr(solution)
     solution = solution[:solution.find("\x00")]

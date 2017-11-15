@@ -5,7 +5,7 @@ unconstrained_number = None
 def strtol(state):
     # We return an unconstrained number here
     global unconstrained_number
-    unconstrained_number = state.se.BVS('strtol', 64)
+    unconstrained_number = state.solver.BVS('strtol', 64)
     # Store it to rax
     state.regs.rax = unconstrained_number
 
@@ -35,9 +35,9 @@ def main():
         cond_2 = found.memory.load(flag_addr + 5 + i, 1) >= ord('a')
         cond_3 = found.memory.load(flag_addr + 5 + i, 1) <= ord('f')
         found.add_constraints(
-            found.se.Or(
-                found.se.And(cond_0, cond_1),
-                found.se.And(cond_2, cond_3)
+            found.solver.Or(
+                found.solver.And(cond_0, cond_1),
+                found.solver.And(cond_2, cond_3)
             )
         )
 
@@ -50,10 +50,10 @@ def main():
     # if there are less constraints. I added all constraints just to stay on the 
     # safe side.
 
-    flag = found.se.eval(found.memory.load(flag_addr, 8 * 5))
+    flag = found.solver.eval(found.memory.load(flag_addr, 8 * 5))
     return hex(flag)[2:-1].decode("hex").strip('\0')
 
-    #print "The number to input: ", found.se.eval(unconstrained_number)
+    #print "The number to input: ", found.solver.eval(unconstrained_number)
     #print "Flag:", flag
 
     # The number to input:  25313971399

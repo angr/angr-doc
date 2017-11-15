@@ -131,7 +131,7 @@ def get_gadgets():
         # we save off inputs needed to pass the checks for any given gadget before the start of the checks.
         # Since the checks pop data in order, we can just concat all the checked input.
         for a in range(f.addr, start_of_checks):
-            guard_solutions[a] = good_state.se.eval(claripy.Concat(*symbolic_guard_guys), cast_to=str)
+            guard_solutions[a] = good_state.solver.eval(claripy.Concat(*symbolic_guard_guys), cast_to=str)
 
         #
         # With the checks recovered, we now overwrite them with a ret, so that angrop considers the gadgets

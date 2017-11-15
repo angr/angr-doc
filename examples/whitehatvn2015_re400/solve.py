@@ -15,7 +15,7 @@ def main():
     p.hook(0x402b5d, patch_0, length=0x402b91-0x402b5d)
 
     state = p.factory.blank_state(addr=0x401f30)
-    argv=['re400.exe', state.se.BVS('arg1', 37 * 8)]
+    argv=['re400.exe', state.solver.BVS('arg1', 37 * 8)]
 
 
     # Add previous conditions got from debugging the part of code that is patched out
@@ -60,7 +60,7 @@ def main():
     )
     ex.run()
 
-    possible_flags = ex.found[0].se.eval_upto(argv[1], 20)
+    possible_flags = ex.found[0].solver.eval_upto(argv[1], 20)
     for i, f in enumerate(possible_flags):
         print "Flag %d:" % i, hex(f)[2:-1].decode("hex")
 

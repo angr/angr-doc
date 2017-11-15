@@ -21,7 +21,7 @@ def fully_symbolic(state, variable):
     '''
 
     for i in range(state.arch.bits):
-        if not state.se.symbolic(variable[i]):
+        if not state.solver.symbolic(variable[i]):
             return False
 
     return True
@@ -83,7 +83,7 @@ def main(binary):
     l.info("found a state which looks exploitable")
     ep = exploitable_state
 
-    assert ep.se.symbolic(ep.regs.pc), "PC must be symbolic at this point"
+    assert ep.solver.symbolic(ep.regs.pc), "PC must be symbolic at this point"
 
     l.info("attempting to create exploit based off state")
 
@@ -91,7 +91,7 @@ def main(binary):
     for buf_addr in find_symbolic_buffer(ep, len(shellcode)):
         l.info("found symbolic buffer at %#x", buf_addr)
         memory = ep.memory.load(buf_addr, len(shellcode))
-        sc_bvv = ep.se.BVV(shellcode)
+        sc_bvv = ep.solver.BVV(shellcode)
 
         # check satisfiability of placing shellcode into the address
         if ep.satisfiable(extra_constraints=(memory == sc_bvv,ep.regs.pc == buf_addr)):

@@ -15,7 +15,7 @@ def decrypt(state):
     buf = state.regs.edx # The second argument
     # Skipped the real decryption procedure, and write the final string there instead
     # I'm lazy :-)
-    state.memory.store(buf, state.se.BVV(int('layerseven\x00'.encode('hex'), 16), 88))
+    state.memory.store(buf, state.solver.BVV(int('layerseven\x00'.encode('hex'), 16), 88))
 
 def main():
     # Load the project
@@ -45,9 +45,9 @@ def main():
     initial_state.add_constraints(zero == 0)
 
     # Push the str_ptr onto stack
-    initial_state.stack_push(initial_state.se.BVV(str_ptr, 32))
+    initial_state.stack_push(initial_state.solver.BVV(str_ptr, 32))
     # Push a return address
-    initial_state.stack_push(initial_state.se.BVV(0, 32))
+    initial_state.stack_push(initial_state.solver.BVV(0, 32))
 
     # Create the initial path
 
@@ -72,7 +72,7 @@ def main():
     # Our input - solve it!
     input_string = final_state.memory.load(str_ptr, 10)
     print "Solving..."
-    candidates = final_state.se.eval_upto(input_string, 2)
+    candidates = final_state.solver.eval_upto(input_string, 2)
 
     assert len(candidates) == 1
     return hex(candidates[0])[2 : -1].decode('hex')

@@ -25,7 +25,7 @@ BUF_LEN = 100
 
 def char(state, c):
     '''returns constraints s.t. c is printable'''
-    return state.se.And(c <= '~', c >= ' ')
+    return state.solver.And(c <= '~', c >= ' ')
 
 def main():
     p = angr.Project('FUck_binary')
@@ -36,7 +36,7 @@ def main():
     print('adding constaints to stdin')
     for i in range(BUF_LEN):
         c = state.posix.files[0].read_from(1)
-        state.se.add(char(state, c))
+        state.solver.add(char(state, c))
 
     # even though we mark stdin as 100 long angr can still chose to cut it off 
     state.posix.files[0].seek(0)

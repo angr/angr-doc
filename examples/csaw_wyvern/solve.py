@@ -19,12 +19,12 @@ def main():
     # Constrain the first 28 bytes to be non-null and non-newline:
     for _ in xrange(28):
         k = st.posix.files[0].read_from(1)
-        st.se.add(k != 0)
-        st.se.add(k != 10)
+        st.solver.add(k != 0)
+        st.solver.add(k != 10)
 
     # Constrain the last byte to be a newline
     k = st.posix.files[0].read_from(1)
-    st.se.add(k == 10)
+    st.solver.add(k == 10)
 
     # Reset the symbolic stdin's properties and set its length.
     st.posix.files[0].seek(0)
