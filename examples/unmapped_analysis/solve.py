@@ -17,7 +17,7 @@ def main():
 	project = angr.Project('./unmap', load_options={"auto_load_libs": False})
 	state = project.factory.entry_state(add_options={angr.options.STRICT_PAGE_ACCESS})
 
-	simulation_manager = project.factory.simgr(state)
+	simulation_manager = project.factory.simulation_manager(state)
 
 	# (•_•) ( •_•)>⌐■-■ (⌐■_■)
 	simulation_manager.explore()

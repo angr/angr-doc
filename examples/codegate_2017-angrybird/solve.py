@@ -17,7 +17,7 @@ def main():
 	# Because I'm not interested in fixing a weird binary, I'm going to skip all the beginning of the program.
 	state = proj.factory.entry_state(addr=START_ADDR)
 
-	sm = proj.factory.simgr(state)  # Create the SimulationManager.
+	sm = proj.factory.simulation_manager(state)  # Create the SimulationManager.
 
 	sm.explore(find=FIND_ADDR)  # This will take a couple minutes. Ignore the warning message(s), it's fine.
 	found = sm.found[-1]

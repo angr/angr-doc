@@ -92,7 +92,7 @@ def generate_input(p, to_find, to_avoid, byte_addresses):
         e.regs.rcx = rcx
 
         #Generate a SimulationManager out of this state and explore
-        sm = p.factory.simgr(e)
+        sm = p.factory.simulation_manager(e)
         sm.explore(find=t,avoid=to_avoid)
 
         #Save the solutions

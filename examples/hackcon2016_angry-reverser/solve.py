@@ -29,7 +29,7 @@ def main():
     avoid += [(crazy + offst) for offst in fails] # Let's save RAM
 
     print("Launching exploration")
-    sm = p.factory.simgr(init, threads=8)
+    sm = p.factory.simulation_manager(init, threads=8)
     angr.manager.l.setLevel(logging.DEBUG)
     ex = sm.explore(find=find, avoid=avoid)
 

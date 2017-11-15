@@ -35,7 +35,7 @@ def main():
     initial_state.add_constraints(argv1.chop(8)[3] == '{')
     # angr will still find the solution without setting these, but it'll take a few seconds more.
 
-    sm = proj.factory.simgr(initial_state)
+    sm = proj.factory.simulation_manager(initial_state)
 
                           # 0x400830 = thank you message
     sm.explore(find=0x400830, avoid=0x400850)

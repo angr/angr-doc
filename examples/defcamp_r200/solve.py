@@ -3,7 +3,7 @@ import logging
 
 def main():
     p = angr.Project("r200", load_options={'auto_load_libs': False})
-    sm = p.factory.simgr(veritesting=True)
+    sm = p.factory.simulation_manager(veritesting=True)
 #   ex = p.surveyors.Explorer(find=(0x400936, ), avoid=(0x400947,), enable_veritesting=True)
 #   angr.surveyors.explorer.l.setLevel(logging.DEBUG)
 #   ex.run()

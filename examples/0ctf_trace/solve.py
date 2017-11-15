@@ -59,7 +59,7 @@ def main():
     state.memory.store(FLAG_LOCATION, state.se.BVS("flag", 8*32))
     state.memory.store(FLAG_PTR_LOCATION, struct.pack("<I", FLAG_LOCATION))
 
-    sm = project.factory.simgr(state)
+    sm = project.factory.simulation_manager(state)
     choices = [state]
 
     print("Tracing...")

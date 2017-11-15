@@ -25,7 +25,7 @@ def main():
 
     state = b.factory.blank_state(addr=0x401760)
 
-    sm = b.factory.simgr(state)
+    sm = b.factory.simulation_manager(state)
 
     # 0x401840 = Product activation passed
     # 0x401854 = Incorrect serial

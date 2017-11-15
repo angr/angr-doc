@@ -12,7 +12,7 @@ def solve(s):
     cfg = p.analyses.CFG()
 
     state = p.factory.blank_state(addr=0x400770)
-    sm = p.factory.simgr(state)
+    sm = p.factory.simulation_manager(state)
     sm.explore()
     sol = sm.deadended[-1].posix.dumps(0).replace("\x00", "").replace("\n", "")
     return sol

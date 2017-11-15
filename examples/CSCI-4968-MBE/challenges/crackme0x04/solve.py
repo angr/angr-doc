@@ -16,7 +16,7 @@ def main():
 	FIND_ADDR = cfg.kb.functions.function(name="exit").addr
 	AVOID_ADDR = 0x080484fb # dword [esp] = str.Password_Incorrect__n ; [0x8048649:4]=0x73736150 LEA str.Password_Incorrect__n ; "Password Incorrect!." @ 0x8048649
 
-	sm = proj.factory.simgr()
+	sm = proj.factory.simulation_manager()
 	sm.explore(find=FIND_ADDR, avoid=AVOID_ADDR)
 
 	# embed()

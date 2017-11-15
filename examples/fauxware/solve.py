@@ -32,7 +32,7 @@ def basic_symbolic_execution():
     # of states with various tags attached with a number of convenient
     # interfaces for managing them.
 
-    sm = p.factory.simgr(state)
+    sm = p.factory.simulation_manager(state)
 
     # Uncomment the following line to spawn an IPython shell when the program
     # gets to this point so you can poke around at the four objects we just

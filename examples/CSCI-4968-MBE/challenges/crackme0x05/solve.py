@@ -22,7 +22,7 @@ def main():
         except:
             return False
 
-    sm = proj.factory.simgr()
+    sm = proj.factory.simulation_manager()
     sm.explore(find=correct, avoid=wrong)
 
     print sm.found[0].posix.dumps(1)

@@ -30,7 +30,7 @@ def main():
                                                   angr.options.CONSTRAINT_TRACKING_IN_SOLVER })
 
     # We're looking for unconstrained paths, it means we may have control
-    sm = proj.factory.simgr(state,save_unconstrained=True)
+    sm = proj.factory.simulation_manager(state,save_unconstrained=True)
 
     # Step execution until we find a place we may control
     while sm.active and not sm.unconstrained:

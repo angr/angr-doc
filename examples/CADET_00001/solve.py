@@ -25,7 +25,7 @@ def main():
     #by default angr discards unconstrained paths, so we need to specify the  
     #save_unconstrained option
     print "finding the buffer overflow..."
-    sm = project.factory.simgr(save_unconstrained=True)
+    sm = project.factory.simulation_manager(save_unconstrained=True)
     #symbolically execute the binary until an unconstrained path is reached
     while len(sm.unconstrained)==0:
         sm.step()
@@ -46,7 +46,7 @@ def main():
     #to disable "lazy solving" we generate a blank path and we change its options,
     #then we specify this path as the initial path of the path group
     print "finding the easter egg..."
-    sm = project.factory.simgr(project.factory.entry_state())
+    sm = project.factory.simulation_manager(project.factory.entry_state())
 
     #at this point we just ask angr to reach the basic block where the easter egg 
     #text is printed
@@ -63,7 +63,7 @@ def main():
     #an alternative way to avoid unfeasible paths (paths that contain an unsatisfiable set
     #of constraints) is to "manually" step the path group execution and call prune()
     print "finding the easter egg (again)..."
-    sm = project.factory.simgr()
+    sm = project.factory.simulation_manager()
     while True:
         sm.step()
         sm.prune() #we "manually" ask angr to remove unfeasible paths 

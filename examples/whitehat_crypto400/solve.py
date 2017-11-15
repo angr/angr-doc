@@ -51,7 +51,7 @@ def get_possible_flags():
     # PathGroups are a basic building block of the symbolic execution engine. They
     # track a group of paths as the binary is executed, and allows for easier
     # management, pruning, and so forth of those paths
-    sm = p.factory.simgr(initial_state, immutable=False)
+    sm = p.factory.simulation_manager(initial_state, immutable=False)
 
     # here, we get to stage 2 using the PathGroup's find() functionality. This
     # executes until at least one path reaches the specified address, and can

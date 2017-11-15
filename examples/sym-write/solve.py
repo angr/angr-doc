@@ -21,7 +21,7 @@ def main():
 	u = claripy.BVS("u", 8)
 	state.memory.store(0x804a021, u)
 
-	sm = p.factory.simgr(state)
+	sm = p.factory.simulation_manager(state)
 
 	def correct(state):
 		try:

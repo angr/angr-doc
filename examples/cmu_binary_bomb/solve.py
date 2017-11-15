@@ -155,7 +155,7 @@ def solve_flag_4():
         # we will just use the obj's symbol directly
         addr=proj.kb.obj.get_symbol('phase_4').addr,
         remove_options={angr.options.LAZY_SOLVES})
-    sm = proj.factory.simgr(state)
+    sm = proj.factory.simulation_manager(state)
     sm.explore(find=find, avoid=avoid)
 
     found = sm.found[0]
@@ -197,7 +197,7 @@ def solve_flag_5():
     # retrofit the input string on the stack
     state.regs.rdi = state.regs.rsp - 0x1000
     string_addr = state.regs.rdi
-    sm = proj.factory.simgr(state)
+    sm = proj.factory.simulation_manager(state)
     sm.explore(find=find, avoid=avoid)
     found = sm.found[0]
 
@@ -230,7 +230,7 @@ def solve_flag_6():
     p = angr.Project("./bomb", load_options={'auto_load_libs': False})
     p.hook(read_num, read_6_ints)
     state = p.factory.blank_state(addr=start, remove_options={angr.options.LAZY_SOLVES})
-    sm = p.factory.simgr(state)
+    sm = p.factory.simulation_manager(state)
     sm.explore(find=find, avoid=avoid)
     found = sm.found[0]
 
@@ -250,7 +250,7 @@ def solve_secret():
     state = p.factory.blank_state(addr=start, remove_options={angr.options.LAZY_SOLVES})
     flag = claripy.BVS("flag", 64, explicit_name=True)
     state.add_constraints(flag -1 <= 0x3e8)
-    sm = p.factory.simgr(state)
+    sm = p.factory.simulation_manager(state)
     sm.explore(find=find, avoid=avoid)
     ### flag found
     found = sm.found[0]

@@ -13,7 +13,7 @@ AVOID_ADDR = 0x0804847c
 def main():
 	proj = angr.Project('crackme0x03', load_options={"auto_load_libs": False})
 
-	sm = proj.factory.simgr()
+	sm = proj.factory.simulation_manager()
 	sm.explore(find=FIND_ADDR, avoid=AVOID_ADDR)
 
 	return sm.found[0].posix.dumps(0).lstrip('+0').rstrip('B')

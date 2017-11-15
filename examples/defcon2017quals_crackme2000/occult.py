@@ -109,7 +109,7 @@ def solve(s):
         state.memory.store(0xd000010 + 16, state.se.BVV(0xd000040, 64), endness='Iend_LE')
         state.memory.store(0xd000040 + 8, char, endness='Iend_LE')
 
-        sm = p.factory.simgr(state)
+        sm = p.factory.simulation_manager(state)
         sm.explore(avoid=(c_mutate_slot,))
 
         the_char = None

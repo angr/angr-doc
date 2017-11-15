@@ -98,7 +98,7 @@ def solve(_file):
     # Now, Angr will start to execute the binary from this initial state
     # and explore many state until it reaches a certain condition. In this
     # case, we want to run until we reached our stop_addr.
-    sm = project.factory.simgr(state)
+    sm = project.factory.simulation_manager(state)
     sm.explore(find=stop_addr)
 
     # At this point, the first active path reached our stop address

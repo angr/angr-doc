@@ -165,7 +165,7 @@ initial_state.add_constraints(initial_state.se.And(or_v1,or_v2,or_v3,or_v4))
 ##############################################
 FIND=0x40123E
 #run sym execute
-sm = p.factory.simgr(initial_state, threads=8)
+sm = p.factory.simulation_manager(initial_state, threads=8)
 sm.explore(find=FIND)
 
 #now we will get the supposed final state (the state after the symbolic execution)

@@ -58,7 +58,7 @@ def solve(s):
     p.hook(swift_retain, angr.SIM_PROCEDURES['stubs']['ReturnUnconstrained'])
     p.hook(alloca, Alloca)
 
-    sm = p.factory.simgr(state)
+    sm = p.factory.simulation_manager(state)
     sm.explore()
 
     state = sm.deadended[-1]

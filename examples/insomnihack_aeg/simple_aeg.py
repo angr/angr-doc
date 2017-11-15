@@ -62,7 +62,7 @@ def main(binary):
 
     extras = {so.REVERSE_MEMORY_NAME_MAP, so.TRACK_ACTION_HISTORY}
     es = p.factory.entry_state(add_options=extras)
-    sm = p.factory.simgr(es, save_unconstrained=True)
+    sm = p.factory.simulation_manager(es, save_unconstrained=True)
 
     # find a bug giving us control of PC
     l.info("looking for vulnerability in '%s'", binary_name)

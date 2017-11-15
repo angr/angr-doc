@@ -16,7 +16,7 @@ import angr
 def main():
 	proj = angr.Project('./baby-re',  load_options={'auto_load_libs': False})
 
-	sm = proj.factory.simgr(threads=4) # Doesn't really help to have more threads, but whatever.
+	sm = proj.factory.simulation_manager(threads=4) # Doesn't really help to have more threads, but whatever.
 
 	# If we get to 0x402941, "Wrong" is going to be printed out, so definitely avoid that.
 	sm.explore(find=0x40294b, avoid=0x402941)

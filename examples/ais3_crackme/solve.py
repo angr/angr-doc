@@ -19,7 +19,7 @@ def main():
     initial_state = project.factory.entry_state(args=["./crackme1",argv1])
 
     #create a path group using the created initial state 
-    sm = project.factory.simgr(initial_state)
+    sm = project.factory.simulation_manager(initial_state)
 
     #symbolically execute the program until we reach the wanted value of the instruction pointer
     sm.explore(find=0x400602) #at this instruction the binary will print the "correct" message

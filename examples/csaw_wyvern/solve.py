@@ -32,7 +32,7 @@ def main():
 
     # Construct a SimulationManager to perform symbolic execution.
     # Step until there is nothing left to be stepped.
-    sm = p.factory.simgr(st)
+    sm = p.factory.simulation_manager(st)
     sm.run()
 
     # Get the stdout of every path that reached an exit syscall. The flag should be in one of these!

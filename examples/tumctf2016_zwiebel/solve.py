@@ -15,7 +15,7 @@ def main():
 
     # unicorn support makes execution, especially code unpacking, way faster
     state = p.factory.entry_state(add_options=angr.options.unicorn)
-    sm = p.factory.simgr(state)
+    sm = p.factory.simulation_manager(state)
 
     while sm.active:
         # in order to save memory, we only keep the recent 20 deadended or

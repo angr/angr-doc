@@ -38,7 +38,7 @@ def main():
         p.hook(main + offst, UserHook(user_func=patch_scanf, length=5))
 
 
-    sm = p.factory.simgr(init)
+    sm = p.factory.simulation_manager(init)
 
     # Now stuff becomes interesting
     ex = sm.explore(find=find, avoid=avoid)

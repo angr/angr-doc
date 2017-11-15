@@ -81,7 +81,7 @@ def main():
     '''
      Create a new SimulationManager from the entry state
     '''
-    sm = project.factory.simgr(state)
+    sm = project.factory.simulation_manager(state)
 
     '''
      Since we want to find a path to strcpy ONLY where we have control of the

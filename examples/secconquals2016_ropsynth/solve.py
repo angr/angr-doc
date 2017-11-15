@@ -96,7 +96,7 @@ def get_gadgets():
 
         # We symbolically explore the function. We are looking for the state that returns to an address popped off our
         # symbolic stack, so we want to save unconstrained states.
-        sm = p.factory.simgr(state, save_unconstrained=True)
+        sm = p.factory.simulation_manager(state, save_unconstrained=True)
         sm.active[0].rip = f.addr # this is a workaround for a perceived (maybe not actual) but in angr
         sm.active[0].ip = f.addr # same here
         sm.explore(n=200)
