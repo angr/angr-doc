@@ -10,6 +10,7 @@ The default stash for most operations is the `active` stash, which is where your
 
 ### Stepping
 
+模拟管理器最基本的功能是
 The most basic capability of a simulation manager is to step forward all states in a given stash by one basic block.
 You do this with `.step()`.
 

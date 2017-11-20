@@ -1,18 +1,17 @@
 Working with Data and Conventions
 =================================
 
-Frequently, you'll want to access structured data from the program you're analyzing.
-angr has several features to make this less of a headache.
+通常来说，你都需要访问你正在分析的程序的结构化数据。Angr 在这个方向上做了一些工作来解决这些难题。
 
 ## Working with types
 
+angr 有一个代表类型系统。SimTypes 在 `angr.types` 中，
 angr has a system for representing types.
 These SimTypes are found in `angr.types` - an instance of any of these classes represents a type.
 Many of the types are incomplete unless they are supplamented with a SimState - their size depends on the architecture you're running under.
 You may do this with `ty.with_state(state)`, which returns a copy of itself, with the state specified.
 
-angr also has a light wrapper around `pycparser`, which is a C parser.
-This helps with getting instances of type objects:
+angr 也用 C 实现了一个轻量的装饰器 `pycparser`，这有助于获取对象的类型信息
 
 ```python
 >>> import angr
@@ -32,7 +31,7 @@ struct aa
 OrderedDict([('x', int), ('y', long)])
 ```
 
-Additionally, you may parse C definitions and have them returned to you in a dict, either of variable/function declarations or of newly defined types:
+此外，你也可以解析 C 的定义，无论是变量/函数声明还是自定义的类型都会返回一个字典：
 
 ```python
 >>> angr.types.parse_defns("int x; typedef struct llist { char* str; struct llist *next; } list_node; list_node *y;")
@@ -56,7 +55,7 @@ OrderedDict([('str', char*), ('next', struct llist*)])
 {'x': (int, double) -> int}
 ```
 
-And finally, you can register struct definitions for future use:
+最后，你可以自己定义数据结构以供使用：
 
 ```python
 >>> angr.types.define_struct('struct abcd { int x; int y; }')
@@ -65,12 +64,12 @@ And finally, you can register struct definitions for future use:
 {'a': struct abcd, 'b': long}
 ```
 
-These type objects aren't all that useful on their own, but they can be passed to other parts of angr to specify data types.
+这些类型对象本身并没什么用，不过可以传递给 angr 的其他组件来指定数据类型
 
-## Accessing typed data from memory
+## 访问内存中指定类型的数据
 
-Now that you know how angr's type system works, you can unlock the full power of the `state.mem` interface!
-Any type that's registered with the types module can be used to extract data from memory.
+既然已经知道了 angr 的类型系统是如何工作的，现在可以解锁 `state.mem` 接口的全部功能了！
+任何在类型模块中注册过的类型都可以用于从内存中提取数据
 
 ```python
 >>> import angr
@@ -113,21 +112,20 @@ Any type that's registered with the types module can be used to extract data fro
 'SOSNEAKY'
 ```
 
-The interface works like this:
+接口如下：
 
-- You first use [array index notation] to specify the address you'd like to load from
-- If at that address is a pointer, you may access the `deref` property to return a SimMemView at the address present in memory.
-- You then specify a type for the data by simply accessing a property of that name.
-  For a list of supported types, look at `state.mem.types`.
-- You can then _refine_ the type. Any type may support any refinement it likes.
-  Right now the only refinements supported are that you may access any member of a struct by its member name, and you may index into a string or array to access that element.
-- If the address you specified initially points to an array of that type, you can say `.array(n)` to view the data as an array of n elements.
-- Finally, extract the structured data with `.resolved` or `.concrete`.
-  `.resolved` will return bitvector values, while `.concrete` will return integer, string, array, etc values, whatever best represents the data.
-- Alternately, you may store a value to memory, by assigning to the chain of properties that you've constructed.
-  Note that because of the way python works, `x = s.mem[...].prop; x = val` will NOT work, you must say `s.mem[...].prop = val`.
+- 首先使用 [数组索引] 来指定要加载的地址
+- 如果该地址是一个指针，可以通过 `deref` 属性返回 SimMemView 在内存中的地址
+- 可以通过访问属性指定数据的类型。支持类型的列表请参见： `state.mem.types`
+- 可以 _重定义_ 类型，任何类型都支持任意重定义。现在唯一支持的重定义就是通过成员名访问结构体中的任何成员，并且也可以使用对字符串/数组的索引来访问元素  
+- 如果如果初始给定的地址指向一个类型的数组，可以将
+ `.array(n)` 看作由n个元素组成的数组
+- 最后，使用 `.resolved` 或者 `.concrete` 提取结构化数据
+  `.resolved` 将返回 bitvector，而 `.concrete` 返回整型、字符串、数组等能代表数据的类型的值
+- 或者，也可以通过分配自定义的属性链将值存储到内存中
+  请注意，由于 Python 的限制，`x = s.mem[...].prop; x = val` 这样的写法不被允许，必须使用 `s.mem[...].prop = val` 才能成功
 
-If you define a struct using `define_struct` or `register_types`, you can access it here as a type:
+如果你使用 `define_struct` 或 `register_types` 定义一个结构，就可以作为一个类型来访问它
 
 ```python
 >>> s.mem[b.entry].abcd
@@ -137,8 +135,9 @@ If you define a struct using `define_struct` or `register_types`, you can access
 } at 0x400580>
 ```
 
-## Working with Calling Conventions
+## 使用调用约定Working with Calling Conventions
 
+调用约定
 A calling convention is the specific means by which code passes arguments and return values through function calls.
 While angr comes with a large number of pre-built calling conventions, and a lot of logic for refining calling conventions for specific circumstances (e.g. floating point arguments need to be stored in different locations, it gets worse from there), it will inevitably be insufficient to describe all possible calling conventions a compiler could generate.
 Because of this, you can _customize_ a calling convention by describing where the arguments and return values should live.

@@ -1,4 +1,4 @@
-# angr examples
+# angr 示例
 
 To help you get started with [angr](https://github.com/angr/angr), we've created several examples.
 We've tried to organize them into major categories, and briefly summarize that each example will expose you to.
@@ -8,14 +8,14 @@ There are also a great amount of slightly more redunant examples (these mostly s
 
 To jump to a specific category:
 
-- [Introduction](#introduction) - examples showing off the very basics of angr's functionality
-- [Reversing](#reversing) - examples showing angr being used in reverse engineering tasks
-- [Vulnerability Discovery](#vulnerability-discovery) - examples of angr being used to search for vulnerabilities
-- [Exploitation](#exploitation) - examples of angr being used as an exploitation assistance tool
+- [介绍](#introduction) - examples showing off the very basics of angr's functionality
+- [逆向工程](#reversing) - examples showing angr being used in reverse engineering tasks
+- [漏洞挖掘](#vulnerability-discovery) - examples of angr being used to search for vulnerabilities
+- [漏洞利用](#exploitation) - examples of angr being used as an exploitation assistance tool
 
-## Introduction
+## 介绍
 
-These are some introductory examples to give an idea of how to use angr's API.
+我们准备了一些关于如何使用 angr 的 API 的例子
 
 ### Fauxware
 
@@ -24,10 +24,10 @@ This is a basic script that explains how to use angr to symbolically execute a p
 Binary, source, and script are found [here.](https://github.com/angr/angr-doc/tree/master/examples/fauxware)
 
 
-## Reversing
+## 逆向
 
-These are examples that use angr to solve reverse engineering challenges.
-There are a lot of these.
+有许多用 angr 来解决逆向工程问题的例子，我们也准备了一些。
+我们选择了其中一些典型的例子，
 We've chosen the most unique ones, and relegated the rest to the [CTF Challenges](#) section below.
 
 
