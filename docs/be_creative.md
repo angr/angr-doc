@@ -1,19 +1,18 @@
-# A final word of advice
+# 最后的建议
 
-Congratulations!
-If you've read this far through the book (editor's note: this comment only really applies when we've actually finished writing all the TODOs so far) then you've been introduced to all the fundamental components of angr necessary to get started with binary analysis.
+恭喜！
+如果你已经阅读完了这本书（编者注：当我们完成了所有 TODO 写作时，才真正适用），我们已经介绍了使用 angr 所必需的二进制分析基本组件
 
+最终，angr 只是一个模拟器。
+这是一个高度可操作、独特的模拟器，其中有许多关于环境的考量。
 Ultimately, angr is just an emulator.
 It is a highly instrumentable and very unique emulator with lots of considerations for environment, true, but at its core, the work you do with angr is about extracting knowledge about how a bunch of bytecode behaves on a CPU.
-In designing angr, we've tried to provide you with the tools and abstractions on top of this emulator to make certain common tasks more useful, but there's no problem you can't solve just by working with a SimState and observing the affects of `.step()`.
+在设计 angr 时，我们试着提供一组工具以及模拟器顶层的抽象来应对常见的任务，同时没有什么问题是通过 SimState 和 `.step()` 不能解决的
 
-As you read further into this book, we'll describe more technical subjects and how to tune angr's behavior for complicated scenarios.
-This knowledge should inform your use of angr so you can take the quickest path to a solution to any given problem, but ultimately, you will want to solve problems by exercising creativity with the tools at your disposal.
-If you can take a problem and wrangle it into a form where it has defined and tractable inputs and outputs, you can absolutely use angr to achieve your goals, given that these goals involve analyzing binaries.
-None of the abstractions or instrumentations we provide are the end-all of how to use angr for a given task - angr is designed so it can be used in as integrated or as ad-hoc of a manner as you desire.
-If you see a path from problem to solution, take it.
+随着对本书的深入阅读，我们将介绍更多技术要点，以及如何针对复杂场景调整 angr。这些知识应该可以告诉你如何使用 angr，这样就可以利用最快的途径解决任何问题，但最终你会使用实践创造来解决遇到的任何问题。
+如果你想把一个问题转换成一个已定义好的、可处理的输入和输出的形式，而这些问题涉及分析二进制文件，完全可以利用 angr 来实现。我们做提供的抽象或插桩都不是固定不变的 - 如何在特定任务中使用 angr - angr 的设计使得其可以按照用户期望的方式进行整合或临时使用。
+如果发现了解决问题的方法，那就实现它！
 
-Of course, it's very difficult to become well-acquainted with such a huge piece of technology as angr.
-To this end you can absolutely lean on the community (through the [angr slack](http://angr.io/invite.html) is the best option) to discuss angr and solving problems with it.
+当然，要完全熟悉 angr 这样一个巨大的框架是非常困难的。因此，可以依靠社区([angr slack](http://angr.io/invite.html) 通常是最好的选择)和大家一起讨论、解决问题
 
-Good luck!
+祝你好运！
