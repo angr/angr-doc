@@ -1,15 +1,13 @@
-Working with Data and Conventions
+使用数据与约定
 =================================
 
 通常来说，你都需要访问你正在分析的程序的结构化数据。Angr 在这个方向上做了一些工作来解决这些难题。
 
-## Working with types
+## 类型
 
-angr 有一个代表类型系统。SimTypes 在 `angr.types` 中，
-angr has a system for representing types.
-These SimTypes are found in `angr.types` - an instance of any of these classes represents a type.
-Many of the types are incomplete unless they are supplamented with a SimState - their size depends on the architecture you're running under.
-You may do this with `ty.with_state(state)`, which returns a copy of itself, with the state specified.
+angr 有一个代表类型系统。SimTypes 在 `angr.types` 中，类中的任何实例都可以代表一种类型。
+许多类型都不完整，除非被 SimState 替代。类型的宽度大小往往取决于运行机器的体系结构。
+也可以使用 `ty.with_state(state)` 来返回它自身指定状态的一个副本
 
 angr 也用 C 实现了一个轻量的装饰器 `pycparser`，这有助于获取对象的类型信息
 
@@ -135,47 +133,42 @@ OrderedDict([('str', char*), ('next', struct llist*)])
 } at 0x400580>
 ```
 
-## 使用调用约定Working with Calling Conventions
+## 使用调用约定
 
-调用约定
-A calling convention is the specific means by which code passes arguments and return values through function calls.
-While angr comes with a large number of pre-built calling conventions, and a lot of logic for refining calling conventions for specific circumstances (e.g. floating point arguments need to be stored in different locations, it gets worse from there), it will inevitably be insufficient to describe all possible calling conventions a compiler could generate.
-Because of this, you can _customize_ a calling convention by describing where the arguments and return values should live.
+调用约定是通过函数传递参数和返回值的特殊方法。
+虽然 angr 带有大量预设的调用约定，并且在特定情况下（例如，浮点指针参数需要存储在不同的位置）有很多改进调用约定的地方。但是不可避免地不足以描述编译器可能产生的所有调用约定。因此，angr 支持通过描述参数与返回值的位置自定义调用约定
 
-angr's abstraction of calling conventions is called SimCC.
-You can construct new SimCC instances through the angr object factory, with `b.factory.cc(...)`.
+angr 对调用约定的抽象是 SimCC。
+可以通过 angr 的对象工厂来构建一个新的 SimCC 示例，例如 `b.factory.cc(...)`
 
-- Pass as the `args` keyword argument a list of argument storage locations
-- Pass as the `ret_val` keyword argument the location where the return value should be stored
-- Pass as the `func_ty` keyword argument a SymType for the function prototype.
-- Pass it none of these things to use a sane default for the current architecture!
+- 使用参数 `args` 传递参数存储位置的列表
+- 使用参数 `ret_val` 传递返回值存储位置的列表
+- 使用参数 `func_ty` 传递函数原型的 SymType
+- 不使用参数则默认为当前架构的默认值
 
-To specify a value location for the `args` or `ret_val` parameters, use instances of the `SimRegArg` or `SimStackArg` classes.
-You can find them in the factory - `b.factory.cc.Sim*Arg`.
-Register arguments should be instantiated with the name of the register you're storing the value in, and the size of the register in bytes.
-Stack arguments should be instantiated with the offset from the stack pointer *at the time of entry into the function* and the size of the storage location, in bytes.
+要指定 `args` 或 `ret_val` 参数值的位置，要使用 `SimRegArg` 或者 `SimStackArg` 类的实例。
+也可以在工厂中实现 `b.factory.cc.Sim*Arg`。
+寄存器参数应该使用正在存储值的寄存器的名字与寄存器的大小（以字节为单位）来进行实例化。
+使用*进入函数时*堆栈指针的偏移量和存储位置的大小（以字节为单位）来实例化堆栈参数
 
-Once you have a SimCC object, you can use it along with a SimState object to extract or store function arguments more cleanly.
-Take a look at the [API documentation](http://angr.io/api-doc/angr.html#angr.calling_conventions.SimCC) for details.
-Alternately, you can pass it to an interface that can use it to modify its own behavior, like `b.factory.call_state`, or...
+一旦创建了一个 SimCC 对象，就可以和 SimState 对象联合使用来提取/存储函数参数。详见
+ [API 文档](http://angr.io/api-doc/angr.html#angr.calling_conventions.SimCC)。
+或者可以传递给一个接口，接口可以使用这个对象来修改它自身的行为，比如 `b.factory.call_state`
 
-## Callables
+## 可调用对象
 
 <a name=callables></a>
 
-Callables are a Foreign Functions Interface (FFI) for symbolic execution.
-Basic callable usage is to create one with `myfunc = b.factory.callable(addr)`, and then call it! `result = myfunc(args, ...)`
-When you call the callable, angr will set up a `call_state` at the given address, dump the given arguments into memory, and run a `path_group` based on this state until all the paths have exited from the function.
-Then, it merges all the result states together, pulls the return value out of that state, and returns it.
+可调用对象是符号执行的外部函数接口（FFI）。
+简单可调用对象的用法：先使用 `myfunc = b.factory.callable(addr)` 创建一个可调用对象。之后就可以使用 `result = myfunc(args, ...)` 调用它了！
+当你调用可调用对象时，angr 会在给定的地址设置一个 `call_state`，将给定的参数转储到内存中。然后基于这个 state 启动 `path_group`，直到所有路径都从函数中退出。将所有的结果状态合并到一起，将返回值从 state 中提取出来并返回
 
-All the interaction with the state happens with the aid of a `SimCC`, to tell where to put the arguments and where to get the return value.
-By default, it uses a sane default for the architecture, but if you'd like to customize it, you can pass a `SimCC` object in the `cc` keyword argument when constructing the callable.
+与 state 的所有交互都是通过 `SimCC` 来辅助完成的，参数在哪以及哪里获得返回值都是。默认情况下，在不同的架构中使用了一个合理的默认值。但如果想自定义，则可以在构建可调用对象时为 `SimCC` 对象传递参数 `cc` 
 
-You can pass symbolic data as function arguments, and everything will work fine.
-You can even pass more complicated data, like strings, lists, and structures as native python data (use tuples for structures), and it'll be serialized as cleanly as possible into the state.
-If you'd like to specify a pointer to a certain value, you can wrap it in a `PointerWrapper` object, available as `b.factory.callable.PointerWrapper`.
-The exact semantics of how pointer-wrapping work are a little confusing, but they can be boiled down to "unless you specify it with a PointerWrapper or a specific SimArrayType, nothing will be wrapped in a pointer automatically unless it gets to the end and it hasn't yet been wrapped in a pointer yet and the original type is a string, array, or tuple."
-The relevant code is actually in SimCC - it's the `setup_callsite` function.
+可以为函数参数传递符号数据，这是可以正常工作的。
+甚至可以传递更为复杂的数据，比如字符串、列表、结构体，甚至是 Python 原生数据结构（元组作为结构体）。这些都可以轻松地序列化到 state 中。
+如果你想指定一个指针到一定值，就可以在 `PointerWrapper` 对象上“装饰”它，例如 `b.factory.callable.PointerWrapper`。
+对指针实现的装饰确实容易令人感到困惑，但是可以归结为“除非使用 PointerWrapper 或者特定的 SimArrayType 来指定、它们还未被包装在指针中、原始数据类型为字符串、数组或元组，否则指针中什么都不会被自动“装饰”，”
 
-If you don't care for the actual return value of the call, you can say `func.perform_call(arg, ...)`, and then the properties `func.result_state` and `func.result_path_group` will be populated.
-They will actually be populated even if you call the callable normally, but you probably care about them more in this case!
+如果不关心调用的实际返回值，可以使用 `func.perform_call(arg, ...)`，属性 `func.result_state` 和 `func.result_path_group` 都会被填充。
+即使正常调用一个可调用对象，这些属性也会被填充，但是这种情况下可能会更关心！
