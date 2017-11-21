@@ -1,8 +1,8 @@
-# Writing Analyses
+# 写一个 Analyses
 
-An analysis can be created by subclassing the `angr.Analysis` class.
-In this section, we'll create a mock analysis to show off the various features.
-Let's start with something simple:
+可以通过继承类 `angr.Analysis` 来创建一个 analysis。
+在本节中，我们将会创建一个模拟 analysis 来展示各种功能。
+让我们从简单的开始吧~
 
 ```python
 >>> import angr
@@ -14,10 +14,10 @@ Let's start with something simple:
 >>> angr.register_analysis(MockAnalysis, 'MockAnalysis')
 ```
 
-This is a very simple analysis -- it takes an option, and stores it.
-Of course, it's not useful, but this is just a demonstration.
+这是一个非常简单的 analysis -- 需要一个选项然后把它存储起来。
+当然，这没什么用，只是一个简单的示例。
 
-Let's see how to run our new analysis
+让我们看看如何运行一个新的 analysis
 
 ```python
 >>> proj = angr.Project("/bin/true")
@@ -25,12 +25,12 @@ Let's see how to run our new analysis
 >>> assert mock.option == 'this is my option'
 ```
 
-If you've registered a new analysis _after_ loading the project, you will need to refresh the list of registered analyses on your project with `proj.analyses.reload_analyses()`.
+如果在加载了项目后注册了一个新的 analysis，需要使用 `proj.analyses.reload_analyses()` 刷新项目中的注册 analyses 列表
 
 ### Working with projects
 
-Via some python magic, your analysis will automatically have the project upon which you are running it under the `self.project` property.
-Use this to interact with your project and analyze it!
+通过一些 Python 魔法，你的 analysis 将会自动添加到项目中，可以在 `self.project` 属性下运行它。
+可以使用它来和项目进行交互并进行分析！
 
 ```python
 >>> class ProjectSummary(angr.Analysis):
@@ -45,12 +45,11 @@ Use this to interact with your project and analyze it!
 This project is a AMD64 binary with an entry point at 0x401410.
 ```
 
-### Naming Analyses
+### Analyses 命名
 
-The `register_analysis` call is what actually adds the analysis to angr.
-Its arguments are the actual analysis class and the name of the analysis.
-The name is how it appears under the `project.analyses` object.
-Usually, you should use the same name as the analysis class, but if you want to use a shorter name, you can.
+调用 `register_analysis` 实际上是添加 analysis 到 angr 中。
+它的参数是实际 analysis 的类，和 analysis 的名字。
+该名字是如何出现在对象 `project.analyses` 下的呢？通常来说，应该使用与 analysis 类同样的名字，但是如果想自定义也是可以的：
 
 ```python
 >>> class FunctionBlockAverage(angr.Analysis):
@@ -61,17 +60,16 @@ Usually, you should use the same name as the analysis class, but if you want to 
 >>> angr.register_analysis(FunctionBlockAverage, 'FuncSize')
 ```
 
-After this, you can call this analysis using it's specified name. For example, `b.analyses.FuncSize()`.
+在此之后，就可以使用这个自定义的名字来调用这个 analysis 了，例如：`b.analyses.FuncSize()`
 
-### Analysis Resilience
+### Analysis 弹性
 
-Sometimes, your (or our) code might suck and analyses might throw exceptions.
-We understand, and we also understand that oftentimes a partial result is better than nothing.
-This is specifically true when, for example, running an analysis on all of the functions in a program.
-Even if some of the functions fails, we still want to know the results of the functions that do not.
+有时，你的（或者我们的）代码可能会抛出异常。
+我们明白，有部分结果总比什么都没有好。
+例如，对程序中的所有函数进行 analysis 时，情况就是如此。
+即使某些函数失败了，我们仍然想知道成功那部分函数的结果
 
-To facilitate this, the `Analysis` base class provides a resilience context manager under `self._resilience`.
-Here's an example:
+为了方便，基类 `Analysis` 提供了一个弹性上下文管理器 `self._resilience`。示例如下：
 
 ```python
 >>> class ComplexFunctionAnalysis(angr.Analysis):
@@ -86,23 +84,22 @@ Here's an example:
 ...                     self.results[addr] = "GOOD"
 ```
 
-The context manager catches any exceptions thrown and logs them (as a tuple of the exception type, message, and traceback) to `self.errors`.
-These are also saved and loaded when the analysis is saved and loaded (although the traceback is discarded, as it is not picklable).
+上下文管理器捕获抛出的任何异常，并将它们（异常类型、异常消息、traceback）记录到 `self.errors` 中。
+当 analysis 被保存、加载时，这些数据也将被保存、加载（traceback 因为不可序列化被丢弃）
 
-You can tune the effects of the resilience with two optional keyword parameters to `self._resilience()`.
+你可以使用 `self._resilience()` 的两个可选参数来调整弹性的粒度
 
-The first is `name`, which affects where the error is logged.
-By default, errors are placed in `self.errors`, but if `name` is provided, then instead the error is logged to `self.named_errors`, which is a dict mapping `name` to a list of all the errors that were caught under that name.
-This allows you to easily tell where thrown without examining its traceback.
+首先是 `name` 参数，它会影响错误记录的位置。默认情况下，错误被放在 `self.errors`。但如果指定了 `name` 参数，则会被记录到 `self.named_errors`，这是一个映射 `name` 到所有在这个名字下被捕获的错误列表的字典
+这可以轻松找到抛出异常的位置，而不无需检查 traceback
 
-The second argument is `exception`, which should be the type of the exception that `_resilience` should catch.
-This defaults to `Exception`, which handles (and logs) almost anything that could go wrong.
-You can also pass a tuple of exception types to this option, in which case all of them will be caught.
+第二个参数是 `exception`，指定了应该捕获的异常类型。
+默认为 `Exception`，即记录所有类型的错误。
+也可以使用元组来传递想捕获的异常类型给该参数，这种情况下，指定类型的异常都会被捕获
 
-Using `_resilience` has a few advantages:
+使用 `_resilience` 有以下几个优势：
 
-1. Your exceptions are gracefully logged and easily accessible afterwards. This is really nice for writing testcases.
-2. When creating your analysis, the user can pass `fail_fast=True`, which transparently disable the resilience, which is really nice for manual testing.
-3. It's prettier than having `try`/`except` everywhere.
+1. 异常会被优雅地记录下来，便于以后访问。这对编写测试用例非常友好
+2. 创建自定义的 analysis 时，用户可以设置 `fail_fast=True` 来透明禁用弹性设置，利于手动测试
+3. 比随处可见的 `try`/`except` 更漂亮
 
-Have fun with analyses! Once you master the rest of angr, you can use analyses to understand anything computable!
+一旦你掌握了 angr 的全部，就可以利用 angr 来完成任何分析、计算！
