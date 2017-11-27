@@ -158,7 +158,7 @@ One system that does reason about the effect of interrupts is [FIE](http://pages
 
 ### Path explosion
 
-Many approaches \(such as [Veritesting](https://users.ece.cmu.edu/~dbrumley/pdf/'Avgerinos et al._2014_Enhancing Symbolic Execution with Veritesting.pdf')\) attempt to mitigate the path explosion problem in symbolic execution.
+Many approaches \(such as [Veritesting](https://users.ece.cmu.edu/~dbrumley/pdf/Avgerinos et al._2014_Enhancing Symbolic Execution with Veritesting.pdf)\) attempt to mitigate the path explosion problem in symbolic execution.
 However, despite these efforts, path explosion is still _the_ main problem preventing symbolic execution from being mainstream.
 
 angr provides an excellent base to implement new techniques to control path explosion.
