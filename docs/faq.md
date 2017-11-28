@@ -1,82 +1,76 @@
-# Frequently Asked Questions
+# FAQ
 
-This is a collection of commonly-asked "how do I do X?" questions and other general questions about angr, for those too lazy to read this whole document.
+这是一个常见问题的辑录，对于那些懒得阅读整个文档的人是个福音
 
-If your question is of the form "how do I fix X issue", see also the Troubleshooting section of the [install instructions](../INSTALL.md).
+如果您遇到了“要修复X该怎么做？”的问题，请参阅[安装说明](../INSTALL.md)的故障排除部分
 
-## Why is it named angr?
-The core of angr's analysis is on VEX IR, and when something is vexing, it makes you angry.
+## 为什么叫 angr？
+angr 的分析核心是 VEX IR，出现一些问题的时候，你会非常生气！
 
-## How should "angr" be stylized?
-All lowercase, even at the beginning of sentences. It's an anti-proper noun.
+## angr 应该怎样拼写使用？
+全部小写，即使是在句子的开头。这是一个反专有名词（anti-proper noun）
 
-## How can I get diagnostic information about what angr is doing?
-angr uses the standard `logging` module for logging, with every package and submodule creating a new logger.
+## 如何得到 angr 运行的诊断信息？
+angr 使用标准库中的 `logging` 模块来进行日志记录，每个包与其子模块都会创建一个新的日志（logger）
 
-The simplest way to get debug output is the following:
+得到调试输出最简单的方法如下：
 ```python
 import logging
 logging.getLogger('angr').setLevel('DEBUG')
 ```
 
-You may want to use `INFO` or whatever else instead.
-By default, angr will enable logging at the `WARNING` level.
+你也许想要使用 `INFO` 级别或其他日志级别来代替。
+默认情况下，angr 的日志等级为 `WARNING`
 
-Each angr module has its own logger string, usually all the python modules above it in the hierarchy, plus itself, joined with dots.
-For example, `angr.analyses.cfg`.
-Because of the way the python logging module works, you can set the verbosity for all submodules in a module by setting a verbosity level for the parent module.
-For example, `logging.getLogger('angr.analyses').setLevel('INFO')` will make the CFG, as well as all other analyses, log at the INFO level.
+angr 的每个模块都有自己的日志字符串，通常来说按照层次结构排列下来的 Python 模块，逐渐加上点。例如：`angr.analyses.cfg`。
+依据 logging 模块的工作方式，可以通过为父模块设置日志级别来设置模块中所有子模块的日志级别。例如 `logging.getLogger('angr.analyses').setLevel('INFO')` 将会生成 CFG，与其他分析相同，日志会记录在 INFO 级别
 
-## Why is angr so slow?
-[It's complicated!](speed.md)
+## 为什么 angr 这么慢？
+这个问题十分复杂，请参阅[速度解释](speed.md)
 
-## How do I find bugs using angr?
-It's complicated!
-The easiest way to do this is to define a "bug condition", for example, "the instruction pointer has become a symbolic variable", and run symbolic exploration until you find a state matching that condition, then dump the input as a testcase.
-However, you will quickly run into the state explosion problem.
-How you address this is up to you.
-Your solution may be as simple as adding an `avoid` condition or as complicated as implementing CMU's MAYHEM system as an [Exploration Technique](otiegnqwvk.md).
+## 如何使用 angr 来发现 bug？
+这又是一个复杂的问题！最简单的方法是定义一个“bug 条件”，例如：指令指针变成一个符号变量。然后启动符号探索，直到发现能匹配条件的 state，angr 会将其 dump 为输入用例文件
+但是，往往会很快遇到状态爆炸的问题。
+如何解决这个问题就取决于你了。也许是通过添加一个 `avoid` 条件，或者利用 CMU 开发的 Mayhem 作为[探索技术](otiegnqwvk.md)
 
-## Why did you choose VEX instead of another IR (such as LLVM, REIL, BAP, etc)?
-We had two design goals in angr that influenced this choice:
+## 为什么选择 VEX 而不是其他 IR(例如 LLVM、REIL、BAP 等)？
+angr 最初的两个设计目标影响了我们的选择：
 
-1. angr needed to be able to analyze binaries from multiple architectures. This mandated the use of an IR to preserve our sanity, and required the IR to support many architectures.
-2. We wanted to implement a binary analysis engine, not a binary lifter. Many projects start and end with the implementation of a lifter, which is a time consuming process. We needed to take something that existed and already supported the lifting of multiple architectures.
+1. angr 需要能够分析多个体系结构的二进制文件。这就要求我们必须使用支持多架构的 IR
+2. 我们想要实现一个二进制分析引擎，而不是一个二进制 lifter。许多项目的启动和结束时都需要执行 lifter，这十分耗时。我们需要使用一个已经存在并且已经支持多种体系结构的解决方案
 
-Searching around the internet, the major choices were:
+经过搜索研究，有以下几个主要的选择：
 
-- LLVM is an obvious first candidate, but lifting binary code to LLVM cleanly is a pain. The two solutions are either lifting to LLVM through QEMU, which is hackish (and the only implementation of it seems very tightly integrated into S2E), or mcsema, which only supports x86.
-- TCG is QEMU's IR, but extracting it seems very daunting as well and documentation is very scarse.
-- REIL seems promising, but there is no standard reference implementation that supports all the architectures that we wanted. It seems like a nice academic work, but to use it, we would have to implement our own lifters, which we wanted to avoid.
-- BAP was another possibility. When we started work on angr, BAP only supported lifting x86 code, and up-do-date versions of BAP were only available to academic collaborators of the BAP authors. These were two deal-breakers. BAP has since become open, but it still only supports x86_64, x86, and ARM.
-- VEX was the only choice that offered an open library and support for many architectures. As a bonus, it is very well documented and designed specifically for program analysis, making it very easy to use in angr.
+- LLVM 是第一选择，但是想要清晰地提升（lift）二进制代码到 LLVM 是一个痛苦的过程。一共有两种解决方案，一种是通过 QEMU 来提升到 LLVM，而 QEMU 是 hsckish（其唯一实现就是紧密整合进了 S2E 中）的；另一种 mcsema 只支持 x86 结构
+- TCG 是 QEMU 的 IR，但是提取它也很困难，它的文档非常粗糙
+- REIL 看起来不错，但是没找到标准参考实现来执行来支持我们设计的全部架构。这是一个很好的学术工作，但要使用的话，就不得不实现自己的 lifter，而这这是我们竭力避免的
+- BAP 是另一个选择，当我们开始设计 angr 时，BAP 只支持 x86，而 BAP 的最新版本只提供给 BAP 作者的学术合作方。同时它只支持 x86_64、x86 与 ARM
+- VEX 是提供开放库并支持多架构的唯一选择。它转为程序分析设计，在 angr 中也是非常易用
 
-While angr uses VEX now, there's no fundamental reason that multiple IRs cannot be used. There are two parts of angr, outside of the `angr.engines.vex` package, that are VEX-specific:
+虽然 angr 现在使用的是 VEX，但并没有多 IR 不能被使用的根本原因。除了 `angr.engines.vex` 包，angr 有两部分是 VEX 独占的：
 
-- the jump lables (i.e., the `Ijk_Ret` for returns, `Ijk_Call` for calls, and so forth) are VEX enums.
-- VEX treats registers as a memory space, and so does angr. While we provide accesses to `state.regs.rax` and friends, on the backend, this does `state.registers.load(8, 8)`, where the first `8` is a VEX-defined offset for `rax` to the register file.
+- jump 表（例如，`Ijk_Ret` 表示返回、`Ijk_Call` 表示调用等等）使用的是 VEX 的枚举变量
+- VEX 将寄存器视作内存空间，angr 也是这么做的。虽然我们提供对 `state.regs.rax` 的访问，但在后端实际做的是 `state.registers.load(8, 8)`，第一个 `8` 是 VEX 定义的 `rax` 寄存器的偏移
 
-To support multiple IRs, we'll either want to abstract these things or translate their labels to VEX analogues.
+为了支持多个 IR，要么抽象这些结构，要么把他们的标签转换成 VEX 的类似体
 
-
-### My load options are ignored when creating a Project.
-CLE options are an optional argument. Make sure you call Project with the following syntax:
+### 创建项目时，自定义的加载选项会被忽略
+CLE 选择是可选参数，请确保使用以下语法调用项目：
 
 ```python
 b = angr.Project('/bin/true', load_options=load_options)
 ```
 
-rather than:
+不能是以下这样：
 ```python
 b = angr.Project('/bin/true', load_options)
 ```
 
-## Why are some ARM addresses off-by-one?
-In order to encode THUMB-ness of an ARM code address, we set the lowest bit to one.
-This convention comes from LibVEX, and is not entirely our choice!
-If you see an odd ARM address, that just means the code at `address - 1` is in THUMB mode.
+## 为什么 ARM 地址 off-by-one？
+为了编码 ARM 代码地址的 THUMB-ness，我们设置最低位为1。
+这个惯例是从 LibVEX 沿袭下来的，并不完全是我们自己的选择！
+如果看到了一个奇怪的 ARM 地址，就意味着代码处于 `address - 1` 的 THUMB 模式
 
-## How do I serialize angr objects?
-[Pickle](https://docs.python.org/2/library/pickle.html) will work.
-However, python will default to using an extremely old pickle protocol that does not support more complex python data structures, so you must specify a [more advanced data stream format](https://docs.python.org/2/library/pickle.html#data-stream-format).
-The easiest way to do this is `pickle.dumps(obj, -1)`.
+## 如何序列号 angr 对象？
+[Pickle](https://docs.python.org/2/library/pickle.html) 就可以。
+但是，Python将会默认使用一个不支持复杂 Python 数据机构的非常古老的 Pickle 协议，所以你必须指定一个[更高的数据流格式](https://docs.python.org/2/library/pickle.html#data-stream-format)。最简单的方法是 `pickle.dumps(obj, -1)`
