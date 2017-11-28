@@ -1,41 +1,34 @@
-# Gotchas when using angr
+# 使用 angr 时易陷入的困境
 
-This section contains a list of gotchas that users/victims of angr frequently run into.
+这一节包含了一些用户经常遇到的陷阱列表
 
-## SimProcedure inaccuracy
+## SimProcedure 不准确
 
-To make symbolic execution more tractable, angr replaces common library functions with summaries written in Python.
-We call these summaries SimProcedures.
-SimProcedures allow us to mitigate path explosion that would otherwise be introduced by, for example, `strlen` running on a symbolic string.
+为了使符号执行更加容易处理，angr 用 Python 编写的摘要来替换常见的库函数。我们把这些摘要称为SimProcedures。
+SimProcedures 可以帮助我们削弱路径爆炸，否则将会引入大量的路径爆炸，例如在符号字符串上运行 `strlen`
 
-Unfortunately, our SimProcedures are far from perfect.
-If angr is displaying unexpected behavior, it might be caused by a buggy/incomplete SimProcedure.
-There are several things that you can do:
+不幸的是，我们的 SimProcedures 没有那么完善。如果 angr 做了预期之外的事情，可能是由于错误/不完整的 SimProcedure 造成的。有以下几种补救办法：
 
-1. Disable the SimProcedure (you can exclude specific SimProcedures by passing options to the [angr.Project class](http://angr.io/api-doc/angr.html#module-angr.project)). This has the drawback of likely leading to a path explosion, unless you are very careful about constraining the input to the function in question. The path explosion can be partially mitigated with other angr capabilities (such as Veritesting).
-2. Replace the SimProcedure with something written directly to the situation in question. For example, our `scanf` implementation is not complete, but if you just need to support a single, known format string, you can write a hook to do exactly that.
-3. Fix the SimProcedure.
+1. 禁用 SimProcedures（也可以将选项传递给 [angr.Project](http://angr.io/api-doc/angr.html#module-angr.project) 类来排除指定的 SimProcedures）。这可能会导致路径爆炸，除非你可以非常小心地限制输入，路径爆炸可以通过 angr 的其他部分（如 Veritesting）来提供部分缓解的能力
+2. 将 SimProcedure 替换为直接写入相关情况的内容。例如，我们 `scanf` 的实现并不完善，但是如果只需要支持一个已知格式的字符串，就可以编写一个 Hook 来完成这个工作
+3. 完善 SimProcedure.
 
-## Unsupported syscalls
+## 不支持的系统调用
 
-System calls are also implemented as SimProcedures.
-Unfortunately, there are system calls that we have not yet implemented in angr.
-There are several workarounds for an unsupported system call:
+系统调用也是作为 SimProcedures 实现的。不幸的是，有一些系统调用我们还没有在 angr 中实现。对于不支持的系统调用，有几种解决方法：
 
-1. Implement the system call. *TODO: document this process*
-2. Hook the callsite of the system call (using `project.hook`) to make the required modifications to the state in an ad-hoc way.
-3. Use the `state.posix.queued_syscall_returns` list to queue syscall return values. If a return value is queued, the system call will not be executed, and the value will be used instead. Furthermore, a function can be queued instead as the "return value", which will result in that function being applied to the state when the system call is triggered.
+1. 执行系统调用 *TODO: document this process*
+2. Hook 系统调用（使用 `project.hook`）的调用处，为 state 提供临时的必要修改
+3. 使用 `state.posix.queued_syscall_returns` 来维护系统调用返回值的队列。如果返回值在队列中，就不会执行系统调用，直接使用该值。而且，一个函数可以作为“返回值”加入队列中。这会导致该系统调用触发时，该函数被应用到 state 中
 
-## Symbolic memory model
+## 符号内存模型
 
-The default memory model used by angr is inspired by [Mayhem](https://users.ece.cmu.edu/~dbrumley/pdf/Cha%20et%20al._2012_Unleashing%20Mayhem%20on%20Binary%20Code.pdf).
-This memory model supports limited symbolic reads and writes.
-If the memory index of a read is symbolic and the range of possible values of this index is too wide, the index is concretized to a single value.
-If the memory index of a write is symbolic at all, the index is concretized to a single value.
-This is configurable by changing the memory concretization strategies of `state.memory`.
+angr 默认的内存模型受到 [Mayhem](https://users.ece.cmu.edu/~dbrumley/pdf/Cha%20et%20al._2012_Unleashing%20Mayhem%20on%20Binary%20Code.pdf) 的启发。该内存模型支持有限的符号读与写。如果读的内存索引是符号的，并且该索引可能值的范围太宽，该索引就会被具体化为单值。
+如果写的内存索引是符号的，该索引会被具体化为单值。
+这些都可以通过改变内存的具体化策略（`state.memory`）来进行配置
 
-## Symbolic lengths
+## 符号长度
 
-SimProcedures, and especially system calls such as `read()` and `write()` might run into a situation where the *length* of a buffer is symbolic.
-In general, this is handled very poorly: in many cases, this length will end up being concretized outright or retroactively concretized in later steps of execution.
-Even in cases when it is not, the source or destination file might end up looking a bit "weird".
+SimProcedures，特别是系统调用，例如 `read()` 和 `write()` 可能都会遇到一个缓冲区长度是符号值的情况。
+通常来说，对于这个问题的处理总是不令人满意的。在很多情况下，这个值最终会被完全具体化，或在后面的步骤执行中逐渐具体化。
+如果没有具体化，源文件、目标文件看起来可能会有些“奇怪”
