@@ -1,20 +1,17 @@
-Understanding the Execution Pipeline
+理解执行管道
 ====================================
 
-If you've made it this far you know that at its core, angr is a highly flexible and intensely instrumentable emulator.
-In order to get the most mileage out of it, you'll want to know what happens at every step of the way when you say `path_group.step()`.
+如果你已经看到了这节，想必你已经了解了，Angr 的核心是一个高度灵活、强大、可操作的模拟器。为了更熟练的使用 angr，就需要了解在使用 `path_group.step()` 时都发生了什么
 
-This is intended to be a more advanced document; you'll need to understand the function and intent of `PathGroup`, `ExplorationTechnique`, `Path`, `SimState`, and `SimEngine` in order to understand what we're talking about at times!
-You may want to have the angr source open to follow along with this.
+这是一个更加深入的文档，你需要理解 `PathGroup`、`ExplorationTechnique`、`Path`、`SimState` 和 `SimEngine` 的函数和意图。你也可以打开 angr 的源码跟着我们逐一体会
 
 ## Path Groups
 
-So you've called for a step to occur. Time to begin our journey.
+当你准备调用下一步时，也就开始了
 
 ### `step()`
 
-`PathGroup.step()` function takes many optional parameters.
-The most important of these are `stash`, `n`, `until`, and `step_func`.
+`PathGroup.step()` 函数有许多可选参数，最重要的有 `stash`、`n`、`until` 和 `step_func`。
 `n` is used immediately - the `step()` function loops, calling the `_one_step()` function and passing on all its parameters until either `n` steps have happened or some other termination condition has occurred. If `n` is not provided, it defaults to 1, unless an `until` function is provided, in which case it is 100000 - effectively infinite.
 
 Before any of the termination conditions are checked, however, `step_func` is applied - this function takes the current path group and returns a new path group to replace it.
