@@ -1,215 +1,209 @@
-# CTF Challenge Examples
+# CTF Challenge 示例
 
-angr is very often used in CTFs.
-These are example scripts resulting from that use, mostly from Shellphish but also from many others.
+angr 在 CTF 中经常被使用，这些都是使用这个例子的脚本，大部分来自 Shellphish，也有很多其他队伍的
 
 ## ReverseMe example: HackCon 2016 - angry-reverser
 
-Script author: Stanislas Lejay (github: [@P1kachu](https://github.com/P1kachu))
+脚本作者： Stanislas Lejay (github: [@P1kachu](https://github.com/P1kachu))
 
-Script runtime: ~31 minutes
+脚本运行时间：约 31 分钟
 
-Here is the [binary](https://github.com/angr/angr-doc/tree/master/examples/hackcon2016_angry-reverser/yolomolo) and the [script](https://github.com/angr/angr-doc/tree/master/examples/hackcon2016_angry-reverser/solve.py)
+[二进制程序](https://github.com/angr/angr-doc/tree/master/examples/hackcon2016_angry-reverser/yolomolo) 与 [脚本](https://github.com/angr/angr-doc/tree/master/examples/hackcon2016_angry-reverser/solve.py)
 
 ## ReverseMe example: SecurityFest 2016 - fairlight
 
-Script author: chuckleberryfinn (github: [@chuckleberryfinn](https://github.com/chuckleberryfinn))
+脚本作者： chuckleberryfinn (github: [@chuckleberryfinn](https://github.com/chuckleberryfinn))
 
-Script runtime: ~20 seconds
+脚本运行时间：约 20 秒
 
-A simple reverse me that takes a key as a command line argument and checks it against 14 checks.
-Possible to solve the challenge using angr without reversing any of the checks.
+一道简单的逆向题，对一个命令行参数进行十四次检查。
+使用 angr 不用进行逆向就可以轻松解决这个问题。
 
-Here is the [binary](https://github.com/angr/angr-doc/tree/master/examples/securityfest_fairlight/fairlight) and the [script](https://github.com/angr/angr-doc/tree/master/examples/securityfest_fairlight/solve.py)
+[二进制程序](https://github.com/angr/angr-doc/tree/master/examples/securityfest_fairlight/fairlight) 与 [脚本](https://github.com/angr/angr-doc/tree/master/examples/securityfest_fairlight/solve.py)
 
 ## ReverseMe example: DEFCON Quals 2016 - baby-re
 
 - Script 0
 
-    author: David Manouchehri (github: [@Manouchehri](https://github.com/Manouchehri))
+    作者： David Manouchehri (github: [@Manouchehri](https://github.com/Manouchehri))
 
-    Script runtime: 8 minutes
+    脚本运行时间： 8 分钟
 
 - Script 1
 
-    author: Stanislas Lejay (github: [@P1kachu](https://github.com/P1kachu))
+    作者： Stanislas Lejay (github: [@P1kachu](https://github.com/P1kachu))
 
-    Script runtime: 11 sec
+    脚本运行时间： 11 秒
 
-Here is the [binary](https://github.com/angr/angr-doc/blob/master/examples/defcon2016quals_baby-re_1/baby-re) and the scripts:
+[二进制程序](https://github.com/angr/angr-doc/blob/master/examples/defcon2016quals_baby-re_1/baby-re) 与脚本：
 * [script0](https://github.com/angr/angr-doc/tree/master/examples/defcon2016quals_baby-re_0/solve.py)
 * [script1](https://github.com/angr/angr-doc/tree/master/examples/defcon2016quals_baby-re_1/solve.py)
 
 ## ReverseMe example: Google CTF - Unbreakable Enterprise Product Activation (150 points)
 
-Script 0 author: David Manouchehri (github: [@Manouchehri](https://github.com/Manouchehri))
+Script 0 作者： David Manouchehri (github: [@Manouchehri](https://github.com/Manouchehri))
 
-Script runtime: 4.5 sec
+脚本运行时间： 4.5 秒
 
-Script 1 author: Adam Van Prooyen (github: [@docileninja](https://github.com/docileninja))
+Script 1 作者： Adam Van Prooyen (github: [@docileninja](https://github.com/docileninja))
 
-Script runtime: 6.7 sec
+脚本运行时间： 6.7 秒
 
-A Linux binary that takes a key as a command line argument and checks it against a series of constraints.
+对一个 Linux 二进制程序的命令行参数进行一系列的约束检查
 
-Challenge Description:
-> We need help activating this product -- we've lost our license key :(
+Challenge 描述：
+> 帮助我们激活这个产品 - 我们失去了我们的许可证密钥 :(
 >
-> You're our only hope!
+> 你是我们唯一的希望！
 
-Here are the binary and scripts: [script 0](https://github.com/angr/angr-doc/tree/master/examples/google2016_unbreakable_0), [script_1](https://github.com/angr/angr-doc/tree/master/examples/google2016_unbreakable_1)
+[script 0](https://github.com/angr/angr-doc/tree/master/examples/google2016_unbreakable_0) 和 [script_1](https://github.com/angr/angr-doc/tree/master/examples/google2016_unbreakable_1)
 
 ## ReverseMe example: EKOPARTY CTF - Fuckzing reverse (250 points)
 
-Author: Adam Van Prooyen (github: [@docileninja](https://github.com/docileninja))
+作者： Adam Van Prooyen (github: [@docileninja](https://github.com/docileninja))
 
-Script runtime: 29 sec
+脚本运行时间： 29 秒
 
-A Linux binary that takes a team name as input and checks it against a series of constraints.
+以队伍名字作为 Linux 二进制程序的输入并进行一系列的约束检查
 
-Challenge Description:
-> Hundreds of conditions to be meet, will you be able to surpass them?
+Challenge 描述：
+> 需要满足几百个约束，你能完成吗？
 
-Both sample binaries and the script are located [here](https://github.com/angr/angr-doc/tree/master/examples/ekopartyctf2016_rev250) and additional information be found at the author's [write-up](http://van.prooyen.com/reversing/2016/10/30/Fuckzing-reverse-Writeup.html).
+[二进制程序与脚本](https://github.com/angr/angr-doc/tree/master/examples/ekopartyctf2016_rev250) 更多信息可以参阅作者的 [write-up](http://van.prooyen.com/reversing/2016/10/30/Fuckzing-reverse-Writeup.html)
 
 ## ReverseMe example: WhiteHat Grant Prix Global Challenge 2015 - Re400
 
-Author: Fish Wang (github: @ltfish)
+作者： Fish Wang (github: @ltfish)
 
-Script runtime: 5.5 sec
+脚本运行时间： 5.5 秒
 
-A Windows binary that takes a flag as argument, and tells you if the flag is correct or not.
+接受一个 flag 作为参数的 Windows 程序，反馈告诉你 flag 是否正确
 
-"I have to patch out some checks that are difficult for angr to solve (e.g., it uses some bytes of the flag to decrypt some data, and see if those data are legit Windows APIs).
-Other than that, angr works really well for solving this challenge."
+必须手动修正一些对于 angr 来说很难解决的校验检查（例如，其使用 flag 的一些字节来解密数据，并看这些数据是不是合法的 Windows API）。
+除此之外，angr 非常适合解决这个问题
 
-The [binary](https://github.com/angr/angr-doc/tree/master/examples/whitehatvn2015_re400/re400.exe) and the [script](https://github.com/angr/angr-doc/tree/master/examples/whitehatvn2015_re400/solve.py).
+[二进制程序](https://github.com/angr/angr-doc/tree/master/examples/whitehatvn2015_re400/re400.exe) 与 [脚本](https://github.com/angr/angr-doc/tree/master/examples/whitehatvn2015_re400/solve.py).
 
 ## ReverseMe example: EKOPARTY CTF 2015 - rev 100
 
-Author: Fish Wang (github: @ltfish)
+作者： Fish Wang (github: @ltfish)
 
-Script runtime: 5.5 sec
+脚本运行时间： 5.5 秒
 
-This is a painful challenge to solve with angr. I should have done things in a smarter way.
+即使使用 angr 也是一个复杂的问题，应该有更好的解决方式
 
-Here is the [binary](https://github.com/angr/angr-doc/tree/master/examples/ekopartyctf2015_rev100/counter) and the [script](https://github.com/angr/angr-doc/tree/master/examples/ekopartyctf2015_rev100/solve.py).
+[二进制程序](https://github.com/angr/angr-doc/tree/master/examples/ekopartyctf2015_rev100/counter) 与 [脚本](https://github.com/angr/angr-doc/tree/master/examples/ekopartyctf2015_rev100/solve.py).
 
 ## ReverseMe example: ASIS CTF Finals 2015 - fake
 
-Author: Fish Wang (github: @ltfish)
+作者： Fish Wang (github: @ltfish)
 
-Script runtime: 1 min 57 sec
+脚本运行时间： 1 分 57 秒
 
-The solution is pretty straight-forward.
+解决方案简单粗暴
 
-The [binary](https://github.com/angr/angr-doc/tree/master/examples/asisctffinals2015_fake/fake) and the [script](https://github.com/angr/angr-doc/tree/master/examples/asisctffinals2015_fake/solve.py).
+[二进制程序](https://github.com/angr/angr-doc/tree/master/examples/asisctffinals2015_fake/fake) 与 [脚本](https://github.com/angr/angr-doc/tree/master/examples/asisctffinals2015_fake/solve.py).
 
 ## ReverseMe example: Defcamp CTF Qualification 2015 - Reversing 100
 
-Author: Fish Wang (github: @ltfish)
+作者： Fish Wang (github: @ltfish)
 
-angr solves this challenge with almost zero user-interference.
+几乎不用用户交互，angr 就可以解决这个问题
 
-See the [script](https://github.com/angr/angr-doc/tree/master/examples/defcamp_r100/solve.py) and the [binary](https://github.com/angr/angr-doc/tree/master/examples/defcamp_r100/r100).
+[脚本](https://github.com/angr/angr-doc/tree/master/examples/defcamp_r100/solve.py) 与 [二进制程序](https://github.com/angr/angr-doc/tree/master/examples/defcamp_r100/r100).
 
 ## ReverseMe example: Defcamp CTF Qualification 2015 - Reversing 200
 
-Author: Fish Wang (github: @ltfish)
+作者： Fish Wang (github: @ltfish)
 
-angr solves this challenge with almost zero user-interference. Veritesting is required to retrieve the flag promptly.
+几乎不用用户交互，angr 就可以解决这个问题。
+Veritesting 要求及时检索 flag
 
-The [script](https://github.com/angr/angr-doc/tree/master/examples/defcamp_r200/solve.py) and the [binary](https://github.com/angr/angr-doc/tree/master/examples/defcamp_r200/r200).
-It takes a few minutes to run on my laptop.
+[脚本](https://github.com/angr/angr-doc/tree/master/examples/defcamp_r200/solve.py) 与 [二进制程序](https://github.com/angr/angr-doc/tree/master/examples/defcamp_r200/r200)
+
+注意：该脚本在我的电脑上需要运行几分钟
 
 ## ReverseMe example: MMA CTF 2015 - HowToUse
 
-Author: Audrey Dutcher (github: @rhelmot)
+作者： Audrey Dutcher (github: @rhelmot)
 
-We solved this simple reversing challenge with angr, since we were too lazy to reverse it or run it in Windows.
-The resulting [script](https://github.com/angr/angr-doc/tree/master/examples/mma_howtouse/solve.py) shows how we grabbed the flag out of the [DLL](https://github.com/angr/angr-doc/tree/master/examples/mma_howtouse/howtouse.dll).
+我们使用 angr 解决了这个问题，因为我们懒得去逆向或者放在 Windows 上去运行它。
+
+[脚本](https://github.com/angr/angr-doc/tree/master/examples/mma_howtouse/solve.py) 展示了我们如何从 [DLL](https://github.com/angr/angr-doc/tree/master/examples/mma_howtouse/howtouse.dll) 中找到 flag
 
 
 ## CrackMe example: MMA CTF 2015 - SimpleHash
 
-Author: Chris Salls (github: @salls)
+作者： Chris Salls (github: @salls)
 
-This crackme is 95% solvable with angr, but we did have to overcome some difficulties.
-The [script](https://github.com/angr/angr-doc/tree/master/examples/mma_simplehash/solve.py) describes the difficulties that were encountered and how we worked around them.
-The binary can be found [here](https://github.com/angr/angr-doc/tree/master/examples/mma_simplehash/simple_hash).
+这个问题的 95% 都可以使用 angr 来解决，但仍然必须手动来解决一些复杂约束
+
+[脚本](https://github.com/angr/angr-doc/tree/master/examples/mma_simplehash/solve.py) 展示了会遇到什么困难，以及是如何解决的。并带有 [二进制程序](https://github.com/angr/angr-doc/tree/master/examples/mma_simplehash/simple_hash).
 
 
 ## ReverseMe example: FlareOn 2015 - Challenge 10
 
-Author: Fish Wang (github: @ltfish)
+作者： Fish Wang (github: @ltfish)
 
-angr acts as a binary loader and an emulator in solving this challenge.
-I didn’t have to load the driver onto my Windows box.
+angr 可以充当二进制加载器与模拟器来解决这个问题。不必将该驱动加载到 Windows 中
 
-The [script](https://github.com/angr/angr-doc/tree/master/examples/flareon2015_10/solve.py) demonstrates how to hook at arbitrary program points without affecting the intended bytes to be executed (a zero-length hook).
-It also shows how to read bytes out of memory and decode as a string.
+[脚本](https://github.com/angr/angr-doc/tree/master/examples/flareon2015_10/solve.py) 展示了如何在任意程序点 Hook 而不影响要执行的预期字节（零长度Hook），以及如何读取内存中的字节并将其解码为字符串
 
-By the way, here is the [link](https://www.fireeye.com/content/dam/fireeye-www/global/en/blog/threat-research/flareon/2015solution10.pdf) to the intended solution from FireEye.
+顺便一提，这里还有 FireEye 的[解决方案](https://www.fireeye.com/content/dam/fireeye-www/global/en/blog/threat-research/flareon/2015solution10.pdf)
 
 
 ## ReverseMe example: FlareOn 2015 - Challenge 2
 
-Author: Chris Salls (github: @salls)
+作者： Chris Salls (github: @salls)
 
-This [reversing challenge](https://github.com/angr/angr-doc/tree/master/examples/flareon2015_2/very_success) is simple to solve almost entirely with angr, and a lot faster than trying to reverse the password checking function. The script is [here](https://github.com/angr/angr-doc/tree/master/examples/flareon2015_2/solve.py)
-
-
+这个 [二进制程序](https://github.com/angr/angr-doc/tree/master/examples/flareon2015_2/very_success) 使用 angr 就非常容易解决，且比尝试逆向密码校验函数快得多。带有[脚本](https://github.com/angr/angr-doc/tree/master/examples/flareon2015_2/solve.py)
 
 
 ## ReverseMe example: 0ctf 2016 - momo
 
-Author: Fish Wang (github: @ltfish), ocean (github: @ocean1)
+作者： Fish Wang (github: @ltfish), ocean (github: @ocean1)
 
-This challenge is a [movfuscated](https://github.com/xoreaxeaxeax/movfuscator) binary.
-To find the correct password after exploring the binary with Qira it is possible to understand
-how to find the places in the binary where every character is checked using capstone and using angr to
-load the [binary](./examples/0ctf_momo/solve.py) and brute-force the single characters of the flag.
-Be aware that the [script](./examples/0ctf_momo/solve.py) is really slow. Runtime: > 1 hour.
+在使用 Qira 探索了[二进制程序](https://github.com/xoreaxeaxeax/movfuscator)后想要找到正确的密码。
+如何使用 capstone 在二进制程序中找到每个用于校验的字符、如何使用 angr 加载该 [二进制程序](./examples/0ctf_momo/solve.py) 并指定 flag 的单个字符。
+请注意：[脚本](./examples/0ctf_momo/solve.py)执行非常慢，运行时间超过一个小时
 
 
 ## CrackMe example: Layer7 CTF 2015 - Windows challenge OnlyOne
 
-Author: Fish Wang (github: @ltfish)
+作者： Fish Wang (github: @ltfish)
 
-We solved this crackme with angr’s help.
-(Fish: This is my first time solving a reversing challenge without understanding what’s going on.)
-The challenge binary is [here](https://github.com/angr/angr-doc/tree/master/examples/layer7_onlyone/onlyone.exe), and the solving script [here](https://github.com/angr/angr-doc/tree/master/examples/layer7_onlyone/solve.py).
+我们在 angr 的帮助下解决了这个问题
 
-The solving script demonstrates the following:
-- How to load a Windows binary (no difference than an ELF).
-- How to use hook to replace arbitrary code in a loaded program.
-- How to use Explorer to perform a symbolic exploration (although everyone else thinks PathGroup is the future).
-- How to enable Veritesting, and why it is useful.
+[二进制程序](https://github.com/angr/angr-doc/tree/master/examples/layer7_onlyone/onlyone.exe) 与 [脚本](https://github.com/angr/angr-doc/tree/master/examples/layer7_onlyone/solve.py).
+
+脚本演示了：
+- 如何加载 Windows 二进制程序文件（与 ELF 程序没有区别）
+- 如何使用 Hook 替换加载程序中的任意代码
+- 如何使用 Explorer 来执行符号探索（尽管其他人认为 PathGroup 是未来）
+- 如何启用 Veritesting，以及这为什么有用
 
 
 ## CrackMe example: 9447 CTF 2015 - Reversing 330, "nobranch"
 
-Author: Audrey Dutcher (github: @rhelmot)
+作者： Audrey Dutcher (github: @rhelmot)
 
-angr cannot currently solve this problem natively, as the problem is too complex for z3 to solve.
-Formatting the constraints to z3 a little differently allows z3 to come up with an answer relatively quickly.
-(I was asleep while it was solving, so I don't know exactly how long!)
-The script for this is [here](https://github.com/angr/angr-doc/tree/master/examples/9447_nobranch/solve.py) and the binary is [here](https://github.com/angr/angr-doc/tree/master/examples/9447_nobranch/nobranch).
+目前 angr 无法解决这个问题，因为这个问题对于 Z3 来说过于复杂了。但将约束条件格式化后，就使得 Z3 能够相对快速的解决问题（求解时我睡着了，所以我不知道花了多长时间！）
+[脚本](https://github.com/angr/angr-doc/tree/master/examples/9447_nobranch/solve.py) 与 [二进制程序](https://github.com/angr/angr-doc/tree/master/examples/9447_nobranch/nobranch).
 
 ## CrackMe example: ais3_crackme
 
-Author: Antonio Bianchi, Tyler Nighswander
+作者： Antonio Bianchi, Tyler Nighswander
 
-ais3_crackme has been developed by Tyler Nighswander (tylerni7) for ais3 summer school. It is an easy crackme challenge, checking its command line argument.
+ais3_crackme 由 Tyler Nighswander (tylerni7) 为 ais3 暑期培训而开发。是一个检查命令行参数的简单问题
 
 ## ReverseMe: Modern Binary Exploitation - CSCI 4968
 
-Author: David Manouchehri (GitHub [@Manouchehri](https://github.com/Manouchehri))
+作者： David Manouchehri (GitHub [@Manouchehri](https://github.com/Manouchehri))
 
-[This folder](https://github.com/angr/angr-doc/tree/master/examples/CSCI-4968-MBE/challenges) contains scripts used to solve some of the challenges with angr. At the moment it only contains the examples from the IOLI crackme suite, but eventually other solutions will be added.
+该[文件夹](https://github.com/angr/angr-doc/tree/master/examples/CSCI-4968-MBE/challenges)含有许多使用 angr 解决问题的脚本。目前只包含 IOLI crackme 套件中的例子，但最终会添加其他解决方案
 
 ## CrackMe example: Android License Check
 
-Author: Bernhard Mueller (GitHub [@b-mueller](https://github.com/angr/angr-doc/tree/master/examples/))
+作者： Bernhard Mueller (GitHub [@b-mueller](https://github.com/angr/angr-doc/tree/master/examples/))
 
-A [native binary for Android/ARM](https://github.com/b-angr/angr-doc/tree/master/examples/android_arm_license_validation) that validates a license key passed as a command line argument. It was created for the symbolic execution tutorial in the [OWASP Mobile Testing Guide](https://github.com/OWASP/owasp-mstg/).
+为验证命令行参数传递许可证密钥的 [Android/ARM 原生二进制程序](https://github.com/b-angr/angr-doc/tree/master/examples/android_arm_license_validation)问题，其为 [OWASP Mobile Testing Guide](https://github.com/OWASP/owasp-mstg/) 中的符号执行教程而创建
