@@ -27,6 +27,8 @@ For example, an object used to provide thread-local storage support, and an exte
 You can get the full list of objects that CLE has loaded with `loader.all_objects`, as well as several more targeted classifications:
 
 ```python
+# Load fauxware from https://github.com/angr/binaries
+>>> proj = angr.Project('binaries/tests/x86_64/fauxware')
 # All loaded objects
 >>> proj.loader.all_objects
 [<ELF Object fauxware, maps [0x400000:0x60105f]>,
