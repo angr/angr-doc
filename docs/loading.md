@@ -29,7 +29,7 @@ You can get the full list of objects that CLE has loaded with `loader.all_object
 ```python
 # All loaded objects
 >>> proj.loader.all_objects
-[<ELF Object fauxware, maps [0x400000:0x60105f]>,
+[<ELF Object true, maps [0x400000:0x60105f]>,
  <ELF Object libc.so.6, maps [0x1000000:0x13c42bf]>,
  <ELF Object ld-linux-x86-64.so.2, maps [0x2000000:0x22241c7]>,
  <ELFTLSObject Object cle##tls, maps [0x3000000:0x300d010]>,
