@@ -1,9 +1,8 @@
 # Identifier
 
-
-The identifier uses test cases to identify common library functions in CGC binaries.
-It prefilters by finding some basic information about stack variables/arguments.
-The information of about stack variables can be generally useful in other projects.
+该标识符使用测试用例来识别 CGC 二进制程序中的通用库函数。
+它通过查找关于堆栈变量/参数的一些基本信息来进行预过滤。
+这些关于堆栈变量的信息通常可以用于其他项目中
 
 ```python
 >>> import angr
