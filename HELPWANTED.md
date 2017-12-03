@@ -162,4 +162,4 @@ Many approaches \(such as [Veritesting](https://users.ece.cmu.edu/~dbrumley/pdf/
 However, despite these efforts, path explosion is still _the_ main problem preventing symbolic execution from being mainstream.
 
 angr provides an excellent base to implement new techniques to control path explosion.
-Most approaches can be easily implemented as [Exploration Techniques](http://angr.io/api-doc/angr.html#angr.exploration_techniques.ExplorationTechnique) and quickly evaluated \(for example, on the [CGC dataset](https://github.com/CyberGrandChallenge/samples).
+Most approaches can be easily implemented as [Exploration Techniques](http://angr.io/api-doc/angr.html#angr.exploration_techniques.ExplorationTechnique) and quickly evaluated \(for example, on the [CGC dataset](https://github.com/CyberGrandChallenge/samples)\).

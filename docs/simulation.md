@@ -51,7 +51,7 @@ Like any decent execution engine, angr supports breakpoints. This is pretty cool
 >>> s.inspect.b('mem_write', when=angr.BP_AFTER, action=debug_func)
 
 # or, you can have it drop you in an embedded IPython!
->>> s.inspect.b('mem_write', when=angr.BP_AFTER, action='IPython')
+>>> s.inspect.b('mem_write', when=angr.BP_AFTER, action=angr.BP_IPYTHON)
 ```
 
 There are many other places to break than a memory write. Here is the list. You can break at BP_BEFORE or BP_AFTER for each of these events.
