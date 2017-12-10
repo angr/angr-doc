@@ -1,23 +1,16 @@
-# Symbolic Execution - Surveyors
+# 符号执行 - Surveyors
 
-At heart, angr is a symbolic execution engine.
-angr exposes a standard way to write and perform dynamic symbolic execution: the `Surveyor` class.
-A `Surveyor` is the *engine* that drives symbolic execution: it tracks what paths are active, identifies which paths to step forward and which paths to prune, and optimizes resource allocation.
+本质上， `angr` 是一个符号执行引擎。 `angr` 公开了一种标准的方式去编写和执行动态符号执行：`Surveyor` 类。 `Surveyor` 是驱动符号执行的引擎：它跟踪哪些路径是活动的，确定哪些路径可以继续前进，哪些路径舍弃，优化资源分配。
 
-/!\ `Surveyors` are an old API that is rather unwieldy. It's recommended to use [PathGroups](./pathgroups.md) instead. /!\
+/!\ `Surveyors` 是一个相当笨拙的 `API` ,建议使用 [PathGroups](./pathgroups.md) 。 /!\
 
-The `Surveyor` class is not meant to be used directly.
-Rather, it should be subclassed by developers to implement their own analyses.
-That being said, the most common symbolic analysis (i.e., "explore from A to B, trying to avoid C") has already been implemented in the `Explorer` class.
+`Surveyor` 类并不是直接使用的。相反，它由开发人员细分子类去实现不同功能的分析。也就是说，最常见的符号执行已经在 `Explorer` 类里实现了。
 
 ## Explorer
 
-`angr.surveyors.Explorer` is a `Surveyor` subclass that implements symbolic exploration.
-It can be told where to start, where to go, what to avoid, and what paths to stick to.
-It also tries to avoid getting stuck in loops.
+`angr.surveyors.Explorer` 是 `Surveyor` 实现符号执行的一个子类。它可以被告知从哪里开始，到哪里，避免什么及走什么路线。它也试图避免陷入循环。
 
-In the end, one cannot be told what the `Explorer` is.
-You have to see it for yourself:
+很难去解释 `Explorer` 是什么，你必须自己去理解：
 
 ```python
 >>> import angr
@@ -54,9 +47,7 @@ You have to see it for yourself:
 >>> print "%d paths deadended" % len(e.deadended)
 ```
 
-So far, everything we have discussed applies to all `Surveyors`.
-However, the nice thing about an Explorer is that you can tell it to search for, or avoid certain blocks.
-For example, in the `fauxware` sample, we can try to find the "authentication success" function while avoiding the "authentication failed" function.
+到目前为止，我们所讨论的都适用于 `Surveyors` 。`Explorer` 的另一个好处是可以去搜索和避免某些块。例如，在 `fauxware` 例子中，我们可以去搜寻 ` "authentication success" ` 函数并且避免 `"authentication failed"` 函数。
 
 ```python
 # This creates an Explorer that tries to find 0x4006ed (successful auth),
@@ -72,7 +63,7 @@ For example, in the `fauxware` sample, we can try to find the "authentication su
 >>> print "Avoided %d paths" % len(e.avoided)
 ```
 
-Some helper properties are provided for easier access to paths from IPython:
+提供了一些辅助属性可以更容易的访问 `IPython` :
 
 ```python
 >>> print "The first found path is", e._f
@@ -81,8 +72,7 @@ Some helper properties are provided for easier access to paths from IPython:
 
 ## Caller
 
-The `Caller` is a surveyor that handles calling functions to make it easier to figure out what the heck they do.
-It can be used as so:
+`Caller` 是一个负责处理指定函数的 `surveyor` 以便更容易弄清楚函数做了什么，它可以这样使用：
 
 ```python
 # load fauxware
@@ -112,21 +102,12 @@ It can be used as so:
 
 # you can see the secret password "SOSNEAKY" in the first tuple!
 ```
-
-Caller is a pretty powerful tool. Check out the comments on the various functions for more usage info! HOWEVER, there is a much easier tool you can use to call functions, called `callable`. This is described [elsewhere in the docs](./structured_data.md#callables).
+`Caller` 是一个非常强大的工具。查看函数的注释可以获得更多使用信息。然而有一个更简单的方法去调用其他函数，称为 `callable`。在其他文档有[描述](./structured_data.md#callables)。
 
 ## Interrupting Surveyors
 
-A surveyor saves its internal state after every tick.
-In IPython, you should be able to interrupt a surveyor with `Ctrl-C`, and then check what results it has so far, but that's a pretty ugly way of doing it.
-There are two official ways of doing this cleanly: `SIGUSR1` and `SIGUSR2`.
+`surveyor` 在每一次滴答后会保存它的内部状态。在 `IPython` 中，你可以使用 `Ctrl-C` 去中断一个 `surveyor` ,然后去检查到目前为止的结果，但这是一种很丑陋的方法。有两种正式的方式可以做这件事情：`SIGUSR1` 和 `SIGUSR2`。
 
-If you send `SIGUSR1` to a python process running a surveyor, it causes the main loop in `Surveyor.run()` to terminate at the end of the current `Surveyor.step()`.
-You can then analyze the result.
-To continue running the surveyor, call `angr.surveyor.resume_analyses()` (to clear the "signalled" flag) and then call the surveyor's `run()` function.
-Since `SIGUSR1` causes `run()` to return, this is rarely useful in a scripted analysis, as the rest of the program will run after `run()` returns.
-Instead, `SIGUSR1` is meant to provide a clean alternative to `Ctrl-C`.
+如果你给一个运行着 `surveyor` 的 `python` 进程发送 `SIGUSR1` ，将会导致 `Surveyor.run()`的主循环在当前的 `surveyor.step()` 结束时终止。你可以分析结果。为了继续运行 `surveyor` ,你可以调用 `function.angr.surveyor.resume_analyses()` （清除 `"signalled"` 标志） 并且调用 `surveyor` 的 `run` 函数。  因为`SIGUSR1` 导致 `run()` 返回，所以在脚本分析中很少用，因为程序的其他部分将在 `run()` 返回之后继续运行。相反，`SIGUSR1` 是为 `ctrl - c` 提供一个的替代。
 
-Sending SIGUSR2 to the python process, on the other hand, causes `run()` to invoke an `ipdb` breakpoint after every `step()`.
-This allows you to debug, then continue your program.
-Make sure to run `angr.surveyor.disable_singlestep()` before continuing to clear the "signalled" flag.
+在另一方面，如果给 `python` 进程发送 `SIGUSR2`，将会 `run()` 在每一步执行之后调用 `ipdb` 断点。这允许你去调试，继续运行你的程序。在继续运行前请调用 `angr.surveyor.disable_singlestep()` 函数去清除 `"signalled"` 标志。
