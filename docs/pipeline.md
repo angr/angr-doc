@@ -138,29 +138,25 @@ In addition to parameters to the stepping process, you can also instantiate new 
 Look at the API docs to see what options each engine can take.
 Once you have a new engine instance, you can either pass it into the step process, or directly put it into the `project.factory.engines` list for automatic use.
 
-# When using Unicorn Engine
+# 使用 Unicorn 引擎时
 
-If you add the `o.UNICORN` state option, at every step `SimEngineUnicorn` will be invoked, and try to see if it is allowed to use Unicorn to execute concretely.
+如果添加 `o.UNICORN` 选项，`SimEngineUnicorn` 就会逐步调用，并尝试查看是否允许使用Unicorn来具体执行
 
-What you REALLY want to do is to add the predefined set `o.unicorn` (lowercase) of options to your state:
+也许你真正想要的是将预定义 `o.unicorn`（小写）的选项添加到 state 中
 
 ```python
 unicorn = { UNICORN, UNICORN_SYM_REGS_SUPPORT, INITIALIZE_ZERO_REGISTERS, UNICORN_HANDLE_TRANSMIT_SYSCALL }
 ```
 
-These will enable some additional functionalities and defaults which will greatly enhance your experience.
-Additionally, there are a lot of options you can tune on the `state.unicorn` plugin.
+这些将会启用一些额外的功能和默认设置，都可以提高 angr 的表现。此外，还有很多选项可以调整 `state.unicorn` 插件
 
-A good way to understand how unicorn works is by examining the logging output (`logging.getLogger('angr.engines.unicorn_engine').setLevel('DEBUG'); logging.getLogger('angr.state_plugins.unicorn_engine').setLevel('DEBUG')` from a sample run of unicorn.
+了解 Unicorn 是如何工作的一个好方法是通过检查 Unicorn 的日志输出（`logging.getLogger('angr.engines.unicorn_engine').setLevel('DEBUG'); logging.getLogger('angr.state_plugins.unicorn_engine').setLevel('DEBUG')`）
 
 ```
 INFO    | 2017-02-25 08:19:48,012 | angr.state_plugins.unicorn | started emulation at 0x4012f9 (1000000 steps)
 ```
 
-Here, angr diverts to unicorn engine, beginning with the basic block at 0x4012f9.
-The maximum step count is set to 1000000, so if execution stays in Unicorn for 1000000 blocks, it'll automatically pop out.
-This is to avoid hanging in an infinite loop.
-The block count is configurable via the `state.unicorn.max_steps` variable.
+在此处，angr 会转向 unicorn 引擎，从基本块 0x4012f9 开始，最大步数设置为 1000000。如果在 Unicorn 中执行了一百万块，将会自动弹出。这是为了避免遇到无限循环时崩溃，块的数量也可以通过变量 `state.unicorn.max_steps` 来设置
 
 ```
 INFO    | 2017-02-25 08:19:48,014 | angr.state_plugins.unicorn | mmap [0x401000, 0x401fff], 5 (symbolic)
@@ -171,13 +167,13 @@ INFO    | 2017-02-25 08:19:48,023 | angr.state_plugins.unicorn | mmap [0x400000,
 INFO    | 2017-02-25 08:19:48,025 | angr.state_plugins.unicorn | mmap [0x7000000, 0x7000fff], 5
 ```
 
-angr performs lazy mapping of data that is accessed by unicorn engine, as it is accessed. 0x401000 is the page of instructions that it is executing, 0x7fffffffffe0000 is the stack, and so on. Some of these pages are symbolic, meaning that they contain at least some data that, when accessed, will cause execution to abort out of Unicorn.
+angr 执行由 unicorn 引擎访问的数据的 lazy 映射。0x401000 是正在执行的指令的页面，0x7fffffffffe0000 是堆栈，依此类推。其中一些页面是符号的，这意味着它们至少会包含一些数据，当访问这些数据时，Unicorn 的执行会终止
 
 ```
 INFO    | 2017-02-25 08:19:48,037 | angr.state_plugins.unicorn | finished emulation at 0x7000080 after 3 steps: STOP_STOPPOINT
 ```
 
-Execution stays in Unicorn for 3 basic blocks (a computational waste, considering the required setup), after which it reaches a simprocedure location and jumps out to execute the simproc in angr.
+在 Unicorn 中执行三个基本块后，执行停留在 Unicorn 中，然后到达simproceduce 的位置并跳出在 angr 中执行 simproc
 
 ```
 INFO    | 2017-02-25 08:19:48,076 | angr.state_plugins.unicorn | started emulation at 0x40175d (1000000 steps)
@@ -186,19 +182,18 @@ INFO    | 2017-02-25 08:19:48,079 | angr.state_plugins.unicorn | mmap [0x7ffffff
 INFO    | 2017-02-25 08:19:48,081 | angr.state_plugins.unicorn | mmap [0x6010000, 0x601ffff], 3
 ```
 
-After the simprocedure, execution jumps back into Unicorn.
+simprocedure 后，执行跳回到 Unicorn
 
 ```
 WARNING | 2017-02-25 08:19:48,082 | angr.state_plugins.unicorn | fetching empty page [0x0, 0xfff]
 INFO    | 2017-02-25 08:19:48,103 | angr.state_plugins.unicorn | finished emulation at 0x401777 after 1 steps: STOP_EXECNONE
 ```
 
-Execution bounces out of Unicorn almost right away because the binary accessed the zero-page.
+因为二进制文件访问了零页，所以几乎立即就从 Unicorn 中弹出了
 
 ```
 INFO    | 2017-02-25 08:19:48,120 | angr.engines.unicorn_engine | not enough runs since last unicorn (100)
 INFO    | 2017-02-25 08:19:48,125 | angr.engines.unicorn_engine | not enough runs since last unicorn (99)
 ```
 
-To avoid thrashing in and out of Unicorn (which is expensive), we have cooldowns (attributes of the `state.unicorn` plugin) that wait for certain conditions to hold (i.e., no symbolic memory accesses for X blocks) before jumping back into unicorn when a unicorn run is aborted due to anything but a simprocedure or syscall.
-Here, the condition it's waiting for is for 100 blocks to be executed before jumping back in.
+为了避免在 Unicorn 内外出现反复，在 Unicorn 运行时，我们可以设置一些等待条件的冷却时间（作为插件 `state.unicorn` 的属性）。然后跳回 Unicorn 而不是 simprocedure 或系统调用而被中止。在这里，等待的条件是在返回之前执行一百个块
