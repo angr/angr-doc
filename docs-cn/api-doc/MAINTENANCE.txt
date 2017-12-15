@@ -1,0 +1,32 @@
+Hi! if you're reading this you probably want to know how to maintain these api docs.
+
+Well, you're out of luck, since I have no idea what I'm doing! Luckily, though,
+I seem to be able to bumble into the right things to do.
+
+
+BUILDING THESE DOCS
+-------------------
+
+$ pip install sphinx sphinx_rtd_theme recommonmark
+$ make html
+
+
+DEALING WITH LAYOUT
+-------------------
+
+So the thing about Sphinx is that it's not a python-specific framework, it's a general-purpose
+documentation generator. Sphinx docs are written in ReStructured Text (rst), a
+superset-cum-bastard-clone of Markdown. In order to do te neat thing where our docstrings are
+added to the documentation, there's this cool Sphinx plugin called "autodoc", which does
+exactly that.
+
+SO, we have the base api-docs layout in the "source" dir, which includes several directives
+provided by the autodoc plugin - this is what goes out into the angr source, picks up the
+docstrings, and plops them into the output with appropriate formatting.
+
+
+HOW DO I DO $THING IN A DOCSTRING
+----------------------------
+
+http://www.sphinx-doc.org/en/stable/domains.html#info-field-lists
+http://openalea.gforge.inria.fr/doc/openalea/doc/_build/html/source/sphinx/rest_syntax.html
