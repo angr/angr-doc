@@ -3,6 +3,16 @@
 This lists the *major* changes in angr.
 Tracking minor changes are left as an exercise for the reader :-)
 
+## angr 7.7.12.16
+
+- You can now tell where the variables implicitly created by angr come from! `state.solver.BVS` now can take a `key` parameter, which describes its meaning in relation to the emulated environment. You can then use `state.solver.get_variables(...)` and `state.solver.describe_variables(...)` to map tags and ASTs to and from each other. Check out the [API docs](http://angr.io/api-doc/angr.html#angr.state_plugins.solver.SimSolver)!
+- The SimOS for a project is now a public property - `project.simos` instead of `project._simos`. Additionally, the SimOS code structure has been shuffled around a bit - it's now a subpackage instead of a submodule.
+- The core components of Tracer and Driller have been refactored into Exploration Techniques and integrated into angr proper, so you can now follow instrution traces without installing another repostory! (credit @tyb0807)
+- Archinfo now contains a `byte_width` parameter and angr supports emulation of platforms with non-octet bytes, lord help us
+- Upgraded to networkx 2 (credit @tyb0807)
+- Hopefully installation issues with capstone should be fixed FOREVER
+- Minor fixes to gender
+
 ## angr 7.7.9.8
 
 Welcome to angr 7!
