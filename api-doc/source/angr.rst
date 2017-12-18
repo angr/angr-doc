@@ -34,14 +34,25 @@ Simulation Manager
 ------------------
 
 .. automodule:: angr.manager
+.. automodule:: angr.state_hierarchy
+
+Exploration Techniques
+----------------------
+
 .. automodule:: angr.exploration_techniques
 .. automodule:: angr.exploration_techniques.dfs
 .. automodule:: angr.exploration_techniques.explorer
+.. automodule:: angr.exploration_techniques.lengthlimiter
 .. automodule:: angr.exploration_techniques.looplimiter
+.. automodule:: angr.exploration_techniques.manual_mergepoint
+.. automodule:: angr.exploration_techniques.spiller
 .. automodule:: angr.exploration_techniques.threading
 .. automodule:: angr.exploration_techniques.veritesting
-.. automodule:: angr.state_hierarchy
-.. automodule:: angr.pathprioritizer
+.. automodule:: angr.exploration_techniques.tracer
+.. automodule:: angr.exploration_techniques.crash_monitor
+.. automodule:: angr.exploration_techniques.driller_core
+.. automodule:: angr.exploration_techniques.director
+.. automodule:: angr.exploration_techniques.oppologist
 
 Simulation Engines
 ------------------
