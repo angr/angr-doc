@@ -1,9 +1,8 @@
-## Full writeup on flag 2 found on http://www.ctfhacker.com     
+## Full writeup on flag 2 found on http://www.ctfhacker.com
 ## Binary found here: http://csapp.cs.cmu.edu/3e/bomb.tar
-import sys
 import angr
-import logging
 import claripy
+import logging
 from struct import unpack
 
 class readline_hook(angr.SimProcedure):
@@ -17,9 +16,9 @@ class strtol_hook(angr.SimProcedure):
 def solve_flag_1():
 
     # shutdown some warning produced by this example
-    logging.getLogger('angr.engines.vex.irsb').setLevel(logging.ERROR)
+    #logging.getLogger('angr.engines.vex.irsb').setLevel(logging.ERROR)
 
-    proj = angr.Project('bomb', load_options={'auto_load_libs':False})
+    proj = angr.Project('bomb', auto_load_libs=False)
 
     start = 0x400ee0
     bomb_explode = 0x40143a
@@ -41,20 +40,18 @@ def solve_flag_1():
     state.add_constraints(state.regs.rdi == bind_addr)
 
     # Attempt to find a path to the end of the phase_1 function while avoiding the bomb_explode
-    ex = proj.surveyors.Explorer(start=state, find=(end,),
-                                 avoid=(bomb_explode,),
-                                 enable_veritesting=True)
-    ex.run()
+    simgr = proj.factory.simulation_manager(state)
+    simgr.explore(find=end, avoid=bomb_explode)
 
-    if ex.found:
-        found = ex.found[0]
+    if simgr.found:
+        found = simgr.found[0]
         return found.solver.eval(arg, cast_to=str).rstrip(chr(0)) # remove ending \0
-
-    pass
+    else:
+        raise Exception("angr failed to find a path to the solution :(")
 
 def solve_flag_2():
 
-    proj = angr.Project('bomb', load_options={'auto_load_libs':False})
+    proj = angr.Project('bomb', auto_load_libs=False)
     bomb_explode = 0x40143a
 
     # Start analysis at the phase_2 function after the sscanf
@@ -76,7 +73,7 @@ def solve_flag_2():
 
         answer = []
 
-        for x in xrange(3):
+        for _ in xrange(3):
             curr_int = found.solver.eval(found.stack_pop())
 
             # We are popping off 8 bytes at a time
@@ -87,14 +84,11 @@ def solve_flag_2():
 
         return ' '.join(answer)
 
-    pass
-
-
 def solve_flag_3():
 
     args = []
 
-    proj = angr.Project('bomb', load_options={'auto_load_libs':False})
+    proj = angr.Project('bomb', auto_load_libs=False)
 
     start = 0x400f6a # phase_3 after scanf()
     bomb_explode = 0x40143a
@@ -146,14 +140,14 @@ def solve_flag_4():
 
     avoid = 0x40143A
     find = 0x401061
-    proj = angr.Project("./bomb", load_options={'auto_load_libs': False})
+    proj = angr.Project("./bomb", auto_load_libs=False)
 
     state = proj.factory.blank_state(
         # let's get the address via its symbol
         # after a proj.analysis.CFG it can be recovered by
         # addr=proj.kb.functions.get('phase_4').addr,
         # we will just use the obj's symbol directly
-        addr=proj.kb.obj.get_symbol('phase_4').addr,
+        addr=proj.kb.obj.get_symbol('phase_4').rebased_addr,
         remove_options={angr.options.LAZY_SOLVES})
     sm = proj.factory.simulation_manager(state)
     sm.explore(find=find, avoid=avoid)
@@ -183,12 +177,12 @@ def solve_flag_5():
         return isalphanum
 
     # getting more lazy, let angr find the functions, and build the CFG
-    proj = angr.Project("./bomb", load_options={'auto_load_libs': False})
+    proj = angr.Project("./bomb", auto_load_libs=False)
 
     proj.analyses.CFG()
 
-    start = proj.kb.obj.get_symbol('phase_5').addr
-    avoid = proj.kb.obj.get_symbol('explode_bomb').addr
+    start = proj.kb.obj.get_symbol('phase_5').rebased_addr
+    avoid = proj.kb.obj.get_symbol('explode_bomb').rebased_addr
     # let's stop at the end of the function
     find = proj.kb.functions.get('phase_5').ret_sites[0].addr
 
@@ -227,8 +221,8 @@ def solve_flag_6():
     read_num = 0x40145c
     find = 0x4011f7
     avoid = 0x40143A
-    p = angr.Project("./bomb", load_options={'auto_load_libs': False})
-    p.hook(read_num, read_6_ints)
+    p = angr.Project("./bomb", auto_load_libs=False)
+    p.hook(read_num, read_6_ints())
     state = p.factory.blank_state(addr=start, remove_options={angr.options.LAZY_SOLVES})
     sm = p.factory.simulation_manager(state)
     sm.explore(find=find, avoid=avoid)
@@ -244,7 +238,7 @@ def solve_secret():
     readline = 0x40149e
     strtol = 0x400bd0
 
-    p = angr.Project("./bomb", load_options={'auto_load_libs':False})
+    p = angr.Project("./bomb", auto_load_libs=False)
     p.hook(readline, readline_hook)
     p.hook(strtol, strtol_hook)
     state = p.factory.blank_state(addr=start, remove_options={angr.options.LAZY_SOLVES})
@@ -258,7 +252,7 @@ def solve_secret():
     return str(found.solver.eval(flag))
 
 def main():
-#   print "Flag    1: " + solve_flag_1()
+    print "Flag    1: " + solve_flag_1()
     print "Flag    2: " + solve_flag_2()
     print "Flag(s) 3: " + str(solve_flag_3())
     print "Flag    4: " + solve_flag_4()
@@ -267,8 +261,8 @@ def main():
     print "Secret   : " + solve_secret()
 
 def test():
-#   assert solve_flag_1() == 'Border relations with Canada have never been better.'
-#   print "Stage 1 ok!"
+    assert solve_flag_1() == 'Border relations with Canada have never been better.'
+    print "Stage 1 ok!"
 
     assert solve_flag_2() == '1 2 4 8 16 32'
     print "Stage 2 ok!"
