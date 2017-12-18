@@ -1,16 +1,13 @@
 import os
 import sys
 import angr
-from angr import sim_options as so
-
+import subprocess
 import logging
+
+from angr import sim_options as so
 
 l = logging.getLogger("insomnihack.simple_aeg")
 
-# silence some annoying logs
-logging.getLogger("angr").setLevel("CRITICAL")
-
-l.setLevel("INFO")
 
 # shellcraft i386.linux.sh
 shellcode = "6a68682f2f2f73682f62696e89e331c96a0b5899cd80".decode('hex')
@@ -112,7 +109,15 @@ def main(binary):
     print "run with `(cat %s; cat -) | %s`" % (filename, binary)
     return 0
 
+def test():
+    main('./demo_bin')
+    assert subprocess.check_output('(cat ./demo_bin-exploit; echo echo BUMO) | ./demo_bin', shell=True) == 'BUMO\n'
+
 if __name__ == '__main__':
+    # silence some annoying logs
+    logging.getLogger("angr").setLevel("CRITICAL")
+    l.setLevel("INFO")
+
     if len(sys.argv) > 1:
         sys.exit(main(sys.argv[1]))
     else:

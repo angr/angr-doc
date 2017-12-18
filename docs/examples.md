@@ -204,7 +204,7 @@ Concepts presented: automatic exploit generation, global symbolic data tracking
 
 Demonstration for Insomni'hack 2016.  The script is a very simple implementation of AEG.
 
-[script](https://github.com/angr/angr-doc/tree/master/examples/insomnihack_aeg/simple_aeg.py)
+[script](https://github.com/angr/angr-doc/tree/master/examples/insomnihack_aeg/solve.py)
 
 
 
