@@ -52,7 +52,7 @@ When a state fails to produce any successors during execution, for example, beca
 
 Let's see how to work with other stashes.
 
-To move states between stashes, use `.move()`,  which takes `from_stash` (optional, default "active"), `to_stash`, and `filter_func` (optional, default is to move everything).
+To move states between stashes, use `.move()`,  which takes `from_stash`, `to_stash`, and `filter_func` (optional, default is to move everything).
 For example, let's move everything that has a certain string in its output:
 
 ```python
@@ -156,14 +156,24 @@ Other examples can be found by browsing the [examples](./examples.md).
 ## Exploration Techniques
 
 angr ships with several pieces of canned functionality that let you customize the behavior of a simulation manager, called _exploration techniques_.
-The archetypical exploration technique is depth-first search, which puts all active paths except one in a stash called `deferred`, and whenever `active` goes empty, pops a state out of `deferred` and continues.
+The archetypical example of why you would want an exploration technique is to modify the pattern in which the state space of the program is explored - the default "step everything at once" strategy is effectively breadth-first search, but with an exploration technique you could implement, for example, depth-first search.
+However, the instrumentation power of these techniques is much more flexible than that - you can totally alter the behavior of angr's stepping process.
+Writing your own exploration techniques will be covered in a later chapter.
 
 To use an exploration technique, call `simgr.use_technique(tech)`, where tech is an instance of an ExplorationTechnique subclass.
 angr's built-in exploration techniques can be found under `angr.exploration_techniques`.
 
 Here's a quick overview of some of the built-in ones:
 
-- TODO
+- *Explorer*: This technique implements the `.explore()` functionality, allowing you to search for and avoid addresses.
+- *DFS*: Depth first search, as mentioned earlier. Keeps only one state active at once, putting the rest in the `deferred` stash until it deadends or errors.
+- *LoopLimiter*: Uses a cheap approximation of loop counting to discard states that appear to be going through a loop too many times, putting them in a `spinning` stash and pulling them out again if we run out of otherwise viable states.
+- *LengthLimiter*: Puts a cap on the maximum length of the path a state goes through.
+- *ManualMergepoint*: Marks an address in the program as a merge point, so states that reach that address will be briefly held, and any other states that reach that same point within a timeout will be merged together.
+- *Veritesting*: An implementation of a [CMU paper](https://users.ece.cmu.edu/~dbrumley/pdf/Avgerinos%20et%20al._2014_Enhancing%20Symbolic%20Execution%20with%20Veritesting.pdf) on automatically identifying useful merge points. This is so useful, you can enable it automatically with `veritesting=True` in the SimulationManager constructor! Note that it frequenly doesn't play nice with other techniques due to the invasive way it implements static symbolic execution.
+- *Tracer*: An exploration technique that causes execution to follow a dynamic trace recorded from some other source. The [dynamic tracer repository](https://github.com/angr/tracer) has some tools to generate those traces.
+- *Oppologist*: The "operation apologist" is an especially fun gadget - if this technique is enabled and angr encounters an unsupported instruction, for example a bizzare and foreign floating point SIMD op, it will concretize all the inputs to that instruction and emulate the single instruction using the unicorn engine, allowing execution to continue.
+- *Threading*: Adds thread-level parallelism to the stepping process. This doesn't help much because of python's global interpreter locks, but if you have a program whose analysis spends a lot of time in angr's native-code dependencies (unicorn, z3, libvex) you can seem some gains.
+- *Spiller*: When there are too many states active, this technique can dump some of them to disk in order to keep memory consumption low.
 
-You can also write your own exploration techniques!
-This will be covered in a later chapter.
+Look at the API documentation for the [simulation manager](http://angr.io/api-doc/angr.html#module-angr.manager) and [exploration techniques](http://angr.io/api-doc/angr.html#angr.exploration_techniques.ExplorationTechnique) for more information.
