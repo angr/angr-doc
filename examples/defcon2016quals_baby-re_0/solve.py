@@ -12,32 +12,34 @@ DigitalOcean is horrible for single threaded applications, I would highly sugges
 """
 
 import angr
+import claripy
 
 def main():
 	proj = angr.Project('./baby-re',  load_options={'auto_load_libs': False})
 
-	sm = proj.factory.simulation_manager(threads=4) # Doesn't really help to have more threads, but whatever.
+	# let's provide the exact variables received through the scanf so we don't have to worry about parsing stdin into a bunch of ints.
+	flag_chars = [claripy.BVS('flag_%d' % i, 32) for i in xrange(13)]
+	class my_scanf(angr.SimProcedure):
+		def run(self, fmt, ptr):
+			if 'scanf_count' not in self.state.globals:
+				self.state.globals['scanf_count'] = 0
+			c = self.state.globals['scanf_count']
+			self.state.mem[ptr].dword = flag_chars[c]
+			self.state.globals['scanf_count'] = c + 1
+	proj.hook_symbol('__isoc99_scanf', my_scanf(), replace=True)
 
+	sm = proj.factory.simulation_manager()
+
+	# search for just before the printf("%c%c...")
 	# If we get to 0x402941, "Wrong" is going to be printed out, so definitely avoid that.
-	sm.explore(find=0x40294b, avoid=0x402941)
-	# If you use anywhere before 0x40292c, angr won't have the flag to print out yet. So don't do that.
+	sm.explore(find=0x4028E9, avoid=0x402941)
 
-	return sm.found[0].posix.dumps(1) # The flag is at the end.
-
-	"""
-	Note: There will be a bunch of warnings on your terminal that look like this.
-
-	WARNING | 2016-05-21 17:34:33,185 | angr.state_plugins.symbolic_memory | Concretizing symbolic length. Much sad; think about implementing.
-	WARNING | 2016-05-21 17:34:49,353 | angr.state_plugins.symbolic_memory | Concretizing symbolic length. Much sad; think about implementing.
-	WARNING | 2016-05-21 17:35:11,810 | angr.state_plugins.symbolic_memory | Concretizing symbolic length. Much sad; think about implementing.
-	WARNING | 2016-05-21 17:35:44,170 | angr.state_plugins.symbolic_memory | Concretizing symbolic length. Much sad; think about implementing.
-
-	Don't worry about these, they're not an issue for this challenge.
-	"""
+	# evaluate each of the flag chars against the constraints on the found state to construct the flag
+	flag = ''.join(chr(sm.one_found.solver.eval(c)) for c in flag_chars)
+	return flag
 
 def test():
-	assert 'Math is hard!' in main()
-
+	assert main() == 'Math is hard!'
 
 if __name__ == '__main__':
 	print(repr(main()))

@@ -2,19 +2,29 @@ import angr
 import logging
 
 def main():
-    p = angr.Project("r200", load_options={'auto_load_libs': False})
-    sm = p.factory.simulation_manager(veritesting=True)
-#   ex = p.surveyors.Explorer(find=(0x400936, ), avoid=(0x400947,), enable_veritesting=True)
-#   angr.surveyors.explorer.l.setLevel(logging.DEBUG)
-#   ex.run()
-    angr.manager.l.setLevel(logging.DEBUG)
-    sm.explore(find=(0x400936), avoid=(0x400947))
+    p = angr.Project("r200", auto_load_libs=False)
+    sm = p.factory.simulation_manager()
 
-    return sm.found[0].posix.dumps(0).strip('\0\n')
-#   return ex.found[0].posix.dumps(0).strip('\0\n')
+    # avoid the antidebug traps, go to the merge point
+    sm.explore(find=0x4007FD, avoid=(0x40085D, 0x400882), num_find=11)
+    print sm
 
-def test():
-    assert main() == 'rotors'
+    var_addr = sm.one_found.solver.eval(sm.one_found.regs.rbp - 0x4c)
+    for s in sm.found:
+        print s, s.mem[var_addr].dword.resolved
+
+    print 'merging...'
+    import ipdb; ipdb.set_trace()
+    sm.merge(stash='found')
+
+    s = sm.one_found
+    culprit = s.mem[var_addr].dword.resolved
+    print s, culprit.__repr__(max_depth=3)
+    for i in xrange(1, 0xb):
+        print i, s.solver.satisfiable(extra_constraints=(culprit == i,))
 
 if __name__ == '__main__':
-    print main()
+    logging.getLogger('angr.state_plugins.callstack').setLevel('ERROR')
+    #logging.getLogger('angr.manager').setLevel('DEBUG')
+    #logging.getLogger('angr.exploration_techniques.manual_mergepoint').setLevel('DEBUG')
+    main()
