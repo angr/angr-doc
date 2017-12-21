@@ -177,7 +177,7 @@ def test_api_coverage():
                     missing.append(full)
 
     if missing:
-        raise Exception("The following modules are not represnted in the api docs:\n" + '\n'.join(missing))
+        raise Exception("The following modules are not represented in the api docs:\n" + '\n'.join(missing))
 
 if __name__ == '__main__':
     test_example_inclusion()
