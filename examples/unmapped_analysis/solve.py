@@ -36,7 +36,7 @@ def main():
 	return keys
 
 def test():
-	keys = ['e6dba991c1745128787fbc7a9843306cb2bcc63e', '275edf0657388c3a1197cdadfad7b96da0f977a3'].sort()
+	keys = sorted(['e6dba991c1745128787fbc7a9843306cb2bcc63e', '275edf0657388c3a1197cdadfad7b96da0f977a3'])
 	assert main() == keys
 
 if __name__ == '__main__':

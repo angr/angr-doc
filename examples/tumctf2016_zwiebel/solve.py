@@ -29,12 +29,15 @@ def main():
 
     assert sm.deadended
     flag = sm.deadended[-1].posix.dumps(0).split("\n")[0]
-    print flag
+    return flag
 
     # import ipdb; ipdb.set_trace()
 
+def test():
+    assert main == 'hxp{1_h0p3_y0u_d1dnt_p33l_th3_0ni0n_by_h4nd}'
+
 if __name__ == "__main__":
-    main()
+    print main()
 
 """
 Here is the output (after 2 hours and 31 minutes on my machine running Pypy):
@@ -47,4 +50,3 @@ ipdb> print sm.deadended[-1].state.posix.dumps(0)
 hxp{1_h0p3_y0u_d1dnt_p33l_th3_0ni0n_by_h4nd}
 :)
 """
-

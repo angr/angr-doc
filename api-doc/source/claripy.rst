@@ -46,6 +46,11 @@ Backends
 .. automodule:: claripy.backend_object
 .. automodule:: claripy.backends.backend_concrete
 .. automodule:: claripy.backends.backend_z3
+.. automodule:: claripy.backends.backend_z3_parallel
+.. automodule:: claripy.backends.celeryconfig
+.. automodule:: claripy.backends.remotetasks
+.. automodule:: claripy.backends.backend_vsa
+.. automodule:: claripy.backends.backendremote
  
 
 Frontends
@@ -59,6 +64,7 @@ Frontends
 .. automodule:: claripy.frontends.hybrid_frontend
 .. automodule:: claripy.frontends.light_frontend
 .. automodule:: claripy.frontends.replacement_frontend
+.. automodule:: claripy.solvers
 
 
 Frontend Mixins

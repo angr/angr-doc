@@ -1,25 +1,42 @@
 :mod:`angr` --- Analysis and Coordination
 =========================================
 
+.. automodule:: angr
 
 Project
 -------
 
 .. automodule:: angr.project
 .. automodule:: angr.factory
+.. automodule:: angr.block
 
 Program State
 -------------
 .. automodule:: angr.sim_state
 .. automodule:: angr.sim_options
 .. automodule:: angr.state_plugins
+.. automodule:: angr.state_plugins.plugin
 .. automodule:: angr.state_plugins.inspect
 .. automodule:: angr.state_plugins.libc
 .. automodule:: angr.state_plugins.posix
 .. automodule:: angr.state_plugins.solver
+.. automodule:: angr.state_plugins.log
+.. automodule:: angr.state_plugins.callstack
+.. automodule:: angr.state_plugins.fast_memory
+.. automodule:: angr.state_plugins.history
+.. automodule:: angr.state_plugins.gdb
+.. automodule:: angr.state_plugins.cgc
+.. automodule:: angr.state_plugins.trace_additions
+.. automodule:: angr.state_plugins.globals
+.. automodule:: angr.state_plugins.uc_manager
+.. automodule:: angr.state_plugins.scratch
+.. automodule:: angr.state_plugins.preconstrainer
+.. automodule:: angr.state_plugins.unicorn_engine
+
 
 Storage
 -------
+
 .. automodule:: angr.storage
 .. automodule:: angr.state_plugins.view
 .. automodule:: angr.storage.file
@@ -27,8 +44,25 @@ Storage
 .. automodule:: angr.state_plugins.symbolic_memory
 .. automodule:: angr.state_plugins.abstract_memory
 .. automodule:: angr.storage.memory_object
+.. automodule:: angr.storage.pcap
 .. automodule:: angr.storage.paged_memory
 .. automodule:: angr.concretization_strategies
+
+Concretization Strategies
+-------------------------
+
+.. automodule:: angr.concretization_strategies.single
+.. automodule:: angr.concretization_strategies.eval
+.. automodule:: angr.concretization_strategies.norepeats
+.. automodule:: angr.concretization_strategies.solutions
+.. automodule:: angr.concretization_strategies.nonzero_range
+.. automodule:: angr.concretization_strategies.range
+.. automodule:: angr.concretization_strategies.max
+.. automodule:: angr.concretization_strategies.norepeats_range
+.. automodule:: angr.concretization_strategies.nonzero
+.. automodule:: angr.concretization_strategies.any
+.. automodule:: angr.concretization_strategies.controlled_data
+
 
 Simulation Manager
 ------------------
@@ -86,6 +120,7 @@ Calling Conventions and Types
 .. automodule:: angr.sim_variable
 .. automodule:: angr.sim_type
 .. automodule:: angr.type_backend
+.. automodule:: angr.callable
 
 Knowledge Base
 --------------
@@ -104,6 +139,7 @@ Knowledge Base
 .. automodule:: angr.knowledge_plugins.variables
 .. automodule:: angr.knowledge_plugins.variables.variable_access
 .. automodule:: angr.knowledge_plugins.variables.variable_manager
+.. automodule:: angr.keyed_region
 
 
 Analysis
@@ -111,29 +147,64 @@ Analysis
 
 .. automodule:: angr.analyses
 .. automodule:: angr.analyses.analysis
+.. automodule:: angr.analyses.forward_analysis
 .. automodule:: angr.analyses.backward_slice
 .. automodule:: angr.analyses.bindiff
 .. automodule:: angr.analyses.boyscout
-.. automodule:: angr.analyses.cdg
+.. automodule:: angr.analyses.cfg
+.. automodule:: angr.analyses.cfg.cfg
 .. automodule:: angr.analyses.cfg.cfg_accurate
 .. automodule:: angr.analyses.cfg.cfg_base
 .. automodule:: angr.analyses.cfg.cfg_fast
 .. automodule:: angr.analyses.cfg.cfg_node
+.. automodule:: angr.analyses.cfg.cfg_arch_options
+.. automodule:: angr.analyses.cfg.cfg_job_base
+.. automodule:: angr.analyses.cfg.indirect_jump_resolvers.x86_pe_iat
+.. automodule:: angr.analyses.cfg.indirect_jump_resolvers.mips_elf_fast
+.. automodule:: angr.analyses.cfg.indirect_jump_resolvers.x86_elf_pic_plt
+.. automodule:: angr.analyses.cfg.indirect_jump_resolvers.default_resolvers
+.. automodule:: angr.analyses.cfg.indirect_jump_resolvers.jumptable
+.. automodule:: angr.analyses.cfg.indirect_jump_resolvers.resolver
+.. automodule:: angr.analyses.cfg.indirect_jump_resolvers
+.. automodule:: angr.analyses.cfg.cfg_utils
+.. automodule:: angr.analyses.cdg
 .. automodule:: angr.analyses.code_location
 .. automodule:: angr.analyses.datagraph_meta
 .. automodule:: angr.analyses.ddg
 .. automodule:: angr.analyses.dfg
-.. automodule:: angr.analyses.forward_analysis
+.. automodule:: angr.analyses.variable_recovery.annotations
+.. automodule:: angr.analyses.variable_recovery.variable_recovery_fast
+.. automodule:: angr.analyses.variable_recovery.variable_recovery
+.. automodule:: angr.analyses.variable_recovery
 .. automodule:: angr.analyses.girlscout
+.. automodule:: angr.analyses.identifier.identify
 .. automodule:: angr.analyses.loopfinder
 .. automodule:: angr.analyses.veritesting
 .. automodule:: angr.analyses.vfg
 .. automodule:: angr.analyses.vsa_ddg
+.. automodule:: angr.analyses.disassembly
+.. automodule:: angr.analyses.disassembly_utils
+.. automodule:: angr.analyses.reassembler
+.. automodule:: angr.analyses.congruency_check
+.. automodule:: angr.analyses.static_hooker
+.. automodule:: angr.analyses.binary_optimizer
+.. automodule:: angr.analyses.callee_cleanup_finder
 .. automodule:: angr.blade
 .. automodule:: angr.slicer
 .. automodule:: angr.annocfg
+.. automodule:: angr.codenode
+
 
 SimOS
 -----
 
 .. automodule:: angr.simos
+.. automodule:: angr.simos.simos
+.. automodule:: angr.simos.linux
+.. automodule:: angr.simos.cgc
+.. automodule:: angr.simos.userland
+.. automodule:: angr.simos.windows
+
+Errors
+------
+.. automodule:: angr.errors
