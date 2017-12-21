@@ -5,26 +5,18 @@ def main():
     p = angr.Project("r200", auto_load_libs=False)
     sm = p.factory.simulation_manager()
 
-    # avoid the antidebug traps, go to the merge point
-    sm.explore(find=0x4007FD, avoid=(0x40085D, 0x400882), num_find=11)
-    print sm
+    # merge all states every time we hit the bottom of the outer loop
+    sm.use_technique(angr.exploration_techniques.ManualMergepoint(0x4007FD, wait_counter=9999))
+    # avoid the antidebug traps, go to puts("Nice!")
+    sm.use_technique(angr.exploration_techniques.Explorer(find=0x400936, avoid=(0x40085D, 0x400882)))
+    # go!
+    sm.run()
+    return sm.one_found.posix.dumps(0).split('\n')[0]
 
-    var_addr = sm.one_found.solver.eval(sm.one_found.regs.rbp - 0x4c)
-    for s in sm.found:
-        print s, s.mem[var_addr].dword.resolved
-
-    print 'merging...'
-    import ipdb; ipdb.set_trace()
-    sm.merge(stash='found')
-
-    s = sm.one_found
-    culprit = s.mem[var_addr].dword.resolved
-    print s, culprit.__repr__(max_depth=3)
-    for i in xrange(1, 0xb):
-        print i, s.solver.satisfiable(extra_constraints=(culprit == i,))
+def test():
+    assert main() == 'rotors'
 
 if __name__ == '__main__':
-    logging.getLogger('angr.state_plugins.callstack').setLevel('ERROR')
-    #logging.getLogger('angr.manager').setLevel('DEBUG')
-    #logging.getLogger('angr.exploration_techniques.manual_mergepoint').setLevel('DEBUG')
-    main()
+    logging.getLogger('angr.manager').setLevel('DEBUG')
+    logging.getLogger('angr.exploration_techniques.manual_mergepoint').setLevel('DEBUG')
+    print main()
