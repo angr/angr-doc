@@ -32,6 +32,7 @@ Program State
 .. automodule:: angr.state_plugins.scratch
 .. automodule:: angr.state_plugins.preconstrainer
 .. automodule:: angr.state_plugins.unicorn_engine
+.. automodule:: angr.state_plugins.loop_data
 
 
 Storage
@@ -87,6 +88,8 @@ Exploration Techniques
 .. automodule:: angr.exploration_techniques.driller_core
 .. automodule:: angr.exploration_techniques.director
 .. automodule:: angr.exploration_techniques.oppologist
+.. automodule:: angr.exploration_techniques.loop_seer
+.. automodule:: angr.exploration_techniques.cacher
 
 Simulation Engines
 ------------------
