@@ -120,7 +120,6 @@ def test_secconquals2016_ropsynth(): exampletest_single('secconquals2016_ropsynt
 def test_0ctf_momo_3(): exampletest_single('0ctf_momo_3')
 def test_defcon2016quals_baby_re_0(): exampletest_single('defcon2016quals_baby-re_0')
 def test_defcon2016quals_baby_re_1(): exampletest_single('defcon2016quals_baby-re_1')
-def test_sharif7_rev50(): exampletest_single('sharif7_rev50')
 def test_simple_heap_overflow(): exampletest_single('simple_heap_overflow')
 def test_csci_0a(): exampletest_single('CSCI-4968-MBE/challenges/crackme0x00a')
 def test_csci_1(): exampletest_single('CSCI-4968-MBE/challenges/crackme0x01')
