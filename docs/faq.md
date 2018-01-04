@@ -80,3 +80,21 @@ If you see an odd ARM address, that just means the code at `address - 1` is in T
 [Pickle](https://docs.python.org/2/library/pickle.html) will work.
 However, python will default to using an extremely old pickle protocol that does not support more complex python data structures, so you must specify a [more advanced data stream format](https://docs.python.org/2/library/pickle.html#data-stream-format).
 The easiest way to do this is `pickle.dumps(obj, -1)`.
+
+## What does `UnsupportedIROpError("floating point support disabled")` mean?
+
+This might crop up if you're using a CGC analysis such as driller or rex.
+Floating point support in angr has been disabled in the CGC analyses for a tight-knit nebula of reasons:
+
+- Libvex's representation of floating point numbers is imprecise - it converts the 80-bit extended precision format used by the x87 for computation to 64-bit doubles, making it impossible to get precise results
+- There is very limited implementation support in angr for the actual primitive operations themselves as reported by libvex, so you will often get a less friendly "unsupported operation" error if you go too much further
+- For what operations are implemented, the basic optimizations that allow tractability during symbolic computation (AST deduplication, operation collapsing) are not implemented for floating point ops, leading to gigantic ASTs
+- There are memory corruption bugs in z3 that get triggered frighteningly easily when you're using huge workloads of mixed floating point and bitvector ops.
+  We haven't been able to get a testcase that doesn't involve "just run angr" for the z3 guys to investigate.
+
+Instead of trying to cope with all of these, we have simply disabled floating point support in the symbolic execution engine.
+To allow for execution in the presence of floating point ops, we have enabled an exploration technique called the [https://github.com/angr/angr/blob/master/angr/exploration_techniques/oppologist.py](oppologist) that is supposed to catch these issues, concretize their inputs, and run the problematic instructions through qemu via uniciorn engine, allowing execution to continue.
+The intuition is that the specific values of floating point operations don't typically affect the exploitation process.
+
+If you're seeing this error and it's terminating the analysis, it's probably because you don't have unicorn installed or configured correctly.
+If you're seeing this issue just in a log somewhere, it's just the oppologist kicking in and you have nothing to worry about.
