@@ -1,4 +1,4 @@
-:mod:`angr` --- Analysis and Coordination
+t :mod:`angr` --- Analysis and Coordination
 =========================================
 
 .. automodule:: angr
@@ -90,6 +90,7 @@ Exploration Techniques
 .. automodule:: angr.exploration_techniques.oppologist
 .. automodule:: angr.exploration_techniques.loop_seer
 .. automodule:: angr.exploration_techniques.cacher
+.. automodule:: angr.exploration_techniques.tech_builder
 
 Simulation Engines
 ------------------
