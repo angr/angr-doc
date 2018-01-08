@@ -20,7 +20,7 @@ Here's an example that will remove all bugs from any program:
 ...        return 0
 
 # this assumes we have symbols for the binary
->>> project.hook_symbol('main', BugFree)
+>>> project.hook_symbol('main', BugFree())
 
 # Run a quick execution!
 >>> simgr = project.factory.simulation_manager()
