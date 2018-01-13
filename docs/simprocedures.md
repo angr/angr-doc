@@ -196,7 +196,7 @@ If the length argument is omitted or set to zero, execution will resume executin
 The `Ijk_NoHook` jumpkind allows this to happen.
 
 If you want more control over control flow coming out of a user hook, you can return a list of successor states.
-Each successor will be expected to have `state.regs.ip`, state.scratch.guard`, and `state.scratch.jumpkind` set.
+Each successor will be expected to have `state.regs.ip`, `state.scratch.guard`, and `state.scratch.jumpkind` set.
 The IP is the target instruction pointer, the guard is a symbolic boolean representing a constraint to add to the state related to it being taken as opposed to the others, and the jumpkind is a VEX enum string, like `Ijk_Boring`, representing the nature of the branch.
 
 The general rule is, if you want your SimProcedure to either be able to extract function arguments or cause a program return, write a full SimProcedure class.
