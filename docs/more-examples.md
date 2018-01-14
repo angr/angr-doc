@@ -212,4 +212,4 @@ Author: David Manouchehri (GitHub [@Manouchehri](https://github.com/Manouchehri)
 
 Author: Bernhard Mueller (GitHub [@b-mueller](https://github.com/angr/angr-doc/tree/master/examples/))
 
-A [native binary for Android/ARM](https://github.com/b-angr/angr-doc/tree/master/examples/android_arm_license_validation) that validates a license key passed as a command line argument. It was created for the symbolic execution tutorial in the [OWASP Mobile Testing Guide](https://github.com/OWASP/owasp-mstg/).
+A [native binary for Android/ARM](https://github.com/angr/angr-doc/tree/master/examples/android_arm_license_validation) that validates a license key passed as a command line argument. It was created for the symbolic execution tutorial in the [OWASP Mobile Testing Guide](https://github.com/OWASP/owasp-mstg/).
