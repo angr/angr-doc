@@ -27,7 +27,7 @@
   * [Symbolic Memory Addressing](docs/concretization_strategies.md)
 * Extending angr
   * [Programming SimProcedures](docs/simprocedures.md)
-  * [TODO: Writing state plugins](docs/state_plugins.md)
+  * [Writing state plugins](docs/state_plugins.md)
   * [TODO: Extending the Environment Model](docs/environment.md)
   * [TODO: Writing Exploration Techniques](docs/exploration_techniques.md)
   * [Writing Analyses](docs/analysis_writing.md)
