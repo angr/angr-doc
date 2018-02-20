@@ -194,7 +194,7 @@ def sigint_handler(signum, frame):
 signal.signal(signal.SIGINT, sigint_handler)
 ```
 
-Get the calltrace of a  to find out where we got stuck
+Get the calltrace of a state to find out where we got stuck
 
 ```python
 state = simgr.active[0]
