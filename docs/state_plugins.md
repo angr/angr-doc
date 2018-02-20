@@ -21,11 +21,11 @@ Just make sure to call the superclass initializer!
 ...     def __init__(self, foo):
 ...         super(MyFirstPlugin, self).__init__()
 ...         self.foo = foo
-...
+... 
 ...     def copy(self):
 ...         return MyFirstPlugin(self.foo)
 
->>> state = angr.SimState()
+>>> state = angr.SimState(arch='AMD64')
 >>> state.register_plugin('my_plugin', MyFirstPlugin('bar'))
 >>> assert state.my_plugin.foo == 'bar'
 
@@ -46,9 +46,9 @@ It turns out, there are a plethora of issues related to initialization order and
 You can override this state if you need to do things like propogate the state to subcomponents or extract architectural information.
 
 ```python
->>>     def set_state(self, state):
-...         super(SimStatePlugin, self).set_state(state)
-...         self.symbolic_word = claripy.BVS('my_variable', self.state.arch.bits)
+>>> def set_state(self, state):
+...     super(SimStatePlugin, self).set_state(state)
+...     self.symbolic_word = claripy.BVS('my_variable', self.state.arch.bits)
 ```
 
 Note the `self.state`! That's what the super `set_state` sets up.
@@ -60,9 +60,9 @@ Here's an example of a good use of `init_state`, to map a memory region in the s
 The use of an instance variable (presumably copied as part of `copy()`) ensures this only happens the first time the plugin is added to a state.
 
 ```python
->>>     def init_state(self):
-...         if self.region is None:
-...            self.region = self.state.memory.map_region(SOMEWHERE, 0x1000, 7)
+>>> def init_state(self):
+...     if self.region is None:
+...        self.region = self.state.memory.map_region(SOMEWHERE, 0x1000, 7)
 ```
 
 ### Note: weak references
@@ -134,8 +134,8 @@ When you're doing this, there are a handful of rules to remember which will keep
 - While passing arguments down into sub-plugins `merge()` routines, make sure you unwrap `others` and `common_ancestor` into the appropriate types. For example, if `PluginA` contains a `PluginB`, the former should do the following:
 
 ```python
-def merge(self, others, merge_conditions, common_ancestor=None):
-    # ... merge self
-    self.plugin_b.merge([o.plugin_b for o in others], merge_conditions,
-        common_ancestor=None if common_ancestor is None else common_ancestor.plugin_b)
+>>> def merge(self, others, merge_conditions, common_ancestor=None):
+...     # ... merge self
+...     self.plugin_b.merge([o.plugin_b for o in others], merge_conditions,
+...         common_ancestor=None if common_ancestor is None else common_ancestor.plugin_b)
 ```
