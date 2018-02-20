@@ -2,8 +2,6 @@
 
 The following cheatsheet aims to give a an overview of various things you can do with angr and as a quick reference to check what exactly the syntax for something was without having to dig through the deeper docs.
 
-WARNING: This page is for angr 6 and some parts will not be correct for angr 7
-
 ## General getting started
 
 Some useful imports
@@ -14,74 +12,83 @@ import claripy #the solver engine
 ```
 
 Loading the binary
-
 ```python
-proj = angr.Project("/path/to/binary", load_options={'auto_load_libs': False} ) # auto_load_libs False for improved performance
+proj = angr.Project("/path/to/binary", auto_load_libs=False) # auto_load_libs False for improved performance
 ```
 
-## Path Groups
+## States
 
-Generate a path group object
+Create a SimState object
 
 ```python
-path_group = proj.factory.path_group(state, threads=4)
+state = proj.factory.entry_state()
 ```
 
-## Exploring and analysing pathgroups
+## Simulation Managers
+
+Generate a simulation manager object
+
+```python
+simgr = proj.factory.simulation_manager(state)
+```
+
+## Exploring and analysing states
 
 Choosing a different Exploring strategy
 
 ```python
-path_group.use_technique(angr.exploration_techniques.DFS())
+simgr.use_technique(angr.exploration_techniques.DFS())
 ```
-
-Explore Pathgroup until one pathgroup at one of the adresses from `find=` is found
+Symbolically execute until we find a state satisfying our `find=` and `avoid=` parameters
 
 ```python
 avoid_addr = [0x400c06, 0x400bc7]
 find_addr = 0x400c10d
-path_group.explore(find=find_addr, avoid=avoid_addr)
+simgr.explore(find=find_addr, avoid=avoid_addr)
 ```
 
 ```python
-found = path_group.found[] # The list of paths that reached find condition from explore
-found.state.se.any_str(sym_arg) # Return a concrete string value for the sym arg to reach this state
+found = simgr.found[0] # A state that reached the find condition from explore
+found.solver.eval(sym_arg, cast_to=str) # Return a concrete string value for the sym arg to reach this state
 ```
 
-Explore pathgroup until lambda is `True`
+Symbolically execute until lambda expression is `True`
 
 ```python
-path_group.step(until=lambda p: p.active[0].addr >= first_jmp)
+simgr.step(until=lambda sm: sm.active[0].addr >= first_jmp)
 ```
 
 This is especially useful with the ability to access the current STDOUT or STDERR (1 here is the File Descriptor for STDOUT)
 
 ```python
-path_group.explore(find=lambda p: "correct" in p.state.posix.dumps(1))
+simgr.explore(find=lambda sm: "correct" in sm.state.posix.dumps(1))
 ```
 
 Memory Managment on big searches (Auto Drop Stashes):
 
 ```python
-path_group.explore(find=find_addr, avoid=avoid_addr, step_func=lambda lpg: lpg.drop(stash='avoid'))
+
+simgr.explore(find=find_addr, avoid=avoid_addr, step_func=lambda lsm: lsm.drop(stash='avoid'))
+
 ```
 
 ### Manually Exploring
 
 ```python
-path_group.step(step_func=step_func, until=lambda lpg: len(lpg.found) > 0)
+simgr.step(step_func=step_func, until=lambda lsm: len(sm.found) > 0)
 
-def step_func(lpg):
-    lpg.stash(filter_func=lambda path: path.addr == 0x400c06, from_stash='active', to_stash='avoid')
-    lpg.stash(filter_func=lambda path: path.addr == 0x400bc7, from_stash='active', to_stash='avoid')
-    lpg.stash(filter_func=lambda path: path.addr == 0x400c10, from_stash='active', to_stash='found')
-    return lpg
+def step_func(lsm):
+    lsm.stash(filter_func=lambda state: state.addr == 0x400c06, from_stash='active', to_stash='avoid')
+    lsm.stash(filter_func=lambda state: state.addr == 0x400bc7, from_stash='active', to_stash='avoid')
+    lsm.stash(filter_func=lambda state: state.addr == 0x400c10, from_stash='active', to_stash='found')
+    return lsm
 ```
 
-Enable Logging:
+Enable Logging output from Simulation Manager:
 
 ```python
-angr.path_group.l.setLevel("DEBUG")
+import logging
+logging.getLogger('angr.manager').setLevel(logging.DEBUG)
 ```
 
 ### Stashes
@@ -89,13 +96,13 @@ angr.path_group.l.setLevel("DEBUG")
 Move Stash:
 
 ```python
-path_group.stash(from_stash="found", to_stash="active")
+simgr.stash(from_stash="found", to_stash="active")
 ```
 
 Drop Stashes:
 
 ```python
-path_group.drop(stash="avoid")
+simgr.drop(stash="avoid")
 ```
 
 ## Constraint Solver (claripy)
@@ -112,23 +119,25 @@ Restrict sym_arg to typical char range
 ```python
 for byte in sym_arg.chop(8):
     initial_state.add_constraints(byte != '\x00') # null
-    initial_state.add_constraints(byte >= ' ') # '\x20'
-    initial_state.add_constraints(byte <= '~') # '\x7e'
+    initial_state.add_constraints(byte >= '\x20') # ' '
+    initial_state.add_constraints(byte <= '\x7e') # '~'
 ```
 
-Use the argument to create a state
+Create a state with a symbolic argument
 
 ```python
-argv = [project.filename]
+argv = [proj.filename]
 argv.append(sym_arg)
-state = project.factory.entry_state(args=argv)
+state = proj.factory.entry_state(args=argv)
 ```
 
 Use argument for solving:
 
 ```python
-argv1 = angr.claripy.BVS("argv1", flag_size * 8)
-initial_state = b.factory.full_init_state(args=["./antidebug", argv1], add_options=simuvex.o.unicorn, remove_options={simuvex.o.LAZY_SOLVES})
+sym_arg = angr.claripy.BVS("sym_arg", flag_size * 8)
+argv = [proj.filename]
+argv.append(sym_arg)
+initial_state = proj.factory.full_init_state(args=argv, add_options=angr.options.unicorn, remove_options={angr.options.LAZY_SOLVES})
 ```
 
 ## FFI and Hooking
@@ -136,7 +145,7 @@ initial_state = b.factory.full_init_state(args=["./antidebug", argv1], add_optio
 Calling a function from ipython
 
 ```python
-f = proj.factory.callable(adress)
+f = proj.factory.callable(address)
 f(10)
 x=claripy.BVS('x', 64)
 f(x) #TODO: Find out how to make that result readable
@@ -151,25 +160,21 @@ If what you are interested in is not directly returned because for example the f
 
 Hooking
 
-```python
-hook(addr, hook, length=0, kwargs=None)
-```
-
-There are already predefined hooks for libc.so.6 functions (useful for staticly compiled libraries)
+There are already predefined hooks for libc functions (useful for statically compiled libraries)
 
 ```python
-hook = simuvex.SimProcedures['libc.so.6']['atoi']
-hook(addr, hook, length=4, kwargs=None)
+proj = angr.Project('/path/to/binary', use_sim_procedures=True)
+proj.hook(addr, angr.SIM_PROCEDURES['libc']['atoi']())
 ```
 
 Hooking with Simprocedure:
 
 ```python
-class fixpid(SimProcedure):
+class fixpid(angr.SimProcedure):
     def run(self):
             return 0x30
 
-b.hook(0x4008cd, fixpid, length=5)
+proj.hook(0x4008cd, fixpid, length=5)
 ```
 
 ## Other useful tricks
@@ -189,11 +194,11 @@ def sigint_handler(signum, frame):
 signal.signal(signal.SIGINT, sigint_handler)
 ```
 
-Get the calltrace of a pathgroup to find out where we got stuck
+Get the calltrace of a  to find out where we got stuck
 
 ```python
-path = path_group.active[0]
-path.callstack_backtrace
+state = simgr.active[0]
+print state.callstack
 ```
 
 Get a basic block
@@ -216,10 +221,10 @@ state.memory.store(0x6021f2, aaaa)
 Read Pointer to Pointer from Frame:
 
 ```python
-poi1 = new_state.se.any_int(new_state.regs.rbp)-0x10
-poi1 = new_state.se.any_int(new_state.memory.load(poi1, 8, endness='Iend_LE'))
+poi1 = new_state.solver.eval(new_state.regs.rbp)-0x10
+poi1 = new_state.solver.eval(new_state.memory.load(poi1, 8, endness='Iend_LE'))
 poi1 += 0x8
-ptr1 = (new_state.se.any_int(new_state.memory.load(poi1, 8, endness='Iend_LE')))
+ptr1 = (new_state.solver.eval(new_state.memory.load(poi1, 8, endness='Iend_LE')))
 ```
 
 Read from State:
@@ -227,7 +232,7 @@ Read from State:
 ```python
 key = []
 for i in range(38):
-    key.append(extractkey.se.any_int(extractkey.memory.load(0x602140+(i*4), 4, endness='Iend_LE')))
+    key.append(extractkey.solver.eval(extractkey.memory.load(0x602140+(i*4), 4, endness='Iend_LE')))
 ```
 
 ## Debugging angr
@@ -235,7 +240,7 @@ for i in range(38):
 Set Breakpoint at every Memory read/write:
 
 ```python
-new_state.inspect.b('mem_read', when=simuvex.BP_AFTER, action=debug_funcRead)
+new_state.inspect.b('mem_read', when=angr.BP_AFTER, action=debug_funcRead)
 def debug_funcRead(state):
     print 'Read', state.inspect.mem_read_expr, 'from', state.inspect.mem_read_address
 ```
@@ -243,5 +248,6 @@ def debug_funcRead(state):
 Set Breakpoint at specific Memory location:
 
 ```python
-new_state.inspect.b('mem_write', mem_write_address=0x6021f1, when=simuvex.BP_AFTER, action=debug_funcWrite)
+new_state.inspect.b('mem_write', mem_write_address=0x6021f1, when=angr.BP_AFTER, action=debug_funcWrite)
 ```
+
