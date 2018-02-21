@@ -3,6 +3,14 @@
 This lists the *major* changes in angr.
 Tracking minor changes are left as an exercise for the reader :-)
 
+## angr 7.8.2.21
+
+- Refactor of how syscall handling and SimSyscallLibrary work - it is now possible to handle syscalls using multiple ABIs in the same process
+- Added syscall name-number mappings from all linux ABIs, parsed from gdb
+- Add `ManualMergepoint` exploration technique for when veritesting is too mysterious for your tastes
+- Add `LoopSeer` exploration technique for managing loops during symbolic exploration (credit @tyb0807)
+- Add `ProxyTechnique` exploration technique for easily composing simple lambda-based instrumentations (credit @danse-macabre)
+
 ## angr 7.7.12.16
 
 - You can now tell where the variables implicitly created by angr come from! `state.solver.BVS` now can take a `key` parameter, which describes its meaning in relation to the emulated environment. You can then use `state.solver.get_variables(...)` and `state.solver.describe_variables(...)` to map tags and ASTs to and from each other. Check out the [API docs](http://angr.io/api-doc/angr.html#angr.state_plugins.solver.SimSolver)!
