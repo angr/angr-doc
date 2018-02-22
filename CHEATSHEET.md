@@ -1,6 +1,6 @@
 # Intro
 
-The following cheatsheet aims to give a an overview of various things you can do with angr and as a quick reference to check what exactly the syntax for something was without having to dig through the deeper docs.
+The following cheatsheet aims to give an overview of various things you can do with angr and act as a quick reference to check the syntax for something without having to dig through the deeper docs.
 
 ## General getting started
 
@@ -61,7 +61,7 @@ simgr.step(until=lambda sm: sm.active[0].addr >= first_jmp)
 This is especially useful with the ability to access the current STDOUT or STDERR (1 here is the File Descriptor for STDOUT)
 
 ```python
-simgr.explore(find=lambda sm: "correct" in sm.state.posix.dumps(1))
+simgr.explore(find=lambda s: "correct" in s.posix.dumps(1))
 ```
 
 Memory Managment on big searches (Auto Drop Stashes):
@@ -118,7 +118,6 @@ Restrict sym_arg to typical char range
 
 ```python
 for byte in sym_arg.chop(8):
-    initial_state.add_constraints(byte != '\x00') # null
     initial_state.add_constraints(byte >= '\x20') # ' '
     initial_state.add_constraints(byte <= '\x7e') # '~'
 ```
@@ -174,7 +173,7 @@ class fixpid(angr.SimProcedure):
     def run(self):
             return 0x30
 
-proj.hook(0x4008cd, fixpid, length=5)
+proj.hook(0x4008cd, fixpid())
 ```
 
 ## Other useful tricks
@@ -222,9 +221,9 @@ Read Pointer to Pointer from Frame:
 
 ```python
 poi1 = new_state.solver.eval(new_state.regs.rbp)-0x10
-poi1 = new_state.solver.eval(new_state.memory.load(poi1, 8, endness='Iend_LE'))
+poi1 = new_state.mem[poi1].long.concrete
 poi1 += 0x8
-ptr1 = (new_state.solver.eval(new_state.memory.load(poi1, 8, endness='Iend_LE')))
+ptr1 = new_state.mem[poi1].long.concrete 
 ```
 
 Read from State:
@@ -232,7 +231,12 @@ Read from State:
 ```python
 key = []
 for i in range(38):
-    key.append(extractkey.solver.eval(extractkey.memory.load(0x602140+(i*4), 4, endness='Iend_LE')))
+    key.append(extractkey.mem[0x602140 + i*4].int.concrete)
+```
+Alternatively, the below expression is equivalent
+
+```python
+key = extractkey.mem[0x602140].int.array(38).concrete
 ```
 
 ## Debugging angr
