@@ -73,7 +73,7 @@ Don't look at the constraints on these states directly - the branch we just went
 
 The program we emulated took data from standard input, which angr treats as an infinite stream of symbolic data by default.
 To perform a constraint solve and get a possible value that input could have taken in order to satisfy the constraints, we'll need to get a reference to the actual contents of stdin.
-We'll go over how our file and input subsystems work later on this very page, but for now, just use `state.posix.files[0].all_bytes()` to retrieve a bitvector represnting all the content read from stdin so far.
+We'll go over how our file and input subsystems work later on this very page, but for now, just use `state.posix.files[0].all_bytes()` to retrieve a bitvector representing all the content read from stdin so far.
 
 ```python
 >>> input_data = state1.posix.files[0].all_bytes()
