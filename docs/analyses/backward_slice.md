@@ -28,8 +28,8 @@ A `BackwardSlice` can be constructed with the following code:
 >>> b = angr.Project("examples/fauxware/fauxware", load_options={"auto_load_libs": False})
 
 # Generate a CFG first. In order to generate data dependence graph afterwards,
-# you’ll have to keep all input states by specifying keep_stat=True. Feel free 
-# to provide more parameters (for example, context_sensitivity_level)for CFG 
+# you’ll have to keep all input states by specifying keep_state=True. Feel free 
+# to provide more parameters (for example, context_sensitivity_level) for CFG 
 # recovery based on your needs.
 >>> cfg = b.analyses.CFGAccurate(context_sensitivity_level=2, keep_state=True)
 
