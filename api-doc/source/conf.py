@@ -55,7 +55,7 @@ master_doc = 'index'
 
 # General information about the project.
 project = u'angr'
-copyright = u'2017, The angr project'
+copyright = u'2018, The angr project'
 author = u'The angr project'
 
 # The version info for the project you're documenting, acts as replacement for
@@ -314,3 +314,10 @@ texinfo_documents = [
 
 # If true, do not generate a @detailmenu in the "Top" node's menu.
 #texinfo_no_detailmenu = False
+
+## HACK FOR ANGR
+
+import sphinx.domains.python
+for field_type in sphinx.domains.python.PyObject.doc_field_types:
+    if field_type.name == 'variable':
+        field_type.rolename = None
