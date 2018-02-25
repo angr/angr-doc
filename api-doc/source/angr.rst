@@ -1,4 +1,4 @@
-t :mod:`angr` --- Analysis and Coordination
+:mod:`angr` --- Analysis and Coordination
 =========================================
 
 .. automodule:: angr
@@ -117,6 +117,7 @@ Procedures
 .. automodule:: angr.sim_procedure
 .. automodule:: angr.procedures
 .. automodule:: angr.procedures.stubs.format_parser
+.. automodule:: angr.procedures.definitions
 
 Calling Conventions and Types
 -----------------------------

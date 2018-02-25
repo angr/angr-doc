@@ -2,3 +2,12 @@
 api-doc/build
 *.swp
 *.ipynb*
+.z3-trace
+*.idb
+*.i64
+*.nam
+*.til
+*.id0
+*.id1
+*.id2
+*.id3
