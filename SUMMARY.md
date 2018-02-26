@@ -4,6 +4,7 @@
   * [Installing](INSTALL.md)
   * [How to Contribute](HACKING.md)
   * [What to Contribute](HELPWANTED.md)
+  * [Frequently Asked Questions](docs/faq.md)
 * Core Concepts
   * [Top Level Interfaces](docs/toplevel.md)
   * [Loading a Binary](docs/loading.md)
@@ -27,14 +28,13 @@
   * [Symbolic Memory Addressing](docs/concretization_strategies.md)
 * Extending angr
   * [Programming SimProcedures](docs/simprocedures.md)
-  * [Writing state plugins](docs/state_plugins.md)
-  * [TODO: Extending the Environment Model](docs/environment.md)
+  * [Writing State Plugins](docs/state_plugins.md)
+  * [Extending the Environment Model](docs/environment.md)
   * [TODO: Writing Exploration Techniques](docs/exploration_techniques.md)
   * [Writing Analyses](docs/analysis_writing.md)
-  * [TODO: Adding Support for New Platforms](docs/angr-bf.md)
+  * [TODO: Adding Support for New Architectures](docs/angr-bf.md)
 * [Examples](docs/examples.md)
 * Appendix
-  * [Frequently Asked Questions](docs/faq.md)
   * [List of Claripy Operations](docs/appendices/ops.md)
   * [List of State Options](docs/appendices/options.md)
   * [Changelog](CHANGELOG.md)
