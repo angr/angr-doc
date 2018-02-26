@@ -6,6 +6,7 @@ import traceback
 import subprocess
 
 from nose.plugins.attrib import attr
+from flaky import flaky
 
 import claripy
 
@@ -115,6 +116,7 @@ def test_securityfest_fairlight(): exampletest_single('securityfest_fairlight')
 def test_strcpy_find(): exampletest_single('strcpy_find')
 def test_whitehat_crypto400(): exampletest_single('whitehat_crypto400')
 def test_whitehatvn2015_re400(): exampletest_single('whitehatvn2015_re400')
+@flaky(max_runs=3, min_passes=1)
 def test_secconquals2016_ropsynth(): exampletest_single('secconquals2016_ropsynth')
 @attr(speed='slow')
 def test_0ctf_momo_3(): exampletest_single('0ctf_momo_3')
