@@ -156,7 +156,7 @@ def test_example_inclusion():
 
 def test_api_coverage():
     missing = []
-    exclude = ['angr.tablespecs', 'angr.service', 'pyvex.vex_ffi']
+    exclude = ['angr.tablespecs', 'angr.service', 'pyvex.vex_ffi', 'claripy.backends.remotetasks', 'claripy.backends.backendremote']
     exclude_prefix = ['angr.procedures', 'angr.analyses.identifier', 'angr.misc', 'angr.surveyors', 'angr.engines.vex', 'claripy.utils']
     for module in ['angr', 'claripy', 'cle', 'pyvex', 'archinfo']:
         docs_file = 'api-doc/source/%s.rst' % module
@@ -178,9 +178,17 @@ def test_api_coverage():
     if missing:
         raise Exception("The following modules are not represented in the api docs:\n" + '\n'.join(missing))
 
+def test_lint_docstrings():
+    subprocess.check_call('make clean', shell=True, cwd='api-doc')
+    p = subprocess.Popen('make html', shell=True, cwd='api-doc', stderr=subprocess.PIPE)
+    _, stderr = p.communicate()
+    if stderr:
+        raise Exception("The following warnings were generated while building the API documentation:\n\n" + stderr)
+
 if __name__ == '__main__':
     test_example_inclusion()
     test_api_coverage()
+    test_lint_docstrings()
 
     for tester, arg in test_docs():
         tester(arg)

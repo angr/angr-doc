@@ -48,9 +48,7 @@ Backends
 .. automodule:: claripy.backends.backend_z3
 .. automodule:: claripy.backends.backend_z3_parallel
 .. automodule:: claripy.backends.celeryconfig
-.. automodule:: claripy.backends.remotetasks
 .. automodule:: claripy.backends.backend_vsa
-.. automodule:: claripy.backends.backendremote
  
 
 Frontends
