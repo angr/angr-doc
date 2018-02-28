@@ -120,6 +120,7 @@ autodoc_default_flags = ['members',
                          'show-inheritance'
                          # 'private-members',
                          'undoc-members',
+                         'no-inherited-members',
                         ]
 
 def autodoc_skip_member(app, what, name, obj, skip, options):
