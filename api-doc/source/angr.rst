@@ -210,6 +210,11 @@ SimOS
 .. automodule:: angr.simos.userland
 .. automodule:: angr.simos.windows
 
+Utils
+-----
+.. automodule:: angr.utils
+.. automodule:: angr.utils.graph
+
 Errors
 ------
 .. automodule:: angr.errors
