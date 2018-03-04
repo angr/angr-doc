@@ -139,3 +139,12 @@ When you're doing this, there are a handful of rules to remember which will keep
 ...     self.plugin_b.merge([o.plugin_b for o in others], merge_conditions,
 ...         common_ancestor=None if common_ancestor is None else common_ancestor.plugin_b)
 ```
+
+## Setting Defaults
+
+To make it so that a plugin will automatically become available on a state when requested, without having to register it with the state first, you can register it as a _default_.
+The following code example will make it so that whenever you access `state.my_plugin`, a new instance of `MyPlugin` will be instanciated and registered with the state.
+
+```python
+MyPlugin.register_default('my_plugin')
+```
