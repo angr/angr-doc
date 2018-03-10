@@ -10,6 +10,11 @@ Project
 .. automodule:: angr.factory
 .. automodule:: angr.block
 
+Plugin Ecosystem
+----------------
+
+.. automodule:: angr.misc.plugins
+
 Program State
 -------------
 .. automodule:: angr.sim_state
@@ -98,6 +103,7 @@ Simulation Engines
 .. automodule:: angr.engines
 .. automodule:: angr.engines.engine
 .. automodule:: angr.engines.successors
+.. automodule:: angr.engines.hub
 .. automodule:: angr.engines.vex
 .. automodule:: angr.engines.vex.engine
 .. automodule:: angr.engines.procedure

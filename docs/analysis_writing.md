@@ -11,21 +11,19 @@ Let's start with something simple:
 ...     def __init__(self, option):
 ...         self.option = option
 
->>> angr.register_analysis(MockAnalysis, 'MockAnalysis')
+>>> MockAnalysis.register_default() # register the class with angr's global analysis list
 ```
 
 This is a very simple analysis -- it takes an option, and stores it.
 Of course, it's not useful, but this is just a demonstration.
 
-Let's see how to run our new analysis
+Let's see how to run our new analysis:
 
 ```python
 >>> proj = angr.Project("/bin/true")
 >>> mock = proj.analyses.MockAnalysis('this is my option')
 >>> assert mock.option == 'this is my option'
 ```
-
-If you've registered a new analysis _after_ loading the project, you will need to refresh the list of registered analyses on your project with `proj.analyses.reload_analyses()`.
 
 ### Working with projects
 
@@ -37,7 +35,7 @@ Use this to interact with your project and analyze it!
 ...     def __init__(self):
 ...         self.result = 'This project is a %s binary with an entry point at %#x.' % (self.project.arch.name, self.project.entry)
 
->>> angr.register_analysis(ProjectSummary, 'ProjectSummary')
+>>> ProjectSummary.register_default()
 >>> proj = angr.Project("/bin/true")
 
 >>> summary = proj.analyses.ProjectSummary()
@@ -47,10 +45,8 @@ This project is a AMD64 binary with an entry point at 0x401410.
 
 ### Naming Analyses
 
-The `register_analysis` call is what actually adds the analysis to angr.
-Its arguments are the actual analysis class and the name of the analysis.
-The name is how it appears under the `project.analyses` object.
-Usually, you should use the same name as the analysis class, but if you want to use a shorter name, you can.
+The registration will use the name of the class as the key through which it's accessable on `project.analyses`.
+If you want to use a shorter name, you can, just by passing the name you want to use:
 
 ```python
 >>> class FunctionBlockAverage(angr.Analysis):
@@ -58,10 +54,11 @@ Usually, you should use the same name as the analysis class, but if you want to 
 ...         self._cfg = self.project.analyses.CFG()
 ...         self.avg = len(self._cfg.nodes()) / len(self._cfg.function_manager.functions)
 
->>> angr.register_analysis(FunctionBlockAverage, 'FuncSize')
+>>> FunctionBlockAverage.register_default('FuncSize')
 ```
 
-After this, you can call this analysis using it's specified name. For example, `b.analyses.FuncSize()`.
+After this, you can call this analysis using it's specified name.
+For example, `b.analyses.FuncSize()`.
 
 ### Analysis Resilience
 
