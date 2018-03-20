@@ -1,30 +1,12 @@
-# pylint: disable=exec-used
 import os
-import sys
-import itertools
-import traceback
 import subprocess
 
 from nose.plugins.attrib import attr
 from flaky import flaky
 
-import claripy
-
 def _path(d):
-    return os.path.join(os.path.dirname(__file__), d)
+    return os.path.join(os.path.dirname(__file__), '..', d)
 
-md_files = filter(lambda s: s.endswith('.md'), [
-    os.path.join(_path('docs'), t) for t in os.listdir(_path('docs'))
-])
-md_files += filter(lambda s: s.endswith('.md'), [
-    os.path.join(_path('docs/analyses'), t) for t in os.listdir(_path('docs/analyses'))
-])
-md_files += filter(lambda s: s.endswith('.md'), [
-    os.path.join(_path('docs/courses'), t) for t in os.listdir(_path('docs/courses'))
-])
-example_dirs = filter(lambda s: '.' not in s, os.listdir(_path('examples')))
-
-sys.path.append('.')
 def exampletest_single(example_dir):
     init_pwd = os.getcwd()
     os.chdir(_path('examples/') + example_dir)
@@ -35,51 +17,6 @@ def exampletest_single(example_dir):
         s.test()
     finally:
         os.chdir(init_pwd)
-
-def doctest_single(md_file):
-    claripy.ast.base.var_counter = itertools.count()
-    lines = open(md_file).read().split('\n')
-    test_enabled = False
-    multiline_enabled = False
-    multiline_stuff = ''
-    env = {}
-
-    def try_running(line, i):
-        try:
-            exec line in env
-        except Exception as e:
-            print 'Error on line %d of %s: %s' % (i+1, md_file, e)
-            traceback.print_exc()
-            raise Exception('Error on line %d of %s: %s' % (i+1, md_file, e))
-
-    for i, line in enumerate(lines):
-        if test_enabled:
-            if line == '```':
-                test_enabled = False
-            else:
-                if not multiline_enabled:
-                    if line.startswith('>>> '):
-                        line = line[4:]
-                        if lines[i+1].startswith('... '):
-                            multiline_enabled = True
-                            multiline_stuff = line + '\n'
-                        else:
-                            try_running(line, i)
-                else:
-                    assert line.startswith('... ')
-                    line = line[4:]
-                    multiline_stuff += line + '\n'
-                    if not lines[i+1].startswith('... '):
-                        multiline_enabled = False
-                        try_running(multiline_stuff, i)
-        else:
-            if line == '```python':
-                test_enabled = True
-
-def test_docs():
-    os.chdir(_path('.'))
-    for md_file in md_files:
-        yield doctest_single, md_file
 
 ## BEGIN EXAMPLE TESTS
 #@attr(speed='slow')
@@ -144,7 +81,7 @@ def test_zwiebel(): exampletest_single('tumctf2016_zwiebel')
 ## END EXAMPLE TESTS
 
 def test_example_inclusion():
-    to_test = subprocess.check_output(['/bin/bash', '-c', 'for c in $(find -name solve.py | cut -c 3-); do echo ${c%/solve.py}; done'], cwd=os.path.join(os.path.dirname(__file__), 'examples'))
+    to_test = subprocess.check_output(['/bin/bash', '-c', 'for c in $(find -name solve.py | cut -c 3-); do echo ${c%/solve.py}; done'], cwd=_path('examples'))
     with open(__file__) as fp:
         test_source = fp.read()
     example_tests = test_source[test_source.find('## BEGIN EXAMPLE TESTS'):test_source.find('## END EXAMPLE TESTS')]
@@ -156,45 +93,9 @@ def test_example_inclusion():
     if missing:
         raise Exception("The following examples are not represented in the test corpus:\n" + '\n'.join(missing))
 
-def test_api_coverage():
-    missing = []
-    exclude = ['angr.tablespecs', 'angr.service', 'pyvex.vex_ffi', 'claripy.backends.remotetasks', 'claripy.backends.backendremote']
-    exclude_prefix = ['angr.procedures', 'angr.analyses.identifier', 'angr.misc', 'angr.surveyors', 'angr.engines.vex', 'claripy.utils']
-    for module in ['angr', 'claripy', 'cle', 'pyvex', 'archinfo']:
-        docs_file = 'api-doc/source/%s.rst' % module
-        module_dir = '../%s/%s' % (module, module)
-        module_list = subprocess.check_output('find -name \'*.py\'', cwd=module_dir, shell=True).split()
-        api_list = [x.split()[-1] for x in open(docs_file).readlines() if 'automodule' in x]
-        for partial in module_list:
-            full = module + '.' + partial[2:-3].replace('/', '.')
-            if full.endswith('.__init__'):
-                full = full[:-9]
-
-            if full not in api_list and full not in exclude:
-                for ep in exclude_prefix:
-                    if full.startswith(ep):
-                        break
-                else:
-                    missing.append(full)
-
-    if missing:
-        raise Exception("The following modules are not represented in the api docs:\n" + '\n'.join(missing))
-
-def test_lint_docstrings():
-    subprocess.check_call('make clean', shell=True, cwd='api-doc')
-    p = subprocess.Popen('make html', shell=True, cwd='api-doc', stderr=subprocess.PIPE)
-    _, stderr = p.communicate()
-    if stderr:
-        raise Exception("The following warnings were generated while building the API documentation:\n\n" + stderr)
-
 if __name__ == '__main__':
     test_example_inclusion()
-    test_api_coverage()
-    test_lint_docstrings()
-
-    for tester, arg in test_docs():
-        tester(arg)
 
     for fname, func in globals().items():
-        if callable(func) and fname.startswith('test_') and fname not in ['test_example_inclusion', 'test_api_coverage', 'test_docs']:
+        if callable(func) and fname.startswith('test_') and fname != 'test_example_inclusion':
             func()
