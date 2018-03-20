@@ -21,15 +21,17 @@ IR Components
 Lifting System
 --------------
 
-.. automodule:: pyvex.lift
-.. automodule:: pyvex.lift.libvex
-.. automodule:: pyvex.lift.fixes
-.. automodule:: pyvex.lift.util.irsb_postprocess
-.. automodule:: pyvex.lift.util.syntax_wrapper
-.. automodule:: pyvex.lift.util
-.. automodule:: pyvex.lift.util.vex_helper
-.. automodule:: pyvex.lift.util.lifter_helper
-.. automodule:: pyvex.lift.util.instr_helper
+.. automodule:: pyvex.lifting
+.. automodule:: pyvex.lifting.libvex
+.. automodule:: pyvex.lifting.lifter
+.. automodule:: pyvex.lifting.fixes
+.. automodule:: pyvex.lifting.post_processor
+.. automodule:: pyvex.lifting.util.irsb_postprocess
+.. automodule:: pyvex.lifting.util.syntax_wrapper
+.. automodule:: pyvex.lifting.util
+.. automodule:: pyvex.lifting.util.vex_helper
+.. automodule:: pyvex.lifting.util.lifter_helper
+.. automodule:: pyvex.lifting.util.instr_helper
 
 Errors
 ------
