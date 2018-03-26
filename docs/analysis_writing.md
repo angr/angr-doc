@@ -5,13 +5,13 @@ In this section, we'll create a mock analysis to show off the various features.
 Let's start with something simple:
 
 ```python
->>> import angr
+>>> from angr import Analysis, AnalysesHub
 
 >>> class MockAnalysis(angr.Analysis):
 ...     def __init__(self, option):
 ...         self.option = option
 
->>> MockAnalysis.register_default() # register the class with angr's global analysis list
+>>> AnalysesHub.register_default('MockAnalysis', MockAnalysis) # register the class with angr's global analysis list
 ```
 
 This is a very simple analysis -- it takes an option, and stores it.
