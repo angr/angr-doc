@@ -43,23 +43,6 @@ Use this to interact with your project and analyze it!
 This project is a AMD64 binary with an entry point at 0x401410.
 ```
 
-### Naming Analyses
-
-The registration will use the name of the class as the key through which it's accessable on `project.analyses`.
-If you want to use a shorter name, you can, just by passing the name you want to use:
-
-```python
->>> class FunctionBlockAverage(angr.Analysis):
-...     def __init__(self):
-...         self._cfg = self.project.analyses.CFG()
-...         self.avg = len(self._cfg.nodes()) / len(self._cfg.function_manager.functions)
-
->>> FunctionBlockAverage.register_default('FuncSize')
-```
-
-After this, you can call this analysis using it's specified name.
-For example, `b.analyses.FuncSize()`.
-
 ### Analysis Resilience
 
 Sometimes, your (or our) code might suck and analyses might throw exceptions.
