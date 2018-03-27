@@ -5,13 +5,13 @@ In this section, we'll create a mock analysis to show off the various features.
 Let's start with something simple:
 
 ```python
->>> from angr import Analysis, AnalysesHub
+>>> import angr
 
 >>> class MockAnalysis(angr.Analysis):
 ...     def __init__(self, option):
 ...         self.option = option
 
->>> AnalysesHub.register_default('MockAnalysis', MockAnalysis) # register the class with angr's global analysis list
+>>> angr.AnalysesHub.register_default('MockAnalysis', MockAnalysis) # register the class with angr's global analysis list
 ```
 
 This is a very simple analysis -- it takes an option, and stores it.
@@ -35,7 +35,7 @@ Use this to interact with your project and analyze it!
 ...     def __init__(self):
 ...         self.result = 'This project is a %s binary with an entry point at %#x.' % (self.project.arch.name, self.project.entry)
 
->>> ProjectSummary.register_default()
+>>> angr.AnalysesHub.register_default('ProjectSummary', ProjectSummary)
 >>> proj = angr.Project("/bin/true")
 
 >>> summary = proj.analyses.ProjectSummary()
