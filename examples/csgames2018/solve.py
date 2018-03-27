@@ -34,9 +34,9 @@ def main():
 		except:
 			return False
 
-	input = claripy.BVS("input", 16*8) # As seen in 0x699, keys are 0x10 (16) characters long.
+	input_key = claripy.BVS("input_key", 16*8) # As seen in 0x699, keys are 0x10 (16) characters long.
 
-	state = project.factory.entry_state(args=["./KeygenMe", input], add_options=angr.options.unicorn) # Unicorn Engine is not needed, but will speed up the process
+	state = project.factory.entry_state(args=["./KeygenMe", input_key], add_options=angr.options.unicorn) # Unicorn Engine is not needed, but will speed up the process
 
 	simulation_manager = project.factory.simgr(state)
 
@@ -58,11 +58,11 @@ def main():
 
 	# XXXX-XX-XXX-XXXX
 	for i in range(0, 4) + range(5, 7) + range(8, 11) + range(12, 16):
-		found.add_constraints(is_alphanumeric(found, input.chop(8)[i]))
+		found.add_constraints(is_alphanumeric(found, input_key.chop(8)[i]))
 
-	min_solutions = found.solver.min(input)
+	min_solutions = found.solver.min(input_key)
 
-	keys = found.solver.eval_atleast(input, 100, cast_to=str)
+	keys = found.solver.eval_atleast(input_key, 100, cast_to=str)
 
 	print("We found at least " + str(min_solutions) + " keys! The Recording Industry Association of Space Penguins says their entire galaxy is now bankrupt, so we might as well have 100 of their keys:")
 
