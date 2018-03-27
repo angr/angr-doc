@@ -1,7 +1,7 @@
 # angr courses - Step 0 - Basic symbolic execution
 
 The first thing you are going to do with angr is executing symbolicaly your
-program. As a reminder, you can check what symbolic execution is [here](symbolic.md).
+program. As a reminder, you can check what symbolic execution is [here](../symbolic.md).
 
 The binary and source code for this course can be found [here](./src/).
 
