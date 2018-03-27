@@ -77,6 +77,7 @@ def test_mbrainfuzz(): exampletest_single('secuinside2016mbrainfuzz')
 def test_unmapped_analysis(): exampletest_single('unmapped_analysis')
 @attr(speed='slow')
 def test_zwiebel(): exampletest_single('tumctf2016_zwiebel')
+def test_csgames2018(): exampletest_single('csgames2018')
 ## END EXAMPLE TESTS
 
 def test_example_inclusion():
