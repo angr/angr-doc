@@ -44,8 +44,8 @@ def test_flareon2015_5(): exampletest_single('flareon2015_5') # 2m11s
 def test_google2016_unbreakable_0(): exampletest_single('google2016_unbreakable_0')
 def test_google2016_unbreakable_1(): exampletest_single('google2016_unbreakable_1')
 def test_grub(): exampletest_single('grub')
-@attr(speed='slow')
-def test_layer7_onlyone(): exampletest_single('layer7_onlyone') # unknown, but eats all my ram
+#@attr(speed='slow')
+#def test_layer7_onlyone(): exampletest_single('layer7_onlyone') # unknown, but eats all my ram
 def test_mma_howtouse(): exampletest_single('mma_howtouse')
 @attr(speed='slow')
 def test_mma_simplehash(): exampletest_single('mma_simplehash') # ~hour
@@ -69,7 +69,7 @@ def test_insomnihack_aeg(): exampletest_single('insomnihack_aeg')
 def test_android_license(): exampletest_single('android_arm_license_validation')
 def test_sym_write(): exampletest_single('sym-write')
 @attr(speed='slow')
-def test_angry_reverser(): exampletest_single('hackcon2016_angry-reverser') # 31m, broken?
+def test_angry_reverser(): exampletest_single('hackcon2016_angry-reverser') # 10m
 def test_sharif7(): exampletest_single('sharif7_rev50')
 def test_angrybird(): exampletest_single('codegate_2017-angrybird')
 @attr(speed='slow')
