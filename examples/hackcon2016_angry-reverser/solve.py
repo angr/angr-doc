@@ -22,7 +22,7 @@ def main():
              0x4836, 0x4AA4, 0x4D15, 0x4F86, 0x51D1, 0x5408]
 
     # Create blank state with $pc at &main
-    init = p.factory.blank_state(addr=main)
+    init = p.factory.blank_state(addr=main, add_options={angr.options.LAZY_SOLVES})
 
     # Avoid blocks
     avoid = list(avoid)
@@ -41,7 +41,8 @@ def main():
     return flag[7:27]
 
 def test():
-    assert main() == "HACKCON{VVhYS04ngrY}"
+    flag = main()
+    assert flag == "HACKCON{VVhYS04ngrY}"
 
 if __name__ in '__main__':
     print main()
