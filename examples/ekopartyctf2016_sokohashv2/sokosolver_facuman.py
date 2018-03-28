@@ -134,7 +134,7 @@ def main():
 
     buffer = init.memory.load(init.regs.ebp + 0x8, 0x20)
 
-    sm = proj.factory.simulation_manager(init, threads=8, save_unconstrained=True)
+    sm = proj.factory.simulation_manager(init, save_unconstrained=True)
     sm.explore(find=to_find)
 
     found = sm.found[0]
