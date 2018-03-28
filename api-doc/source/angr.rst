@@ -73,7 +73,7 @@ Concretization Strategies
 Simulation Manager
 ------------------
 
-.. automodule:: angr.manager
+.. automodule:: angr.sim_manager
 .. automodule:: angr.state_hierarchy
 
 Exploration Techniques
