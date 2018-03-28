@@ -25,13 +25,13 @@ def main():
 	def correct(state):
 		try:
 			return 'correct!' in state.posix.dumps(1)
-		except:
+		except Exception as e:
 			return False
 
 	def wrong(state):
 		try:
 			return 'incorrect' in state.posix.dumps(1)
-		except:
+		except Exception as e:
 			return False
 
 	input_key = claripy.BVS("input_key", 16*8) # As seen in 0x699, keys are 0x10 (16) characters long.
