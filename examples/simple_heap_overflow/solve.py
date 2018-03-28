@@ -22,7 +22,8 @@ def main():
 
     # By default, angr will use a sim procedure instead of going through malloc
     # This will tell angr to go ahead and use libc's calloc
-    proj = angr.Project("./simple_heap_overflow", exclude_sim_procedures_list=["calloc"])
+    proj = angr.Project("./simple_heap_overflow", exclude_sim_procedures_list=["calloc"],
+            custom_ld_path=os.path.join(DIR, '../../../binaries/tests/x86_64'))
 
     # The extra option here is due to a feature not yet in angr for handling
     # underconstraining 0 initialization of certain memory allocations
@@ -41,11 +42,13 @@ def main():
     # Out[9]: <PathGroup with 1 deadended, 1 unconstrained>
 
     # Make a copy of the state to play with
+    if not sm.unconstrained:
+        raise Exception("Uh oh! Couldn't explore to the crashing state. It's possible your libc is too new.")
     s = sm.unconstrained[0].copy()
 
     # Now we can simply tell angr to set the instruction pointer to point at the
     # win function to give us execution
-    s.add_constraints(s.regs.rip == proj.loader.find_symbol('win').addr)
+    s.add_constraints(s.regs.rip == proj.loader.find_symbol('win').rebased_addr)
 
     print s.solver.constraints
     assert s.satisfiable()
@@ -76,11 +79,11 @@ def test():
 if __name__ == '__main__':
     main()
 
-    out = subprocess.check_output("{0} < {1}".format(
+    run_result = subprocess.check_output("{0} < {1}".format(
         os.path.join(DIR,"simple_heap_overflow"),
         os.path.join(DIR,"exploit"),
         )
         ,shell=True)
 
     # Assert we got to the printing of Win
-    assert "Win" in out
+    assert "Win" in run_result
