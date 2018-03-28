@@ -14,6 +14,7 @@ import subprocess
 import struct
 import base64
 import time
+import nose
 
 import angr
 import angrop #pylint:disable=unused-variable
@@ -180,7 +181,13 @@ def get_gadgets():
 def test():
     #r = pwn.remote('ropsynth.pwn.seccon.jp', 10000)
     #r = pwn.process("./ropsynth.py", stderr=2)
-    r = subprocess.Popen(["./ropsynth.py"], stdin=subprocess.PIPE, stdout=subprocess.PIPE)
+    try:
+        r = subprocess.Popen(["./ropsynth.py"], stdin=subprocess.PIPE, stdout=subprocess.PIPE)
+    except OSError as e:
+        if e.errno == 12:
+            raise nose.SkipTest()
+        else:
+            raise
 
     # We need to do the auto-rop thing 5 times.
     for _ in range(5):
