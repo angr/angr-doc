@@ -61,7 +61,7 @@ def main():
 
 def test():
     a = main()
-    assert main() == 'ASIS{f5f7af556bd6973bd6f2687280a243d9}'
+    assert a == 'ASIS{f5f7af556bd6973bd6f2687280a243d9}'
 
 if __name__ == '__main__':
     print main()

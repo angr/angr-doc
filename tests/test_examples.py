@@ -20,17 +20,17 @@ def exampletest_single(example_dir):
 
 ## BEGIN EXAMPLE TESTS
 #@attr(speed='slow')
-#def test_9447_nobranch(): exampletest_single('9447_nobranch')
+#def test_9447_nobranch(): exampletest_single('9447_nobranch') # hours? also broken right now
 def test_0ctf_trace():  exampletest_single('0ctf_trace')
 def test_ais3_crackme(): exampletest_single('ais3_crackme')
-#@attr(speed='slow')
-#def test_asisctffinals2015_fake(): exampletest_single('asisctffinals2015_fake')
+@attr(speed='slow')
+def test_asisctffinals2015_fake(): exampletest_single('asisctffinals2015_fake')
 def test_asisctffinals2015_license(): exampletest_single('asisctffinals2015_license')
 def test_CADET_00001(): exampletest_single('CADET_00001')
 @attr(speed='slow')
-def test_cmu_binary_bomb(): exampletest_single('cmu_binary_bomb')
+def test_cmu_binary_bomb(): exampletest_single('cmu_binary_bomb') # 9m
 @attr(speed='slow')
-def test_csaw_wyvern(): exampletest_single('csaw_wyvern')
+def test_csaw_wyvern(): exampletest_single('csaw_wyvern') # 3m40s
 def test_defcamp_r100(): exampletest_single('defcamp_r100')
 def test_defcamp_r200(): exampletest_single('defcamp_r200')
 def test_ekopartyctf2015_rev100(): exampletest_single('ekopartyctf2015_rev100')
@@ -40,15 +40,15 @@ def test_fauxware(): exampletest_single('fauxware')
 def test_flareon2015_10(): exampletest_single('flareon2015_10')
 def test_flareon2015_2(): exampletest_single('flareon2015_2')
 @attr(speed='slow')
-def test_flareon2015_5(): exampletest_single('flareon2015_5')
+def test_flareon2015_5(): exampletest_single('flareon2015_5') # 2m11s
 def test_google2016_unbreakable_0(): exampletest_single('google2016_unbreakable_0')
 def test_google2016_unbreakable_1(): exampletest_single('google2016_unbreakable_1')
 def test_grub(): exampletest_single('grub')
 @attr(speed='slow')
-def test_layer7_onlyone(): exampletest_single('layer7_onlyone')
+def test_layer7_onlyone(): exampletest_single('layer7_onlyone') # unknown, but eats all my ram
 def test_mma_howtouse(): exampletest_single('mma_howtouse')
 @attr(speed='slow')
-def test_mma_simplehash(): exampletest_single('mma_simplehash')
+def test_mma_simplehash(): exampletest_single('mma_simplehash') # ~hour
 def test_securityfest_fairlight(): exampletest_single('securityfest_fairlight')
 def test_strcpy_find(): exampletest_single('strcpy_find')
 def test_whitehat_crypto400(): exampletest_single('whitehat_crypto400')
@@ -56,7 +56,7 @@ def test_whitehatvn2015_re400(): exampletest_single('whitehatvn2015_re400')
 @flaky(max_runs=3, min_passes=1)
 def test_secconquals2016_ropsynth(): exampletest_single('secconquals2016_ropsynth')
 @attr(speed='slow')
-def test_0ctf_momo_3(): exampletest_single('0ctf_momo_3')
+def test_0ctf_momo_3(): exampletest_single('0ctf_momo_3') # 16m
 def test_defcon2016quals_baby_re(): exampletest_single('defcon2016quals_baby-re')
 def test_simple_heap_overflow(): exampletest_single('simple_heap_overflow')
 def test_csci_0a(): exampletest_single('CSCI-4968-MBE/challenges/crackme0x00a')
@@ -69,14 +69,14 @@ def test_insomnihack_aeg(): exampletest_single('insomnihack_aeg')
 def test_android_license(): exampletest_single('android_arm_license_validation')
 def test_sym_write(): exampletest_single('sym-write')
 @attr(speed='slow')
-def test_angry_reverser(): exampletest_single('hackcon2016_angry-reverser')
+def test_angry_reverser(): exampletest_single('hackcon2016_angry-reverser') # 31m, broken?
 def test_sharif7(): exampletest_single('sharif7_rev50')
 def test_angrybird(): exampletest_single('codegate_2017-angrybird')
 @attr(speed='slow')
-def test_mbrainfuzz(): exampletest_single('secuinside2016mbrainfuzz')
+def test_mbrainfuzz(): exampletest_single('secuinside2016mbrainfuzz') # 1m46s
 def test_unmapped_analysis(): exampletest_single('unmapped_analysis')
 @attr(speed='slow')
-def test_zwiebel(): exampletest_single('tumctf2016_zwiebel')
+def test_zwiebel(): exampletest_single('tumctf2016_zwiebel') # ~45m
 def test_csgames2018(): exampletest_single('csgames2018')
 ## END EXAMPLE TESTS
 

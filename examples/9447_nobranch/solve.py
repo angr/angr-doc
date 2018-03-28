@@ -14,7 +14,7 @@ outaddr = 0x616050
 shouldbe = 'HMQhQLi6VqgeOj78AbiaqquK3noeJt'
 
 def main():
-    state = p.factory.blank_state(addr=mainaddr)                                                    # set up the initial state at the start of main
+    state = p.factory.blank_state(addr=mainaddr, add_options={angr.options.LAZY_SOLVES})            # set up the initial state at the start of main
     state.memory.store(state.regs.rsp, claripy.BVV(0x4141414141414141, 64), endness='Iend_LE')      # set fake return address
     state.memory.store(state.regs.rsp + 8, state.regs.rsp + 64, endness='Iend_LE')                  # I can't remember if I even need this... better safe than sorry
     state.memory.store(state.regs.rsp + 16, claripy.BVV(0, 64), endness='Iend_LE')                  # see above
