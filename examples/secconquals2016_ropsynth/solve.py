@@ -190,35 +190,41 @@ def test():
             raise
 
     # We need to do the auto-rop thing 5 times.
-    for _ in range(5):
-        r.stdout.read(6)
-        print "STAGE:", r.stdout.read(1)
-        r.stdout.read(3)
+    try:
+        for _ in range(5):
+            r.stdout.read(6)
+            print "STAGE:", r.stdout.read(1)
+            r.stdout.read(3)
 
-        # Get the gadgets
-        time.sleep(1)
-        gadgets = ""
-        while not gadgets.endswith('\n'):
-            gadgets += r.stdout.read(1)
-        gadgets = gadgets.strip()
+            # Get the gadgets
+            time.sleep(1)
+            gadgets = ""
+            while not gadgets.endswith('\n'):
+                read = r.stdout.read(1)
+                if not read:
+                    raise Exception("server terminated unexpectedly")
+                gadgets += read
+            gadgets = gadgets.strip()
 
-        # Make our franken-elf
-        make_elf(gadgets)
+            # Make our franken-elf
+            make_elf(gadgets)
 
-        # Generate the gadgets
-        chain = get_gadgets()
+            # Generate the gadgets
+            chain = get_gadgets()
 
-        # Send the gadgets
-        r.stdin.write(base64.b64encode(chain) + "\n")
+            # Send the gadgets
+            r.stdin.write(base64.b64encode(chain) + "\n")
 
-        # Make sure things are good
-        status = r.stdout.read(3).strip()
-        assert status == "OK"
+            # Make sure things are good
+            status = r.stdout.read(3).strip()
+            assert status == "OK"
 
-    # After 5 successful rop synths, the binary sends up the flag.
-    flag = r.stdout.read(128).strip()
-    print "LOCAL FLAG:", flag
-    assert flag == 'SECCON{HAHAHHAHAHAAHA}'
+        # After 5 successful rop synths, the binary sends up the flag.
+        flag = r.stdout.read(128).strip()
+        print "LOCAL FLAG:", flag
+        assert flag == 'SECCON{HAHAHHAHAHAAHA}'
+    finally:
+        r.kill()
 
 if __name__ == '__main__':
     test()
