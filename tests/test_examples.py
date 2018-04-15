@@ -1,4 +1,5 @@
 import os
+import sys
 import subprocess
 
 from nose.plugins.attrib import attr
@@ -11,6 +12,8 @@ def exampletest_single(example_dir):
     init_pwd = os.getcwd()
     os.chdir(_path('examples/') + example_dir)
     print os.getcwd()
+    if '.' not in sys.path:
+        sys.path.append('.')
     try:
         s = __import__('solve')
         s = reload(s)
