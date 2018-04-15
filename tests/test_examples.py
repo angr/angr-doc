@@ -29,7 +29,8 @@ def test_ais3_crackme(): exampletest_single('ais3_crackme')
 @attr(speed='slow')
 def test_asisctffinals2015_fake(): exampletest_single('asisctffinals2015_fake')
 def test_asisctffinals2015_license(): exampletest_single('asisctffinals2015_license')
-def test_CADET_00001(): exampletest_single('CADET_00001')
+@attr(speed='slow')
+def test_CADET_00001(): exampletest_single('CADET_00001') # 2m
 @attr(speed='slow')
 def test_cmu_binary_bomb(): exampletest_single('cmu_binary_bomb') # 9m
 @attr(speed='slow')
