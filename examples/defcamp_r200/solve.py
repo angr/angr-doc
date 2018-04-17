@@ -1,6 +1,8 @@
 import angr
 import logging
 
+print "WARNING: THIS EXAMPLE IS BROKEN RIGHT NOW"
+
 def main():
     p = angr.Project("r200", auto_load_libs=False)
     sm = p.factory.simulation_manager()
