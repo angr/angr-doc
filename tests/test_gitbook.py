@@ -62,9 +62,13 @@ def doctest_single(md_file):
                 test_enabled = True
 
 def test_docs():
+    orig_path = os.getcwd()
     os.chdir(_path('.'))
-    for md_file in md_files:
-        yield doctest_single, md_file
+    try:
+        for md_file in md_files:
+            yield doctest_single, md_file
+    finally:
+        os.chdir(orig_path)
 
 if __name__ == '__main__':
     for tester, arg in test_docs():
