@@ -24,6 +24,7 @@ Program State
 .. automodule:: angr.state_plugins.inspect
 .. automodule:: angr.state_plugins.libc
 .. automodule:: angr.state_plugins.posix
+.. automodule:: angr.state_plugins.filesystem
 .. automodule:: angr.state_plugins.solver
 .. automodule:: angr.state_plugins.log
 .. automodule:: angr.state_plugins.callstack
