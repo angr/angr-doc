@@ -32,7 +32,8 @@ def main():
     unconstrained_state = sm.unconstrained[0]
     crashing_input = unconstrained_state.posix.dumps(0)
     #cat crash_input.bin | ./CADET_00001.adapted will segfault
-    unconstrained_state.posix.dump(0,"crash_input.bin")
+    with open('crash_input.bin', 'wb') as fp:
+        fp.write(crashing_input)
     print "buffer overflow found!"
     print repr(crashing_input)
 
@@ -55,7 +56,8 @@ def main():
     solution1 = found.posix.dumps(0)
     print "easter egg found!"
     print repr(solution1)
-    found.posix.dump(0,"easteregg_input1.bin")
+    with open('easteregg_input1.bin', 'wb') as fp:
+        fp.write(solution1)
     #you can even check if the easter egg has been found by checking stdout
     stdout1 = found.posix.dumps(1)
     print repr(stdout1)
@@ -74,7 +76,8 @@ def main():
     solution2 = found.posix.dumps(0)
     print "easter egg found!"
     print repr(solution2)
-    found.posix.dump(0,"easteregg_input2.bin")
+    with open('easteregg_input2.bin', 'wb') as fp:
+        fp.write(solution2)
     #you can even check if the easter egg has been found by checking stdout
     stdout2 = found.posix.dumps(1)
     print repr(stdout2)
