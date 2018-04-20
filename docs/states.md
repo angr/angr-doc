@@ -12,7 +12,7 @@ Additionally, you should now know how to work with ASTs, so you can now understa
 Here are some quick examples for copying and performing operations on data from the state:
 
 ```python
->>> import angr
+>>> import angr, claripy
 >>> proj = angr.Project('/bin/true')
 >>> state = proj.factory.entry_state()
 
@@ -55,7 +55,7 @@ The following snippet implements this:
 
 ```python
 >>> proj = angr.Project('examples/fauxware/fauxware')
->>> state = proj.factory.entry_state()
+>>> state = proj.factory.entry_state(stdin=angr.SimFile)  # ignore that argument for now - we're disabling a more complicated default setup for the sake of education
 >>> while True:
 ...     succ = state.step()
 ...     if len(succ.successors) == 2:
@@ -73,10 +73,10 @@ Don't look at the constraints on these states directly - the branch we just went
 
 The program we emulated took data from standard input, which angr treats as an infinite stream of symbolic data by default.
 To perform a constraint solve and get a possible value that input could have taken in order to satisfy the constraints, we'll need to get a reference to the actual contents of stdin.
-We'll go over how our file and input subsystems work later on this very page, but for now, just use `state.posix.files[0].all_bytes()` to retrieve a bitvector representing all the content read from stdin so far.
+We'll go over how our file and input subsystems work later on this very page, but for now, just use `state.posix.stdin.load(0, state.posix.stdin.size)` to retrieve a bitvector representing all the content read from stdin so far.
 
 ```python
->>> input_data = state1.posix.files[0].all_bytes()
+>>> input_data = state1.posix.stdin.load(0, state.posix.stdin.size)
 
 >>> state1.solver.eval(input_data, cast_to=str)
 '\x00\x00\x00\x00\x00\x00\x00\x00\x00SOSNEAKY\x00\x00\x00'
@@ -225,36 +225,172 @@ If you just want the topmost frame, this is `state.callstack`.
 - `callstack.stack_ptr` is the value of the stack pointer from the beginning of the current function
 - `callstack.ret_addr` is the location that the current function will return to if it returns
 
-### The posix plugin
+## Working with the filesystem
 
-TODO
+It's very important to be able to control the environment that emulated programs see, including how symbolic data is introduced from the environment!
+angr has a robust series of abstractions to help you set up the environment you want.
 
-## Working with the Filesystem
+The root of any interaction with the filesystem, sockets, pipes, or terminals is a SimFile object.
+A SimFile is a _storage_ abstraction that defines a sequence of bytes, symbolic or otherwise.
+There are several kinds of SimFiles which store their data very differently - the two easiest examples are `SimFile` (the base class is actually called `SimFileBase`), which stores files as a flat address-space of data, and `SimPackets`, which stores a sequence of variable-sized reads.
+The former is best for modeling programs that need to perform seeks on their files, and is the default storage for opened files, while the latter is best for modeling programs that depend on short-reads or use scanf, and is the default storage for stdin/stdout/stderr.
 
-TODO: Describe what a SimFile is
+Because SimFiles can have such diverse storage mechanisms, the interface for interacting with them is _very_ abstracted.
+You can read from the file from some position, you can write to the file at some position, you can ask how many bytes are currently stored in the file, and you can concretize the file, generating a testcase for it.
+If you know specifically which SimFile class you're working with, you can take much more powerful control over it, and as a result you're encouraged to manually create any files you want to work with when you create your initial state.
 
-There are a number of options which can be passed to the state initialization routines which affect filesystem usage.
-These include the `fs`, `concrete_fs`, and `chroot` options.
+Specifically, each SimFile class creates its own abstraction of a "position" within the file - each read and write takes a position and returns a new position that you should use to continue from where you left off.
+If you're working with SimFiles of unknown type you have to treat this position as a totally opaque object with no semantics other than the contract with the read/write functions.
 
-The `fs` option allows you to pass in a dictionary of file names to preconfigured SimFile objects.
-This allows you to do things like set a concrete size limit on a file's content.
+However! This is a very poor match to how programs generally interact with files, so angr also has a SimFileDescriptor abstraction, which provides the familiar read/write/seek/tell interfaces but will also return error conditions when the underlying storage don't support the appropriate operations - just like normal file descriptors!
 
-Setting the `concrete_fs` option to `True` will cause angr to respect the files on disk.
-For example, if during simulation a program attempts to open 'banner.txt' when `concrete_fs` is set to `False` \(the default\), a SimFile with a symbolic memory backing will be created and simulation will continue as though the file exists.
-When `concrete_fs` mode is set to `True`, if 'banner.txt' exists a new SimFile object will be created with a concrete backing, reducing the resulting state explosion which would be caused by operating on a completely symbolic file.
-Additionally in `concrete_fs` mode if 'banner.txt' mode does not exist, a SimFile object will not be created upon calls to open during simulation and an error code will be returned.
-Additionally, it's important to note that attempts to open files whose path begins with '/dev/' will never be opened concretely even with `concrete_fs` set to `True`.
+### Just tell me how to do what I want to do!
 
-The `chroot` option allows you to specify an optional root to use while using the `concrete_fs` option.
-This can be convenient if the program you're analyzing references files using an absolute path.
-For example, if the program you are analyzing attempts to open '/etc/passwd', you can set the chroot to your current working directory so that attempts to access '/etc/passwd' will read from '$CWD/etc/passwd'.
+Okay okay!!
+
+To create a SimFile, you should just create an instance of the class you want to use.
+Refer to the [api docs](http://angr.io/api-doc/angr.html#module-angr.storage.file) for the full instructions.
+Here's a few examples:
 
 ```python
->>> files = {'/dev/stdin': angr.storage.file.SimFile("/dev/stdin", "r", size=30)}
->>> s = proj.factory.entry_state(fs=files, concrete_fs=True, chroot="angr-chroot/")
+# create a file with concrete content
+>>> simfile = angr.SimFile('myconcretefile', content='hello world!\n')
+
+# here's a nuance - you can't use simfiles without a state attached, because reasons
+# you'll never have to do this in a real scenario but let's mock it up:
+>>> simfile.set_state(state)
+
+# to demonstrate the behavior of these files we're going to use the fact that the
+# default simfile position is just the number of bytes from the start of the file
+# simfile.read returns a tuple (bitvector data, actual size, new pos)
+>>> data, actual_size, new_pos = simfile.read(0, 5)
+>>> assert claripy.is_true(data == 'hello')
+>>> assert claripy.is_true(actual_size == 5)
+>>> assert claripy.is_true(new_pos == 5)
+
+# continue the read, trying to read way too much
+>>> data, actual_size, new_pos = simfile.read(new_pos, 1000)
+
+# angr doesn't try to sanitize the data returned, only the size - we returned 1000 bytes!
+# the intent is that you're only allowed to use up to actual_size of them.
+>>> assert len(data) == 1000*8  # bitvector sizes are in bits
+>>> assert claripy.is_true(actual_size == 8)
+>>> assert claripy.is_true(data.get_bytes(0, 8) == ' world!\n')
+>>> assert claripy.is_true(new_pos == 13)
+
+# create a file with symbolic content and a defined size
+>>> simfile = angr.SimFile('mysymbolicfile', size=0x20)
+>>> simfile.set_state(state)
+
+>>> data, actual_size, new_pos = simfile.read(0, 0x30)
+>>> assert data.symbolic
+>>> assert claripy.is_true(actual_size == 0x20)
+
+# the raw SimFile provides the same interface as `state.memory`, so you can load data directly:
+>>> assert simfile.load(0, actual_size) is data.get_bytes(0, 0x20)
+
+# create a file with some mixed concrete and symbolic content, but no EOF
+>>> variable = claripy.BVS('myvar', 10*8)
+>>> simfile = angr.SimFile('mymixedfile', content=variable.concat(claripy.BVV('\n')), has_end=False)
+>>> simfile.set_state(state)
+
+# we can always query the number of bytes stored in the file:
+>>> assert claripy.is_true(simfile.size == 11)
+
+# reads will generate additional symbolic data past the current frontier:
+>>> data, actual_size, new_pos = simfile.read(0, 15)
+>>> assert claripy.is_true(actual_size == 15)
+>>> assert claripy.is_true(new_pos == 15)
+
+>>> assert claripy.is_true(data.get_bytes(0, 10) == variable)
+>>> assert claripy.is_true(data.get_bytes(10, 1) == '\n')
+>>> assert data.get_bytes(11, 4).symbolic
+
+# create a file with a symbolic size (has_end is implicitly true here)
+>>> symsize = claripy.BVS('mysize', 64)
+>>> state.solver.add(symsize >= 10)
+>>> state.solver.add(symsize < 20)
+>>> simfile = angr.SimFile('mysymsizefile', size=symsize)
+>>> simfile.set_state(state)
+
+# reads will encode all possibilities.
+>>> data, actual_size, new_pos = simfile.read(0, 30)
+>>> assert set(state.solver.eval_upto(actual_size, 30)) == set(range(10, 20))
+
+# the maximum size can't be easily resolved, so the data returned is 30 bytes long,
+# and we're supposed to use it conjunction with actual_size.
+>>> assert len(data) == 30*8
+
+# symbolic read sizes work too!
+>>> symreadsize = claripy.BVS('myreadsize', 64)
+>>> state.solver.add(symreadsize >= 5)
+>>> state.solver.add(symreadsize < 30)
+>>> data, actual_size, new_pos = simfile.read(0, symreadsize)
+
+# all sizes between 5 and 20 should be possible:
+>>> assert set(state.solver.eval_upto(actual_size, 30)) == set(range(5, 20))
+
+# we can use SimPackets to automatically enable support for short reads
+# i.e. when you ask for n bytes but actually get back fewer bytes than that.
+>>> simfile = angr.SimPackets('mypackets')
+>>> simfile.set_state(state)
+
+# this'll just generate a single packet.
+# for SimPackets, the position is just a packet number!
+# if left unspecified, short_reads is determined from a state option
+>>> data, actual_size, new_pos = simfile.read(0, 20, short_reads=True)
+>>> assert len(data) == 20*8
+>>> assert set(state.solver.eval_upto(actual_size, 30)) == set(range(21))
 ```
 
-This example will create a state which constricts at most 30 symbolic bytes from being read from stdin and will cause references to files to be resolved concretely within the new root directory `angr-chroot`.
+So hopefully you understand sort of the kind of data that a SimFile can store and what'll happen when a program tries to interact with it with various combinations of symbolic and concrete data.
+Those examples only covered reads, but writes are pretty similar.
+
+### The filesystem, for real now
+
+If you want to make a SimFile available to the program, we need to either stick it in the filesystem or serve stdin/stdout from it.
+
+The simulated filesystem is the `state.fs` plugin.
+You can store, load, and delete files from the filesystem, with the `insert`, `get`, and `delete` methods.
+Refer to the [api docs](http://angr.io/api-doc/angr.html#module-angr.state_plugins.filesystem) for details.
+
+So to make our file available as `/tmp/myfile`:
+
+```python
+>>> state.fs.insert('/tmp/myfile', simfile)
+>>> assert state.fs.get('/tmp/myfile') is simfile
+```
+
+Then, after execution, we would extract the file from the result state and use `simfile.concretize()` to generate a testcase to reach that state.
+Keep in mind that `concretize()` returns different types depending on the file type - for a SimFile it's a bytestring and for SimPackets it's a list of bytestrings.
+
+The simulated filesystem supports a fun concept of "mounts", where you can designate a subtree as instrumented by a particular provider.
+The most common mount is to expose a part of the host filesystem to the guest, lazily importing file data when the program asks for it:
+
+```python
+>>> state.fs.mount('/', angr.SimHostFilesystem('./guest_chroot'))
+```
+
+You can write whatever kind of mount you want to instrument filesystem access by subclassing `angr.SimMount`!
+
+### Stdio streams
+
+For stdin and friends, it's a little more complicated.
+The relevant plugin is `state.posix`, which stores all abstractions relevant to a POSIX-compliant environment.
+You can always get a state's stdin SimFile with `state.posix.stdin`, but you can't just replace it - as soon as the state is created, references to this file are created in the file descriptors.
+Because of this you need to specify it at the time the POSIX plugin is created:
+
+```python
+>>> state.register_plugin('posix', angr.state_plugins.posix.SimSystemPosix(stdin=simfile, stdout=simfile, stderr=simfile))
+```
+
+Or, there's a nice shortcut while creating the state if you only need to specify stdin:
+
+```python
+>>> state = proj.factory.entry_state(stdin=simfile)
+```
+
+Any of those places you can specify a simfile, you can also specify a string or a bitvector (a flat SimFile with fixed size will be created to hold it) or a SimFile type (it'll be instanciated for you).
 
 ## Copying and Merging
 

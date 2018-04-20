@@ -55,7 +55,8 @@ def main():
 
     # Call the solving engine and write the solution out to a file called "exploit"
     print "Writing exploit as \"exploit\""
-    s.posix.dump(0,"exploit")
+    with open('exploit', 'wb') as fp:
+        fp.write(s.posix.dumps(0))
 
     # Now you can run the program and feed it your exploit to gain execution
     # ./simple_heap_overflow < exploit

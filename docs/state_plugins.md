@@ -11,7 +11,7 @@ Let's get started!
 All state plugins are implemented as subclasses of `angr.SimStatePlugin`.
 Once you've read this document, you can use the [API reference for this class](http://api.angr.io/) (TODO update this link when the class is actually part of the docs????) to quickly review the semantics of all the interfaces you should implement.
 
-The most important method you need to implement is `copy`---it should return a copy of the plugin.
+The most important method you need to implement is `copy`: it should be annotated with the `memo` staticmethod and take a dict called the "memo"---these'll be important later---and returns a copy of the plugin.
 Short of that, you can do whatever you want.
 Just make sure to call the superclass initializer!
 
@@ -22,7 +22,8 @@ Just make sure to call the superclass initializer!
 ...         super(MyFirstPlugin, self).__init__()
 ...         self.foo = foo
 ... 
-...     def copy(self):
+...     @angr.SimStatePlugin.memo
+...     def copy(self, memo):
 ...         return MyFirstPlugin(self.foo)
 
 >>> state = angr.SimState(arch='AMD64')
@@ -130,7 +131,9 @@ You're in luck! Things can be state plugins even if they aren't directly attache
 A great example of this is `SimFile`, which is a state plugin but is stored in the filesystem plugin, and is never used with `SimState.register_plugin`.
 When you're doing this, there are a handful of rules to remember which will keep your plugins safe and happy:
 
-- Make sure that _only one refernce to each plugin object exists_. This is a limitation which will be addressed in an upcoming release of angr.
+- Annotate your copy function with `@SimStatePlugin.memo`.
+- In order to prevent _divergence_ while copying multiple references to the same plugin, make sure you're passing the memo (the argument to copy) to the `.copy` of any subplugins. This with the previous point will preserve object identity.
+- In order to prevent _duplicate merging_ while merging multiple references to the same plugin, there should be a concept of the "owner" of each instance, and only the owner should run the merge routine.
 - While passing arguments down into sub-plugins `merge()` routines, make sure you unwrap `others` and `common_ancestor` into the appropriate types. For example, if `PluginA` contains a `PluginB`, the former should do the following:
 
 ```python

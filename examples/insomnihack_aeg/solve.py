@@ -42,11 +42,11 @@ def find_symbolic_buffer(state, length):
     '''
 
     # get all the symbolic bytes from stdin
-    stdin_file = state.posix.get_file(0)
+    stdin = state.posix.stdin
 
     sym_addrs = [ ]
-    for var in stdin_file.variables():
-        sym_addrs.extend(state.memory.addrs_for_name(var))
+    for _, symbol in state.solver.get_variables('file', stdin.ident):
+        sym_addrs.extend(state.memory.addrs_for_name(next(iter(symbol.variables))))
 
     for addr in sym_addrs:
         if check_continuity(addr, sym_addrs, length):

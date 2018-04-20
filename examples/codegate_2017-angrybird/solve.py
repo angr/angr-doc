@@ -17,6 +17,7 @@ def main():
 	# this also skips a bunch of initialization, so let's fix that:
 	state = proj.factory.entry_state(addr=START_ADDR)
 	state.regs.rbp = state.regs.rsp
+        state.mem[state.regs.rbp - 0x74].int = 0x40       # this is the length for the read
 	# using the same values as the binary doesn't work for these variables, I think because they point to the GOT and the binary is using that to try to fingerprint that it's loaded in angr. Setting them to pointers to symbolic memory works fine.
 	state.mem[state.regs.rbp - 0x70].long = 0x1000
 	state.mem[state.regs.rbp - 0x68].long = 0x1008

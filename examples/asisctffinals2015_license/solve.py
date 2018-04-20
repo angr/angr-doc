@@ -1,4 +1,5 @@
 import angr
+import claripy
 
 def main():
     p = angr.Project("license", load_options={'auto_load_libs': False})
@@ -15,29 +16,19 @@ def main():
     # may also work, but in that case, angr will produce many more paths, and we 
     # will spent much more time in path trimming.
 
-    bytes = None
-    constraints = [ ]
+    bytestring = None
     for i in xrange(5):
         line = [ ]
         for j in xrange(6):
             line.append(state.solver.BVS('license_file_byte_%d_%d' % (i, j), 8))
-            state.add_constraints(line[-1] != 0x0a)
-        if bytes is None:
-            bytes = state.solver.Concat(*line)
+            state.add_constraints(line[-1] != '\n')
+        if bytestring is None:
+            bytestring = claripy.Concat(*line)
         else:
-            bytes = state.solver.Concat(bytes, state.solver.BVV(0x0a, 8), *line)
-    content = angr.state_plugins.SimSymbolicMemory(memory_id="file_%s" % license_name)
-    content.set_state(state)
-    content.store(0, bytes)
+            bytestring = bytestring.concat(state.solver.BVV('\n'), *line)
 
-    license_file = angr.storage.SimFile(license_name, 'rw', content=content, size=len(bytes) / 8)
-
-    # Build the file system dict
-    # This interface might change in the near future
-    fs = {
-        license_name: license_file
-    }
-    state.posix.fs = fs
+    license_file = angr.storage.file.SimFile(license_name, bytestring)
+    state.fs.insert(license_name, license_file)
 
     ex = p.surveyors.Explorer(
                             start=state,
