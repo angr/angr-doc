@@ -12,7 +12,7 @@ Additionally, you should now know how to work with ASTs, so you can now understa
 Here are some quick examples for copying and performing operations on data from the state:
 
 ```python
->>> import angr
+>>> import angr, claripy
 >>> proj = angr.Project('/bin/true')
 >>> state = proj.factory.entry_state()
 
@@ -55,7 +55,7 @@ The following snippet implements this:
 
 ```python
 >>> proj = angr.Project('examples/fauxware/fauxware')
->>> state = proj.factory.entry_state()
+>>> state = proj.factory.entry_state(stdin=angr.SimFile)  # ignore that argument for now - we're disabling a more complicated default setup for the sake of education
 >>> while True:
 ...     succ = state.step()
 ...     if len(succ.successors) == 2:
@@ -73,10 +73,10 @@ Don't look at the constraints on these states directly - the branch we just went
 
 The program we emulated took data from standard input, which angr treats as an infinite stream of symbolic data by default.
 To perform a constraint solve and get a possible value that input could have taken in order to satisfy the constraints, we'll need to get a reference to the actual contents of stdin.
-We'll go over how our file and input subsystems work later on this very page, but for now, just use `state.posix.files[0].all_bytes()` to retrieve a bitvector representing all the content read from stdin so far.
+We'll go over how our file and input subsystems work later on this very page, but for now, just use `state.posix.stdin.load(0, state.posix.stdin.size)` to retrieve a bitvector representing all the content read from stdin so far.
 
 ```python
->>> input_data = state1.posix.files[0].all_bytes()
+>>> input_data = state1.posix.stdin.load(0, state.posix.stdin.size)
 
 >>> state1.solver.eval(input_data, cast_to=str)
 '\x00\x00\x00\x00\x00\x00\x00\x00\x00SOSNEAKY\x00\x00\x00'
@@ -266,22 +266,28 @@ Here's a few examples:
 >>> data, actual_size, new_pos = simfile.read(0, 5)
 >>> assert claripy.is_true(data == 'hello')
 >>> assert claripy.is_true(actual_size == 5)
->>> assert claripy.is_true(pos == 5)
+>>> assert claripy.is_true(new_pos == 5)
 
 # continue the read, trying to read way too much
 >>> data, actual_size, new_pos = simfile.read(new_pos, 1000)
->>> assert claripy.is_true(data == ' world!\n')
+
+# angr doesn't try to sanitize the data returned, only the size - we returned 1000 bytes!
+# the intent is that you're only allowed to use up to actual_size of them.
+>>> assert len(data) == 1000*8  # bitvector sizes are in bits
 >>> assert claripy.is_true(actual_size == 8)
+>>> assert claripy.is_true(data.get_bytes(0, 8) == ' world!\n')
 >>> assert claripy.is_true(new_pos == 13)
 
 # create a file with symbolic content and a defined size
 >>> simfile = angr.SimFile('mysymbolicfile', size=0x20)
 >>> simfile.set_state(state)
 
->>> data, actual_size, new_pos = simfile.read(0x30)
+>>> data, actual_size, new_pos = simfile.read(0, 0x30)
 >>> assert data.symbolic
 >>> assert claripy.is_true(actual_size == 0x20)
->>> assert len(data) == 0x20*8 # bitvector sizes are in bits
+
+# the raw SimFile provides the same interface as `state.memory`, so you can load data directly:
+>>> assert simfile.load(0, actual_size) is data.get_bytes(0, 0x20)
 
 # create a file with some mixed concrete and symbolic content, but no EOF
 >>> variable = claripy.BVS('myvar', 10*8)
@@ -332,9 +338,9 @@ Here's a few examples:
 # this'll just generate a single packet.
 # for SimPackets, the position is just a packet number!
 # if left unspecified, short_reads is determined from a state option
->>> data, actual_size, new_pos = simfile.read(0, 20, short_reads=False)
+>>> data, actual_size, new_pos = simfile.read(0, 20, short_reads=True)
 >>> assert len(data) == 20*8
->>> assert set(state.solver.eval_upto(actual_size, 30)) == set(range(30))
+>>> assert set(state.solver.eval_upto(actual_size, 30)) == set(range(21))
 ```
 
 So hopefully you understand sort of the kind of data that a SimFile can store and what'll happen when a program tries to interact with it with various combinations of symbolic and concrete data.
