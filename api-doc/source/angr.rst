@@ -19,6 +19,7 @@ Program State
 -------------
 .. automodule:: angr.sim_state
 .. automodule:: angr.sim_options
+.. automodule:: angr.sim_state_options
 .. automodule:: angr.state_plugins
 .. automodule:: angr.state_plugins.plugin
 .. automodule:: angr.state_plugins.inspect
