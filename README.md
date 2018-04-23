@@ -56,10 +56,9 @@ If you use angr in an academic work, please cite the papers for which it was dev
 
 To get help with angr, you can ask via:
 
-* the mailing list: angr@lists.cs.ucsb.edu
 * the slack channel: [angr.slack.com](https://angr.slack.com), for which you can get an account [here](http://angr.io/invite.html).
-* the IRC channel: **\#angr** on [freenode](https://freenode.net/)
 * opening an issue on the appropriate github repository
+* the mailing list: angr@lists.cs.ucsb.edu
 
 ## Going further:
 
