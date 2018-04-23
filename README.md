@@ -23,6 +23,8 @@ To dive right into angr's capabilities, start with the [top level methods](./doc
 
 A searchable HTML version of this documentation is hosted at [docs.angr.io](http://docs.angr.io/), and an HTML API reference can be found at [angr.io/api-doc](http://angr.io/api-doc/).
 
+If you enjoy playing CTFs and would like to learn angr in a similar fashion, [angr_ctf](https://github.com/jakespringer/angr_ctf) will be a fun way for you to get familiar with much of the symbolic execution capability of angr. The angr_ctf repo is maintained by @jakespringer.
+
 ## Citing angr
 
 If you use angr in an academic work, please cite the papers for which it was developed:
