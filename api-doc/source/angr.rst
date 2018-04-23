@@ -223,6 +223,7 @@ Utils
 -----
 .. automodule:: angr.utils
 .. automodule:: angr.utils.graph
+.. automodule:: angr.utils.library
 
 Errors
 ------
