@@ -62,7 +62,5 @@ To get help with angr, you can ask via:
 
 ## Going further:
 
-You can read this [paper](https://www.cs.ucsb.edu/~vigna/publications/2016_SP_angrSoK.pdf), explaining some of the internals, algorithms,  
-and used techniques to get a better understanding on what's going on under the  
-hood.
+You can read this [paper](https://www.cs.ucsb.edu/~vigna/publications/2016_SP_angrSoK.pdf), explaining some of the internals, algorithms, and used techniques to get a better understanding on what's going on under the hood.
 
