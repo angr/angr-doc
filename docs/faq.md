@@ -59,18 +59,6 @@ While angr uses VEX now, there's no fundamental reason that multiple IRs cannot 
 To support multiple IRs, we'll either want to abstract these things or translate their labels to VEX analogues.
 
 
-### My load options are ignored when creating a Project.
-CLE options are an optional argument. Make sure you call Project with the following syntax:
-
-```python
-b = angr.Project('/bin/true', load_options=load_options)
-```
-
-rather than:
-```python
-b = angr.Project('/bin/true', load_options)
-```
-
 ## Why are some ARM addresses off-by-one?
 In order to encode THUMB-ness of an ARM code address, we set the lowest bit to one.
 This convention comes from LibVEX, and is not entirely our choice!
@@ -98,3 +86,9 @@ The intuition is that the specific values of floating point operations don't typ
 
 If you're seeing this error and it's terminating the analysis, it's probably because you don't have unicorn installed or configured correctly.
 If you're seeing this issue just in a log somewhere, it's just the oppologist kicking in and you have nothing to worry about.
+
+## Why is angr's CFG different from IDA's?
+Two main reasons:
+
+- IDA does not split basic blocks at function calls. angr will not, because they are a form of control flow and basic blocks end at control flow instructions. You may access the IDA-style call-joined graph with the `.supergraph` property of a function object.
+- IDA will split basic blocks if another block jumps into the middle of it. This is called basic block normalization, and angr does not do it by default since it is not necessary for most static analysis. You may enable it by passing `normalize=True` to the CFG analysis.
