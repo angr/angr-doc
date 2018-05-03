@@ -213,13 +213,9 @@ For instance, to replace `rand()` with a function that always returns a consiste
 ```python
 >>> class NotVeryRand(SimProcedure):
 ...     def run(self, return_values=None):
-...         if 'rand_idx' in self.state.globals:
-...             rand_idx = self.state.globals['rand_idx']
-...         else:
-...             rand_idx = 0
-... 
-...         out = return_values[rand_idx % len(return_values)]
-...         self.state.globals['rand_idx'] = rand_idx + 1
+...         rand_idx = self.state.globals.get('rand_idx', 0)
+...         out = return_values[rand_idx]
+...         self.state.globals['rand_idx'] = (rand_idx + 1) % len(return_values)
 ...         return out
 
 >>> project.hook_symbol('rand', NotVeryRand(return_values=[413, 612, 1025, 1111]))
