@@ -24,7 +24,6 @@ Lifting System
 .. automodule:: pyvex.lifting
 .. automodule:: pyvex.lifting.libvex
 .. automodule:: pyvex.lifting.lifter
-.. automodule:: pyvex.lifting.fixes
 .. automodule:: pyvex.lifting.post_processor
 .. automodule:: pyvex.lifting.util.irsb_postprocess
 .. automodule:: pyvex.lifting.util.syntax_wrapper
@@ -32,6 +31,12 @@ Lifting System
 .. automodule:: pyvex.lifting.util.vex_helper
 .. automodule:: pyvex.lifting.util.lifter_helper
 .. automodule:: pyvex.lifting.util.instr_helper
+
+Builtin IR Processors
+---------------------
+
+.. automodule:: pyvex.lifting.zerodivision
+.. automodule:: pyvex.lifting.fixes
 
 Errors
 ------
