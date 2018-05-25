@@ -25,6 +25,11 @@ def main():
 
     state = b.factory.blank_state(addr=0x401760)
 
+    concrete_addr = 0xffe00000
+    code = claripy.BVS('code', 10*8)
+    state.memory.store(concrete_addr, code, endness='Iend_BE')
+    state.regs.r0 = concrete_addr
+
     sm = b.factory.simulation_manager(state)
 
     # 0x401840 = Product activation passed
@@ -35,13 +40,10 @@ def main():
 
     # Get the solution string from *(R11 - 0x20).
 
-    addr = found.memory.load(found.regs.r11 - 0x20, endness='Iend_LE')
-    concrete_addr = found.solver.eval(addr)
-    user_input = found.memory.load(concrete_addr,10)
-    solution = found.solver.eval(user_input, cast_to=str)
+    solution = found.solver.eval(code, cast_to=str)
 
     print base64.b32encode(solution)
-    return user_input, found
+    return code, found
 
 def test():
     user_input, found = main()
