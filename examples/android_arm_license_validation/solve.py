@@ -33,9 +33,9 @@ def main():
     sm.explore(find=0x401840, avoid=0x401854)
     found = sm.found[0]
 
-    # Get the solution string from *(R11 - 0x24).
+    # Get the solution string from *(R11 - 0x20).
 
-    addr = found.memory.load(found.regs.r11 - 0x24, endness='Iend_LE')
+    addr = found.memory.load(found.regs.r11 - 0x20, endness='Iend_LE')
     concrete_addr = found.solver.eval(addr)
     solution = found.solver.eval(found.memory.load(concrete_addr,10), cast_to=str)
 
@@ -43,7 +43,7 @@ def main():
 
 def test():
     print "TEST MODE"
-#   assert main() == 'JQAE6ACMABNAAIIA'
+#   assert main() == 'ABGAATYAJQAFUABB'
     print main()
 
 if __name__ == '__main__':
