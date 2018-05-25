@@ -92,3 +92,11 @@ Two main reasons:
 
 - IDA does not split basic blocks at function calls. angr will not, because they are a form of control flow and basic blocks end at control flow instructions. You may access the IDA-style call-joined graph with the `.supergraph` property of a function object.
 - IDA will split basic blocks if another block jumps into the middle of it. This is called basic block normalization, and angr does not do it by default since it is not necessary for most static analysis. You may enable it by passing `normalize=True` to the CFG analysis.
+
+## Why do I get incorrect register values when reading from a state during a SimInspect breakpoint?
+
+libVEX will eliminate duplicate register writes within a single basic block when optimizations are enabled.
+Turn off IR optimization to make everything look right at all times.
+
+In the case of the instruction pointer, libVEX will frequently omit mid-block writes even when optimizations are disabled.
+In this case, you should use `state.scratch.ins_addr` to get the current instruction pointer.
