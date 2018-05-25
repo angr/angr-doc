@@ -37,14 +37,22 @@ def main():
 
     addr = found.memory.load(found.regs.r11 - 0x20, endness='Iend_LE')
     concrete_addr = found.solver.eval(addr)
-    solution = found.solver.eval(found.memory.load(concrete_addr,10), cast_to=str)
+    user_input = found.memory.load(concrete_addr,10)
+    solution = found.solver.eval(user_input, cast_to=str)
 
-    return base64.b32encode(solution)
+    print base64.b32encode(solution)
+    return user_input, found
 
 def test():
-    print "TEST MODE"
-#   assert main() == 'ABGAATYAJQAFUABB'
-    print main()
+    user_input, found = main()
+    found.solver.add(user_input.get_byte(0) == ord('L'))
+    found.solver.add(user_input.get_byte(2) == ord('O'))
+    found.solver.add(user_input.get_byte(4) == ord('L'))
+    found.solver.add(user_input.get_byte(6) == ord('Z'))
+    found.solver.add(user_input.get_byte(8) == ord('!'))
+    solution = found.solver.eval(user_input, cast_to=str)
+    assert found.solver.satisfiable() == True
+    assert base64.b32encode(solution) == 'JQAE6ACMABNAAIIA'
 
 if __name__ == '__main__':
-    print main()
+    main()
