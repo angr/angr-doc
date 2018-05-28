@@ -45,6 +45,8 @@ def test_flareon2015_10(): exampletest_single('flareon2015_10')
 def test_flareon2015_2(): exampletest_single('flareon2015_2')
 @attr(speed='slow')
 def test_flareon2015_5(): exampletest_single('flareon2015_5') # 2m11s
+@attr(speed='slow')
+def test_hitcon2017_sakura(): exampletest_single('hitcon2017_sakura') # 6m
 def test_google2016_unbreakable_0(): exampletest_single('google2016_unbreakable_0')
 def test_google2016_unbreakable_1(): exampletest_single('google2016_unbreakable_1')
 def test_grub(): exampletest_single('grub')
