@@ -8,7 +8,7 @@ import angr
 
 def main():
     e = open('./sakura', 'rb').read()
-    
+
     # make sure return value is not 0, add corresponding addr to avoid list
     avoids = []
     index = 0
@@ -19,7 +19,7 @@ def main():
             break
         addr = 0x400000 + index
         avoids.append(addr)
-    
+
     # find list
     finds = []
     index = 0
@@ -38,16 +38,16 @@ def main():
     proj = angr.Project('./sakura')
     state = proj.factory.entry_state()
     simgr = proj.factory.simgr(state)
-    
+
     # find ans stage by stage
     for find in finds:
         simgr.explore(find=find, avoid=avoids)
         found = simgr.found[0]
         simgr = proj.factory.simgr(found)
-    
+
     # evaluate text
     text = found.solver.eval(found.memory.load(0x612040, 400), cast_to=str)
-    
+
     h = hashlib.sha256(text)
     flag = 'hitcon{'+h.digest().encode('hex')+'}'
     return flag
@@ -60,5 +60,3 @@ if __name__ == '__main__':
     logging.getLogger('angr.sim_manager').setLevel(logging.DEBUG)
 
     print main()
-
-
