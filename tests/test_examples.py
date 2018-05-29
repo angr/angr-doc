@@ -32,7 +32,7 @@ def test_asisctffinals2015_license(): exampletest_single('asisctffinals2015_lice
 @attr(speed='slow')
 def test_CADET_00001(): exampletest_single('CADET_00001') # 2m
 @attr(speed='slow')
-def test_cmu_binary_bomb(): exampletest_single('cmu_binary_bomb') # 9m
+def test_cmu_binary_bomb(): exampletest_single('cmu_binary_bomb') # 3m
 @attr(speed='slow')
 def test_csaw_wyvern(): exampletest_single('csaw_wyvern') # 3m40s
 def test_defcamp_r100(): exampletest_single('defcamp_r100')
