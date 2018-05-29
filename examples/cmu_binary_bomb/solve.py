@@ -20,9 +20,13 @@ def solve_flag_1():
 
     proj = angr.Project('bomb', auto_load_libs=False)
 
+
     start = 0x400ee0
     bomb_explode = 0x40143a
     end = 0x400ef7
+
+    # `strings_not_equal` behaves exactly the same as `strcmp` to us, so we simply hook it
+    proj.hook(0x0401338, angr.SIM_PROCEDURES['libc']['strcmp']())
 
     # initial state is at the beginning of phase_one()
     state = proj.factory.blank_state(addr=start)
@@ -45,7 +49,8 @@ def solve_flag_1():
 
     if simgr.found:
         found = simgr.found[0]
-        return found.solver.eval(arg, cast_to=str).rstrip(chr(0)) # remove ending \0
+        flag = found.solver.eval(arg, cast_to=str)
+        return flag[:flag.index('\x00')] # remove everyting after \x00 because they won't be compared
     else:
         raise Exception("angr failed to find a path to the solution :(")
 
@@ -140,28 +145,25 @@ def solve_flag_4():
 
     avoid = 0x40143A
     find = 0x401061
+    start = 0x40102E
     proj = angr.Project("./bomb", auto_load_libs=False)
 
-    state = proj.factory.blank_state(
-        # let's get the address via its symbol
-        # after a proj.analysis.CFG it can be recovered by
-        # addr=proj.kb.functions.get('phase_4').addr,
-        # we will just use the obj's symbol directly
-        addr=proj.kb.obj.get_symbol('phase_4').rebased_addr,
-        remove_options={angr.options.LAZY_SOLVES})
-    sm = proj.factory.simulation_manager(state)
-    sm.explore(find=find, avoid=avoid)
+    # start right after sscanf
+    state = proj.factory.blank_state(addr=start)
 
-    found = sm.found[0]
+    # insert variables by ourselves
+    var1 = state.solver.BVS('var1', 8*4)
+    var2 = state.solver.BVS('var2', 8*4)
+    state.memory.store(state.regs.rsp+0x18-0x10, var1, endness='Iend_BE')
+    state.memory.store(state.regs.rsp+0x18-0xc, var2, endness='Iend_BE')
 
-    # stopped on the ret account for the stack
-    # that has already been moved
+    simgr = proj.factory.simulation_manager(state)
+    simgr.explore(find=find, avoid=avoid)
 
-    answer = unpack('II', found.solver.eval(
-        found.memory.load(found.regs.rsp - 0x18 + 0x8, 8), cast_to=str))
-
-    return ' '.join(map(str, answer))
-
+    found = simgr.found[0]
+    ans1 = found.solver.eval(var1, cast_to=str)
+    ans2 = found.solver.eval(var2, cast_to=str)
+    return ' '.join([str(unpack('<I', ans1)[0]), str(unpack('<I', ans2)[0])])
 
 def solve_flag_5():
 
@@ -178,6 +180,10 @@ def solve_flag_5():
 
     # getting more lazy, let angr find the functions, and build the CFG
     proj = angr.Project("./bomb", auto_load_libs=False)
+
+    # just hook self implemented function with libc functions to speed up
+    proj.hook(0x0000000000401338, angr.SIM_PROCEDURES['libc']['strcmp']())
+    proj.hook(0x000000000040131B, angr.SIM_PROCEDURES['libc']['strlen']())
 
     proj.analyses.CFG()
 
@@ -219,14 +225,29 @@ class read_6_ints(angr.SimProcedure):
 def solve_flag_6():
     start = 0x4010f4
     read_num = 0x40145c
-    find = 0x4011f7
+
+    #split the function to two parts to avoid path explosion
+    find1 = 0x401188
+    find2 = 0x4011f7
+
     avoid = 0x40143A
     p = angr.Project("./bomb", auto_load_libs=False)
     p.hook(read_num, read_6_ints())
     state = p.factory.blank_state(addr=start, remove_options={angr.options.LAZY_SOLVES})
     sm = p.factory.simulation_manager(state)
-    sm.explore(find=find, avoid=avoid)
-    found = sm.found[0]
+
+    # enumerate all possible paths in the first part
+    while len(sm.active) > 0:
+        sm.explore(find=find1, avoid=avoid)
+
+    # dive further to part2
+    found_list = sm.found
+    for found in found_list:
+        sm = p.factory.simgr(found)
+        sm.explore(find=find2, avoid=avoid)
+        if len(sm.found) > 0:
+            found = sm.found[0]
+            break
 
     answer = [found.solver.eval(x) for x in read_6_ints.answer_ints]
     return ' '.join(map(str, answer))
@@ -239,8 +260,8 @@ def solve_secret():
     strtol = 0x400bd0
 
     p = angr.Project("./bomb", auto_load_libs=False)
-    p.hook(readline, readline_hook)
-    p.hook(strtol, strtol_hook)
+    p.hook(readline, readline_hook())
+    p.hook(strtol, strtol_hook())
     state = p.factory.blank_state(addr=start, remove_options={angr.options.LAZY_SOLVES})
     flag = claripy.BVS("flag", 64, explicit_name=True)
     state.add_constraints(flag -1 <= 0x3e8)
@@ -288,7 +309,7 @@ def test():
 
 if __name__ == '__main__':
 
-    # logging.basicConfig()
-    # logging.getLogger('angr.surveyors.explorer').setLevel(logging.DEBUG)
+    import logging
+    logging.getLogger('angr.sim_manager').setLevel(logging.DEBUG)
 
     main()
