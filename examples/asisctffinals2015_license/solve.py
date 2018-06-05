@@ -30,16 +30,16 @@ def main():
     license_file = angr.storage.file.SimFile(license_name, bytestring)
     state.fs.insert(license_name, license_file)
 
-    ex = p.surveyors.Explorer(
-                            start=state,
-                            find=(0x400e93, ),
-                            avoid=(0x400bb1, 0x400b8f, 0x400b6d, 0x400a85,
-                                   0x400ebf, 0x400a59)
-                            )
-    ex.run()
+    simgr = p.factory.simulation_manager(state)
+
+    simgr.explore(
+                find=(0x400e93, ),
+                avoid=(0x400bb1, 0x400b8f, 0x400b6d, 0x400a85,
+                       0x400ebf, 0x400a59)
+            )
 
     # One path will be found
-    found = ex.found[0]
+    found = simgr.found[0]
     rsp = found.regs.rsp
     flag_addr = rsp + 0x278 - 0xd8 # Ripped from IDA
     # Perform an inline call to strlen() in order to determine the length of the 

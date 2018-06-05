@@ -38,7 +38,7 @@ def main():
 
 	state = project.factory.entry_state(args=["./KeygenMe", input_key], add_options=angr.options.unicorn) # Unicorn Engine is not needed, but will speed up the process
 
-	simulation_manager = project.factory.simgr(state)
+	simulation_manager = project.factory.simulation_manager(state)
 
 	# (•_•) ( •_•)>⌐■-■ (⌐■_■)
 	simulation_manager.explore(find=correct, avoid=wrong) # We could alternatively use addresses here, like find=0x400000 + 0x8f3.
