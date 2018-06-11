@@ -1,9 +1,13 @@
 # Solver Engine
 
-angr's solver engine is called Claripy. Claripy exposes the following:
+angr's solver engine is called Claripy.
+Claripy exposes the following design:
 
 - Claripy ASTs (the subclasses of claripy.ast.Base) provide a unified way to interact with concrete and symbolic expressions
-- Claripy frontends provide a unified interface to expression resolution (including constraint solving) over different backends
+- `Frontend`s provide different paradigms for evaluating these expressions. For example, the `FullFrontend` solves expressions using something like an SMT solver backend, while `LightFrontend` handles them by using an abstract (and approximating) data domain backend.
+- Each `Frontend` needs to, at some point, do actual operation and evaluations on an AST. ASTs don't support this on their own. Instead, `Backend`s translate ASTs into backend objects (i.e., python primitives for `BackendConcrete`, Z3 expressions for `BackendZ3`, strided intervals for `BackendVSA`, etc) and handle any appropriate state-tracking objects (such as tracking the solver state in the case of `BackendZ3`). Roughly speaking, frontends take ASTs as inputs and use backends to `backend.convert()` those ASTs into backend objects that can be evaluated and otherwise reasoned about.
+- `FrontendMixin`s customize the operation of `Frontend`s. For example, `ModelCacheMixin` caches solutions from an SMT solver.
+- The combination of a Frontend, a number of FrontendMixins, and a number of Backends comprise a claripy `Solver`.
 
 Internally, Claripy seamlessly mediates the co-operation of multiple disparate backends -- concrete bitvectors, VSA constructs, and SAT solvers. It is pretty badass.
 
@@ -12,7 +16,7 @@ However, for dealing with expressions, an understanding of Claripy might be usef
 
 ## Claripy ASTs
 
-Claripy ASTs abstract away the differences between the constructs that Claripy supports.
+Claripy ASTs abstract away the differences between mathematical constructs that Claripy supports.
 They define a tree of operations (i.e., `(a + b) / c)` on any type of underlying data.
 Claripy handles the application of these operations on the underlying objects themselves by dispatching requests to the backends.
 
@@ -161,8 +165,8 @@ Claripy's contract with its backends is as follows: backends should be able to h
 Claripy will never pass an object to any backend private function that did not originate as a return value from a private or public function of that backend.
 One exception to this is `convert()` and `_convert()`, as Claripy can try to stuff anything it feels like into _convert() to see if the backend can handle that type of object.
 
-### Model Objects
+### Backend Objects
 
-To perform actual, useful computation on ASTs, Claripy uses model objects.
-A model object is a result of the operation represented by the AST.
-Claripy expects these objects to be returned from the backends, and will pass such objects into that backend's other functions.
+To perform actual, useful computation on ASTs, Claripy uses backend objects.
+A `BackendObject` is a result of the operation represented by the AST.
+Claripy expects these objects to be returned from their respective backends, and will pass such objects into that backend's other functions.
