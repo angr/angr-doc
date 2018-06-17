@@ -3,6 +3,21 @@
 This lists the *major* changes in angr.
 Tracking minor changes are left as an exercise for the reader :-)
 
+## angr 7.8.6.16
+
+- (#808) Add a new class Control flow blanket (CFBlanket) to support generating a linear view of a control flow graph.
+- (#863) Add support to AIL, the new angr intermediate language (still pretty WIP though). Merged in several static analyses (reaching definition analysis, VEX-to-AIL translation, redundant assignment elimination, code region identification, conrol flow structuring, etc.) that support the development of decompilation in the near future.
+- (#888) SimulationManager is extensively refactored and cleaned up.
+- (#892) Keystone is integrated. You can assemble instructions inside angr now.
+- (#897) A new class `PluginHub` is added. Plugins (analyses, engines) are refactored to be based on `PluginHub`.
+- (#899) Support of bidirectional mapping between syscall numbers and syscalls.
+- (#925, #941, #942) A bunch of library function prototypes (including glibc) are added to angr.
+- (#953) Fix the issue where evaluating the jump target of a jump table that contains many entries (e.g., > 512) is extremely slow.
+- (#964) State options are now stored in insances of SimStateOptions. `state.options` is no longer a set of strings.
+- (#996) SimType structs are now much easier to use.
+- (#998) Add a new state option `PRODUCE_ZERODIV_SUCCESSORS` to generate divide-by-zero successors.
+- Speed improvements and bug fixes in CFG generation (CFGFast and CFGAccurate).
+
 ## angr 7.8.2.21
 
 - Refactor of how syscall handling and SimSyscallLibrary work - it is now possible to handle syscalls using multiple ABIs in the same process
