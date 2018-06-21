@@ -45,7 +45,7 @@ def basic_symbolic_execution():
     # Now, we begin execution. This will symbolically execute the program until
     # we reach a branch statement for which both branches are satisfiable.
 
-    sm.step(until=lambda lpg: len(lpg.active) > 1)
+    sm.run(until=lambda lpg: len(lpg.active) > 1)
 
     # If you look at the C code, you see that the first "if" statement that the
     # program can come across is comparing the result of the strcmp with the
