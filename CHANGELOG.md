@@ -3,6 +3,15 @@
 This lists the *major* changes in angr.
 Tracking minor changes are left as an exercise for the reader :-)
 
+## angr 7.8.6.23
+
+- (PyVEX!#134) We now recognize LDMDB r11, {xxx, pc} as a ret instruction for ARM.
+- (#1053) CFGFast spends less time running next_pos_with_sort_not_in(), thus it runs faster on large binaries.
+- (#1080) Jump table resolvers now support resolving ARM jump tables.
+- (#1081, together with the PyVEX commit 61efbdcf6303a936aa3de35011d2d1e3fe5fdea5) The memory footprint of CFGFast is noticeably smaller, especially on large binaries (over 10 MB in size).
+- Other minor changes and bug fixes.
+
+
 ## angr 7.8.6.16
 
 - The modeling of file system is refactored.
