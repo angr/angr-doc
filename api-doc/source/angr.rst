@@ -85,7 +85,6 @@ Exploration Techniques
 .. automodule:: angr.exploration_techniques.dfs
 .. automodule:: angr.exploration_techniques.explorer
 .. automodule:: angr.exploration_techniques.lengthlimiter
-.. automodule:: angr.exploration_techniques.looplimiter
 .. automodule:: angr.exploration_techniques.manual_mergepoint
 .. automodule:: angr.exploration_techniques.spiller
 .. automodule:: angr.exploration_techniques.threading
