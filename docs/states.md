@@ -318,8 +318,8 @@ The basic SimFile provides the same interface as `state.memory`, so you can load
 >>> bytes_ast = claripy.Concat(*bytes_list)
 >>> mystate = proj.factory.entry_state(stdin=angr.SimFile('/dev/stdin', content=bytes_ast))
 >>> for byte in bytes_list:
-...     mystate.solver.add_constraints(byte >= 0x20)
-...     mystate.solver.add_constraints(byte <= 0x7e)
+...     mystate.solver.add(byte >= 0x20)
+...     mystate.solver.add(byte <= 0x7e)
 ```
 
 #### Example 4: Create a file with some mixed concrete and symbolic content, but no EOF
