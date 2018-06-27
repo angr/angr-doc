@@ -244,60 +244,101 @@ If you're working with SimFiles of unknown type you have to treat this position 
 
 However! This is a very poor match to how programs generally interact with files, so angr also has a SimFileDescriptor abstraction, which provides the familiar read/write/seek/tell interfaces but will also return error conditions when the underlying storage don't support the appropriate operations - just like normal file descriptors!
 
+You may access the mapping from file descriptor number to file descriptor object in `state.posix.fd`.
+The file descriptor API may be found [here](http://angr.io/api-doc/angr.html#angr.storage.file.SimFileDescriptorBase).
+
 ### Just tell me how to do what I want to do!
 
 Okay okay!!
 
 To create a SimFile, you should just create an instance of the class you want to use.
 Refer to the [api docs](http://angr.io/api-doc/angr.html#module-angr.storage.file) for the full instructions.
-Here's a few examples:
+
+Let's go through a few illustrative examples.
+
+#### Example 1: Create a file with concrete content
 
 ```python
-# create a file with concrete content
 >>> simfile = angr.SimFile('myconcretefile', content='hello world!\n')
+```
 
-# here's a nuance - you can't use simfiles without a state attached, because reasons
-# you'll never have to do this in a real scenario but let's mock it up:
+Here's a nuance - you can't use simfiles without a state attached, because reasons.
+You'll never have to do this in a real scenario (this operation happens automatically when you pass a SimFile into a constructor or the filesystem) but let's mock it up:
+
+```python
 >>> simfile.set_state(state)
+```
 
-# to demonstrate the behavior of these files we're going to use the fact that the
-# default simfile position is just the number of bytes from the start of the file
-# simfile.read returns a tuple (bitvector data, actual size, new pos)
+To demonstrate the behavior of these files we're going to use the fact that the default simfile position is just the number of bytes from the start of the file. `SimFile.read` returns a tuple (bitvector data, actual size, new pos):
+
+```python
 >>> data, actual_size, new_pos = simfile.read(0, 5)
 >>> assert claripy.is_true(data == 'hello')
 >>> assert claripy.is_true(actual_size == 5)
 >>> assert claripy.is_true(new_pos == 5)
+```
 
-# continue the read, trying to read way too much
+Continue the read, trying to read way too much:
+
+```python
 >>> data, actual_size, new_pos = simfile.read(new_pos, 1000)
+```
 
-# angr doesn't try to sanitize the data returned, only the size - we returned 1000 bytes!
-# the intent is that you're only allowed to use up to actual_size of them.
+angr doesn't try to sanitize the data returned, only the size - we returned 1000 bytes!
+The intent is that you're only allowed to use up to actual_size of them.
+
+```python
 >>> assert len(data) == 1000*8  # bitvector sizes are in bits
 >>> assert claripy.is_true(actual_size == 8)
 >>> assert claripy.is_true(data.get_bytes(0, 8) == ' world!\n')
 >>> assert claripy.is_true(new_pos == 13)
+```
 
-# create a file with symbolic content and a defined size
+#### Example 2: Create a file with symbolic content and a defined size
+
+```python
 >>> simfile = angr.SimFile('mysymbolicfile', size=0x20)
 >>> simfile.set_state(state)
 
 >>> data, actual_size, new_pos = simfile.read(0, 0x30)
 >>> assert data.symbolic
 >>> assert claripy.is_true(actual_size == 0x20)
+```
 
-# the raw SimFile provides the same interface as `state.memory`, so you can load data directly:
+The basic SimFile provides the same interface as `state.memory`, so you can load data directly:
+
+```python
 >>> assert simfile.load(0, actual_size) is data.get_bytes(0, 0x20)
+```
 
-# create a file with some mixed concrete and symbolic content, but no EOF
+#### Example 3: Create a file with constrained symbolic content
+
+```python
+>>> bytes_list = [claripy.BVS('byte_%d' % i, 8) for i in range(32)]
+>>> bytes_ast = claripy.Concat(*bytes_list)
+>>> mystate = proj.factory.entry_state(stdin=angr.SimFile('/dev/stdin', content=bytes_ast))
+>>> for byte in bytes_list:
+...     mystate.solver.add_constraints(byte >= 0x20)
+...     mystate.solver.add_constraints(byte <= 0x7e)
+```
+
+#### Example 4: Create a file with some mixed concrete and symbolic content, but no EOF
+
+```python
 >>> variable = claripy.BVS('myvar', 10*8)
 >>> simfile = angr.SimFile('mymixedfile', content=variable.concat(claripy.BVV('\n')), has_end=False)
 >>> simfile.set_state(state)
+```
 
-# we can always query the number of bytes stored in the file:
+We can always query the number of bytes stored in the file:
+
+```python
 >>> assert claripy.is_true(simfile.size == 11)
+```
 
-# reads will generate additional symbolic data past the current frontier:
+Reads will generate additional symbolic data past the current frontier:
+
+```python
 >>> data, actual_size, new_pos = simfile.read(0, 15)
 >>> assert claripy.is_true(actual_size == 15)
 >>> assert claripy.is_true(new_pos == 15)
@@ -305,42 +346,76 @@ Here's a few examples:
 >>> assert claripy.is_true(data.get_bytes(0, 10) == variable)
 >>> assert claripy.is_true(data.get_bytes(10, 1) == '\n')
 >>> assert data.get_bytes(11, 4).symbolic
+```
 
-# create a file with a symbolic size (has_end is implicitly true here)
+#### Example 5: Create a file with a symbolic size (has_end is implicitly true here)
+
+```python
 >>> symsize = claripy.BVS('mysize', 64)
 >>> state.solver.add(symsize >= 10)
 >>> state.solver.add(symsize < 20)
 >>> simfile = angr.SimFile('mysymsizefile', size=symsize)
 >>> simfile.set_state(state)
+```
 
-# reads will encode all possibilities.
+Reads will encode all possibilities:
+
+```python
 >>> data, actual_size, new_pos = simfile.read(0, 30)
 >>> assert set(state.solver.eval_upto(actual_size, 30)) == set(range(10, 20))
+```
 
-# the maximum size can't be easily resolved, so the data returned is 30 bytes long,
-# and we're supposed to use it conjunction with actual_size.
+The maximum size can't be easily resolved, so the data returned is 30 bytes long, and we're supposed to use it conjunction with actual_size.
+
+```python
 >>> assert len(data) == 30*8
+```
 
-# symbolic read sizes work too!
+Symbolic read sizes work too!
+
+```python
 >>> symreadsize = claripy.BVS('myreadsize', 64)
 >>> state.solver.add(symreadsize >= 5)
 >>> state.solver.add(symreadsize < 30)
 >>> data, actual_size, new_pos = simfile.read(0, symreadsize)
+```
 
-# all sizes between 5 and 20 should be possible:
+All sizes between 5 and 20 should be possible:
+
+```python
 >>> assert set(state.solver.eval_upto(actual_size, 30)) == set(range(5, 20))
+```
 
-# we can use SimPackets to automatically enable support for short reads
-# i.e. when you ask for n bytes but actually get back fewer bytes than that.
+#### Example 6: SimPackets
+
+So far, we've only used the SimFile class.
+We can use a different class implementing SimFileBase, SimPackets, to automatically enable support for short reads, i.e. when you ask for `n` bytes but actually get back fewer bytes than that.
+By default, stdin, stdout, and stderr are all SimPackets objects.
+
+```python
 >>> simfile = angr.SimPackets('mypackets')
 >>> simfile.set_state(state)
+```
 
-# this'll just generate a single packet.
-# for SimPackets, the position is just a packet number!
-# if left unspecified, short_reads is determined from a state option
+This'll just generate a single packet.
+For SimPackets, the position is just a packet number!
+If left unspecified, short_reads is determined from a state option.
+
+```python
 >>> data, actual_size, new_pos = simfile.read(0, 20, short_reads=True)
 >>> assert len(data) == 20*8
 >>> assert set(state.solver.eval_upto(actual_size, 30)) == set(range(21))
+```
+
+Data in a SimPackets is stored as tuples of (packet data, packet size) in `.content`.
+
+```python
+>>> print simfile.content
+[(<BV160 packet_0_mypackets>, <BV64 packetsize_0_mypackets>)]
+
+>>> simfile.read(0, 1, short_reads=False)
+>>> print simfile.content
+[(<BV160 packet_0_mypackets>, <BV64 packetsize_0_mypackets>), (<BV8 packet_1_mypackets>, <BV64 0x1>)]
 ```
 
 So hopefully you understand sort of the kind of data that a SimFile can store and what'll happen when a program tries to interact with it with various combinations of symbolic and concrete data.
@@ -382,15 +457,19 @@ Because of this you need to specify it at the time the POSIX plugin is created:
 
 ```python
 >>> state.register_plugin('posix', angr.state_plugins.posix.SimSystemPosix(stdin=simfile, stdout=simfile, stderr=simfile))
+>>> assert state.posix.stdin is simfile
+>>> assert state.posix.stdout is simfile
+>>> assert state.posix.stderr is simfile
 ```
 
 Or, there's a nice shortcut while creating the state if you only need to specify stdin:
 
 ```python
 >>> state = proj.factory.entry_state(stdin=simfile)
+>>> assert state.posix.stdin is simfile
 ```
 
-Any of those places you can specify a simfile, you can also specify a string or a bitvector (a flat SimFile with fixed size will be created to hold it) or a SimFile type (it'll be instanciated for you).
+Any of those places you can specify a SimFileBase, you can also specify a string or a bitvector (a flat SimFile with fixed size will be created to hold it) or a SimFile type (it'll be instanciated for you).
 
 ## Copying and Merging
 
