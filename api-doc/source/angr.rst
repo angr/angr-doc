@@ -193,7 +193,6 @@ Analysis
 .. automodule:: angr.analyses.decompiler.structured_codegen
 .. automodule:: angr.analyses.decompiler.region_identifier
 .. automodule:: angr.analyses.ddg
-.. automodule:: angr.analyses.dfg
 .. automodule:: angr.engines.light.data
 .. automodule:: angr.engines.light
 .. automodule:: angr.engines.light.engine
