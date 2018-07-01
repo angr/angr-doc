@@ -12,7 +12,6 @@ We will cover writing your own analyses [later](analysis_writing.md), but the id
 | [CFGAccurate](analyses/cfg_accurate.md)     | Constructs an accurate *Control Flow Graph* of the program                                                                                |
 | VFG                                         | Performs VSA on every function of the program, creating a *Value Flow Graph* and detecting stack variables                                |
 | DDG                                         | Calculates a *Data Dependency Graph*, allowing one to determine what statements a given value depends on                                  |
-| [DFG](analyses/dfg.md)                      | Constructs a *Data Flow Graph* for each basic block present in the CFG                                                                    |
 | [BackwardSlice](analyses/backward_slice.md) | Computes a *Backward Slice* of a program with respect to a certain target                                                                 |
 | [Identifier](analyses/identifier.md)        | Identifies common library functions in CGC binaries                                                                                       |
 | More!                                       | angr has quite a few analyses, most of which work! If you'd like to know how to use one, please submit an issue requesting documentation. |
