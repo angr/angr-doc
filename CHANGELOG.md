@@ -3,6 +3,12 @@
 This lists the *major* changes in angr.
 Tracking minor changes are left as an exercise for the reader :-)
 
+## angr 7.8.7.1
+
+- Remove `LoopLimiter` and `DFG`.
+- (#1063) `CFGAccurate` can now leverage indirect jump resolvers to resolve indirect jumps.
+
+
 ## angr 7.8.6.23
 
 - (PyVEX!#134) We now recognize LDMDB r11, {xxx, pc} as a ret instruction for ARM.
