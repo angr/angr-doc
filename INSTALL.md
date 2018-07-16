@@ -36,7 +36,7 @@ env CC=/usr/local/bin/gcc-6 pip install angr
 ```
 
 After installing angr, you will need to fix some shared library paths for the angr native libraries.
-Activate your virtual env and execute the following lines. A script is provided in the [angr-dev](https://github.com/angr/angr-dev) repo.
+Activate your virtual env and execute the following lines. A script is provided in the [angr-dev](https://github.com/angr/angr-dev/blob/master/fix_macOS.sh) repo.
 
 ```bash
 PYVEX=`python2 -c 'import pyvex; print pyvex.__path__[0]'`
