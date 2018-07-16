@@ -36,14 +36,15 @@ env CC=/usr/local/bin/gcc-6 pip install angr
 ```
 
 After installing angr, you will need to fix some shared library paths for the angr native libraries.
+Activate your virtual env and execute the following lines. [A script](https://github.com/angr/angr-dev/blob/master/fix_macOS.sh) is provided in the angr-dev repo.
 
 ```bash
-BASEDIR=/usr/local/lib/python2.7/site-packages
-# If you don't know where your site-packages folder is, use this to find them:
-python2 -c "import site; print(site.getsitepackages())"
+PYVEX=`python2 -c 'import pyvex; print pyvex.__path__[0]'`
+UNICORN=`python2 -c 'import unicorn; print unicorn.__path__[0]'`
+ANGR=`python2 -c 'import logging; logging.basicConfig(level=logging.CRITICAL); import angr; print angr.__path__[0]'`
 
-install_name_tool -change libunicorn.1.dylib "$BASEDIR"/unicorn/lib/libunicorn.dylib "$BASEDIR"/angr/lib/angr_native.dylib
-install_name_tool -change libpyvex.dylib "$BASEDIR"/pyvex/lib/libpyvex.dylib "$BASEDIR"/angr/lib/angr_native.dylib
+install_name_tool -change libunicorn.1.dylib "$UNICORN"/lib/libunicorn.dylib "$ANGR"/lib/angr_native.dylib
+install_name_tool -change libpyvex.dylib "$PYVEX"/lib/libpyvex.dylib "$ANGR"/lib/angr_native.dylib
 ```
 
 ### Windows
