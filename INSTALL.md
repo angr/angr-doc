@@ -105,27 +105,11 @@ docker exec -ti -u root angr bash
 
 ## libgomp.so.1: version GOMP_4.0 not found, or other z3 issues
 
-This specific error represents an incompatibility between the pre-compiled version of `angr-only-z3-custom` and the installed version of `libgomp`. A Z3 recompile is required. You can do this by executing:
+This specific error represents an incompatibility between the pre-compiled version of libz3.so and the installed version of `libgomp`. A Z3 recompile is required. You can do this by executing:
 
 ```bash
-pip install -I --no-use-wheel z3-solver
+pip install -I --no-binary z3-solver z3-solver
 ```
-
-## Can't import angr because of capstone
-
-Sometimes capstone isn't installed correctly for use by angr. There's a good chance just rebuilding capstone, making sure to use the pre-release version (capstone's distribution is very strange) will solve this issue:
-
-```bash
-pip install -I --pre --no-use-wheel capstone
-```
-
-If this doesn't work, there's a known [issue](https://github.com/aquynh/capstone/issues/445) in installing capstone_3.0.4 using pip in virtualenv/virtualenvwrapper environment. Several users have further reported to be affected by the same bug in native Python installation, too. (See the discussion in Github bug report).
-
-In virtual environment, if capstone Python files are installed in `/home/<username>/.virtualenvs/<virtualenv>/lib/python2.7/site-packages/capstone/*.py(c)`, capstone library file will be found in `/home/<username>/.virtualenvs/<virtualenv>/lib/python2.7/site-packages/home/<username>/.virtualenvs/<virtualenv>/lib/python2.7/site-packages/capstone/libcapstone.so`
-
-In native environment, if capstone Python files are installed in `/usr/local/lib/python2.7/dist-packages/capstone/*.py(c)`, capstone library file will be found in `/usr/local/lib/python2.7/dist-packages/usr/lib/python2.7/dist-packages/capstone/libcapstone.so`
-
-Moving `libcapstone.so` to the same directory as that of Python files will fix the problem.
 
 ## No such file or directory: 'pyvex_c'
 
