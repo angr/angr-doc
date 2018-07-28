@@ -32,6 +32,13 @@ def test_lint_docstrings():
     subprocess.check_call('make clean', shell=True, cwd=_path('api-doc'))
     p = subprocess.Popen('make html', shell=True, cwd=_path('api-doc'), stderr=subprocess.PIPE)
     _, stderr = p.communicate()
+
+    # Filter the deprecation warning from the cryptography package
+    if stderr:
+        stderr_lines = stderr.split("\n")
+        stderr = "\n".join([ l for l in stderr_lines if
+            'CryptographyDeprecationWarning' not in l and 'DeprecatedIn23' not in l ])
+
     if stderr:
         raise Exception("The following warnings were generated while building the API documentation:\n\n" + stderr)
 
