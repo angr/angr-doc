@@ -21,6 +21,7 @@ IR Components
 Lifting System
 --------------
 
+.. automodule:: pyvex.data_ref
 .. automodule:: pyvex.lifting
 .. automodule:: pyvex.lifting.libvex
 .. automodule:: pyvex.lifting.lifter
