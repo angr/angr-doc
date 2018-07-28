@@ -36,7 +36,6 @@ Builtin IR Processors
 ---------------------
 
 .. automodule:: pyvex.lifting.zerodivision
-.. automodule:: pyvex.lifting.fixes
 
 Errors
 ------
