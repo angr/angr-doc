@@ -36,7 +36,8 @@ def test_lint_docstrings():
     # Filter the deprecation warning from the cryptography package
     if stderr:
         stderr_lines = stderr.split("\n")
-        stderr = "\n".join([ l for l in stderr_lines if 'CryptographyDeprecationWarning' not in l ])
+        stderr = "\n".join([ l for l in stderr_lines if
+            'CryptographyDeprecationWarning' not in l and 'DeprecatedIn23' not in l ])
 
     if stderr:
         raise Exception("The following warnings were generated while building the API documentation:\n\n" + stderr)
