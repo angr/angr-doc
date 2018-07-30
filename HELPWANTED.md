@@ -4,6 +4,9 @@ angr is a huge project, and it's hard to keep up.
 Here, we list some big TODO items that we would love community contributions for in the hope that it can direct community involvement.
 They \(will\) have a wide range of complexity, and there should be something for all skill levels!
 
+We tag issues on our github repositories that would be good for community involvement as "Help wanted".
+To see the exhaustive list of these, use [this github search!](https://github.com/search?utf8=%E2%9C%93&q=user%3Aangr+label%3A%22help+wanted%22+state%3Aopen&type=Issues&ref=advsearch&l=&l=)
+
 ## Documentation
 
 There are many parts of angr that suffer from little or no documentation.
