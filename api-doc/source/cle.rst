@@ -41,6 +41,7 @@ Backends
 .. automodule:: cle.backends.blob
 .. automodule:: cle.backends.ihex
 .. automodule:: cle.backends.idabin
+.. automodule:: cle.backends.binja
 .. automodule:: cle.backends.soot
 
 
