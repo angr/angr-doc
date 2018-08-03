@@ -25,24 +25,27 @@ The file descriptor API may be found [here](http://angr.io/api-doc/angr.html#ang
 Okay okay!!
 
 To create a SimFile, you should just create an instance of the class you want to use.
-Refer to the [api docs](http://angr.io/api-doc/angr.html#module-angr.storage.file) for the full instructions.
+Refer to the [API docs](http://angr.io/api-doc/angr.html#module-angr.storage.file) for the full instructions.
 
-Let's go through a few illustrative examples.
+Let's go through a few illustrative examples, which cover how you can work with a concrete file, a symbolic file, a file with mixed concrete and symbolic content, or streams.
 
 #### Example 1: Create a file with concrete content
 
 ```python
+>>> import angr
 >>> simfile = angr.SimFile('myconcretefile', content='hello world!\n')
 ```
 
-Here's a nuance - you can't use simfiles without a state attached, because reasons.
-You'll never have to do this in a real scenario (this operation happens automatically when you pass a SimFile into a constructor or the filesystem) but let's mock it up:
+Here's a nuance - you can't use SimFiles without a state attached, because reasons.
+You'll **never** have to do this in a real scenario (this operation happens automatically when you pass a SimFile into a constructor of the filesystem) but let's mock it up:
 
 ```python
+>>> proj = angr.Project('/bin/true')
+>>> state = proj.factory.blank_state()
 >>> simfile.set_state(state)
 ```
 
-To demonstrate the behavior of these files we're going to use the fact that the default simfile position is just the number of bytes from the start of the file. `SimFile.read` returns a tuple (bitvector data, actual size, new pos):
+To demonstrate the behavior of these files we're going to use the fact that the default SimFile position is just the number of bytes from the start of the file. `SimFile.read` returns a tuple (bitvector data, actual size, new pos):
 
 ```python
 >>> data, actual_size, new_pos = simfile.read(0, 5)
@@ -121,7 +124,7 @@ Reads will generate additional symbolic data past the current frontier:
 >>> assert data.get_bytes(11, 4).symbolic
 ```
 
-#### Example 5: Create a file with a symbolic size (has_end is implicitly true here)
+#### Example 5: Create a file with a symbolic size (`has_end` is implicitly true here)
 
 ```python
 >>> symsize = claripy.BVS('mysize', 64)
@@ -159,10 +162,26 @@ All sizes between 5 and 20 should be possible:
 >>> assert set(state.solver.eval_upto(actual_size, 30)) == set(range(5, 20))
 ```
 
-#### Example 6: SimPackets
+#### Example 6: Working with streams (`SimPackets`)
 
-So far, we've only used the SimFile class.
-We can use a different class implementing SimFileBase, SimPackets, to automatically enable support for short reads, i.e. when you ask for `n` bytes but actually get back fewer bytes than that.
+So far, we've only used the SimFile class, which models a random-accessible file object.
+However, in real life, files are not everything.
+Streams (standard I/O, TCP, etc.) are a great example:
+While they hold data like a normal file does, they do not support random accesses, e.g., you cannot read out the second byte of stdin if you have already read passed that position, and you cannot modify any byte that has been previously sent out to a network endpoint.
+This allows us to design a simpler abstraction for streams in angr.
+
+Believe it or not, this simpler abstraction for streams will benefit symbolic execution.
+Consider an example program that calls `scanf` N times to read in N strings.
+With a traditional SimFile, as we do not know the length of each input string, there does exist any clear boundary in the file between these symbolic input strings.
+In this case, angr will perform N symbolic reads where each read will generate a gigantic tree of claripy ASTs, with string lengths being symbolic.
+This is a nightmare for constraint solving.
+Nevertheless, the fact that `scanf` is used on a stream (stdin) dictates that there will be zero overlap between individual reads, regardless of the sizes of each symbolic input string.
+We may as well model stdin as a stream that comprises of *consecutive packets*, instead of a file containing a sequence of bytes.
+Each of the packet can be of a fixed length or a symbolic length.
+Since there will be absolutely no byte overlap between packets, the constraints that angr will produce after executing this example program will be a lot simpler.
+
+The key concept involved is "short reads", i.e. when you ask for `n` bytes but actually get back fewer bytes than that.
+We use a different class implementing SimFileBase, `SimPackets`, to automatically enable support for short reads.
 By default, stdin, stdout, and stderr are all SimPackets objects.
 
 ```python
