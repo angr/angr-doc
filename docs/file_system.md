@@ -49,6 +49,7 @@ To demonstrate the behavior of these files we're going to use the fact that the 
 
 ```python
 >>> data, actual_size, new_pos = simfile.read(0, 5)
+>>> import claripy
 >>> assert claripy.is_true(data == 'hello')
 >>> assert claripy.is_true(actual_size == 5)
 >>> assert claripy.is_true(new_pos == 5)
