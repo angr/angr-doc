@@ -37,7 +37,7 @@ Let's go through a few illustrative examples, which cover how you can work with 
 ```
 
 Here's a nuance - you can't use SimFiles without a state attached, because reasons.
-You'll **never** have to do this in a real scenario (this operation happens automatically when you pass a SimFile into a constructor of the filesystem) but let's mock it up:
+You'll **never** have to do this in a real scenario (this operation happens automatically when you pass a SimFile into a constructor or the filesystem) but let's mock it up:
 
 ```python
 >>> proj = angr.Project('/bin/true')
