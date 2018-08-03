@@ -173,7 +173,7 @@ This allows us to design a simpler abstraction for streams in angr.
 
 Believe it or not, this simpler abstraction for streams will benefit symbolic execution.
 Consider an example program that calls `scanf` N times to read in N strings.
-With a traditional SimFile, as we do not know the length of each input string, there does exist any clear boundary in the file between these symbolic input strings.
+With a traditional SimFile, as we do not know the length of each input string, there does not exist any clear boundary in the file between these symbolic input strings.
 In this case, angr will perform N symbolic reads where each read will generate a gigantic tree of claripy ASTs, with string lengths being symbolic.
 This is a nightmare for constraint solving.
 Nevertheless, the fact that `scanf` is used on a stream (stdin) dictates that there will be zero overlap between individual reads, regardless of the sizes of each symbolic input string.
