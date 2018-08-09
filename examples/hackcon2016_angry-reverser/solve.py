@@ -36,12 +36,12 @@ def main():
 
     simgr.explore(find=find, avoid=avoids)
     found = simgr.found[0]
-    return found.solver.eval(flag, cast_to=str)
+    return found.solver.eval(flag, cast_to=bytes)
 
 def test():
-    assert main() == "HACKCON{VVhYS04ngrY}"
+    assert main() == b"HACKCON{VVhYS04ngrY}"
 
 if __name__ in '__main__':
     import logging
     logging.getLogger('angr.sim_manager').setLevel(logging.DEBUG)
-    print main()
+    print(main())

@@ -68,9 +68,9 @@ def find_bug(project, function, args):
     simgr.use_technique(CheckUniqueness())
     simgr.run()
 
-    print 'we found a crashing input!'
-    print 'crashing state:', simgr.found[0]
-    print 'input:', repr(simgr.found[0].posix.dumps(0))
+    print('we found a crashing input!')
+    print('crashing state:', simgr.found[0])
+    print('input:', repr(simgr.found[0].posix.dumps(0)))
     return simgr.found[0].posix.dumps(0)
 
 def test():

@@ -34,7 +34,7 @@ def solve(s):
     caller_funcs = [ cfg.functions[caller_addr] for caller_addr in callers ]
     caller_func = sorted(caller_funcs, key=lambda f: f.size)[-1]
 
-    print hex(caller_func.addr)
+    print(hex(caller_func.addr))
     state = p.factory.blank_state(addr=caller_func.addr, add_options={angr.options.LAZY_SOLVES})
     state.regs.rbx = 0
 
@@ -53,8 +53,8 @@ def solve(s):
     if alloca is None:
         return ""
 
-    print "swift_retain:", hex(swift_retain)
-    print "Alloca:", hex(alloca)
+    print("swift_retain:", hex(swift_retain))
+    print("Alloca:", hex(alloca))
     p.hook(swift_retain, angr.SIM_PROCEDURES['stubs']['ReturnUnconstrained'])
     p.hook(alloca, Alloca)
 
@@ -63,7 +63,7 @@ def solve(s):
 
     state = sm.deadended[-1]
     mem = state.memory.load(pos + 0x20, 60)
-    mem_str = state.solver.eval(mem, cast_to=str).replace("\x00", "")
+    mem_str = state.solver.eval(mem, cast_to=bytes).replace(b"\x00", b"")
     return mem_str
 
 def main():
@@ -74,12 +74,12 @@ def main():
         solution_file = "%s.solution" % filename
         if os.path.exists(solution_file):
             continue
-        print i, filename
+        print(i, filename)
         sol = solve(filename)
         # data = sol.encode("base64")
         with open(solution_file, "wb") as f:
             f.write(sol)
-        #print "Send this:" + data
+        #print("Send this:" + data)
         #sock.send(data + "\n")
 
 

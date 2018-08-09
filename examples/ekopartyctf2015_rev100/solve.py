@@ -12,7 +12,7 @@ import angr
 def prepare_state(state, known_passwords):
     state = state.copy()
     password = [ ]
-    for i in xrange(0, len(known_passwords) + 1):
+    for i in range(0, len(known_passwords) + 1):
         password.append(state.solver.BVS('password_%d' % i, 8))
         state.memory.store(0xd0000000 + i, password[-1])
 
@@ -183,7 +183,7 @@ def main():
     # The last one must be '4'...
     known_passwords += [ '4' ]
     password = "".join(known_passwords)
-    print "Flag: EKO{%s}" % password
+    print("Flag: EKO{%s}" % password)
 
     return password
 

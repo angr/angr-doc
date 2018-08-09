@@ -2,7 +2,7 @@
 
 """
 In this challenge we are given a binary that checks an input given from stdin.
-If it is correct, it will call get_flag in a separate library and print it.
+If it is correct, it will call get_flag in a separate library and print(it.)
 However, we don't have the library so need to find the correct input and input
 it over netcat. If it is incorrect, only 'Goodbye' is printed.
 

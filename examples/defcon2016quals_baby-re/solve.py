@@ -16,7 +16,7 @@ def main():
     proj = angr.Project('./baby-re', auto_load_libs=False)
 
     # let's provide the exact variables received through the scanf so we don't have to worry about parsing stdin into a bunch of ints.
-    flag_chars = [claripy.BVS('flag_%d' % i, 32) for i in xrange(13)]
+    flag_chars = [claripy.BVS('flag_%d' % i, 32) for i in range(13)]
     class my_scanf(angr.SimProcedure):
         def run(self, fmt, ptr): # pylint: disable=arguments-differ,unused-argument
             self.state.mem[ptr].dword = flag_chars[self.state.globals['scanf_count']]

@@ -71,8 +71,8 @@ io_options.add_argument("-f", "--file",
 #//////////////////////////////////////////////////////////////////////////////
 # Core functions
 #
-FLAG = "SharifCTF{b70c59275fcfa8aebf2d5911223c6589}"
-FLAG_STR = "SharifCTF{????????????????????????????????}"
+FLAG = b"SharifCTF{b70c59275fcfa8aebf2d5911223c6589}"
+FLAG_STR = b"SharifCTF{????????????????????????????????}"
 #
 def solve(_file):
 
@@ -106,7 +106,7 @@ def solve(_file):
     # retrieve the 43 bytes (e.g. len(flag)) at flag_addr
     solve_var = sm.found[0].memory.load(flag_addr, len(FLAG_STR))
     # and convert it into a string:
-    solved_flag = sm.found[0].solver.eval(solve_var, cast_to=str)
+    solved_flag = sm.found[0].solver.eval(solve_var, cast_to=bytes)
 
     return solved_flag
 
@@ -119,7 +119,7 @@ def test():
     assert solve(challenge) == FLAG
 
 def main(_args):
-    print solve(_args.input)
+    print(solve(_args.input))
 
 #
 #//////////////////////////////////////////////////////////////////////////////

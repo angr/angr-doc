@@ -56,15 +56,15 @@ def main():
                 targets.append(ins.address + ins.size)
                 state = 0
 
-    print "found {:d} targets".format(len(targets))
+    print("found {:d} targets".format(len(targets)))
     assert len(targets) == 28
 
     flag_arr = ['0', 'c', 't', 'f', '{']
 
     for target in targets[5:]:
-        print "\nexamining target {:#x}:".format(target)
+        print("\nexamining target {:#x}:".format(target))
         for trychar in string.printable:
-            print trychar,
+            print(trychar,)
             sys.stdout.flush()
             flag = ''.join(flag_arr)+trychar
             state = p.factory.entry_state()
@@ -99,4 +99,4 @@ def test():
     assert main() == '0ctf{m0V_I5_tUr1N9_c0P1Et3!}'
 
 if __name__ == '__main__':
-    print main()
+    print(main())

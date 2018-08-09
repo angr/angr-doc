@@ -27,18 +27,18 @@ def main():
     '''
     def getFuncAddress( funcName, plt=None ):
         found = [
-            addr for addr,func in cfg.kb.functions.iteritems()
+            addr for addr,func in cfg.kb.functions.items()
             if funcName == func.name and (plt is None or func.is_plt == plt)
             ]
         if len( found ) > 0:
-            print "Found "+funcName+"'s address at "+hex(found[0])+"!"
+            print("Found "+funcName+"'s address at "+hex(found[0])+"!")
             return found[0]
         else:
             raise Exception("No address found for function : "+funcName)
 
 
     def get_byte(s, i):
-        pos = s.size() / 8 - 1 - i
+        pos = s.size() // 8 - 1 - i
         return s[pos * 8 + 7 : pos * 8]
 
     '''
@@ -113,7 +113,7 @@ def main():
              vector, we grab its string representation using the current state's
              solver engine's function "eval" with cast_to set to str so we get a python string.
             '''
-            strCpySrc = state.solver.eval( BV_strCpySrc , cast_to=str )
+            strCpySrc = state.solver.eval( BV_strCpySrc , cast_to=bytes )
             '''
              Now we simply return True (found path) if we've found a path to strcpy
              where we control the source buffer, or False (keep looking for paths) if we
@@ -145,11 +145,11 @@ def main():
      able to strcpy() any string you want into the destination buffer and
      cause a segmentation fault if it is too large :)
     '''
-    if ( len( found ) > 0 ):    #   Make sure we found a path before giving the solution
+    if len(found) > 0:    #   Make sure we found a path before giving the solution
         found = sm.found[0]
-        result = found.solver.eval(argv[1], cast_to=str)
+        result = found.solver.eval(argv[1], cast_to=bytes)
         try:
-            result = result[:result.index('\0')]
+            result = result[:result.index(b'\0')]
         except ValueError:
             pass
     else:   # Aww somehow we didn't find a path.  Time to work on that check() function!
@@ -158,8 +158,8 @@ def main():
 
 def test():
     output = main()
-    target = "Totally not the password..."
+    target = b"Totally not the password..."
     assert output[:len(target)] == target
 
 if __name__ == "__main__":
-    print 'The password is "%s"' % main()
+    print('The password is "%s"' % main())

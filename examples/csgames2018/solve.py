@@ -51,18 +51,18 @@ def main():
 	# At this point, we've actually found "correct" flags, but they contain symbols that probably aren't on all keyboards. Ideally we only want to find alphanumeric keys.
 
 	def is_alphanumeric(state, byte):
-		is_num = state.solver.And(byte >= "0", byte <= "9")
-		is_alpha_lower = state.solver.And(byte >= "a", byte <= "z")
-		is_alpha_upper = state.solver.And(byte >= "A", byte <= "Z")
+		is_num = state.solver.And(byte >= b"0", byte <= b"9")
+		is_alpha_lower = state.solver.And(byte >= b"a", byte <= b"z")
+		is_alpha_upper = state.solver.And(byte >= b"A", byte <= b"Z")
 		return state.solver.Or(is_num, is_alpha_lower, is_alpha_upper)
 
 	# XXXX-XX-XXX-XXXX
-	for i in range(0, 4) + range(5, 7) + range(8, 11) + range(12, 16):
+	for i in list(range(0, 4)) + list(range(5, 7)) + list(range(8, 11)) + list(range(12, 16)):
 		found.add_constraints(is_alphanumeric(found, input_key.chop(8)[i]))
 
 	min_solutions = found.solver.min(input_key)
 
-	keys = found.solver.eval_atleast(input_key, 100, cast_to=str)
+	keys = found.solver.eval_atleast(input_key, 100, cast_to=bytes)
 
 	print("We found at least " + str(min_solutions) + " keys! The Recording Industry Association of Space Penguins says their entire galaxy is now bankrupt, so we might as well have 100 of their keys:")
 

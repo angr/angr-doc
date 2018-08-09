@@ -21,7 +21,7 @@ def main():
         # in order to save memory, we only keep the recent 20 deadended or
         # errored states
         sm.run(n=20)
-        print len(sm.active)
+        print(len(sm.active))
         if 'deadended' in sm.stashes and sm.deadended:
             sm.stashes['deadended'] = sm.deadended[-20:]
         if sm.errored:
@@ -38,14 +38,14 @@ def test():
     assert flag.startswith('hxp{1_h0p3_y0u_d1dnt_p33l_th3_0ni0n_by_h4nd}')
 
 if __name__ == "__main__":
-    print main()
+    print(main())
 
 # Here is the output (after 2 hours and 31 minutes on my machine running Pypy):
 # 
-# ipdb> print sm
+# ipdb> print(sm)
 # <PathGroup with 20 errored, 21 deadended>
-# ipdb> print sm.deadended[-1]
+# ipdb> print(sm.deadended[-1])
 # <Path with 160170 runs (at 0x20001e0)>
-# ipdb> print sm.deadended[-1].state.posix.dumps(0)
+# ipdb> print(sm.deadended[-1].state.posix.dumps(0))
 # hxp{1_h0p3_y0u_d1dnt_p33l_th3_0ni0n_by_h4nd}
 # :)

@@ -43,12 +43,12 @@ def main():
 
     found = sm.found[0] # In our case, there's only one printable solution.
 
-    solution = found.solver.eval(argv1, cast_to=str)
-    solution = solution[:solution.find("}")+1] # Trim off the null bytes at the end of the flag (if any).
+    solution = found.solver.eval(argv1, cast_to=bytes)
+    solution = solution[:solution.find(b"}")+1] # Trim off the null bytes at the end of the flag (if any).
     return solution
 
 def test():
-    assert main() == 'CTF{0The1Quick2Brown3Fox4Jumped5Over6The7Lazy8Fox9}'
+    assert main() == b'CTF{0The1Quick2Brown3Fox4Jumped5Over6The7Lazy8Fox9}'
 
 if __name__ == '__main__':
     print(repr(main()))

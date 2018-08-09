@@ -89,7 +89,7 @@ def main():
 
     print("Running solver...")
 
-    solution = state.solver.eval(state.memory.load(FLAG_LOCATION, 32), cast_to=str).rstrip(b'\0').decode('ascii')
+    solution = state.solver.eval(state.memory.load(FLAG_LOCATION, 32), cast_to=bytes).rstrip(b'\0').decode('ascii')
     print("The flag is", solution)
 
     return solution

@@ -93,10 +93,10 @@ def main():
     sm.explore(find=0x8048A94, avoid=0x8048AF6)
 
     # We're done!
-    return sm.found[0].solver.eval(sm.found[0].memory.load(0x080491A0, 100), cast_to=str).strip('\0\n')
+    return sm.found[0].solver.eval(sm.found[0].memory.load(0x080491A0, 100), cast_to=bytes).strip(b'\0\n')
 
 def test():
-    assert main() == 'EwgHWpyND'
+    assert main() == b'EwgHWpyND'
 
 if __name__ == '__main__':
-    print main()
+    print(main())

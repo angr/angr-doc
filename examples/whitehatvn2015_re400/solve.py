@@ -36,7 +36,7 @@ def main():
     state.add_constraints(argv[1].get_byte(32) >= argv[1].get_byte(33))
     state.add_constraints(argv[1].get_byte(32) ^ argv[1].get_byte(33) == 0x1e)
 
-    for i in xrange(36):
+    for i in range(36):
         # We want those flags to be printable characters
         state.add_constraints(argv[1].get_byte(i) >= 0x20)
         state.add_constraints(argv[1].get_byte(i) <= '}')
@@ -62,7 +62,7 @@ def main():
 
     possible_flags = ex.found[0].solver.eval_upto(argv[1], 20)
     for i, f in enumerate(possible_flags):
-        print "Flag %d:" % i, hex(f)[2:-1].decode("hex")
+        print("Flag %d:" % i, hex(f)[2:-1].decode("hex"))
 
     return [hex(f)[2:-1].decode("hex") for f in possible_flags]
 

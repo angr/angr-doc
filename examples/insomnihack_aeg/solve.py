@@ -65,7 +65,7 @@ def main(binary):
     l.info("looking for vulnerability in '%s'", binary_name)
     exploitable_state = None
     while exploitable_state is None:
-        print sm
+        print(sm)
         sm.step()
         if len(sm.unconstrained) > 0:
             l.info("found some unconstrained states, checking exploitability")
@@ -105,8 +105,8 @@ def main(binary):
     with open(filename, 'w') as f:
         f.write(ep.posix.dumps(0))
 
-    print "%s exploit in %s" % (binary_name, filename)
-    print "run with `(cat %s; cat -) | %s`" % (filename, binary)
+    print("%s exploit in %s" % (binary_name, filename))
+    print("run with `(cat %s; cat -) | %s`" % (filename, binary))
     return 0
 
 def test():
@@ -121,4 +121,4 @@ if __name__ == '__main__':
     if len(sys.argv) > 1:
         sys.exit(main(sys.argv[1]))
     else:
-        print "%s: <binary>" % sys.argv[0]
+        print("%s: <binary>" % sys.argv[0])

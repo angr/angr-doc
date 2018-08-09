@@ -24,7 +24,7 @@ def main():
 
     #by default angr discards unconstrained paths, so we need to specify the  
     #save_unconstrained option
-    print "finding the buffer overflow..."
+    print("finding the buffer overflow...")
     sm = project.factory.simulation_manager(save_unconstrained=True)
     #symbolically execute the binary until an unconstrained path is reached
     while len(sm.unconstrained)==0:
@@ -34,8 +34,8 @@ def main():
     #cat crash_input.bin | ./CADET_00001.adapted will segfault
     with open('crash_input.bin', 'wb') as fp:
         fp.write(crashing_input)
-    print "buffer overflow found!"
-    print repr(crashing_input)
+    print("buffer overflow found!")
+    print(repr(crashing_input))
 
 
     #let's now find the easter egg (it takes about 2 minutes)
@@ -46,7 +46,7 @@ def main():
 
     #to disable "lazy solving" we generate a blank path and we change its options,
     #then we specify this path as the initial path of the path group
-    print "finding the easter egg..."
+    print("finding the easter egg...")
     sm = project.factory.simulation_manager(project.factory.entry_state())
 
     #at this point we just ask angr to reach the basic block where the easter egg 
@@ -54,17 +54,17 @@ def main():
     sm.explore(find=0x804833E)
     found = sm.found[0]
     solution1 = found.posix.dumps(0)
-    print "easter egg found!"
-    print repr(solution1)
+    print("easter egg found!")
+    print(repr(solution1))
     with open('easteregg_input1.bin', 'wb') as fp:
         fp.write(solution1)
     #you can even check if the easter egg has been found by checking stdout
     stdout1 = found.posix.dumps(1)
-    print repr(stdout1)
+    print(repr(stdout1))
 
     #an alternative way to avoid unfeasible paths (paths that contain an unsatisfiable set
     #of constraints) is to "manually" step the path group execution and call prune()
-    print "finding the easter egg (again)..."
+    print("finding the easter egg (again)...")
     sm = project.factory.simulation_manager()
     while True:
         sm.step()
@@ -74,13 +74,13 @@ def main():
             break
     found = found_list[0]
     solution2 = found.posix.dumps(0)
-    print "easter egg found!"
-    print repr(solution2)
+    print("easter egg found!")
+    print(repr(solution2))
     with open('easteregg_input2.bin', 'wb') as fp:
         fp.write(solution2)
     #you can even check if the easter egg has been found by checking stdout
     stdout2 = found.posix.dumps(1)
-    print repr(stdout2)
+    print(repr(stdout2))
 
     return (crashing_input, solution1, stdout1, solution2, stdout2)
 
