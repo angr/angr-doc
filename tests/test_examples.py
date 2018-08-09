@@ -11,7 +11,7 @@ def _path(d):
 def exampletest_single(example_dir):
     init_pwd = os.getcwd()
     os.chdir(_path('examples/') + example_dir)
-    print os.getcwd()
+    print(os.getcwd())
     if '.' not in sys.path:
         sys.path.append('.')
     try:

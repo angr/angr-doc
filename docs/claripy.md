@@ -45,7 +45,7 @@ ASTs provide several useful operations.
 >>> assert bv.reversed.reversed is bv
 
 # Depth - you can get the depth of the AST
->>> print bv.depth
+>>> print(bv.depth)
 >>> assert bv.depth == 1
 >>> x = claripy.BVS('x', 32)
 >>> assert (x+bv).depth == 2

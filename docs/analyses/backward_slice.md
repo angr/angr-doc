@@ -53,7 +53,7 @@ A `BackwardSlice` can be constructed with the following code:
 >>> bs = b.analyses.BackwardSlice(cfg, cdg=cdg, ddg=ddg, targets=[ (target_node, -1) ])
 
 # Here is our awesome program slice!
->>> print bs
+>>> print(bs)
 
 ```
 

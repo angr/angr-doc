@@ -203,11 +203,11 @@ If left unspecified, short_reads is determined from a state option.
 Data in a SimPackets is stored as tuples of (packet data, packet size) in `.content`.
 
 ```python
->>> print simfile.content
+>>> print(simfile.content)
 [(<BV160 packet_0_mypackets>, <BV64 packetsize_0_mypackets>)]
 
 >>> simfile.read(0, 1, short_reads=False)
->>> print simfile.content
+>>> print(simfile.content)
 [(<BV160 packet_0_mypackets>, <BV64 packetsize_0_mypackets>), (<BV8 packet_1_mypackets>, <BV64 0x1>)]
 ```
 

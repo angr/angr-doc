@@ -39,7 +39,7 @@ The binary and source code for this course can be found [here](./src/).
 # comparison and will progress independently from the other one
 >>> print(sm)
 >>> for i, s in enumerate(sm.active):
-...     print 'Active state %d: %s' % (i, hex(s.addr))
+...     print('Active state %d: %s' % (i, hex(s.addr)))
 >>> assert len(sm.active) == 2
 >>> assert sm.active[0].addr == first_branch_left
 >>> assert sm.active[1].addr == first_branch_right
@@ -66,7 +66,7 @@ The binary and source code for this course can be found [here](./src/).
 >>> sm.step()
 >>> print(sm)
 >>> for i, s in enumerate(sm.active):
-...     print 'Active state %d: %s' % (i, hex(s.addr))
+...     print('Active state %d: %s' % (i, hex(s.addr)))
 >>> assert len(sm.active) == 1
 >>> assert sm.active[0].addr == endpoint
 
