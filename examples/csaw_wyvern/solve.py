@@ -17,7 +17,7 @@ def main():
     # be 29 bytes long, and the last byte is a newline.
 
     # Constrain the first 28 bytes to be non-null and non-newline:
-    for _ in xrange(28):
+    for _ in range(28):
         k = st.posix.files[0].read_from(1)
         st.solver.add(k != 0)
         st.solver.add(k != 10)
@@ -36,19 +36,19 @@ def main():
     sm.run()
 
     # Get the stdout of every path that reached an exit syscall. The flag should be in one of these!
-    out = ''
+    out = b''
     for pp in sm.deadended:
         out = pp.posix.dumps(1)
-        if 'flag{' in out:
-            return filter(lambda s: 'flag{' in s, out.split())[0]
+        if b'flag{' in out:
+            return next(filter(lambda s: b'flag{' in s, out.split()))
 
     # Runs in about 15 minutes!
 
 def test():
-    assert main() == 'flag{dr4g0n_or_p4tric1an_it5_LLVM}'
+    assert main() == b'flag{dr4g0n_or_p4tric1an_it5_LLVM}'
 
 if __name__ == "__main__":
     before = time.time()
-    print main()
+    print(main())
     after = time.time()
-    print "Time elapsed: {}".format(after - before)
+    print("Time elapsed: {}".format(after - before))

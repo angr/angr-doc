@@ -37,7 +37,7 @@ def main():
     while sm.active and not sm.unconstrained:
         sm.step()
 
-    print sm
+    print(sm)
     # In [9]: sm
     # Out[9]: <PathGroup with 1 deadended, 1 unconstrained>
 
@@ -50,11 +50,11 @@ def main():
     # win function to give us execution
     s.add_constraints(s.regs.rip == proj.loader.find_symbol('win').rebased_addr)
 
-    print s.solver.constraints
+    print(s.solver.constraints)
     assert s.satisfiable()
 
     # Call the solving engine and write the solution out to a file called "exploit"
-    print "Writing exploit as \"exploit\""
+    print("Writing exploit as \"exploit\"")
     with open('exploit', 'wb') as fp:
         fp.write(s.posix.dumps(0))
 

@@ -46,10 +46,10 @@ def main():
         simgr = proj.factory.simgr(found)
 
     # evaluate text
-    text = found.solver.eval(found.memory.load(0x612040, 400), cast_to=str)
+    text = found.solver.eval(found.memory.load(0x612040, 400), cast_to=bytes)
 
     h = hashlib.sha256(text)
-    flag = 'hitcon{'+h.digest().encode('hex')+'}'
+    flag = 'hitcon{'+h.hexdigest()+'}'
     return flag
 
 def test():
@@ -59,4 +59,4 @@ if __name__ == '__main__':
     import logging
     logging.getLogger('angr.sim_manager').setLevel(logging.DEBUG)
 
-    print main()
+    print(main())

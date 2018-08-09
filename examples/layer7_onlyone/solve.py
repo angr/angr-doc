@@ -37,7 +37,7 @@ def main():
 
     # Load our input string, and make sure there is no null byte inside
     content = initial_state.memory.load(str_ptr, len(encrypted))
-    for i in xrange(0, len(content), 8):
+    for i in range(0, len(content), 8):
         initial_state.add_constraints(content[i + 7 : i] != 0)
 
     # Make sure the input string ends with a null byte
@@ -54,7 +54,7 @@ def main():
     # Call explorer to execute the function
     # Note that Veritesting is important since we want to avoid unnecessary branching
     ex = angr.surveyors.Explorer(p, start=initial_state, find=(0x4010c9, ), enable_veritesting=True)
-    print "Executing..."
+    print("Executing...")
     angr.surveyors.explorer.l.setLevel(logging.DEBUG)
     angr.surveyors.surveyor.l.setLevel(logging.DEBUG)
     r = ex.run()
@@ -66,12 +66,12 @@ def main():
 
     # Load the final encrypted string, add constraints to make the string be equal to encrypted data
     buf_ptr = final_state.memory.load(final_state.regs.ebp - 0x18, 4, endness=p.arch.memory_endness)
-    for i in xrange(0, len(encrypted)):
+    for i in range(0, len(encrypted)):
         final_state.add_constraints(final_state.memory.load(buf_ptr + i, 1) == ord(encrypted[i]))
 
     # Our input - solve it!
     input_string = final_state.memory.load(str_ptr, 10)
-    print "Solving..."
+    print("Solving...")
     candidates = final_state.solver.eval_upto(input_string, 2)
 
     assert len(candidates) == 1
@@ -81,4 +81,4 @@ def test():
     assert main() == 'I_H4TE_X0r'
 
 if __name__ == "__main__":
-    print main()
+    print(main())

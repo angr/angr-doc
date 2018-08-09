@@ -21,13 +21,13 @@ def main():
     sm = proj.factory.simulation_manager(initial_state)
     sm.explore(find=0x4018f7, avoid=0x4018f9)
     found = sm.found[0]
-    return found.solver.eval(argv1, cast_to=str)
+    return found.solver.eval(argv1, cast_to=bytes)
 
 
 def test():
     res = main()
-    print repr(res)
-    assert res == '4ngrman4gem3nt'
+    print(repr(res))
+    assert res == b'4ngrman4gem3nt'
 
 
 if __name__ == '__main__':

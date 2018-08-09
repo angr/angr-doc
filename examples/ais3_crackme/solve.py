@@ -22,23 +22,22 @@ def main():
     sm = project.factory.simulation_manager(initial_state)
 
     #symbolically execute the program until we reach the wanted value of the instruction pointer
-    sm.explore(find=0x400602) #at this instruction the binary will print the "correct" message
+    sm.explore(find=0x400602) #at this instruction the binary will print(the "correct" message)
 
     found = sm.found[0]
     #ask to the symbolic solver to get the value of argv1 in the reached state as a string
-    solution = found.solver.eval(argv1, cast_to=str)
+    solution = found.solver.eval(argv1, cast_to=bytes)
 
-    print repr(solution)
-    solution = solution[:solution.find("\x00")]
-    print solution
+    print(repr(solution))
+    solution = solution[:solution.find(b"\x00")]
+    print(solution)
     return solution
 
 def test():
     res = main()
-    assert res == "ais3{I_tak3_g00d_n0t3s}"
+    assert res == b"ais3{I_tak3_g00d_n0t3s}"
 
 
 if __name__ == '__main__':
     print(repr(main()))
-
 

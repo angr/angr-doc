@@ -27,7 +27,7 @@ INPUT_LENGTH = 0xf2 - 0xc0 + 1 # derived from the first and last character
 
 def extract_memory(state):
     """Convience method that returns the flag input memory."""
-    return state.solver.eval(state.memory.load(INPUT_ADDR, INPUT_LENGTH), cast_to=str)
+    return state.solver.eval(state.memory.load(INPUT_ADDR, INPUT_LENGTH), cast_to=bytes)
 
 def char(state, n):
     """Returns a symbolic BitVector and contrains it to printable chars for a given state."""
@@ -58,7 +58,7 @@ def main():
     return flag
 
 def test():
-    assert main() == 'CTF{0The1Quick2Brown3Fox4Jumped5Over6The7Lazy8Fox9}'
+    assert main() == b'CTF{0The1Quick2Brown3Fox4Jumped5Over6The7Lazy8Fox9}'
 
 if __name__ == '__main__':
     main()

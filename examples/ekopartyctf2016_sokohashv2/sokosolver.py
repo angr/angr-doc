@@ -25,10 +25,10 @@ def to_asmstring(state, addr, length):
 
 
 def debug_func(state):
-    print to_asmstring(state, state.regs.eip, 10)
+    print(to_asmstring(state, state.regs.eip, 10))
 
     addr = state.solver.eval(state.regs.eip)
-    print hex(addr)
+    print(hex(addr))
 
 #######################################
 
@@ -51,7 +51,7 @@ def get_hash_map(init_addr):
 	"""
     addr = init_addr
     hash_map = []
-    for i in xrange(0, len(WIN_HASH), 2):
+    for i in range(0, len(WIN_HASH), 2):
         pair = WIN_HASH[i:i+2]
         hash_map.append((addr, ord(pair[1])))
         hash_map.append((addr+1, ord(pair[0])))
@@ -98,7 +98,7 @@ p.hook(0x00401225, hook_printf,length=5)
 p.hook(0x00401243, hook_printf,length=5)
 p.hook(0x00401253, hook_security_check_cookie,length=5)
 
-print "Initiating state"
+print("Initiating state")
 
 #we are not starting from 401000 because it is not working properly.
 #probably due to we are calling the function directly (it's mean creating an
@@ -114,7 +114,7 @@ start = initial_state.regs.ebp
 #    In this case, the restrictions are asociated to values of the sokohash table.
 #    (the parameters must be included in the sokohash universe numbers)
 ##############################################
-print "Setting params restrictions (precontions)"
+print("Setting params restrictions (precontions)")
 #first of all we will set the restrictions for out parameters in the initial
 #state. to set that, we will load the addresses (this load will return a
 #symbolic memory (another alternative can be use BVS and memory.store these bit
@@ -177,7 +177,7 @@ conc = initial_state.solver.eval #this is used to concrete an symbolic value
 
 for addr, value in get_hash_map(0x04216C0):
     memory = found_s.memory.load(addr, 1, endness=p.arch.memory_endness)
-    print "Addr: %x --> %s" % (addr, hex(value))
+    print("Addr: %x --> %s" % (addr, hex(value)))
     conds.append((memory == value))
 
 found_s.add_constraints(found_s.solver.And(*conds))
@@ -193,16 +193,16 @@ found_s.add_constraints(found_s.solver.And(*conds))
 
 import binascii
 solution1 = found_s.solver.eval(r1)
-print "x: ", hex(solution1)
+print("x: ", hex(solution1))
 
 solution2 = found_s.solver.eval(r2)
-print "y: ", hex(solution2)
+print("y: ", hex(solution2))
 
 solution3 = found_s.solver.eval(r3)
-print "z:", hex(solution3)
+print("z:", hex(solution3))
 
 solution4 = found_s.solver.eval(r4)
-print "w:", hex(solution4)
+print("w:", hex(solution4))
 ##############################################
 
 sys.stdout.flush()

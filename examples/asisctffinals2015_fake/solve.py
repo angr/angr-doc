@@ -17,7 +17,7 @@ def main():
 
     # More constraints: the whole flag should be printable
     flag = found.memory.load(flag_addr, 40)
-    for i in xrange(5, 5+32):
+    for i in range(5, 5+32):
         cond_0 = flag.get_byte(i) >= ord('0')
         cond_1 = flag.get_byte(i) <= ord('9')
         cond_2 = flag.get_byte(i) >= ord('a')
@@ -34,20 +34,20 @@ def main():
     # if there are less constraints. I added all constraints just to stay on the 
     # safe side.
 
-    flag_str = found.solver.eval(flag, cast_to=str)
-    return flag_str.rstrip('\0')
+    flag_str = found.solver.eval(flag, cast_to=bytes)
+    return flag_str.rstrip(b'\0')
 
-    #print "The number to input: ", found.solver.eval(inp)
-    #print "Flag:", flag
+    #print("The number to input: ", found.solver.eval(inp))
+    #print("Flag:", flag)
 
     # The number to input:  25313971399
     # Flag: ASIS{f5f7af556bd6973bd6f2687280a243d9}
 
 def test():
     a = main()
-    assert a == 'ASIS{f5f7af556bd6973bd6f2687280a243d9}'
+    assert a == b'ASIS{f5f7af556bd6973bd6f2687280a243d9}'
 
 if __name__ == '__main__':
     import logging
     logging.getLogger('angr.sim_manager').setLevel(logging.DEBUG)
-    print main()
+    print(main())

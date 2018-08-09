@@ -56,7 +56,7 @@ def do_memset(state):
     start_off = 0x41d450 - addr
     end_off = 0x41e0c8 - addr
     coords = []
-    for i in xrange(start_off, end_off+8, 8):
+    for i in range(start_off, end_off+8, 8):
         coords.append(struct.unpack("<Q", content[i:i+8])[0])
 
     return coords
@@ -73,7 +73,7 @@ def do_nothing(state):
 def get_hash_map(init_addr):
     addr = init_addr
     hash_map = []
-    for i in xrange(0, len(WIN_HASH), 2):
+    for i in range(0, len(WIN_HASH), 2):
         pair = WIN_HASH[i:i+2]
         hash_map.append((addr, ord(pair[1])))
         hash_map.append((addr+1, ord(pair[0])))
@@ -112,7 +112,7 @@ def main():
     coord_dict = {}
     count = 0
     for i in get_valid_coords():
-        #print "%s = %.16x" % (i, pos[count])
+        #print("%s = %.16x" % (i, pos[count]))
         coord_dict[coords[count]] = i
         count += 1
 
@@ -120,7 +120,7 @@ def main():
 
     # search only for possible coords
     variables = []
-    for i in xrange(0, 4):
+    for i in range(0, 4):
         var = init.memory.load(init.regs.ebp + 0x8 + (0x8*i), 0x8, endness=proj.arch.memory_endness)
         variables.append(var)
         conds = []
@@ -148,7 +148,7 @@ def main():
         memory = found.memory.load(addr, 1, endness=proj.arch.memory_endness)
         conds.append((memory == value))
         expected.append((hex(addr), hex(value)))
-    print "Expected is '%s'\n\n" % expected
+    print("Expected is '%s'\n\n" % expected)
 
     found.add_constraints(init.solver.And(*conds))
 
@@ -158,7 +158,7 @@ def main():
         buf_ptr = found.memory.load(addr, 1)
         possible = found.solver.eval(buf_ptr)
         result.append((hex(addr), "0x%x" % possible))
-    print "Result is '%s'\n\n" % result
+    print("Result is '%s'\n\n" % result)
 
 
     # Print solutions
@@ -170,12 +170,12 @@ def main():
 
         names = ["x","y","z","w"]
         values = []
-        for j in xrange(0, len(out), 16):
+        for j in range(0, len(out), 16):
             value = out[j:j+16]
             unpk_value = struct.unpack("<Q", value.decode("hex"))[0]
 
             values.append((names[j//16], coord_dict[unpk_value]))
-        print "\tSolution %d: %s" % (i, values)
+        print("\tSolution %d: %s" % (i, values))
 
 
 if __name__ == '__main__':

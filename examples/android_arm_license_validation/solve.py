@@ -40,9 +40,9 @@ def main():
 
     # Get the solution string from *(R11 - 0x20).
 
-    solution = found.solver.eval(code, cast_to=str)
+    solution = found.solver.eval(code, cast_to=bytes)
 
-    print base64.b32encode(solution)
+    print(base64.b32encode(solution))
     return code, found
 
 def test():
@@ -52,7 +52,7 @@ def test():
     found.solver.add(user_input.get_byte(4) == ord('L'))
     found.solver.add(user_input.get_byte(6) == ord('Z'))
     found.solver.add(user_input.get_byte(8) == ord('!'))
-    solution = found.solver.eval(user_input, cast_to=str)
+    solution = found.solver.eval(user_input, cast_to=bytes)
     assert found.solver.satisfiable() == True
     assert base64.b32encode(solution) == 'JQAE6ACMABNAAIIA'
 

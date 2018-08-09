@@ -52,4 +52,4 @@ if __name__ == "__main__":
     # Turn on logging so we know what's going on...
     # It's up to you to set up a logging handler beforehand
     logging.getLogger('angr.manager').setLevel(logging.DEBUG)
-    print main()
+    print(main())

@@ -17,15 +17,15 @@ def main():
     # will spent much more time in path trimming.
 
     bytestring = None
-    for i in xrange(5):
+    for i in range(5):
         line = [ ]
-        for j in xrange(6):
+        for j in range(6):
             line.append(state.solver.BVS('license_file_byte_%d_%d' % (i, j), 8))
-            state.add_constraints(line[-1] != '\n')
+            state.add_constraints(line[-1] != b'\n')
         if bytestring is None:
             bytestring = claripy.Concat(*line)
         else:
-            bytestring = bytestring.concat(state.solver.BVV('\n'), *line)
+            bytestring = bytestring.concat(state.solver.BVV(b'\n'), *line)
 
     license_file = angr.storage.file.SimFile(license_name, bytestring)
     state.fs.insert(license_name, license_file)
@@ -54,12 +54,12 @@ def main():
     flag_length_int = min(found.solver.eval_upto(flag_length, 3))
     # Read out the flag!
     flag_int = found.solver.eval(found.memory.load(flag_addr, flag_length_int))
-    flag = hex(flag_int)[2:-1].decode("hex")
+    flag = bytes.fromhex(hex(flag_int)[2:])
     return flag
 
 def test():
-    assert main() == 'ASIS{8d2cc30143831881f94cb05dcf0b83e0}'
+    assert main() == b'ASIS{8d2cc30143831881f94cb05dcf0b83e0}'
 
 if __name__ == '__main__':
-    print main()
+    print(main())
 

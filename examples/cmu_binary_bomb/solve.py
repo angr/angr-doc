@@ -49,8 +49,8 @@ def solve_flag_1():
 
     if simgr.found:
         found = simgr.found[0]
-        flag = found.solver.eval(arg, cast_to=str)
-        return flag[:flag.index('\x00')] # remove everyting after \x00 because they won't be compared
+        flag = found.solver.eval(arg, cast_to=bytes)
+        return flag[:flag.index(b'\x00')].decode() # remove everyting after \x00 because they won't be compared
     else:
         raise Exception("angr failed to find a path to the solution :(")
 
@@ -64,7 +64,7 @@ def solve_flag_2():
 
     # Sscanf is looking for '%d %d %d %d %d %d' which ends up dropping 6 ints onto the stack
     # We will create 6 symbolic values onto the stack to mimic this
-    for i in xrange(6):
+    for i in range(6):
         state.stack_push(state.solver.BVS('int{}'.format(i), 4*8))
 
     # Attempt to find a path to the end of the phase_2 function while avoiding the bomb_explode
@@ -78,7 +78,7 @@ def solve_flag_2():
 
         answer = []
 
-        for _ in xrange(3):
+        for _ in range(3):
             curr_int = found.solver.eval(found.stack_pop())
 
             # We are popping off 8 bytes at a time
@@ -106,7 +106,7 @@ def solve_flag_3():
     while len(queue) > 0:
 
         state = queue.pop()
-        #print "\nStarting symbolic execution..."
+        #print("\nStarting symbolic execution...")
 
         ex = proj.surveyors.Explorer(start=state, find=(end,),
                                      avoid=(bomb_explode,),
@@ -114,12 +114,12 @@ def solve_flag_3():
                                      max_active=8)
         ex.run()
 
-        #print "Inserting in queue " + str(len(ex.active)) + " paths (not yet finished)"
+        #print("Inserting in queue " + str(len(ex.active)) + " paths (not yet finished)")
         for p in ex.active:
             queue.append(p)
 
-        #print "Found states are " + str(len(ex.found))
-        #print "Enumerating up to 10 solutions for each found state"
+        #print("Found states are " + str(len(ex.found)))
+        #print("Enumerating up to 10 solutions for each found state")
 
         if ex.found:
             for p in ex.found:
@@ -135,7 +135,7 @@ def solve_flag_3():
                     a = sol & 0xffffffff
                     b = (sol >> 32) & 0xffffffff
 
-                    #print "Solution: " + str(a) + " " + str(b)
+                    #print("Solution: " + str(a) + " " + str(b))
                     args.append(str(a) + " " + str(b))
 
     return args
@@ -161,8 +161,8 @@ def solve_flag_4():
     simgr.explore(find=find, avoid=avoid)
 
     found = simgr.found[0]
-    ans1 = found.solver.eval(var1, cast_to=str)
-    ans2 = found.solver.eval(var2, cast_to=str)
+    ans1 = found.solver.eval(var1, cast_to=bytes)
+    ans2 = found.solver.eval(var2, cast_to=bytes)
     return ' '.join([str(unpack('<I', ans1)[0]), str(unpack('<I', ans2)[0])])
 
 def solve_flag_5():
@@ -202,9 +202,9 @@ def solve_flag_5():
     found = sm.found[0]
 
     mem = found.memory.load(string_addr, 32)
-    for i in xrange(32):
+    for i in range(32):
         found.add_constraints(is_alnum(found, mem.get_byte(i)))
-    return found.solver.eval(mem, cast_to=str).split('\x00')[0]
+    return found.solver.eval(mem, cast_to=bytes).split(b'\x00')[0].decode()
     # more than one solution could, for example, be returned like this:
     # return map(lambda s: s.split('\x00')[0], found.solver.eval_upto(mem, 10, cast_to=str))
 
@@ -273,39 +273,39 @@ def solve_secret():
     return str(found.solver.eval(flag))
 
 def main():
-    print "Flag    1: " + solve_flag_1()
-    print "Flag    2: " + solve_flag_2()
-    print "Flag(s) 3: " + str(solve_flag_3())
-    print "Flag    4: " + solve_flag_4()
-    print "Flag    5: " + solve_flag_5()
-    print "Flag    6: " + solve_flag_6()
-    print "Secret   : " + solve_secret()
+    print("Flag    1: " + solve_flag_1())
+    print("Flag    2: " + solve_flag_2())
+    print("Flag(s) 3: " + str(solve_flag_3()))
+    print("Flag    4: " + solve_flag_4())
+    print("Flag    5: " + solve_flag_5())
+    print("Flag    6: " + solve_flag_6())
+    print("Secret   : " + solve_secret())
 
 def test():
     assert solve_flag_1() == 'Border relations with Canada have never been better.'
-    print "Stage 1 ok!"
+    print("Stage 1 ok!")
 
     assert solve_flag_2() == '1 2 4 8 16 32'
-    print "Stage 2 ok!"
+    print("Stage 2 ok!")
 
     args_3 = ["0 207", "1 311", "2 707", "3 256", "4 389", "5 206", "6 682", "7 327"]
     res_3 = solve_flag_3()
     assert len(res_3) == len(args_3)
     for s in args_3:
         assert s in res_3
-    print "Stage 3 ok!"
+    print("Stage 3 ok!")
 
     assert solve_flag_4() == '7 0'
-    print "Stage 4 ok!"
+    print("Stage 4 ok!")
 
     assert solve_flag_5().lower() == 'ionefg'
-    print "Stage 5 ok!"
+    print("Stage 5 ok!")
 
     assert solve_flag_6() == '4 3 2 1 6 5'
-    print "Stage 6 ok!"
+    print("Stage 6 ok!")
 
     assert solve_secret() == '22'
-    print "Secret stage ok!"
+    print("Secret stage ok!")
 
 if __name__ == '__main__':
 

@@ -14,7 +14,7 @@ import subprocess
 
 
 def static_analyses(p):
-    print '[*] Analyzing %s...' % p.filename
+    print('[*] Analyzing %s...' % p.filename)
 
     #This part is done with r2 in the original writeup.
     #However, it is also possible to do the same with angr! :)
@@ -27,7 +27,7 @@ def static_analyses(p):
 
     #As the main function doesn't get identified automatically, let's use a small trick here:
     #We take a function which is only called in main (e.g. sscanf) and resolve its predecessor
-    for address,function in cfg.functions.iteritems():
+    for address,function in cfg.functions.items():
         if function.name == '__isoc99_sscanf' and function.is_plt:
             addr = cfg.functions.callgraph.predecessors(address)[0]
             break
@@ -72,7 +72,7 @@ def static_analyses(p):
 #pylint:disable=redefined-builtin
 
 def generate_input(p, to_find, to_avoid, byte_addresses):
-    print '[*] Generating input ....'
+    print('[*] Generating input ....')
 
     byte_map = {}
 
@@ -108,13 +108,13 @@ def generate_input(p, to_find, to_avoid, byte_addresses):
 
 def format_input(byte_map):
     res = ''
-    for i in xrange(min(byte_map), max(byte_map) + 1):
+    for i in range(min(byte_map), max(byte_map) + 1):
         res += "%02x" % byte_map[i]
     return res
 
 
 def generate_exploit(byte_string):
-    print '[*] Crafting final exploit'
+    print('[*] Crafting final exploit')
 
     #In essence, the magic consists of:
     #   - static padding between input and the memcpy'ed buffer
@@ -133,8 +133,8 @@ def main(binary):
     (to_find, to_avoid, byte_addresses) = static_analyses(p)
     byte_map = generate_input(p, to_find, to_avoid, byte_addresses)
     exploit = generate_exploit(format_input(byte_map))
-    print '[+] Exploit generated!'
-    print '[!] Please run `%s %s`' % (binary,exploit)
+    print('[+] Exploit generated!')
+    print('[!] Please run `%s %s`' % (binary,exploit))
     return exploit
 
 def test():

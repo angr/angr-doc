@@ -27,10 +27,10 @@ def main():
     getch = lambda i: chr(claripy.backends.concrete.convert(howtouse(i)).value)
 
     # Let's call this 45 times, and that's the result!
-    return ''.join(getch(i) for i in xrange(45))
+    return ''.join(getch(i) for i in range(45))
 
 def test():
     assert main() == 'MMA{fc7d90ca001fc8712497d88d9ee7efa9e9b32ed8}'
 
 if __name__ == '__main__':
-    print main()
+    print(main())

