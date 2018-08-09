@@ -32,10 +32,10 @@ You have to see it for yourself:
 
 # Now we can take a few steps! Printing an Explorer will tell you how
 # many active paths it currently has.
->>> print e.step()
+>>> print(e.step())
 
 # You can use `Explorer.run` to step multiple times.
->>> print e.run(10)
+>>> print(e.run(10))
 
 # Or even forever. By default, an Explorer will not stop running until
 # it runs out of paths (which will likely be never, for most programs),
@@ -47,11 +47,11 @@ You have to see it for yourself:
 # (i.e., provided no valid exits), and which have errored out. Note that,
 # in some instances, a given path could be in multiple lists (i.e., if it
 # errored out *and* did not produce any valid exits)
->>> print "%d paths are still running" % len(e.active)
->>> print "%d paths are backgrounded due to lack of resources" % len(e.spilled)
->>> print "%d paths are suspended due to user action" % len(e.suspended)
->>> print "%d paths had errors" % len(e.errored)
->>> print "%d paths deadended" % len(e.deadended)
+>>> print("%d paths are still running" % len(e.active))
+>>> print("%d paths are backgrounded due to lack of resources" % len(e.spilled))
+>>> print("%d paths are suspended due to user action" % len(e.suspended))
+>>> print("%d paths had errors" % len(e.errored))
+>>> print("%d paths deadended" % len(e.deadended))
 ```
 
 So far, everything we have discussed applies to all `Surveyors`.
@@ -67,15 +67,15 @@ For example, in the `fauxware` sample, we can try to find the "authentication su
 
 # Print our found backdoor, and how many paths we avoided!
 >>> if len(e.found) > 0:
-...     print "Found backdoor path:", e.found[0]
+...     print("Found backdoor path:", e.found[0])
 
->>> print "Avoided %d paths" % len(e.avoided)
+>>> print("Avoided %d paths" % len(e.avoided))
 ```
 
 Some helper properties are provided for easier access to paths from IPython:
 
 ```python
->>> print "The first found path is", e._f
+>>> print("The first found path is", e._f)
 # Also available are _d (deadended), _spl (spilled), and _e (errored)
 ```
 
@@ -99,10 +99,10 @@ It can be used as so:
 >>>#c = proj.surveyors.Caller(0x400664, (0x1000,0x2000), start=s)
 
 # look at the different paths that can return. This should print 3 paths:
->>>#print tuple(c.iter_returns())
+>>>#print(tuple(c.iter_returns()))
 
 # two of those paths return 1 (authenticated):
->>>#print tuple(c.iter_returns(solution=1))
+>>>#print(tuple(c.iter_returns(solution=1)))
 
 # now let's see the required username and password to reach that point. `c.map_se`
 # calls state.se.eval_upto (or whatever other function is provided) for the provided

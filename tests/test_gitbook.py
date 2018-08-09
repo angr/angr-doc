@@ -5,19 +5,15 @@ import traceback
 import itertools
 import claripy
 
-def _path(d):
-    return os.path.join(os.path.dirname(__file__), '..', d)
+filepath = __file__
 
-md_files = filter(lambda s: s.endswith('.md'), [
-    os.path.join(_path('docs'), t) for t in os.listdir(_path('docs'))
-])
-md_files += filter(lambda s: s.endswith('.md'), [
-    os.path.join(_path('docs/analyses'), t) for t in os.listdir(_path('docs/analyses'))
-])
-md_files += filter(lambda s: s.endswith('.md'), [
-    os.path.join(_path('docs/courses'), t) for t in os.listdir(_path('docs/courses'))
-])
-example_dirs = filter(lambda s: '.' not in s, os.listdir(_path('examples')))
+def _path(d):
+    return os.path.join(os.path.dirname(filepath), '..', d)
+
+md_files = []
+for _p in ('docs', 'docs/analyses', 'docs/courses'):
+    md_files += [os.path.join(_p, t) for t in os.listdir(_path(_p)) if t.endswith('.md')]
+example_dirs = [s for s in os.listdir(_path('examples')) if '.' not in s]
 
 sys.path.append('.')
 
@@ -34,9 +30,9 @@ def doctest_single(md_file):
 
         def try_running(line, i):
             try:
-                exec line in env
+                exec(line, env)
             except Exception as e:
-                print 'Error on line %d of %s: %s' % (i+1, md_file, e)
+                print('Error on line %d of %s: %s' % (i+1, md_file, e))
                 traceback.print_exc()
                 raise Exception('Error on line %d of %s: %s' % (i+1, md_file, e))
 

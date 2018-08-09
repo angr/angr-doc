@@ -70,7 +70,7 @@ If you prepend the name of a stash with `mp_`, you will be given a [mulpyplexed]
 
 ```python
 >>> for s in simgr.deadended + simgr.authenticated:
-...     print hex(s.addr)
+...     print(hex(s.addr))
 0x1000030
 0x1000078
 0x1000078
@@ -141,7 +141,7 @@ Now, we symbolically execute until we find a state that matches our condition (i
 Now, we can get the flag out of that state!
 ```python
 >>> s = simgr.found[0]
->>> print s.posix.dumps(1)
+>>> print(s.posix.dumps(1))
 Enter password: Congrats!
 
 >>> flag = s.posix.dumps(0)
