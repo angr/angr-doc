@@ -54,7 +54,8 @@ def test():
     found.solver.add(user_input.get_byte(8) == ord('!'))
     solution = found.solver.eval(user_input, cast_to=bytes)
     assert found.solver.satisfiable() == True
-    assert base64.b32encode(solution) == 'JQAE6ACMABNAAIIA'
+    # why does b32encode produce bytes and not str? great quesiton!
+    assert base64.b32encode(solution) == b'JQAE6ACMABNAAIIA'
 
 if __name__ == '__main__':
     main()

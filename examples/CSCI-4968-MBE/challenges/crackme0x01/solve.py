@@ -16,10 +16,10 @@ def main():
 	sm = proj.factory.simulation_manager()
 	sm.explore(find=FIND_ADDR, avoid=AVOID_ADDR)
 
-	return sm.found[0].posix.dumps(0).lstrip('+0').rstrip('B\n')
+	return sm.found[0].posix.dumps(0).lstrip(b'+0').rstrip(b'B\n')
 
 def test():
-	assert main() == '5274'
+	assert main() == b'5274'
 
 if __name__ == '__main__':
 	print(repr(main()))

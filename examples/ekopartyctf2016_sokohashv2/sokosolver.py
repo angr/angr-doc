@@ -36,7 +36,7 @@ def debug_func(state):
 
 #WIN_HASH = "BF3666668F5581A7EC65F192388BD64D4CC3B3610000275DAC894722C10986F6".decode("hex")
 
-WIN_HASH = "C03922D0206DC3A33016010D6C66936E953ABAB9000010AE805CE8463CBE9A2D".decode("hex")
+WIN_HASH = bytes.fromhex("C03922D0206DC3A33016010D6C66936E953ABAB9000010AE805CE8463CBE9A2D")
 
 def get_hash_map(init_addr):
     """
@@ -53,8 +53,8 @@ def get_hash_map(init_addr):
     hash_map = []
     for i in range(0, len(WIN_HASH), 2):
         pair = WIN_HASH[i:i+2]
-        hash_map.append((addr, ord(pair[1])))
-        hash_map.append((addr+1, ord(pair[0])))
+        hash_map.append((addr, pair[1]))
+        hash_map.append((addr+1, pair[0]))
         addr += 8
 
     return hash_map

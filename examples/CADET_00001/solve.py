@@ -87,8 +87,8 @@ def main():
 
 def test():
     crashing_input, solution1, stdout1, solution2, stdout2 = main()
-    assert len(crashing_input) >= 92 and solution1.startswith("^") and solution2.startswith("^") and \
-            "EASTER EGG!" in stdout1 and "EASTER EGG!" in stdout2
+    assert len(crashing_input) >= 92 and solution1.startswith(b"^") and solution2.startswith(b"^") and \
+            b"EASTER EGG!" in stdout1 and b"EASTER EGG!" in stdout2
 
 
 if __name__ == '__main__':

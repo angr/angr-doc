@@ -15,8 +15,6 @@ import progressbar
 import angr
 import claripy
 
-from angr.procedures.stubs.UserHook import UserHook
-
 def get_possible_flags():
     # load the binary
     print('[*] loading the binary')
@@ -36,8 +34,8 @@ def get_possible_flags():
     # string
     def hook_length(state):
         state.regs.rax = 8
-    p.hook(0x40168e, UserHook(user_func=hook_length, length=5))
-    p.hook(0x4016BE, UserHook(user_func=hook_length, length=5))
+    p.hook(0x40168e, hook_length, length=5)
+    p.hook(0x4016BE, hook_length, length=5)
 
     # here, we create the initial state to start execution. argv[1] is our 8-byte
     # string, and we add an angr option to gracefully handle unsupported syscalls
@@ -48,13 +46,13 @@ def get_possible_flags():
     for b in arg1.chop(8):
         initial_state.add_constraints(b != 0)
 
-    # PathGroups are a basic building block of the symbolic execution engine. They
-    # track a group of paths as the binary is executed, and allows for easier
-    # management, pruning, and so forth of those paths
+    # Simulation managers are a basic building block of the symbolic execution engine.
+    # They track a group of states as the binary is executed, and allows for easier
+    # management, pruning, and so forth of those states
     sm = p.factory.simulation_manager(initial_state, immutable=False)
 
-    # here, we get to stage 2 using the PathGroup's find() functionality. This
-    # executes until at least one path reaches the specified address, and can
+    # here, we get to stage 2 using the simulation manager's explore() functionality.
+    # This executes until at least one path reaches the specified address, and can
     # discard paths that hit certain other addresses.
     print('[*] executing')
     sm.explore(find=0x4016A3).unstash(from_stash='found', to_stash='active')
@@ -82,22 +80,21 @@ def get_possible_flags():
 
 def bruteforce_possibilities(possibilities):
     # let's try those values!
-    print('[*] example guess: %r' % ''.join(possibilities[0]))
+    print('[*] example guess: %r' % b''.join(possibilities[0]))
     print('[*] brute-forcing %d possibilities' % len(possibilities))
     for guess in progressbar.ProgressBar(widgets=[progressbar.Counter(), ' ', progressbar.Percentage(), ' ', progressbar.Bar(), ' ', progressbar.ETA()])(possibilities):
-        stdout,_ = subprocess.Popen(["./whitehat_crypto400", ''.join(guess)], stdout=subprocess.PIPE, stderr=subprocess.STDOUT).communicate()
-        if 'FLAG IS' in stdout:
-            return next(filter(lambda s: b''.join(guess) in s, stdout.split()))
+        guess_str = b''.join(guess)
+        stdout,_ = subprocess.Popen(["./whitehat_crypto400", guess_str], stdout=subprocess.PIPE, stderr=subprocess.STDOUT).communicate()
+        if b'FLAG IS' in stdout:
+            return next(filter(lambda s: guess_str in s, stdout.split()))
 
 def main():
     return bruteforce_possibilities(get_possible_flags())
 
 def test():
-    assert 'nytEaTBU' in [ ''.join(p) for p in get_possible_flags() ]
+    assert b'nytEaTBU' in [ b''.join(p) for p in get_possible_flags() ]
 
 if __name__ == '__main__':
     # set some debug messages so that we know what's going on
-    logging.basicConfig()
-    angr.manager.l.setLevel('DEBUG')
-
+    logging.getLogger('angr.sim_manager').setLevel('DEBUG')
     print(main())

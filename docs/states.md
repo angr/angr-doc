@@ -78,11 +78,11 @@ We'll go over how our file and input subsystems work later on this very page, bu
 ```python
 >>> input_data = state1.posix.stdin.load(0, state.posix.stdin.size)
 
->>> state1.solver.eval(input_data, cast_to=str)
-'\x00\x00\x00\x00\x00\x00\x00\x00\x00SOSNEAKY\x00\x00\x00'
+>>> state1.solver.eval(input_data, cast_to=bytes)
+b'\x00\x00\x00\x00\x00\x00\x00\x00\x00SOSNEAKY\x00\x00\x00'
 
->>> state2.solver.eval(input_data, cast_to=str)
-'\x00\x00\x00\x00\x00\x00\x00\x00\x00S\x00\x80N\x00\x00 \x00\x00\x00\x00'
+>>> state2.solver.eval(input_data, cast_to=bytes)
+b'\x00\x00\x00\x00\x00\x00\x00\x00\x00S\x00\x80N\x00\x00 \x00\x00\x00\x00'
 ```
 
 As you can see, in order to go down the `state1` path, you must have given as a password the backdoor string "SOSNEAKY".

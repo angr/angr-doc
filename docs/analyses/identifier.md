@@ -13,7 +13,7 @@ The information of about stack variables can be generally useful in other projec
 >>> idfer = p.analyses.Identifier()
 # note that .run() yields results so make sure to iterate through them or call list() etc
 >>> for addr, symbol in idfer.run():
-... 	print hex(addr), symbol
+... 	print(hex(addr), symbol)
 
 0x8048e60 memcmp
 0x8048ef0 memcpy

@@ -46,7 +46,7 @@ Like any decent execution engine, angr supports breakpoints. This is pretty cool
 # on the other hand, we can have a breakpoint trigger right *after* a memory write happens. 
 # we can also have a callback function run instead of opening ipdb.
 >>> def debug_func(state):
-...     print "State %s is about to do a memory write!"
+...     print("State %s is about to do a memory write!")
 
 >>> s.inspect.b('mem_write', when=angr.BP_AFTER, action=debug_func)
 
@@ -118,7 +118,7 @@ You can even modify these value to modify further uses of the values!
 
 ```python
 >>> def track_reads(state):
-...     print 'Read', state.inspect.mem_read_expr, 'from', state.inspect.mem_read_address
+...     print('Read', state.inspect.mem_read_expr, 'from', state.inspect.mem_read_address)
 ...
 >>> s.inspect.b('mem_read', when=angr.BP_AFTER, action=track_reads)
 ```

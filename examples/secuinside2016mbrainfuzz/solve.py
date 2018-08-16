@@ -29,7 +29,7 @@ def static_analyses(p):
     #We take a function which is only called in main (e.g. sscanf) and resolve its predecessor
     for address,function in cfg.functions.items():
         if function.name == '__isoc99_sscanf' and function.is_plt:
-            addr = cfg.functions.callgraph.predecessors(address)[0]
+            addr = next(iter(cfg.functions.callgraph.predecessors(address)))
             break
 
     #Now, let's go down all the way to the target function
@@ -142,7 +142,7 @@ def test():
 
     for b in binaries:
         p = main(b)
-        assert subprocess.check_output([b,p]) == 'SUCCESS\n'
+        assert subprocess.check_output([b,p]) == b'SUCCESS\n'
 
 if __name__ == '__main__':
     main(sys.argv[1])

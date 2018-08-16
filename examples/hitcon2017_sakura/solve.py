@@ -14,7 +14,7 @@ def main():
     index = 0
     while True:
         # avoid asm('mov byte ptr [rbp-0x1E49], 0')
-        index = e.find('\xc6\x85\xb7\xe1\xff\xff\x00', index+1)
+        index = e.find(b'\xc6\x85\xb7\xe1\xff\xff\x00', index+1)
         if index == -1:
             break
         addr = 0x400000 + index
@@ -25,14 +25,14 @@ def main():
     index = 0
     while True:
         # find asm('mov rdi, rax')
-        index = e.find('H\x89\xc7', index+1)
+        index = e.find(b'H\x89\xc7', index+1)
         if index == -1 or index > 0x10ff5:
             break
         addr = 0x400000 + index
         finds.append(addr)
 
         # skip a addr we don't want to find
-        index = e.find('H\x89\xc7', index+1)
+        index = e.find(b'H\x89\xc7', index+1)
 
     # initialize project
     proj = angr.Project('./sakura')

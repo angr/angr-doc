@@ -1,34 +1,34 @@
 #!/usr/bin/env python
 # coding: utf-8
 import angr
+import claripy
 import time
 
 def main():
     # Load the binary. This is a 64-bit C++ binary, pretty heavily obfuscated.
     p = angr.Project('wyvern')
 
+    # It's reasonably easy to tell from looking at the program in IDA that the key will
+    # be 29 bytes long, and the last byte is a newline. Let's construct a value of several
+    # symbols that we can add constraints on once we have a state.
+
+    flag_chars = [claripy.BVS('flag_%d' % i, 8) for i in range(28)]
+    flag = claripy.Concat(*flag_chars + [claripy.BVV(b'\n')])
+
     # This block constructs the initial program state for analysis.
     # Because we're going to have to step deep into the C++ standard libraries
     # for this to work, we need to run everyone's initializers. The full_init_state
     # will do that. In order to do this peformantly, we will use the unicorn engine!
-    st = p.factory.full_init_state(args=['./wyvern'], add_options=angr.options.unicorn)
-
-    # It's reasonably easy to tell from looking at the program in IDA that the key will
-    # be 29 bytes long, and the last byte is a newline.
+    st = p.factory.full_init_state(
+            args=['./wyvern'],
+            add_options=angr.options.unicorn,
+            stdin=flag,
+    )
 
     # Constrain the first 28 bytes to be non-null and non-newline:
-    for _ in range(28):
-        k = st.posix.files[0].read_from(1)
+    for k in flag_chars:
         st.solver.add(k != 0)
         st.solver.add(k != 10)
-
-    # Constrain the last byte to be a newline
-    k = st.posix.files[0].read_from(1)
-    st.solver.add(k == 10)
-
-    # Reset the symbolic stdin's properties and set its length.
-    st.posix.files[0].seek(0)
-    st.posix.files[0].length = 29
 
     # Construct a SimulationManager to perform symbolic execution.
     # Step until there is nothing left to be stepped.

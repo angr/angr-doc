@@ -14,7 +14,7 @@ def test_api_coverage():
         module_list = subprocess.check_output(['find', '.', '-name', '*.py'], cwd=module_dir).split()
         api_list = [x.split()[-1] for x in open(docs_file).readlines() if 'automodule' in x]
         for partial in module_list:
-            full = module + '.' + partial[2:-3].replace('/', '.')
+            full = module + '.' + partial[2:-3].decode().replace('/', '.')
             if full.endswith('.__init__'):
                 full = full[:-9]
 

@@ -16,6 +16,8 @@ Team: PPP (CMU)
 """
 
 import angr
+import claripy
+import subprocess
 
 START = 0x400B30 # start of main
 FIND = 0x403A40 # part of program that prints the flag
@@ -31,16 +33,12 @@ def main():
     p = angr.Project('FUck_binary')
 
     print('creating state')
-    state = p.factory.blank_state(addr=START)
+    flag = claripy.BVS('flag', BUF_LEN*8)
+    state = p.factory.blank_state(addr=START, stdin=flag)
 
     print('adding constaints to stdin')
-    for i in range(BUF_LEN):
-        c = state.posix.files[0].read_from(1)
+    for c in flag.chop(8):
         state.solver.add(char(state, c))
-
-    # even though we mark stdin as 100 long angr can still chose to cut it off 
-    state.posix.files[0].seek(0)
-    state.posix.files[0].length = 100
 
     print('creating path and explorer')
     ex = p.surveyors.Explorer(start=state, find=FIND, avoid=AVOID)
@@ -50,20 +48,14 @@ def main():
 
     print('found solution')
     correct_input = ex._f.posix.dumps(0) # ex._f is equiv. to ex.found[0]
-
-    # we didn't know how long the input had to be except < 100 bytes
-    team_name = correct_input[:correct_input.index('\x00')]
-
-    print('found correct input/team name: {}'.format(repr(team_name)))
-
-    return team_name
+    return correct_input
 
 def test():
-    team = '@@@(h@@@@f@v@ @@/@vCo@&D@ACHP@@@@@@@@D@@ @X@@@@@B@h@]@@@W@UB@"(@Lq@@@@@,FBtH@?6@@" * k[Q@@@@@@@@@I@@'
-    import subprocess
+    team = main()
     p = subprocess.Popen(["./FUck_binary"], env={"LD_LIBRARY_PATH": "."}, stdin=subprocess.PIPE, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
-    out, err = p.communicate(input=team + "\n")
-    assert "BOOM" in out
+    out, err = p.communicate(input=team + b"\n")
+    assert b"BOOM" in out
 
 if __name__ == '__main__':
-    main()
+    team = main()
+    print('found correct input/team name: {}'.format(repr(team)))

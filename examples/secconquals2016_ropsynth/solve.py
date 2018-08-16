@@ -26,14 +26,14 @@ def make_elf(gadgets):
     """
     the_bytes = base64.b64decode(gadgets)
     for i in reversed(range(2, 20)):
-        the_bytes = the_bytes.replace('\xf4'*i, '\xcc'*i)
-    the_bytes = the_bytes.replace('\xc3\xf4', '\xc3\xcc')
+        the_bytes = the_bytes.replace(b'\xf4'*i, b'\xcc'*i)
+    the_bytes = the_bytes.replace(b'\xc3\xf4', b'\xc3\xcc')
     print("gadgets length:", len(the_bytes))
-    the_bytes = the_bytes.ljust(4096, "\xcc")
+    the_bytes = the_bytes.ljust(4096, b"\xcc")
     print("gadgets: %r" % the_bytes[:100])
-    the_nops = open('nop.elf').read()
-    the_gadgets = the_nops.replace("\x90"*4096, the_bytes)
-    open('gadgets.elf', 'w').write(the_gadgets)
+    the_nops = open('nop.elf', 'rb').read()
+    the_gadgets = the_nops.replace(b"\x90"*4096, the_bytes)
+    open('gadgets.elf', 'wb').write(the_gadgets)
 
 def postprocess_chain(chain, guard_solutions):
     """

@@ -1,6 +1,7 @@
 import os
 import sys
 import subprocess
+from importlib import reload
 
 from nose.plugins.attrib import attr
 from flaky import flaky
@@ -87,12 +88,12 @@ def test_csgames2018(): exampletest_single('csgames2018')
 ## END EXAMPLE TESTS
 
 def test_example_inclusion():
-    to_test = subprocess.check_output(['/bin/bash', '-c', 'for c in $(find -name solve.py | cut -c 3-); do echo ${c%/solve.py}; done'], cwd=_path('examples'))
+    to_test = subprocess.check_output(['/bin/bash', '-c', 'for c in $(find -name solve.py | cut -c 3-); do echo ${c%/solve.py}; done'], cwd=_path('examples')).decode()
     if __file__.endswith('.pyc'):
         sourcefile = __file__[:-1]
     else:
         sourcefile = __file__
-    with open(sourcefile) as fp:
+    with open(sourcefile, 'r') as fp:
         test_source = fp.read()
     example_tests = test_source[test_source.find('## BEGIN EXAMPLE TESTS'):test_source.find('## END EXAMPLE TESTS')]
 
