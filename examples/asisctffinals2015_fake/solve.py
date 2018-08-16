@@ -1,4 +1,5 @@
 import angr
+import binascii
 
 def main():
     p = angr.Project("fake", auto_load_libs=False)
@@ -13,7 +14,7 @@ def main():
 
     # We know the flag starts with "ASIS{"
     flag_addr = found.regs.rdi
-    found.add_constraints(found.memory.load(flag_addr, 5) == int("ASIS{".encode("hex"), 16))
+    found.add_constraints(found.memory.load(flag_addr, 5) == int(binascii.hexlify(b"ASIS{"), 16))
 
     # More constraints: the whole flag should be printable
     flag = found.memory.load(flag_addr, 40)

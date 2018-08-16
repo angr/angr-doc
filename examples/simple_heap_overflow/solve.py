@@ -62,7 +62,6 @@ def main():
     # ./simple_heap_overflow < exploit
 
 def test():
-
     # Generate the exploit
     main()
 
@@ -74,17 +73,8 @@ def test():
         ,shell=True)
 
     # Assert we got to the printing of Win
-    assert "Win" in out
+    assert b"Win" in out
 
 
 if __name__ == '__main__':
-    main()
-
-    run_result = subprocess.check_output("{0} < {1}".format(
-        os.path.join(DIR,"simple_heap_overflow"),
-        os.path.join(DIR,"exploit"),
-        )
-        ,shell=True)
-
-    # Assert we got to the printing of Win
-    assert "Win" in run_result
+    test()

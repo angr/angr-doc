@@ -36,7 +36,7 @@ We can see that the callstack and the state's history are blank:
 # we can also look at the current backtrace of program execution
 # contains only the dummy frame for execution start
 >>> assert len(s.callstack) == 1
->>> print s.callstack
+>>> print(s.callstack)
 Backtrace:
 Func 0x401410, sp=0x7fffffffffeffd8, ret=0x0
 ```
@@ -49,7 +49,7 @@ Most of the time, a path will have one or two successors. When there are two suc
 
 ```python
 >>> new_states = b.factory.successors(s).flat_successors
->>> print "The path has", len(new_states), "successors!"
+>>> print("The path has", len(new_states), "successors!")
 
 # each successor is a path, keeping track of an execution history
 >>> new_state = new_states[0]
@@ -72,25 +72,25 @@ These are stored (as strings representing VEX exit type enums), in the `jumpkind
 
 ```python
 # recall: s is the path created when we stepped forward the initial path once
->>> print s.history.jumpkinds
+>>> print(s.history.jumpkinds)
 <angr.path.JumpkindIter object at 0x7f8161e584d0>
 
 >>> assert s.history.jumpkinds[-1] == 'Ijk_Call'
->>> print s.history.jumpkinds.hardcopy
+>>> print(s.history.jumpkinds.hardcopy)
 ['Ijk_Call']
 
 # Don't do this! This will throw an exception
->>> # for jk in ss.jumpkinds: print jk
+>>> # for jk in ss.jumpkinds: print(jk)
 
 # Do this instead:
->>> for jk in reversed(ss.history.jumpkinds): print jk
+>>> for jk in reversed(ss.history.jumpkinds): print(jk)
 Ijk_Call
 Ijk_Call
 Ijk_Boring
 Ijk_Call
 
 # Or, if you really need to iterate in forward order:
->>> for jk in ss.history.jumpkinds.hardcopy: print jk
+>>> for jk in ss.history.jumpkinds.hardcopy: print(jk)
 Ijk_Call
 Ijk_Boring
 Ijk_Call
@@ -131,10 +131,10 @@ For example, let's say that we have a branch:
 s = b.factory.entry_state()
 next = b.factory.successors(s).flat_successors
 while len(b.factory.successors(s).flat_successors) == 1:
-    print 'step'
+    print('step')
     s = b.factory.successors(s).flat_successors[0]
 
-print s
+print(s)
 branched_left = b.factory.successors(s).flat_successors[0]
 branched_right = b.factory.successors(s).flat_successors[1]
 assert branched_left.addr != branched_right.addr

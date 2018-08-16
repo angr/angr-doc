@@ -30,7 +30,7 @@ def test():
 	with open('input', 'wb') as fp:
 		fp.write(main())
 
-	assert subprocess.check_output('./crackme0x04 < input', shell=True) == 'IOLI Crackme Level 0x04\nPassword: Password OK!\n'
+	assert subprocess.check_output('./crackme0x04 < input', shell=True) == b'IOLI Crackme Level 0x04\nPassword: Password OK!\n'
 
 if __name__ == '__main__':
 	print(repr(main()))

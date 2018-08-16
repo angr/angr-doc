@@ -20,12 +20,11 @@ BIG_PROC = 0x2d2e0
 def before_tea_decrypt(state):
     # Here we want to set the value of the byte array starting from 0x29f210
     # I got those bytes by using cross-reference in IDA
-    all_bytes = [0x56, 0x7f, 0xdc, 0xfa, 0xaa, 0x27, 0x99, 0xc4, 0x6c, 0x7c,
+    all_bytes = bytes([0x56, 0x7f, 0xdc, 0xfa, 0xaa, 0x27, 0x99, 0xc4, 0x6c, 0x7c,
              0xfc, 0x92, 0x61, 0x61, 0x47, 0x1a, 0x19, 0xb9, 0x63, 0xfd,
              0xc, 0xf2, 0xb6, 0x20, 0xc0, 0x2d, 0x5c, 0xfd, 0xd9, 0x71,
-             0x54, 0x96, 0x4f, 0x43, 0xf7, 0xff, 0xbb, 0x4c, 0x5d, 0x31]
-    mem_bytes = "".join([ chr(i) for i in all_bytes ])
-    state.memory.store(ARRAY_ADDRESS, mem_bytes)
+             0x54, 0x96, 0x4f, 0x43, 0xf7, 0xff, 0xbb, 0x4c, 0x5d, 0x31])
+    state.memory.store(ARRAY_ADDRESS, all_bytes)
 
 def main():
     p = angr.Project('challenge-7.sys', load_options={'auto_load_libs': False})
@@ -43,10 +42,10 @@ def main():
     proc_big_68.perform_call(0)
     state = proc_big_68.result_state
     # Load the string from memory
-    return hex(state.solver.eval(state.memory.load(ARRAY_ADDRESS, 40)))[2:-1].decode('hex').strip('\0')
+    return state.solver.eval(state.memory.load(ARRAY_ADDRESS, 40), cast_to=bytes).strip(b'\0')
 
 def test():
-    assert main() == "unconditional_conditions@flare-on.com"
+    assert main() == b"unconditional_conditions@flare-on.com"
 
 if __name__ == "__main__":
     # Turn on logging so we know what's going on...

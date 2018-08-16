@@ -119,7 +119,7 @@ def main():
              where we control the source buffer, or False (keep looking for paths) if we
              don't control the source buffer
             '''
-            return True if argv[2] in strCpySrc else False
+            return True if argv[2].encode() in strCpySrc else False
         else:
             '''
              If we aren't in the strcpy function, we need to tell angr to keep looking

@@ -31,6 +31,7 @@
 #
 
 import angr
+import subprocess
 
 #
 # These are our symbolic summary functions for modular multiplication, modulo,
@@ -93,10 +94,17 @@ def main():
     sm.explore(find=0x8048A94, avoid=0x8048AF6)
 
     # We're done!
-    return sm.found[0].solver.eval(sm.found[0].memory.load(0x080491A0, 100), cast_to=bytes).strip(b'\0\n')
+    flag_state = sm.found[0]
+    flag_data = flag_state.memory.load(0x080491A0, 100)
+    return flag_state.solver.eval(flag_data, cast_to=bytes).strip(b'\0\n')
 
 def test():
-    assert main() == b'EwgHWpyND'
+    flag = main()
+    p = subprocess.Popen(['./simple_hash'], stdin=subprocess.PIPE, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+    p.stdin.write(flag + b'\n')
+    p.stdin.flush()
+    p.wait()
+    assert b'Correct' in p.stdout.read()
 
 if __name__ == '__main__':
     print(main())

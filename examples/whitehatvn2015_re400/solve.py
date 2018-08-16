@@ -15,7 +15,7 @@ def main():
     p.hook(0x402b5d, patch_0, length=0x402b91-0x402b5d)
 
     state = p.factory.blank_state(addr=0x401f30)
-    argv=['re400.exe', state.solver.BVS('arg1', 37 * 8)]
+    argv=[b're400.exe', state.solver.BVS('arg1', 37 * 8)]
 
 
     # Add previous conditions got from debugging the part of code that is patched out
@@ -39,7 +39,7 @@ def main():
     for i in range(36):
         # We want those flags to be printable characters
         state.add_constraints(argv[1].get_byte(i) >= 0x20)
-        state.add_constraints(argv[1].get_byte(i) <= '}')
+        state.add_constraints(argv[1].get_byte(i) <= 0x7e)
     state.add_constraints(argv[1].get_byte(36) == 0)
 
     # Prepare the argc and argv
@@ -60,11 +60,11 @@ def main():
     )
     ex.run()
 
-    possible_flags = ex.found[0].solver.eval_upto(argv[1], 20)
+    possible_flags = ex.found[0].solver.eval_upto(argv[1], 20, cast_to=bytes)
     for i, f in enumerate(possible_flags):
-        print("Flag %d:" % i, hex(f)[2:-1].decode("hex"))
+        print("Flag %d:" % i, f)
 
-    return [hex(f)[2:-1].decode("hex") for f in possible_flags]
+    return possible_flags
 
 
 def test():
@@ -73,10 +73,9 @@ def test():
     res = main()
     assert len(res) == 20
     for f in res:
-        f = f[:f.find("\x00")]
+        f = f[:f.find(b"\x00")]
         assert len(f) == 36
-        assert all([ord(c) >= 0x20 and ord(c) <= "}" for c in f])
+        assert all(20 <= c <= 0x7e for c in f)
 
 if __name__ == "__main__":
     main()
-

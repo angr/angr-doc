@@ -30,8 +30,7 @@ def main():
     size = mov_congrats - after_fgets
 
     # let's disasm with capstone to search targets
-    insn_bytes = ''.join(
-        p.loader.memory.read_bytes(addr, size))
+    insn_bytes = bytes(p.loader.memory.read_bytes(addr, size))
 
     insns = []
     for cs_insn in p.arch.capstone.disasm(insn_bytes, addr):
@@ -59,16 +58,15 @@ def main():
     print("found {:d} targets".format(len(targets)))
     assert len(targets) == 28
 
-    flag_arr = ['0', 'c', 't', 'f', '{']
+    flag_arr = bytearray(b'0ctf{')
 
     for target in targets[5:]:
         print("\nexamining target {:#x}:".format(target))
         for trychar in string.printable:
             print(trychar,)
             sys.stdout.flush()
-            flag = ''.join(flag_arr)+trychar
-            state = p.factory.entry_state()
-            state.posix.files[0].content.store(0, flag + "\n")
+            flag = bytes(flag_arr)+trychar.encode()
+            state = p.factory.entry_state(stdin=flag + b"\n")
 
             e = p.surveyors.Explorer(start=state, find=(target,))
             e.run()
@@ -76,7 +74,7 @@ def main():
             assert len(e.found) == 1
             np = e.found[0]
 
-            while(True):
+            while True:
                 nb_size = target - np.addr
                 if nb_size <= 0:
                     break
@@ -92,11 +90,11 @@ def main():
                 flag_arr.append(trychar)
                 break
 
-    return ''.join(flag_arr)
+    return bytes(flag_arr)
 
 
 def test():
-    assert main() == '0ctf{m0V_I5_tUr1N9_c0P1Et3!}'
+    assert main() == b'0ctf{m0V_I5_tUr1N9_c0P1Et3!}'
 
 if __name__ == '__main__':
     print(main())

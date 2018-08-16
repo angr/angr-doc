@@ -14,10 +14,10 @@ def main():
 	proj = angr.Project('crackme0x00a', load_options={"auto_load_libs": False})
 	sm = proj.factory.simulation_manager()
 	sm.explore(find=FIND_ADDR, avoid=AVOID_ADDR)
-	return sm.found[0].posix.dumps(0).split('\0')[0] # stdin
+	return sm.found[0].posix.dumps(0).split(b'\0')[0] # stdin
 
 def test():
-	assert main() == 'g00dJ0B!'
+	assert main() == b'g00dJ0B!'
 
 if __name__ == '__main__':
 	print(main())

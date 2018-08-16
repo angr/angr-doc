@@ -51,7 +51,7 @@ The binary and source code for this course can be found [here](./src/).
 >>> sm.step()
 >>> print(sm)
 >>> for i, s in enumerate(sm.active):
-...     print 'Active state %d: %s' % (i, hex(s.addr))
+...     print('Active state %d: %s' % (i, hex(s.addr)))
 >>> assert len(sm.active) == 3
 >>> assert sm.active[0].addr == endpoint
 >>> assert sm.active[1].addr == second_branch_left
