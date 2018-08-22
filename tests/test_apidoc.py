@@ -36,10 +36,10 @@ def test_lint_docstrings():
     # Filter the deprecation warning from the cryptography package
     if stderr:
         stderr_lines = stderr.split(b"\n")
-        stderr = b"\n".join(l for l in stderr_lines if 'MIPS instruction groups' not in l)
+        stderr = b"\n".join(l for l in stderr_lines if b'MIPS instruction groups' not in l)
 
     if stderr:
-        raise Exception("The following warnings were generated while building the API documentation:\n\n" + stderr.decode())
+        raise Exception("The following warnings were generated while building the API documentation:\n\n%s" % stderr)
 
 if __name__ == '__main__':
     test_api_coverage()
