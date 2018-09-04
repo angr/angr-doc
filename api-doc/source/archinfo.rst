@@ -16,6 +16,7 @@ Architectures
 .. automodule:: archinfo.arch_ppc64
 .. automodule:: archinfo.arch_x86
 .. automodule:: archinfo.arch_soot
+.. automodule:: archinfo.arch_s390x
 
 Utilities
 ---------

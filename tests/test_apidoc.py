@@ -11,7 +11,7 @@ def test_api_coverage():
     for module in ['angr', 'claripy', 'cle', 'pyvex', 'archinfo']:
         docs_file = _path('api-doc/source/%s.rst' % module)
         module_dir = _path('../%s/%s' % (module, module))
-        module_list = subprocess.check_output('find -name \'*.py\'', cwd=module_dir, shell=True).split()
+        module_list = subprocess.check_output(['find', '.', '-name', '*.py'], cwd=module_dir).split()
         api_list = [x.split()[-1] for x in open(docs_file).readlines() if 'automodule' in x]
         for partial in module_list:
             full = module + '.' + partial[2:-3].replace('/', '.')
