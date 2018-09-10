@@ -68,6 +68,7 @@ Look at the existing versions for details.
 .. automodule:: cle.backends.elf.relocation.mips
 .. automodule:: cle.backends.elf.relocation.arm
 .. automodule:: cle.backends.elf.relocation.arm64
+.. automodule:: cle.backends.elf.relocation.s390x
 .. automodule:: cle.backends.pe.relocation
 .. automodule:: cle.backends.pe.relocation.pereloc
 .. automodule:: cle.backends.pe.relocation.generic
