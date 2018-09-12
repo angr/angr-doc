@@ -24,13 +24,13 @@ mov_congrats = 0x0805356E
 
 
 def main():
-    p = angr.Project('./momo', load_options={'auto_load_libs': False})
+    p = angr.Project('./momo', auto_load_libs=False)
 
     addr = after_fgets
     size = mov_congrats - after_fgets
 
     # let's disasm with capstone to search targets
-    insn_bytes = bytes(p.loader.memory.read_bytes(addr, size))
+    insn_bytes = p.loader.memory.load(addr, size)
 
     insns = []
     for cs_insn in p.arch.capstone.disasm(insn_bytes, addr):
