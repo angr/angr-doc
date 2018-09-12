@@ -15,7 +15,7 @@ def to_asmstring(state, addr, length):
     try:
         conc = state.solver.eval
         addr =  conc(addr)
-        code = "".join(project.loader.memory.read_bytes(addr,length))
+        code = project.loader.memory.load(addr,length)
         md = project.arch.capstone
         inst = "; ".join(["%s %s" %(i.mnemonic, i.op_str) for i in md.disasm(code,addr)])
         return "%x: %s" %(addr, inst.split(";")[0])
