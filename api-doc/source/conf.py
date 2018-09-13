@@ -114,9 +114,11 @@ todo_include_todos = False
 intersphinx_mapping = {'python': ('https://docs.python.org/2.7', None)}
 
 autoclass_content = "both"
+autodoc_inherit_docstrings = False
 autodoc_member_order = 'bysource'
 autodoc_default_options = {
         'members': None,
+        'member-order': 'bysource',
         #'special-members': None,
         'show-inheritance': None,
         # 'private-members': None,
