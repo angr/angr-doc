@@ -53,7 +53,7 @@ def setup_project():
     xputs_pointer_addr = project.loader.find_symbol('grub_xputs').rebased_addr
     xputs_func_addr = project.loader.extern_object.allocate()
     project.hook(xputs_func_addr, do_nothing())
-    project.loader.memory.write_addr_at(xputs_pointer_addr, xputs_func_addr)
+    project.loader.memory.pack_word(xputs_pointer_addr, xputs_func_addr)
 
     return project
 
