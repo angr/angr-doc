@@ -114,14 +114,17 @@ todo_include_todos = False
 intersphinx_mapping = {'python': ('https://docs.python.org/2.7', None)}
 
 autoclass_content = "both"
+autodoc_inherit_docstrings = False
 autodoc_member_order = 'bysource'
-autodoc_default_flags = ['members',
-                         #'special-members',
-                         'show-inheritance'
-                         # 'private-members',
-                         'undoc-members',
-                         'no-inherited-members',
-                        ]
+autodoc_default_options = {
+        'members': None,
+        'member-order': 'bysource',
+        #'special-members': None,
+        'show-inheritance': None,
+        # 'private-members': None,
+        'undoc-members': None,
+        'no-inherited-members': None,
+}
 
 def autodoc_skip_member(app, what, name, obj, skip, options):
     exclusions = ('__weakref__', '__doc__', '__module__', '__dict__')
