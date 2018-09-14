@@ -42,7 +42,7 @@ The memory object in CLE (project.loader.memory, not state.memory) has had a few
 | `memory.get_byte(n) -> str` | `memory[n] -> int` |
 | `memory.read_addr_at(addr) -> int` | `memory.unpack_word(addr) -> int` |
 | `memory.write_addr_at(addr, value) -> int` | `memory.pack_word(addr, value)` |
-|  `memory.stride_repr -> list[(start, end, str)]` | `memory.backers()` -> iter[(start, bytearray)]` |
+|  `memory.stride_repr -> list[(start, end, str)]` | `memory.backers() -> iter[(start, bytearray)]` |
 
 Additionally, `pack_word` and `unpack_word` now take optional `size`, `endness`, and `signed` parameters.
 We have also added `memory.pack(addr, fmt, *data)` and `memory.unpack(addr, fmt)`, which take format strings for use with the `struct` module.
