@@ -74,6 +74,8 @@ You should not have to use this if you aren't passing the data to a native libra
 
 ## Deprecations and name changes
 
+All the functions that were deprecated more than a year ago (at or before the angr 7 release) have been removed.
+
 `state.se` has been deprecated.
 You should have been using `state.solver` for the past few years.
 
