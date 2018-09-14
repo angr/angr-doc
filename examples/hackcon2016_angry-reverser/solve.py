@@ -32,7 +32,7 @@ def main():
         state.solver.add(flag.get_byte(i) >= 0x30)
         state.solver.add(flag.get_byte(i) <= 0x7f)
 
-    simgr = proj.factory.simgr(state)
+    simgr = proj.factory.simulation_manager(state)
 
     simgr.explore(find=find, avoid=avoids)
     found = simgr.found[0]
