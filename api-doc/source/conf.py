@@ -285,7 +285,6 @@ latex_documents = [
 # (source start file, name, description, authors, manual section).
 man_pages = [
     ('angr', 'angr', u'angr analysis module', [author], 3),
-    ('simuvex', 'simuvex', u'angr emulation and instrumentation module', [author], 3),
     ('claripy', 'claripy', u'angr numerical and constraint-solving module', [author], 3),
     ('cle', 'cle', u'angr binary loader', [author], 3),
     ('pyvex', 'pyvex', u'angr binary translator', [author], 3),
