@@ -1,6 +1,7 @@
 # Summary
 
-* [Introduction](README.md)
+* Welcome to angr!
+  * [Introduction](README.md)
   * [Installing](INSTALL.md)
   * [How to Contribute](HACKING.md)
   * [What to Contribute](HELPWANTED.md)
@@ -38,4 +39,5 @@
   * [List of Claripy Operations](docs/appendices/ops.md)
   * [List of State Options](docs/appendices/options.md)
   * [Changelog](CHANGELOG.md)
-  * [Migrating to angr 7](MIGRATION.md)
+  * [Migrating to angr 8](MIGRATION.md)
+  * [Migrating to angr 7](docs/migration-7.md)
