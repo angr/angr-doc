@@ -39,7 +39,7 @@ The memory object in CLE (project.loader.memory, not state.memory) has had a few
 |--------|-------|
 | `memory.read_bytes(addr, n) -> list[str]` | `memory.load(addr, n) -> bytes` |
 | `memory.write_bytes(addr, list[str])` | `memory.store(addr, bytes)` |
-| `memory.get_byte(n) -> str` | `memory[n] -> int` |
+| `memory.get_byte(addr) -> str` | `memory[addr] -> int` |
 | `memory.read_addr_at(addr) -> int` | `memory.unpack_word(addr) -> int` |
 | `memory.write_addr_at(addr, value) -> int` | `memory.pack_word(addr, value)` |
 |  `memory.stride_repr -> list[(start, end, str)]` | `memory.backers() -> iter[(start, bytearray)]` |
