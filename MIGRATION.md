@@ -26,7 +26,8 @@ To begin, just the standard py3k changes, the relevant parts of which we'll reha
 
 In terms of how this has affected angr, any string that represents data from the emulated program will be a bytestring.
 This means that where you previously said `state.solver.eval(x, cast_to=str)` you should now say `cast_to=bytes`.
-When creating bitvectors from strings (including implicitly by just making a comparison against a string) these should be bytestrings. If they are not they will be utf-8 converted and a warning will be printed.
+When creating concrete bitvectors from strings (including implicitly by just making a comparison against a string) these should be bytestrings. If they are not they will be utf-8 converted and a warning will be printed.
+Symbol names should be unicode strings.
 
 For division, however, ASTs are strongly typed so they will treat both division operators as the kind of division that makes sense for their type.
 
