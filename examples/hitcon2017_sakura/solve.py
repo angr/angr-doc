@@ -37,13 +37,13 @@ def main():
     # initialize project
     proj = angr.Project('./sakura')
     state = proj.factory.entry_state()
-    simgr = proj.factory.simgr(state)
+    simgr = proj.factory.simulation_manager(state)
 
     # find ans stage by stage
     for find in finds:
         simgr.explore(find=find, avoid=avoids)
         found = simgr.found[0]
-        simgr = proj.factory.simgr(found)
+        simgr = proj.factory.simulation_manager(found)
 
     # evaluate text
     text = found.solver.eval(found.memory.load(0x612040, 400), cast_to=bytes)

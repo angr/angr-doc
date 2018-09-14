@@ -243,7 +243,7 @@ def solve_flag_6():
     # dive further to part2
     found_list = sm.found
     for found in found_list:
-        sm = p.factory.simgr(found)
+        sm = p.factory.simulation_manager(found)
         sm.explore(find=find2, avoid=avoid)
         if len(sm.found) > 0:
             found = sm.found[0]
