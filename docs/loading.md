@@ -199,7 +199,7 @@ We've discussed `auto_load_libs` already - it enables or disables CLE's attempt 
 Additionally, there is the opposite, `except_missing_libs`, which, if set to true, will cause an exception to be thrown whenever a binary has a shared library dependency that cannot be resolved.
 
 You can pass a list of strings to `force_load_libs` and anything listed will be treated as an unresolved shared library dependency right out of the gate, or you can pass a list of strings to `skip_libs` to prevent any library of that name from being resolved as a dependency.
-Additionally, you can pass a list of strings \(or a single string\) to `custom_ld_path`, which will be used as an additional search path for shared libraries, before any of the defaults: the same directory as the loaded program, the current working directory, and your system libraries.
+Additionally, you can pass a list of strings \(or a single string\) to `ld_path`, which will be used as an additional search path for shared libraries, before any of the defaults: the same directory as the loaded program, the current working directory, and your system libraries.
 
 #### Per-Binary Options
 
@@ -208,25 +208,25 @@ If you want to specify some options that only apply to a specific binary object,
 The options that you can use vary from backend to backend, but some common ones are:
 
 * `backend` - which backend to use, as either a class or a name
-* `custom_base_addr` - a base address to use
-* `custom_entry_point` - an entry point to use
-* `custom_arch` - the name of an architecture to use
+* `base_addr` - a base address to use
+* `entry_point` - an entry point to use
+* `arch` - the name of an architecture to use
 
 Example:
 
 ```python
-angr.Project(main_opts={'backend': 'ida', 'custom_arch': 'i386'}, lib_opts={'libc.so.6': {'backend': 'elf'}})
+angr.Project(main_opts={'backend': 'ida', 'arch': 'i386'}, lib_opts={'libc.so.6': {'backend': 'elf'}})
 ```
 
 ### Backends
 
 CLE currently has backends for statically loading ELF, PE, CGC, Mach-O and ELF core dump files, as well as loading binaries with IDA and loading files into a flat address space. CLE will automatically detect the correct backend to use in most cases, so you shouldn't need to specify which backend you're using unless you're doing some pretty weird stuff.
 
-You can force CLE to use a specific backend for an object by by including a key in its options dictionary, as described above. Some backends cannot autodetect which architecture to use and _must_ have a `custom_arch` specified. The key doesn't need to match any list of architectures; angr will identify which architecture you mean given almost any common identifier for any supported arch.
+You can force CLE to use a specific backend for an object by by including a key in its options dictionary, as described above. Some backends cannot autodetect which architecture to use and _must_ have a `arch` specified. The key doesn't need to match any list of architectures; angr will identify which architecture you mean given almost any common identifier for any supported arch.
 
 To refer to a backend, use the name from this table:
 
-| backend name | description | requires `custom_arch`? |
+| backend name | description | requires `arch`? |
 | --- | --- | --- |
 | elf | Static loader for ELF files based on PyELFTools | no |
 | pe | Static loader for PE files based on PEFile | no |
