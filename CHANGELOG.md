@@ -3,6 +3,20 @@
 This lists the *major* changes in angr.
 Tracking minor changes are left as an exercise for the reader :-)
 
+## angr 8.X.X.X
+
+Welcome to angr 8!
+The biggest change for this major version bump is the transition to python 3.
+You can read about this, as well as a few other breaking changes, in the [MIGRATION.md](migration guide).
+
+- Switch to python 3
+- Refactor to Clemory to clean up the API and speed things up drastically
+- CFGFast is much, much faster now
+- Support for avx2 unpack instructions, courtesy of D. J. Bernstein
+- angr will now show you a warning when using uninitialized memory or registers
+- angr will now NOT show you a warning if you have a capstone 3.x install unless you're actually interacting with the relevant missing parts
+- Many, many, many bug fixes
+
 ## angr 7.8.7.1
 
 - Remove `LoopLimiter` and `DFG`.
@@ -58,7 +72,7 @@ Tracking minor changes are left as an exercise for the reader :-)
 
 Welcome to angr 7!
 We worked long and hard all summer to make this release the best ever.
-It introduces several breaking changes, so for a quick guide on the most common ways you'll need to update your scripts, take a look at the [migration guide](MIGRATION.md).
+It introduces several breaking changes, so for a quick guide on the most common ways you'll need to update your scripts, take a look at the [migration guide](docs/migration-7.md).
 
 - SimuVEX has been removed and its components have been integrated into angr
 - Path has been removed and its components have been integrated into SimState, notably the new `history` state plugin
