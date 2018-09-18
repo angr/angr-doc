@@ -16,7 +16,7 @@ def main():
     load_options = {}
 
     # Android NDK library path:
-    # load_options['custom_ld_path'] = ['/Users/berndt/Tools/android-ndk-r10e/platforms/android-21/arch-arm/usr/lib']
+    # load_options['ld_path'] = ['/Users/berndt/Tools/android-ndk-r10e/platforms/android-21/arch-arm/usr/lib']
 
     b = angr.Project("./validate", load_options = load_options)
 

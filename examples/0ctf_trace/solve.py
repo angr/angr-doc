@@ -50,8 +50,8 @@ def main():
     project = angr.Project("./data.bin", load_options={
         'main_opts': {
             'backend': 'blob',
-            'custom_base_addr': 0x400770,
-            'custom_arch': 'mipsel',
+            'base_addr': 0x400770,
+            'arch': 'mipsel',
         },
     })
 

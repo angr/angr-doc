@@ -23,7 +23,7 @@ def main():
     # By default, angr will use a sim procedure instead of going through malloc
     # This will tell angr to go ahead and use libc's calloc
     proj = angr.Project("./simple_heap_overflow", exclude_sim_procedures_list=["calloc"],
-            custom_ld_path=os.path.join(DIR, '../../../binaries/tests/x86_64'))
+            ld_path=os.path.join(DIR, '../../../binaries/tests/x86_64'))
 
     # The extra option here is due to a feature not yet in angr for handling
     # underconstraining 0 initialization of certain memory allocations

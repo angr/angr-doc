@@ -74,10 +74,9 @@ You should not have to use this if you aren't passing the data to a native libra
 
 ## Deprecations and name changes
 
-All the functions that were deprecated more than a year ago (at or before the angr 7 release) have been removed.
-
-`state.se` has been deprecated.
-You should have been using `state.solver` for the past few years.
-
-`factory.simgr` has been deprecated.
-It was honestly a mistake that it was left in to begin with; the correct spelling is `factory.simulation_manager`.
+- All parameters in cle that started with `custom_` - so, `custom_base_addr`, `custom_entry_point`, `custom_offset`, `custom_arch`, and `custom_ld_path` - have had the `custom_` removed from the beginning of their names.
+- All the functions that were deprecated more than a year ago (at or before the angr 7 release) have been removed.
+- `state.se` has been deprecated.
+  You should have been using `state.solver` for the past few years.
+- `factory.simgr` has been deprecated.
+  It was honestly a mistake that it was left in to begin with; the correct spelling is `factory.simulation_manager`.
