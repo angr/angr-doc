@@ -39,11 +39,7 @@ def test_lint_docstrings():
         stderr = b"\n".join(l for l in stderr_lines if b'MIPS instruction groups' not in l)
 
     if stderr:
-<<<<<<< HEAD
-        raise Exception("The following warnings were generated while building the API documentation:\n\n%s" % stderr)
-=======
         raise Exception("The following warnings were generated while building the API documentation:\n\n%s" % stderr.decode())
->>>>>>> f31a0a6912b60764bb8700ec9b6ea792f256da33
 
 if __name__ == '__main__':
     test_api_coverage()
