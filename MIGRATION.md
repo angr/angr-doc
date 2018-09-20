@@ -72,6 +72,15 @@ addr_pointer = cbacker + (addr - backer_start)
 
 You should not have to use this if you aren't passing the data to a native library - the normal load methods should now be more than fast enough for intensive use.
 
+## CLE symbols changes
+
+Previously, your mechanisms for looking up symbols by their address were `loader.find_symbol()` and `object.symbols_by_addr`, where there was clearly some overlap.
+However, `symbols_by_addr` stayed because it was the only way to enumerate symbols in an object.
+This has changed! `symbols_by_addr` is deprecated and here is now `object.symbols`, a sorted list of Symbol objects, to enumerate symbols in a binary.
+
+Additionally, you can now enumerate all symbols in the entire project with `loader.symbols`.
+This change has also enabled us to add a `fuzzy` parameter to `find_symbol` (returns the first symbol before the given address) and make the output of `loader.describe_addr` much nicer (shows offset from closest symbol).
+
 ## Deprecations and name changes
 
 - All parameters in cle that started with `custom_` - so, `custom_base_addr`, `custom_entry_point`, `custom_offset`, `custom_arch`, and `custom_ld_path` - have had the `custom_` removed from the beginning of their names.

@@ -11,6 +11,7 @@ You can read about this, as well as a few other breaking changes, in the [MIGRAT
 
 - Switch to python 3
 - Refactor to Clemory to clean up the API and speed things up drastically
+- Remove `object.symbols_by_addr` (dict) and add `object.symbols` (sorted list); add `fuzzy` parameter to `loader.find_symbol`
 - CFGFast is much, much faster now
 - Support for avx2 unpack instructions, courtesy of D. J. Bernstein
 - angr will now show you a warning when using uninitialized memory or registers
