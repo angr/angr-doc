@@ -87,5 +87,3 @@ This change has also enabled us to add a `fuzzy` parameter to `find_symbol` (ret
 - All the functions that were deprecated more than a year ago (at or before the angr 7 release) have been removed.
 - `state.se` has been deprecated.
   You should have been using `state.solver` for the past few years.
-- `factory.simgr` has been deprecated.
-  It was honestly a mistake that it was left in to begin with; the correct spelling is `factory.simulation_manager`.
