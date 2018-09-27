@@ -49,10 +49,10 @@ Due to context sensitivity, a given basic block can have multiple nodes in the g
 
 ```python
 # this grabs *any* node at a given location:
->>> entry_node = cfg.get_any_node(b.entry)
+>>> entry_node = cfg.get_any_node(p.entry)
 
 # on the other hand, this grabs all of the nodes
->>> print("There were %d contexts for the entry block" % len(cfg.get_all_nodes(b.entry)))
+>>> print("There were %d contexts for the entry block" % len(cfg.get_all_nodes(p.entry)))
 
 # we can also look up predecessors and successors
 >>> print("Predecessors of the entry point:", entry_node.predecessors)
@@ -81,7 +81,7 @@ The CFG result produces an object called the *Function Manager*, accessible thro
 The most common use case for this object is to access it like a dictionnary. It maps addresses to `Function` objects, which can tell you properties about a function.
 
 ```python
->>> entry_func = cfg.kb.functions[b.entry]
+>>> entry_func = cfg.kb.functions[p.entry]
 ```
 
 Functions have several important properties!
@@ -152,7 +152,7 @@ These are the most useful options when working with CFGFast:
 | normalize | Normalize the resulting functions (e.g., each basic block belongs to at most one function) |
 | collect_data_references | Find all references to data during CFG generation. The results can allow you to find cross-references to data. |
 | resolve_indirect_jumps | Perform additional analysis to attempt to find targets for every indirect jump found during CFG creation. | 
-| more! | Examine the docstring on b.analyses.CFGFast for more up-to-date options |
+| more! | Examine the docstring on p.analyses.CFGFast for more up-to-date options |
 
 
 ## CFGEmulated details
@@ -170,7 +170,7 @@ The most common options for CFGEmulated include:
 | keep_state | To save memory, the state at each basic block is discarded by default. If `keep_state` is True, the state is saved in the CFGNode. |
 | enable_symbolic_back_traversal | Whether to enable an intensive technique for resolving indirect jumps |
 | enable_advanced_backward_slicing | Whether to enable another intensive technique for resolving direct jumps |
-| more! | Examine the docstring on b.analyses.CFGEmulated for more up-to-date options |
+| more! | Examine the docstring on p.analyses.CFGEmulated for more up-to-date options |
 
 
 ### Context Sensitivity Level
