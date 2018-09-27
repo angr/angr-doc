@@ -7,7 +7,7 @@ Tracking minor changes are left as an exercise for the reader :-)
 
 Welcome to angr 8!
 The biggest change for this major version bump is the transition to python 3.
-You can read about this, as well as a few other breaking changes, in the [MIGRATION.md](migration guide).
+You can read about this, as well as a few other breaking changes, in the [migration guide](MIGRATION.md).
 
 - Switch to python 3
 - Refactor to Clemory to clean up the API and speed things up drastically
