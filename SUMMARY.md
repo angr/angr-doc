@@ -16,7 +16,7 @@
   * [Analyses](docs/analyses.md)
   * [Remarks](docs/be_creative.md)
 * Built-in Analyses
-  * [CFGAccurate](docs/analyses/cfg_accurate.md)
+  * [CFG](docs/analyses/cfg.md)
   * [Backward Slicing](docs/analyses/backward_slice.md)
   * [Function Identifier](docs/analyses/identifier.md)
 * Advanced Topics

@@ -212,7 +212,7 @@ angr comes pre-packaged with several built-in analyses that you can use to extra
  proj.analyses.BoyScout             proj.analyses.Disassembly          proj.analyses.VariableRecoveryFast  
  proj.analyses.CDG                  proj.analyses.GirlScout            proj.analyses.Veritesting           
  proj.analyses.CFG                  proj.analyses.Identifier           proj.analyses.VFG                   
- proj.analyses.CFGAccurate          proj.analyses.LoopFinder           proj.analyses.VSA_DDG               
+ proj.analyses.CFGEmulated          proj.analyses.LoopFinder           proj.analyses.VSA_DDG               
  proj.analyses.CFGFast              proj.analyses.Reassembler
 ```
 
