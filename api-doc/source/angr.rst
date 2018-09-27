@@ -169,7 +169,7 @@ Analysis
 .. automodule:: angr.analyses.cfg
 .. automodule:: angr.analyses.cfg.cfb
 .. automodule:: angr.analyses.cfg.cfg
-.. automodule:: angr.analyses.cfg.cfg_accurate
+.. automodule:: angr.analyses.cfg.cfg_emulated
 .. automodule:: angr.analyses.cfg.cfg_base
 .. automodule:: angr.analyses.cfg.cfg_fast
 .. automodule:: angr.analyses.cfg.cfg_node

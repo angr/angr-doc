@@ -13,7 +13,7 @@ This section will act as a how-to for angr’s `BackwardSlice` analysis, and fol
 
 To build a `BackwardSlice`, you will need the following information as input.
 
-- **Required** CFG. A control flow graph (CFG) of the program. This CFG must be an accurate CFG (CFGAccurate).
+- **Required** CFG. A control flow graph (CFG) of the program. This CFG must be an accurate CFG (CFGEmulated).
 - **Required** Target, which is the final destination that your backward slice terminates at.
 - **Optional** CDG. A control dependence graph (CDG) derived from the CFG.
 angr has a built-in analysis `CDG` for that purpose.
@@ -31,7 +31,7 @@ A `BackwardSlice` can be constructed with the following code:
 # you’ll have to keep all input states by specifying keep_state=True. Feel free 
 # to provide more parameters (for example, context_sensitivity_level) for CFG 
 # recovery based on your needs.
->>> cfg = b.analyses.CFGAccurate(context_sensitivity_level=2, keep_state=True)
+>>> cfg = b.analyses.CFGEmulated(context_sensitivity_level=2, keep_state=True)
 
 # Generate the control dependence graph
 >>> cdg = b.analyses.CDG(cfg)
