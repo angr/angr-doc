@@ -9,7 +9,7 @@ We will cover writing your own analyses [later](analysis_writing.md), but the id
 | Name                                        | Description                                                                                                                               |
 | --------                                    | -------------                                                                                                                             |
 | CFGFast                                     | Constructs a fast *Control Flow Graph* of the program                                                                                     |
-| [CFGEmulated](analyses/cfg_emulated.md)     | Constructs an accurate *Control Flow Graph* of the program                                                                                |
+| [CFGEmulated](analyses/cfg.md)     | Constructs an accurate *Control Flow Graph* of the program                                                                                |
 | VFG                                         | Performs VSA on every function of the program, creating a *Value Flow Graph* and detecting stack variables                                |
 | DDG                                         | Calculates a *Data Dependency Graph*, allowing one to determine what statements a given value depends on                                  |
 | [BackwardSlice](analyses/backward_slice.md) | Computes a *Backward Slice* of a program with respect to a certain target                                                                 |
