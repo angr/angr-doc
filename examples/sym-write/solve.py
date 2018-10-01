@@ -25,14 +25,14 @@ def main():
 
 	def correct(state):
 		try:
-			return 'win' in state.posix.dumps(1)
+			return b'win' in state.posix.dumps(1)
 		except:
 			return False
 	def wrong(state):
-	 	try:
-	 		return 'lose' in state.posix.dumps(1)
-	 	except:
-	 		return False
+		try:
+			return b'lose' in state.posix.dumps(1)
+		except:
+			return False
 
 	sm.explore(find=correct, avoid=wrong)
 

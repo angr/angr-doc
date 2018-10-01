@@ -50,8 +50,8 @@ def main():
     project = angr.Project("./data.bin", load_options={
         'main_opts': {
             'backend': 'blob',
-            'custom_base_addr': 0x400770,
-            'custom_arch': 'mipsel',
+            'base_addr': 0x400770,
+            'arch': 'mipsel',
         },
     })
 
@@ -89,7 +89,7 @@ def main():
 
     print("Running solver...")
 
-    solution = state.solver.eval(state.memory.load(FLAG_LOCATION, 32), cast_to=str).rstrip(b'\0').decode('ascii')
+    solution = state.solver.eval(state.memory.load(FLAG_LOCATION, 32), cast_to=bytes).rstrip(b'\0').decode('ascii')
     print("The flag is", solution)
 
     return solution

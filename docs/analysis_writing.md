@@ -39,7 +39,7 @@ Use this to interact with your project and analyze it!
 >>> proj = angr.Project("/bin/true")
 
 >>> summary = proj.analyses.ProjectSummary()
->>> print summary.result
+>>> print(summary.result)
 This project is a AMD64 binary with an entry point at 0x401410.
 ```
 
@@ -58,7 +58,7 @@ Here's an example:
 ...     def __init__(self):
 ...         self._cfg = self.project.analyses.CFG()
 ...         self.results = { }
-...         for addr, func in self._cfg.function_manager.functions.iteritems():
+...         for addr, func in self._cfg.function_manager.functions.items():
 ...             with self._resilience():
 ...                 if addr % 2 == 0:
 ...                     raise ValueError("can't handle functions at even addresses")

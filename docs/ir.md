@@ -79,10 +79,10 @@ Let's play with PyVEX:
 >>> irsb.pp()
 
 # this is the IR Expression of the jump target of the unconditional exit at the end of the basic block
->>> print irsb.next
+>>> print(irsb.next)
 
 # this is the type of the unconditional exit (e.g., a call, ret, syscall, etc)
->>> print irsb.jumpkind
+>>> print(irsb.jumpkind)
 
 # you can also pretty-print it
 >>> irsb.next.pp()
@@ -95,28 +95,28 @@ Let's play with PyVEX:
 >>> import pyvex
 >>> for stmt in irsb.statements:
 ...     if isinstance(stmt, pyvex.IRStmt.Store):
-...         print "Data:",
+...         print("Data:",)
 ...         stmt.data.pp()
-...         print ""
-...         print "Type:",
-...         print stmt.data.result_type
-...         print ""
+...         print("")
+...         print("Type:",)
+...         print(stmt.data.result_type)
+...         print("")
 
 # pretty-print the condition and jump target of every conditional exit from the basic block
 >>> for stmt in irsb.statements:
 ...     if isinstance(stmt, pyvex.IRStmt.Exit):
-...         print "Condition:",
+...         print("Condition:",)
 ...         stmt.guard.pp()
-...         print ""
-...         print "Target:",
+...         print("")
+...         print("Target:",)
 ...         stmt.dst.pp()
-...         print ""
+...         print("")
 
 # these are the types of every temp in the IRSB
->>> print irsb.tyenv.types
+>>> print(irsb.tyenv.types)
 
 # here is one way to get the type of temp 0
->>> print irsb.tyenv.types[0]
+>>> print(irsb.tyenv.types[0])
 ```
 
 ## Condition flags computation (for x86 and ARM)

@@ -17,12 +17,12 @@ def main():
     # explore for success state, avoiding failure
     sm = b.factory.simulation_manager(s, immutable=False)
     sm.explore(find=0x40106b, avoid=0x401072)
-    # print the string
+    # print(the string)
     found_state = sm.found[0]
-    return found_state.solver.eval(found_state.memory.load(0x402159, 40), cast_to=str).strip('\0')
+    return found_state.solver.eval(found_state.memory.load(0x402159, 40), cast_to=bytes).strip(b'\0')
 
 def test():
-    assert main() == 'a_Little_b1t_harder_plez@flare-on.com'
+    assert main() == b'a_Little_b1t_harder_plez@flare-on.com'
 
 if __name__ == '__main__':
-    print main()
+    print(main())

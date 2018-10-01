@@ -31,7 +31,7 @@ def solve(filename):
 
     really_good = sorted(good, key=lambda x: x.insns[-3].insn.operands[1].mem.disp)
 
-    # print map(str, really_good)
+    # print(map(str, really_good))
 
     solution = ''.join(chr(k.insns[-2].insn.operands[1].imm) for k in really_good)
 
@@ -43,7 +43,7 @@ def main():
             continue
         if "." in filename:
             continue
-        print i, filename, '"%s"' % solve(filename)
+        print(i, filename, '"%s"' % solve(filename))
 
 if __name__ == "__main__":
     main()

@@ -12,7 +12,7 @@ GOAL_HASH = 'UDYs1D7bNmdE1o3g5ms1V6RrYCVvODJF1DpxKTxAJ9xuZW=='
 
 
 def hook_duplicate_pw_buf(state):
-    for i in xrange(LEN_PW):
+    for i in range(LEN_PW):
         char_ori = state.memory.load(ADDR_PW_ORI + i, 1)
         state.memory.store(ADDR_PW_ENC + i, char_ori)
     state.regs.ebx = ADDR_PW_ENC
@@ -40,7 +40,7 @@ def main():
 
     # Setup stack to simulate the state after which the "key.txt" is read
     state.regs.esi = LEN_PW
-    for i in xrange(LEN_PW):
+    for i in range(LEN_PW):
         state.mem[ADDR_PW_ORI+i:].byte = state.solver.BVS('pw', 8)
 
     # Hook instructions to use a separate buffer for the XOR-ing function
@@ -58,18 +58,18 @@ def main():
     # Add constraints to make final hash equal to the one we want
     # Also restrict the hash to only printable bytes
     found_s = sm.found[0]
-    for i in xrange(len(GOAL_HASH)):
+    for i in range(len(GOAL_HASH)):
         char = found_s.memory.load(ADDR_HASH + i, 1)
         found_s.add_constraints(char >= 0x21,
                                 char <= 0x7e,
                                 char == ord(GOAL_HASH[i]))
 
     # Solve for password that will result in the required hash
-    return found_s.solver.eval(found_s.memory.load(ADDR_PW_ORI+0, 1), cast_to=str) + \
-          found_s.solver.eval(found_s.memory.load(ADDR_PW_ORI+1, LEN_PW-1), cast_to=str)
+    return found_s.solver.eval(found_s.memory.load(ADDR_PW_ORI+0, 1), cast_to=bytes) + \
+          found_s.solver.eval(found_s.memory.load(ADDR_PW_ORI+1, LEN_PW-1), cast_to=bytes)
 
 def test():
-    assert main() == 'Sp1cy_7_layer_OSI_dip@flare-on.com'
+    assert main() == b'Sp1cy_7_layer_OSI_dip@flare-on.com'
 
 if __name__ == '__main__':
-    print main()
+    print(main())

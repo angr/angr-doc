@@ -1,4 +1,3 @@
-
 import logging
 import sys
 
@@ -84,7 +83,7 @@ def solve(s):
 
     for o, check_func in enumerate(all_checkers):
 
-        print o, len(all_checkers)
+        print(o, len(all_checkers))
 
         # parse basic blocks in this function to figure out the char offset
         char_offset = None
@@ -127,7 +126,7 @@ def solve(s):
 
         chars[char_offset] = the_char
 
-    return "".join([ chr(v/2) for k, v in sorted(chars.items()) ])
+    return "".join([ chr(v//2) for k, v in sorted(chars.items()) ])
 
 def main():
     import os
@@ -137,16 +136,16 @@ def main():
         solution_file = "%s.solution" % filename
         if os.path.exists(solution_file):
             continue
-        print i, filename
+        print(i, filename)
         try:
             sol = solve(filename)
         except ValueError:
-            print "oops failed on %s" % filename
+            print("oops failed on %s" % filename)
             continue
         # data = sol.encode("base64")
         with open(solution_file, "wb") as f:
             f.write(sol)
-        #print "Send this:" + data
+        #print("Send this:" + data)
         #sock.send(data + "\n")
 
 

@@ -14,7 +14,7 @@ def test_api_coverage():
         module_list = subprocess.check_output(['find', '.', '-name', '*.py'], cwd=module_dir).split()
         api_list = [x.split()[-1] for x in open(docs_file).readlines() if 'automodule' in x]
         for partial in module_list:
-            full = module + '.' + partial[2:-3].replace('/', '.')
+            full = module + '.' + partial[2:-3].decode().replace('/', '.')
             if full.endswith('.__init__'):
                 full = full[:-9]
 
@@ -35,12 +35,11 @@ def test_lint_docstrings():
 
     # Filter the deprecation warning from the cryptography package
     if stderr:
-        stderr_lines = stderr.split("\n")
-        stderr = "\n".join([ l for l in stderr_lines if
-            'CryptographyDeprecationWarning' not in l and 'DeprecatedIn23' not in l ])
+        stderr_lines = stderr.split(b"\n")
+        stderr = b"\n".join(l for l in stderr_lines if b'MIPS instruction groups' not in l)
 
     if stderr:
-        raise Exception("The following warnings were generated while building the API documentation:\n\n" + stderr)
+        raise Exception("The following warnings were generated while building the API documentation:\n\n%s" % stderr.decode())
 
 if __name__ == '__main__':
     test_api_coverage()

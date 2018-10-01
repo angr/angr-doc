@@ -1,158 +1,91 @@
-# Migrating to angr 7
+# Migrating to angr 8
 
-The release of angr 7 introduces several departures from long-standing angr-isms.
-While the community has created a compatibility layer to give external code written for angr 6 a good chance of working on angr 7, the best thing to do is to port it to the new version.
-This document serves as a guide for this.
+angr has moved from python 2 to python 3!
+We took this opportunity of a major version bump to make a few breaking API changes that improve quality-of-life.
 
-## SimuVEX is gone
+## What do I need to know for migrating my scripts to python 3?
 
-angr versions up through angr 6 split the program analysis into two modules: `simuvex`, which was responsible for analyzing the effects of a single piece of code (whether a basic block or a SimProcedure) on a program state, and `angr`, which aggregated analyses of these basic blocks into program-level analysis such as control-flow recovery, symbolic execution, and so forth.
-In theory, this would encourage for the encapsulation of block-level analyses, and allow other program analysis frameworks to build upon `simuvex` for their needs.
-In practice, no one (to our knowledge) used `simuvex` without `angr`, and the separation introduced frustrating limitations (such as not being able to reference the history of a state from a SimInspect breakpoint) and duplication of code (such as the need to synchronize data from `state.scratch` into `path.history`).
+To begin, just the standard py3k changes, the relevant parts of which we'll rehash here as a reference guide:
 
-Realizing that SimuVEX wasn't a usable independent package, we brainstormed about merging it into angr and further noticed that this would allow us to address the frustrations resulting from their separation.
+- Strings and bytestrings
+  - Strings are now unicode by default, a new `bytes` type holds bytestrings
+  - Bytestring literals can be constructued with the b prefix, like `b'ABCD'`
+  - Conversion between strings and bytestrings happens with `.encode()` and `.decode()`, which use utf-8 as a default. The `latin-1` codec will map byte values to their equivilant unicode codepoints
+  - The `ord()` and `chr()` functions operate on strings, not bytestrings
+  - Enumerating over or indexing into bytestrings produces an unsigned 8 bit integer, not a 1-byte bytestring
+  - Bytestrings have all the string manipulation functions present on strings, including `join`, `upper`/`lower`, `translate`, etc
+  - `hex` and `base64` are no longer string encoding codecs. For hex, use `bytes.fromhex()` and `bytes.hex()`. For base64 use the `base64` module.
+- Builtin functions
+  - `print` and `exec` are now builtin functions instead of statements
+  - Many builtin functions previously returning lists now return iterators, such as `map`, `filter`, and `zip`. `reduce` is no longer a builtin; you have to import it from `functools`.
+- Numbers
+  - The `/` operator is explicitly floating-point division, the `//` operator is expliclty integer division. The magic functions for overriding these ops are `__truediv__` and `__floordiv__`
+  - The int and long types have been merged, there is only int now
+- Dictionary objects have had their `.iterkeys`, `.itervalues`, and `.iteritems` methods removed, and then non-iter versions have been made to return efficient iterators
+- Comparisons between objects of very different types (such as between strings and ints) will raise an exception
 
-All of the SimuVEX concepts (SimStates, SimProcedures, calling conventions, types, etc) have been migrated into angr.
-The migration guide for common classes is bellow:
+In terms of how this has affected angr, any string that represents data from the emulated program will be a bytestring.
+This means that where you previously said `state.solver.eval(x, cast_to=str)` you should now say `cast_to=bytes`.
+When creating concrete bitvectors from strings (including implicitly by just making a comparison against a string) these should be bytestrings. If they are not they will be utf-8 converted and a warning will be printed.
+Symbol names should be unicode strings.
 
-| Before | After |
-|--------|-------|
-| simuvex.SimState | angr.SimState |
-| simuvex.SimProcedure | angr.SimProcedure |
-| simuvex.SimEngine | angr.SimEngine |
-| simuvex.SimCC | angr.SimCC |
+For division, however, ASTs are strongly typed so they will treat both division operators as the kind of division that makes sense for their type.
 
-And for common modules:
+## Clemory API changes
 
-| Before | After |
-|--------|-------|
-| simuvex.s_cc | angr.calling_conventions |
-| simuvex.s_state | angr.sim_state |
-| simuvex.s_procedure | angr.sim_procedure |
-| simuvex.plugins | angr.state_plugins |
-| simuvex.engines | angr.engines |
-| simuvex.concretization_strategies | angr.concretization_strategies |
-
-Additionally, `simuvex.SimProcedures` has been renamed to `angr.SIM_PROCEDURES`, since it is a global variable and not a class.
-There have been some other changes to its semantics, see the section on SimProcedures for details.
-
-## Removal of angr.Path
-
-In angr, a Path object maintained references to a SimState and its history.
-The fact that the history was separated from the state caused a lot of headaches when trying to analyze states inside a breakpoint, and caused overhead in synchronizing data from the state to its history.
-
-In the new model, a state's history is maintained in a SimState plugin: `state.history`.
-Since the path would now simply point to the state, we got rid of it.
-The mapping of concepts is roughly as follows:
+The memory object in CLE (project.loader.memory, not state.memory) has had a few breaking API changes since the bytes type is much nicer to work with than the py2 string for this specific case, and the old API was an inconsistent mess.
 
 | Before | After |
 |--------|-------|
-| path | state |
-| path.state | state |
-| path.history | state.history |
-| path.callstack | state.callstack |
-| path.trace | state.history.descriptions |
-| path.addr_trace | state.history.bbl_addrs |
-| path.jumpkinds | state.history.jumpkinds |
-| path.guards | state.history.guards |
-| path.actions | state.history.actions |
-| path.events | state.history.events |
-| path.recent_actions | state.history.recent_actions |
+| `memory.read_bytes(addr, n) -> list[str]` | `memory.load(addr, n) -> bytes` |
+| `memory.write_bytes(addr, list[str])` | `memory.store(addr, bytes)` |
+| `memory.get_byte(addr) -> str` | `memory[addr] -> int` |
+| `memory.read_addr_at(addr) -> int` | `memory.unpack_word(addr) -> int` |
+| `memory.write_addr_at(addr, value) -> int` | `memory.pack_word(addr, value)` |
+|  `memory.stride_repr -> list[(start, end, str)]` | `memory.backers() -> iter[(start, bytearray)]` |
 
-An important behavior change about `path.actions` and `path.recent_actions` - actions are no longer tracked by default.
-If you would like them to be tracked again, please add `angr.options.refs` to your state.
+Additionally, `pack_word` and `unpack_word` now take optional `size`, `endness`, and `signed` parameters.
+We have also added `memory.pack(addr, fmt, *data)` and `memory.unpack(addr, fmt)`, which take format strings for use with the `struct` module.
 
-### Path Group -> Simulation Manager
+If you were using the `cbackers` or `read_bytes_c` functions, the conversion is a little more complicated - we were able to remove the split notion of "backers" and "updates" and replaced all backers with bytearrays that we mutate, so we can work directly with the backer objects.
+The `backers()` function iterates through all bottom-level backer objects and their start addresses. You can provide an optional address to the function, and it will skip over all backers that end before that address.
 
-Since there are no paths, there cannot be a path group.
-Instead, we have a Simulation Manager now (we recommend using the abbreviation "simgr" in places you were previously using "pg"), which is exactly the same as a path group except it holds states instead of paths.
-You can make one with `project.factory.simulation_manager(...)`.
+Here is some sample code for producing a C-pointer to a given address:
 
-### Errored Paths
+```python
+import cffi, cle
+ffi = cffi.FFI()
+ld = cle.Loader('/bin/true')
 
-Before, error resilience was handled at the path level, where stepping a path that caused an error would return a subclass of Path called ErroredPath, and these paths would be put in the `errored` stash of a path group.
-Now, error resilience is handled at the simulation manager level, and any state that throws an error during stepping will be wrapped in an ErrorRecord object, which is _not_ a subclass of SimState, and put into the `errored` list attribute of the simulation manager, which is _not_ a stash.
+addr = ld.main_object.entry
+try:
+    backer_start, backer = next(ld.memory.backers(addr))
+except StopIteration:
+    raise Exception("not mapped")
 
-An ErrorRecord object has attributes for `.state` (the initial state that caused the error), `.error` (the error that was thrown), and `.traceback` (the traceback from the error).
-To debug these errors you can call `.debug()`.
+if backer_start > addr:
+    raise Exception("not mapped")
 
-These changes are because we were uncomfortable making a subclass of SimState, and the ErrorRecord class then has sufficiently different semantics from a normal state that it cannot be placed in a stash.
+cbacker = ffi.from_buffer(backer)
+addr_pointer = cbacker + (addr - backer_start)
+```
 
-## Changes to SimProcedures
+You should not have to use this if you aren't passing the data to a native library - the normal load methods should now be more than fast enough for intensive use.
 
-The most noticeable difference from the old version to the new version is that the catalog of built-in simprocedures are no longer organized strictly according to which library they live in.
-Now, they are organized according to which _standards_ they conform to, which helps with re-using procedures between different libraries.
-For instance, the old `SimProcedures['libc.so.6']` has been split up between `SIM_PROCEDURES['libc']`, `SIM_PROCEDURES['posix']`, and `SIM_PROCEDURES['glibc']`, depending on what specifications each function conforms to.
-This allows us to reuse the `libc` catalog in `msvcrt.dll` and the MUSL libc, for example.
+## CLE symbols changes
 
-In order to group SimProcedures together by libraries, we have introduced a new abstraction called the SimLibrary, the definitions for which are stored in `angr.procedures.definitions`.
-Each SimLibrary object stores information about a single shared library, and can contain SimProcedure implementations, calling convention information, and type information.
-SimLibraries are scraped from the filesystem at import time, just like SimProcedures, and placed into `angr.SIM_LIBRARIES`.
+Previously, your mechanisms for looking up symbols by their address were `loader.find_symbol()` and `object.symbols_by_addr`, where there was clearly some overlap.
+However, `symbols_by_addr` stayed because it was the only way to enumerate symbols in an object.
+This has changed! `symbols_by_addr` is deprecated and here is now `object.symbols`, a sorted list of Symbol objects, to enumerate symbols in a binary.
 
-Syscalls are now categorized through a subclass of SimLibrary called SimSyscallLibrary.
-The API for managing syscalls through SimOS has been changed - check the API docs for the SimUserspace class.
+Additionally, you can now enumerate all symbols in the entire project with `loader.symbols`.
+This change has also enabled us to add a `fuzzy` parameter to `find_symbol` (returns the first symbol before the given address) and make the output of `loader.describe_addr` much nicer (shows offset from closest symbol).
 
-One important implication of this change is that if you previously used a trick where you changed one of the SimProcedures present in the `SimProcedures` dict in order to change which SimProcedures would be used to hook over library functions by default, this will no longer work.
-Instead of `SimProcedures[lib][func_name] = proc`, you now need to say `SIM_LIBRARIES[lib].add(func_name, proc)`.
-But really you should just be using `hook_symbol` anyway.
+## Deprecations and name changes
 
-## Changes to hooking
-
-The `Hook` class is gone.
-Instead, we now can hook with individual instances of SimProcedure objects, as opposed to just the classes.
-A shallow copy of the SimProcedure will be made at runtime to preserve thread safety.
-
-So, previously, where you would have done `project.hook(addr, Hook(proc, ...))` or `project.hook(addr, proc)`, you can now do `project.hook(addr, proc(...))`.
-In order to use simple functions as hooks, you can either say `project.hook(addr, func)` or decorate the declaration of your function with `@project.hook(addr)`.
-
-Having simprocedures as instances and letting them have access to the project cleans up a lot of other hacks that were present in the codebase, mostly related to the `self.call(...)` SimProcedure continuation system.
-It is no longer required to set `IS_FUNCTION = True` if you intend to use `self.call()` while writing a SimProcedure, and each call-return target you use will have a unique address associated with it.
-These addresses will be allocated lazily, which does have the side effect of making address allocation nondeterministic, sometimes based on dictionary-iteration order.
-
-## Changes to loading
-
-The `hook_symbol` method will no longer attempt to redo relocations for the given symbol, instead just hooking directly over the address of the symbol in whatever library it comes from.
-This speeds up loading substancially and ensures more consistent behavior for when mixing and matching native library code and SimProcedure summaries.
-
-The angr externs object has been moved into CLE, which will ALWAYS make sure that every dependency is resolved to something, never left unrelocated.
-Similarly, CLE provides the "kernel object" used to provide addresses for syscalls now.
-
-| Before | After |
-|--------|-------|
-| `project._extern_obj` | `loader.extern_object` |
-| `project._syscall_obj` | `loader.kernel_object` |
-
-Several properties and methods have been renamed in CLE in order to maintain a more consistent and explicit API.
-The most common changes are listed below:
-
-| Before | After |
-|--------|-------|
-| `loader.whats_at()` | `loader.describe_addr` |
-| `loader.addr_belongs_to_object()` | `loader.find_object_containing()` |
-| `loader.find_symbol_name()` | `loader.find_symbol().name` |
-| whatever the hell you were doing before to look up a symbol | `loader.find_symbol(name or addr)`
-| `loader.find_module_name()` | `loader.find_object_containing().provides` |
-| `loader.find_symbol_got_entry()` | `loader.find_relevant_relocations()` |
-| `loader.main_bin` | `loader.main_object` |
-| `anything.get_min_addr()` | `anything.min_addr` |
-| `symbol.addr` | `symbol.linked_addr` |
-
-## Changes to the solver interface
-
-We cleaned up the menagerie of functions present on `state.solver` (if you're still referring to it as `state.se` you should stop) and simplified it into a cleaner interface:
-
-- `solver.eval(expression)` will give you one possible solution to the given expression.
-- `solver.eval_one(expression)` will give you the solution to the given expression, or throw an error if more than one solution is possible.
-- `solver.eval_upto(expression, n)` will give you up to n solutions to the given expression, returning fewer than n if fewer than n are possible.
-- `solver.eval_atleast(expression, n)` will give you n solutions to the given expression, throwing an error if fewer than n are possible.
-- `solver.eval_exact(expression, n)` will give you n solutions to the given expression, throwing an error if fewer or more than are possible.
-- `solver.min(expression)` will give you the minimum possible solution to the given expression.
-- `solver.max(expression)` will give you the maximum possible solution to the given expression.
-
-Additionally, all of these methods can take the following keyword arguments:
-
-- `extra_constraints` can be passed as a tuple of constraints.
-  These constraints will be taken into account for this evaluation, but will not be added to the state.
-- `cast_to` can be passed a data type to cast the result to.
-  Currently, this can only be `str`, which will cause the method to return the byte representation of the underlying data.
-  For example, `state.solver.eval(state.solver.BVV(0x41424344, 32, cast_to=str)` will return `"ABCD"`.
+- All parameters in cle that started with `custom_` - so, `custom_base_addr`, `custom_entry_point`, `custom_offset`, `custom_arch`, and `custom_ld_path` - have had the `custom_` removed from the beginning of their names.
+- All the functions that were deprecated more than a year ago (at or before the angr 7 release) have been removed.
+- `state.se` has been deprecated.
+  You should have been using `state.solver` for the past few years.
+- Support for immutable simulation managers has been removed.
+  So far as we're aware, nobody was actually useing this, and it was making debugging a pain.

@@ -8,7 +8,7 @@ class CheckUniqueness(angr.ExplorationTechnique):
     def __init__(self):
         self.unique_states = set()
 
-    def filter(self, state):
+    def filter(self, simgr, state, filter_func=None):
         vals = []
         for reg in ('eax', 'ebx', 'ecx', 'edx', 'esi', 'edi', 'ebp', 'esp', 'eip'):
             val = state.registers.load(reg)
@@ -22,7 +22,7 @@ class CheckUniqueness(angr.ExplorationTechnique):
             return 'not_unique'
 
         self.unique_states.add(vals)
-        return None
+        return simgr.filter(state, filter_func=filter_func)
 
 
 class SearchForNull(angr.ExplorationTechnique):
@@ -30,10 +30,10 @@ class SearchForNull(angr.ExplorationTechnique):
         if 'found' not in simgr.stashes:
             simgr.stashes['found'] = []
 
-    def filter(self, state):
+    def filter(self, simgr, state, filter_func=None):
         if state.addr == 0:
             return 'found'
-        return None
+        return simgr.filter(state, filter_func=filter_func)
 
     def complete(self, simgr):
         return len(simgr.found)
@@ -53,7 +53,7 @@ def setup_project():
     xputs_pointer_addr = project.loader.find_symbol('grub_xputs').rebased_addr
     xputs_func_addr = project.loader.extern_object.allocate()
     project.hook(xputs_func_addr, do_nothing())
-    project.loader.memory.write_addr_at(xputs_pointer_addr, xputs_func_addr)
+    project.loader.memory.pack_word(xputs_pointer_addr, xputs_func_addr)
 
     return project
 
@@ -68,15 +68,15 @@ def find_bug(project, function, args):
     simgr.use_technique(CheckUniqueness())
     simgr.run()
 
-    print 'we found a crashing input!'
-    print 'crashing state:', simgr.found[0]
-    print 'input:', repr(simgr.found[0].posix.dumps(0))
+    print('we found a crashing input!')
+    print('crashing state:', simgr.found[0])
+    print('input:', repr(simgr.found[0].posix.dumps(0)))
     return simgr.found[0].posix.dumps(0)
 
 def test():
-    assert find_bug(setup_project(), 'grub_password_get', (angr.PointerWrapper('\0'*64), 64)) == '\x08\x08\x08\x08\x08\x08\x08\x08\x08\x08\x08\x08\r'
+    assert find_bug(setup_project(), 'grub_password_get', (angr.PointerWrapper(b'\0'*64), 64)) == b'\x08\x08\x08\x08\x08\x08\x08\x08\x08\x08\x08\x08\r'
 
 if __name__ == '__main__':
-    logging.getLogger('angr.manager').setLevel('DEBUG')
+    logging.getLogger('angr.sim_manager').setLevel('DEBUG')
     p = setup_project()
     find_bug(p, 'grub_password_get', (angr.PointerWrapper('\0'*64), 64))

@@ -13,13 +13,13 @@ def main():
 
     def correct(state):
         try:
-            return 'Password OK' in state.posix.dumps(1)
+            return b'Password OK' in state.posix.dumps(1)
         except:
             return False
 
     def wrong(state):
         try:
-            return 'Password Incorrect' in state.posix.dumps(1)
+            return b'Password Incorrect' in state.posix.dumps(1)
         except:
             return False
 
@@ -35,7 +35,7 @@ def test():
 	with open('input', 'wb') as fp:
 		fp.write(main())
 
-	assert subprocess.check_output('./crackme0x05 < input', shell=True) == 'IOLI Crackme Level 0x05\nPassword: Password OK!\n'
+	assert subprocess.check_output('./crackme0x05 < input', shell=True) == b'IOLI Crackme Level 0x05\nPassword: Password OK!\n'
 
 if __name__ == '__main__':
 	print(repr(main()))

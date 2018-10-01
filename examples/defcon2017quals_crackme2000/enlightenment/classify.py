@@ -24,8 +24,8 @@ for f in files:
     libraries[k].append(f)
     ldds[k] = ldd_out
 
-print libraries.keys()
-print ldds
+print(list(libraries))
+print(ldds)
 
 # ['libchicken.so.7', 'libutil.so.1', 'libstdc++.so.6', 'librt.so.1', 'libgcc_s.so.1', 'libm.so.6', 'libpthread.so.0', 'libswiftCore.so', 'libdl.so.2', 'linux-vdso.so.1', 'libc.so.6', 'libswiftGlibc.so']
 for k in libraries.keys():

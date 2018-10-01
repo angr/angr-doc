@@ -56,7 +56,7 @@ To move states between stashes, use `.move()`,  which takes `from_stash`, `to_st
 For example, let's move everything that has a certain string in its output:
 
 ```python
->>> simgr.move(from_stash='deadended', to_stash='authenticated', filter_func=lambda s: 'Welcome' in s.posix.dumps(1))
+>>> simgr.move(from_stash='deadended', to_stash='authenticated', filter_func=lambda s: b'Welcome' in s.posix.dumps(1))
 >>> simgr
 <SimulationManager with 2 authenticated, 1 deadended>
 ```
@@ -70,7 +70,7 @@ If you prepend the name of a stash with `mp_`, you will be given a [mulpyplexed]
 
 ```python
 >>> for s in simgr.deadended + simgr.authenticated:
-...     print hex(s.addr)
+...     print(hex(s.addr))
 0x1000030
 0x1000078
 0x1000078
@@ -134,14 +134,14 @@ Next, we create a SimulationManager.
 
 Now, we symbolically execute until we find a state that matches our condition (i.e., the "win" condition).
 ```python
->>> simgr.explore(find=lambda s: "Congrats" in s.posix.dumps(1))
+>>> simgr.explore(find=lambda s: b"Congrats" in s.posix.dumps(1))
 <SimulationManager with 1 active, 1 found>
 ```
 
 Now, we can get the flag out of that state!
 ```python
 >>> s = simgr.found[0]
->>> print s.posix.dumps(1)
+>>> print(s.posix.dumps(1))
 Enter password: Congrats!
 
 >>> flag = s.posix.dumps(0)

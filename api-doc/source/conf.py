@@ -114,9 +114,11 @@ todo_include_todos = False
 intersphinx_mapping = {'python': ('https://docs.python.org/2.7', None)}
 
 autoclass_content = "both"
+autodoc_inherit_docstrings = False
 autodoc_member_order = 'bysource'
 autodoc_default_options = {
         'members': None,
+        'member-order': 'bysource',
         #'special-members': None,
         'show-inheritance': None,
         # 'private-members': None,
@@ -283,7 +285,6 @@ latex_documents = [
 # (source start file, name, description, authors, manual section).
 man_pages = [
     ('angr', 'angr', u'angr analysis module', [author], 3),
-    ('simuvex', 'simuvex', u'angr emulation and instrumentation module', [author], 3),
     ('claripy', 'claripy', u'angr numerical and constraint-solving module', [author], 3),
     ('cle', 'cle', u'angr binary loader', [author], 3),
     ('pyvex', 'pyvex', u'angr binary translator', [author], 3),

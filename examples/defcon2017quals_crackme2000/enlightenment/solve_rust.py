@@ -53,7 +53,7 @@ def main():
             continue
         if "." in filename:
             continue
-        print i, filename, '"%s"' % solve(filename)
+        print(i, filename, '"%s"' % solve(filename))
 
 if __name__ == "__main__":
     main()

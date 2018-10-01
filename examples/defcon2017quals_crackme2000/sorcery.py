@@ -28,14 +28,14 @@ def main():
     import pwn
     host, port = "cm2k-sorcery_13de8e6bf26e435fc43efaf46b488eae.quals.shallweplayaga.me", 12002
     r = pwn.remote(host, port)
-    print r.readuntil("newline\n")
+    print(r.readuntil("newline\n"))
     while True:
         filename = r.readuntil("\n").strip("\n")
-        print filename
+        print(filename)
         sol = solve(filename)
-        print repr(sol)
+        print(repr(sol))
         data = sol.encode("base64")
-        print "Send this:" + data
+        print("Send this:" + data)
         r.send(data)
 
 

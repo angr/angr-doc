@@ -75,7 +75,7 @@ def test():
     pass        # appease our CI infrastructure which expects this file to do something lmao
 
 if __name__ == '__main__':
-    print basic_symbolic_execution()
+    print(basic_symbolic_execution())
 
 # You should be able to run this program and pipe its into fauxware in order to
 # produce a "sucessfully authenticated" message
