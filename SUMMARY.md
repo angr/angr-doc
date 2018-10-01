@@ -1,7 +1,6 @@
 # Summary
 
-* Welcome to angr!
-  * [Introduction](README.md)
+* Introductory Errata
   * [Installing](INSTALL.md)
   * [How to Contribute](HACKING.md)
   * [What to Contribute](HELPWANTED.md)
