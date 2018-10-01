@@ -87,3 +87,5 @@ This change has also enabled us to add a `fuzzy` parameter to `find_symbol` (ret
 - All the functions that were deprecated more than a year ago (at or before the angr 7 release) have been removed.
 - `state.se` has been deprecated.
   You should have been using `state.solver` for the past few years.
+- Support for immutable simulation managers has been removed.
+  So far as we're aware, nobody was actually useing this, and it was making debugging a pain.
