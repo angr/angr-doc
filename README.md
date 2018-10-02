@@ -17,11 +17,11 @@ angr has components that meet all of these challenges. This book will explain ho
 
 ## Get Started
 
-Installation instructions can be found [here](./INSTALL.md).
+Installation instructions can be found [here](INSTALL.md).
 
 To dive right into angr's capabilities, start with the [top level methods](./docs/toplevel.md) and read forward from there.
 
-A searchable HTML version of this documentation is hosted at [docs.angr.io](http://docs.angr.io/), and an HTML API reference can be found at [angr.io/api-doc](http://angr.io/api-doc/).
+A searchable HTML version of this documentation is hosted at [docs.angr.io](https://docs.angr.io/), and an HTML API reference can be found at [angr.io/api-doc](https://angr.io/api-doc/).
 
 If you enjoy playing CTFs and would like to learn angr in a similar fashion, [angr_ctf](https://github.com/jakespringer/angr_ctf) will be a fun way for you to get familiar with much of the symbolic execution capability of angr. [The angr_ctf repo](https://github.com/jakespringer/angr_ctf) is maintained by [@jakespringer](https://github.com/jakespringer).
 
@@ -56,7 +56,7 @@ If you use angr in an academic work, please cite the papers for which it was dev
 
 To get help with angr, you can ask via:
 
-* the slack channel: [angr.slack.com](https://angr.slack.com), for which you can get an account [here](http://angr.io/invite.html).
+* the slack channel: [angr.slack.com](https://angr.slack.com), for which you can get an account [here](https://angr.io/invite/).
 * opening an issue on the appropriate github repository
 * the mailing list: angr@lists.cs.ucsb.edu
 

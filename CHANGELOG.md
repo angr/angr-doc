@@ -3,7 +3,7 @@
 This lists the *major* changes in angr.
 Tracking minor changes are left as an exercise for the reader :-)
 
-## angr 8.X.X.X
+## angr 8.18.10.1
 
 Welcome to angr 8!
 The biggest change for this major version bump is the transition to python 3.
