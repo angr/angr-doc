@@ -49,7 +49,7 @@ def get_possible_flags():
     # Simulation managers are a basic building block of the symbolic execution engine.
     # They track a group of states as the binary is executed, and allows for easier
     # management, pruning, and so forth of those states
-    sm = p.factory.simulation_manager(initial_state, immutable=False)
+    sm = p.factory.simulation_manager(initial_state)
 
     # here, we get to stage 2 using the simulation manager's explore() functionality.
     # This executes until at least one path reaches the specified address, and can

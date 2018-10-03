@@ -15,7 +15,7 @@ def main():
     # store a symbolic string for the input
     s.memory.store(0x402159, s.solver.BVS("ans", 8*40))
     # explore for success state, avoiding failure
-    sm = b.factory.simulation_manager(s, immutable=False)
+    sm = b.factory.simulation_manager(s)
     sm.explore(find=0x40106b, avoid=0x401072)
     # print(the string)
     found_state = sm.found[0]

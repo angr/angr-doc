@@ -53,7 +53,7 @@ def calc_one_byte(p, known_passwords, hook_func, start_addr, load_addr1, load_ad
     p.hook(load_addr2, UserHook(user_func=hook_func, length=14))
     state = p.factory.blank_state(addr=start_addr)
     state, password = prepare_state(state, known_passwords)
-    sm = p.factory.simulation_manager(state, immutable=False)
+    sm = p.factory.simulation_manager(state)
     sm.step(4)
     sm.step(size=cmp_addr - load_addr2)
 

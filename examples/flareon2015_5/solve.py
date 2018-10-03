@@ -52,7 +52,7 @@ def main():
     p.hook(0x4011D6, hook_heapalloc, length=5)
 
     # Explore the states until after the hash is computed
-    sm = p.factory.simulation_manager(state, immutable=False)
+    sm = p.factory.simulation_manager(state)
     sm.explore(find=0x4011EC)
 
     # Add constraints to make final hash equal to the one we want

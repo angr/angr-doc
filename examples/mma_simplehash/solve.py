@@ -86,7 +86,7 @@ def main():
 
     # Now, we start the symbolic execution. We create a PathGroup and set up some
     # logging (so that we can see what's happening).
-    sm = b.factory.simulation_manager(s, immutable=False)
+    sm = b.factory.simulation_manager(s)
     angr.manager.l.setLevel("DEBUG")
 
     # We want to explore to the "success" state (0x8048A94) while avoiding the
