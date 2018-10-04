@@ -99,6 +99,7 @@ Exploration Techniques
 .. automodule:: angr.exploration_techniques.stochastic
 .. automodule:: angr.exploration_techniques.unique
 .. automodule:: angr.exploration_techniques.tech_builder
+.. automodule:: angr.exploration_techniques.common
 
 Simulation Engines
 ------------------
