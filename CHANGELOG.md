@@ -3,6 +3,16 @@
 This lists the *major* changes in angr.
 Tracking minor changes are left as an exercise for the reader :-)
 
+## angr 8.18.10.5
+
+Largely a bugfix release, but with a few bonus treats:
+
+- API documentation has been rewritten for Exploration Technique. It should be much easier to use now.
+- Simulation Manager will throw an error if you pass incorrect keyword arguments (??? why was it like this)
+- The `save_unconstrained` flag of Simulation Manager is now on by default
+- If a step produces only unsatisfiable states, they will appear in the `'unsat'` stash regardless of the `save_unsat` setting, since this usually indicates a bug. Add `unsat` to the `auto_drop` parameter to restore the old behavior.
+
+
 ## angr 8.18.10.1
 
 Welcome to angr 8!
@@ -18,6 +28,7 @@ You can read about this, as well as a few other breaking changes, in the [migrat
 - angr will now show you a warning when using uninitialized memory or registers
 - angr will now NOT show you a warning if you have a capstone 3.x install unless you're actually interacting with the relevant missing parts
 - Many, many, many bug fixes
+
 
 ## angr 7.8.7.1
 
