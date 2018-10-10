@@ -54,7 +54,7 @@ def calc_one_byte(p, known_passwords, hook_func, start_addr, load_addr1, load_ad
     state = p.factory.blank_state(addr=start_addr)
     state, password = prepare_state(state, known_passwords)
     sm = p.factory.simulation_manager(state)
-    sm.step(4)
+    sm.run(n=4)
     sm.step(size=cmp_addr - load_addr2)
 
     s0 = sm.active[0].copy()
