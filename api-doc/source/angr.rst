@@ -90,7 +90,6 @@ Exploration Techniques
 .. automodule:: angr.exploration_techniques.threading
 .. automodule:: angr.exploration_techniques.veritesting
 .. automodule:: angr.exploration_techniques.tracer
-.. automodule:: angr.exploration_techniques.crash_monitor
 .. automodule:: angr.exploration_techniques.driller_core
 .. automodule:: angr.exploration_techniques.director
 .. automodule:: angr.exploration_techniques.oppologist
