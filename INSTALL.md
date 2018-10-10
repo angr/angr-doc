@@ -16,7 +16,7 @@ On Ubuntu, you will want: `sudo apt-get install python3-dev libffi-dev build-ess
 
 Fish (shell) users can either use [virtualfish](https://github.com/adambrenecki/virtualfish) or the [virtualenv](https://pypi.python.org/pypi/virtualenv) package: `vf new angr && vf activate angr && pip install angr`
 
-Failing that, you can install angr by installing the following repositories (and the dependencies listed in their requirements.txt files), in order, from https://github.com/angr:
+Failing that, you can install angr by installing the following repositories, in order, from https://github.com/angr:
 
 - [archinfo](https://github.com/angr/archinfo)
 - [pyvex](https://github.com/angr/pyvex)
