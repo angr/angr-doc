@@ -188,6 +188,7 @@ Analysis
 .. automodule:: angr.analyses.cdg
 .. automodule:: angr.analyses.code_location
 .. automodule:: angr.analyses.datagraph_meta
+.. automodule:: angr.analyses.code_tagging
 .. automodule:: angr.analyses.decompiler.structurer
 .. automodule:: angr.analyses.decompiler
 .. automodule:: angr.analyses.decompiler.clinic
