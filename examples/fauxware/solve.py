@@ -1,6 +1,7 @@
 #!/usr/bin/env python
 
 import angr
+import sys
 
 # Look at fauxware.c! This is the source code for a "faux firmware" (@zardus
 # really likes the puns) that's meant to be a simple representation of a
@@ -45,7 +46,7 @@ def basic_symbolic_execution():
     # Now, we begin execution. This will symbolically execute the program until
     # we reach a branch statement for which both branches are satisfiable.
 
-    sm.run(until=lambda lpg: len(lpg.active) > 1)
+    sm.run(until=lambda sm_: len(sm_.active) > 1)
 
     # If you look at the C code, you see that the first "if" statement that the
     # program can come across is comparing the result of the strcmp with the
@@ -72,10 +73,11 @@ def basic_symbolic_execution():
         return input_1
 
 def test():
-    pass        # appease our CI infrastructure which expects this file to do something lmao
+    r = basic_symbolic_execution()
+    assert b'SOSNEAKY' in r
 
 if __name__ == '__main__':
-    print(basic_symbolic_execution())
+    sys.stdout.buffer.write(basic_symbolic_execution())
 
-# You should be able to run this script and the result should contain the
-# substring "SOSNEAKY".
+# You should be able to run this script and pipe its output to fauxware and
+# fauxware will authenticate you.
