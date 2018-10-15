@@ -66,7 +66,7 @@ def basic_symbolic_execution():
     # quick and dirty concretization of the content in file descriptor zero,
     # stdin. One of these strings should contain the substring "SOSNEAKY"!
 
-    if 'SOSNEAKY' in input_0:
+    if b'SOSNEAKY' in input_0:
         return input_0
     else:
         return input_1
@@ -77,5 +77,5 @@ def test():
 if __name__ == '__main__':
     print(basic_symbolic_execution())
 
-# You should be able to run this program and pipe its into fauxware in order to
-# produce a "sucessfully authenticated" message
+# You should be able to run this script and the result should contain the
+# substring "SOSNEAKY".
