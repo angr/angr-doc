@@ -67,9 +67,9 @@ def basic_symbolic_execution():
     # stdin. One of these strings should contain the substring "SOSNEAKY"!
 
     if b'SOSNEAKY' in input_0:
-        return input_0.decode()
+        return input_0
     else:
-        return input_1.decode()
+        return input_1
 
 def test():
     pass        # appease our CI infrastructure which expects this file to do something lmao
@@ -77,5 +77,5 @@ def test():
 if __name__ == '__main__':
     print(basic_symbolic_execution())
 
-# You should be able to run this program and pipe its into fauxware in order to
-# produce a "sucessfully authenticated" message
+# You should be able to run this script and the result should contain the
+# substring "SOSNEAKY".
