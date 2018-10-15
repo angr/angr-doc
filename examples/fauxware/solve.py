@@ -66,10 +66,10 @@ def basic_symbolic_execution():
     # quick and dirty concretization of the content in file descriptor zero,
     # stdin. One of these strings should contain the substring "SOSNEAKY"!
 
-    if 'SOSNEAKY' in input_0:
-        return input_0
+    if b'SOSNEAKY' in input_0:
+        return input_0.decode()
     else:
-        return input_1
+        return input_1.decode()
 
 def test():
     pass        # appease our CI infrastructure which expects this file to do something lmao
