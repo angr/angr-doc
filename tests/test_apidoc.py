@@ -12,7 +12,7 @@ def test_api_coverage():
         docs_file = _path('api-doc/source/%s.rst' % module)
         module_dir = _path('../%s/%s' % (module, module))
         module_list = subprocess.check_output(['find', '.', '-name', '*.py'], cwd=module_dir).split()
-        api_list = [x.split()[-1] for x in open(docs_file).readlines() if 'automodule' in x]
+        api_list = [x.split()[-1] for x in open(docs_file, encoding='utf-8').readlines() if 'automodule' in x]
         for partial in module_list:
             full = module + '.' + partial[2:-3].decode().replace('/', '.')
             if full.endswith('.__init__'):

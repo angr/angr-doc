@@ -22,7 +22,7 @@ def doctest_single(md_file):
     os.chdir(_path('.'))
     try:
         claripy.ast.base.var_counter = itertools.count()
-        lines = open(md_file).read().split('\n')
+        lines = open(md_file, encoding='utf-8').read().split('\n')
         test_enabled = False
         multiline_enabled = False
         multiline_stuff = ''

@@ -93,7 +93,7 @@ def test_example_inclusion():
         sourcefile = __file__[:-1]
     else:
         sourcefile = __file__
-    with open(sourcefile, 'r') as fp:
+    with open(sourcefile, 'r', encoding='utf-8') as fp:
         test_source = fp.read()
     example_tests = test_source[test_source.find('## BEGIN EXAMPLE TESTS'):test_source.find('## END EXAMPLE TESTS')]
 
