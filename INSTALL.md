@@ -8,7 +8,7 @@ We highly recommend using a [python virtual environment](https://virtualenvwrapp
 
 All of the python dependencies should be handled by pip and/or the setup.py scripts. You will, however, need to build some C to get from here to the end, so you'll need a good build environment as well as the python development headers. At some point in the dependency install process, you'll install the python library cffi, but (on linux, at least) it won't run unless you install your operating system's libffi package.
 
-On Ubuntu, you will want: `sudo apt-get install python3-dev libffi-dev build-essential virtualenvwrapper`. If you are trying out angr-management, you will need the [PySide 2 requirements](https://wiki.qt.io/Qt_for_Python/GettingStarted) along with `graphviz-dev`.
+On Ubuntu, you will want: `sudo apt-get install python3-dev libffi-dev build-essential virtualenvwrapper`. If you are trying out angr Management, you will also need the [PySide 2 requirements](https://wiki.qt.io/Qt_for_Python/GettingStarted).
 
 ### Most Operating systems, all \*nix systems
 
