@@ -6,6 +6,9 @@ import time
 
 def main():
     # Load the binary. This is a 64-bit C++ binary, pretty heavily obfuscated.
+    # its correct emulation by angr depends heavily on the libraries it is loaded with,
+    # so if this script fails, try copying to this dir the .so files from our binaries repo:
+    # https://github.com/angr/binaries/tree/master/tests/x86_64
     p = angr.Project('wyvern')
 
     # It's reasonably easy to tell from looking at the program in IDA that the key will
