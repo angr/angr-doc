@@ -91,6 +91,7 @@ Exploration Techniques
 .. automodule:: angr.exploration_techniques.veritesting
 .. automodule:: angr.exploration_techniques.tracer
 .. automodule:: angr.exploration_techniques.driller_core
+.. automodule:: angr.exploration_techniques.slicecutor
 .. automodule:: angr.exploration_techniques.director
 .. automodule:: angr.exploration_techniques.oppologist
 .. automodule:: angr.exploration_techniques.loop_seer
