@@ -148,14 +148,10 @@ initial_state.add_constraints(initial_state.solver.And(or_v1,or_v2,or_v3,or_v4))
 #initial_state.inspect.b('instruction', when=angr.BP_BEFORE, action=debug_func)
 
 # Explore the paths until after the hash is computed
-#path = p.factory.path(initial_state)
-
 #FIND=0x00402CCB
-#ex = p.surveyors.Explorer(start=path, find=FIND)
-#ex.run()
+#ex = p.factory.simgr(initial_state).explore(find=FIND)
 
-#we will run until the end. We are using path_group becouse the angr-doc
-#recommends use it instead of p.surveyors. (aparently, it is the feature)
+#we will run until the end.
 
 #############################################
 #step 2:

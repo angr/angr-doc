@@ -40,14 +40,15 @@ def main():
     for c in flag.chop(8):
         state.solver.add(char(state, c))
 
-    print('creating path and explorer')
-    ex = p.surveyors.Explorer(start=state, find=FIND, avoid=AVOID)
+    print('creating state and simgr')
+    ex = p.factory.simulation_manager(state)
+    ex.use_technique(angr.exploration_techniques.Explorer(find=FIND, avoid=AVOID))
 
     print('running explorer')
     ex.run()
 
     print('found solution')
-    correct_input = ex._f.posix.dumps(0) # ex._f is equiv. to ex.found[0]
+    correct_input = ex.one_found.posix.dumps(0) # ex._f is equiv. to ex.found[0]
     return correct_input
 
 def test():

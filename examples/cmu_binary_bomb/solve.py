@@ -68,10 +68,8 @@ def solve_flag_2():
         state.stack_push(state.solver.BVS('int{}'.format(i), 4*8))
 
     # Attempt to find a path to the end of the phase_2 function while avoiding the bomb_explode
-    ex = proj.surveyors.Explorer(start=state, find=(0x400f3c,),
-                                 avoid=(bomb_explode,),
-                                 enable_veritesting=True)
-    ex.run()
+    ex = proj.factory.simulation_manager(state)
+    ex.explore(find=0x400f3c, avoid=bomb_explode)
 
     if ex.found:
         found = ex.found[0]
@@ -108,11 +106,8 @@ def solve_flag_3():
         state = queue.pop()
         #print("\nStarting symbolic execution...")
 
-        ex = proj.surveyors.Explorer(start=state, find=(end,),
-                                     avoid=(bomb_explode,),
-                                     enable_veritesting=True,
-                                     max_active=8)
-        ex.run()
+        ex = proj.factory.simulation_manager(state, veritesting=True)
+        ex.explore(find=end, avoid=bomb_explode)  # max_active=8?
 
         #print("Inserting in queue " + str(len(ex.active)) + " paths (not yet finished)")
         for p in ex.active:

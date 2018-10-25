@@ -68,8 +68,8 @@ def main():
             flag = bytes(flag_arr)+trychar.encode()
             state = p.factory.entry_state(stdin=flag + b"\n")
 
-            e = p.surveyors.Explorer(start=state, find=(target,))
-            e.run()
+            e = p.factory.simulation_manager(state)
+            e.run(find=target)
 
             assert len(e.found) == 1
             np = e.found[0]
