@@ -39,9 +39,9 @@ After installing angr, you will need to fix some shared library paths for the an
 Activate your virtual env and execute the following lines. [A script](https://github.com/angr/angr-dev/blob/master/fix_macOS.sh) is provided in the angr-dev repo.
 
 ```bash
-PYVEX=`python3 -c 'import pyvex; print pyvex.__path__[0]'`
-UNICORN=`python3 -c 'import unicorn; print unicorn.__path__[0]'`
-ANGR=`python3 -c 'import angr; print angr.__path__[0]'`
+PYVEX=`python3 -c 'import pyvex; print(pyvex.__path__[0])'`
+UNICORN=`python3 -c 'import unicorn; print(unicorn.__path__[0])'`
+ANGR=`python3 -c 'import angr; print(angr.__path__[0])'`
 
 install_name_tool -change libunicorn.1.dylib "$UNICORN"/lib/libunicorn.dylib "$ANGR"/lib/angr_native.dylib
 install_name_tool -change libpyvex.dylib "$PYVEX"/lib/libpyvex.dylib "$ANGR"/lib/angr_native.dylib
