@@ -110,4 +110,5 @@ Misc. Things
 .. automodule:: claripy.errors
 .. automodule:: claripy.fp
 .. automodule:: claripy.operations
+.. automodule:: claripy.simplifications
 .. automodule:: claripy.ops

@@ -3,6 +3,16 @@
 This lists the *major* changes in angr.
 Tracking minor changes are left as an exercise for the reader :-)
 
+## angr 8.18.10.25
+
+- The IDA backend for CLE has been removed. It has been broken for quite some time, but now it has been disabled for your own safety.
+- Surveyors have been removed! Finally! This is thanks to @danse-macabre who contributed an Exploration Technique for the Slicecutor. Backwards slicing has now been brought out of the angr dark ages.
+- SimCC can now be initialized with a string containing C function prototype in its `func_ty` argument
+- Similarly, Callable can now be run with its arguments instanciated from a string containing C expressions
+- Tracer has been substancilly refactored - it will now handle more kinds of desyncs, ASLR slides, and is much more friendly for hacking. We will be continuing to improve it!
+- The Oppologist and Driller have been refactored to play nice with other exploation techniques
+- SimProcedure continuations now have symbols in the externs object, so `describe_addr` will work on them. Additionally, the representation for SimProcedure (appearing in `history.descriptions` and `project._sim_procedures` among other places) has been improved to show this information.
+
 ## angr 8.18.10.5
 
 Largely a bugfix release, but with a few bonus treats:

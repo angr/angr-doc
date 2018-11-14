@@ -51,8 +51,6 @@ def test_hitcon2017_sakura(): exampletest_single('hitcon2017_sakura') # 6m
 def test_google2016_unbreakable_0(): exampletest_single('google2016_unbreakable_0')
 def test_google2016_unbreakable_1(): exampletest_single('google2016_unbreakable_1')
 def test_grub(): exampletest_single('grub')
-#@attr(speed='slow')
-#def test_layer7_onlyone(): exampletest_single('layer7_onlyone') # unknown, but eats all my ram
 def test_mma_howtouse(): exampletest_single('mma_howtouse')
 @attr(speed='slow')
 def test_mma_simplehash(): exampletest_single('mma_simplehash') # ~hour

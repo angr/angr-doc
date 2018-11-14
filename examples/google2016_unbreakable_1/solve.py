@@ -46,13 +46,13 @@ def main():
         state.memory.store(INPUT_ADDR + i, c)
         state.add_constraints(cond)
 
-    print('creating path and explorer')
-    ex = p.surveyors.Explorer(start=state, find=(FIND_ADDR,), avoid=(AVOID_ADDR,))
+    print('creating simgr')
+    ex = p.factory.simulation_manager(state)
 
     print('running explorer')
-    ex.run()
+    ex.explore(find=(FIND_ADDR,), avoid=(AVOID_ADDR,))
 
-    flag = extract_memory(ex._f) # ex._f is equiv. to ex.found[0]
+    flag = extract_memory(ex.one_found) # ex.one_found is equiv. to ex.found[0]
     print('found flag: {}'.format(flag))
 
     return flag

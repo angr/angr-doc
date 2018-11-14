@@ -216,7 +216,6 @@ Analysis
 .. automodule:: angr.analyses.variable_recovery.variable_recovery_fast
 .. automodule:: angr.analyses.variable_recovery.variable_recovery
 .. automodule:: angr.analyses.variable_recovery
-.. automodule:: angr.analyses.girlscout
 .. automodule:: angr.analyses.identifier.identify
 .. automodule:: angr.analyses.loopfinder
 .. automodule:: angr.analyses.veritesting

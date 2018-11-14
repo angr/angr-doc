@@ -1,5 +1,4 @@
 #import logging
-#logging.getLogger('angr.surveyor').setLevel(logging.DEBUG)
 
 import angr
 
@@ -53,12 +52,8 @@ def main():
 
     state.memory.store(0x413ad4, 36, endness=state.arch.memory_endness)
 
-    ex = p.surveyors.Explorer(
-        start=state,
-        find=(0x402f29,),
-        avoid=(0x402f3f,),
-    )
-    ex.run()
+    ex = p.factory.simulation_manager(state)
+    ex.explore(find=0x402f29, avoid=0x402f3f)
 
     possible_flags = ex.found[0].solver.eval_upto(argv[1], 20, cast_to=bytes)
     for i, f in enumerate(possible_flags):
