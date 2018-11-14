@@ -40,6 +40,7 @@ Program State
 .. automodule:: angr.state_plugins.preconstrainer
 .. automodule:: angr.state_plugins.unicorn_engine
 .. automodule:: angr.state_plugins.loop_data
+.. automodule:: angr.state_plugins.concrete
 
 
 Storage
@@ -100,6 +101,7 @@ Exploration Techniques
 .. automodule:: angr.exploration_techniques.unique
 .. automodule:: angr.exploration_techniques.tech_builder
 .. automodule:: angr.exploration_techniques.common
+.. automodule:: angr.exploration_techniques.symbion
 
 Simulation Engines
 ------------------
@@ -115,6 +117,7 @@ Simulation Engines
 .. automodule:: angr.engines.syscall
 .. automodule:: angr.engines.unicorn
 .. automodule:: angr.engines.failure
+.. automodule:: angr.engines.concrete
 
 Simulation Logging
 ------------------
