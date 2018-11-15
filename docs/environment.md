@@ -118,3 +118,28 @@ The SimSyscallLibrary the SimOS uses is copied from the original during setup, s
 You can directly fiddle with `project.simos.syscall_library` to manipulate an individual project's syscalls.
 
 You can provide a SimOS class (not an instance) directly to the `Project` constructor via the `simos` keyword argument, so you can specify the SimOS for a project explicitly if you like.
+
+
+## SimData
+
+What about when there is an import dependency on a data object?
+This is easily resolved when the given library is actually loaded into memory - the relocation can just be resolved as normal.
+However, when the library is not loaded (for example, `auto_load_libs=False`, or perhaps some dependency is simply missing), things get tricky.
+It is not possible to guess in most cases what the value should be, or even what its size should be, so if the guest program ever dereferences a pointer to such a symbol, emulation will go off the rails.
+
+CLE will warn you when this might happen:
+
+```
+[22:26:58] [cle.backends.externs] |  WARNING: Symbol was allocated without a known size; emulation will fail if it is used non-opaquely: _rtld_global
+[22:26:58] [cle.backends.externs] |  WARNING: Symbol was allocated without a known size; emulation will fail if it is used non-opaquely: __libc_enable_secure
+[22:26:58] [cle.backends.externs] |  WARNING: Symbol was allocated without a known size; emulation will fail if it is used non-opaquely: _rtld_global_ro
+[22:26:58] [cle.backends.externs] |  WARNING: Symbol was allocated without a known size; emulation will fail if it is used non-opaquely: _dl_argv
+```
+
+If you see this message and suspect it is causing issues (i.e. the program is actually introspecting the value of these symbols), you can resolve it by implementing and registering a SimData class, which is like a SimProcedure but for data.
+Simulated data. Very cool.
+
+A SimData can effectively specify some data that must be used to provide an unresolved import symbol.
+It has a number of mechanisms to make this more useful, including the ability to specify relocations and subdependencies.
+
+Look at the [SimData class reference](http://angr.io/api-doc/cle.html#cle.backends.externs.simdata.SimData) and the [existing SimData subclasses](https://github.com/angr/cle/tree/master/cle/backends/externs/simdata) for guidelines on how to do this.
