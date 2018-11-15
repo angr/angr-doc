@@ -14,7 +14,6 @@ Backends
 --------
 
 .. automodule:: cle.backends
-.. automodule:: cle.backends.externs
 .. automodule:: cle.backends.symbol
 .. automodule:: cle.backends.regions
 .. automodule:: cle.backends.region
@@ -42,6 +41,9 @@ Backends
 .. automodule:: cle.backends.ihex
 .. automodule:: cle.backends.binja
 .. automodule:: cle.backends.soot
+.. automodule:: cle.backends.externs
+.. automodule:: cle.backends.externs.simdata
+.. automodule:: cle.backends.externs.simdata.common
 
 
 Relocations
