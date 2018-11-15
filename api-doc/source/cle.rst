@@ -42,7 +42,6 @@ Backends
 .. automodule:: cle.backends.binja
 .. automodule:: cle.backends.soot
 .. automodule:: cle.backends.externs
-.. automodule:: cle.backends.externs.externs
 .. automodule:: cle.backends.externs.simdata
 .. automodule:: cle.backends.externs.simdata.common
 
