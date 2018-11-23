@@ -98,11 +98,11 @@ These events expose different attributes:
 | statement         | statement          | BP_BEFORE or BP_AFTER  | The index of the IR statement (in the IR basic block). |
 | instruction       | instruction        | BP_BEFORE or BP_AFTER  | The address of the native instruction. |
 | irsb              | address            | BP_BEFORE or BP_AFTER  | The address of the basic block. |
-| constraints       | added_constraints   | BP_BEFORE or BP_AFTER  | The list of constraint expressions being added. |
-| call              | function_address      | BP_BEFORE or BP_AFTER  | The name of the function being called. |
+| constraints       | added_constraints  | BP_BEFORE or BP_AFTER  | The list of constraint expressions being added. |
+| call              | function_address   | BP_BEFORE or BP_AFTER  | The name of the function being called. |
 | exit              | exit_target        | BP_BEFORE or BP_AFTER  | The expression representing the target of a SimExit. |
 | exit              | exit_guard         | BP_BEFORE or BP_AFTER  | The expression representing the guard of a SimExit. |
-| exit              | jumpkind           | BP_BEFORE or BP_AFTER  | The expression representing the kind of SimExit. |
+| exit              | exit_jumpkind      | BP_BEFORE or BP_AFTER  | The expression representing the kind of SimExit. |
 | symbolic_variable | symbolic_name      | BP_BEFORE or BP_AFTER  | The name of the symbolic variable being created. The solver engine might modify this name (by appending a unique ID and length). Check the symbolic_expr for the final symbolic expression. |
 | symbolic_variable | symbolic_size      | BP_BEFORE or BP_AFTER  | The size of the symbolic variable being created. |
 | symbolic_variable | symbolic_expr      | BP_AFTER               | The expression representing the new symbolic variable. |
