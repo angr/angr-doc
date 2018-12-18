@@ -78,7 +78,7 @@ To load a binary without shared libraries, add the following keyword argument to
 ## Function Manager
 
 The CFG result produces an object called the *Function Manager*, accessible through `cfg.kb.functions`.
-The most common use case for this object is to access it like a dictionnary. It maps addresses to `Function` objects, which can tell you properties about a function.
+The most common use case for this object is to access it like a dictionary. It maps addresses to `Function` objects, which can tell you properties about a function.
 
 ```python
 >>> entry_func = cfg.kb.functions[p.entry]
