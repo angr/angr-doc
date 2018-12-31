@@ -214,6 +214,7 @@ Analysis
 .. automodule:: angr.analyses.reaching_definitions.external_codeloc
 .. automodule:: angr.analyses.stack_pointer_tracker
 .. automodule:: angr.analyses.variable_recovery.annotations
+.. automodule:: angr.analyses.variable_recovery.variable_recovery_base
 .. automodule:: angr.analyses.variable_recovery.variable_recovery_fast
 .. automodule:: angr.analyses.variable_recovery.variable_recovery
 .. automodule:: angr.analyses.variable_recovery
@@ -229,6 +230,7 @@ Analysis
 .. automodule:: angr.analyses.static_hooker
 .. automodule:: angr.analyses.binary_optimizer
 .. automodule:: angr.analyses.callee_cleanup_finder
+.. automodule:: angr.analyses.dominance_frontier
 .. automodule:: angr.blade
 .. automodule:: angr.slicer
 .. automodule:: angr.annocfg
