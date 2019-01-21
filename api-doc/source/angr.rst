@@ -196,6 +196,9 @@ Analysis
 .. automodule:: angr.analyses.decompiler
 .. automodule:: angr.analyses.decompiler.clinic
 .. automodule:: angr.analyses.decompiler.decompiler
+.. automodule:: angr.analyses.decompiler.optimization_passes
+.. automodule:: angr.analyses.decompiler.optimization_passes.optimization_pass
+.. automodule:: angr.analyses.decompiler.optimization_passes.stack_canary_simplifier
 .. automodule:: angr.analyses.decompiler.structured_codegen
 .. automodule:: angr.analyses.decompiler.region_identifier
 .. automodule:: angr.analyses.decompiler.region_simplifier
