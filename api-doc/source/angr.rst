@@ -261,3 +261,7 @@ Utils
 Errors
 ------
 .. automodule:: angr.errors
+
+Serialization
+-------------
+.. automodule:: angr.vaults
