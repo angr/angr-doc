@@ -255,6 +255,7 @@ SimOS
 Utils
 -----
 .. automodule:: angr.utils
+.. automodule:: angr.utils.constants
 .. automodule:: angr.utils.graph
 .. automodule:: angr.utils.library
 
