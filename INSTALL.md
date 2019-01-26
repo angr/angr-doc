@@ -28,11 +28,17 @@ Failing that, you can install angr by installing the following repositories, in 
 
 `pip install angr` should work, but there are some caveats.
 
-If you're unlucky and run into a broken build script with Clang, try using GCC.
+angr requires the `unicorn` library, which (as of this writing) `pip` must build from source on macOS, even though binary distributions ("wheels") exist on other platforms. Building `unicorn` from source requires Python 2, so will fail inside a virtualenv where `python` gets you Python 3. If you encounter errors with `pip install angr`, you may need to first install `unicorn` separately, pointing it to your Python 2:
+```bash
+UNICORN_QEMU_FLAGS="--python=/path/to/python2" pip install unicorn  # Python 2 is probably /usr/bin/python on your macOS system
+```
+Then retry `pip install angr`.
 
+If this still doesn't work and you run into a broken build script with Clang, try using GCC.
 ```bash
 brew install gcc
-env CC=/usr/local/bin/gcc-6 pip install angr
+CC=/usr/local/bin/gcc-8 UNICORN_QEMU_FLAGS="--python=/path/to/python2" pip install unicorn  # As of this writing, brew install gcc gives you gcc-8
+pip install angr
 ```
 
 After installing angr, you will need to fix some shared library paths for the angr native libraries.
@@ -145,8 +151,18 @@ If you're using a Python virtual environment with the pypy interpreter, ensure y
 If you can import angr but it doesn't seem to be the actual angr module... did you accidentally name your script `angr.py`?
 You can't do that. Python does not work that way.
 
-# AttributeError: 'module' object has no attribute 'KS_ARCH_X86'
+## AttributeError: 'module' object has no attribute 'KS_ARCH_X86'
 
 You have the `keystone` package installed, which conflicts with the `keystone-engine` package (an optional dependency of angr).
 Please uninstall `keystone`.
 If you would like to install `keystone-engine`, please do it with `pip install --no-binary keystone-engine keystone-engine`, as the current pip distribution is broken.
+
+## No such file or directory: 'libunicorn.dylib'
+
+(alternate error message: `Cannot use 'python', Python 2.4 or later is required. Note that Python 3 or later is not yet supported.`)
+
+You need to define the `UNICORN_QEMU_FLAGS` environment variable for `pip`. See the section above on installing for macOS.
+
+## pthread check failed: Make sure to have the pthread libs and headers installed.
+
+(macOS) Try using GCC instead of Clang; see the section above on installing for macOS.
