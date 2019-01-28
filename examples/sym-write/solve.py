@@ -1,4 +1,4 @@
-#!/usr/bin/env python2
+#!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
 """
@@ -16,7 +16,7 @@ def main():
 	p = angr.Project('./issue', load_options={"auto_load_libs": False})
 
 	# By default, all symbolic write indices are concretized.
-	state = p.factory.entry_state(add_options={"SYMBOLIC_WRITE_ADDRESSES"})
+	state = p.factory.entry_state(add_options={angr.options.SYMBOLIC_WRITE_ADDRESSES})
 
 	u = claripy.BVS("u", 8)
 	state.memory.store(0x804a021, u)
