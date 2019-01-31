@@ -136,7 +136,13 @@ This code is worth reading if you want to see the true inner core of angr's symb
 
 In addition to parameters to the stepping process, you can also instantiate new versions of these engines!
 Look at the API docs to see what options each engine can take.
-Once you have a new engine instance, you can either pass it into the step process, or directly put it into the `project.factory.engines` list for automatic use.
+Once you have a new engine instance, you can either pass it into the step process, or directly put it into the `project.engines` list for automatic use.
+
+For example, to insert a new instance of `SimEngineVEX` (with different parameters) into the list for automatic use:
+```python
+project.engines.register_plugin('myEngine', SimEngineVEX(...))
+```
+Then, modify `project.engines.order` to indicate with what priority `myEngine` should be tried.
 
 # When using Unicorn Engine
 
