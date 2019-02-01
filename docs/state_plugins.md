@@ -9,7 +9,7 @@ The solution to these problems is to write a *State Plugin* - an appendix to the
 
 Let's get started!
 All state plugins are implemented as subclasses of `angr.SimStatePlugin`.
-Once you've read this document, you can use the [API reference for this class](http://api.angr.io/) (TODO update this link when the class is actually part of the docs????) to quickly review the semantics of all the interfaces you should implement.
+Once you've read this document, you can use the [API reference for this class](http://angr.io/api-doc/angr.html#angr.state_plugins.plugin.SimStatePlugin) to quickly review the semantics of all the interfaces you should implement.
 
 The most important method you need to implement is `copy`: it should be annotated with the `memo` staticmethod and take a dict called the "memo"---these'll be important later---and returns a copy of the plugin.
 Short of that, you can do whatever you want.
