@@ -122,7 +122,7 @@ You can customize the state through several arguments to these constructors:
 - To specify the calling convention used for a function with `call_state`, you can pass a [`SimCC` instance](http://angr.io/api-doc/angr.html#module-angr.calling_conventions) as the `cc` argument.    
   We try to pick a sane default, but for special cases you will need to help angr out.
 
-There are several more options that can be used in any of these constructors, which will be outlined later on this page!
+There are several more options that can be used in any of these constructors! See the [docs on the `project.factory` object (an `AngrObjectFactory`)](http://angr.io/api-doc/angr.html#angr.factory.AngrObjectFactory) for more details.
 
 ## Low level interface for memory
 
