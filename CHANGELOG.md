@@ -3,14 +3,26 @@
 This lists the *major* changes in angr.
 Tracking minor changes are left as an exercise for the reader :-)
 
+## angr 8.19.2.4
+
+- (#1279) Support C++ function namge demangling via itanium-demangler. Thanks @fmagin.
+- (#1283) `_security_cookie` is initialized for SimWindows. Thanks @zeroSteiner.
+- (#1298) Introduce `SimData`. It's a cleaner interface to deal with data imports in CLE -- especially for those data entries that are not imported because of missing or unloaded libraries. This commit fixes long-standing issues #151 and #693.
+- (#1299, #1300, #1301, #1313, #1314, #1315, #1336, #1337, #1343, ...) Multiple CFGFast-related improvements and bug fixes.
+- (#1332) `UnresolvableTarget` is now split into two classes: `UnresolvableJumpTarget` and `UnresolvableCallTarget`. Thanks @Kyle-Kyle.
+- (#1382) Add a preliminary implementation of angr decompiler.
+- (#1408) Ana is removed from angr dependencies. angr vaults is the new way to go.
+- (#1421) `SimAction`s now have incrementing IDs. Thanks @bannsec.
+
+
 ## angr 8.18.10.25
 
 - The IDA backend for CLE has been removed. It has been broken for quite some time, but now it has been disabled for your own safety.
 - Surveyors have been removed! Finally! This is thanks to @danse-macabre who contributed an Exploration Technique for the Slicecutor. Backwards slicing has now been brought out of the angr dark ages.
 - SimCC can now be initialized with a string containing C function prototype in its `func_ty` argument
 - Similarly, Callable can now be run with its arguments instanciated from a string containing C expressions
-- Tracer has been substancilly refactored - it will now handle more kinds of desyncs, ASLR slides, and is much more friendly for hacking. We will be continuing to improve it!
-- The Oppologist and Driller have been refactored to play nice with other exploation techniques
+- Tracer has been substantially refactored - it will now handle more kinds of desyncs, ASLR slides, and is much more friendly for hacking. We will be continuing to improve it!
+- The Oppologist and Driller have been refactored to play nice with other exploration techniques
 - SimProcedure continuations now have symbols in the externs object, so `describe_addr` will work on them. Additionally, the representation for SimProcedure (appearing in `history.descriptions` and `project._sim_procedures` among other places) has been improved to show this information.
 
 ## angr 8.18.10.5
