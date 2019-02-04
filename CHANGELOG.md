@@ -13,6 +13,7 @@ Tracking minor changes are left as an exercise for the reader :-)
 - (#1382) Add a preliminary implementation of angr decompiler.
 - (#1408) Ana is removed from angr dependencies. angr vaults is the new way to go.
 - (#1421) `SimAction`s now have incrementing IDs. Thanks @bannsec.
+- (#1408) `ANA`, angr's old identity-aware serialization backend, has been removed. Instead of non-obvious serialization behavior, all angr objects should now be pickleable. If one is not, please file an issue. For use-cases that require identity-awareness (i.e., deduplicating ASTs across states serialized at different times), a the `angr.vaults` module has been introduced.
 
 
 ## angr 8.18.10.25
