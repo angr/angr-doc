@@ -5,15 +5,15 @@ Tracking minor changes are left as an exercise for the reader :-)
 
 ## angr 8.19.2.4
 
-- (#1279) Support C++ function namge demangling via itanium-demangler. Thanks @fmagin.
+- (#1279) Support C++ function name demangling via itanium-demangler. Thanks @fmagin.
 - (#1283) `_security_cookie` is initialized for SimWindows. Thanks @zeroSteiner.
 - (#1298) Introduce `SimData`. It's a cleaner interface to deal with data imports in CLE -- especially for those data entries that are not imported because of missing or unloaded libraries. This commit fixes long-standing issues #151 and #693.
 - (#1299, #1300, #1301, #1313, #1314, #1315, #1336, #1337, #1343, ...) Multiple CFGFast-related improvements and bug fixes.
 - (#1332) `UnresolvableTarget` is now split into two classes: `UnresolvableJumpTarget` and `UnresolvableCallTarget`. Thanks @Kyle-Kyle.
-- (#1382) Add a preliminary implementation of angr decompiler. Give it a try! `p = angr.Project("cfg_loop_unrolling", auto_load_libs=False); p.analyses.CFG(); print(p.analyses.Decompiler(p.kb.functions['test_func']).codegen.text)`
+- (#1382) Add a preliminary implementation of angr decompiler. Give it a try! `p = angr.Project("cfg_loop_unrolling", auto_load_libs=False); p.analyses.CFG(); print(p.analyses.Decompiler(p.kb.functions['test_func']).codegen.text)`.
 - (#1408) Ana is removed from angr dependencies. angr vaults is the new way to go.
 - (#1421) `SimAction`s now have incrementing IDs. Thanks @bannsec.
-- (#1408) `ANA`, angr's old identity-aware serialization backend, has been removed. Instead of non-obvious serialization behavior, all angr objects should now be pickleable. If one is not, please file an issue. For use-cases that require identity-awareness (i.e., deduplicating ASTs across states serialized at different times), a the `angr.vaults` module has been introduced.
+- (#1408) `ANA`, angr's old identity-aware serialization backend, has been removed. Instead of non-obvious serialization behavior, all angr objects should now be pickleable. If one is not, please file an issue. For use-cases that require identity-awareness (i.e., deduplicating ASTs across states serialized at different times), an `angr.vaults` module has been introduced.
 
 
 ## angr 8.18.10.25
