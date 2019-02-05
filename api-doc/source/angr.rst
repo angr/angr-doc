@@ -102,6 +102,7 @@ Exploration Techniques
 .. automodule:: angr.exploration_techniques.tech_builder
 .. automodule:: angr.exploration_techniques.common
 .. automodule:: angr.exploration_techniques.symbion
+.. automodule:: angr.exploration_techniques.memory_watcher
 
 Simulation Engines
 ------------------
