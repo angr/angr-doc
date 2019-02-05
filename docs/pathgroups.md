@@ -165,15 +165,16 @@ angr's built-in exploration techniques can be found under `angr.exploration_tech
 
 Here's a quick overview of some of the built-in ones:
 
-- *Explorer*: This technique implements the `.explore()` functionality, allowing you to search for and avoid addresses.
 - *DFS*: Depth first search, as mentioned earlier. Keeps only one state active at once, putting the rest in the `deferred` stash until it deadends or errors.
-- *LoopSeer*: Uses a reasonable approximation of loop counting to discard states that appear to be going through a loop too many times, putting them in a `spinning` stash and pulling them out again if we run out of otherwise viable states.
+- *Explorer*: This technique implements the `.explore()` functionality, allowing you to search for and avoid addresses.
 - *LengthLimiter*: Puts a cap on the maximum length of the path a state goes through.
+- *LoopSeer*: Uses a reasonable approximation of loop counting to discard states that appear to be going through a loop too many times, putting them in a `spinning` stash and pulling them out again if we run out of otherwise viable states.
 - *ManualMergepoint*: Marks an address in the program as a merge point, so states that reach that address will be briefly held, and any other states that reach that same point within a timeout will be merged together.
-- *Veritesting*: An implementation of a [CMU paper](https://users.ece.cmu.edu/~dbrumley/pdf/Avgerinos%20et%20al._2014_Enhancing%20Symbolic%20Execution%20with%20Veritesting.pdf) on automatically identifying useful merge points. This is so useful, you can enable it automatically with `veritesting=True` in the SimulationManager constructor! Note that it frequenly doesn't play nice with other techniques due to the invasive way it implements static symbolic execution.
-- *Tracer*: An exploration technique that causes execution to follow a dynamic trace recorded from some other source. The [dynamic tracer repository](https://github.com/angr/tracer) has some tools to generate those traces.
+- *MemoryWatcher*: Monitors how much memory is free/available on the system between simgr steps and stops exploration if it gets too low.
 - *Oppologist*: The "operation apologist" is an especially fun gadget - if this technique is enabled and angr encounters an unsupported instruction, for example a bizzare and foreign floating point SIMD op, it will concretize all the inputs to that instruction and emulate the single instruction using the unicorn engine, allowing execution to continue.
-- *Threading*: Adds thread-level parallelism to the stepping process. This doesn't help much because of python's global interpreter locks, but if you have a program whose analysis spends a lot of time in angr's native-code dependencies (unicorn, z3, libvex) you can seem some gains.
 - *Spiller*: When there are too many states active, this technique can dump some of them to disk in order to keep memory consumption low.
+- *Threading*: Adds thread-level parallelism to the stepping process. This doesn't help much because of python's global interpreter locks, but if you have a program whose analysis spends a lot of time in angr's native-code dependencies (unicorn, z3, libvex) you can seem some gains.
+- *Tracer*: An exploration technique that causes execution to follow a dynamic trace recorded from some other source. The [dynamic tracer repository](https://github.com/angr/tracer) has some tools to generate those traces.
+- *Veritesting*: An implementation of a [CMU paper](https://users.ece.cmu.edu/~dbrumley/pdf/Avgerinos%20et%20al._2014_Enhancing%20Symbolic%20Execution%20with%20Veritesting.pdf) on automatically identifying useful merge points. This is so useful, you can enable it automatically with `veritesting=True` in the SimulationManager constructor! Note that it frequenly doesn't play nice with other techniques due to the invasive way it implements static symbolic execution.
 
 Look at the API documentation for the [simulation manager](http://angr.io/api-doc/angr.html#module-angr.manager) and [exploration techniques](http://angr.io/api-doc/angr.html#angr.exploration_techniques.ExplorationTechnique) for more information.
