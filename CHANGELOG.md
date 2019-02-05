@@ -3,14 +3,28 @@
 This lists the *major* changes in angr.
 Tracking minor changes are left as an exercise for the reader :-)
 
+## angr 8.19.2.4
+
+- (#1279) Support C++ function name demangling via itanium-demangler. Thanks @fmagin.
+- (#1283) `_security_cookie` is initialized for SimWindows. Thanks @zeroSteiner.
+- (#1298) Introduce `SimData`. It's a cleaner interface to deal with data imports in CLE -- especially for those data entries that are not imported because of missing or unloaded libraries. This commit fixes long-standing issues #151 and #693.
+- (#1299, #1300, #1301, #1313, #1314, #1315, #1336, #1337, #1343, ...) Multiple CFGFast-related improvements and bug fixes.
+- (#1332) `UnresolvableTarget` is now split into two classes: `UnresolvableJumpTarget` and `UnresolvableCallTarget`. Thanks @Kyle-Kyle.
+- (#1382) Add a preliminary implementation of angr decompiler. Give it a try! `p = angr.Project("cfg_loop_unrolling", auto_load_libs=False); p.analyses.CFG(); print(p.analyses.Decompiler(p.kb.functions['test_func']).codegen.text)`.
+- (#1421) `SimAction`s now have incrementing IDs. Thanks @bannsec.
+- (#1408) `ANA`, angr's old identity-aware serialization backend, has been removed. Instead of non-obvious serialization behavior, all angr objects should now be pickleable. If one is not, please file an issue. For use-cases that require identity-awareness (i.e., deduplicating ASTs across states serialized at different times), an `angr.vaults` module has been introduced.
+- Added a [facility to synchronize state between angr and a running target a la avatar2](http://angr.io/blog/angr_symbion/)
+- Changed unconstrained registers/memory warning to be less obnoxious and contain useful information. Also added `SYMBOL_FILL_UNCONSTRAINED_REGISTERS` and `SYMBOL_FILL_UNCONSTRAINED_MEMORY` state options to silence them.
+
+
 ## angr 8.18.10.25
 
 - The IDA backend for CLE has been removed. It has been broken for quite some time, but now it has been disabled for your own safety.
 - Surveyors have been removed! Finally! This is thanks to @danse-macabre who contributed an Exploration Technique for the Slicecutor. Backwards slicing has now been brought out of the angr dark ages.
 - SimCC can now be initialized with a string containing C function prototype in its `func_ty` argument
 - Similarly, Callable can now be run with its arguments instanciated from a string containing C expressions
-- Tracer has been substancilly refactored - it will now handle more kinds of desyncs, ASLR slides, and is much more friendly for hacking. We will be continuing to improve it!
-- The Oppologist and Driller have been refactored to play nice with other exploation techniques
+- Tracer has been substantially refactored - it will now handle more kinds of desyncs, ASLR slides, and is much more friendly for hacking. We will be continuing to improve it!
+- The Oppologist and Driller have been refactored to play nice with other exploration techniques
 - SimProcedure continuations now have symbols in the externs object, so `describe_addr` will work on them. Additionally, the representation for SimProcedure (appearing in `history.descriptions` and `project._sim_procedures` among other places) has been improved to show this information.
 
 ## angr 8.18.10.5
