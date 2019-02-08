@@ -35,6 +35,7 @@ AST
 .. automodule:: claripy.ast.bv
 .. automodule:: claripy.ast.fp
 .. automodule:: claripy.ast.int
+.. automodule:: claripy.ast.strings
 .. automodule:: claripy.ast.vs
 
 
@@ -49,6 +50,12 @@ Backends
 .. automodule:: claripy.backends.backend_z3_parallel
 .. automodule:: claripy.backends.celeryconfig
 .. automodule:: claripy.backends.backend_vsa
+.. automodule:: claripy.backends.backend_smtlib_solvers.z3str_popen
+.. automodule:: claripy.backends.backend_smtlib_solvers.cvc4_popen
+.. automodule:: claripy.backends.backend_smtlib_solvers.z3_popen
+.. automodule:: claripy.backends.backend_smtlib_solvers.abc_popen
+.. automodule:: claripy.backends.backend_smtlib_solvers
+.. automodule:: claripy.backends.backend_smtlib
  
 
 Frontends
@@ -81,6 +88,8 @@ Frontend Mixins
 .. automodule:: claripy.frontend_mixins.simplify_helper_mixin
 .. automodule:: claripy.frontend_mixins.simplify_skipper_mixin
 .. automodule:: claripy.frontend_mixins.solve_block_mixin
+.. automodule:: claripy.frontend_mixins.eval_string_to_ast_mixin
+.. automodule:: claripy.frontend_mixins.smtlib_script_dumper_mixin
 
 
 Annotations
@@ -112,3 +121,5 @@ Misc. Things
 .. automodule:: claripy.operations
 .. automodule:: claripy.simplifications
 .. automodule:: claripy.ops
+.. automodule:: claripy.smtlib_utils
+.. automodule:: claripy.strings

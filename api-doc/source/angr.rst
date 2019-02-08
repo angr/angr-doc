@@ -41,6 +41,10 @@ Program State
 .. automodule:: angr.state_plugins.unicorn_engine
 .. automodule:: angr.state_plugins.loop_data
 .. automodule:: angr.state_plugins.concrete
+.. automodule:: angr.state_plugins.keyvalue_memory
+.. automodule:: angr.state_plugins.javavm_classloader
+.. automodule:: angr.state_plugins.jni_references
+.. automodule:: angr.state_plugins.javavm_memory
 
 
 Storage
@@ -52,6 +56,7 @@ Storage
 .. automodule:: angr.storage.memory
 .. automodule:: angr.state_plugins.symbolic_memory
 .. automodule:: angr.state_plugins.abstract_memory
+.. automodule:: angr.storage.kvstore
 .. automodule:: angr.storage.memory_object
 .. automodule:: angr.storage.pcap
 .. automodule:: angr.storage.paged_memory
@@ -119,6 +124,8 @@ Simulation Engines
 .. automodule:: angr.engines.unicorn
 .. automodule:: angr.engines.failure
 .. automodule:: angr.engines.concrete
+.. automodule:: angr.engines.soot
+.. automodule:: angr.engines.soot.engine
 
 Simulation Logging
 ------------------
@@ -155,6 +162,7 @@ Knowledge Base
 .. automodule:: angr.knowledge_plugins.functions.function_manager
     :members: FunctionManager
 .. automodule:: angr.knowledge_plugins.functions.function
+.. automodule:: angr.knowledge_plugins.functions.soot_function
 .. automodule:: angr.knowledge_plugins.variables
 .. automodule:: angr.knowledge_plugins.variables.variable_access
 .. automodule:: angr.knowledge_plugins.variables.variable_manager
@@ -252,6 +260,7 @@ SimOS
 .. automodule:: angr.simos.cgc
 .. automodule:: angr.simos.userland
 .. automodule:: angr.simos.windows
+.. automodule:: angr.simos.javavm
 
 Utils
 -----

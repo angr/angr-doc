@@ -44,6 +44,10 @@ Backends
 .. automodule:: cle.backends.externs
 .. automodule:: cle.backends.externs.simdata
 .. automodule:: cle.backends.externs.simdata.common
+.. automodule:: cle.backends.java.apk
+.. automodule:: cle.backends.java.jar
+.. automodule:: cle.backends.java
+.. automodule:: cle.backends.java.soot
 
 
 Relocations
