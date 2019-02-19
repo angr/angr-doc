@@ -179,6 +179,7 @@ Analysis
 .. automodule:: angr.analyses.bindiff
 .. automodule:: angr.analyses.boyscout
 .. automodule:: angr.analyses.calling_convention
+.. automodule:: angr.analyses.soot_class_hierarchy
 .. automodule:: angr.analyses.cfg
 .. automodule:: angr.analyses.cfg.cfb
 .. automodule:: angr.analyses.cfg.cfg
@@ -197,6 +198,7 @@ Analysis
 .. automodule:: angr.analyses.cfg.indirect_jump_resolvers
 .. automodule:: angr.analyses.cfg.cfg_utils
 .. automodule:: angr.analyses.cfg.memory_data
+.. automodule:: angr.analyses.cfg.cfg_fast_soot
 .. automodule:: angr.analyses.cdg
 .. automodule:: angr.analyses.code_location
 .. automodule:: angr.analyses.datagraph_meta
@@ -234,6 +236,7 @@ Analysis
 .. automodule:: angr.analyses.variable_recovery
 .. automodule:: angr.analyses.identifier.identify
 .. automodule:: angr.analyses.loopfinder
+.. automodule:: angr.analyses.loop_analysis
 .. automodule:: angr.analyses.veritesting
 .. automodule:: angr.analyses.vfg
 .. automodule:: angr.analyses.vsa_ddg

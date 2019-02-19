@@ -40,7 +40,6 @@ Backends
 .. automodule:: cle.backends.blob
 .. automodule:: cle.backends.ihex
 .. automodule:: cle.backends.binja
-.. automodule:: cle.backends.soot
 .. automodule:: cle.backends.externs
 .. automodule:: cle.backends.externs.simdata
 .. automodule:: cle.backends.externs.simdata.common
