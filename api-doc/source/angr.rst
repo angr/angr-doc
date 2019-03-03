@@ -30,6 +30,7 @@ Program State
 .. automodule:: angr.state_plugins.log
 .. automodule:: angr.state_plugins.callstack
 .. automodule:: angr.state_plugins.fast_memory
+.. automodule:: angr.state_plugins.light_registers
 .. automodule:: angr.state_plugins.history
 .. automodule:: angr.state_plugins.gdb
 .. automodule:: angr.state_plugins.cgc
