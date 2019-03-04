@@ -90,7 +90,7 @@ If you're seeing this issue just in a log somewhere, it's just the oppologist ki
 ## Why is angr's CFG different from IDA's?
 Two main reasons:
 
-- IDA does not split basic blocks at function calls. angr will not, because they are a form of control flow and basic blocks end at control flow instructions. You may access the IDA-style call-joined graph with the `.supergraph` property of a function object.
+- IDA does not split basic blocks at function calls. angr will, because they are a form of control flow and basic blocks end at control flow instructions. You may access the IDA-style call-joined graph with the `.supergraph` property of a function object.
 - IDA will split basic blocks if another block jumps into the middle of it. This is called basic block normalization, and angr does not do it by default since it is not necessary for most static analysis. You may enable it by passing `normalize=True` to the CFG analysis.
 
 ## Why do I get incorrect register values when reading from a state during a SimInspect breakpoint?
