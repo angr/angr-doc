@@ -22,6 +22,7 @@
   * [Gotchas](docs/gotchas.md)
   * [The Whole Pipeline](docs/pipeline.md)
   * [Speed Considerations](docs/speed.md)
+  * [The Emulated Filesystem](docs/file_system.md)
   * [Intermediate Representation](docs/ir.md)
   * [Working with Data and Conventions](docs/structured_data.md)
   * [Claripy](docs/claripy.md)
