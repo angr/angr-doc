@@ -46,6 +46,13 @@ Program State
 .. automodule:: angr.state_plugins.javavm_classloader
 .. automodule:: angr.state_plugins.jni_references
 .. automodule:: angr.state_plugins.javavm_memory
+.. automodule:: angr.state_plugins.heap
+.. automodule:: angr.state_plugins.heap.heap_base
+.. automodule:: angr.state_plugins.heap.heap_brk
+.. automodule:: angr.state_plugins.heap.heap_freelist
+.. automodule:: angr.state_plugins.heap.heap_libc
+.. automodule:: angr.state_plugins.heap.heap_ptmalloc
+.. automodule:: angr.state_plugins.heap.utils
 
 
 Storage
