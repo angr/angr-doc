@@ -43,7 +43,7 @@ Regardless, there are a lot of optimizations and tweaks you can use to make angr
   NOTE: not compatible with concretization strategies.
 - *Concretize your input ahead of time*.
   This is the approach taken by [driller](https://www.internetsociety.org/sites/default/files/blogs-media/driller-augmenting-fuzzing-through-selective-symbolic-execution.pdf).
-  Before execution begins, we fill state.posix.files[0] with symbolic data representing the input, then constrain that symbolic data to what we want the input to be, then set a concrete file size (state.posix.files[0].size = whatever).
+  When creating a state with `entry_state` or the like, you can create a SimFile filled with symbolic data, pass it to the initialization function as an argument `entry_state(..., stdin=my_simfile)`, and then constrain the symbolic data in the SimFile to what you want the input to be.
   If you don't require any tracking of the data coming from stdin, you can forego the symbolic part and just fill it with concrete data.
   If there are other sources of input besides standard input, do the same for those.
 - *Use the afterburner*.
