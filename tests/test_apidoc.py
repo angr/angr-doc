@@ -33,10 +33,10 @@ def test_lint_docstrings():
     p = subprocess.Popen('make html', shell=True, cwd=_path('api-doc'), stderr=subprocess.PIPE)
     _, stderr = p.communicate()
 
-    # Filter the deprecation warning from the cryptography package
+    # Filter any warnings we want to be okay with
     if stderr:
         stderr_lines = stderr.split(b"\n")
-        stderr = b"\n".join(l for l in stderr_lines if b'MIPS instruction groups' not in l)
+        stderr = b"\n".join(l for l in stderr_lines if b'sphinx_rtd_theme/search.html:20' not in l and b'{{ super() }}' not in l)
 
     if stderr:
         raise Exception("The following warnings were generated while building the API documentation:\n\n%s" % stderr.decode())
