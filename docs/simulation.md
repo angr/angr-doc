@@ -94,7 +94,8 @@ These events expose different attributes:
 | tmp_read          | tmp_read_expr      | BP_AFTER               | The expression of the temp. |
 | tmp_write         | tmp_write_num      | BP_BEFORE or BP_AFTER  | The number of the temp written. |
 | tmp_write         | tmp_write_expr     | BP_AFTER               | The expression written to the temp. |
-| expr              | expr               | BP_AFTER               | The value of the expression. |
+| expr              | expr               | BP_BEFORE or BP_AFTER  | The IR expression. |
+| expr              | expr_result        | BP_AFTER               | The value (e.g. AST) which the expression was evaluated to. |
 | statement         | statement          | BP_BEFORE or BP_AFTER  | The index of the IR statement (in the IR basic block). |
 | instruction       | instruction        | BP_BEFORE or BP_AFTER  | The address of the native instruction. |
 | irsb              | address            | BP_BEFORE or BP_AFTER  | The address of the basic block. |
