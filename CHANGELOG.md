@@ -3,6 +3,17 @@
 This lists the *major* changes in angr.
 Tracking minor changes are left as an exercise for the reader :-)
 
+## angr 8.19.4.5
+- (#1234) Massive improvements to CFG recovery for ARM and ARM cortex-m binaries.
+- (#1416) Added support for analyzing Java programs via the Soot IR, including the ability to analyze interplay between Java code and JNI libraries. This branch was two years old!
+- (#1427) Added a MemoryWatcher exploration technique to take action when the system is running out of RAM. Thanks @bannsec.
+- (#1432) Added a `state.heap` plugin which manages the heap (with pluggable heap schemes!) and provides malloc functionality. Thanks @tgduckworth.
+- Speed improvements for using the VEX engine and working with concrete data.
+- Added SimLightRegisters, an alternate registers plugin that eliminates the abstraction of the register file for performance improvements at the cost of removing all instrumentability.
+- `__version__` variable has been added to all modules.
+- The `stack_base` kwarg for `call_state` is not broken for the first time ever
+- https://github.com/python/cpython/pull/11384
+
 ## angr 8.19.2.4
 
 - (#1279) Support C++ function name demangling via itanium-demangler. Thanks @fmagin.
