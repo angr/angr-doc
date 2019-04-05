@@ -71,6 +71,7 @@ Look at the existing versions for details.
 .. automodule:: cle.backends.elf.relocation.amd64
 .. automodule:: cle.backends.elf.relocation.mips
 .. automodule:: cle.backends.elf.relocation.arm
+.. automodule:: cle.backends.elf.relocation.arm_cortex_m
 .. automodule:: cle.backends.elf.relocation.arm64
 .. automodule:: cle.backends.elf.relocation.s390x
 .. automodule:: cle.backends.pe.relocation
