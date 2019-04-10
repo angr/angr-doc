@@ -160,8 +160,14 @@ Knowledge Base
 --------------
 
 .. automodule:: angr.knowledge_base
+.. automodule:: angr.knowledge_base.knowledge_base
 .. automodule:: angr.knowledge_plugins
 .. automodule:: angr.knowledge_plugins.plugin
+.. automodule:: angr.knowledge_plugins.cfg
+.. automodule:: angr.knowledge_plugins.cfg.cfg_model
+.. automodule:: angr.knowledge_plugins.cfg.memory_data
+.. automodule:: angr.knowledge_plugins.cfg.cfg_manager
+.. automodule:: angr.knowledge_plugins.cfg.cfg_node
 .. automodule:: angr.knowledge_plugins.comments
 .. automodule:: angr.knowledge_plugins.data
 .. automodule:: angr.knowledge_plugins.indirect_jumps
@@ -175,6 +181,16 @@ Knowledge Base
 .. automodule:: angr.knowledge_plugins.variables.variable_access
 .. automodule:: angr.knowledge_plugins.variables.variable_manager
 .. automodule:: angr.keyed_region
+
+
+Serialization
+-------------
+
+.. automodule:: angr.serializable
+.. automodule:: angr.protos
+.. automodule:: angr.protos.cfg_pb2
+.. automodule:: angr.protos.function_pb2
+.. automodule:: angr.protos.primitives_pb2
 
 
 Analysis
@@ -194,7 +210,6 @@ Analysis
 .. automodule:: angr.analyses.cfg.cfg_emulated
 .. automodule:: angr.analyses.cfg.cfg_base
 .. automodule:: angr.analyses.cfg.cfg_fast
-.. automodule:: angr.analyses.cfg.cfg_node
 .. automodule:: angr.analyses.cfg.cfg_arch_options
 .. automodule:: angr.analyses.cfg.cfg_job_base
 .. automodule:: angr.analyses.cfg.indirect_jump_resolvers.x86_pe_iat
@@ -205,8 +220,8 @@ Analysis
 .. automodule:: angr.analyses.cfg.indirect_jump_resolvers.resolver
 .. automodule:: angr.analyses.cfg.indirect_jump_resolvers
 .. automodule:: angr.analyses.cfg.cfg_utils
-.. automodule:: angr.analyses.cfg.memory_data
 .. automodule:: angr.analyses.cfg.cfg_fast_soot
+.. automodule:: angr.analyses.cfg.segment_list
 .. automodule:: angr.analyses.cdg
 .. automodule:: angr.analyses.code_location
 .. automodule:: angr.analyses.datagraph_meta
@@ -218,6 +233,7 @@ Analysis
 .. automodule:: angr.analyses.decompiler.optimization_passes
 .. automodule:: angr.analyses.decompiler.optimization_passes.optimization_pass
 .. automodule:: angr.analyses.decompiler.optimization_passes.stack_canary_simplifier
+.. automodule:: angr.analyses.decompiler.optimization_passes.base_ptr_save_simplifier
 .. automodule:: angr.analyses.decompiler.structured_codegen
 .. automodule:: angr.analyses.decompiler.region_identifier
 .. automodule:: angr.analyses.decompiler.region_simplifier
@@ -279,6 +295,7 @@ Utils
 .. automodule:: angr.utils.constants
 .. automodule:: angr.utils.graph
 .. automodule:: angr.utils.library
+.. automodule:: angr.utils.enums_conv
 
 Errors
 ------
