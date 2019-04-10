@@ -16,7 +16,7 @@ def test_java_simple4():
     states = simgr.deadended
     assert len(states) == 2
 
-    # the winning state has "W" on stdout and "F on stdin
+    # the winning state has "W" on stdout and "F" on stdin
     winnning_states = [s for s in states if s.posix.stdout.concretize() == [b"W"]]
     assert len(winnning_states) == 1
     winning_state = winnning_states[0]
