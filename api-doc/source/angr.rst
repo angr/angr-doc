@@ -168,6 +168,7 @@ Knowledge Base
 .. automodule:: angr.knowledge_plugins.cfg.memory_data
 .. automodule:: angr.knowledge_plugins.cfg.cfg_manager
 .. automodule:: angr.knowledge_plugins.cfg.cfg_node
+.. automodule:: angr.knowledge_plugins.cfg.indirect_jump
 .. automodule:: angr.knowledge_plugins.comments
 .. automodule:: angr.knowledge_plugins.data
 .. automodule:: angr.knowledge_plugins.indirect_jumps
