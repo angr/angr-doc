@@ -1,6 +1,6 @@
 # Installing angr
 
-angr is a python library, so it must be installed into your python environment before it can be used. It is built for Python 3: Python 2 support is not feasable due to the looming EOL and the small size of our team.
+angr is a python library, so it must be installed into your python environment before it can be used. It is built for Python 3: Python 2 support is not feasible due to the looming EOL and the small size of our team.
 
 We highly recommend using a [python virtual environment](https://virtualenvwrapper.readthedocs.org/en/latest/) to install and use angr. Several of angr's dependencies (z3, pyvex) require libraries of native code that are forked from their originals, and if you already have libz3 or libVEX installed, you definitely don't want to overwrite the official shared objects with ours. In general, don't expect support for problems arising from installing angr outside of a virtualenv.
 
