@@ -49,11 +49,11 @@ def test_androidnative1():
     assert int_result == 221
 
 
-def main():
+def test():
     test_androidnative1()
 
 
 if __name__ == "__main__":
     import logging
     logging.getLogger("angr.engines.soot.engine").setLevel("DEBUG")
-    main()
+    test()

@@ -6,6 +6,7 @@ import logging
 
 self_dir = os.path.dirname(os.path.realpath(__file__))
 
+
 def test_java_simple3():
     binary_path = os.path.join(self_dir, "simple3.jar")
     project = angr.Project(binary_path)
@@ -20,10 +21,11 @@ def test_java_simple3():
     assert state.posix.stdin.concretize() == [b"b"]
 
 
-def solve():
+def test():
     test_java_simple3()
+
 
 if __name__ == "__main__":
     logging.getLogger("angr.engines.soot.engine").setLevel("DEBUG")
     logging.getLogger("angr.factory").setLevel("DEBUG")
-    solve()
+    test()

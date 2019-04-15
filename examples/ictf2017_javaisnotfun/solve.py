@@ -177,6 +177,11 @@ def test_t2():
     assert solve_given_numbers_angr([50, 87, 10, 7, 3]) == [52, 262, 51219]
 
 
+def test():
+    test_t1()
+    test_t2()
+
+
 if __name__ == "__main__":
     import logging
     logging.getLogger('cle.backends.soot').setLevel('DEBUG')
@@ -186,5 +191,4 @@ if __name__ == "__main__":
     logging.getLogger("angr.state_plugins").setLevel("INFO")
     logging.getLogger('angr.state_plugins.jni_references').setLevel("DEBUG")
     logging.getLogger('archinfo.arch_soot').setLevel("DEBUG")
-    test_t1()
-    test_t2()
+    test()
