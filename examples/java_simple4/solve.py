@@ -24,10 +24,10 @@ def test_java_simple4():
     assert flag == b"F"
 
 
-def main():
+def solve():
     test_java_simple4()
 
 if __name__ == "__main__":
     logging.getLogger("angr.engines.soot.engine").setLevel("DEBUG")
     logging.getLogger("angr.factory").setLevel("DEBUG")
-    main()
+    solve()

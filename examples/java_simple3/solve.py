@@ -20,10 +20,10 @@ def test_java_simple3():
     assert state.posix.stdin.concretize() == [b"b"]
 
 
-def main():
+def solve():
     test_java_simple3()
 
 if __name__ == "__main__":
     logging.getLogger("angr.engines.soot.engine").setLevel("DEBUG")
     logging.getLogger("angr.factory").setLevel("DEBUG")
-    main()
+    solve()

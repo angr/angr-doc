@@ -30,11 +30,11 @@ def test_java_crackme1():
     assert res == b"W"
 
 
-def main():
+def test():
     test_java_crackme1()
 
 
 if __name__ == "__main__":
     logging.getLogger("angr.engines.soot.engine").setLevel("DEBUG")
     logging.getLogger("angr.factory").setLevel("DEBUG")
-    main()
+    test()

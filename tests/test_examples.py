@@ -83,6 +83,9 @@ def test_unmapped_analysis(): exampletest_single('unmapped_analysis')
 @attr(speed='slow')
 def test_zwiebel(): exampletest_single('tumctf2016_zwiebel') # ~45m
 def test_csgames2018(): exampletest_single('csgames2018')
+def test_java_crackme1(): exampletest_single('java_crackme1')
+def test_java_simple3(): exampletest_single('java_simple3')
+def test_java_simple4(): exampletest_single('java_simple4')
 def test_ictf2017_javaisnotfun(): exampletest_single('ictf2017_javaisnotfun')
 def test_java_androidnative1(): exampletest_single('java_androidnative1')
 ## END EXAMPLE TESTS
