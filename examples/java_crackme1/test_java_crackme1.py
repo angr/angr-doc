@@ -25,7 +25,7 @@ def test_java_crackme1():
     assert flag == b"JaV$!sB4D!"
 
     # verify against the real code
-    p = subprocess.Popen(["java", "-jar", "crackme1.jar"], stdin=subprocess.PIPE, stdout=subprocess.PIPE)
+    p = subprocess.Popen(["java", "-jar", binary_path], stdin=subprocess.PIPE, stdout=subprocess.PIPE)
     res, _ = p.communicate(flag)
     assert res == b"W"
 
