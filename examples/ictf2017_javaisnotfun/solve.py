@@ -20,6 +20,9 @@ import claripy
 # - How to solve a challenge-response problem
 
 
+self_dir = os.path.dirname(os.path.realpath(__file__))
+
+
 fake_output_fd = None
 fake_input_fd = None
 
@@ -108,7 +111,7 @@ def solve_given_numbers_angr(numbers):
     global fake_input_fd, fake_output_fd
 
 
-    binary_path = os.path.join("bin/service.jar")
+    binary_path = os.path.join(self_dir, "bin/service.jar")
     jni_options = {'jni_libs': ['libnotfun.so']}
     project = angr.Project(binary_path, main_opts=jni_options)
 
