@@ -1,0 +1,4 @@
+#!/bin/bash
+
+java  -Xms64m -Xint -Djava.library.path=../ro -jar ../ro/service.jar
+
