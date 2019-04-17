@@ -1,12 +1,15 @@
 `angr` also supports symbolically executing Java code and Android apps!
 This also includes Android apps using a combination of compiled Java and native (C/C++) code.
 
+**Java support is experimental!**
+_Contribution from the community is highly encouraged! Pull requests are very welcomed!_
+
 We implemented Java support by lifting the compiled Java code, both Java and DEX bytecode, leveraging our Soot python wrapper [pysoot](https://github.com/angr/pysoot).
 `pysoot` extracts a fully serializable interface from Android apps and Java code (unfortunately, as of now, it only works on Linux).
 ![Pysoot Architecture](https://github.com/angr/pysoot/blob/master/pysoot_arch.png "Pysoot Architecture")
 For every class of the generated IR (for instance, `SootMethod`), you can nicely print its instructions (in a format similar to `Soot` `shimple`) using `print()` or `str()`.
 
-We then leverage the generated IR in a new angr engine able to run code in Soot IR: [engine.py](https://github.com/angr/angr/blob/master/angr/engines/soot/engine.py).
+We then leverage the generated IR in a new angr engine able to run code in Soot IR: [angr/engines/soot/engine.py](https://github.com/angr/angr/blob/master/angr/engines/soot/engine.py).
 This engine is also able to automatically switch to executing native code if the Java code calls any native method using the JNI interface.
 
 Together with the symbolic execution, we also implemented some basic static analysis, specifically a basic CFG reconstruction analysis.
@@ -16,10 +19,10 @@ Moreover, we added support for string constraint solving, modifying claripy and 
 Enabling Java support requires few more steps than typical angr installation.
 Assuming you installed [angr-dev](https://github.com/angr/angr-dev), activate the virtualenv and run:
 ```bash
-# CVC4 and pysoot are automatically installed if you use angr-dev to install angr
-# CVC4 is needed for String solving
+# CVC4 and pysoot should be already installed (if you used angr-dev to install angr)
+# install cvc4, needed for String solving
 pip install cvc4-solver
-# install pysoot
+# install pysoot, needed to lift code from JARs and APKs
 git clone git@github.com:angr/pysoot.git
 cd pysoot
 pip install -e .
