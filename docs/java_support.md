@@ -24,10 +24,11 @@ git clone git@github.com:angr/pysoot.git
 cd pysoot
 pip install -e .
 cd ..
-# install the latest version of pysmt (the one currently available on pip is buggy)
+# install a specific version of pysmt (the one currently available on pip is buggy)
 pip uninstall pysmt
 git clone https://github.com/pysmt/pysmt.git
 cd pysmt
+git checkout 6d792db47be5f8734db15848faca9bc6b770085e
 pip install -e .
 cd ..
 ```
