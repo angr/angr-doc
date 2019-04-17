@@ -4,9 +4,8 @@ This also includes Android apps using a combination of compiled Java and native 
 **Java support is experimental!**
 _Contribution from the community is highly encouraged! Pull requests are very welcomed!_
 
-We implemented Java support by lifting the compiled Java code, both Java and DEX bytecode, leveraging our Soot python wrapper [pysoot](https://github.com/angr/pysoot).
+We implemented Java support by lifting the compiled Java code, both Java and DEX bytecode, leveraging our Soot python wrapper: [pysoot](https://github.com/angr/pysoot).
 `pysoot` extracts a fully serializable interface from Android apps and Java code (unfortunately, as of now, it only works on Linux).
-![Pysoot Architecture](https://github.com/angr/pysoot/blob/master/pysoot_arch.png "Pysoot Architecture")
 For every class of the generated IR (for instance, `SootMethod`), you can nicely print its instructions (in a format similar to `Soot` `shimple`) using `print()` or `str()`.
 
 We then leverage the generated IR in a new angr engine able to run code in Soot IR: [angr/engines/soot/engine.py](https://github.com/angr/angr/blob/master/angr/engines/soot/engine.py).
