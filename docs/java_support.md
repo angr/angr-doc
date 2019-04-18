@@ -42,6 +42,6 @@ Typically, it is installed in `<HOME>/Android/SDK/platforms/platform-XX/android.
 ## Examples
 There are multiple examples available:
 - Easy Java crackmes: [java_crackme1](https://github.com/angr/angr-doc/tree/master/examples/java_crackme1), [java_simple3](https://github.com/angr/angr-doc/tree/master/examples/java_simple3), [java_simple4](https://github.com/angr/angr-doc/tree/master/examples/java_simple4)
-- A more complex example (solving a CTF challenge): [ictf2017_javaisnotfun](https://github.com/angr/angr-doc/tree/master/examples/ictf2017_javaisnotfun), [blogpost](https://angr.io/blog/java_angr)
+- A more complex example (solving a CTF challenge): [ictf2017_javaisnotfun](https://github.com/angr/angr-doc/tree/master/examples/ictf2017_javaisnotfun), [blogpost](https://angr.io/blog/java_angr/)
 - Symbolically executing an Android app (using a mix of Java and native code): [java_androidnative1](https://github.com/angr/angr-doc/tree/master/examples/java_androidnative1)
 - Many other low-level tests: [test_java](https://github.com/angr/angr/blob/master/tests/test_java.py)
