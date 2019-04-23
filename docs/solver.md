@@ -77,7 +77,7 @@ Now, let's introduce some symbols into the mix.
 ```
 
 `x` and `y` are now _symbolic variables_, which are kind of like the variables you learned to work with in 7th grade algebra.
-Notice that the name you provided has been been mangled by appending an incrementing counter and 
+Notice that the name you provided has been been mangled by appending an incrementing counter and
 You can do as much arithmetic as you want with them, but you won't get a number back, you'll get an AST instead.
 
 ```python
@@ -167,7 +167,7 @@ False
 
 ## Constraint Solving
 
-You can use treat any symbolic boolean as an assertion about the valid values of a symbolic variable by adding it as a _constraint_ to the state.
+You can treat any symbolic boolean as an assertion about the valid values of a symbolic variable by adding it as a _constraint_ to the state.
 You can then query for a valid value of a symbolic variable by asking for an evaluation of a symbolic expression.
 
 An example will probably be more clear than an explanation here:
@@ -324,7 +324,7 @@ Additionally, all of these methods can take the following keyword arguments:
 - `cast_to` can be passed a data type to cast the result to.
   Currently, this can only be `str`, which will cause the method to return the byte representation of the underlying data.
   For example, `state.solver.eval(state.solver.BVV(0x41424344, 32), cast_to=str)` will return `"ABCD"`.
-  
+
 ## Summary
 
 That was a lot!!
