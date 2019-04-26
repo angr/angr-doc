@@ -33,8 +33,8 @@ A `BackwardSlice` can be constructed with the following code:
 # Feel free to provide more parameters (for example, context_sensitivity_level) for CFG 
 # recovery based on your needs.
 >>> cfg = b.analyses.CFGEmulated(keep_state=True, 
-                                 state_add_options=angr.sim_options.refs, 
-                                 context_sensitivity_level=2)
+...                              state_add_options=angr.sim_options.refs, 
+...                              context_sensitivity_level=2)
 
 # Generate the control dependence graph
 >>> cdg = b.analyses.CDG(cfg)
