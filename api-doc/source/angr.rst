@@ -213,6 +213,7 @@ Analysis
 .. automodule:: angr.analyses.cfg.cfg_fast
 .. automodule:: angr.analyses.cfg.cfg_arch_options
 .. automodule:: angr.analyses.cfg.cfg_job_base
+.. automodule:: angr.analyses.cfg.indirect_jump_resolvers.amd64_elf_got
 .. automodule:: angr.analyses.cfg.indirect_jump_resolvers.x86_pe_iat
 .. automodule:: angr.analyses.cfg.indirect_jump_resolvers.mips_elf_fast
 .. automodule:: angr.analyses.cfg.indirect_jump_resolvers.x86_elf_pic_plt
