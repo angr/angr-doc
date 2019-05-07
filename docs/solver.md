@@ -322,8 +322,8 @@ Additionally, all of these methods can take the following keyword arguments:
 - `extra_constraints` can be passed as a tuple of constraints.
   These constraints will be taken into account for this evaluation, but will not be added to the state.
 - `cast_to` can be passed a data type to cast the result to.
-  Currently, this can only be `str`, which will cause the method to return the byte representation of the underlying data.
-  For example, `state.solver.eval(state.solver.BVV(0x41424344, 32), cast_to=str)` will return `"ABCD"`.
+  Currently, this can only be `int` and `bytes`, which will cause the method to return the corresponding representation of the underlying data.
+  For example, `state.solver.eval(state.solver.BVV(0x41424344, 32), cast_to=bytes)` will return `b'ABCD'`.
 
 ## Summary
 
