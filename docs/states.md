@@ -209,7 +209,7 @@ Here is a brief listing of some of the values stored in the history:
 - `history.jumpkinds` is a listing of the disposition of each of the control flow transitions in the state's history, as VEX enum strings.
 - `history.guards` is a listing of the conditions guarding each of the branches that the state has encountered.
 - `history.events` is a semantic listing of "interesting events" which happened during execution, such as the presence of a symbolic jump condition, the program popping up a message box, or execution terminating with an exit code.
-- `history.actions` is usually empty, but if you add the `angr.options.refs` options to the state, it will be popluated with a log of all the memory, register, and temporary value accesses performed by the program.
+- `history.actions` is usually empty, but if you add the `angr.options.refs` options to the state, it will be populated with a log of all the memory, register, and temporary value accesses performed by the program.
 
 ### The callstack plugin
 
