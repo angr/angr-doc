@@ -53,7 +53,7 @@ Searching around the internet, the major choices were:
 
 While angr uses VEX now, there's no fundamental reason that multiple IRs cannot be used. There are two parts of angr, outside of the `angr.engines.vex` package, that are VEX-specific:
 
-- the jump lables (i.e., the `Ijk_Ret` for returns, `Ijk_Call` for calls, and so forth) are VEX enums.
+- the jump labels (i.e., the `Ijk_Ret` for returns, `Ijk_Call` for calls, and so forth) are VEX enums.
 - VEX treats registers as a memory space, and so does angr. While we provide accesses to `state.regs.rax` and friends, on the backend, this does `state.registers.load(8, 8)`, where the first `8` is a VEX-defined offset for `rax` to the register file.
 
 To support multiple IRs, we'll either want to abstract these things or translate their labels to VEX analogues.
@@ -81,7 +81,7 @@ Floating point support in angr has been disabled in the CGC analyses for a tight
   We haven't been able to get a testcase that doesn't involve "just run angr" for the z3 guys to investigate.
 
 Instead of trying to cope with all of these, we have simply disabled floating point support in the symbolic execution engine.
-To allow for execution in the presence of floating point ops, we have enabled an exploration technique called the [https://github.com/angr/angr/blob/master/angr/exploration_techniques/oppologist.py](oppologist) that is supposed to catch these issues, concretize their inputs, and run the problematic instructions through qemu via uniciorn engine, allowing execution to continue.
+To allow for execution in the presence of floating point ops, we have enabled an exploration technique called the [https://github.com/angr/angr/blob/master/angr/exploration_techniques/oppologist.py](oppologist) that is supposed to catch these issues, concretize their inputs, and run the problematic instructions through qemu via unicorn engine, allowing execution to continue.
 The intuition is that the specific values of floating point operations don't typically affect the exploitation process.
 
 If you're seeing this error and it's terminating the analysis, it's probably because you don't have unicorn installed or configured correctly.

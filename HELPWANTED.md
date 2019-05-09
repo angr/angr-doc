@@ -28,7 +28,7 @@ This book is missing some core areas.
 Specifically, the following could be improved:
 
 1. Finish some of the TODOs floating around the book.
-2. Organize the Examples page in some way that makes sense. Right now, most of the examples are very redunant. It might be cool to have a simple table of most of them so that the page is not so overwhelming.
+2. Organize the Examples page in some way that makes sense. Right now, most of the examples are very redundant. It might be cool to have a simple table of most of them so that the page is not so overwhelming.
 
 ### angr course
 
