@@ -262,4 +262,4 @@ Or, there's a nice shortcut while creating the state if you only need to specify
 >>> assert state.posix.stdin is simfile
 ```
 
-Any of those places you can specify a SimFileBase, you can also specify a string or a bitvector (a flat SimFile with fixed size will be created to hold it) or a SimFile type (it'll be instanciated for you).
+Any of those places you can specify a SimFileBase, you can also specify a string or a bitvector (a flat SimFile with fixed size will be created to hold it) or a SimFile type (it'll be instantiated for you).

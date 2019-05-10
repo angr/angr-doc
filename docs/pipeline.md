@@ -48,7 +48,7 @@ To recap, exploration techniques providing the `step` callback are handled as fo
 Once there are no more `step` callbacks, or if there was never a step callback to begin with, we fall back to the default stepping procedure.
 This involves one more parameter that could have been originally passed to `SimulationManager.step()` - `selector_func`.
 If it is present, then it is used to filter the states in the working stash that we will actually operate on.
-For each of these states, we call `SimluationManager._one_state_step()` on it, again passing along all yet-unused parameters.
+For each of these states, we call `SimulationManager._one_state_step()` on it, again passing along all yet-unused parameters.
 `_one_state_step()` will return a dict of lists categorizing the successors of stepping that state.
 The utility function `SimulationManager._record_step_results()` will operate on these lists to iteratively construct the new set of stashes that the manager will contain when all this is said and done, and also applies the `filter` callbacks that an exploration technique can provide.
 
@@ -94,7 +94,7 @@ The default list of engines is, by default:
 Each engine has a `check()` method, which quickly determines whether it is appropriate for usage.
 If `check()` passes, `process()` will be used to actually produce the successors.
 Even if `check()` passes, `process()` may fail, by returning a `SimSuccessors` object with the `.processed` attribute set to `False`.
-Both of these methods recieve all remaining step parameters.
+Both of these methods receive all remaining step parameters.
 Some useful parameters are `addr` and `jumpkind`, which serve as overrides for the respective pieces of information that would usually be extracted for the state.
 
 Finally, once an engine has processed a state, the results are briefly postprocessed in order to fix up the instruction pointer in the case of a syscall.
@@ -116,7 +116,7 @@ It works by making a call into `SimOS` to retrieve the SimProcedure that should 
 `SimEngineHook` provides the hooking functionality in angr.
 It is used when a state is at an address that is hooked, and the previous jumpkind is *not* `Ijk_NoHook`.
 It simply looks up the associated SimProcedure and runs it on the state!
-It also the parameter `procedure`, which will cause `check` to always succeed, and this procedure will be used instead of the SimProcedure that would be obtained from a hook, so you can provide this parameter to simply execute a procedure on a given state as a round of execution, if you ever have a meaningful use case for that.
+It also has the parameter `procedure`, which will cause `check` to always succeed, and this procedure will be used instead of the SimProcedure that would be obtained from a hook, so you can provide this parameter to simply execute a procedure on a given state as a round of execution, if you ever have a meaningful use case for that.
 
 Note that both the syscall and hook engines take advantage of the `SimEngineProcedure` engine.
 This isn't quite a subclass relationship, but it resembles one.
