@@ -103,7 +103,7 @@ Unless the op is `BVV` or `BVS` (or a few others...), the args are all other AST
 >>> tree
 <BV64 (x_9_64 + 0x1) / (y_10_64 + 0x2)>
 >>> tree.op
-'__div__'
+'__floordiv__'
 >>> tree.args
 (<BV64 x_9_64 + 0x1>, <BV64 y_10_64 + 0x2>)
 >>> tree.args[0].op
