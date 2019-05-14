@@ -6,13 +6,13 @@ We briefly mentioned angr's binary loading component, CLE. CLE stands for "CLE L
 
 ## The Loader
 
-Let's re-load `/bin/true` and take a deeper look at how to interact with the loader.
+Let's load `examples/fauxware/fauxware` and take a deeper look at how to interact with the loader.
 
 ```python
 >>> import angr, monkeyhex
->>> proj = angr.Project('/bin/true')
+>>> proj = angr.Project('examples/fauxware/fauxware')
 >>> proj.loader
-<Loaded true, maps [0x400000:0x5008000]>
+<Loaded fauxware, maps [0x400000:0x5008000]>
 ```
 
 ### Loaded Objects
@@ -30,39 +30,42 @@ You can get the full list of objects that CLE has loaded with `loader.all_object
 # All loaded objects
 >>> proj.loader.all_objects
 [<ELF Object fauxware, maps [0x400000:0x60105f]>,
- <ELF Object libc.so.6, maps [0x1000000:0x13c42bf]>,
- <ELF Object ld-linux-x86-64.so.2, maps [0x2000000:0x22241c7]>,
- <ELFTLSObject Object cle##tls, maps [0x3000000:0x300d010]>,
- <KernelObject Object cle##kernel, maps [0x4000000:0x4008000]>,
- <ExternObject Object cle##externs, maps [0x5000000:0x5008000]>
+ <ELF Object libc-2.23.so, maps [0x1000000:0x13c999f]>,
+ <ELF Object ld-2.23.so, maps [0x2000000:0x2227167]>,
+ <ELFTLSObject Object cle##tls, maps [0x3000000:0x3015010]>,
+ <ExternObject Object cle##externs, maps [0x4000000:0x4008000]>,
+ <KernelObject Object cle##kernel, maps [0x5000000:0x5008000]>]
 
 # This is the "main" object, the one that you directly specified when loading the project
 >>> proj.loader.main_object
-<ELF Object true, maps [0x400000:0x60105f]>
+<ELF Object fauxware, maps [0x400000:0x60105f]>
 
 # This is a dictionary mapping from shared object name to object
 >>> proj.loader.shared_objects
-{ 'libc.so.6': <ELF Object libc.so.6, maps [0x1000000:0x13c42bf]>
-  'ld-linux-x86-64.so.2': <ELF Object ld-linux-x86-64.so.2, maps [0x2000000:0x22241c7]>}
+OrderedDict([('fauxware', <ELF Object fauxware, maps [0x400000:0x60105f]>),
+             ('libc.so.6',
+              <ELF Object libc-2.23.so, maps [0x1000000:0x13c999f]>),
+             ('ld-linux-x86-64.so.2',
+              <ELF Object ld-2.23.so, maps [0x2000000:0x2227167]>)])
 
 # Here's all the objects that were loaded from ELF files
 # If this were a windows program we'd use all_pe_objects!
 >>> proj.loader.all_elf_objects
-[<ELF Object true, maps [0x400000:0x60105f]>,
- <ELF Object libc.so.6, maps [0x1000000:0x13c42bf]>,
- <ELF Object ld-linux-x86-64.so.2, maps [0x2000000:0x22241c7]>]
+[<ELF Object fauxware, maps [0x400000:0x60105f]>,
+ <ELF Object libc-2.23.so, maps [0x1000000:0x13c999f]>,
+ <ELF Object ld-2.23.so, maps [0x2000000:0x2227167]>]
  
 # Here's the "externs object", which we use to provide addresses for unresolved imports and angr internals
 >>> proj.loader.extern_object
-<ExternObject Object cle##externs, maps [0x5000000:0x5008000]>
+<ExternObject Object cle##externs, maps [0x4000000:0x4008000]>
 
 # This object is used to provide addresses for emulated syscalls
 >>> proj.loader.kernel_object
-<KernelObject Object cle##kernel, maps [0x4000000:0x4008000]>
+<KernelObject Object cle##kernel, maps [0x5000000:0x5008000]>
 
 # Finally, you can to get a reference to an object given an address in it
 >>> proj.loader.find_object_containing(0x400000)
-<ELF Object true, maps [0x400000:0x60105f]>
+<ELF Object fauxware, maps [0x400000:0x60105f]>
 ```
 
 You can interact directly with these objects to extract metadata from them:
@@ -79,8 +82,8 @@ You can interact directly with these objects to extract metadata from them:
 
 # Retrieve this ELF's segments and sections
 >>> obj.segments
-<Regions: [<ELFSegment offset=0x0, flags=0x5, filesize=0xa74, vaddr=0x400000, memsize=0xa74>,
-           <ELFSegment offset=0xe28, flags=0x6, filesize=0x228, vaddr=0x600e28, memsize=0x238>]>
+<Regions: [<ELFSegment memsize=0xa74, filesize=0xa74, vaddr=0x400000, flags=0x5, offset=0x0>,
+           <ELFSegment memsize=0x238, filesize=0x228, vaddr=0x600e28, flags=0x6, offset=0xe28>]>
 >>> obj.sections
 <Regions: [<Unnamed | offset 0x0, vaddr 0x0, size 0x0>,
            <.interp | offset 0x238, vaddr 0x400238, size 0x1c>,
@@ -89,16 +92,16 @@ You can interact directly with these objects to extract metadata from them:
             
 # You can get an individual segment or section by an address it contains:
 >>> obj.find_segment_containing(obj.entry)
-<ELFSegment offset=0x0, flags=0x5, filesize=0xa74, vaddr=0x400000, memsize=0xa74>
+<ELFSegment memsize=0xa74, filesize=0xa74, vaddr=0x400000, flags=0x5, offset=0x0>
 >>> obj.find_section_containing(obj.entry)
 <.text | offset 0x580, vaddr 0x400580, size 0x338>
 
 # Get the address of the PLT stub for a symbol
->>> addr = obj.plt['abort']
+>>> addr = obj.plt['strcmp']
 >>> addr
-0x400540
+0x400550
 >>> obj.reverse_plt[addr]
-'abort'
+'strcmp'
 
 # Show the prelinked base of the object and the location it was actually mapped into memory by CLE
 >>> obj.linked_base
@@ -115,9 +118,9 @@ A symbol is a fundamental concept in the world of executable formats, effectivel
 The easiest way to get a symbol from CLE is to use `loader.find_symbol`, which takes either a name or an address and returns a Symbol object.
 
 ```python
->>> malloc = proj.loader.find_symbol('malloc')
->>> malloc
-<Symbol "malloc" in libc.so.6 at 0x1054400>
+>>> strcmp = proj.loader.find_symbol('strcmp')
+>>> strcmp
+<Symbol "strcmp" in libc.so.6 at 0x1089cd0>
 ```
 
 The most useful attributes on a symbol are its name, its owner, and its address, but the "address" of a symbol can be ambiguous.
@@ -128,42 +131,42 @@ The Symbol object has three ways of reporting its address:
 - `.relative_addr` is its address relative to the object base. This is known in the literature (particularly the Windows literature) as an RVA (relative virtual address).
 
 ```python
->>> malloc.name
-'malloc'
+>>> strcmp.name
+'strcmp'
 
->>> malloc.owner_obj
-<ELF Object libc.so.6, maps [0x1000000:0x13c42bf]>
+>>> strcmp.owner
+<ELF Object libc-2.23.so, maps [0x1000000:0x13c999f]>
 
->>> malloc.rebased_addr
-0x1054400
->>> malloc.linked_addr
-0x54400
->>> malloc.relative_addr
-0x54400
+>>> strcmp.rebased_addr
+0x1089cd0
+>>> strcmp.linked_addr
+0x89cd0
+>>> strcmp.relative_addr
+0x89cd0
 ```
 
 In addition to providing debug information, symbols also support the notion of dynamic linking.
-libc provides the malloc symbol as an export, and the main binary depends on it.
-If we ask CLE to give us a malloc symbol from the main object directly, it'll tell us that this is an _import symbol_.
+libc provides the strcmp symbol as an export, and the main binary depends on it.
+If we ask CLE to give us a strcmp symbol from the main object directly, it'll tell us that this is an _import symbol_.
 Import symbols do not have meaningful addresses associated with them, but they do provide a reference to the symbol that was used to resolve them, as `.resolvedby`.
 
 ```python
->>> malloc.is_export
+>>> strcmp.is_export
 True
->>> malloc.is_import
+>>> strcmp.is_import
 False
 
 # On Loader, the method is find_symbol because it performs a search operation to find the symbol.
 # On an individual object, the method is get_symbol because there can only be one symbol with a given name.
->>> main_malloc = proj.loader.main_object.get_symbol("malloc")
->>> main_malloc
-<Symbol "malloc" in true (import)>
->>> main_malloc.is_export
+>>> main_strcmp = proj.loader.main_object.get_symbol('strcmp')
+>>> main_strcmp
+<Symbol "strcmp" in fauxware (import)>
+>>> main_strcmp.is_export
 False
->>> main_malloc.is_import
+>>> main_strcmp.is_import
 True
->>> main_malloc.resolvedby
-<Symbol "malloc" in libc.so.6 at 0x1054400>
+>>> main_strcmp.resolvedby
+<Symbol "strcmp" in libc.so.6 at 0x1089cd0>
 ```
 
 The specific ways that the links between imports and exports should be registered in memory are handled by another notion called _relocations_. 
@@ -172,18 +175,18 @@ We can see the full list of relocations for an object (as `Relocation` instances
 There is no corresponding list of export symbols.
 
 A relocation's corresponding import symbol can be accessed as `.symbol`.
-The address the relocation will write to is accessable through any of the address identifiers you can use for Symbol, and you can get a reference to the object requesting the relocation with `.owner_obj` as well.
+The address the relocation will write to is accessable through any of the address identifiers you can use for Symbol, and you can get a reference to the object requesting the relocation with `.owner` as well.
 
 ```python
 # Relocations don't have a good pretty-printing, so those addresses are python-internal, unrelated to our program
 >>> proj.loader.shared_objects['libc.so.6'].imports
-{u'__libc_enable_secure': <cle.backends.relocations.generic.GenericJumpslotReloc at 0x4221fb0>,
- u'__tls_get_addr': <cle.backends.relocations.generic.GenericJumpslotReloc at 0x425d150>,
- u'_dl_argv': <cle.backends.relocations.generic.GenericJumpslotReloc at 0x4254d90>,
- u'_dl_find_dso_for_object': <cle.backends.relocations.generic.GenericJumpslotReloc at 0x425d130>,
- u'_dl_starting_up': <cle.backends.relocations.generic.GenericJumpslotReloc at 0x42548d0>,
- u'_rtld_global': <cle.backends.relocations.generic.GenericJumpslotReloc at 0x4221e70>,
- u'_rtld_global_ro': <cle.backends.relocations.generic.GenericJumpslotReloc at 0x4254210>}
+{'__libc_enable_secure': <cle.backends.elf.relocation.amd64.R_X86_64_GLOB_DAT at 0x7ff5c5fce780>,
+ '__tls_get_addr': <cle.backends.elf.relocation.amd64.R_X86_64_JUMP_SLOT at 0x7ff5c6018358>,
+ '_dl_argv': <cle.backends.elf.relocation.amd64.R_X86_64_GLOB_DAT at 0x7ff5c5fd2e48>,
+ '_dl_find_dso_for_object': <cle.backends.elf.relocation.amd64.R_X86_64_JUMP_SLOT at 0x7ff5c6018588>,
+ '_dl_starting_up': <cle.backends.elf.relocation.amd64.R_X86_64_GLOB_DAT at 0x7ff5c5fd2550>,
+ '_rtld_global': <cle.backends.elf.relocation.amd64.R_X86_64_GLOB_DAT at 0x7ff5c5fce4e0>,
+ '_rtld_global_ro': <cle.backends.elf.relocation.amd64.R_X86_64_GLOB_DAT at 0x7ff5c5fcea20>}
 ```
 
 If an import cannot be resolved to any export, for example, because a shared library could not be found, CLE will automatically update the externs object (`loader.extern_obj`) to claim it provides the symbol as an export.
@@ -215,7 +218,8 @@ The options that you can use vary from backend to backend, but some common ones 
 Example:
 
 ```python
-angr.Project(main_opts={'backend': 'ida', 'arch': 'i386'}, lib_opts={'libc.so.6': {'backend': 'elf'}})
+>>> angr.Project('examples/fauxware/fauxware', main_opts={'backend': 'blob', 'arch': 'i386'}, lib_opts={'libc.so.6': {'backend': 'elf'}})
+<Project examples/fauxware/fauxware>
 ```
 
 ### Backends
@@ -261,9 +265,9 @@ There is an alternate API for hooking an address that lets you specify your own 
 
 >>> proj.is_hooked(0x10000)            # these functions should be pretty self-explanitory
 True
->>> proj.unhook(0x10000)
 >>> proj.hooked_by(0x10000)
 <ReturnUnconstrained>
+>>> proj.unhook(0x10000)
 
 >>> @proj.hook(0x20000, length=5)
 ... def my_hook(state):
