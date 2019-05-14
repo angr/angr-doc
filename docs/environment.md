@@ -14,14 +14,14 @@ You _probably_ want to have a development install of angr, i.e. set up with the 
 It is remarkably easy to add new API models by just implementing them in certain folders of the angr repository.
 This is also desirable because any work you do in this field will almost always be useful to other people, and this makes it extremely easy to submit a pull request.
 
-However, if you want to do your development out-of-tree, you want to work against a production version of angr, or you want to make customized versions of already-implemented API functions, there are ways to incorperate your extensions programmatically.
+However, if you want to do your development out-of-tree, you want to work against a production version of angr, or you want to make customized versions of already-implemented API functions, there are ways to incorporate your extensions programmatically.
 Both these techniques, in-tree and out-of-tree, will be documented at each step.
 
 ## Dynamic library functions - import dependencies
 
 This is the easiest case, and the case that SimProcedures were originally designed for.
 
-First, you need to write a SimProcedure represnting the function.
+First, you need to write a SimProcedure representing the function.
 Then you need to let angr know about it.
 
 ### Case 1, in-tree development: SimLibraries and catalogues
@@ -66,7 +66,7 @@ Finally, if you don't want to mess with SimLibraries at all, you can do things p
 
 ## Syscalls
 
-Unlike dynamic library methods, syscall procedures aren't incorperated into the project via hooks.
+Unlike dynamic library methods, syscall procedures aren't incorporated into the project via hooks.
 Instead, whenever a syscall instruction is encountered, the basic block should end with a jumpkind of `Ijk_Sys`.
 This will cause the next step to be handled by the SimOS associated with the project, which will extract the syscall number from the state and query a specialized SimLibrary with that.
 

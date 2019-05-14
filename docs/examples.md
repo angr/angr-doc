@@ -4,7 +4,7 @@ To help you get started with [angr](https://github.com/angr/angr), we've created
 We've tried to organize them into major categories, and briefly summarize that each example will expose you to.
 Enjoy!
 
-There are also a great amount of slightly more redunant examples (these mostly stem from CTF problems solved with angr by Shellphish) [here](more-examples.md).
+There are also a great amount of slightly more redundant examples (these mostly stem from CTF problems solved with angr by Shellphish) [here](more-examples.md).
 
 To jump to a specific category:
 

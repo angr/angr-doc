@@ -1,6 +1,6 @@
 # State Plugins
 
-If you want to store some data on a state and have that information propogated from successor to successor, the easiest way to do this is with `state.globals`.
+If you want to store some data on a state and have that information propagated from successor to successor, the easiest way to do this is with `state.globals`.
 However, this can become obnoxious with large amounts of interesting data, doesn't work at all for merging states, and isn't very object-oriented.
 
 The solution to these problems is to write a *State Plugin* - an appendix to the state that holds data and implements an interface for dealing with the lifecycle of a state.
@@ -44,7 +44,7 @@ It works! Note that plugins automatically become available as attributes on the 
 
 State plugins have access to the state, right? So why isn't it part of the initializer?
 It turns out, there are a plethora of issues related to initialization order and dependency issues, so to simplify things as much as possible, the state is not part of the initializer but is rather set onto the state in a separate phase, by using the `set_state` method.
-You can override this state if you need to do things like propogate the state to subcomponents or extract architectural information.
+You can override this state if you need to do things like propagate the state to subcomponents or extract architectural information.
 
 ```python
 >>> def set_state(self, state):
