@@ -42,11 +42,9 @@ You can get the full list of objects that CLE has loaded with `loader.all_object
 
 # This is a dictionary mapping from shared object name to object
 >>> proj.loader.shared_objects
-OrderedDict([('fauxware', <ELF Object fauxware, maps [0x400000:0x60105f]>),
-             ('libc.so.6',
-              <ELF Object libc-2.23.so, maps [0x1000000:0x13c999f]>),
-             ('ld-linux-x86-64.so.2',
-              <ELF Object ld-2.23.so, maps [0x2000000:0x2227167]>)])
+{ 'fauxware': <ELF Object fauxware, maps [0x400000:0x60105f]>,
+  'libc.so.6': <ELF Object libc-2.23.so, maps [0x1000000:0x13c999f]>,
+  'ld-linux-x86-64.so.2': <ELF Object ld-2.23.so, maps [0x2000000:0x2227167]> }
 
 # Here's all the objects that were loaded from ELF files
 # If this were a windows program we'd use all_pe_objects!
