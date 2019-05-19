@@ -83,7 +83,7 @@ In general, Claripy supports all of the normal python operations (+, -, |, ==, e
 | Concat | Concatenates several bit expressions together into a new bit expression. | `claripy.Concat(x, y, z)` |
 | RotateLeft | Rotates a bit expression left. | `claripy.RotateLeft(x, 8)` |
 | RotateRight | Rotates a bit expression right. | `claripy.RotateRight(x, 8)` |
-| Reverse | Reverses a bit expression. | `claripy.Reverse(x)` or `x.reversed` |
+| Reverse | Endian-reverses a bit expression. | `claripy.Reverse(x)` or `x.reversed` |
 | And | Logical And (on boolean expressions) | `claripy.And(x == y, x > 0)` |
 | Or | Logical Or (on boolean expressions) | `claripy.Or(x == y, y < 10)` |
 | Not | Logical Not (on a boolean expression) | `claripy.Not(x == y)` is the same as `x != y` |
