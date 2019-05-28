@@ -88,6 +88,8 @@ def test_java_simple3(): exampletest_single('java_simple3')
 def test_java_simple4(): exampletest_single('java_simple4')
 def test_ictf2017_javaisnotfun(): exampletest_single('ictf2017_javaisnotfun')
 def test_java_androidnative1(): exampletest_single('java_androidnative1')
+@attr(speed='slow')
+def test_defcon2019quals_veryandroidoso(): exampletest_single('defcon2019quals_veryandroidoso')
 ## END EXAMPLE TESTS
 
 def test_example_inclusion():
