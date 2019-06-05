@@ -15,7 +15,7 @@ angr also has a light wrapper around `pycparser`, which is a C parser.
 This helps with getting instances of type objects:
 
 ```python
->>> import angr
+>>> import angr, monkeyhex
 
 # note that SimType objects have their __repr__ defined to return their c type name,
 # so this function actually returned a SimType instance.
@@ -40,9 +40,12 @@ Additionally, you may parse C definitions and have them returned to you in a dic
 
 >>> defs = angr.types.parse_types("int x; typedef struct llist { char* str; struct llist *next; } list_node; list_node *y;")
 >>> defs
-{'list_node': struct llist}
+{'struct llist': struct llist, 'list_node': struct llist}
 
 # if you want to get both of these dicts at once, use parse_file, which returns both in a tuple.
+>>> angr.types.parse_file("int x; typedef struct llist { char* str; struct llist *next; } list_node; list_node *y;")
+({'x': int, 'y': struct llist*},
+ {'struct llist': struct llist, 'list_node': struct llist})
 
 >>> defs['list_node'].fields
 OrderedDict([('str', char*), ('next', struct llist*)])
@@ -51,15 +54,15 @@ OrderedDict([('str', char*), ('next', struct llist*)])
 OrderedDict([('str', char*), ('next', struct llist*)])
 
 # If you want to get a function type and you don't want to construct it manually,
-# you have to use parse_defns, not parse_type
->>> angr.types.parse_defns("int x(int y, double z);")
-{'x': (int, double) -> int}
+# you can use parse_type
+>>> angr.types.parse_type("int (int y, double z)")
+(int, double) -> int
 ```
 
 And finally, you can register struct definitions for future use:
 
 ```python
->>> angr.types.define_struct('struct abcd { int x; int y; }')
+>>> angr.types.register_types(angr.types.parse_type('struct abcd { int x; int y; }'))
 >>> angr.types.register_types(angr.types.parse_types('typedef long time_t;'))
 >>> angr.types.parse_defns('struct abcd a; time_t b;')
 {'a': struct abcd, 'b': long}
@@ -73,7 +76,6 @@ Now that you know how angr's type system works, you can unlock the full power of
 Any type that's registered with the types module can be used to extract data from memory.
 
 ```python
->>> import angr
 >>> b = angr.Project('examples/fauxware/fauxware')
 >>> s = b.factory.entry_state()
 >>> s.mem[0x601048]
@@ -88,17 +90,17 @@ Any type that's registered with the types module can be used to extract data fro
 >>> s.mem[0x601048].long.concrete
 0x4008d0
 
->>> s.mem[0x601048].abcd
+>>> s.mem[0x601048].struct.abcd
 <struct abcd {
-  .x = <int (32 bits) <BV32 0x4008d0> at 0x601048>,
-  .y = <int (32 bits) <BV32 0x0> at 0x60104c>
+  .x = <BV32 0x4008d0>,
+  .y = <BV32 0x0>
 } at 0x601048>
 
->>> s.mem[0x601048].long.resolved
-<BV64 0x4008d0>
+>>> s.mem[0x601048].struct.abcd.x
+<int (32 bits) <BV32 0x4008d0> at 0x601048>
 
->>> s.mem[0x601048].long.concrete
-4196560L
+>>> s.mem[0x601048].struct.abcd.y
+<int (32 bits) <BV32 0x0> at 0x60104c>
 
 >>> s.mem[0x601048].deref
 <<untyped> <unresolvable> at 0x4008d0>
@@ -110,7 +112,7 @@ Any type that's registered with the types module can be used to extract data fro
 <BV64 0x534f534e45414b59>
 
 >>> s.mem[0x601048].deref.string.concrete
-'SOSNEAKY'
+b'SOSNEAKY'
 ```
 
 The interface works like this:
@@ -127,13 +129,13 @@ The interface works like this:
 - Alternately, you may store a value to memory, by assigning to the chain of properties that you've constructed.
   Note that because of the way python works, `x = s.mem[...].prop; x = val` will NOT work, you must say `s.mem[...].prop = val`.
 
-If you define a struct using `define_struct` or `register_types`, you can access it here as a type:
+If you define a struct using `register_types(parse_type(struct_expr))`, you can access it here as a type:
 
 ```python
->>> s.mem[b.entry].abcd
+>>> s.mem[b.entry].struct.abcd
 <struct abcd {
-  .x = <int (32 bits) <BV32 0x8949ed31> at 0x400580>,
-  .y = <int (32 bits) <BV32 0x89485ed1> at 0x400584>
+  .x = <BV32 0x8949ed31>,
+  .y = <BV32 0x89485ed1>
 } at 0x400580>
 ```
 
