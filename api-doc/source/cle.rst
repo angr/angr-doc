@@ -22,6 +22,7 @@ Backends
 .. automodule:: cle.backends.elf.elfcore
 .. automodule:: cle.backends.elf.metaelf
 .. automodule:: cle.backends.elf.symbol
+.. automodule:: cle.backends.elf.symbol_type
 .. automodule:: cle.backends.elf.regions
 .. automodule:: cle.backends.elf.hashtable
 .. automodule:: cle.backends.pe
