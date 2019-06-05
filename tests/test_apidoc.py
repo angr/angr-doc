@@ -7,7 +7,7 @@ def _path(d):
 def test_api_coverage():
     missing = []
     exclude = ['angr.tablespecs', 'angr.service', 'angr.analyses.girlscout', 'pyvex.vex_ffi', 'claripy.backends.remotetasks', 'claripy.backends.backendremote', 'cle.backends.idabin']
-    exclude_prefix = ['angr.procedures', 'angr.analyses.identifier', 'angr.misc', 'angr.engines.vex', 'angr.engines.soot', 'claripy.utils', 'cle.backends.externs.simdata']
+    exclude_prefix = ['angr.procedures', 'angr.analyses.identifier', 'angr.misc', 'angr.protos', 'angr.engines.vex', 'angr.engines.soot', 'claripy.utils', 'cle.backends.externs.simdata']
     for module in ['angr', 'claripy', 'cle', 'pyvex', 'archinfo']:
         docs_file = _path('api-doc/source/%s.rst' % module)
         module_dir = _path('../%s/%s' % (module, module))
@@ -36,7 +36,7 @@ def test_lint_docstrings():
     # Filter any warnings we want to be okay with
     if stderr:
         stderr_lines = stderr.split(b"\n")
-        stderr = b"\n".join(l for l in stderr_lines if b'sphinx_rtd_theme/search.html:20' not in l and b'{{ super() }}' not in l)
+        stderr = b"\n".join(l for l in stderr_lines if b'duplicate object description of claripy.backends, other instance in claripy, ' not in l)
 
     if stderr:
         raise Exception("The following warnings were generated while building the API documentation:\n\n%s" % stderr.decode())

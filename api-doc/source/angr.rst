@@ -189,9 +189,6 @@ Serialization
 
 .. automodule:: angr.serializable
 .. automodule:: angr.protos
-.. automodule:: angr.protos.cfg_pb2
-.. automodule:: angr.protos.function_pb2
-.. automodule:: angr.protos.primitives_pb2
 
 
 Analysis
