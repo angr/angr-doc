@@ -7,7 +7,7 @@ I seem to be able to bumble into the right things to do.
 BUILDING THESE DOCS
 -------------------
 
-$ pip install sphinx sphinx_rtd_theme recommonmark
+$ pip install sphinx==2.0 sphinx_rtd_theme recommonmark
 $ make html
 
 
