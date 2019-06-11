@@ -69,7 +69,7 @@ def main():
             state = p.factory.entry_state(stdin=flag + b"\n")
 
             e = p.factory.simulation_manager(state)
-            e.run(find=target)
+            e.explore(find=target)
 
             assert len(e.found) == 1
             np = e.found[0]
@@ -87,7 +87,7 @@ def main():
             dl_val = dl._model_concrete.value
 
             if al_val == dl_val:
-                flag_arr.append(trychar)
+                flag_arr.append(ord(trychar))
                 break
 
     return bytes(flag_arr)
@@ -95,6 +95,7 @@ def main():
 
 def test():
     assert main() == b'0ctf{m0V_I5_tUr1N9_c0P1Et3!}'
+
 
 if __name__ == '__main__':
     print(main())
