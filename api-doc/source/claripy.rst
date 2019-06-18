@@ -123,3 +123,4 @@ Misc. Things
 .. automodule:: claripy.ops
 .. automodule:: claripy.smtlib_utils
 .. automodule:: claripy.strings
+.. automodule:: claripy.debug
