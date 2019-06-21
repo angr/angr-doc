@@ -277,6 +277,7 @@ latex_documents = [
 # One entry per manual page. List of tuples
 # (source start file, name, description, authors, manual section).
 man_pages = [
+    ('ailment', 'ailment', u'angr intermediate language', [author], 3),
     ('angr', 'angr', u'angr analysis module', [author], 3),
     ('claripy', 'claripy', u'angr numerical and constraint-solving module', [author], 3),
     ('cle', 'cle', u'angr binary loader', [author], 3),
