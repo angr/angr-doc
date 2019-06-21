@@ -8,6 +8,7 @@ Mayhem, KLEE, etc) and various static analyses on binaries.
    :maxdepth: 2
    :glob:
 
+   ailment
    angr
    claripy
    cle

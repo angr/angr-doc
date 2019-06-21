@@ -13,7 +13,7 @@ def test_api_coverage():
     exclude_prefix = ["angr.procedures", "angr.analyses.identifier", "angr.misc", "angr.protos", "angr.engines.vex",
                       "angr.engines.soot", "claripy.utils", "cle.backends.externs.simdata",
                       "angr.knowledge_plugins.sync", "pyvex.lifting.gym"]
-    for module in ["angr", "claripy", "cle", "pyvex", "archinfo"]:
+    for module in ["angr", "claripy", "cle", "pyvex", "archinfo", "ailment"]:
         docs_file = _path("api-doc/source/%s.rst" % module)
         module_dir = _path("../%s/%s" % (module, module))
         module_list = subprocess.check_output(["find", ".", "-name", "*.py"], cwd=module_dir).split()
