@@ -67,7 +67,6 @@ def prune(self, filter_func=None, from_stash=None, to_stash=None):
     :param filter_func: Only prune paths that match this filter.
     :param from_stash:  Prune paths from this stash. (default: 'active')
     :param to_stash:    Put pruned paths in this stash. (default: 'pruned')
-
     :returns:           The resulting PathGroup.
     :rtype:             PathGroup
     """
