@@ -39,12 +39,20 @@ def main():
 	# Alternatively, you can hardcode the addresses.
 	# sm.explore(find=0x80484e3, avoid=0x80484f5)
 
-	return sm.found[0].solver.eval(u)
+	return sm.found[0].solver.eval_upto(u, 256)
 
 
 def test():
-	assert '240' in str(main())
+	good = set()
+	for u in range(256):
+		bits = [0, 0]
+		for i in range(8):
+			bits[u&(1<<i)!=0] += 1
+		if bits[0] == bits[1]:
+			good.add(u)
 
+	res = main()
+	assert set(res) == good
 
 if __name__ == '__main__':
 	print(repr(main()))
