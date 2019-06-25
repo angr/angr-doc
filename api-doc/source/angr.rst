@@ -181,6 +181,10 @@ Knowledge Base
 .. automodule:: angr.knowledge_plugins.variables
 .. automodule:: angr.knowledge_plugins.variables.variable_access
 .. automodule:: angr.knowledge_plugins.variables.variable_manager
+.. automodule:: angr.knowledge_plugins.xrefs
+.. automodule:: angr.knowledge_plugins.xrefs.xref
+.. automodule:: angr.knowledge_plugins.xrefs.xref_types
+.. automodule:: angr.knowledge_plugins.xrefs.xref_manager
 .. automodule:: angr.keyed_region
 
 
@@ -240,6 +244,13 @@ Analysis
 .. automodule:: angr.engines.light.data
 .. automodule:: angr.engines.light
 .. automodule:: angr.engines.light.engine
+.. automodule:: angr.analyses.propagator
+.. automodule:: angr.analyses.propagator.values
+.. automodule:: angr.analyses.propagator.vex_vars
+.. automodule:: angr.analyses.propagator.engine_base
+.. automodule:: angr.analyses.propagator.engine_vex
+.. automodule:: angr.analyses.propagator.engine_ail
+.. automodule:: angr.analyses.propagator.propagator
 .. automodule:: angr.analyses.reaching_definitions.uses
 .. automodule:: angr.analyses.reaching_definitions.undefined
 .. automodule:: angr.analyses.reaching_definitions.definition
@@ -271,6 +282,7 @@ Analysis
 .. automodule:: angr.analyses.binary_optimizer
 .. automodule:: angr.analyses.callee_cleanup_finder
 .. automodule:: angr.analyses.dominance_frontier
+.. automodule:: angr.analyses.xrefs
 .. automodule:: angr.blade
 .. automodule:: angr.slicer
 .. automodule:: angr.annocfg
