@@ -13,13 +13,13 @@ def exampletest_single(example_dir):
     init_pwd = os.getcwd()
     os.chdir(_path('examples/') + example_dir)
     print(os.getcwd())
-    if '.' not in sys.path:
-        sys.path.append('.')
+    sys.path.append(os.getcwd())
     try:
         s = __import__('solve')
         s = reload(s)
         s.test()
     finally:
+        sys.path.pop()
         os.chdir(init_pwd)
 
 ## BEGIN EXAMPLE TESTS
