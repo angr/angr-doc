@@ -25,6 +25,7 @@ Backends
 .. automodule:: cle.backends.elf.symbol_type
 .. automodule:: cle.backends.elf.regions
 .. automodule:: cle.backends.elf.hashtable
+.. automodule:: cle.backends.named_region
 .. automodule:: cle.backends.pe
 .. automodule:: cle.backends.pe.pe
 .. automodule:: cle.backends.pe.symbol
