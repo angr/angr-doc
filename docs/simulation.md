@@ -60,6 +60,7 @@ There are many other places to break than a memory write. Here is the list. You 
 |-------------------|------------------------------------------|
 | mem_read          | Memory is being read. |
 | mem_write         | Memory is being written. |
+| address_concretization | A symbolic memory access is being resolved. |
 | reg_read          | A register is being read. |
 | reg_write         | A register is being written. |
 | tmp_read          | A temp is being read. |
@@ -70,49 +71,69 @@ There are many other places to break than a memory write. Here is the list. You 
 | irsb              | A new basic block is being translated. |
 | constraints       | New constraints are being added to the state. |
 | exit              | A successor is being generated from execution. |
+| fork              | A symbolic execution state has forked into multiple states. |
 | symbolic_variable | A new symbolic variable is being created. |
 | call              | A call instruction is hit. |
-| address_concretization | A symbolic memory access is being resolved. |
+| return            | A ret instruction is hit. |
+| simprocedure      | A simprocedure (or syscall) is executed. |
+| dirty             | A dirty IR callback is executed. |
+| syscall           | A syscall is executed (called in addition to the simprocedure event). |
+| engine_process    | A SimEngine is about to process some code. |
 
 These events expose different attributes:
 
-| Event type        | Attribute name     | Attribute availability | Attribute meaning                        |
-|-------------------|--------------------|------------------------|------------------------------------------|
-| mem_read          | mem_read_address   | BP_BEFORE or BP_AFTER  | The address at which memory is being read. |
-| mem_read          | mem_read_length    | BP_BEFORE or BP_AFTER  | The length of the memory read. |
-| mem_read          | mem_read_expr      | BP_AFTER               | The expression at that address. |
-| mem_write         | mem_write_address  | BP_BEFORE or BP_AFTER  | The address at which memory is being written. |
-| mem_write         | mem_write_length   | BP_BEFORE or BP_AFTER  | The length of the memory write. |
-| mem_write         | mem_write_expr     | BP_BEFORE or BP_AFTER  | The expression that is being written. |
-| reg_read          | reg_read_offset    | BP_BEFORE or BP_AFTER  | The offset of the register being read. |
-| reg_read          | reg_read_length    | BP_BEFORE or BP_AFTER  | The length of the register read. |
-| reg_read          | reg_read_expr      | BP_AFTER               | The expression in the register. |
-| reg_write         | reg_write_offset   | BP_BEFORE or BP_AFTER  | The offset of the register being written. |
-| reg_write         | reg_write_length   | BP_BEFORE or BP_AFTER  | The length of the register write. |
-| reg_write         | reg_write_expr     | BP_BEFORE or BP_AFTER  | The expression that is being written. |
-| tmp_read          | tmp_read_num       | BP_BEFORE or BP_AFTER  | The number of the temp being read. |
-| tmp_read          | tmp_read_expr      | BP_AFTER               | The expression of the temp. |
-| tmp_write         | tmp_write_num      | BP_BEFORE or BP_AFTER  | The number of the temp written. |
-| tmp_write         | tmp_write_expr     | BP_AFTER               | The expression written to the temp. |
-| expr              | expr               | BP_BEFORE or BP_AFTER  | The IR expression. |
-| expr              | expr_result        | BP_AFTER               | The value (e.g. AST) which the expression was evaluated to. |
-| statement         | statement          | BP_BEFORE or BP_AFTER  | The index of the IR statement (in the IR basic block). |
-| instruction       | instruction        | BP_BEFORE or BP_AFTER  | The address of the native instruction. |
-| irsb              | address            | BP_BEFORE or BP_AFTER  | The address of the basic block. |
-| constraints       | added_constraints  | BP_BEFORE or BP_AFTER  | The list of constraint expressions being added. |
-| call              | function_address   | BP_BEFORE or BP_AFTER  | The name of the function being called. |
-| exit              | exit_target        | BP_BEFORE or BP_AFTER  | The expression representing the target of a SimExit. |
-| exit              | exit_guard         | BP_BEFORE or BP_AFTER  | The expression representing the guard of a SimExit. |
-| exit              | exit_jumpkind      | BP_BEFORE or BP_AFTER  | The expression representing the kind of SimExit. |
-| symbolic_variable | symbolic_name      | BP_BEFORE or BP_AFTER  | The name of the symbolic variable being created. The solver engine might modify this name (by appending a unique ID and length). Check the symbolic_expr for the final symbolic expression. |
-| symbolic_variable | symbolic_size      | BP_BEFORE or BP_AFTER  | The size of the symbolic variable being created. |
-| symbolic_variable | symbolic_expr      | BP_AFTER               | The expression representing the new symbolic variable. |
-| address_concretization | address_concretization_strategy | BP_BEFORE or BP_AFTER | The SimConcretizationStrategy being used to resolve the address. This can be modified by the breakpoint handler to change the strategy that will be applied. If your breakpoint handler sets this to None, this strategy will be skipped. |
-| address_concretization | address_concretization_action | BP_BEFORE or BP_AFTER | The SimAction object being used to record the memory action. |
-| address_concretization | address_concretization_memory | BP_BEFORE or BP_AFTER | The SimMemory object on which the action was taken. |
-| address_concretization | address_concretization_expr | BP_BEFORE or BP_AFTER | The AST representing the memory index being resolved. The breakpoint handler can modify this to affect the address being resolved. |
+| Event type             | Attribute name                         | Attribute availability | Attribute meaning                        |
+|------------------------|----------------------------------------|------------------------|------------------------------------------|
+| mem_read               | mem_read_address                       | BP_BEFORE or BP_AFTER  | The address at which memory is being read. |
+| mem_read               | mem_read_expr                          | BP_AFTER               | The expression at that address. |
+| mem_read               | mem_read_length                        | BP_BEFORE or BP_AFTER  | The length of the memory read. |
+| mem_read               | mem_read_condition                     | BP_BEFORE or BP_AFTER  | The condition of the memory read. |
+| mem_write              | mem_write_address                      | BP_BEFORE or BP_AFTER  | The address at which memory is being written. |
+| mem_write              | mem_write_length                       | BP_BEFORE or BP_AFTER  | The length of the memory write. |
+| mem_write              | mem_write_expr                         | BP_BEFORE or BP_AFTER  | The expression that is being written. |
+| mem_write              | mem_write_condition                    | BP_BEFORE or BP_AFTER  | The condition of the memory write. |
+| reg_read               | reg_read_offset                        | BP_BEFORE or BP_AFTER  | The offset of the register being read. |
+| reg_read               | reg_read_length                        | BP_BEFORE or BP_AFTER  | The length of the register read. |
+| reg_read               | reg_read_expr                          | BP_AFTER               | The expression in the register. |
+| reg_read               | reg_read_condition                     | BP_BEFORE or BP_AFTER  | The condition of the register read. |
+| reg_write              | reg_write_offset                       | BP_BEFORE or BP_AFTER  | The offset of the register being written. |
+| reg_write              | reg_write_length                       | BP_BEFORE or BP_AFTER  | The length of the register write. |
+| reg_write              | reg_write_expr                         | BP_BEFORE or BP_AFTER  | The expression that is being written. |
+| reg_write              | reg_write_condition                    | BP_BEFORE or BP_AFTER  | The condition of the register write. |
+| tmp_read               | tmp_read_num                           | BP_BEFORE or BP_AFTER  | The number of the temp being read. |
+| tmp_read               | tmp_read_expr                          | BP_AFTER               | The expression of the temp. |
+| tmp_write              | tmp_write_num                          | BP_BEFORE or BP_AFTER  | The number of the temp written. |
+| tmp_write              | tmp_write_expr                         | BP_AFTER               | The expression written to the temp. |
+| expr                   | expr                                   | BP_BEFORE or BP_AFTER  | The IR expression. |
+| expr                   | expr_result                            | BP_AFTER               | The value (e.g. AST) which the expression was evaluated to. |
+| statement              | statement                              | BP_BEFORE or BP_AFTER  | The index of the IR statement (in the IR basic block). |
+| instruction            | instruction                            | BP_BEFORE or BP_AFTER  | The address of the native instruction. |
+| irsb                   | address                                | BP_BEFORE or BP_AFTER  | The address of the basic block. |
+| constraints            | added_constraints                      | BP_BEFORE or BP_AFTER  | The list of constraint expressions being added. |
+| call                   | function_address                       | BP_BEFORE or BP_AFTER  | The name of the function being called. |
+| exit                   | exit_target                            | BP_BEFORE or BP_AFTER  | The expression representing the target of a SimExit. |
+| exit                   | exit_guard                             | BP_BEFORE or BP_AFTER  | The expression representing the guard of a SimExit. |
+| exit                   | exit_jumpkind                          | BP_BEFORE or BP_AFTER  | The expression representing the kind of SimExit. |
+| symbolic_variable      | symbolic_name                          | BP_BEFORE or BP_AFTER  | The name of the symbolic variable being created. The solver engine might modify this name (by appending a unique ID and length). Check the symbolic_expr for the final symbolic expression. |
+| symbolic_variable      | symbolic_size                          | BP_BEFORE or BP_AFTER  | The size of the symbolic variable being created. |
+| symbolic_variable      | symbolic_expr                          | BP_AFTER               | The expression representing the new symbolic variable. |
+| address_concretization | address_concretization_strategy        | BP_BEFORE or BP_AFTER | The SimConcretizationStrategy being used to resolve the address. This can be modified by the breakpoint handler to change the strategy that will be applied. If your breakpoint handler sets this to None, this strategy will be skipped. |
+| address_concretization | address_concretization_action          | BP_BEFORE or BP_AFTER | The SimAction object being used to record the memory action. |
+| address_concretization | address_concretization_memory          | BP_BEFORE or BP_AFTER | The SimMemory object on which the action was taken. |
+| address_concretization | address_concretization_expr            | BP_BEFORE or BP_AFTER | The AST representing the memory index being resolved. The breakpoint handler can modify this to affect the address being resolved. |
 | address_concretization | address_concretization_add_constraints | BP_BEFORE or BP_AFTER | Whether or not constraints should/will be added for this read. |
-| address_concretization | address_concretization_result | BP_AFTER | The list of resolved memory addresses (integers). The breakpoint handler can overwrite these to effect a different resolution result. |
+| address_concretization | address_concretization_result          | BP_AFTER | The list of resolved memory addresses (integers). The breakpoint handler can overwrite these to effect a different resolution result. |
+| syscall                | syscall_name                           | BP_BEFORE or BP_AFTER  | The name of the system call. |
+| simprocedure           | simprocedure_name                      | BP_BEFORE or BP_AFTER  | The name of the simprocedure. |
+| simprocedure           | simprocedure_addr                      | BP_BEFORE or BP_AFTER  | The address of the simprocedure. |
+| simprocedure           | simprocedure_result                    | BP_AFTER               | The return value of the simprocedure. You can also _override_ it in BP_BEFORE, which will cause the actual simprocedure to be skipped and for your return value to be used instead. |
+| simprocedure           | simprocedure                           | BP_BEFORE or BP_AFTER  | The actual SimProcedure object. |
+| dirty                  | dirty_name                             | BP_BEFORE or BP_AFTER  | The name of the dirty call. |
+| dirty                  | dirty_handler                          | BP_BEFORE              | The function that will be run to handle the dirty call. You can override this. |
+| dirty                  | dirty_args                             | BP_BEFORE or BP_AFTER  | The address of the dirty. |
+| dirty                  | dirty_result                           | BP_AFTER               | The return value of the dirty call. You can also _override_ it in BP_BEFORE, which will cause the actual dirty call to be skipped and for your return value to be used instead. |
+| engine_process         | sim_engine                             | BP_BEFORE or BP_AFTER  | The SimEngine that is processing. |
+| engine_process         | successors                             | BP_BEFORE or BP_AFTER  | The SimSuccessors object defining the result of the engine. |
 
 These attributes can be accessed as members of `state.inspect` during the appropriate breakpoint callback to access the appropriate values.
 You can even modify these value to modify further uses of the values!
