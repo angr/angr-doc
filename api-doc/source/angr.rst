@@ -162,6 +162,7 @@ Knowledge Base
 .. automodule:: angr.knowledge_base
 .. automodule:: angr.knowledge_base.knowledge_base
 .. automodule:: angr.knowledge_plugins
+.. automodule:: angr.knowledge_plugins.patches
 .. automodule:: angr.knowledge_plugins.plugin
 .. automodule:: angr.knowledge_plugins.cfg
 .. automodule:: angr.knowledge_plugins.cfg.cfg_model
