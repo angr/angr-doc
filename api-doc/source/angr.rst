@@ -53,6 +53,7 @@ Program State
 .. automodule:: angr.state_plugins.heap.heap_libc
 .. automodule:: angr.state_plugins.heap.heap_ptmalloc
 .. automodule:: angr.state_plugins.heap.utils
+.. automodule:: angr.state_plugins.symbolizer
 
 
 Storage
