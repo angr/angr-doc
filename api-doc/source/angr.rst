@@ -182,7 +182,6 @@ Knowledge Base
 .. automodule:: angr.knowledge_plugins.variables
 .. automodule:: angr.knowledge_plugins.variables.variable_access
 .. automodule:: angr.knowledge_plugins.variables.variable_manager
-.. automodule:: angr.knowledge_plugins.patches
 .. automodule:: angr.knowledge_plugins.sync
 .. automodule:: angr.knowledge_plugins.sync.sync_manager
 .. automodule:: angr.knowledge_plugins.xrefs
