@@ -3,7 +3,20 @@
 This lists the *major* changes in angr.
 Tracking minor changes are left as an exercise for the reader :-)
 
+## angr 8.19.7.25
+
+- (#1503) Implement necessary helpers and information storage for call pretty printing
+- (#1546) Add a new state option MEMORY_FIND_STRICT_SIZE_LIMIT
+- (#1548) SimProcedure.static_exits: Allow providing name hints
+- (cle#177) Use Enums for Symbol Types
+- (cle#193) Add support for "named regions"
+- (claripy#151) Implement operator precedence in claripy op rendering
+- Added support for interaction recording in angr-management
+- Several new simprocedure implementations
+- Substantial imporvments to our CFG
+
 ## angr 8.19.4.5
+
 - (#1234) Massive improvements to CFG recovery for ARM and ARM cortex-m binaries.
 - (#1416) Added support for analyzing Java programs via the Soot IR, including the ability to analyze interplay between Java code and JNI libraries. This branch was two years old!
 - (#1427) Added a MemoryWatcher exploration technique to take action when the system is running out of RAM. Thanks @bannsec.
