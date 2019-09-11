@@ -205,6 +205,7 @@ Analysis
 .. automodule:: angr.analyses.analysis
 .. automodule:: angr.analyses.forward_analysis
 .. automodule:: angr.analyses.forward_analysis.job_info
+.. automodule:: angr.analyses.forward_analysis.visitors
 .. automodule:: angr.analyses.forward_analysis.visitors.call_graph
 .. automodule:: angr.analyses.forward_analysis.visitors.function_graph
 .. automodule:: angr.analyses.forward_analysis.visitors.graph
