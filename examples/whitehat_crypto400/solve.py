@@ -84,7 +84,7 @@ def bruteforce_possibilities(possibilities):
     print('[*] brute-forcing %d possibilities' % len(possibilities))
     for guess in progressbar.ProgressBar(widgets=[progressbar.Counter(), ' ', progressbar.Percentage(), ' ', progressbar.Bar(), ' ', progressbar.ETA()])(possibilities):
         guess_str = b''.join(guess)
-        stdout,_ = subprocess.Popen(["./whitehat_crypto400", guess_str], stdout=subprocess.PIPE, stderr=subprocess.STDOUT).communicate()
+        stdout,_ = subprocess.Popen(["./whitehat_crypto400", guess_str.decode("ascii")], stdout=subprocess.PIPE, stderr=subprocess.STDOUT).communicate()
         if b'FLAG IS' in stdout:
             return next(filter(lambda s: guess_str in s, stdout.split()))
 
