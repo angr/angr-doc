@@ -179,6 +179,7 @@ Knowledge Base
 .. automodule:: angr.knowledge_plugins.functions.function_manager
     :members: FunctionManager
 .. automodule:: angr.knowledge_plugins.functions.function
+.. automodule:: angr.knowledge_plugins.functions.function_parser
 .. automodule:: angr.knowledge_plugins.functions.soot_function
 .. automodule:: angr.knowledge_plugins.variables
 .. automodule:: angr.knowledge_plugins.variables.variable_access
