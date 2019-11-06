@@ -249,6 +249,10 @@ Analysis
 .. automodule:: angr.analyses.decompiler.optimization_passes.optimization_pass
 .. automodule:: angr.analyses.decompiler.optimization_passes.stack_canary_simplifier
 .. automodule:: angr.analyses.decompiler.optimization_passes.base_ptr_save_simplifier
+.. automodule:: angr.analyses.decompiler.optimization_passes.div_simplifier
+.. automodule:: angr.analyses.decompiler.optimization_passes.multi_simplifier
+.. automodule:: angr.analyses.decompiler.optimization_passes.mod_simplifier
+.. automodule:: angr.analyses.decompiler.optimization_passes.engine_base
 .. automodule:: angr.analyses.decompiler.structured_codegen
 .. automodule:: angr.analyses.decompiler.region_identifier
 .. automodule:: angr.analyses.decompiler.region_simplifier
