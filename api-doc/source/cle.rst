@@ -36,6 +36,7 @@ Backends
 .. automodule:: cle.backends.macho.section
 .. automodule:: cle.backends.macho.segment
 .. automodule:: cle.backends.macho.binding
+.. automodule:: cle.backends.minidump
 .. automodule:: cle.backends.cgc
 .. automodule:: cle.backends.cgc.cgc
 .. automodule:: cle.backends.cgc.backedcgc
