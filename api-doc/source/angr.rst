@@ -124,17 +124,15 @@ Simulation Engines
 .. automodule:: angr.engines
 .. automodule:: angr.engines.engine
 .. automodule:: angr.engines.successors
-.. automodule:: angr.engines.hub
-.. automodule:: angr.engines.vex
-.. automodule:: angr.engines.vex.engine
 .. automodule:: angr.engines.procedure
 .. automodule:: angr.engines.hook
 .. automodule:: angr.engines.syscall
-.. automodule:: angr.engines.unicorn
 .. automodule:: angr.engines.failure
-.. automodule:: angr.engines.concrete
+.. automodule:: angr.engines.vex
 .. automodule:: angr.engines.soot
 .. automodule:: angr.engines.soot.engine
+.. automodule:: angr.engines.unicorn
+.. automodule:: angr.engines.concrete
 
 Simulation Logging
 ------------------
