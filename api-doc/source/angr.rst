@@ -269,6 +269,7 @@ Analysis
 .. automodule:: angr.analyses.reaching_definitions.uses
 .. automodule:: angr.analyses.reaching_definitions.undefined
 .. automodule:: angr.analyses.reaching_definitions.definition
+.. automodule:: angr.analyses.reaching_definitions.def_use_graph
 .. automodule:: angr.analyses.reaching_definitions.constants
 .. automodule:: angr.analyses.reaching_definitions.atoms
 .. automodule:: angr.analyses.reaching_definitions.engine_vex
