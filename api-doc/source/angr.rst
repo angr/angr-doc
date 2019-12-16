@@ -274,6 +274,7 @@ Analysis
 .. automodule:: angr.analyses.reaching_definitions.engine_vex
 .. automodule:: angr.analyses.reaching_definitions.live_definitions
 .. automodule:: angr.analyses.reaching_definitions.reaching_definitions
+.. automodule:: angr.analyses.reaching_definitions.subject
 .. automodule:: angr.analyses.reaching_definitions
 .. automodule:: angr.analyses.reaching_definitions.dataset
 .. automodule:: angr.analyses.reaching_definitions.engine_ail
