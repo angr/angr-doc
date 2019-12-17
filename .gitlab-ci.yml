@@ -1,7 +1,0 @@
-before_script:
-    - angr-test sync hard
-
-docs:
-    script: "angr-test docs"
-    tags:
-        - "angr"
