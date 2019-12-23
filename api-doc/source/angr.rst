@@ -281,7 +281,7 @@ Analysis
 .. automodule:: angr.analyses.reaching_definitions
 .. automodule:: angr.analyses.reaching_definitions.dataset
 .. automodule:: angr.analyses.reaching_definitions.engine_ail
-.. automodule:: angr.analyses.reaching_definitions.external_codeloc
+.. automodule:: angr.analyses.reaching_definitions.external_code_location
 .. automodule:: angr.analyses.stack_pointer_tracker
 .. automodule:: angr.analyses.variable_recovery.annotations
 .. automodule:: angr.analyses.variable_recovery.variable_recovery_base
