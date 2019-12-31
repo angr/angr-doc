@@ -60,6 +60,31 @@ As usual, a virtualenv is very strongly recommended. You can use either the [vir
 angr can be installed from pip on Windows, same as above: `pip install angr`.
 You should not be required to build any C code with this setup, since wheels (binary distributions) should be automatically pulled down for angr and its dependencies.
 
+
+### Nix/NixOS
+
+angr is available via the [Nix](https://nixos.org/nix/) package manager and on [NixOS](https://nixos.org/nixos/), using the [Nix User Repository](https://github.com/nix-community/NUR).
+
+First, make NUR available to your user:
+```bash
+cat << __EOF__ > ~/.config/nixpkgs/config.nix
+{
+  packageOverrides = pkgs: {
+    nur = import (builtins.fetchTarball "https://github.com/nix-community/NUR/archive/master.tar.gz") {
+      inherit pkgs;
+    };
+  };
+}
+__EOF__
+```
+
+Then, to obtain a nix-shell with the `angr` Python package:
+```bash
+nix-shell -p 'python3.withPackages(ps: with ps; [ nur.repos.angr.python3Packages.angr ])'
+```
+
+More information on [angr/nixpkgs](https://github.com/angr/nixpkgs).
+
 # Development install
 
 There is a special repository `angr-dev` with scripts to make life easier for angr developers.
