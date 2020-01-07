@@ -50,6 +50,7 @@ Backends
 .. automodule:: cle.backends.java.jar
 .. automodule:: cle.backends.java
 .. automodule:: cle.backends.java.soot
+.. automodule:: cle.backends.xbe
 
 
 Relocations
