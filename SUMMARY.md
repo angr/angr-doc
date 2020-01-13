@@ -28,6 +28,7 @@
   * [Claripy](docs/claripy.md)
   * [Symbolic Memory Addressing](docs/concretization_strategies.md)
   * [Java Symbolic Execution](docs/java_support.md)
+  * [Symbion](docs/symbion.md)
 * Extending angr
   * [Programming SimProcedures](docs/simprocedures.md)
   * [Writing State Plugins](docs/state_plugins.md)
