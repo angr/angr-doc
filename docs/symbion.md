@@ -84,4 +84,4 @@ simgr = project.factory.simgr(state)
 ## Example
 You can find more information about this technique and a complete example in our blogpost: https://angr.io/blog/angr_symbion/.
 
-For more technical detail a public paper will be available soon, or if you really need it urgently ping @degrigis on our `angr` Slack channel.
+For more technical details a public paper will be available soon, or if you really need it urgently ping @degrigis on our `angr` Slack channel.
