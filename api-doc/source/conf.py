@@ -48,7 +48,7 @@ master_doc = 'index'
 
 # General information about the project.
 project = u'angr'
-copyright = u'2018, The angr project'
+copyright = u'2020, The angr project'
 author = u'The angr project'
 
 # The version info for the project you're documenting, acts as replacement for
@@ -311,9 +311,15 @@ texinfo_documents = [
 # If true, do not generate a @detailmenu in the "Top" node's menu.
 #texinfo_no_detailmenu = False
 
-## HACK FOR ANGR
+## HACKS FOR ANGR
 
+# prevents sphinx from trying to generate xrefs for class attributes, which is a disaster
 import sphinx.domains.python
 for field_type in sphinx.domains.python.PyObject.doc_field_types:
     if field_type.name == 'variable':
         field_type.rolename = None
+
+# version check
+import sphinx
+if sphinx.version_info < (2, 1, 1):
+    raise Exception("rhelmot says: this version of spinx is too old. Upgrade please!")
