@@ -1,10 +1,10 @@
 #Symbion: Interleaving symbolic and concrete execution
 
-Let's suppose you want to symbolically analyze a specific function of a program, but there is a huge initialization step that you want to skip because it is not necessary for your analysis. Moreover, maybe your program is running on an embedded system and you have access to a debug interface, but you can't easily extract it from the device.
+Let's suppose you want to symbolically analyze a specific function of a program, but there is a huge initialization step that you want to skip because it is not necessary for your analysis, or cannot properly be emulated by angr. For example, maybe your program is running on an embedded system and you have access to a debug interface, but you can't easily replicate the hardware in a simulated environment.
 
-This is the perfect scenario for `Symbion`!
+This is the perfect scenario for `Symbion`, our interleaved execution technique!
 
-We implemented a built-in system that let users define a `ConcreteTarget` that is used to "import" a concrete state of the target program from an external source into `angr`. Once the state is imported you can make parts of the state symbolic, use symbolically execution on this state, run your analyses, and finally concretize the symbolic parts and resume concrete execution in the external environment. By iterating this process it is possible to implement run-time and interactive advanced symbolic analyses that are backed up by the real program execution!
+We implemented a built-in system that let users define a `ConcreteTarget` that is used to "import" a concrete state of the target program from an external source into `angr`. Once the state is imported you can make parts of the state symbolic, use symbolic execution on this state, run your analyses, and finally concretize the symbolic parts and resume concrete execution in the external environment. By iterating this process it is possible to implement run-time and interactive advanced symbolic analyses that are backed up by the real program's execution!
 
 Isn't that cool?
 
@@ -47,7 +47,7 @@ A new plugin called *concrete* is in charge of synchronizing the concrete state 
 Roughly, synchronization does the following:
 * All the registers' values (NOT marked with concrete=False in the respective arch file in archinfo) are copied inside the new SimState.
 * The underlying memory backend is hooked in a way that all the further memory accesses triggered during symbolic execution are redirected to the concrete process.
-* If the project is initialized with SimProc (use_sim_procedures=True) we are going to re-hook the external functions' addresses with a `SimProcedure` if we happen to have it, otherwise with a` SimProcedure` stub (you can control this decision by using the Options SYMBION_KEEP_STUBS_ON_SYNC). Conversely, the real code of the function is executed inside angr (Warning: do that at your own risk!)
+* If the project is initialized with SimProcedure (use_sim_procedures=True) we are going to re-hook the external functions' addresses with a `SimProcedure` if we happen to have it, otherwise with a` SimProcedure` stub (you can control this decision by using the Options SYMBION_KEEP_STUBS_ON_SYNC). Conversely, the real code of the function is executed inside angr (Warning: do that at your own risk!)
 
 Once this process is completed, you can play with your new `SimState` backed by the concrete process stopped at that particular stop_point.
 Options
@@ -65,6 +65,6 @@ entry_state.options.add(angr.options.SYMBION_KEEP_STUBS_ON_SYNC)
 simgr = project.factory.simgr(state)
 ```
 ##Example
-You can find more information about this technique and a complete example in our blogpost: https://angr.io/blog/angr_symbion/.
+You can find more information about this technique and a complete example in our blog post: https://angr.io/blog/angr_symbion/.
 For more technical details a public paper will be available soon, or, ping @degrigis on our `angr` Slack channel.
 
