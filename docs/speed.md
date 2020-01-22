@@ -1,13 +1,14 @@
-# Speed considerations
+# Optimization considerations
 
-The speed of angr as an analysis tool or emulator is greatly handicapped by the fact that it is written in python.
-Regardless, there are a lot of optimizations and tweaks you can use to make angr faster.
+The performance of angr as an analysis tool or emulator is greatly handicapped by the fact that lots of it is written in python.
+Regardless, there are a lot of optimizations and tweaks you can use to make angr faster and lighter.
 
-## General tips
+## General speed tips
 
 - *Use pypy*.
   [Pypy](http://pypy.org/) is an alternate python interpreter that performs optimized jitting of python code.
   In our tests, it's a 10x speedup out of the box.
+- *Only use the SimEngine mixins that you need*. SimEngine uses a mixin model which allows you to add and remove features by constructing new classes. The default engine mixes in every possible features, and the consequence of that is that it is slower than it needs to be. Look at the definition for `UberEngine` (the default SimEngine), copy its declaration, and remove all the base classes which provide features you don't need.
 - *Don't load shared libraries unless you need them*.
   The default setting in angr is to try at all costs to find shared libraries that are compatible with the binary you've loaded, including loading them straight out of your OS libraries.
   This can complicate things in a lot of scenarios.
@@ -62,3 +63,12 @@ Regardless, there are a lot of optimizations and tweaks you can use to make angr
   Once something is concretized with the afterburner, you will lose track of that variable.
   The state will still be consistent, but you'll lose dependencies, as the stuff that comes out of Unicorn is just concrete bits with no memory of what variables they came from.
   Still, this might be worth it for the speed in some cases, if you know what you want to (or do not want to) concretize.
+
+## Memory optimization
+
+The golden rule for memory optimization is to make sure you're not keeping any references to data you don't care about anymore, especially related to states which have been left behind.
+If you find yourself running out of memory during analysis, the first thing you want to do is make sure you haven't caused a state explosion, meaning that the analysis is accumulating program states too quickly. If the state count is in control, then you can start looking for reference leaks. A good tool to do this with is https://github.com/rhelmot/dumpsterdiver, which gives you an interactive prompt for exploring the reference graph of a python process.
+
+One specific consideration that should be made when analyzing programs with very long paths is that the state history is designed to accumulate data infinitely. This is less of a problem than it could be because the data is stored in a smart tree structure and never copied, but it will accumulate infinitely. To downsize a state's history and free all data related to old steps, call `state.history.trim()`.
+
+One _particularly_ problematic member of the history dataset is the basic block trace and the stack pointer trace. When using unicorn engine, these lists of ints can become huge very very quickly. To disable unicorn's capture of ip and sp data, remove the state options `UNICORN_TRACK_BBL_ADDRS` and `UNICORN_TRACK_STACK_POINTERS`.
