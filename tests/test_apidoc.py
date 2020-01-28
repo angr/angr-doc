@@ -36,7 +36,7 @@ def test_lint_docstrings():
     # Filter any warnings we want to be okay with
     if stderr:
         stderr_lines = stderr.split(b"\n")
-        stderr = b"\n".join(l for l in stderr_lines if b'sphinx_rtd_theme/search.html:21' not in l and b'{{ super() }}' not in l)
+        stderr = b"\n".join(l for l in stderr_lines if b'sphinx_rtd_theme/search.html:21' not in l and b'{{ super() }}' not in l and b'{% endblock %}' not in l)
 
     if stderr:
         raise Exception("The following warnings were generated while building the API documentation:\n\n%s" % stderr.decode())
