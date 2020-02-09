@@ -54,10 +54,12 @@ The mapping of concepts is roughly as follows:
 | path.trace | state.history.descriptions |
 | path.addr_trace | state.history.bbl_addrs |
 | path.jumpkinds | state.history.jumpkinds |
-| path.guards | state.history.guards |
+| path.guards | state.history.jump_guards |
+| path.targets | state.history.jump_targets |
 | path.actions | state.history.actions |
 | path.events | state.history.events |
 | path.recent_actions | state.history.recent_actions |
+| path.reachable | state.history.reachable() |
 
 An important behavior change about `path.actions` and `path.recent_actions` - actions are no longer tracked by default.
 If you would like them to be tracked again, please add `angr.options.refs` to your state.
