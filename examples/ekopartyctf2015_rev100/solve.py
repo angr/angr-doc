@@ -165,7 +165,7 @@ def main():
     c = calc_one_byte(p, known_passwords, hook_rsi, 0x452e82, 0x452e91, 0x452ed5, "r11", 0x452f50)
     known_passwords += [ c ]
 
-    c = calc_one_byte(p, known_passwords, hook_rsi, 0x453d28, 0x453d3a, 0x453d71, "r11", 0x453de6)
+    c = calc_one_byte(p, known_passwords, hook_rsi, 0x453d2b, 0x453d3a, 0x453d71, "r11", 0x453de6)
     known_passwords += [ c ]
 
     c = calc_one_byte(p, known_passwords, hook_r8, 0x454a39, 0x454a4c, 0x454a95, "r11", 0x454ae7)
