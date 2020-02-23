@@ -216,6 +216,7 @@ Analysis
 .. automodule:: angr.analyses.bindiff
 .. automodule:: angr.analyses.boyscout
 .. automodule:: angr.analyses.calling_convention
+.. automodule:: angr.analyses.complete_calling_conventions
 .. automodule:: angr.analyses.soot_class_hierarchy
 .. automodule:: angr.analyses.cfg
 .. automodule:: angr.analyses.cfg.cfb
