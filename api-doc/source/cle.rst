@@ -93,6 +93,7 @@ Thread-local storage
 
 .. automodule:: cle.backends.tls
 .. automodule:: cle.backends.tls.elf_tls
+.. automodule:: cle.backends.tls.elfcore_tls
 .. automodule:: cle.backends.tls.pe_tls
 
 
