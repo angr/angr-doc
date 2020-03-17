@@ -256,6 +256,7 @@ Analysis
 .. automodule:: angr.analyses.decompiler.structured_codegen
 .. automodule:: angr.analyses.decompiler.region_identifier
 .. automodule:: angr.analyses.decompiler.region_simplifier
+.. automodule:: angr.analyses.decompiler.sequence_walker
 .. automodule:: angr.analyses.ddg
 .. automodule:: angr.engines.light.data
 .. automodule:: angr.engines.light
