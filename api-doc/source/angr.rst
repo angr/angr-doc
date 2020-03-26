@@ -245,6 +245,7 @@ Analysis
 .. automodule:: angr.analyses.decompiler
 .. automodule:: angr.analyses.decompiler.clinic
 .. automodule:: angr.analyses.decompiler.decompiler
+.. automodule:: angr.analyses.decompiler.empty_node_remover
 .. automodule:: angr.analyses.decompiler.optimization_passes
 .. automodule:: angr.analyses.decompiler.optimization_passes.optimization_pass
 .. automodule:: angr.analyses.decompiler.optimization_passes.stack_canary_simplifier
@@ -253,10 +254,11 @@ Analysis
 .. automodule:: angr.analyses.decompiler.optimization_passes.multi_simplifier
 .. automodule:: angr.analyses.decompiler.optimization_passes.mod_simplifier
 .. automodule:: angr.analyses.decompiler.optimization_passes.engine_base
-.. automodule:: angr.analyses.decompiler.structured_codegen
 .. automodule:: angr.analyses.decompiler.region_identifier
 .. automodule:: angr.analyses.decompiler.region_simplifier
 .. automodule:: angr.analyses.decompiler.sequence_walker
+.. automodule:: angr.analyses.decompiler.structured_codegen
+.. automodule:: angr.analyses.decompiler.structurer_nodes
 .. automodule:: angr.analyses.ddg
 .. automodule:: angr.engines.light.data
 .. automodule:: angr.engines.light
