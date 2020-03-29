@@ -245,6 +245,7 @@ Analysis
 .. automodule:: angr.analyses.decompiler
 .. automodule:: angr.analyses.decompiler.clinic
 .. automodule:: angr.analyses.decompiler.condition_processor
+.. automodule:: angr.analyses.decompiler.decompilation_options
 .. automodule:: angr.analyses.decompiler.decompiler
 .. automodule:: angr.analyses.decompiler.empty_node_remover
 .. automodule:: angr.analyses.decompiler.graph_region
@@ -281,7 +282,7 @@ Analysis
 .. automodule:: angr.analyses.reaching_definitions.engine_vex
 .. automodule:: angr.analyses.reaching_definitions.live_definitions
 .. automodule:: angr.analyses.reaching_definitions.reaching_definitions
-.. automodule:: angr.analyses.reaching_definitions.def_use_graph
+.. automodule:: angr.analyses.reaching_definitions.dep_graph
 .. automodule:: angr.analyses.reaching_definitions.subject
 .. automodule:: angr.analyses.reaching_definitions
 .. automodule:: angr.analyses.reaching_definitions.dataset
