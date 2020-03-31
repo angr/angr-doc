@@ -134,7 +134,7 @@ sudo docker pull angr/angr
 sudo docker run -it angr/angr
 ```
 
-Synchronization of files in and out of docker is left as an exercise to the user (hint: check out `docker -v`).
+Synchronization of files in and out of docker is left as an exercise to the user (hint: check out `docker run -v`).
 
 ### Modifying the angr container
 
