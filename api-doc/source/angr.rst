@@ -241,6 +241,17 @@ Analysis
 .. automodule:: angr.analyses.code_location
 .. automodule:: angr.analyses.datagraph_meta
 .. automodule:: angr.analyses.code_tagging
+.. automodule:: angr.angrdb
+.. automodule:: angr.angrdb.db
+.. automodule:: angr.angrdb.models
+.. automodule:: angr.angrdb.serializers
+.. automodule:: angr.angrdb.serializers.cfg_model
+.. automodule:: angr.angrdb.serializers.comments
+.. automodule:: angr.angrdb.serializers.funcs
+.. automodule:: angr.angrdb.serializers.kb
+.. automodule:: angr.angrdb.serializers.labels
+.. automodule:: angr.angrdb.serializers.loader
+.. automodule:: angr.angrdb.serializers.xrefs
 .. automodule:: angr.analyses.decompiler.structurer
 .. automodule:: angr.analyses.decompiler
 .. automodule:: angr.analyses.decompiler.clinic
