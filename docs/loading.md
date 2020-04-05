@@ -204,7 +204,7 @@ Additionally, you can pass a list of strings \(or a single string\) to `ld_path`
 
 #### Per-Binary Options
 
-If you want to specify some options that only apply to a specific binary object, CLE will let you do that too. The parameters `main_ops` and `lib_opts` do this by taking dictionaries of options. `main_opts` is a mapping from option names to option values, while `lib_opts` is a mapping from library name to dictionaries mapping option names to option values.
+If you want to specify some options that only apply to a specific binary object, CLE will let you do that too. The parameters `main_opts` and `lib_opts` do this by taking dictionaries of options. `main_opts` is a mapping from option names to option values, while `lib_opts` is a mapping from library name to dictionaries mapping option names to option values.
 
 The options that you can use vary from backend to backend, but some common ones are:
 
@@ -224,7 +224,7 @@ Example:
 
 CLE currently has backends for statically loading ELF, PE, CGC, Mach-O and ELF core dump files, as well as loading binaries with IDA and loading files into a flat address space. CLE will automatically detect the correct backend to use in most cases, so you shouldn't need to specify which backend you're using unless you're doing some pretty weird stuff.
 
-You can force CLE to use a specific backend for an object by by including a key in its options dictionary, as described above. Some backends cannot autodetect which architecture to use and _must_ have a `arch` specified. The key doesn't need to match any list of architectures; angr will identify which architecture you mean given almost any common identifier for any supported arch.
+You can force CLE to use a specific backend for an object by including a key in its options dictionary, as described above. Some backends cannot autodetect which architecture to use and _must_ have a `arch` specified. The key doesn't need to match any list of architectures; angr will identify which architecture you mean given almost any common identifier for any supported arch.
 
 To refer to a backend, use the name from this table:
 
