@@ -10,10 +10,10 @@ The information of about stack variables can be generally useful in other projec
 
 # get all the matches
 >>> p = angr.Project("../binaries/tests/i386/identifiable")
+# note analysis is executed via the Identifier call
 >>> idfer = p.analyses.Identifier()
-# note that .run() yields results so make sure to iterate through them or call list() etc
->>> for addr, symbol in idfer.run():
-... 	print(hex(addr), symbol)
+>>> for funcInfo in idfer.func_info:
+... 	print(hex(funcInfo.addr), funcInfo.name)
 
 0x8048e60 memcmp
 0x8048ef0 memcpy
