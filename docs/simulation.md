@@ -114,8 +114,8 @@ These events expose different attributes:
 | exit                   | exit_target                            | BP_BEFORE or BP_AFTER  | The expression representing the target of a SimExit. |
 | exit                   | exit_guard                             | BP_BEFORE or BP_AFTER  | The expression representing the guard of a SimExit. |
 | exit                   | exit_jumpkind                          | BP_BEFORE or BP_AFTER  | The expression representing the kind of SimExit. |
-| symbolic_variable      | symbolic_name                          | BP_BEFORE or BP_AFTER  | The name of the symbolic variable being created. The solver engine might modify this name (by appending a unique ID and length). Check the symbolic_expr for the final symbolic expression. |
-| symbolic_variable      | symbolic_size                          | BP_BEFORE or BP_AFTER  | The size of the symbolic variable being created. |
+| symbolic_variable      | symbolic_name                          | BP_AFTER               | The name of the symbolic variable being created. The solver engine might modify this name (by appending a unique ID and length). Check the symbolic_expr for the final symbolic expression. |
+| symbolic_variable      | symbolic_size                          | BP_AFTER               | The size of the symbolic variable being created. |
 | symbolic_variable      | symbolic_expr                          | BP_AFTER               | The expression representing the new symbolic variable. |
 | address_concretization | address_concretization_strategy        | BP_BEFORE or BP_AFTER | The SimConcretizationStrategy being used to resolve the address. This can be modified by the breakpoint handler to change the strategy that will be applied. If your breakpoint handler sets this to None, this strategy will be skipped. |
 | address_concretization | address_concretization_action          | BP_BEFORE or BP_AFTER | The SimAction object being used to record the memory action. |
