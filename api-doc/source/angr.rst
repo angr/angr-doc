@@ -212,6 +212,7 @@ Analysis
 .. automodule:: angr.analyses.forward_analysis.visitors.graph
 .. automodule:: angr.analyses.forward_analysis.visitors.loop
 .. automodule:: angr.analyses.forward_analysis.visitors.single_node_graph
+.. automodule:: angr.analyses.forward_analysis.visitors.slice
 .. automodule:: angr.analyses.backward_slice
 .. automodule:: angr.analyses.bindiff
 .. automodule:: angr.analyses.boyscout
@@ -299,6 +300,10 @@ Analysis
 .. automodule:: angr.analyses.reaching_definitions.dataset
 .. automodule:: angr.analyses.reaching_definitions.engine_ail
 .. automodule:: angr.analyses.reaching_definitions.external_codeloc
+.. automodule:: angr.analyses.cfg_slice_to_sink
+.. automodule:: angr.analyses.cfg_slice_to_sink.cfg_slice_to_sink
+.. automodule:: angr.analyses.cfg_slice_to_sink.graph
+.. automodule:: angr.analyses.cfg_slice_to_sink.transitions
 .. automodule:: angr.analyses.stack_pointer_tracker
 .. automodule:: angr.analyses.variable_recovery.annotations
 .. automodule:: angr.analyses.variable_recovery.variable_recovery_base
