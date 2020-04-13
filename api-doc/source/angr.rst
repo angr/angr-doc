@@ -343,9 +343,10 @@ Utils
 -----
 .. automodule:: angr.utils
 .. automodule:: angr.utils.constants
+.. automodule:: angr.utils.enums_conv
 .. automodule:: angr.utils.graph
 .. automodule:: angr.utils.library
-.. automodule:: angr.utils.enums_conv
+.. automodule:: angr.utils.timing
 
 Errors
 ------
