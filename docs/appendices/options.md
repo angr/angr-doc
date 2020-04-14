@@ -44,7 +44,6 @@ These are individual option objects, found as `angr.options.XXX`.
 | `AVOID_MULTIVALUED_READS` | Return a symbolic value without touching memory for any read that has a symbolic address | | `fastpath` | |
 | `AVOID_MULTIVALUED_WRITES` | Do not perfrom any write that has a symbolic address | | `fastpath` | |
 | `BEST_EFFORT_MEMORY_STORING` | Handle huge writes of symbolic size by pretending they are actually smaller | | `static`, `fastpath` | |
-| `BLOCK_SCOPE_CONSTRAINTS` | Clear the constraint list at the end of each block | | `static` | |
 | `BREAK_SIRSB_END` | Debug: trigger a breakpoint at the end of each block | | | |
 | `BREAK_SIRSB_START` | Debug: trigger a breakpoint at the start of each block | | | |
 | `BREAK_SIRSTMT_END` | Debug: trigger a breakpoint at the end of each IR statement | | | |
@@ -85,7 +84,6 @@ These are individual option objects, found as `angr.options.XXX`.
 | `FAST_MEMORY` | Use `SimFastMemory` for memory storage | | | |
 | `FAST_REGISTERS` | Use `SimFastMemory` for register storage | | `fastpath` | |
 | `INITIALIZE_ZERO_REGISTERS` | Treat the initial value of registers as zero instead of unconstrained symbolic | `unicorn` | `tracing` | |
-| `INSTRUCTION_SCOPE_CONSTRAINTS` | Clear the constraint list at the end of each instruction | | | |
 | `KEEP_IP_SYMBOLIC` | Don't try to concretize successor states with symbolic instruction pointers | | | |
 | `KEEP_MEMORY_READS_DISCRETE` | In abstract memory, handle failed loads by returning a DCIS? | | | |
 | `LAZY_SOLVES` | Don't check satisfiability until absolutely necessary | | | |
