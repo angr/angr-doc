@@ -117,6 +117,7 @@ Exploration Techniques
 .. automodule:: angr.exploration_techniques.common
 .. automodule:: angr.exploration_techniques.symbion
 .. automodule:: angr.exploration_techniques.memory_watcher
+.. automodule:: angr.exploration_techniques.bucketizer
 
 Simulation Engines
 ------------------
@@ -196,6 +197,7 @@ Serialization
 
 .. automodule:: angr.serializable
 .. automodule:: angr.protos
+.. automodule:: angr.vaults
 
 
 Analysis
@@ -352,6 +354,8 @@ Errors
 ------
 .. automodule:: angr.errors
 
-Serialization
--------------
-.. automodule:: angr.vaults
+Distributed analysis
+--------------------
+.. automodule:: angr.distributed
+.. automodule:: angr.distributed.server
+.. automodule:: angr.distributed.worker
