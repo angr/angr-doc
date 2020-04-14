@@ -39,13 +39,6 @@ def main():
 
 
     #let's now find the easter egg (it takes about 2 minutes)
-
-    #now we want angr to avoid "unfeasible" paths
-    #by default, "lazy solving" is enabled, this means that angr will not 
-    #automatically discard unfeasible paths
-
-    #to disable "lazy solving" we generate a blank path and we change its options,
-    #then we specify this path as the initial path of the path group
     print("finding the easter egg...")
     sm = project.factory.simulation_manager(project.factory.entry_state())
 
@@ -62,13 +55,11 @@ def main():
     stdout1 = found.posix.dumps(1)
     print(repr(stdout1))
 
-    #an alternative way to avoid unfeasible paths (paths that contain an unsatisfiable set
-    #of constraints) is to "manually" step the path group execution and call prune()
+    #an alternative is to just use step(), until one state reaches our target address 0x804833E
     print("finding the easter egg (again)...")
     sm = project.factory.simulation_manager()
     while True:
         sm.step()
-        sm.prune() #we "manually" ask angr to remove unfeasible paths 
         found_list = [active for active in sm.active if active.addr == 0x804833E]
         if len(found_list) > 0:
             break
