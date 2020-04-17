@@ -20,6 +20,7 @@ Backends
 .. automodule:: cle.backends.elf
 .. automodule:: cle.backends.elf.elf
 .. automodule:: cle.backends.elf.elfcore
+.. automodule:: cle.backends.elf.lsda
 .. automodule:: cle.backends.elf.metaelf
 .. automodule:: cle.backends.elf.symbol
 .. automodule:: cle.backends.elf.symbol_type
