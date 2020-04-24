@@ -323,6 +323,7 @@ Analysis
 .. automodule:: angr.analyses.binary_optimizer
 .. automodule:: angr.analyses.callee_cleanup_finder
 .. automodule:: angr.analyses.dominance_frontier
+.. automodule:: angr.analyses.init_finder
 .. automodule:: angr.analyses.xrefs
 .. automodule:: angr.blade
 .. automodule:: angr.slicer
