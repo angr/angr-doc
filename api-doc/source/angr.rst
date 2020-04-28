@@ -308,7 +308,17 @@ Analysis
 .. automodule:: angr.analyses.variable_recovery.variable_recovery_base
 .. automodule:: angr.analyses.variable_recovery.variable_recovery_fast
 .. automodule:: angr.analyses.variable_recovery.variable_recovery
+.. automodule:: angr.analyses.variable_recovery.engine_ail
+.. automodule:: angr.analyses.variable_recovery.engine_vex
+.. automodule:: angr.analyses.variable_recovery.engine_base
 .. automodule:: angr.analyses.variable_recovery
+.. automodule:: angr.analyses.typehoon.lifter
+.. automodule:: angr.analyses.typehoon.simple_solver
+.. automodule:: angr.analyses.typehoon.translator
+.. automodule:: angr.analyses.typehoon.typevars
+.. automodule:: angr.analyses.typehoon.typehoon
+.. automodule:: angr.analyses.typehoon.typeconsts
+.. automodule:: angr.analyses.typehoon
 .. automodule:: angr.analyses.identifier.identify
 .. automodule:: angr.analyses.loopfinder
 .. automodule:: angr.analyses.loop_analysis
