@@ -13,12 +13,12 @@ def main():
     base_addr = 0x100000
 
     #length of desired input is 75 as found from reversing the binary in ghidra
+    #need to add 4 times this size, since the actual array is 4 times the size
     #1 extra byte for first input
     input_len = 1+75*4
 
     #seting up the angr project
     p = angr.Project('./engine', main_opts={'base_addr': base_addr})
-
 
     #looking at the code/binary, we can tell the input string is expected to fill 22 bytes,
     # thus the 8 byte symbolic size. Hopefully we can find the constraints the binary
@@ -36,7 +36,7 @@ def main():
            )
 
     #constrain to non-newline bytes
-    #constrain to ascii-only characters (as a guess)
+    #constrain to ascii-only characters
     for k in flag_chars:
         st.solver.add(k < 0x7f)
         st.solver.add(0x20 < k)
@@ -66,6 +66,5 @@ def test():
 if __name__ == "__main__":
     before = time.time()
     print(main())
-    test()
     after = time.time()
     print("Time elapsed: {}".format(after - before))

@@ -30,6 +30,16 @@ These are examples that use angr to solve reverse engineering challenges.
 There are a lot of these.
 We've chosen the most unique ones, and relegated the rest to the [CTF Challenges](#) section below.
 
+### Beginner reversing example: little\_engine 
+```
+Script author: Michael Reeves (github: @mastermjr)
+Script runtime: 3 min 26 seconds (206 seconds)
+Concepts presented: 
+stdin constraining, concrete optimization with Unicorn
+```
+This challenge is similar to the csaw challenge below, however the reversing is much more simple. The original code, solution, and writeup for the challenge can be found at the b01lers github [here](https://github.com/b01lers/b01lers-ctf-2020/tree/master/rev/100_little_engine).
+
+The angr solution script is [here](https://github.com/angr/angr-doc/tree/master/examples/b01lersctf2020_little_engine/solve.py) and the binary is [here](https://github.com/angr/angr-doc/tree/master/examples/b01lersctf2020_little_engine/engine).
 
 ### Whitehat CTF 2015 - Crypto 400
 
