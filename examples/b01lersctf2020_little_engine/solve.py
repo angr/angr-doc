@@ -5,11 +5,11 @@ import claripy
 import time
 
 #compiled on ubuntu 18.04 system:
-#https://github.com/b01lers/b01lers-ctf-2020/tree/master/rev/100_little_engine 
+#https://github.com/b01lers/b01lers-ctf-2020/tree/master/rev/100_little_engine
 
 def main():
     #setup of addresses used in program
-    #addresses assume base address of 
+    #addresses assume base address of
     base_addr = 0x100000
 
     #length of desired input is 75 as found from reversing the binary in ghidra
@@ -39,7 +39,7 @@ def main():
     #constrain to ascii-only characters
     for k in flag_chars:
         st.solver.add(k < 0x7f)
-        st.solver.add(0x20 < k)
+        st.solver.add(k > 0x20)
 
     # Construct a SimulationManager to perform symbolic execution.
     # Step until there is nothing left to be stepped.
