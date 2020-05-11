@@ -183,12 +183,23 @@ Knowledge Base
 .. automodule:: angr.knowledge_plugins.variables
 .. automodule:: angr.knowledge_plugins.variables.variable_access
 .. automodule:: angr.knowledge_plugins.variables.variable_manager
+.. automodule:: angr.knowledge_plugins.key_definitions
+.. automodule:: angr.knowledge_plugins.key_definitions.atoms
+.. automodule:: angr.knowledge_plugins.key_definitions.constants
+.. automodule:: angr.knowledge_plugins.key_definitions.dataset
+.. automodule:: angr.knowledge_plugins.key_definitions.definition
+.. automodule:: angr.knowledge_plugins.key_definitions.key_definition_manager
+.. automodule:: angr.knowledge_plugins.key_definitions.live_definitions
+.. automodule:: angr.knowledge_plugins.key_definitions.rd_model
+.. automodule:: angr.knowledge_plugins.key_definitions.undefined
+.. automodule:: angr.knowledge_plugins.key_definitions.uses
 .. automodule:: angr.knowledge_plugins.sync
 .. automodule:: angr.knowledge_plugins.sync.sync_manager
 .. automodule:: angr.knowledge_plugins.xrefs
 .. automodule:: angr.knowledge_plugins.xrefs.xref
 .. automodule:: angr.knowledge_plugins.xrefs.xref_types
 .. automodule:: angr.knowledge_plugins.xrefs.xref_manager
+.. automodule:: angr.code_location
 .. automodule:: angr.keyed_region
 
 
@@ -241,7 +252,6 @@ Analysis
 .. automodule:: angr.analyses.cfg.cfg_fast_soot
 .. automodule:: angr.analyses.cfg.segment_list
 .. automodule:: angr.analyses.cdg
-.. automodule:: angr.analyses.code_location
 .. automodule:: angr.analyses.datagraph_meta
 .. automodule:: angr.analyses.code_tagging
 .. automodule:: angr.angrdb
@@ -290,18 +300,12 @@ Analysis
 .. automodule:: angr.analyses.propagator.engine_vex
 .. automodule:: angr.analyses.propagator.engine_ail
 .. automodule:: angr.analyses.propagator.propagator
-.. automodule:: angr.analyses.reaching_definitions.uses
-.. automodule:: angr.analyses.reaching_definitions.undefined
-.. automodule:: angr.analyses.reaching_definitions.definition
-.. automodule:: angr.analyses.reaching_definitions.constants
-.. automodule:: angr.analyses.reaching_definitions.atoms
+.. automodule:: angr.analyses.reaching_definitions
 .. automodule:: angr.analyses.reaching_definitions.engine_vex
-.. automodule:: angr.analyses.reaching_definitions.live_definitions
 .. automodule:: angr.analyses.reaching_definitions.reaching_definitions
 .. automodule:: angr.analyses.reaching_definitions.dep_graph
+.. automodule:: angr.analyses.reaching_definitions.rd_state
 .. automodule:: angr.analyses.reaching_definitions.subject
-.. automodule:: angr.analyses.reaching_definitions
-.. automodule:: angr.analyses.reaching_definitions.dataset
 .. automodule:: angr.analyses.reaching_definitions.engine_ail
 .. automodule:: angr.analyses.reaching_definitions.external_codeloc
 .. automodule:: angr.analyses.stack_pointer_tracker
