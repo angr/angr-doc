@@ -199,7 +199,7 @@ To make it more convenient to work with this structure, the history also provide
 In general, these values are stored as `history.recent_NAME` and the iterator over them is just `history.NAME`.
 For example, `for addr in state.history.bbl_addrs: print hex(addr)` will print out a basic block address trace for the binary, while `state.history.recent_bbl_addrs` is the list of basic blocks executed in the most recent step, `state.history.parent.recent_bbl_addrs` is the list of basic blocks executed in the previous step, etc.
 If you ever need to quickly obtain a flat list of these values, you can access `.hardcopy`, e.g. `state.history.bbl_addrs.hardcopy`.
-Keep in mind though, index-based accessing is implemented on the interators.
+Keep in mind though, index-based accessing is implemented on the iterators.
 
 Here is a brief listing of some of the values stored in the history:
 
