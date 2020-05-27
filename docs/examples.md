@@ -185,6 +185,7 @@ This is a very easy binary containing a stack buffer overflow and an easter egg.
 CADET_00001 is one of the challenge released by DARPA for the Cyber Grand Challenge:
 [link](https://github.com/CyberGrandChallenge/samples/tree/master/examples/CADET_00001)
 The binary can run in the DECREE VM: [link](http://repo.cybergrandchallenge.com/boxes/)
+A copy of the original challenge and the angr solution is provided [here](https://github.com/angr/angr-doc/tree/master/examples/CADET_00001)
 CADET_00001.adapted (by Jacopo Corbetta) is the same program, modified to be runnable in an Intel x86 Linux machine.
 
 ### Grub "back to 28" bug
