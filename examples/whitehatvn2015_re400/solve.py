@@ -50,7 +50,7 @@ def main():
     state.stack_push(2) # argc
     state.stack_push(0x401f30) # address of main
 
-    state.memory.store(0x413ad4, 36, endness=state.arch.memory_endness)
+    state.memory.store(0x413ad4, 36, size=state.arch.bytes, endness=state.arch.memory_endness)
 
     ex = p.factory.simulation_manager(state)
     ex.explore(find=0x402f29, avoid=0x402f3f)
