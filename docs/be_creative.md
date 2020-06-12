@@ -14,6 +14,6 @@ None of the abstractions or instrumentations we provide are the end-all of how t
 If you see a path from problem to solution, take it.
 
 Of course, it's very difficult to become well-acquainted with such a huge piece of technology as angr.
-To this end you can absolutely lean on the community (through the [angr slack](http://angr.io/invite.html) is the best option) to discuss angr and solving problems with it.
+To this end you can absolutely lean on the community (through the [angr slack](https://angr.io/invite) is the best option) to discuss angr and solving problems with it.
 
 Good luck!
