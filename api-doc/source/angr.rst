@@ -305,6 +305,7 @@ Analysis
 .. automodule:: angr.analyses.reaching_definitions.engine_vex
 .. automodule:: angr.analyses.reaching_definitions.reaching_definitions
 .. automodule:: angr.analyses.reaching_definitions.dep_graph
+.. automodule:: angr.analyses.reaching_definitions.function_handler
 .. automodule:: angr.analyses.reaching_definitions.rd_state
 .. automodule:: angr.analyses.reaching_definitions.subject
 .. automodule:: angr.analyses.reaching_definitions.engine_ail
