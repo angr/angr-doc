@@ -169,7 +169,8 @@ Knowledge Base
 .. automodule:: angr.knowledge_plugins.cfg.memory_data
 .. automodule:: angr.knowledge_plugins.cfg.cfg_manager
 .. automodule:: angr.knowledge_plugins.cfg.cfg_node
-.. automodule:: angr.knowledge_plugins.cfg.indirect_jump
+.. automodule:: angr.knowledge_plugins.cfg.indirect_jump 
+.. automodule:: angr.knowledge_plugins.propagations
 .. automodule:: angr.knowledge_plugins.comments
 .. automodule:: angr.knowledge_plugins.data
 .. automodule:: angr.knowledge_plugins.indirect_jumps
@@ -247,6 +248,7 @@ Analysis
 .. automodule:: angr.analyses.cfg.indirect_jump_resolvers.x86_elf_pic_plt
 .. automodule:: angr.analyses.cfg.indirect_jump_resolvers.default_resolvers
 .. automodule:: angr.analyses.cfg.indirect_jump_resolvers.jumptable
+.. automodule:: angr.analyses.cfg.indirect_jump_resolvers.const_resolver
 .. automodule:: angr.analyses.cfg.indirect_jump_resolvers.resolver
 .. automodule:: angr.analyses.cfg.indirect_jump_resolvers
 .. automodule:: angr.analyses.cfg.cfg_utils
