@@ -270,6 +270,7 @@ Analysis
 .. automodule:: angr.angrdb.serializers.xrefs
 .. automodule:: angr.analyses.decompiler.structurer
 .. automodule:: angr.analyses.decompiler
+.. automodule:: angr.analyses.decompiler.ailblock_walker
 .. automodule:: angr.analyses.decompiler.ailgraph_walker
 .. automodule:: angr.analyses.decompiler.clinic
 .. automodule:: angr.analyses.decompiler.condition_processor
@@ -278,6 +279,7 @@ Analysis
 .. automodule:: angr.analyses.decompiler.empty_node_remover
 .. automodule:: angr.analyses.decompiler.graph_region
 .. automodule:: angr.analyses.decompiler.optimization_passes
+.. automodule:: angr.analyses.decompiler.optimization_passes.const_derefs
 .. automodule:: angr.analyses.decompiler.optimization_passes.eager_returns
 .. automodule:: angr.analyses.decompiler.optimization_passes.optimization_pass
 .. automodule:: angr.analyses.decompiler.optimization_passes.stack_canary_simplifier
