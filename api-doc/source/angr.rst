@@ -306,6 +306,7 @@ Analysis
 .. automodule:: angr.analyses.propagator.engine_ail
 .. automodule:: angr.analyses.propagator.propagator
 .. automodule:: angr.analyses.reaching_definitions
+.. automodule:: angr.analyses.reaching_definitions.call_trace
 .. automodule:: angr.analyses.reaching_definitions.engine_vex
 .. automodule:: angr.analyses.reaching_definitions.reaching_definitions
 .. automodule:: angr.analyses.reaching_definitions.dep_graph
