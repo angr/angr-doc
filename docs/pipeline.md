@@ -2,107 +2,97 @@ Understanding the Execution Pipeline
 ====================================
 
 If you've made it this far you know that at its core, angr is a highly flexible and intensely instrumentable emulator.
-In order to get the most mileage out of it, you'll want to know what happens at every step of the way when you say `simgr.step()`.
+In order to get the most mileage out of it, you'll want to know what happens at every step of the way when you say `simgr.run()`.
 
 This is intended to be a more advanced document; you'll need to understand the function and intent of `SimulationManager`, `ExplorationTechnique`, `SimState`, and `SimEngine` in order to understand what we're talking about at times!
 You may want to have the angr source open to follow along with this.
 
+At every step along the way, each function will take `**kwargs` and pass them along to the next function in the hierarchy, so you can pass parameters to any point in the hierarchy and they will trickle down to everything below.
+
 ## Simulation Managers
 
-So you've called for a step to occur. Time to begin our journey.
+So you've set your analysis in motion. Time to begin our journey.
+
+### `run()`
+
+`SimulationManager.run()` takes several optional parameters, all of which control when to break out of the stepping loop.
+Notably, `n`, and `until`.
+`n` is used immediately - the run function loops, calling the `step()` function and passing on all its parameters until either `n` steps have happened or some other termination condition has occurred. If `n` is not provided, it defaults to 1, unless an `until` function is provided, in which case there will be no numerical cap on the loop.
+Additionally, the stash that is being used is taken into consideration, as if it becomes empty execution must terminate.
+
+So, in summary, when you call `run()`, `step()` will be called in a loop until any of the following:
+
+1. The `n` number of steps have elapsed
+2. The `until` function returns true
+3. The exploration techniques `complete()` hooks (combined via the `SimulationManager.completion_mode` parameter/attribute - it is by default the `any` builtin function but can be changed to `all` for example) indicate that the analysis is complete
+4. The stash being executed becomes empty
+
+#### An aside: `explore()`
+
+`SimulationManager.explore()` is a very thin wrapper around `run()` which adds the `Explorer` exploration technique, since performing one-off explorations is a very common action.
+Its code in its entirety is below:
+
+```
+num_find += len(self._stashes[find_stash]) if find_stash in self._stashes else 0
+tech = self.use_technique(Explorer(find, avoid, find_stash, avoid_stash, cfg, num_find))
+
+try:
+    self.run(stash=stash, n=n, **kwargs)
+finally:
+    self.remove_technique(tech)
+
+return self
+```
+
+### Exploration technique hooking
+
+From here down, every function in the simulation manager can be instrumented by an exploration technique.
+The exact mechanism through which this works is that when you call `SimulationManager.use_technique()`, angr monkeypatches the simulation manager to replace any function implemented in the exploration technique's body with a function which will first call the exploration technique's function, and then on the second call will call the original function.
+This is somewhat messy to implement and certainly not thread safe by any means, but does produce a clean and powerful interface for exploration techniques to instrument stepping behavior, either before or after the original function is called, even choosing whether or not to call the original function whatsoever.
+Additionally, it allows multiple exploration techniques to hook the same function, as the monkeypatched function simply becomes the "original" function for the next-applied hook.
 
 ### `step()`
 
-`SimulationManager.step()` function takes many optional parameters.
-The most important of these are `stash`, `n`, `until`, and `step_func`.
-`n` is used immediately - the `step()` function loops, calling the `_one_step()` function and passing on all its parameters until either `n` steps have happened or some other termination condition has occurred. If `n` is not provided, it defaults to 1, unless an `until` function is provided, in which case there will be no numerical cap on the loop.
+There is a lot of complicated logic in `step()` to handle degenerate cases - mostly implementing the population of the `deadended` stash, the `save_unsat` option, and calling the `filter()` exploration technique hooks.
+Beyond this, though, most of the logic is looping through the stash specified by the `stash` argument and calling `step_state()` on each state, then applying the dict result of `step_state()` to the stash list.
+Finally, if the `step_func` parameter is provided, it is called with the simulation manager as a parameter before the step ends.
 
-Before any of the termination conditions are checked, however, `step_func` is applied - this function takes the current manager and returns a new manager to replace it.
-In writing a step function, it is useful to recall that most common manager functions also return a manager - if the manager is immutable (`immutable=True` in the constructor), it is a new object, but otherwise it is the same object as before.
+### `step_state()`
 
-Now, we check the termination conditions - either the stash we are operating on ("active" by default) has gone empty, or the `until` callback function returns True.
-If neither of these conditions are satisfied, we loop back around to call `_one_step()` again.
+The default `step_state()`, which can be overridden or instrumented by exploration techniques, is also simple - it calls `successors()`, which returns a `SimSuccessors` object, and then translates it into a dict mapping stash names to new states which should be added to that stash.
+It also implements error handling - if `successors()` throws an error, it will be caught and an `ErrorRecord` will be inserted into `SimulationManager.errored`.
 
-Note that if you use `.run()` the `until` callback will automatically be provided as the sum of all the attached exploration techniques' `complete()` callbacks.
-The "sum" is by default the `any` function, but this can be changed (e.g. to `all`) by setting `simgr.completion_mode`.
-
-### `_one_step()`
-
-This is where an `ExplorationTechnique` can start to affect things.
-If any active exploration technique has provided a `step` override, this is where it is called.
-The cleverness of the techniques is that their effects can combine; how can this happen?
-Any given exploration technique that implements `step` is given a manager and is expected to return a new manager, stepped forward by one tick and having the exploration technique's effects applied.
-This will inevitably involve the exploration technique needing to invoke execution of its own, which it needs to do by calling `_one_step()` on the manager, again!
-What happens then is that the cycle described in this document restarts, except that when the process reaches `_one_step()`, we discover that *the current exploration technique has been popped out of the list of step callbacks*.
-Then, if there are any more exploration techniques providing step callbacks, the next one will be called, recursing until we exhaust the list.
-Upon returning from the callback, `_one_step` will push the callback back onto the callback stack, and return.
-
-To recap, exploration techniques providing the `step` callback are handled as follows:
-
-- End user calls `step()`
-- `step()` calls `_one_step()`
-- `_one_step()` pops a single exploration technique from the list of active `step` exploration technique callbacks, and calls it with the manager we are operating on
-- This callback calls `_one_step()` on the manager that it gets called with
-- This process repeats until there are no more callbacks
-
-Once there are no more `step` callbacks, or if there was never a step callback to begin with, we fall back to the default stepping procedure.
-This involves one more parameter that could have been originally passed to `SimulationManager.step()` - `selector_func`.
-If it is present, then it is used to filter the states in the working stash that we will actually operate on.
-For each of these states, we call `SimulationManager._one_state_step()` on it, again passing along all yet-unused parameters.
-`_one_state_step()` will return a dict of lists categorizing the successors of stepping that state.
-The utility function `SimulationManager._record_step_results()` will operate on these lists to iteratively construct the new set of stashes that the manager will contain when all this is said and done, and also applies the `filter` callbacks that an exploration technique can provide.
-
-### `_one_state_step()`
+### `successors()`
 
 We've almost made it out of SimulationManager.
-First, we need to apply the `step_state` exploration technique hooks.
-These hooks do not nest as nicely as the `step` callbacks - only one can be applied, and the rest are used only in case of failure.
-If any `step_state` hook succeeds, the results are returned immediately from `_one_state_step()`.
-Recall that the requirement for the `filter` callback is to return the same dict of lists that `_one_state_step()` is supposed to return!
-If all of them fail, or there were never any to begin with, we again fall back to the default procedure.
+`successors()`, which can also be instrumented by exploration techniques, is supposed to take a state and step it forward, returning a `SimSuccessors` object categorizing its successors independently of any stash logic.
+If the `successor_func` parameter was provided, it is used and its return value is returned directly.
+If this parameter was not provided, we use the `project.factory.successors` method to tick the state forward and get our `SimSuccessors`.
 
-First, we tick the state forward.
-If a `successor_func` was provided as a parameter to `step()`, it is used - we expect that it will return a SimSuccessors object, with all the appropriate categorizations (normal, unconstrained, unsat, etc) available.
-If this parameter was not provided, we use the `project.factory.successors` method to tick the state forward and get our SimSuccessors.
-All of these are then dropped into the dict of lists of states with the appropriate stash names.
-
-This whole process is done in a try-except block which will catch any errors and dropping the original state into the "errored" list as part of an `ErrorRecord` object.
-
-## Engine Selection
+## The Engine
 
 When we get to the actual successors generation, we need to figure out how to actually perform the execution.
 Hopefully, the angr documentation has been organized in a way such that by the time you reach this page, you know that a `SimEngine` is a device that knows how to take a state and produce its successors.
-How do we know what engine to use?
-Each project has a list of engines in its `factory`, and the default behavior of `project.factory.successors` is to try all of them, in order, and take the results of the first one that works.
-There are several ways this behavior can be altered, of course!
+There is only one "default engine" per project, but you can provide the `engine` parameter to specify which engine will be used to perform the step.
 
-- If the parameter `default_engine=True` is passed, the only engine that will be tried is the last-resort default engine, usually `SimEngineVEX`.
-- If a list is passed in the parameter `engines`, it will be used instead of the default list of engines
+Keep in mind that this parameter can be provided way at the top, to `.step()`, `.explore()`, `.run()` or anything else that starts execution, and they will be filtered down to this level.
+Any additional parameters will continue being passed down, until they reach the part of the engine they are intended for.
+The engine will discard any parameters it doesn't understand.
 
-Keep in mind that both of these parameters can be provided way at the top, to `.step()`, `.explore()`, `.run()` or anything else that starts execution, and they will be filtered down to this level.
-Any additional parameters will continue being passed down, until they reach an engine they are intended for.
-An engine will discard any parameters it doesn't understand.
+Generally, the main entry point of an engine is `SimEngine.process()`, which can return whatever result it likes, but for simulation managers, engines are required to use `SuccessorsMixin`, which provides a `process()` method, which creates a `SimSuccessors` object and then calls `process_successors()` so that other mixins can fill it out.
 
-The default list of engines is, by default:
+angr's default engine, the `UberEngine`, contains several mixins which provide the `process_successors()` method:
 
-- `SimEngineFailure`
-- `SimEngineSyscall`
-- `SimEngineHook`
-- `SimEngineUnicorn`
-- `SimEngineVEX`
+- `SimEngineFailure` - handles stepping states with degenerate jumpkinds
+- `SimEngineSyscall` - handles stepping states which have performed a syscall and need it executed
+- `HooksMixin` - handles stepping states which have reached a hooked address and need the hook executed
+- `SimEngineUnicorn` - executes machine code via the unicorn engine
+- `SootMixin` - executes java bytecode via the SOOT IR
+- `HeavyVEXMixin` - executes machine code via the VEX IR
 
-Each engine has a `check()` method, which quickly determines whether it is appropriate for usage.
-If `check()` passes, `process()` will be used to actually produce the successors.
-Even if `check()` passes, `process()` may fail, by returning a `SimSuccessors` object with the `.processed` attribute set to `False`.
-Both of these methods receive all remaining step parameters.
-Some useful parameters are `addr` and `jumpkind`, which serve as overrides for the respective pieces of information that would usually be extracted for the state.
+Each of these mixins is implemented to fill out the `SimSuccessors` object if they can handle the current state, otherwise they call `super()` to pass the job on to the next class in the stack. 
 
-Finally, once an engine has processed a state, the results are briefly postprocessed in order to fix up the instruction pointer in the case of a syscall.
-If the execution ended with a jumpkind matching `Ijk_Sys*`, then a call into `SimOS` is made to retrieve an address for the current syscall, and the instruction pointer of the result state is changed to that address.
-The original address is stored in the state register named `ip_at_syscall`.
-This is not necessary for pure execution, but in static analysis it is helpful to have syscalls be at separate addresses from normal code.
-
-## Engines
+## Engine mixins
 
 `SimEngineFailure` handles error cases. 
 It is only used when the previous jumpkind is one of `Ijk_EmFail`, `Ijk_MapFail`, `Ijk_Sig*`, `Ijk_NoDecode` (but only if the address is not hooked), or `Ijk_Exit`.
@@ -113,16 +103,15 @@ In the last case, its action is to simply produce no successors.
 It is used when the previous jumpkind is anything of the form `Ijk_Sys*`.
 It works by making a call into `SimOS` to retrieve the SimProcedure that should be run to respond to this syscall, and then running it! Pretty simple.
 
-`SimEngineHook` provides the hooking functionality in angr.
+`HooksMixin` provides the hooking functionality in angr.
 It is used when a state is at an address that is hooked, and the previous jumpkind is *not* `Ijk_NoHook`.
 It simply looks up the associated SimProcedure and runs it on the state!
-It also has the parameter `procedure`, which will cause `check` to always succeed, and this procedure will be used instead of the SimProcedure that would be obtained from a hook, so you can provide this parameter to simply execute a procedure on a given state as a round of execution, if you ever have a meaningful use case for that.
-
-Note that both the syscall and hook engines take advantage of the `SimEngineProcedure` engine.
-This isn't quite a subclass relationship, but it resembles one.
+It also takes the parameter `procedure`, which will cause the given procedure to be run for the current step even if the address is not hooked.
 
 `SimEngineUnicorn` performs concrete execution with the Unicorn Engine.
 It is used when the state option `o.UNICORN` is enabled, and a myriad of other conditions designed for maximum efficiency (described below) are met.
+
+`SootMixin` performs execution over the SOOT IR. Not very important unless you are analyzing java bytecode, in which case it is very important.
 
 `SimEngineVEX` is the big fellow.
 It is used whenever any of the previous can't be used.
@@ -131,18 +120,6 @@ There are a huge number of parameters that can control this process, so I will m
 
 The exact process by which SimEngineVEX digs into an IRSB is a little complicated, but essentially it runs all the block's statements in order.
 This code is worth reading if you want to see the true inner core of angr's symbolic execution.
-
-### Engine instances
-
-In addition to parameters to the stepping process, you can also instantiate new versions of these engines!
-Look at the API docs to see what options each engine can take.
-Once you have a new engine instance, you can either pass it into the step process, or directly put it into the `project.engines` list for automatic use.
-
-For example, to insert a new instance of `SimEngineVEX` (with different parameters) into the list for automatic use:
-```python
-project.engines.register_plugin('myEngine', SimEngineVEX(...))
-```
-Then, modify `project.engines.order` to indicate with what priority `myEngine` should be tried.
 
 # When using Unicorn Engine
 
