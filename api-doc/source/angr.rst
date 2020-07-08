@@ -226,7 +226,6 @@ Analysis
 .. automodule:: angr.analyses.forward_analysis.visitors.graph
 .. automodule:: angr.analyses.forward_analysis.visitors.loop
 .. automodule:: angr.analyses.forward_analysis.visitors.single_node_graph
-.. automodule:: angr.analyses.forward_analysis.visitors.cfg
 .. automodule:: angr.analyses.backward_slice
 .. automodule:: angr.analyses.bindiff
 .. automodule:: angr.analyses.boyscout
