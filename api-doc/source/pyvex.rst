@@ -40,7 +40,6 @@ Builtin IR Processors
 .. automodule:: pyvex.lifting.zerodivision
 .. automodule:: pyvex.lifting.gym.arm_spotter
 .. automodule:: pyvex.lifting.gym.aarch64_spotter
-.. automodule:: pyvex.lifting.gym.x86_spotter
 
 Errors
 ------
