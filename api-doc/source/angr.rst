@@ -62,14 +62,61 @@ Storage
 .. automodule:: angr.storage
 .. automodule:: angr.state_plugins.view
 .. automodule:: angr.storage.file
-.. automodule:: angr.storage.memory
-.. automodule:: angr.state_plugins.symbolic_memory
-.. automodule:: angr.state_plugins.abstract_memory
-.. automodule:: angr.storage.kvstore
 .. automodule:: angr.storage.memory_object
 .. automodule:: angr.storage.pcap
-.. automodule:: angr.storage.paged_memory
 .. automodule:: angr.concretization_strategies
+
+Memory Mixins
+-------------
+
+.. automodule:: angr.storage.memory_mixins
+.. automodule:: angr.storage.memory_mixins.name_resolution_mixin
+.. automodule:: angr.storage.memory_mixins.smart_find_mixin
+.. automodule:: angr.storage.memory_mixins.default_filler_mixin
+.. automodule:: angr.storage.memory_mixins.bvv_conversion_mixin
+.. automodule:: angr.storage.memory_mixins.hex_dumper_mixin
+.. automodule:: angr.storage.memory_mixins.underconstrained_mixin
+.. automodule:: angr.storage.memory_mixins.simple_interface_mixin
+.. automodule:: angr.storage.memory_mixins.actions_mixin
+.. automodule:: angr.storage.memory_mixins.symbolic_merger_mixin
+.. automodule:: angr.storage.memory_mixins.size_resolution_mixin
+.. automodule:: angr.storage.memory_mixins.dirty_addrs_mixin
+.. automodule:: angr.storage.memory_mixins.address_concretization_mixin
+.. automodule:: angr.storage.memory_mixins.clouseau_mixin
+.. automodule:: angr.storage.memory_mixins.conditional_store_mixin
+.. automodule:: angr.storage.memory_mixins.simplification_mixin
+.. automodule:: angr.storage.memory_mixins.unwrapper_mixin
+.. automodule:: angr.storage.memory_mixins.convenient_mappings_mixin
+
+.. automodule:: angr.storage.memory_mixins.paged_memory
+.. automodule:: angr.storage.memory_mixins.paged_memory.paged_memory_mixin
+.. automodule:: angr.storage.memory_mixins.paged_memory.page_backer_mixins
+.. automodule:: angr.storage.memory_mixins.paged_memory.stack_allocation_mixin
+.. automodule:: angr.storage.memory_mixins.paged_memory.privileged_mixin
+.. automodule:: angr.storage.memory_mixins.paged_memory.pages
+.. automodule:: angr.storage.memory_mixins.paged_memory.pages.refcount_mixin
+.. automodule:: angr.storage.memory_mixins.paged_memory.pages.permissions_mixin
+.. automodule:: angr.storage.memory_mixins.paged_memory.pages.ispo_mixin
+.. automodule:: angr.storage.memory_mixins.paged_memory.pages.cooperation
+.. automodule:: angr.storage.memory_mixins.paged_memory.pages.list_page
+.. automodule:: angr.storage.memory_mixins.paged_memory.pages.ultra_page
+
+.. automodule:: angr.storage.memory_mixins.regioned_memory
+.. automodule:: angr.storage.memory_mixins.regioned_memory.regioned_memory_mixin
+.. automodule:: angr.storage.memory_mixins.regioned_memory.region_data
+.. automodule:: angr.storage.memory_mixins.regioned_memory.region_category_mixin
+.. automodule:: angr.storage.memory_mixins.regioned_memory.static_find_mixin
+.. automodule:: angr.storage.memory_mixins.regioned_memory.abstract_address_descriptor
+.. automodule:: angr.storage.memory_mixins.regioned_memory.region_meta_mixin
+.. automodule:: angr.storage.memory_mixins.regioned_memory.abstract_merger_mixin
+
+.. automodule:: angr.storage.memory_mixins.slotted_memory
+
+.. automodule:: angr.storage.memory_mixins.keyvalue_memory
+.. automodule:: angr.storage.memory_mixins.keyvalue_memory.keyvalue_memory_mixin
+
+.. automodule:: angr.storage.memory_mixins.javavm_memory
+.. automodule:: angr.storage.memory_mixins.javavm_memory.javavm_memory_mixin
 
 Concretization Strategies
 -------------------------
