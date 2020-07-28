@@ -269,8 +269,11 @@ Analysis
 .. automodule:: angr.angrdb.serializers.xrefs
 .. automodule:: angr.analyses.decompiler.structurer
 .. automodule:: angr.analyses.decompiler
+.. automodule:: angr.analyses.decompiler.ail_simplifier
 .. automodule:: angr.analyses.decompiler.ailblock_walker
 .. automodule:: angr.analyses.decompiler.ailgraph_walker
+.. automodule:: angr.analyses.decompiler.block_simplifier
+.. automodule:: angr.analyses.decompiler.callsite_maker
 .. automodule:: angr.analyses.decompiler.clinic
 .. automodule:: angr.analyses.decompiler.condition_processor
 .. automodule:: angr.analyses.decompiler.decompilation_options
