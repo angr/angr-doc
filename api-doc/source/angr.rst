@@ -29,7 +29,6 @@ Program State
 .. automodule:: angr.state_plugins.solver
 .. automodule:: angr.state_plugins.log
 .. automodule:: angr.state_plugins.callstack
-.. automodule:: angr.state_plugins.fast_memory
 .. automodule:: angr.state_plugins.light_registers
 .. automodule:: angr.state_plugins.history
 .. automodule:: angr.state_plugins.gdb
@@ -42,10 +41,8 @@ Program State
 .. automodule:: angr.state_plugins.unicorn_engine
 .. automodule:: angr.state_plugins.loop_data
 .. automodule:: angr.state_plugins.concrete
-.. automodule:: angr.state_plugins.keyvalue_memory
 .. automodule:: angr.state_plugins.javavm_classloader
 .. automodule:: angr.state_plugins.jni_references
-.. automodule:: angr.state_plugins.javavm_memory
 .. automodule:: angr.state_plugins.heap
 .. automodule:: angr.state_plugins.heap.heap_base
 .. automodule:: angr.state_plugins.heap.heap_brk
