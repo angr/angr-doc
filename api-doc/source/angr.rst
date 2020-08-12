@@ -169,7 +169,7 @@ Knowledge Base
 .. automodule:: angr.knowledge_plugins.cfg.memory_data
 .. automodule:: angr.knowledge_plugins.cfg.cfg_manager
 .. automodule:: angr.knowledge_plugins.cfg.cfg_node
-.. automodule:: angr.knowledge_plugins.cfg.indirect_jump 
+.. automodule:: angr.knowledge_plugins.cfg.indirect_jump
 .. automodule:: angr.knowledge_plugins.propagations
 .. automodule:: angr.knowledge_plugins.comments
 .. automodule:: angr.knowledge_plugins.data
@@ -192,6 +192,7 @@ Knowledge Base
 .. automodule:: angr.knowledge_plugins.key_definitions.key_definition_manager
 .. automodule:: angr.knowledge_plugins.key_definitions.live_definitions
 .. automodule:: angr.knowledge_plugins.key_definitions.rd_model
+.. automodule:: angr.knowledge_plugins.key_definitions.tag
 .. automodule:: angr.knowledge_plugins.key_definitions.undefined
 .. automodule:: angr.knowledge_plugins.key_definitions.uses
 .. automodule:: angr.knowledge_plugins.sync
