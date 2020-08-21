@@ -222,7 +222,7 @@ Example:
 
 ### Backends
 
-CLE currently has backends for statically loading ELF, PE, CGC, Mach-O and ELF core dump files, as well as loading binaries with IDA and loading files into a flat address space. CLE will automatically detect the correct backend to use in most cases, so you shouldn't need to specify which backend you're using unless you're doing some pretty weird stuff.
+CLE currently has backends for statically loading ELF, PE, CGC, Mach-O and ELF core dump files, as well as loading files into a flat address space. CLE will automatically detect the correct backend to use in most cases, so you shouldn't need to specify which backend you're using unless you're doing some pretty weird stuff.
 
 You can force CLE to use a specific backend for an object by including a key in its options dictionary, as described above. Some backends cannot autodetect which architecture to use and _must_ have a `arch` specified. The key doesn't need to match any list of architectures; angr will identify which architecture you mean given almost any common identifier for any supported arch.
 
@@ -236,7 +236,6 @@ To refer to a backend, use the name from this table:
 | cgc | Static loader for Cyber Grand Challenge binaries | no |
 | backedcgc | Static loader for CGC binaries that allows specifying memory and register backers | no |
 | elfcore | Static loader for ELF core dumps | no |
-| ida | Launches an instance of IDA to parse the file | yes |
 | blob | Loads the file into memory as a flat image | yes |
 
 ## Symbolic Function Summaries
