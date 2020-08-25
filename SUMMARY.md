@@ -21,6 +21,7 @@
 * Advanced Topics
   * [Gotchas](docs/gotchas.md)
   * [The Whole Pipeline](docs/pipeline.md)
+  * [The Mixin Pattern](docs/mixins.md)
   * [Optimizing Symbolic Execution](docs/speed.md)
   * [The Emulated Filesystem](docs/file_system.md)
   * [Intermediate Representation](docs/ir.md)
