@@ -238,6 +238,7 @@ Knowledge Base
 .. automodule:: angr.knowledge_plugins.key_definitions.rd_model
 .. automodule:: angr.knowledge_plugins.key_definitions.tag
 .. automodule:: angr.knowledge_plugins.key_definitions.undefined
+.. automodule:: angr.knowledge_plugins.key_definitions.unknown_size
 .. automodule:: angr.knowledge_plugins.key_definitions.uses
 .. automodule:: angr.knowledge_plugins.sync
 .. automodule:: angr.knowledge_plugins.sync.sync_manager
