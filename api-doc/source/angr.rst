@@ -106,6 +106,7 @@ Memory Mixins
 .. automodule:: angr.storage.memory_mixins.regioned_memory.abstract_address_descriptor
 .. automodule:: angr.storage.memory_mixins.regioned_memory.region_meta_mixin
 .. automodule:: angr.storage.memory_mixins.regioned_memory.abstract_merger_mixin
+.. automodule:: angr.storage.memory_mixins.regioned_memory.regioned_address_concretization_mixin
 
 .. automodule:: angr.storage.memory_mixins.slotted_memory
 
@@ -129,6 +130,7 @@ Concretization Strategies
 .. automodule:: angr.concretization_strategies.nonzero
 .. automodule:: angr.concretization_strategies.any
 .. automodule:: angr.concretization_strategies.controlled_data
+.. automodule:: angr.concretization_strategies.unlimited_range
 
 
 Simulation Manager
