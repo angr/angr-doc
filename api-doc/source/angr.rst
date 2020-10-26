@@ -180,6 +180,11 @@ Simulation Engines
 .. automodule:: angr.engines.soot.engine
 .. automodule:: angr.engines.unicorn
 .. automodule:: angr.engines.concrete
+.. automodule:: angr.engines.pcode
+.. automodule:: angr.engines.pcode.engine
+.. automodule:: angr.engines.pcode.lifter
+.. automodule:: angr.engines.pcode.emulate
+.. automodule:: angr.engines.pcode.behavior
 
 Simulation Logging
 ------------------
