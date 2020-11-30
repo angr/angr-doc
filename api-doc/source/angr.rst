@@ -240,6 +240,7 @@ Knowledge Base
 .. automodule:: angr.knowledge_plugins.key_definitions.constants
 .. automodule:: angr.knowledge_plugins.key_definitions.dataset
 .. automodule:: angr.knowledge_plugins.key_definitions.definition
+.. automodule:: angr.knowledge_plugins.key_definitions.heap_address
 .. automodule:: angr.knowledge_plugins.key_definitions.key_definition_manager
 .. automodule:: angr.knowledge_plugins.key_definitions.live_definitions
 .. automodule:: angr.knowledge_plugins.key_definitions.rd_model
@@ -365,6 +366,7 @@ Analysis
 .. automodule:: angr.analyses.reaching_definitions.engine_vex
 .. automodule:: angr.analyses.reaching_definitions.reaching_definitions
 .. automodule:: angr.analyses.reaching_definitions.dep_graph
+.. automodule:: angr.analyses.reaching_definitions.heap_allocator
 .. automodule:: angr.analyses.reaching_definitions.function_handler
 .. automodule:: angr.analyses.reaching_definitions.rd_state
 .. automodule:: angr.analyses.reaching_definitions.subject
