@@ -34,7 +34,7 @@ With this construction, we are able to define a very simple interface in the `Ba
 This is accomplished through python's powerful multiple inheritance model, which handles method dispatch by creating a _method resolution order_, or MRO, which is unsuprisingly a list which determines the order in which methods are called as execution proceeds through `super()` calls.
 You can view a class' MRO as such:
 
-```
+```python
 FinalClass.__mro__
 
 (FinalClass, ArraysMixin, StringsMixin, Base, object)
