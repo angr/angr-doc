@@ -240,6 +240,7 @@ Knowledge Base
 .. automodule:: angr.knowledge_plugins.key_definitions.constants
 .. automodule:: angr.knowledge_plugins.key_definitions.dataset
 .. automodule:: angr.knowledge_plugins.key_definitions.definition
+.. automodule:: angr.knowledge_plugins.key_definitions.environment
 .. automodule:: angr.knowledge_plugins.key_definitions.heap_address
 .. automodule:: angr.knowledge_plugins.key_definitions.key_definition_manager
 .. automodule:: angr.knowledge_plugins.key_definitions.live_definitions
