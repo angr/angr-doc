@@ -6,6 +6,8 @@ Enjoy!
 
 There are also a great amount of slightly more redundant examples (these mostly stem from CTF problems solved with angr by Shellphish) [here](more-examples.md).
 
+If you want a high-level cheatsheet of the "techniques" used in the examples, see [the angr strategies cheatsheet](https://github.com/bordig-f/angr-strategies/blob/master/angr_strategies.md) by [Florent Bordignon](https://github.com/bordig-f).
+
 To jump to a specific category:
 
 - [Introduction](#introduction) - examples showing off the very basics of angr's functionality
