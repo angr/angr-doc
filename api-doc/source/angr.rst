@@ -351,6 +351,7 @@ Analysis
 .. automodule:: angr.analyses.decompiler.peephole_optimizations.bool_expr_xor_1
 .. automodule:: angr.analyses.decompiler.peephole_optimizations.coalesce_same_cascading_ifs
 .. automodule:: angr.analyses.decompiler.peephole_optimizations.constant_derefs
+.. automodule:: angr.analyses.decompiler.peephole_optimizations.conv_a_sub0_shr_and
 .. automodule:: angr.analyses.decompiler.peephole_optimizations.conv_shl_shr
 .. automodule:: angr.analyses.decompiler.peephole_optimizations.one_sub_bool
 .. automodule:: angr.analyses.decompiler.peephole_optimizations.remove_empty_if_body
