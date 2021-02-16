@@ -149,7 +149,7 @@ These are the most useful options when working with CFGFast:
 |--------|-------------|
 | force_complete_scan | (Default: True) Treat the entire binary as code for the purposes of function detection.  If you have a blob (e.g., mixed code and data) *you want to turn this off*. |
 | function_starts | A list of addresses, to use as entry points into the analysis. |
-| normalize | (Default: False) Normalize the resulting functions (e.g., each basic block belongs to at most one function) |
+| normalize | (Default: False) Normalize the resulting functions (e.g., each basic block belongs to at most one function, back-edges point to the start of basic blocks) |
 | resolve_indirect_jumps | (Default: True) Perform additional analysis to attempt to find targets for every indirect jump found during CFG creation. | 
 | more! | Examine the docstring on p.analyses.CFGFast for more up-to-date options |
 
