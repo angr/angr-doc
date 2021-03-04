@@ -37,6 +37,7 @@
   * [TODO: Writing Exploration Techniques](docs/exploration_techniques.md)
   * [Writing Analyses](docs/analysis_writing.md)
   * [TODO: Adding Support for New Architectures](docs/angr-bf.md)
+  * [Scripting angr management](docs/angr_management.md)
 * [Examples](docs/examples.md)
 * Appendix
   * [List of Claripy Operations](docs/appendices/ops.md)
