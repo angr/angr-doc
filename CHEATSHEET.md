@@ -88,7 +88,7 @@ Enable Logging output from Simulation Manager:
 
 ```python
 import logging
-logging.getLogger('angr.manager').setLevel(logging.DEBUG)
+logging.getLogger('angr.sim_manager').setLevel(logging.DEBUG)
 ```
 
 ### Stashes
