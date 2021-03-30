@@ -423,6 +423,7 @@ Analysis
 .. automodule:: angr.analyses.dominance_frontier
 .. automodule:: angr.analyses.init_finder
 .. automodule:: angr.analyses.xrefs
+.. automodule:: angr.analyses.proximity_graph
 .. automodule:: angr.blade
 .. automodule:: angr.slicer
 .. automodule:: angr.annocfg
