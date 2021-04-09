@@ -9,7 +9,7 @@ angr has several features to make this less of a headache.
 angr has a system for representing types.
 These SimTypes are found in `angr.types` - an instance of any of these classes represents a type.
 Many of the types are incomplete unless they are supplamented with a SimState - their size depends on the architecture you're running under.
-You may do this with `ty.with_state(state)`, which returns a copy of itself, with the state specified.
+You may do this with `ty.with_arch(arch)`, which returns a copy of itself, with the architecture specified.
 
 angr also has a light wrapper around `pycparser`, which is a C parser.
 This helps with getting instances of type objects:
