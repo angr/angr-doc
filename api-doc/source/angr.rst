@@ -235,6 +235,8 @@ Knowledge Base
 .. automodule:: angr.knowledge_plugins.variables
 .. automodule:: angr.knowledge_plugins.variables.variable_access
 .. automodule:: angr.knowledge_plugins.variables.variable_manager
+.. automodule:: angr.knowledge_plugins.structured_code
+.. automodule:: angr.knowledge_plugins.structured_code.manager
 .. automodule:: angr.knowledge_plugins.key_definitions
 .. automodule:: angr.knowledge_plugins.key_definitions.atoms
 .. automodule:: angr.knowledge_plugins.key_definitions.constants
