@@ -145,7 +145,7 @@ Additionally, the endness of the program being analyzed can be found as `arch.me
 ```python
 >>> import archinfo
 >>> s.memory.load(0x4000, 4, endness=archinfo.Endness.LE)
-<BV32 0x67453201>
+<BV32 0x67452301>
 ```
 
 There is also a low-level interface for register access, `state.registers`, that uses the exact same API as `state.memory`, but explaining its behavior involves a [dive](ir.md) into the abstractions that angr uses to seamlessly work with multiple architectures.
