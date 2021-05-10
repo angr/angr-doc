@@ -244,7 +244,6 @@ Knowledge Base
 .. automodule:: angr.knowledge_plugins.key_definitions
 .. automodule:: angr.knowledge_plugins.key_definitions.atoms
 .. automodule:: angr.knowledge_plugins.key_definitions.constants
-.. automodule:: angr.knowledge_plugins.key_definitions.dataset
 .. automodule:: angr.knowledge_plugins.key_definitions.definition
 .. automodule:: angr.knowledge_plugins.key_definitions.environment
 .. automodule:: angr.knowledge_plugins.key_definitions.heap_address
