@@ -84,6 +84,10 @@ Memory Mixins
 .. automodule:: angr.storage.memory_mixins.simplification_mixin
 .. automodule:: angr.storage.memory_mixins.unwrapper_mixin
 .. automodule:: angr.storage.memory_mixins.convenient_mappings_mixin
+.. automodule:: angr.storage.memory_mixins.paged_memory.pages.mv_list_page
+.. automodule:: angr.storage.memory_mixins.paged_memory.pages.multi_values
+.. automodule:: angr.storage.memory_mixins.top_merger_mixin
+.. automodule:: angr.storage.memory_mixins.multi_value_merger_mixin
 
 .. automodule:: angr.storage.memory_mixins.paged_memory
 .. automodule:: angr.storage.memory_mixins.paged_memory.paged_memory_mixin
@@ -240,7 +244,6 @@ Knowledge Base
 .. automodule:: angr.knowledge_plugins.key_definitions
 .. automodule:: angr.knowledge_plugins.key_definitions.atoms
 .. automodule:: angr.knowledge_plugins.key_definitions.constants
-.. automodule:: angr.knowledge_plugins.key_definitions.dataset
 .. automodule:: angr.knowledge_plugins.key_definitions.definition
 .. automodule:: angr.knowledge_plugins.key_definitions.environment
 .. automodule:: angr.knowledge_plugins.key_definitions.heap_address
@@ -380,6 +383,7 @@ Analysis
 .. automodule:: angr.analyses.propagator.engine_vex
 .. automodule:: angr.analyses.propagator.engine_ail
 .. automodule:: angr.analyses.propagator.propagator
+.. automodule:: angr.analyses.propagator.top_checker_mixin
 .. automodule:: angr.analyses.reaching_definitions
 .. automodule:: angr.analyses.reaching_definitions.call_trace
 .. automodule:: angr.analyses.reaching_definitions.engine_vex
