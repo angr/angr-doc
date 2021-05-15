@@ -1,3 +1,19 @@
+
+# Before You Start
+
+Using and exploring angr in IPython (or other Python command line interpreters) is a main use case that we design angr for.
+When you are not sure what interfaces are available, tab completion is your friend!
+
+Sometimes tab completion in IPython can be slow.
+We find the following workaround helpful without degrading the validity of completion results:
+
+```python
+# Drop this file in IPython profile's startup directory to avoid running it every time.
+import IPython
+py = IPython.get_ipython()
+py.Completer.use_jedi = False
+```
+
 # Core Concepts
 
 Before getting started with angr, you'll need to have a basic overview of some fundamental angr concepts and how to construct some basic angr objects.
