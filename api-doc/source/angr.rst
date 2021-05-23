@@ -370,6 +370,9 @@ Analysis
 .. automodule:: angr.analyses.decompiler.region_simplifier
 .. automodule:: angr.analyses.decompiler.sequence_walker
 .. automodule:: angr.analyses.decompiler.structured_codegen
+.. automodule:: angr.analyses.decompiler.structured_codegen.base
+.. automodule:: angr.analyses.decompiler.structured_codegen.c
+.. automodule:: angr.analyses.decompiler.structured_codegen.dwarf_import
 .. automodule:: angr.analyses.decompiler.structurer_nodes
 .. automodule:: angr.analyses.decompiler.utils
 .. automodule:: angr.analyses.ddg
