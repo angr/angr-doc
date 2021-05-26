@@ -59,7 +59,7 @@ entry_state.options.add(angr.options.SYMBION_SYNC_CLE)
 simgr = project.factory.simgr(state)
 ```
 
-* **SYMBION_KEEP_STUBS_ON_SYNC**: this option controls how we re-hook external functions with SimProcedures. If the project has been initialized to use SimProcedures (use_sim_procedures=True), we are going to re-hook external functions with SimProcedures (if we have that particular implementation) or with a generic stub. If you want to execute SimProcedures just for functions for which we have an available implementation and the real code for the ones we have not, set this option to the SimState before initializing the SimulationManager.
+* **SYMBION_KEEP_STUBS_ON_SYNC**: this option controls how we re-hook external functions with SimProcedures. If the project has been initialized to use SimProcedures (use_sim_procedures=True), we are going to re-hook external functions with SimProcedures (if we have that particular implementation) or with a generic stub. If you want to execute SimProcedures for functions for which we have an available implementation and a generic stub SimProcedure for the ones we have not, set this option to the SimState before initializing the SimulationManager. In the other case, we are going to execute the real code for the external functions that miss a SimProcedure (no generic stub is going to be used).
 ```python
 entry_state.options.add(angr.options.SYMBION_KEEP_STUBS_ON_SYNC)
 simgr = project.factory.simgr(state)
