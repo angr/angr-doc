@@ -455,6 +455,7 @@ SimOS
 Utils
 -----
 .. automodule:: angr.utils
+.. automodule:: angr.utils.algo
 .. automodule:: angr.utils.constants
 .. automodule:: angr.utils.enums_conv
 .. automodule:: angr.utils.graph
