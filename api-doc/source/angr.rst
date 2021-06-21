@@ -365,6 +365,7 @@ Analysis
 .. automodule:: angr.analyses.decompiler.peephole_optimizations.remove_redundant_ite_branch
 .. automodule:: angr.analyses.decompiler.peephole_optimizations.remove_redundant_nots
 .. automodule:: angr.analyses.decompiler.peephole_optimizations.remove_redundant_shifts
+.. automodule:: angr.analyses.decompiler.peephole_optimizations.simplify_pc_relative_loads
 .. automodule:: angr.analyses.decompiler.peephole_optimizations.single_bit_xor
 .. automodule:: angr.analyses.decompiler.region_identifier
 .. automodule:: angr.analyses.decompiler.region_simplifier
