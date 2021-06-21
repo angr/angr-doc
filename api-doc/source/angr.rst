@@ -350,10 +350,13 @@ Analysis
 .. automodule:: angr.analyses.decompiler.optimization_passes.multi_simplifier
 .. automodule:: angr.analyses.decompiler.optimization_passes.mod_simplifier
 .. automodule:: angr.analyses.decompiler.optimization_passes.engine_base
+.. automodule:: angr.analyses.decompiler.optimization_passes.register_save_area_simplifier
 .. automodule:: angr.analyses.decompiler.peephole_optimizations
 .. automodule:: angr.analyses.decompiler.peephole_optimizations.base
 .. automodule:: angr.analyses.decompiler.peephole_optimizations.a_sub_a_sub_n
 .. automodule:: angr.analyses.decompiler.peephole_optimizations.bool_expr_xor_1
+.. automodule:: angr.analyses.decompiler.peephole_optimizations.basepointeroffset_and_mask
+.. automodule:: angr.analyses.decompiler.peephole_optimizations.basepointeroffset_add_n
 .. automodule:: angr.analyses.decompiler.peephole_optimizations.extended_byte_and_mask
 .. automodule:: angr.analyses.decompiler.peephole_optimizations.coalesce_same_cascading_ifs
 .. automodule:: angr.analyses.decompiler.peephole_optimizations.constant_derefs
