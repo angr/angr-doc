@@ -22,19 +22,6 @@ We've created several tracking issues on github to understand what's still missi
 3. [cle](https://github.com/angr/cle/issues/29)
 4. [pyvex](https://github.com/angr/pyvex/issues/34)
 
-#### How to write a docstring
-
-All of our API documentation is parsed out of module, class, and function docstrings.
-Currently, new code is only required to have all its _classes_ (not methods, though method docs are appreciated) documented; this is checked in a linting pass.
-These docstrings are written in sphinx ReStructuredText.
-You can use [this page](http://openalea.gforge.inria.fr/doc/openalea/doc/_build/html/source/sphinx/rest_syntax.html#auto-document-your-python-code) as a reference for how to do general markup in RST, and you can use [this page](https://www.sphinx-doc.org/en/master/usage/restructuredtext/domains.html#info-field-lists) as a reference for how to insert directives that describe semantics of python objects.
-
-The most important part of a docstring, however, is that it should provide context.
-Do _not_ under any circumstances write a docstring which doesn't provide more information than the name of the class.
-What you should try to write is a description of the environment that the class should be used in.
-If the class should not be instantiated by end-users, write a description of where it will be generated and how instances can be acquired.
-If the class should be instanciated by end-users, explain what kind of object it represents at its core, what behavior is expected of its parameters, and how to safely manage objects of its type.
-
 ### GitBook
 
 This book is missing some core areas.

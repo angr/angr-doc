@@ -55,7 +55,13 @@ Document your code. Every _class definition_ and _public function definition_ sh
 * What are the type and the meaning of the parameters.
 * What it returns.
 
-We use [Sphinx](http://www.sphinx-doc.org/en/stable/) to generate the API documentation. Sphinx supports special [keywords](http://www.sphinx-doc.org/en/stable/domains.html#info-field-lists) to document function parameters, return values, return types etc.
+Class docstrings will be enforced by our linter.
+Do _not_ under any circumstances write a docstring which doesn't provide more information than the name of the class.
+What you should try to write is a description of the environment that the class should be used in.
+If the class should not be instantiated by end-users, write a description of where it will be generated and how instances can be acquired.
+If the class should be instanciated by end-users, explain what kind of object it represents at its core, what behavior is expected of its parameters, and how to safely manage objects of its type.
+
+We use [Sphinx](http://www.sphinx-doc.org/en/stable/) to generate the API documentation. Sphinx supports docstrings written in [ReStructured Text](http://openalea.gforge.inria.fr/doc/openalea/doc/_build/html/source/sphinx/rest_syntax.html#auto-document-your-python-code) with special [keywords](http://www.sphinx-doc.org/en/stable/domains.html#info-field-lists) to document function and class parameters, return values, return types, members, etc.
 
 Here is an example of function documentation. Ideally the parameter descriptions should be aligned vertically to make the docstrings as readable as possible.
 
@@ -73,6 +79,8 @@ def prune(self, filter_func=None, from_stash=None, to_stash=None):
 ```
 
 This format has the advantage that the function parameters are clearly identified in the generated documentation. However, it can make the documentation repetitive, in some cases a textual description can be more readable. Pick the format you feel is more appropriate for the functions or classes you are documenting.
+
+
 
 ```python
  def read_bytes(self, addr, n):
