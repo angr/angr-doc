@@ -412,7 +412,7 @@ Knowledge Base
 .. automodule:: angr.knowledge_plugins.key_definitions.unknown_size
 .. automodule:: angr.knowledge_plugins.key_definitions.uses
 .. automodule:: angr.knowledge_plugins.sync
-.. automodule:: angr.knowledge_plugins.sync.sync_manager
+.. automodule:: angr.knowledge_plugins.sync.sync_controller
 .. automodule:: angr.knowledge_plugins.xrefs
 .. automodule:: angr.knowledge_plugins.xrefs.xref
 .. automodule:: angr.knowledge_plugins.xrefs.xref_types
