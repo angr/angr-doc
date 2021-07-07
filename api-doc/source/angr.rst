@@ -587,6 +587,9 @@ Analysis
 .. automodule:: angr.analyses.veritesting
 .. automodule:: angr.analyses.vfg
 .. automodule:: angr.analyses.vsa_ddg
+.. automodule:: angr.analyses.vtable
+.. automodule:: angr.analyses.find_objects_static
+.. automodule:: angr.analyses.class_identifier
 .. automodule:: angr.analyses.disassembly
 .. automodule:: angr.analyses.disassembly_utils
 .. automodule:: angr.analyses.reassembler
