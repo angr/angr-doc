@@ -6,7 +6,7 @@ def _path(d):
 
 def test_api_coverage():
     missing = []
-    exclude = ['angr.tablespecs', 'angr.service', 'angr.analyses.girlscout', 'angr.analyses.vtable', 'angr.analyses.find_objects_static', 'angr.analyses.class_identifier', 'pyvex.vex_ffi', 'claripy.backends.remotetasks', 'claripy.backends.backendremote', 'cle.backends.idabin']
+    exclude = ['angr.tablespecs', 'angr.service', 'angr.analyses.girlscout', 'pyvex.vex_ffi', 'claripy.backends.remotetasks', 'claripy.backends.backendremote', 'cle.backends.idabin']
     exclude_prefix = ['angr.procedures', 'angr.analyses.identifier', 'angr.misc', 'angr.protos', 'angr.engines.vex', 'angr.engines.soot', 'claripy.utils', 'cle.backends.externs.simdata', 'angr.knowledge_plugins.sync']
     for module in ['angr', 'claripy', 'cle', 'pyvex', 'archinfo']:
         docs_file = _path('api-doc/source/%s.rst' % module)
