@@ -52,7 +52,6 @@ Program State
 .. automodule:: angr.state_plugins.heap.utils
 .. automodule:: angr.state_plugins.symbolizer
 
-
 Storage
 -------
 
@@ -539,6 +538,7 @@ Analysis
 .. automodule:: angr.analyses.decompiler.structurer_nodes
 .. automodule:: angr.analyses.decompiler.utils
 .. automodule:: angr.analyses.ddg
+.. automodule:: angr.analyses.flirt
 .. automodule:: angr.engines.light.data
 .. automodule:: angr.engines.light
 .. automodule:: angr.engines.light.engine
@@ -614,6 +614,13 @@ SimOS
 .. automodule:: angr.simos.userland
 .. automodule:: angr.simos.windows
 .. automodule:: angr.simos.javavm
+
+Function Signature Matching
+---------------------------
+
+.. automodule:: angr.flirt
+.. automodule:: angr.flirt.build_sig
+
 
 Utils
 -----
