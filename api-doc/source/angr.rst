@@ -483,6 +483,8 @@ Analysis
 .. automodule:: angr.angrdb.serializers.labels
 .. automodule:: angr.angrdb.serializers.loader
 .. automodule:: angr.angrdb.serializers.xrefs
+.. automodule:: angr.angrdb.serializers.variables
+.. automodule:: angr.angrdb.serializers.structured_code
 .. automodule:: angr.analyses.decompiler.structurer
 .. automodule:: angr.analyses.decompiler
 .. automodule:: angr.analyses.decompiler.ail_simplifier
@@ -535,6 +537,7 @@ Analysis
 .. automodule:: angr.analyses.decompiler.structured_codegen.base
 .. automodule:: angr.analyses.decompiler.structured_codegen.c
 .. automodule:: angr.analyses.decompiler.structured_codegen.dwarf_import
+.. automodule:: angr.analyses.decompiler.structured_codegen.dummy
 .. automodule:: angr.analyses.decompiler.structurer_nodes
 .. automodule:: angr.analyses.decompiler.utils
 .. automodule:: angr.analyses.ddg
