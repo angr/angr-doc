@@ -52,7 +52,7 @@ def main():
         if b"Chugga" in x.posix.dumps(1):
             y.append(x)
 
-    #grab the first ouptut
+    #grab the first output
     valid = y[0].posix.dumps(0)
 
     #parse and turn into final flag
