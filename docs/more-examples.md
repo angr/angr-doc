@@ -172,21 +172,6 @@ load the [binary](https://github.com/angr/angr-doc/blob/master/examples/0ctf_mom
 Be aware that the [script](https://github.com/angr/angr-doc/blob/master/examples/0ctf_momo_3/solve.py) is really slow. Runtime: > 1 hour.
 
 
-## CrackMe example: Layer7 CTF 2015 - Windows challenge OnlyOne
-
-Author: Fish Wang (github: @ltfish)
-
-We solved this crackme with angr’s help.
-(Fish: This is my first time solving a reversing challenge without understanding what’s going on.)
-The challenge binary is [here](https://github.com/angr/angr-doc/tree/master/examples/layer7_onlyone/onlyone.exe), and the solving script [here](https://github.com/angr/angr-doc/tree/master/examples/layer7_onlyone/solve.py).
-
-The solving script demonstrates the following:
-- How to load a Windows binary (no difference than an ELF).
-- How to use hook to replace arbitrary code in a loaded program.
-- How to use Explorer to perform a symbolic exploration (although everyone else thinks PathGroup is the future).
-- How to enable Veritesting, and why it is useful.
-
-
 ## CrackMe example: 9447 CTF 2015 - Reversing 330, "nobranch"
 
 Author: Audrey Dutcher (github: @rhelmot)
