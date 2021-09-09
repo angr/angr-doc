@@ -495,6 +495,7 @@ Analysis
 .. automodule:: angr.analyses.decompiler.clinic
 .. automodule:: angr.analyses.decompiler.condition_processor
 .. automodule:: angr.analyses.decompiler.decompilation_options
+.. automodule:: angr.analyses.decompiler.decompilation_cache
 .. automodule:: angr.analyses.decompiler.decompiler
 .. automodule:: angr.analyses.decompiler.empty_node_remover
 .. automodule:: angr.analyses.decompiler.graph_region
