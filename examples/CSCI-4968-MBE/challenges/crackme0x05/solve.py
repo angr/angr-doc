@@ -26,7 +26,7 @@ def main():
     sm = proj.factory.simulation_manager()
     sm.explore(find=correct, avoid=wrong)
 
-    #print sm.found[0].posix.dumps(1)
+    #print(sm.found[0].posix.dumps(1))
     return sm.found[0].posix.dumps(0) # .lstrip('+0').rstrip('B')
 
 def test():

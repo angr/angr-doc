@@ -53,8 +53,8 @@ def main(argv):
         child.stdin.write(fill(ropchain, '\xFF', 4096))
         answer_word = child.stdout.read()
         child.wait()
-        print >>sys.stderr, "EXPECTED:", repr(secret_word)
-        print >>sys.stderr, "GOT.....:", repr(answer_word)
+        print("EXPECTED: {}".format(repr(secret_word)), file=sys.stderr)
+        print("GOT.....: {}".format(repr(answer_word)), file=sys.stderr)
         if secret_word != answer_word:
             print_msg("NG")
             break

@@ -1,7 +1,7 @@
 import angr
 import logging
 
-print "WARNING: THIS EXAMPLE IS BROKEN RIGHT NOW"
+print("WARNING: THIS EXAMPLE IS BROKEN RIGHT NOW")
 
 def main():
     p = angr.Project("r200", auto_load_libs=False)
@@ -21,4 +21,4 @@ def test():
 if __name__ == '__main__':
     logging.getLogger('angr.manager').setLevel('DEBUG')
     logging.getLogger('angr.exploration_techniques.manual_mergepoint').setLevel('DEBUG')
-    print main()
+    print(main())

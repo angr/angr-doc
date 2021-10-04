@@ -21,7 +21,7 @@ def main():
 	sm.explore(find=FIND_ADDR, avoid=AVOID_ADDR)
 
 	# embed()
-	#print sm.found[0].posix.dumps(1)
+	#print(sm.found[0].posix.dumps(1))
 	return sm.found[0].posix.dumps(0) # .lstrip('+0').rstrip('B')
 
 def test():
