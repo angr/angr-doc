@@ -1,4 +1,4 @@
-#Symbion: Interleaving symbolic and concrete execution
+# Symbion: Interleaving symbolic and concrete execution
 
 Let's suppose you want to symbolically analyze a specific function of a program, but there is a huge initialization step that you want to skip because it is not necessary for your analysis, or cannot properly be emulated by angr. For example, maybe your program is running on an embedded system and you have access to a debug interface, but you can't easily replicate the hardware in a simulated environment.
 
