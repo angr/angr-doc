@@ -151,6 +151,7 @@ Exploration Techniques
 .. automodule:: angr.exploration_techniques.lengthlimiter
 .. automodule:: angr.exploration_techniques.manual_mergepoint
 .. automodule:: angr.exploration_techniques.spiller
+.. automodule:: angr.exploration_techniques.spiller_db
 .. automodule:: angr.exploration_techniques.threading
 .. automodule:: angr.exploration_techniques.veritesting
 .. automodule:: angr.exploration_techniques.tracer
