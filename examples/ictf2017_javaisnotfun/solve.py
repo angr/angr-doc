@@ -7,6 +7,7 @@ from angr.procedures.java import JavaSimProcedure
 from archinfo.arch_soot import SootMethodDescriptor, SootAddressDescriptor
 from  angr.storage.file import Flags
 import claripy
+from claripy.backends.backend_smtlib_solvers import z3str_popen  # pylint:disable=unused-import
 
 
 # This is a solution for the challenge javaisnotfun at ictf2017

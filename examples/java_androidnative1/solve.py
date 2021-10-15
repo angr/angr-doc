@@ -4,6 +4,7 @@ import angr
 from angr.procedures.java import JavaSimProcedure
 from angr.engines.soot.values import SimSootValue_ThisRef
 from archinfo.arch_soot import SootArgument, SootMethodDescriptor
+from claripy.backends.backend_smtlib_solvers import z3str_popen  # pylint:disable=unused-import
 
 
 file_dir = os.path.dirname(os.path.realpath(__file__))
