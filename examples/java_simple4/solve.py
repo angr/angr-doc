@@ -10,7 +10,7 @@ self_dir = os.path.dirname(os.path.realpath(__file__))
 
 def test_java_simple4():
     binary_path = os.path.join(self_dir, "simple4.jar")
-    project = angr.Project(binary_path)
+    project = angr.Project(binary_path, auto_load_libs=False)
     entry = project.factory.entry_state()
     simgr = project.factory.simgr(entry)
     simgr.explore()
