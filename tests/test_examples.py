@@ -36,6 +36,7 @@ def test_CADET_00001(): exampletest_single('CADET_00001') # 2m
 def test_cmu_binary_bomb(): exampletest_single('cmu_binary_bomb') # 3m
 @attr(speed='slow')
 def test_csaw_wyvern(): exampletest_single('csaw_wyvern') # 3m40s
+@attr(speed='slow')
 def test_b01lersctf(): exampletest_single('b01lersctf2020_little_engine')
 def test_defcamp_r100(): exampletest_single('defcamp_r100')
 #def test_defcamp_r200(): exampletest_single('defcamp_r200') # broken..?
