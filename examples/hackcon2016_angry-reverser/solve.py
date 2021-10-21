@@ -19,7 +19,7 @@ def main():
               0x4057f4, 0x405a2b]
 
 
-    proj = angr.Project('./yolomolo')
+    proj = angr.Project('./yolomolo', auto_load_libs=False)
     # Create blank state starting from crazy function
     # LAZY_SOLVES is very important here because we are actually collecting constraints for an equation Ax=b, where A is 20 by 20, x and b are 20 by 1
     state = proj.factory.blank_state(addr=crazy, add_options={angr.options.LAZY_SOLVES})

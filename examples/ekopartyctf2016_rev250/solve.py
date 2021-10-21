@@ -30,7 +30,7 @@ def char(state, c):
     return state.solver.And(c <= '~', c >= ' ')
 
 def main():
-    p = angr.Project('FUck_binary')
+    p = angr.Project('FUck_binary', auto_load_libs=False)
 
     print('creating state')
     flag = claripy.BVS('flag', BUF_LEN*8)
