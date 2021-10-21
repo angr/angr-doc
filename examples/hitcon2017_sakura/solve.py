@@ -35,7 +35,7 @@ def main():
         index = e.find(b'H\x89\xc7', index+1)
 
     # initialize project
-    proj = angr.Project('./sakura')
+    proj = angr.Project('./sakura', auto_load_libs=False)
     state = proj.factory.entry_state()
     simgr = proj.factory.simulation_manager(state)
 
