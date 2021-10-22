@@ -53,7 +53,7 @@ def main():
             'base_addr': 0x400770,
             'arch': 'mipsel',
         },
-    })
+        }, auto_load_libs=False)
 
     state = project.factory.blank_state(addr=MAIN_START)
     state.memory.store(FLAG_LOCATION, state.solver.BVS("flag", 8*32))

@@ -9,7 +9,7 @@ START_ADDR = 0x4007c2
 FIND_ADDR = 0x404fab  # This is right before the printf
 
 def main():
-    proj = angr.Project('angrybird')
+    proj = angr.Project('angrybird', auto_load_libs=False)
     # There's a couple anti-run instructions in this binary.
     # Yes, anti-run. That's not a typo.
 

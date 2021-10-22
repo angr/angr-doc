@@ -53,7 +53,7 @@ def find_symbolic_buffer(state, length):
             yield addr
 
 def main(binary):
-    p = angr.Project(binary)
+    p = angr.Project(binary, auto_load_libs=False)
 
     binary_name = os.path.basename(binary)
 

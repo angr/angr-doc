@@ -7,7 +7,7 @@ def patch_0(state):
 
 
 def main():
-    p = angr.Project("re400.exe")
+    p = angr.Project("re400.exe", auto_load_libs=False)
 
     # Patch out the part that is difficult for angr to solve
     p.hook(0x401f7e, patch_0, length=0x4028dd-0x401f7e)

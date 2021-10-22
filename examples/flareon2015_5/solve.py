@@ -28,7 +28,7 @@ def main():
     global ADDR_PW_ORI, ADDR_PW_ENC, ADDR_HASH
 
     # Load binary
-    p = angr.Project('sender')
+    p = angr.Project('sender', auto_load_libs=False)
 
     # Start with a blank state at the EIP after "key.txt" is read
     state = p.factory.blank_state(addr=0x401198)

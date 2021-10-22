@@ -18,7 +18,7 @@ import claripy
 def get_possible_flags():
     # load the binary
     print('[*] loading the binary')
-    p = angr.Project("whitehat_crypto400")
+    p = angr.Project("whitehat_crypto400", auto_load_libs=False)
 
     # this is a statically-linked binary, and it's easer for angr if we use Python
     # summaries for the libc functions

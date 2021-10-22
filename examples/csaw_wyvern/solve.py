@@ -9,7 +9,7 @@ def main():
     # its correct emulation by angr depends heavily on the libraries it is loaded with,
     # so if this script fails, try copying to this dir the .so files from our binaries repo:
     # https://github.com/angr/binaries/tree/master/tests/x86_64
-    p = angr.Project('wyvern')
+    p = angr.Project('wyvern', auto_load_libs=True)
 
     # It's reasonably easy to tell from looking at the program in IDA that the key will
     # be 29 bytes long, and the last byte is a newline. Let's construct a value of several

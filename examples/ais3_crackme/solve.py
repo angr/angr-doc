@@ -12,7 +12,7 @@ import claripy
 
 
 def main():
-    project = angr.Project("./ais3_crackme")
+    project = angr.Project("./ais3_crackme", auto_load_libs=False)
 
     #create an initial state with a symbolic bit vector as argv1
     argv1 = claripy.BVS("argv1",100*8) #since we do not the length now, we just put 100 bytes
