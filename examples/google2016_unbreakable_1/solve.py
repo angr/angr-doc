@@ -35,7 +35,7 @@ def char(state, n):
     return vec, state.solver.And(vec >= ord(' '), vec <= ord('~'))
 
 def main():
-    p = angr.Project('unbreakable')
+    p = angr.Project('unbreakable', auto_load_libs=False)
 
     print('adding BitVectors and constraints')
     state = p.factory.blank_state(addr=START_ADDR, add_options={angr.options.LAZY_SOLVES})

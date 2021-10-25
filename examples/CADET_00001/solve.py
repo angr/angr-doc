@@ -15,7 +15,7 @@ import angr
 
 
 def main():
-    project= angr.Project("./CADET_00001")
+    project= angr.Project("./CADET_00001", auto_load_libs=False)
 
     #let's find the buffer overflow (overwriting the return address)
     #overwriting the return pointer with user-controllable data will generate

@@ -14,7 +14,7 @@ def basic_symbolic_execution():
     # We can use this as a basic demonstration of using angr for symbolic
     # execution. First, we load the binary into an angr project.
 
-    p = angr.Project('fauxware')
+    p = angr.Project('fauxware', auto_load_libs=False)
 
     # Now, we want to construct a representation of symbolic program state.
     # SimState objects are what angr manipulates when it symbolically executes

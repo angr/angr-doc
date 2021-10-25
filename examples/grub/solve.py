@@ -39,7 +39,7 @@ class SearchForNull(angr.ExplorationTechnique):
         return len(simgr.found)
 
 def setup_project():
-    project = angr.Project('crypto.mod')
+    project = angr.Project('crypto.mod', auto_load_libs=False)
 
     # use libc functions as stand-ins for grub functions
     memset = angr.SIM_PROCEDURES['libc']['memset']

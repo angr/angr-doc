@@ -1,7 +1,7 @@
 import angr
 
 def main():
-    p = angr.Project("r100")
+    p = angr.Project("r100", auto_load_libs=False)
     simgr = p.factory.simulation_manager(p.factory.full_init_state())
     simgr.explore(find=0x400844, avoid=0x400855)
 
