@@ -643,6 +643,7 @@ Utils
 .. automodule:: angr.utils.graph
 .. automodule:: angr.utils.library
 .. automodule:: angr.utils.timing
+.. automodule:: angr.utils.formatting
 
 Errors
 ------
