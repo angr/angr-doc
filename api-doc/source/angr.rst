@@ -80,6 +80,7 @@ Memory Mixins
 .. automodule:: angr.storage.memory_mixins.address_concretization_mixin
 .. automodule:: angr.storage.memory_mixins.clouseau_mixin
 .. automodule:: angr.storage.memory_mixins.conditional_store_mixin
+.. automodule:: angr.storage.memory_mixins.label_merger_mixin
 .. automodule:: angr.storage.memory_mixins.simplification_mixin
 .. automodule:: angr.storage.memory_mixins.unwrapper_mixin
 .. automodule:: angr.storage.memory_mixins.convenient_mappings_mixin
