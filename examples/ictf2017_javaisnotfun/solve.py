@@ -114,7 +114,8 @@ def solve_given_numbers_angr(numbers):
 
     binary_path = os.path.join(self_dir, "bin/service.jar")
     jni_options = {'jni_libs': ['libnotfun.so']}
-    project = angr.Project(binary_path, main_opts=jni_options)
+    # auto_load_libs can not be disabled as the test case fails.
+    project = angr.Project(binary_path, main_opts=jni_options, auto_load_libs=True)
     # hooks
     project.hook(SootMethodDescriptor(class_name="java.util.Random", name="nextInt", params=('int',)).address(), Random_nextInt())
     project.hook(SootMethodDescriptor(class_name="java.lang.Integer", name="valueOf", params=('int',)).address(), Dummy_valueOf())

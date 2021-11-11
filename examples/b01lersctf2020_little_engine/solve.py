@@ -18,7 +18,8 @@ def main():
     input_len = 1+75*4
 
     #seting up the angr project
-    p = angr.Project('./engine', main_opts={'base_addr': base_addr})
+    # auto_load_libs can't be disabled as the test fails.
+    p = angr.Project('./engine', main_opts={'base_addr': base_addr}, auto_load_libs=True)
 
     #looking at the code/binary, we can tell the input string is expected to fill 22 bytes,
     # thus the 8 byte symbolic size. Hopefully we can find the constraints the binary
