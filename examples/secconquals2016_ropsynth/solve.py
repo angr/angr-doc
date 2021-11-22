@@ -71,6 +71,7 @@ def get_gadgets():
     This is where most of the magic happens -- get_gadgets loads our constructed ELF with
     our gadgets, recovers the ropchain and the conditions, and fixes up the ropchain.
     """
+    # auto_load_libs can't be disabled as the test fails
     p = angr.Project('gadgets.elf')
 
     # Amazingly, angr's CFG can deal with this franken-elf.

@@ -22,6 +22,7 @@ def main():
 
     # By default, angr will use a sim procedure instead of going through malloc
     # This will tell angr to go ahead and use libc's calloc
+    # auto_load_libs can't be disabled as the test case fails.
     proj = angr.Project("./simple_heap_overflow", exclude_sim_procedures_list=["calloc"],
             ld_path=os.path.join(DIR, '../../../binaries/tests/x86_64'))
 

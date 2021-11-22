@@ -18,7 +18,7 @@ def main():
     # Android NDK library path:
     # load_options['ld_path'] = ['/Users/berndt/Tools/android-ndk-r10e/platforms/android-21/arch-arm/usr/lib']
 
-    b = angr.Project("./validate", load_options = load_options)
+    b = angr.Project("./validate", load_options = load_options, auto_load_libs=False)
 
     # The key validation function starts at 0x401760, so that's where we create the initial state.
     # This speeds things up a lot because we're bypassing the Base32-encoder.

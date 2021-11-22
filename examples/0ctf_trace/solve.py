@@ -47,13 +47,17 @@ def main():
 
     # data.bin is simply the binary assembled from trace,
     # starting on 0x400770
-    project = angr.Project("./data.bin", load_options={
-        'main_opts': {
-            'backend': 'blob',
-            'base_addr': 0x400770,
-            'arch': 'mipsel',
+    project = angr.Project(
+        "./data.bin",
+        load_options={
+            'main_opts': {
+                'backend': 'blob',
+                'base_addr': 0x400770,
+                'arch': 'mipsel',
+            },
         },
-        }, auto_load_libs=False)
+        auto_load_libs=False,
+    )
 
     state = project.factory.blank_state(addr=MAIN_START)
     state.memory.store(FLAG_LOCATION, state.solver.BVS("flag", 8*32))
