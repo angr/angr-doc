@@ -8,7 +8,7 @@ from unittest import skipIf
 
 
 def slow_test(func):
-    func.slow = True
+    func.speed = "slow"
     slow_test_env = (
         os.environ["SKIP_SLOW_TESTS"].lower()
         if "SKIP_SLOW_TESTS" in os.environ
