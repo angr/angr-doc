@@ -39,7 +39,7 @@ def exampletest_single(example_dir):
 
 ## BEGIN EXAMPLE TESTS
 # @slow_test
-# def test_9447_nobranch(): exampletest_single('9447_nobranch') # hours? also broken right now
+# def test_9447_nobranch(): exampletest_single("9447_nobranch") # hours? also broken right now
 def test_0ctf_trace():
     exampletest_single("0ctf_trace")
 
@@ -81,7 +81,7 @@ def test_defcamp_r100():
     exampletest_single("defcamp_r100")
 
 
-# def test_defcamp_r200(): exampletest_single('defcamp_r200') # broken..?
+# def test_defcamp_r200(): exampletest_single("defcamp_r200") # broken..?
 def test_ekopartyctf2015_rev100():
     exampletest_single("ekopartyctf2015_rev100")
 
@@ -291,7 +291,7 @@ def test_example_inclusion():
 
     missing = []
     for line in to_test.strip().split("\n"):
-        if ("exampletest_single('%s')" % line) not in example_tests:
+        if ("exampletest_single(\"%s\")" % line) not in example_tests:
             missing.append(line)
     if missing:
         raise Exception(
