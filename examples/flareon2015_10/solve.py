@@ -34,10 +34,8 @@ def main():
     # code. Thanks to this awesome design by @rhelmot!
     p.hook(0xadc31, before_tea_decrypt, length=0)
 
-    # Declare the prototype of the target function
-    prototype = SimTypeFunction((SimTypeInt(False),), SimTypeInt(False))
     # Initialize the function instance
-    proc_big_68 = p.factory.callable(BIG_PROC, cc=p.factory.cc(func_ty=prototype), toc=None, concrete_only=True)
+    proc_big_68 = p.factory.callable(BIG_PROC, prototype='unsigned foo(unsigned)', toc=None, concrete_only=True)
     # Call the function and get the final state
     proc_big_68.perform_call(0)
     state = proc_big_68.result_state
