@@ -74,9 +74,9 @@ def find_bug(project, function, args):
     return simgr.found[0].posix.dumps(0)
 
 def test():
-    assert find_bug(setup_project(), 'grub_password_get', (angr.PointerWrapper(b'\0'*64), 64)) == b'\x08\x08\x08\x08\x08\x08\x08\x08\x08\x08\x08\x08\r'
+    assert find_bug(setup_project(), 'grub_password_get', (angr.PointerWrapper(b'\0'*64, buffer=True), 64)) == b'\x08\x08\x08\x08\x08\x08\x08\x08\x08\x08\x08\x08\r'
 
 if __name__ == '__main__':
     logging.getLogger('angr.sim_manager').setLevel('DEBUG')
     p = setup_project()
-    find_bug(p, 'grub_password_get', (angr.PointerWrapper('\0'*64), 64))
+    find_bug(p, 'grub_password_get', (angr.PointerWrapper('\0'*64, buffer=True), 64))
