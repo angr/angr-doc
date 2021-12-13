@@ -76,8 +76,8 @@ Now that you know how angr's type system works, you can unlock the full power of
 Any type that's registered with the types module can be used to extract data from memory.
 
 ```python
->>> b = angr.Project('examples/fauxware/fauxware')
->>> s = b.factory.entry_state()
+>>> p = angr.Project('examples/fauxware/fauxware')
+>>> s = p.factory.entry_state()
 >>> s.mem[0x601048]
 <<untyped> <unresolvable> at 0x601048>
 
@@ -132,7 +132,7 @@ The interface works like this:
 If you define a struct using `register_types(parse_type(struct_expr))`, you can access it here as a type:
 
 ```python
->>> s.mem[b.entry].struct.abcd
+>>> s.mem[p.entry].struct.abcd
 <struct abcd {
   .x = <BV32 0x8949ed31>,
   .y = <BV32 0x89485ed1>
@@ -142,41 +142,37 @@ If you define a struct using `register_types(parse_type(struct_expr))`, you can 
 ## Working with Calling Conventions
 
 A calling convention is the specific means by which code passes arguments and return values through function calls.
-While angr comes with a large number of pre-built calling conventions, and a lot of logic for refining calling conventions for specific circumstances (e.g. floating point arguments need to be stored in different locations, it gets worse from there), it will inevitably be insufficient to describe all possible calling conventions a compiler could generate.
-Because of this, you can _customize_ a calling convention by describing where the arguments and return values should live.
-
 angr's abstraction of calling conventions is called SimCC.
-You can construct new SimCC instances through the angr object factory, with `b.factory.cc(...)`.
+You can construct new SimCC instances through the angr object factory, with `p.factory.cc(...)`.
+This will give a calling convention which is guessed based your guest architecture and OS.
+If angr guesses wrong, you can explicitly pick one of the calling conventions in the `angr.calling_conventions` module.
 
-- Pass as the `args` keyword argument a list of argument storage locations
-- Pass as the `ret_val` keyword argument the location where the return value should be stored
-- Pass as the `func_ty` keyword argument a SymType for the function prototype.
-- Pass it none of these things to use a sane default for the current architecture!
+If you have a very wacky calling convention, you can use `angr.calling_conventions.SimCCUsercall`.
+This will ask you to specify locations for the arguments and the return value.
+To do this, use instances of the `SimRegArg` or `SimStackArg` classes.
+You can find them in the factory - `p.factory.cc.Sim*Arg`.
 
-To specify a value location for the `args` or `ret_val` parameters, use instances of the `SimRegArg` or `SimStackArg` classes.
-You can find them in the factory - `b.factory.cc.Sim*Arg`.
-Register arguments should be instantiated with the name of the register you're storing the value in, and the size of the register in bytes.
-Stack arguments should be instantiated with the offset from the stack pointer *at the time of entry into the function* and the size of the storage location, in bytes.
-
-Once you have a SimCC object, you can use it along with a SimState object to extract or store function arguments more cleanly.
+Once you have a SimCC object, you can use it along with a SimState object and a function prototype (a SimTypeFunction) to extract or store function arguments more cleanly.
 Take a look at the [API documentation](http://angr.io/api-doc/angr.html#angr.calling_conventions.SimCC) for details.
-Alternately, you can pass it to an interface that can use it to modify its own behavior, like `b.factory.call_state`, or...
+Alternately, you can pass it to an interface that can use it to modify its own behavior, like `p.factory.call_state`, or...
 
 ## Callables
 
 <a name=callables></a>
 
 Callables are a Foreign Functions Interface (FFI) for symbolic execution.
-Basic callable usage is to create one with `myfunc = b.factory.callable(addr)`, and then call it! `result = myfunc(args, ...)`
+Basic callable usage is to create one with `myfunc = p.factory.callable(addr)`, and then call it! `result = myfunc(args, ...)`
 When you call the callable, angr will set up a `call_state` at the given address, dump the given arguments into memory, and run a `path_group` based on this state until all the paths have exited from the function.
 Then, it merges all the result states together, pulls the return value out of that state, and returns it.
 
-All the interaction with the state happens with the aid of a `SimCC`, to tell where to put the arguments and where to get the return value.
-By default, it uses a sane default for the architecture, but if you'd like to customize it, you can pass a `SimCC` object in the `cc` keyword argument when constructing the callable.
+All the interaction with the state happens with the aid of a `SimCC` and a `SimTypeFunction`, to tell where to put the arguments and where to get the return value.
+It will try to use a sane default for the architecture, but if you'd like to customize it, you can pass a `SimCC` object in the `cc` keyword argument when constructing the callable.
+The `SimTypeFunction` is required - you must pass the `prototype` parameter.
+If you pass a string to this parameter it will be parsed as a function declaration.
 
 You can pass symbolic data as function arguments, and everything will work fine.
 You can even pass more complicated data, like strings, lists, and structures as native python data (use tuples for structures), and it'll be serialized as cleanly as possible into the state.
-If you'd like to specify a pointer to a certain value, you can wrap it in a `PointerWrapper` object, available as `b.factory.callable.PointerWrapper`.
+If you'd like to specify a pointer to a certain value, you can wrap it in a `PointerWrapper` object, available as `p.factory.callable.PointerWrapper`.
 The exact semantics of how pointer-wrapping work are a little confusing, but they can be boiled down to "unless you specify it with a PointerWrapper or a specific SimArrayType, nothing will be wrapped in a pointer automatically unless it gets to the end and it hasn't yet been wrapped in a pointer yet and the original type is a string, array, or tuple."
 The relevant code is actually in SimCC - it's the `setup_callsite` function.
 

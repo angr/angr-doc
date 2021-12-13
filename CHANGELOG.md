@@ -3,6 +3,19 @@
 This lists the *major* changes in angr.
 Tracking minor changes are left as an exercise for the reader :-)
 
+## angr 9.1
+
+- (#2961) Refactored SimCC to support passing and returning structs and arrays by value
+- (#2964) Functions from the knowledge base may now be pretty-printed, showing colors and reference arrows
+- Improved `import angr` speed substantially
+- (#2948) RDA's `dep_graph` can now be used to track dependencies between temporaries, constants, guard conditions, and function calls - if you want it!
+- (#2929) Basic support for structs with bitfields in SimType
+- There's a decompiler now
+
+## angr 9.0
+
+- Switched to a new versioning scheme: major.minor.build_id
+
 ## angr 8.19.7.25
 
 - (#1503) Implement necessary helpers and information storage for call pretty printing

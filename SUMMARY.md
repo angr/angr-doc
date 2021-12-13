@@ -43,5 +43,6 @@
   * [List of Claripy Operations](docs/appendices/ops.md)
   * [List of State Options](docs/appendices/options.md)
   * [Changelog](CHANGELOG.md)
-  * [Migrating to angr 8](MIGRATION.md)
+  * [Migrating to angr 9.1](MIGRATION.md)
+  * [Migrating to angr 8](docs/migration-8.md)
   * [Migrating to angr 7](docs/migration-7.md)
