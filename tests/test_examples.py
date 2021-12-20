@@ -159,8 +159,7 @@ def test_secconquals2016_ropsynth(): exampletest_single('secconquals2016_ropsynt
 
 
 @slow_test
-def test_0ctf_momo_3():
-    exampletest_single("0ctf_momo_3")  # 16m
+def test_0ctf_momo_3(): exampletest_single('0ctf_momo_3') # 16m
 
 
 def test_defcon2016quals_baby_re():
@@ -220,8 +219,7 @@ def test_angrybird():
 
 
 @slow_test
-def test_mbrainfuzz():
-    exampletest_single("secuinside2016mbrainfuzz")  # 1m46s
+def test_mbrainfuzz(): exampletest_single('secuinside2016mbrainfuzz') # 1m46s
 
 
 def test_unmapped_analysis():
@@ -229,8 +227,7 @@ def test_unmapped_analysis():
 
 
 @slow_test
-def test_zwiebel():
-    exampletest_single("tumctf2016_zwiebel")  # ~45m
+def test_zwiebel(): exampletest_single('tumctf2016_zwiebel') # ~45m
 
 
 def test_csgames2018():
@@ -258,8 +255,7 @@ def test_java_androidnative1():
 
 
 @slow_test
-def test_defcon2019quals_veryandroidoso():
-    exampletest_single("defcon2019quals_veryandroidoso")
+def test_defcon2019quals_veryandroidoso(): exampletest_single('defcon2019quals_veryandroidoso')
 
 
 ## END EXAMPLE TESTS
