@@ -156,9 +156,8 @@ def test_whitehatvn2015_re400():
 @slow_test
 @flaky(max_runs=3, min_passes=1)
 def test_secconquals2016_ropsynth():
-    exampletest_single(
-        "secconquals2016_ropsynth"
-    )  # technically not that slow but impossible to run under multiprocessing
+    exampletest_single("secconquals2016_ropsynth")
+    # technically not that slow but impossible to run under multiprocessing
 
 
 @slow_test
