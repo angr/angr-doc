@@ -494,6 +494,9 @@ Analysis
 .. automodule:: angr.analyses.decompiler.ailgraph_walker
 .. automodule:: angr.analyses.decompiler.block_simplifier
 .. automodule:: angr.analyses.decompiler.callsite_maker
+.. automodule:: angr.analyses.decompiler.ccall_rewriters
+.. automodule:: angr.analyses.decompiler.ccall_rewriters.rewriter_base
+.. automodule:: angr.analyses.decompiler.ccall_rewriters.amd64_ccalls
 .. automodule:: angr.analyses.decompiler.clinic
 .. automodule:: angr.analyses.decompiler.condition_processor
 .. automodule:: angr.analyses.decompiler.decompilation_options
@@ -534,7 +537,16 @@ Analysis
 .. automodule:: angr.analyses.decompiler.peephole_optimizations.simplify_pc_relative_loads
 .. automodule:: angr.analyses.decompiler.peephole_optimizations.single_bit_xor
 .. automodule:: angr.analyses.decompiler.region_identifier
-.. automodule:: angr.analyses.decompiler.region_simplifier
+.. automodule:: angr.analyses.decompiler.region_simplifiers
+.. automodule:: angr.analyses.decompiler.region_simplifiers.cascading_cond_transformer
+.. automodule:: angr.analyses.decompiler.region_simplifiers.cascading_ifs
+.. automodule:: angr.analyses.decompiler.region_simplifiers.expr_folding
+.. automodule:: angr.analyses.decompiler.region_simplifiers.goto
+.. automodule:: angr.analyses.decompiler.region_simplifiers.if_
+.. automodule:: angr.analyses.decompiler.region_simplifiers.ifelse
+.. automodule:: angr.analyses.decompiler.region_simplifiers.loop
+.. automodule:: angr.analyses.decompiler.region_simplifiers.node_address_finder
+.. automodule:: angr.analyses.decompiler.region_simplifiers.region_simplifier
 .. automodule:: angr.analyses.decompiler.sequence_walker
 .. automodule:: angr.analyses.decompiler.structured_codegen
 .. automodule:: angr.analyses.decompiler.structured_codegen.base
