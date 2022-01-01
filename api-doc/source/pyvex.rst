@@ -45,3 +45,8 @@ Errors
 ------
 
 .. automodule:: pyvex.errors
+
+Utilities
+---------
+
+.. automodule:: pyvex.utils
