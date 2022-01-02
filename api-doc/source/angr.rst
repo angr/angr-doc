@@ -97,6 +97,7 @@ Memory Mixins
 .. automodule:: angr.storage.memory_mixins.paged_memory.pages
 .. automodule:: angr.storage.memory_mixins.paged_memory.pages.refcount_mixin
 .. automodule:: angr.storage.memory_mixins.paged_memory.pages.permissions_mixin
+.. automodule:: angr.storage.memory_mixins.paged_memory.pages.history_tracking_mixin
 .. automodule:: angr.storage.memory_mixins.paged_memory.pages.ispo_mixin
 .. automodule:: angr.storage.memory_mixins.paged_memory.pages.cooperation
 .. automodule:: angr.storage.memory_mixins.paged_memory.pages.list_page
