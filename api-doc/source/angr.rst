@@ -624,6 +624,10 @@ Analysis
 .. automodule:: angr.analyses.init_finder
 .. automodule:: angr.analyses.xrefs
 .. automodule:: angr.analyses.proximity_graph
+.. automodule:: angr.analyses.data_dependency.data_dependency_graph
+.. automodule:: angr.analyses.data_dependency.sim_act_location
+.. automodule:: angr.analyses.data_dependency.dep_nodes
+.. automodule:: angr.analyses.data_dependency
 .. automodule:: angr.blade
 .. automodule:: angr.slicer
 .. automodule:: angr.annocfg
