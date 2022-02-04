@@ -10,7 +10,7 @@ Here are the breaking changes:
 ### SimCCs can no longer be customized
 
 If you were using the `sp_delta`, `args`, or `ret_val` parameters to SimCC, you should use the new class
-`SimCCUsercall`, which lets (requires) you be explicit about the locations of each argument.
+`SimCCUsercall`, which lets (requires) you to be explicit about the locations of each argument.
 
 ### Passing SimTypes is now mandatory
 
@@ -22,6 +22,14 @@ This has some fairly non-intuitive consequences - in order to accommodate more e
 
 Additionally, some non-cc interfaces, such as `call_state` and `callable` and `SimProcedure.call()`, now _require_ a prototype to be passed to them.
 You'd be surprised how many bugs we found in our own code from enforcing this requirement!
+
+### PointerWrapper has a new parameter
+
+Imagine you're passing something into a function which has a parameter of type `char*`.
+Is this a pointer to a single char or a pointer to an array of chars?
+The answer changes how we typecheck the values you pass in.
+If you're passing a PointerWrapper wrapping a large value which should be treated as an array of chars, you should construct your pointerwrapper as `PointerWrapper(foo, buffer=True)`.
+The buffer argument to PointerWrapper now instructs SimCC to treat the data to be serialized as an array of the child type instead of as a scalar.
 
 ### `func_ty` -> `prototype`
 
