@@ -15,11 +15,11 @@ Cleaning up angr management's code is a top priority for us, so if you have some
 angr management opens with an IPython console ready for input.
 This console has in its namespace several objects which are important for manipulating angr management and its data.
 
-- First, the `main_window`. This is the `QMainWindow` instance for the application. It contains basic functions that correspond to top level buttons, such as loading a binary.
+- First, the `main_window`. This is the `QMainWindow` instance for the application. It contains basic functions that correspond to top-level buttons, such as loading a binary.
 - Next, the `workspace`. This is a light object which coordinates the UI elements and manages the tabbed environment. You can use it to access any analysis-related GUI element, such as the disassembly view.
 - Finally, the `instance`. This is angr management's data model. It contains mechanisms for synchronizing components on shared data sources, as well as logic for creating long-running jobs.
 
-`workspace` is also avaialble as an attribute on `main_window` and `instance` is available as an attribute on `workspace`.
+`workspace` is also available as an attribute on `main_window` and `instance` is available as an attribute on `workspace`.
 If you are programming in a namespace where none of these objects are available, you can import the `angrmanagment.logic.GlobalInfo` object, which contains a reference to `main_window`.
 
 ### The ObjectContainer
@@ -35,7 +35,7 @@ Then, you can notify listeners of changes by calling `instance.project.am_event(
 Note that events are NEVER automatically triggered - you must call `am_event` in order to trigger the callbacks.
 One useful feature of this model is that you can provide arbitrary keyword arguments to `am_event`, and they will be passed on to each callback.
 This means that you should always have your callbacks take `**kwargs` in order to account for unknown parameters.
-This feature is particularly useful to prevent feedback loops - if you ever find yourself in a situation where you need to broadcast an event from your callback, you can add an argument which you can use as a flag not to recurse any further.
+This feature is particularly useful to prevent feedback loops - if you ever find yourself in a situation where you need to broadcast an event from your callback, you can add an argument that you can use as a flag not to recurse any further.
 
 Next, object reference mutability.
 Let's say you have a widget that displays information about the project.
@@ -56,7 +56,7 @@ The result of this is that UI elements can either subscribe to the current state
 
 A full list of standard ObjectContainers that can be found in the [instance `__init__` method](https://github.com/angr/angr-management/blob/master/angrmanagement/data/instance.py).
 There are more containers floating around for synchronizing on non-global elements - for example, the current state of the disassembly view is synchronized through its InfoDock object.
-Given a disassembly view instance, you can subscribe to, for example, its current selected instrucitons through `view.infodock.selected_insns`.
+Given a disassembly view instance, you can subscribe to, for example, its current selected instructions through `view.infodock.selected_insns`.
 
 ### Manipulating UI elements
 
@@ -69,7 +69,7 @@ Additionally, you can pass any sort of object you like to `workspace.viz()` and 
 angr management has a very flexible plugin framework.
 A plugin is a python file containing a subclass of `angrmanagement.plugins.BasePlugin`.
 Plugin files will be automatically loaded from the `plugins` module of angr management, and also from `~/.local/share/angr-management/plugins`.
-These paths are configurable through the program configuration, but at time of writing this is not exposed in the UI.
+These paths are configurable through the program configuration, but at the time of writing, this is not exposed in the UI.
 
 The best way to see the tools you can use while building a plugin is to read the [plugin base class source code](https://github.com/angr/angr-management/blob/master/angrmanagement/plugins/base_plugin.py).
 Any method or attribute can be overridden from a base class and will be automatically called on relevant events.
