@@ -516,6 +516,7 @@ Analysis
 .. automodule:: angr.analyses.decompiler.optimization_passes.mod_simplifier
 .. automodule:: angr.analyses.decompiler.optimization_passes.engine_base
 .. automodule:: angr.analyses.decompiler.optimization_passes.register_save_area_simplifier
+.. automodule:: angr.analyses.decompiler.optimization_passes.ret_addr_save_simplifier
 .. automodule:: angr.analyses.decompiler.peephole_optimizations
 .. automodule:: angr.analyses.decompiler.peephole_optimizations.base
 .. automodule:: angr.analyses.decompiler.peephole_optimizations.a_sub_a_sub_n
@@ -536,6 +537,7 @@ Analysis
 .. automodule:: angr.analyses.decompiler.peephole_optimizations.remove_redundant_nots
 .. automodule:: angr.analyses.decompiler.peephole_optimizations.remove_redundant_shifts
 .. automodule:: angr.analyses.decompiler.peephole_optimizations.remove_redundant_conversions
+.. automodule:: angr.analyses.decompiler.peephole_optimizations.rewrite_mips_gp_loads
 .. automodule:: angr.analyses.decompiler.peephole_optimizations.simplify_pc_relative_loads
 .. automodule:: angr.analyses.decompiler.peephole_optimizations.single_bit_xor
 .. automodule:: angr.analyses.decompiler.region_identifier
