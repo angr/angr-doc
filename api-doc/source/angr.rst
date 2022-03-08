@@ -517,6 +517,7 @@ Analysis
 .. automodule:: angr.analyses.decompiler.optimization_passes.engine_base
 .. automodule:: angr.analyses.decompiler.optimization_passes.register_save_area_simplifier
 .. automodule:: angr.analyses.decompiler.optimization_passes.ret_addr_save_simplifier
+.. automodule:: angr.analyses.decompiler.optimization_passes.x86_gcc_getpc_simplifier
 .. automodule:: angr.analyses.decompiler.peephole_optimizations
 .. automodule:: angr.analyses.decompiler.peephole_optimizations.base
 .. automodule:: angr.analyses.decompiler.peephole_optimizations.a_sub_a_sub_n
