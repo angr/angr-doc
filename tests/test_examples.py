@@ -1,10 +1,9 @@
+import importlib
 import os
-import sys
 import subprocess
-from importlib import reload
+from unittest import skipIf
 
 from flaky import flaky
-from unittest import skipIf
 
 
 def slow_test(func):
@@ -26,14 +25,12 @@ def _path(d):
 def exampletest_single(example_dir):
     init_pwd = os.getcwd()
     os.chdir(_path("examples/") + example_dir)
-    print(os.getcwd())
-    sys.path.append(os.getcwd())
     try:
-        s = __import__("solve")
-        s = reload(s)
-        s.test()
+        spec = importlib.util.spec_from_file_location("solve", "solve.py")
+        module = importlib.util.module_from_spec(spec)
+        spec.loader.exec_module(module)
+        module.test()
     finally:
-        sys.path.pop()
         os.chdir(init_pwd)
 
 
@@ -153,13 +150,15 @@ def test_whitehatvn2015_re400():
     exampletest_single("whitehatvn2015_re400")
 
 
-@slow_test
+@slow_test # technically not that slow but impossible to run under multiprocessing
 @flaky(max_runs=3, min_passes=1)
-def test_secconquals2016_ropsynth(): exampletest_single("secconquals2016_ropsynth") # technically not that slow but impossible to run under multiprocessing
+def test_secconquals2016_ropsynth():
+    exampletest_single("secconquals2016_ropsynth")
 
 
 @slow_test
-def test_0ctf_momo_3(): exampletest_single("0ctf_momo_3") # 16m
+def test_0ctf_momo_3():
+    exampletest_single("0ctf_momo_3") # 16m
 
 
 def test_defcon2016quals_baby_re():
@@ -219,7 +218,8 @@ def test_angrybird():
 
 
 @slow_test
-def test_mbrainfuzz(): exampletest_single("secuinside2016mbrainfuzz") # 1m46s
+def test_mbrainfuzz():
+    exampletest_single("secuinside2016mbrainfuzz") # 1m46s
 
 
 def test_unmapped_analysis():
@@ -227,7 +227,8 @@ def test_unmapped_analysis():
 
 
 @slow_test
-def test_zwiebel(): exampletest_single("tumctf2016_zwiebel") # ~45m
+def test_zwiebel():
+    exampletest_single("tumctf2016_zwiebel") # ~45m
 
 
 def test_csgames2018():
@@ -255,7 +256,8 @@ def test_java_androidnative1():
 
 
 @slow_test
-def test_defcon2019quals_veryandroidoso(): exampletest_single("defcon2019quals_veryandroidoso")
+def test_defcon2019quals_veryandroidoso():
+    exampletest_single("defcon2019quals_veryandroidoso")
 
 
 ## END EXAMPLE TESTS
