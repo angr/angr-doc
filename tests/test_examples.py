@@ -1,7 +1,7 @@
+import importlib
 import os
 import sys
 import subprocess
-from importlib import reload
 
 from flaky import flaky
 from unittest import skipIf
@@ -26,14 +26,12 @@ def _path(d):
 def exampletest_single(example_dir):
     init_pwd = os.getcwd()
     os.chdir(_path("examples/") + example_dir)
-    print(os.getcwd())
-    sys.path.append(os.getcwd())
     try:
-        s = __import__("solve")
-        s = reload(s)
-        s.test()
+        spec = importlib.util.spec_from_file_location("solve", "solve.py")
+        module = importlib.util.module_from_spec(spec)
+        spec.loader.exec_module(module)
+        module.test()
     finally:
-        sys.path.pop()
         os.chdir(init_pwd)
 
 
