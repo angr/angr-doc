@@ -666,6 +666,7 @@ Utils
 .. automodule:: angr.utils.library
 .. automodule:: angr.utils.timing
 .. automodule:: angr.utils.formatting
+.. automodule:: angr.utils.mp
 
 Errors
 ------
