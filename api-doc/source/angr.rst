@@ -505,6 +505,7 @@ Analysis
 .. automodule:: angr.analyses.decompiler.decompiler
 .. automodule:: angr.analyses.decompiler.empty_node_remover
 .. automodule:: angr.analyses.decompiler.graph_region
+.. automodule:: angr.analyses.decompiler.jumptable_entry_condition_rewriter
 .. automodule:: angr.analyses.decompiler.optimization_passes
 .. automodule:: angr.analyses.decompiler.optimization_passes.const_derefs
 .. automodule:: angr.analyses.decompiler.optimization_passes.eager_returns
