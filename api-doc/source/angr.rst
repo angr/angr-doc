@@ -542,6 +542,13 @@ Analysis
 .. automodule:: angr.analyses.decompiler.peephole_optimizations.rewrite_mips_gp_loads
 .. automodule:: angr.analyses.decompiler.peephole_optimizations.simplify_pc_relative_loads
 .. automodule:: angr.analyses.decompiler.peephole_optimizations.single_bit_xor
+.. automodule:: angr.analyses.decompiler.peephole_optimizations.a_shl_const_sub_a
+.. automodule:: angr.analyses.decompiler.peephole_optimizations.a_div_const_add_a_mul_n_div_const
+.. automodule:: angr.analyses.decompiler.peephole_optimizations.bswap
+.. automodule:: angr.analyses.decompiler.peephole_optimizations.a_sub_a_div
+.. automodule:: angr.analyses.decompiler.peephole_optimizations.a_sub_a_div_const_mul_const
+.. automodule:: angr.analyses.decompiler.peephole_optimizations.a_mul_const_div_shr_const
+.. automodule:: angr.analyses.decompiler.peephole_optimizations.conv_const_mull_a_shift
 .. automodule:: angr.analyses.decompiler.region_identifier
 .. automodule:: angr.analyses.decompiler.region_simplifiers
 .. automodule:: angr.analyses.decompiler.region_simplifiers.cascading_cond_transformer
