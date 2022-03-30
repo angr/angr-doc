@@ -1,12 +1,12 @@
 # Optimization considerations
 
-The performance of angr as an analysis tool or emulator is greatly handicapped by the fact that lots of it is written in python.
+The performance of angr as an analysis tool or emulator is greatly handicapped by the fact that lots of it is written in Python.
 Regardless, there are a lot of optimizations and tweaks you can use to make angr faster and lighter.
 
 ## General speed tips
 
 - *Use pypy*.
-  [Pypy](http://pypy.org/) is an alternate python interpreter that performs optimized jitting of python code.
+  [Pypy](http://pypy.org/) is an alternate Python interpreter that performs optimized jitting of Python code.
   In our tests, it's a 10x speedup out of the box.
 - *Only use the SimEngine mixins that you need*. SimEngine uses a mixin model which allows you to add and remove features by constructing new classes. The default engine mixes in every possible features, and the consequence of that is that it is slower than it needs to be. Look at the definition for `UberEngine` (the default SimEngine), copy its declaration, and remove all the base classes which provide features you don't need.
 - *Don't load shared libraries unless you need them*.
@@ -67,7 +67,7 @@ Regardless, there are a lot of optimizations and tweaks you can use to make angr
 ## Memory optimization
 
 The golden rule for memory optimization is to make sure you're not keeping any references to data you don't care about anymore, especially related to states which have been left behind.
-If you find yourself running out of memory during analysis, the first thing you want to do is make sure you haven't caused a state explosion, meaning that the analysis is accumulating program states too quickly. If the state count is in control, then you can start looking for reference leaks. A good tool to do this with is https://github.com/rhelmot/dumpsterdiver, which gives you an interactive prompt for exploring the reference graph of a python process.
+If you find yourself running out of memory during analysis, the first thing you want to do is make sure you haven't caused a state explosion, meaning that the analysis is accumulating program states too quickly. If the state count is in control, then you can start looking for reference leaks. A good tool to do this with is https://github.com/rhelmot/dumpsterdiver, which gives you an interactive prompt for exploring the reference graph of a Python process.
 
 One specific consideration that should be made when analyzing programs with very long paths is that the state history is designed to accumulate data infinitely. This is less of a problem than it could be because the data is stored in a smart tree structure and never copied, but it will accumulate infinitely. To downsize a state's history and free all data related to old steps, call `state.history.trim()`.
 

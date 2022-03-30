@@ -77,10 +77,10 @@ Largely a bugfix release, but with a few bonus treats:
 ## angr 8.18.10.1
 
 Welcome to angr 8!
-The biggest change for this major version bump is the transition to python 3.
+The biggest change for this major version bump is the transition to Python 3.
 You can read about this, as well as a few other breaking changes, in the [migration guide](MIGRATION.md).
 
-- Switch to python 3
+- Switch to Python 3
 - Refactor to Clemory to clean up the API and speed things up drastically
 - Remove `object.symbols_by_addr` (dict) and add `object.symbols` (sorted list); add `fuzzy` parameter to `loader.find_symbol`
 - CFGFast is much, much faster now. CFGAccurate has been renamed to CFGEmulated.
@@ -212,7 +212,7 @@ The following are the major changes:
 - angr: we have deprecated `project.factory.sim_run` and changed it to to `project.factory.successors`, and it now generates a `SimSuccessors` object.
 - angr: `project.factory.sim_block` has been deprecated and replaced with `project.factory.successors(default_engine=True)`.
 - angr: angr syscalls are no longer hooks. Instead, the syscall table is now in `project._simos.syscall_table`. This will be made "public" after a usability refactor. If you were using `project.is_hooked(addr)` to see if an address has a related SimProcedure, now you probably want to check if there is a related syscall as well (using `project._simos.syscall_table.get_by_addr(addr) is not None`).
-- pyvex: to support custom lifters to VEX, pyvex has introduced the concept of backend lifters. Lifters can be written in pure python to produce VEX IR, allowing for extendability of angr's VEX-based analyses to other hardware architectures.
+- pyvex: to support custom lifters to VEX, pyvex has introduced the concept of backend lifters. Lifters can be written in pure Python to produce VEX IR, allowing for extendability of angr's VEX-based analyses to other hardware architectures.
 
 As usual, there are many other improvements and minor bugfixes.
 

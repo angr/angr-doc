@@ -2,11 +2,11 @@
 
 angr is a python library, so it must be installed into your python environment before it can be used. It is built for Python 3: Python 2 support is not feasible due to the looming EOL and the small size of our team.
 
-We highly recommend using a [python virtual environment](https://virtualenvwrapper.readthedocs.org/en/latest/) to install and use angr. Several of angr's dependencies (z3, pyvex) require libraries of native code that are forked from their originals, and if you already have libz3 or libVEX installed, you definitely don't want to overwrite the official shared objects with ours. In general, don't expect support for problems arising from installing angr outside of a virtualenv.
+We highly recommend using a [Python virtual environment](https://virtualenvwrapper.readthedocs.org/en/latest/) to install and use angr. Several of angr's dependencies (z3, pyvex) require libraries of native code that are forked from their originals, and if you already have libz3 or libVEX installed, you definitely don't want to overwrite the official shared objects with ours. In general, don't expect support for problems arising from installing angr outside of a virtualenv.
 
 ### Dependencies
 
-All of the python dependencies should be handled by pip and/or the setup.py scripts. You will, however, need to build some C to get from here to the end, so you'll need a good build environment as well as the python development headers. At some point in the dependency install process, you'll install the python library cffi, but (on linux, at least) it won't run unless you install your operating system's libffi package.
+All of the Python dependencies should be handled by pip and/or the setup.py scripts. You will, however, need to build some C to get from here to the end, so you'll need a good build environment as well as the Python development headers. At some point in the dependency install process, you'll install the Python library cffi, but (on linux, at least) it won't run unless you install your operating system's libffi package.
 
 On Ubuntu, you will want: `sudo apt-get install python3-dev libffi-dev build-essential virtualenvwrapper`. If you are trying out angr Management, you will also need the [PySide 2 requirements](https://wiki.qt.io/Qt_for_Python/GettingStarted).
 
@@ -105,7 +105,7 @@ You can branch/edit/recompile the various modules in-place, and it will automati
 
 The angr-dev repository has a setup.bat script that creates the same setup as above, though it's not as magical as setup.sh.
 Since we'll be building C code, you must be in the visual studio developer command prompt.
-*Make sure that if you're using a 64-bit python interpreter, you're also using the 64-bit build tools* (`VsDevCmd.bat -arch=x64`)
+*Make sure that if you're using a 64-bit Python interpreter, you're also using the 64-bit build tools* (`VsDevCmd.bat -arch=x64`)
 
 ```bash
 pip install virtualenv

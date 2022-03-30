@@ -127,7 +127,7 @@ The interface works like this:
 - Finally, extract the structured data with `.resolved` or `.concrete`.
   `.resolved` will return bitvector values, while `.concrete` will return integer, string, array, etc values, whatever best represents the data.
 - Alternately, you may store a value to memory, by assigning to the chain of properties that you've constructed.
-  Note that because of the way python works, `x = s.mem[...].prop; x = val` will NOT work, you must say `s.mem[...].prop = val`.
+  Note that because of the way Python works, `x = s.mem[...].prop; x = val` will NOT work, you must say `s.mem[...].prop = val`.
 
 If you define a struct using `register_types(parse_type(struct_expr))`, you can access it here as a type:
 
@@ -171,7 +171,7 @@ The `SimTypeFunction` is required - you must pass the `prototype` parameter.
 If you pass a string to this parameter it will be parsed as a function declaration.
 
 You can pass symbolic data as function arguments, and everything will work fine.
-You can even pass more complicated data, like strings, lists, and structures as native python data (use tuples for structures), and it'll be serialized as cleanly as possible into the state.
+You can even pass more complicated data, like strings, lists, and structures as native Python data (use tuples for structures), and it'll be serialized as cleanly as possible into the state.
 If you'd like to specify a pointer to a certain value, you can wrap it in a `PointerWrapper` object, available as `p.factory.callable.PointerWrapper`.
 The exact semantics of how pointer-wrapping work are a little confusing, but they can be boiled down to "unless you specify it with a PointerWrapper or a specific SimArrayType, nothing will be wrapped in a pointer automatically unless it gets to the end and it hasn't yet been wrapped in a pointer yet and the original type is a string, array, or tuple."
 The relevant code is actually in SimCC - it's the `setup_callsite` function.

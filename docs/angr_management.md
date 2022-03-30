@@ -67,7 +67,7 @@ Additionally, you can pass any sort of object you like to `workspace.viz()` and 
 ### Writing plugins
 
 angr management has a very flexible plugin framework.
-A plugin is a python file containing a subclass of `angrmanagement.plugins.BasePlugin`.
+A plugin is a Python file containing a subclass of `angrmanagement.plugins.BasePlugin`.
 Plugin files will be automatically loaded from the `plugins` module of angr management, and also from `~/.local/share/angr-management/plugins`.
 These paths are configurable through the program configuration, but at the time of writing, this is not exposed in the UI.
 

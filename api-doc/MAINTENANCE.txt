@@ -14,7 +14,7 @@ $ make html
 DEALING WITH LAYOUT
 -------------------
 
-So the thing about Sphinx is that it's not a python-specific framework, it's a general-purpose
+So the thing about Sphinx is that it's not a Python-specific framework, it's a general-purpose
 documentation generator. Sphinx docs are written in ReStructured Text (rst), a
 superset-cum-bastard-clone of Markdown. In order to do te neat thing where our docstrings are
 added to the documentation, there's this cool Sphinx plugin called "autodoc", which does
