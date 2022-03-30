@@ -61,7 +61,7 @@ This is a `SimActionObject`.
 Basically, you don't need to worry about it too much, it's just a thin wrapper over a normal bitvector.
 It does a bit of tracking of what exactly you do with it inside the SimProcedure---this is helpful for static analysis.
 
-You may also have noticed that we directly returned the python int `0` from the procedure.
+You may also have noticed that we directly returned the Python int `0` from the procedure.
 This will automatically be promoted to a word-sized bitvector!
 You can return a native number, a bitvector, or a SimActionObject.
 

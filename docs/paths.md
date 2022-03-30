@@ -63,7 +63,7 @@ Most of the time, a path will have one or two successors. When there are two suc
 ```
 
 To efficiently store information about path histories, angr employs a tree structure that resembles the actual symbolic execution tree.
-You should never have to worry about this, since through the magic of python we provide efficient accessors for information stored in the tree as it pertains to each stored historical property.
+You should never have to worry about this, since through the magic of Python we provide efficient accessors for information stored in the tree as it pertains to each stored historical property.
 The one thing you have to know is that this data structure doesn't allow efficient iteration through the historical lists in forward order - only in reverse order, from most recent to oldest.
 If you need to iterate or access items from these sequences starting from the beginning, you may access the `.hardcopy` property on them, which will extract the entirety of the property's history as a flat list for you to peruse at leisure.
 

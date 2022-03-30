@@ -1,9 +1,9 @@
 # Migrating to angr 8
 
-angr has moved from python 2 to python 3!
+angr has moved from Python 2 to Python 3!
 We took this opportunity of a major version bump to make a few breaking API changes that improve quality-of-life.
 
-## What do I need to know for migrating my scripts to python 3?
+## What do I need to know for migrating my scripts to Python 3?
 
 To begin, just the standard py3k changes, the relevant parts of which we'll rehash here as a reference guide:
 

@@ -112,7 +112,7 @@ Additionally, you can use a Block object to get other representations of the blo
 ```python
 >>> block.capstone                       # capstone disassembly
 <CapstoneBlock for 0x401670>
->>> block.vex                            # VEX IRSB (that's a python internal address, not a program address)
+>>> block.vex                            # VEX IRSB (that's a Python internal address, not a program address)
 <pyvex.block.IRSB at 0x7706330>
 ```
 
@@ -136,18 +136,18 @@ A SimState contains a program's memory, registers, filesystem data... any "live 
 <BV32 0x8949ed31>
 ```
 
-Those aren't python ints! Those are _bitvectors_. Python integers don't have the same semantics as words on a CPU, e.g. wrapping on overflow, so we work with bitvectors, which you can think of as an integer as represented by a series of bits, to represent CPU data in angr. Note that each bitvector has a `.length` property describing how wide it is in bits.
+Those aren't Python ints! Those are _bitvectors_. Python integers don't have the same semantics as words on a CPU, e.g. wrapping on overflow, so we work with bitvectors, which you can think of as an integer as represented by a series of bits, to represent CPU data in angr. Note that each bitvector has a `.length` property describing how wide it is in bits.
 
-We'll learn all about how to work with them soon, but for now, here's how to convert from python ints to bitvectors and back again:
+We'll learn all about how to work with them soon, but for now, here's how to convert from Python ints to bitvectors and back again:
 
 ```python
 >>> bv = state.solver.BVV(0x1234, 32)       # create a 32-bit-wide bitvector with value 0x1234
 <BV32 0x1234>                               # BVV stands for bitvector value
->>> state.solver.eval(bv)                # convert to python int
+>>> state.solver.eval(bv)                # convert to Python int
 0x1234
 ```
 
-You can store these bitvectors back to registers and memory, or you can directly store a python integer and it'll be converted to a bitvector of the appropriate size:
+You can store these bitvectors back to registers and memory, or you can directly store a Python integer and it'll be converted to a bitvector of the appropriate size:
 
 ```python
 >>> state.regs.rsi = state.solver.BVV(3, 64)
@@ -159,14 +159,14 @@ You can store these bitvectors back to registers and memory, or you can directly
 <BV64 0x4>
 ```
 
-The `mem` interface is a little confusing at first, since it's using some pretty hefty python magic. The short version of how to use it is:
+The `mem` interface is a little confusing at first, since it's using some pretty hefty Python magic. The short version of how to use it is:
 
 * Use array\[index\] notation to specify an address
 * Use `.<type>` to specify that the memory should be interpreted as &lt;type&gt; \(common values: char, short, int, long, size_t, uint8_t, uint16_t...\)
 * From there, you can either:
-  * Store a value to it, either a bitvector or a python int
+  * Store a value to it, either a bitvector or a Python int
   * Use `.resolved` to get the value as a bitvector
-  * Use `.concrete` to get the value as a python int
+  * Use `.concrete` to get the value as a Python int
 
 There are more advanced usages that will be covered later!
 

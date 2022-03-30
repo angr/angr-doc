@@ -27,7 +27,7 @@ Let's see how to run our new analysis:
 
 ### Working with projects
 
-Via some python magic, your analysis will automatically have the project upon which you are running it under the `self.project` property.
+Via some Python magic, your analysis will automatically have the project upon which you are running it under the `self.project` property.
 Use this to interact with your project and analyze it!
 
 ```python

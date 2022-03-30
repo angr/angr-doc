@@ -115,7 +115,7 @@ You can customize the state through several arguments to these constructors:
 - If you'd like to have `argc` be symbolic, you can pass a symbolic bitvector as `argc` to the `entry_state` and `full_init_state` constructors.
   Be careful, though: if you do this, you should also add a constraint to the resulting state that your value for argc cannot be larger than the number of args you passed into `args`.
   
-- To use the call state, you should call it with `.call_state(addr, arg1, arg2, ...)`, where `addr` is the address of the function you want to call and `argN` is the Nth argument to that function, either as a python integer, string, or array, or a bitvector.
+- To use the call state, you should call it with `.call_state(addr, arg1, arg2, ...)`, where `addr` is the address of the function you want to call and `argN` is the Nth argument to that function, either as a Python integer, string, or array, or a bitvector.
   If you want to have memory allocated and actually pass in a pointer to an object, you should wrap it in an PointerWrapper, i.e. `angr.PointerWrapper("point to me!")`.
   The results of this API can be a little unpredictable, but we're working on it.
   
@@ -188,7 +188,7 @@ Conversely, plugins can reduce code complexity: `state.memory` and `state.regist
 
 ### The globals plugin
 
-`state.globals` is an extremely simple plugin: it implements the interface of a standard python dict, allowing you to store arbitrary data on a state.
+`state.globals` is an extremely simple plugin: it implements the interface of a standard Python dict, allowing you to store arbitrary data on a state.
 
 ### The history plugin
 

@@ -5,7 +5,7 @@ Claripy exposes the following design:
 
 - Claripy ASTs (the subclasses of claripy.ast.Base) provide a unified way to interact with concrete and symbolic expressions
 - `Frontend`s provide different paradigms for evaluating these expressions. For example, the `FullFrontend` solves expressions using something like an SMT solver backend, while `LightFrontend` handles them by using an abstract (and approximating) data domain backend.
-- Each `Frontend` needs to, at some point, do actual operation and evaluations on an AST. ASTs don't support this on their own. Instead, `Backend`s translate ASTs into backend objects (i.e., python primitives for `BackendConcrete`, Z3 expressions for `BackendZ3`, strided intervals for `BackendVSA`, etc) and handle any appropriate state-tracking objects (such as tracking the solver state in the case of `BackendZ3`). Roughly speaking, frontends take ASTs as inputs and use backends to `backend.convert()` those ASTs into backend objects that can be evaluated and otherwise reasoned about.
+- Each `Frontend` needs to, at some point, do actual operation and evaluations on an AST. ASTs don't support this on their own. Instead, `Backend`s translate ASTs into backend objects (i.e., Python primitives for `BackendConcrete`, Z3 expressions for `BackendZ3`, strided intervals for `BackendVSA`, etc) and handle any appropriate state-tracking objects (such as tracking the solver state in the case of `BackendZ3`). Roughly speaking, frontends take ASTs as inputs and use backends to `backend.convert()` those ASTs into backend objects that can be evaluated and otherwise reasoned about.
 - `FrontendMixin`s customize the operation of `Frontend`s. For example, `ModelCacheMixin` caches solutions from an SMT solver.
 - The combination of a Frontend, a number of FrontendMixins, and a number of Backends comprise a claripy `Solver`.
 
@@ -72,7 +72,7 @@ You can combine these conditions in different ways.
 
 The usefulness of this will become apparent when we discuss Claripy solvers.
 
-In general, Claripy supports all of the normal python operations (+, -, |, ==, etc), and provides additional ones via the Claripy instance object. Here's a list of available operations from the latter.
+In general, Claripy supports all of the normal Python operations (+, -, |, ==, etc), and provides additional ones via the Claripy instance object. Here's a list of available operations from the latter.
 
 | Name | Description | Example |
 |------|-------------|---------|
@@ -98,7 +98,7 @@ In general, Claripy supports all of the normal python operations (+, -, |, ==, e
 | SGT | Signed greater than. | Check if x is greater than y: `claripy.SGT(x, y)` |
 
 
-**NOTE:** The default python `>`, `<`, `>=`, and `<=` are unsigned in Claripy. This is different than their behavior in Z3, because it seems more natural in binary analysis.
+**NOTE:** The default Python `>`, `<`, `>=`, and `<=` are unsigned in Claripy. This is different than their behavior in Z3, because it seems more natural in binary analysis.
 
 ## Solvers
 

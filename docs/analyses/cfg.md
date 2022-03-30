@@ -88,11 +88,11 @@ Functions have several important properties!
 - `entry_func.block_addrs` is a set of addresses at which basic blocks belonging to the function begin.
 - `entry_func.blocks` is the set of basic blocks belonging to the function, that you can explore and disassemble using capstone.
 - `entry_func.string_references()` returns a list of all the constant strings that were referred to at any point in the function.
-  They are formatted as `(addr, string)` tuples, where addr is the address in the binary's data section the string lives, and string is a python string that contains the value of the string.
+  They are formatted as `(addr, string)` tuples, where addr is the address in the binary's data section the string lives, and string is a Python string that contains the value of the string.
 - `entry_func.returning` is a boolean value signifying whether or not the function can return.
   `False` indicates that all paths do not return.
 - `entry_func.callable` is an angr Callable object referring to this function.
-  You can call it like a python function with python arguments and get back an actual result (may be symbolic) as if you ran the function with those arguments!
+  You can call it like a Python function with Python arguments and get back an actual result (may be symbolic) as if you ran the function with those arguments!
 - `entry_func.transition_graph` is a NetworkX DiGraph describing control flow within the function itself. It resembles the control-flow graphs IDA displays on a per-function level.
 - `entry_func.name` is the name of the function.
 - `entry_func.has_unresolved_calls` and `entry.has_unresolved_jumps` have to do with detecting imprecision within the CFG.

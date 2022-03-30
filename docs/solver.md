@@ -41,7 +41,7 @@ You can do math with them too:
 >>> one + one_hundred
 <BV64 0x65>
 
-# You can provide normal python integers and they will be coerced to the appropriate type:
+# You can provide normal Python integers and they will be coerced to the appropriate type:
 >>> one_hundred + 0x100
 <BV64 0x164>
 
@@ -225,8 +225,8 @@ You can also evaluate more complex expressions, not just single variables.
 6
 ```
 
-From this we can see that `eval` is a general purpose method to convert any bitvector into a python primitive while respecting the integrity of the state.
-This is why we use `eval` to convert from concrete bitvectors to python ints, too!
+From this we can see that `eval` is a general purpose method to convert any bitvector into a Python primitive while respecting the integrity of the state.
+This is why we use `eval` to convert from concrete bitvectors to Python ints, too!
 
 Also note that the x and y variables can be used in this new state despite having been created using an old state.
 Variables are not tied to any one state, and can exist freely.

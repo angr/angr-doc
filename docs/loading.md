@@ -176,7 +176,7 @@ A relocation's corresponding import symbol can be accessed as `.symbol`.
 The address the relocation will write to is accessable through any of the address identifiers you can use for Symbol, and you can get a reference to the object requesting the relocation with `.owner` as well.
 
 ```python
-# Relocations don't have a good pretty-printing, so those addresses are python-internal, unrelated to our program
+# Relocations don't have a good pretty-printing, so those addresses are Python-internal, unrelated to our program
 >>> proj.loader.shared_objects['libc.so.6'].imports
 {'__libc_enable_secure': <cle.backends.elf.relocation.amd64.R_X86_64_GLOB_DAT at 0x7ff5c5fce780>,
  '__tls_get_addr': <cle.backends.elf.relocation.amd64.R_X86_64_JUMP_SLOT at 0x7ff5c6018358>,
@@ -240,7 +240,7 @@ To refer to a backend, use the name from this table:
 
 ## Symbolic Function Summaries
 
-By default, Project tries to replace external calls to library functions by using symbolic summaries termed _SimProcedures_ - effectively just python functions that imitate the library function's effect on the state. We've implemented [a whole bunch of functions](https://github.com/angr/angr/tree/master/angr/procedures) as SimProcedures. These builtin procedures are available in the `angr.SIM_PROCEDURES` dictionary, which is two-leveled, keyed first on the package name \(libc, posix, win32, stubs\) and then on the name of the library function. Executing a SimProcedure instead of the actual library function that gets loaded from your system makes analysis a LOT more tractable, at the cost of [some potential inaccuracies](/docs/gotchas.md).
+By default, Project tries to replace external calls to library functions by using symbolic summaries termed _SimProcedures_ - effectively just Python functions that imitate the library function's effect on the state. We've implemented [a whole bunch of functions](https://github.com/angr/angr/tree/master/angr/procedures) as SimProcedures. These builtin procedures are available in the `angr.SIM_PROCEDURES` dictionary, which is two-leveled, keyed first on the package name \(libc, posix, win32, stubs\) and then on the name of the library function. Executing a SimProcedure instead of the actual library function that gets loaded from your system makes analysis a LOT more tractable, at the cost of [some potential inaccuracies](/docs/gotchas.md).
 
 When no such summary is available for a given function:
 
@@ -252,7 +252,7 @@ When no such summary is available for a given function:
 
 #### Hooking
 
-The mechanism by which angr replaces library code with a python summary is called hooking, and you can do it too! When performing simulation, at every step angr checks if the current address has been hooked, and if so, runs the hook instead of the binary code at that address. The API to let you do this is `proj.hook(addr, hook)`, where `hook` is a SimProcedure instance. You can manage your project's hooks with `.is_hooked`, `.unhook`, and `.hooked_by`, which should hopefully not require explanation.
+The mechanism by which angr replaces library code with a Python summary is called hooking, and you can do it too! When performing simulation, at every step angr checks if the current address has been hooked, and if so, runs the hook instead of the binary code at that address. The API to let you do this is `proj.hook(addr, hook)`, where `hook` is a SimProcedure instance. You can manage your project's hooks with `.is_hooked`, `.unhook`, and `.hooked_by`, which should hopefully not require explanation.
 
 There is an alternate API for hooking an address that lets you specify your own off-the-cuff function to use as a hook, by using `proj.hook(addr)` as a function decorator. If you do this, you can also optionally specify a `length` keyword argument to make execution jump some number of bytes forward after your hook finishes.
 

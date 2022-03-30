@@ -22,9 +22,9 @@ logging.getLogger('angr').setLevel('DEBUG')
 You may want to use `INFO` or whatever else instead.
 By default, angr will enable logging at the `WARNING` level.
 
-Each angr module has its own logger string, usually all the python modules above it in the hierarchy, plus itself, joined with dots.
+Each angr module has its own logger string, usually all the Python modules above it in the hierarchy, plus itself, joined with dots.
 For example, `angr.analyses.cfg`.
-Because of the way the python logging module works, you can set the verbosity for all submodules in a module by setting a verbosity level for the parent module.
+Because of the way the Python logging module works, you can set the verbosity for all submodules in a module by setting a verbosity level for the parent module.
 For example, `logging.getLogger('angr.analyses').setLevel('INFO')` will make the CFG, as well as all other analyses, log at the INFO level.
 
 ## Why is angr so slow?
@@ -66,7 +66,7 @@ If you see an odd ARM address, that just means the code at `address - 1` is in T
 
 ## How do I serialize angr objects?
 [Pickle](https://docs.python.org/2/library/pickle.html) will work.
-However, python will default to using an extremely old pickle protocol that does not support more complex python data structures, so you must specify a [more advanced data stream format](https://docs.python.org/2/library/pickle.html#data-stream-format).
+However, Python will default to using an extremely old pickle protocol that does not support more complex Python data structures, so you must specify a [more advanced data stream format](https://docs.python.org/2/library/pickle.html#data-stream-format).
 The easiest way to do this is `pickle.dumps(obj, -1)`.
 
 ## What does `UnsupportedIROpError("floating point support disabled")` mean?
