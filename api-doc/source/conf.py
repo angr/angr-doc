@@ -15,6 +15,9 @@
 import sys
 import os
 
+import sphinx
+import sphinx.domains.python
+
 # If extensions (or modules to document with autodoc) are in another directory,
 # add these directories to sys.path here. If the directory is relative to the
 # documentation root, use os.path.abspath to make it absolute, like shown here.
@@ -56,7 +59,9 @@ author = u'The angr project'
 # built documents.
 #
 # The short X.Y version.
-with open(os.path.join(os.path.dirname(__file__), "..", "..", "VERSION")) as f:
+with open(
+    os.path.join(os.path.dirname(__file__), "..", "..", "VERSION"), encoding="utf-8"
+) as f:
     version = f.read()
 # The full version, including alpha/beta/rc tags.
 release = ".".join(version.split(".")[:-1]) if "dev" in version else version
@@ -120,7 +125,7 @@ autodoc_default_options = {
         'no-inherited-members': None,
 }
 
-def autodoc_skip_member(app, what, name, obj, skip, options):
+def autodoc_skip_member(app, what, name, obj, skip, options):  # pylint: disable=unused-argument
     exclusions = ('__weakref__', '__doc__', '__module__', '__dict__')
     for excluded_name in exclusions:
         if name.find(excluded_name) >= 0:
@@ -315,12 +320,10 @@ texinfo_documents = [
 ## HACKS FOR ANGR
 
 # prevents sphinx from trying to generate xrefs for class attributes, which is a disaster
-import sphinx.domains.python
 for field_type in sphinx.domains.python.PyObject.doc_field_types:
     if field_type.name == 'variable':
         field_type.rolename = None
 
 # version check
-import sphinx
 if sphinx.version_info < (2, 1, 1):
     raise Exception("rhelmot says: this version of spinx is too old. Upgrade please!")
