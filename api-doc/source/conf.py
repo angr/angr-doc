@@ -56,7 +56,7 @@ author = u'The angr project'
 # built documents.
 #
 # The short X.Y version.
-with open(os.path.join(os.path.basename(__file__), "..", "..", "VERSION")) as f:
+with open(os.path.join(os.path.dirname(__file__), "..", "..", "VERSION")) as f:
     version = f.read()
 # The full version, including alpha/beta/rc tags.
 release = ".".join(version.split(".")[:-1]) if "dev" in version else version
