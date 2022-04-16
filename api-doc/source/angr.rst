@@ -162,6 +162,7 @@ Exploration Techniques
 .. automodule:: angr.exploration_techniques.director
 .. automodule:: angr.exploration_techniques.oppologist
 .. automodule:: angr.exploration_techniques.loop_seer
+.. automodule:: angr.exploration_techniques.local_loop_seer
 .. automodule:: angr.exploration_techniques.cacher
 .. automodule:: angr.exploration_techniques.stochastic
 .. automodule:: angr.exploration_techniques.unique
