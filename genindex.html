@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Index &mdash; angr 9.1.12332 documentation</title>
+  <title>Index &mdash; angr 9.2.0 documentation</title>
       <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
   <!--[if lt IE 9]>
@@ -27,7 +27,8 @@
             <a href="index.html" class="icon icon-home"> angr
           </a>
               <div class="version">
-                9.1.12332
+                9.2.0.dev0
+
               </div>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
@@ -403,6 +404,8 @@
       <li><a href="angr.html#angr.analyses.cfg.cfg_fast.CFGJob.addr">addr (angr.analyses.cfg.cfg_fast.CFGJob attribute)</a>
 
       <ul>
+        <li><a href="angr.html#angr.analyses.decompiler.decompilation_cache.DecompilationCache.addr">(angr.analyses.decompiler.decompilation_cache.DecompilationCache attribute)</a>
+</li>
         <li><a href="angr.html#angr.analyses.decompiler.graph_region.GraphRegion.addr">(angr.analyses.decompiler.graph_region.GraphRegion property)</a>
 </li>
         <li><a href="angr.html#angr.analyses.decompiler.structured_codegen.c.CFunction.addr">(angr.analyses.decompiler.structured_codegen.c.CFunction attribute)</a>
@@ -536,6 +539,8 @@
 </li>
       <li><a href="angr.html#angr.sim_procedure.SimProcedure.ADDS_EXITS">ADDS_EXITS (angr.sim_procedure.SimProcedure attribute)</a>
 </li>
+      <li><a href="angr.html#angr.analyses.decompiler.peephole_optimizations.a_div_const_add_a_mul_n_div_const.ADivConstAddAMulNDivConst">ADivConstAddAMulNDivConst (class in angr.analyses.decompiler.peephole_optimizations.a_div_const_add_a_mul_n_div_const)</a>
+</li>
       <li><a href="angr.html#angr.analyses.decompiler.optimization_passes.optimization_pass.OptimizationPassStage.AFTER_GLOBAL_SIMPLIFICATION">AFTER_GLOBAL_SIMPLIFICATION (angr.analyses.decompiler.optimization_passes.optimization_pass.OptimizationPassStage attribute)</a>
 </li>
       <li><a href="angr.html#angr.analyses.decompiler.optimization_passes.optimization_pass.OptimizationPassStage.AFTER_SINGLE_BLOCK_SIMPLIFICATION">AFTER_SINGLE_BLOCK_SIMPLIFICATION (angr.analyses.decompiler.optimization_passes.optimization_pass.OptimizationPassStage attribute)</a>
@@ -549,6 +554,8 @@
       <li><a href="angr.html#angr.analyses.decompiler.ail_simplifier.AILBlockTempCollector">AILBlockTempCollector (class in angr.analyses.decompiler.ail_simplifier)</a>
 </li>
       <li><a href="angr.html#angr.analyses.decompiler.ailblock_walker.AILBlockWalker">AILBlockWalker (class in angr.analyses.decompiler.ailblock_walker)</a>
+</li>
+      <li><a href="angr.html#angr.analyses.decompiler.ailblock_walker.AILBlockWalkerBase">AILBlockWalkerBase (class in angr.analyses.decompiler.ailblock_walker)</a>
 </li>
       <li><a href="angr.html#angr.analyses.decompiler.ailgraph_walker.AILGraphWalker">AILGraphWalker (class in angr.analyses.decompiler.ailgraph_walker)</a>
 </li>
@@ -657,6 +664,8 @@
       <li><a href="angr.html#angr.analyses.decompiler.ccall_rewriters.amd64_ccalls.AMD64CCallRewriter">AMD64CCallRewriter (class in angr.analyses.decompiler.ccall_rewriters.amd64_ccalls)</a>
 </li>
       <li><a href="angr.html#angr.analyses.cfg.indirect_jump_resolvers.amd64_elf_got.AMD64ElfGotResolver">AMD64ElfGotResolver (class in angr.analyses.cfg.indirect_jump_resolvers.amd64_elf_got)</a>
+</li>
+      <li><a href="angr.html#angr.analyses.decompiler.peephole_optimizations.a_mul_const_div_shr_const.AMulConstDivShrConst">AMulConstDivShrConst (class in angr.analyses.decompiler.peephole_optimizations.a_mul_const_div_shr_const)</a>
 </li>
       <li><a href="angr.html#angr.project.Project.analyses">analyses (angr.project.Project attribute)</a>
 </li>
@@ -1115,10 +1124,24 @@
 </li>
       </ul></li>
       <li>
+    angr.analyses.decompiler.expression_narrower
+
+      <ul>
+        <li><a href="angr.html#module-angr.analyses.decompiler.expression_narrower">module</a>
+</li>
+      </ul></li>
+      <li>
     angr.analyses.decompiler.graph_region
 
       <ul>
         <li><a href="angr.html#module-angr.analyses.decompiler.graph_region">module</a>
+</li>
+      </ul></li>
+      <li>
+    angr.analyses.decompiler.jumptable_entry_condition_rewriter
+
+      <ul>
+        <li><a href="angr.html#module-angr.analyses.decompiler.jumptable_entry_condition_rewriter">module</a>
 </li>
       </ul></li>
       <li>
@@ -1220,6 +1243,41 @@
 </li>
       </ul></li>
       <li>
+    angr.analyses.decompiler.peephole_optimizations.a_div_const_add_a_mul_n_div_const
+
+      <ul>
+        <li><a href="angr.html#module-angr.analyses.decompiler.peephole_optimizations.a_div_const_add_a_mul_n_div_const">module</a>
+</li>
+      </ul></li>
+      <li>
+    angr.analyses.decompiler.peephole_optimizations.a_mul_const_div_shr_const
+
+      <ul>
+        <li><a href="angr.html#module-angr.analyses.decompiler.peephole_optimizations.a_mul_const_div_shr_const">module</a>
+</li>
+      </ul></li>
+      <li>
+    angr.analyses.decompiler.peephole_optimizations.a_shl_const_sub_a
+
+      <ul>
+        <li><a href="angr.html#module-angr.analyses.decompiler.peephole_optimizations.a_shl_const_sub_a">module</a>
+</li>
+      </ul></li>
+      <li>
+    angr.analyses.decompiler.peephole_optimizations.a_sub_a_div
+
+      <ul>
+        <li><a href="angr.html#module-angr.analyses.decompiler.peephole_optimizations.a_sub_a_div">module</a>
+</li>
+      </ul></li>
+      <li>
+    angr.analyses.decompiler.peephole_optimizations.a_sub_a_div_const_mul_const
+
+      <ul>
+        <li><a href="angr.html#module-angr.analyses.decompiler.peephole_optimizations.a_sub_a_div_const_mul_const">module</a>
+</li>
+      </ul></li>
+      <li>
     angr.analyses.decompiler.peephole_optimizations.a_sub_a_sub_n
 
       <ul>
@@ -1255,6 +1313,13 @@
 </li>
       </ul></li>
       <li>
+    angr.analyses.decompiler.peephole_optimizations.bswap
+
+      <ul>
+        <li><a href="angr.html#module-angr.analyses.decompiler.peephole_optimizations.bswap">module</a>
+</li>
+      </ul></li>
+      <li>
     angr.analyses.decompiler.peephole_optimizations.coalesce_same_cascading_ifs
 
       <ul>
@@ -1273,6 +1338,13 @@
 
       <ul>
         <li><a href="angr.html#module-angr.analyses.decompiler.peephole_optimizations.conv_a_sub0_shr_and">module</a>
+</li>
+      </ul></li>
+      <li>
+    angr.analyses.decompiler.peephole_optimizations.conv_const_mull_a_shift
+
+      <ul>
+        <li><a href="angr.html#module-angr.analyses.decompiler.peephole_optimizations.conv_const_mull_a_shift">module</a>
 </li>
       </ul></li>
       <li>
@@ -2199,6 +2271,8 @@
         <li><a href="angr.html#module-angr.concretization_strategies.unlimited_range">module</a>
 </li>
       </ul></li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
       <li>
     angr.distributed
 
@@ -2220,8 +2294,6 @@
         <li><a href="angr.html#module-angr.distributed.worker">module</a>
 </li>
       </ul></li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
       <li>
     angr.engines
 
@@ -2395,6 +2467,13 @@
 
       <ul>
         <li><a href="angr.html#module-angr.exploration_techniques.lengthlimiter">module</a>
+</li>
+      </ul></li>
+      <li>
+    angr.exploration_techniques.local_loop_seer
+
+      <ul>
+        <li><a href="angr.html#module-angr.exploration_techniques.local_loop_seer">module</a>
 </li>
       </ul></li>
       <li>
@@ -3693,6 +3772,13 @@
 </li>
       </ul></li>
       <li>
+    angr.utils.mp
+
+      <ul>
+        <li><a href="angr.html#module-angr.utils.mp">module</a>
+</li>
+      </ul></li>
+      <li>
     angr.utils.timing
 
       <ul>
@@ -3933,6 +4019,10 @@
       <li><a href="angr.html#angr.knowledge_plugins.key_definitions.live_definitions.LiveDefinitions.arch">arch (angr.knowledge_plugins.key_definitions.live_definitions.LiveDefinitions attribute)</a>
 
       <ul>
+        <li><a href="angr.html#angr.procedures.stubs.format_parser.FormatParser.arch">(angr.procedures.stubs.format_parser.FormatParser attribute)</a>
+</li>
+        <li><a href="angr.html#angr.procedures.stubs.format_parser.ScanfFormatParser.arch">(angr.procedures.stubs.format_parser.ScanfFormatParser attribute)</a>
+</li>
         <li><a href="angr.html#angr.project.Project.arch">(angr.project.Project attribute)</a>
 </li>
         <li><a href="angr.html#angr.sim_state.SimState.arch">(angr.sim_state.SimState property)</a>
@@ -4252,6 +4342,8 @@
 </li>
       <li><a href="archinfo.html#archinfo.arch.Arch.artificial_registers_offsets">artificial_registers_offsets (archinfo.arch.Arch attribute)</a>
 </li>
+      <li><a href="angr.html#angr.analyses.decompiler.peephole_optimizations.a_shl_const_sub_a.AShlConstSubA">AShlConstSubA (class in angr.analyses.decompiler.peephole_optimizations.a_shl_const_sub_a)</a>
+</li>
       <li><a href="archinfo.html#archinfo.arch.Arch.asm">asm() (archinfo.arch.Arch method)</a>
 </li>
       <li><a href="angr.html#angr.analyses.reassembler.BasicBlock.assembly">assembly() (angr.analyses.reassembler.BasicBlock method)</a>
@@ -4299,6 +4391,10 @@
       <li><a href="angr.html#angr.state_plugins.sim_action_object.ast_stripping_op">ast_stripping_op() (in module angr.state_plugins.sim_action_object)</a>
 </li>
       <li><a href="claripy.html#claripy.ast.base.ASTCacheKey">ASTCacheKey (class in claripy.ast.base)</a>
+</li>
+      <li><a href="angr.html#angr.analyses.decompiler.peephole_optimizations.a_sub_a_div.ASubADiv">ASubADiv (class in angr.analyses.decompiler.peephole_optimizations.a_sub_a_div)</a>
+</li>
+      <li><a href="angr.html#angr.analyses.decompiler.peephole_optimizations.a_sub_a_div_const_mul_const.ASubADivConstMulConst">ASubADivConstMulConst (class in angr.analyses.decompiler.peephole_optimizations.a_sub_a_div_const_mul_const)</a>
 </li>
       <li><a href="angr.html#angr.analyses.decompiler.peephole_optimizations.a_sub_a_sub_n.ASubASubN">ASubASubN (class in angr.analyses.decompiler.peephole_optimizations.a_sub_a_sub_n)</a>
 </li>
@@ -4356,6 +4452,12 @@
   <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="angr.html#angr.state_plugins.inspect.SimInspector.b">b() (angr.state_plugins.inspect.SimInspector method)</a>
 </li>
+      <li><a href="angr.html#angr.analyses.forward_analysis.visitors.function_graph.FunctionGraphVisitor.back_edges">back_edges() (angr.analyses.forward_analysis.visitors.function_graph.FunctionGraphVisitor method)</a>
+
+      <ul>
+        <li><a href="angr.html#angr.analyses.forward_analysis.visitors.graph.GraphVisitor.back_edges">(angr.analyses.forward_analysis.visitors.graph.GraphVisitor method)</a>
+</li>
+      </ul></li>
       <li><a href="cle.html#cle.backends.cgc.backedcgc.BackedCGC">BackedCGC (class in cle.backends.cgc.backedcgc)</a>
 </li>
       <li><a href="angr.html#angr.angrdb.models.DbObject.backend">backend (angr.angrdb.models.DbObject attribute)</a>
@@ -4780,6 +4882,8 @@
         <li><a href="angr.html#angr.state_plugins.unicorn_engine.StopDetails.block_size">(angr.state_plugins.unicorn_engine.StopDetails attribute)</a>
 </li>
       </ul></li>
+      <li><a href="angr.html#angr.state_plugins.unicorn_engine.BlockDetails.block_trace_ind">block_trace_ind (angr.state_plugins.unicorn_engine.BlockDetails attribute)</a>
+</li>
       <li><a href="angr.html#angr.state_plugins.unicorn_engine.BlockDetails">BlockDetails (class in angr.state_plugins.unicorn_engine)</a>
 </li>
       <li><a href="angr.html#angr.analyses.cfg.cfg_job_base.BlockID">BlockID (class in angr.analyses.cfg.cfg_job_base)</a>
@@ -4903,6 +5007,8 @@
       <li><a href="angr.html#angr.analyses.cfg.indirect_jump_resolvers.jumptable.BSSHook.bss_memory_write_hook">bss_memory_write_hook() (angr.analyses.cfg.indirect_jump_resolvers.jumptable.BSSHook method)</a>
 </li>
       <li><a href="angr.html#angr.analyses.cfg.indirect_jump_resolvers.jumptable.BSSHook">BSSHook (class in angr.analyses.cfg.indirect_jump_resolvers.jumptable)</a>
+</li>
+      <li><a href="angr.html#angr.analyses.decompiler.peephole_optimizations.bswap.Bswap">Bswap (class in angr.analyses.decompiler.peephole_optimizations.bswap)</a>
 </li>
       <li><a href="angr.html#angr.exploration_techniques.bucketizer.Bucketizer">Bucketizer (class in angr.exploration_techniques.bucketizer)</a>
 </li>
@@ -5045,6 +5151,8 @@
 </li>
         <li><a href="angr.html#angr.analyses.decompiler.structured_codegen.c.CIfElse.c_repr_chunks">(angr.analyses.decompiler.structured_codegen.c.CIfElse method)</a>
 </li>
+        <li><a href="angr.html#angr.analyses.decompiler.structured_codegen.c.CIndexedVariable.c_repr_chunks">(angr.analyses.decompiler.structured_codegen.c.CIndexedVariable method)</a>
+</li>
         <li><a href="angr.html#angr.analyses.decompiler.structured_codegen.c.CITE.c_repr_chunks">(angr.analyses.decompiler.structured_codegen.c.CITE method)</a>
 </li>
         <li><a href="angr.html#angr.analyses.decompiler.structured_codegen.c.CPlaceholder.c_repr_chunks">(angr.analyses.decompiler.structured_codegen.c.CPlaceholder method)</a>
@@ -5066,6 +5174,8 @@
         <li><a href="angr.html#angr.analyses.decompiler.structured_codegen.c.CUnsupportedStatement.c_repr_chunks">(angr.analyses.decompiler.structured_codegen.c.CUnsupportedStatement method)</a>
 </li>
         <li><a href="angr.html#angr.analyses.decompiler.structured_codegen.c.CVariable.c_repr_chunks">(angr.analyses.decompiler.structured_codegen.c.CVariable method)</a>
+</li>
+        <li><a href="angr.html#angr.analyses.decompiler.structured_codegen.c.CVariableField.c_repr_chunks">(angr.analyses.decompiler.structured_codegen.c.CVariableField method)</a>
 </li>
         <li><a href="angr.html#angr.analyses.decompiler.structured_codegen.c.CWhileLoop.c_repr_chunks">(angr.analyses.decompiler.structured_codegen.c.CWhileLoop method)</a>
 </li>
@@ -5320,6 +5430,8 @@
 </li>
       <li><a href="angr.html#angr.analyses.decompiler.region_simplifiers.cascading_ifs.CascadingIfsRemover">CascadingIfsRemover (class in angr.analyses.decompiler.region_simplifiers.cascading_ifs)</a>
 </li>
+      <li><a href="angr.html#angr.analyses.decompiler.region_simplifiers.expr_folding.ConditionLocation.case_idx">case_idx (angr.analyses.decompiler.region_simplifiers.expr_folding.ConditionLocation attribute)</a>
+</li>
       <li><a href="angr.html#angr.analyses.decompiler.structured_codegen.c.CSwitchCase.cases">cases (angr.analyses.decompiler.structured_codegen.c.CSwitchCase attribute)</a>
 
       <ul>
@@ -5368,6 +5480,10 @@
         <li><a href="angr.html#angr.calling_conventions.SimCC.ArgSession.cc">(angr.calling_conventions.SimCC.ArgSession attribute)</a>
 </li>
         <li><a href="angr.html#angr.calling_conventions.UsercallArgSession.cc">(angr.calling_conventions.UsercallArgSession attribute)</a>
+</li>
+        <li><a href="angr.html#angr.procedures.stubs.format_parser.FormatParser.cc">(angr.procedures.stubs.format_parser.FormatParser attribute)</a>
+</li>
+        <li><a href="angr.html#angr.procedures.stubs.format_parser.ScanfFormatParser.cc">(angr.procedures.stubs.format_parser.ScanfFormatParser attribute)</a>
 </li>
       </ul></li>
       <li><a href="angr.html#angr.factory.AngrObjectFactory.cc">cc() (angr.factory.AngrObjectFactory method)</a>
@@ -5497,8 +5613,6 @@
 </li>
       </ul></li>
       <li><a href="angr.html#angr.storage.memory_mixins.paged_memory.paged_memory_mixin.PagedMemoryMixin.changed_pages">changed_pages() (angr.storage.memory_mixins.paged_memory.paged_memory_mixin.PagedMemoryMixin method)</a>
-</li>
-      <li><a href="angr.html#angr.analyses.typehoon.typeconsts.Char">Char (class in angr.analyses.typehoon.typeconsts)</a>
 </li>
       <li><a href="angr.html#angr.state_plugins.filesystem.SimFilesystem.chdir">chdir() (angr.state_plugins.filesystem.SimFilesystem method)</a>
 </li>
@@ -5633,6 +5747,8 @@
       <li><a href="angr.html#angr.analyses.decompiler.structured_codegen.c.CIfBreak">CIfBreak (class in angr.analyses.decompiler.structured_codegen.c)</a>
 </li>
       <li><a href="angr.html#angr.analyses.decompiler.structured_codegen.c.CIfElse">CIfElse (class in angr.analyses.decompiler.structured_codegen.c)</a>
+</li>
+      <li><a href="angr.html#angr.analyses.decompiler.structured_codegen.c.CIndexedVariable">CIndexedVariable (class in angr.analyses.decompiler.structured_codegen.c)</a>
 </li>
       <li><a href="angr.html#angr.analyses.decompiler.structured_codegen.c.CITE">CITE (class in angr.analyses.decompiler.structured_codegen.c)</a>
 </li>
@@ -6782,6 +6898,8 @@
 </li>
       <li><a href="cle.html#cle.errors.CLEUnknownFormatError">CLEUnknownFormatError</a>
 </li>
+      <li><a href="angr.html#angr.analyses.decompiler.decompilation_cache.DecompilationCache.clinic">clinic (angr.analyses.decompiler.decompilation_cache.DecompilationCache attribute)</a>
+</li>
       <li><a href="angr.html#angr.analyses.decompiler.clinic.Clinic">Clinic (class in angr.analyses.decompiler.clinic)</a>
 </li>
       <li><a href="angr.html#angr.analyses.decompiler.structured_codegen.c.CLoop">CLoop (class in angr.analyses.decompiler.structured_codegen.c)</a>
@@ -6824,8 +6942,12 @@
 </li>
       <li><a href="angr.html#angr.knowledge_plugins.functions.function.Function.code_constants">code_constants (angr.knowledge_plugins.functions.function.Function property)</a>
 </li>
-      <li><a href="angr.html#angr.analyses.decompiler.structured_codegen.c.CConstruct.codegen">codegen (angr.analyses.decompiler.structured_codegen.c.CConstruct attribute)</a>
+      <li><a href="angr.html#angr.analyses.decompiler.decompilation_cache.DecompilationCache.codegen">codegen (angr.analyses.decompiler.decompilation_cache.DecompilationCache attribute)</a>
+
+      <ul>
+        <li><a href="angr.html#angr.analyses.decompiler.structured_codegen.c.CConstruct.codegen">(angr.analyses.decompiler.structured_codegen.c.CConstruct attribute)</a>
 </li>
+      </ul></li>
       <li><a href="angr.html#angr.analyses.propagator.propagator.Equivalence.codeloc">codeloc (angr.analyses.propagator.propagator.Equivalence attribute)</a>
 
       <ul>
@@ -7282,6 +7404,8 @@
 </li>
       <li><a href="angr.html#angr.analyses.decompiler.peephole_optimizations.conv_a_sub0_shr_and.ConvASub0ShrAnd">ConvASub0ShrAnd (class in angr.analyses.decompiler.peephole_optimizations.conv_a_sub0_shr_and)</a>
 </li>
+      <li><a href="angr.html#angr.analyses.decompiler.peephole_optimizations.conv_const_mull_a_shift.ConvConstMullAShift">ConvConstMullAShift (class in angr.analyses.decompiler.peephole_optimizations.conv_const_mull_a_shift)</a>
+</li>
       <li><a href="angr.html#angr.storage.memory_mixins.convenient_mappings_mixin.ConvenientMappingsMixin">ConvenientMappingsMixin (class in angr.storage.memory_mixins.convenient_mappings_mixin)</a>
 </li>
       <li><a href="claripy.html#claripy.backends.Backend.convert">convert() (claripy.backends.Backend method)</a>
@@ -7700,6 +7824,8 @@
 </li>
       <li><a href="angr.html#angr.analyses.vtable.VtableFinder.create_extract_vtable">create_extract_vtable() (angr.analyses.vtable.VtableFinder method)</a>
 </li>
+      <li><a href="angr.html#angr.analyses.decompiler.condition_processor.ConditionProcessor.create_jump_target_var">create_jump_target_var() (angr.analyses.decompiler.condition_processor.ConditionProcessor method)</a>
+</li>
       <li><a href="angr.html#angr.state_plugins.jni_references.SimStateJNIReferences.create_new_reference">create_new_reference() (angr.state_plugins.jni_references.SimStateJNIReferences method)</a>
 </li>
       <li><a href="claripy.html#claripy.backends.backend_smtlib_solvers.abc_popen.ABCProxy.create_process">create_process() (claripy.backends.backend_smtlib_solvers.abc_popen.ABCProxy method)</a>
@@ -7821,6 +7947,8 @@
 </li>
       </ul></li>
       <li><a href="angr.html#angr.analyses.decompiler.structured_codegen.c.CVariable">CVariable (class in angr.analyses.decompiler.structured_codegen.c)</a>
+</li>
+      <li><a href="angr.html#angr.analyses.decompiler.structured_codegen.c.CVariableField">CVariableField (class in angr.analyses.decompiler.structured_codegen.c)</a>
 </li>
       <li><a href="claripy.html#claripy.backends.backend_smtlib_solvers.cvc4_popen.CVC4Proxy">CVC4Proxy (class in claripy.backends.backend_smtlib_solvers.cvc4_popen)</a>
 </li>
@@ -8134,8 +8262,6 @@
       </ul></li>
       <li><a href="angr.html#angr.state_plugins.view.SimMemView.deref">deref (angr.state_plugins.view.SimMemView property)</a>
 </li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="angr.html#angr.analyses.typehoon.typevars.DerivedTypeVariable">DerivedTypeVariable (class in angr.analyses.typehoon.typevars)</a>
 </li>
       <li><a href="pyvex.html#pyvex.expr.GetI.descr">descr (pyvex.expr.GetI attribute)</a>
@@ -8148,13 +8274,37 @@
 </li>
       <li><a href="angr.html#angr.state_plugins.solver.SimSolver.describe_variables">describe_variables() (angr.state_plugins.solver.SimSolver method)</a>
 </li>
-      <li><a href="angr.html#angr.analyses.decompiler.peephole_optimizations.base.PeepholeOptimizationExprBase.description">description (angr.analyses.decompiler.peephole_optimizations.base.PeepholeOptimizationExprBase attribute)</a>
+      <li><a href="angr.html#angr.analyses.decompiler.optimization_passes.base_ptr_save_simplifier.BasePointerSaveSimplifier.DESCRIPTION">DESCRIPTION (angr.analyses.decompiler.optimization_passes.base_ptr_save_simplifier.BasePointerSaveSimplifier attribute)</a>
 
       <ul>
-        <li><a href="angr.html#angr.analyses.decompiler.peephole_optimizations.base.PeepholeOptimizationStmtBase.description">(angr.analyses.decompiler.peephole_optimizations.base.PeepholeOptimizationStmtBase attribute)</a>
+        <li><a href="angr.html#angr.analyses.decompiler.optimization_passes.const_derefs.ConstantDereferencesSimplifier.DESCRIPTION">(angr.analyses.decompiler.optimization_passes.const_derefs.ConstantDereferencesSimplifier attribute)</a>
 </li>
-        <li><a href="angr.html#angr.sim_state_options.StateOption.description">(angr.sim_state_options.StateOption attribute)</a>
+        <li><a href="angr.html#angr.analyses.decompiler.optimization_passes.div_simplifier.DivSimplifier.DESCRIPTION">(angr.analyses.decompiler.optimization_passes.div_simplifier.DivSimplifier attribute)</a>
 </li>
+        <li><a href="angr.html#angr.analyses.decompiler.optimization_passes.eager_returns.EagerReturnsSimplifier.DESCRIPTION">(angr.analyses.decompiler.optimization_passes.eager_returns.EagerReturnsSimplifier attribute)</a>
+</li>
+        <li><a href="angr.html#angr.analyses.decompiler.optimization_passes.mod_simplifier.ModSimplifier.DESCRIPTION">(angr.analyses.decompiler.optimization_passes.mod_simplifier.ModSimplifier attribute)</a>
+</li>
+        <li><a href="angr.html#angr.analyses.decompiler.optimization_passes.multi_simplifier.MultiSimplifier.DESCRIPTION">(angr.analyses.decompiler.optimization_passes.multi_simplifier.MultiSimplifier attribute)</a>
+</li>
+        <li><a href="angr.html#angr.analyses.decompiler.optimization_passes.register_save_area_simplifier.RegisterSaveAreaSimplifier.DESCRIPTION">(angr.analyses.decompiler.optimization_passes.register_save_area_simplifier.RegisterSaveAreaSimplifier attribute)</a>
+</li>
+        <li><a href="angr.html#angr.analyses.decompiler.optimization_passes.ret_addr_save_simplifier.RetAddrSaveSimplifier.DESCRIPTION">(angr.analyses.decompiler.optimization_passes.ret_addr_save_simplifier.RetAddrSaveSimplifier attribute)</a>
+</li>
+        <li><a href="angr.html#angr.analyses.decompiler.optimization_passes.stack_canary_simplifier.StackCanarySimplifier.DESCRIPTION">(angr.analyses.decompiler.optimization_passes.stack_canary_simplifier.StackCanarySimplifier attribute)</a>
+</li>
+        <li><a href="angr.html#angr.analyses.decompiler.optimization_passes.x86_gcc_getpc_simplifier.X86GccGetPcSimplifier.DESCRIPTION">(angr.analyses.decompiler.optimization_passes.x86_gcc_getpc_simplifier.X86GccGetPcSimplifier attribute)</a>
+</li>
+        <li><a href="angr.html#angr.analyses.decompiler.peephole_optimizations.base.PeepholeOptimizationExprBase.DESCRIPTION">(angr.analyses.decompiler.peephole_optimizations.base.PeepholeOptimizationExprBase attribute)</a>
+</li>
+        <li><a href="angr.html#angr.analyses.decompiler.peephole_optimizations.base.PeepholeOptimizationStmtBase.DESCRIPTION">(angr.analyses.decompiler.peephole_optimizations.base.PeepholeOptimizationStmtBase attribute)</a>
+</li>
+      </ul></li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="angr.html#angr.sim_state_options.StateOption.description">description (angr.sim_state_options.StateOption attribute)</a>
+
+      <ul>
         <li><a href="pyvex.html#pyvex.expr.GetI.description">(pyvex.expr.GetI property)</a>
 </li>
       </ul></li>
@@ -8376,7 +8526,7 @@
 </li>
       <li><a href="cle.html#cle.backends.tls.elfcore_tls.ELFCoreThread.dtv">dtv (cle.backends.tls.elfcore_tls.ELFCoreThread property)</a>
 </li>
-      <li><a href="archinfo.html#archinfo.tls.TLSArchInfo.dtv_entry_offset">dtv_entry_offset (archinfo.tls.TLSArchInfo property)</a>
+      <li><a href="archinfo.html#archinfo.tls.TLSArchInfo.dtv_entry_offset">dtv_entry_offset (archinfo.tls.TLSArchInfo attribute)</a>
 </li>
       <li><a href="cle.html#cle.backends.tls.elf_tls.ELFTLSObjectV1.dtv_offset">dtv_offset (cle.backends.tls.elf_tls.ELFTLSObjectV1 attribute)</a>
 
@@ -8384,7 +8534,7 @@
         <li><a href="cle.html#cle.backends.tls.elf_tls.ELFTLSObjectV2.dtv_offset">(cle.backends.tls.elf_tls.ELFTLSObjectV2 attribute)</a>
 </li>
       </ul></li>
-      <li><a href="archinfo.html#archinfo.tls.TLSArchInfo.dtv_offsets">dtv_offsets (archinfo.tls.TLSArchInfo property)</a>
+      <li><a href="archinfo.html#archinfo.tls.TLSArchInfo.dtv_offsets">dtv_offsets (archinfo.tls.TLSArchInfo attribute)</a>
 </li>
       <li><a href="angr.html#angr.knowledge_plugins.key_definitions.definition.Definition.dummy">dummy (angr.knowledge_plugins.key_definitions.definition.Definition attribute)</a>
 </li>
@@ -8429,6 +8579,10 @@
       <li><a href="angr.html#angr.analyses.decompiler.structured_codegen.base.PositionMapping.DUPLICATION_CHECK">DUPLICATION_CHECK (angr.analyses.decompiler.structured_codegen.base.PositionMapping attribute)</a>
 </li>
       <li><a href="cle.html#cle.loader.Loader.dynamic_load">dynamic_load() (cle.loader.Loader method)</a>
+</li>
+      <li><a href="angr.html#angr.sim_procedure.SimProcedure.DYNAMIC_RET">DYNAMIC_RET (angr.sim_procedure.SimProcedure attribute)</a>
+</li>
+      <li><a href="angr.html#angr.sim_procedure.SimProcedure.dynamic_returns">dynamic_returns() (angr.sim_procedure.SimProcedure method)</a>
 </li>
       <li><a href="archinfo.html#archinfo.arch.Arch.dynamic_tag_translation">dynamic_tag_translation (archinfo.arch.Arch attribute)</a>
 
@@ -8786,8 +8940,6 @@
         <li><a href="pyvex.html#pyvex.lifting.util.lifter_helper.GymratLifter.errors">(pyvex.lifting.util.lifter_helper.GymratLifter attribute)</a>
 </li>
       </ul></li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="claripy.html#claripy.ast.bv.ESI">ESI() (in module claripy.ast.bv)</a>
 </li>
       <li><a href="angr.html#angr.state_plugins.posix.SimSystemPosix.ESPIPE">ESPIPE (angr.state_plugins.posix.SimSystemPosix attribute)</a>
@@ -8838,6 +8990,8 @@
         <li><a href="claripy.html#claripy.vsa.valueset.ValueSet.eval">(claripy.vsa.valueset.ValueSet method)</a>
 </li>
       </ul></li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="claripy.html#claripy.frontend_mixins.model_cache_mixin.ModelCache.eval_ast">eval_ast() (claripy.frontend_mixins.model_cache_mixin.ModelCache method)</a>
 </li>
       <li><a href="angr.html#angr.state_plugins.solver.SimSolver.eval_atleast">eval_atleast() (angr.state_plugins.solver.SimSolver method)</a>
@@ -8876,6 +9030,56 @@
 </li>
       <li><a href="angr.html#angr.analyses.decompiler.condition_processor.ConditionProcessor.EXC_COUNTER">EXC_COUNTER (angr.analyses.decompiler.condition_processor.ConditionProcessor attribute)</a>
 </li>
+      <li><a href="cle.html#cle.backends.binja.BinjaBin.exception_handlings">exception_handlings (cle.backends.binja.BinjaBin attribute)</a>
+
+      <ul>
+        <li><a href="cle.html#cle.backends.blob.Blob.exception_handlings">(cle.backends.blob.Blob attribute)</a>
+</li>
+        <li><a href="cle.html#cle.backends.cgc.backedcgc.BackedCGC.exception_handlings">(cle.backends.cgc.backedcgc.BackedCGC attribute)</a>
+</li>
+        <li><a href="cle.html#cle.backends.cgc.cgc.CGC.exception_handlings">(cle.backends.cgc.cgc.CGC attribute)</a>
+</li>
+        <li><a href="cle.html#cle.backends.elf.elf.ELF.exception_handlings">(cle.backends.elf.elf.ELF attribute)</a>
+</li>
+        <li><a href="cle.html#cle.backends.elf.elfcore.ELFCore.exception_handlings">(cle.backends.elf.elfcore.ELFCore attribute)</a>
+</li>
+        <li><a href="cle.html#cle.backends.elf.metaelf.MetaELF.exception_handlings">(cle.backends.elf.metaelf.MetaELF attribute)</a>
+</li>
+        <li><a href="cle.html#cle.backends.externs.ExternObject.exception_handlings">(cle.backends.externs.ExternObject attribute)</a>
+</li>
+        <li><a href="cle.html#cle.backends.externs.KernelObject.exception_handlings">(cle.backends.externs.KernelObject attribute)</a>
+</li>
+        <li><a href="cle.html#cle.backends.ihex.Hex.exception_handlings">(cle.backends.ihex.Hex attribute)</a>
+</li>
+        <li><a href="cle.html#cle.backends.java.apk.Apk.exception_handlings">(cle.backends.java.apk.Apk attribute)</a>
+</li>
+        <li><a href="cle.html#cle.backends.java.jar.Jar.exception_handlings">(cle.backends.java.jar.Jar attribute)</a>
+</li>
+        <li><a href="cle.html#cle.backends.java.soot.Soot.exception_handlings">(cle.backends.java.soot.Soot attribute)</a>
+</li>
+        <li><a href="cle.html#cle.backends.macho.macho.MachO.exception_handlings">(cle.backends.macho.macho.MachO attribute)</a>
+</li>
+        <li><a href="cle.html#cle.backends.minidump.Minidump.exception_handlings">(cle.backends.minidump.Minidump attribute)</a>
+</li>
+        <li><a href="cle.html#cle.backends.named_region.NamedRegion.exception_handlings">(cle.backends.named_region.NamedRegion attribute)</a>
+</li>
+        <li><a href="cle.html#cle.backends.pe.pe.PE.exception_handlings">(cle.backends.pe.pe.PE attribute)</a>
+</li>
+        <li><a href="cle.html#cle.backends.static_archive.StaticArchive.exception_handlings">(cle.backends.static_archive.StaticArchive attribute)</a>
+</li>
+        <li><a href="cle.html#cle.backends.tls.elf_tls.ELFTLSObject.exception_handlings">(cle.backends.tls.elf_tls.ELFTLSObject attribute)</a>
+</li>
+        <li><a href="cle.html#cle.backends.tls.elf_tls.ELFTLSObjectV1.exception_handlings">(cle.backends.tls.elf_tls.ELFTLSObjectV1 attribute)</a>
+</li>
+        <li><a href="cle.html#cle.backends.tls.elf_tls.ELFTLSObjectV2.exception_handlings">(cle.backends.tls.elf_tls.ELFTLSObjectV2 attribute)</a>
+</li>
+        <li><a href="cle.html#cle.backends.tls.pe_tls.PETLSObject.exception_handlings">(cle.backends.tls.pe_tls.PETLSObject attribute)</a>
+</li>
+        <li><a href="cle.html#cle.backends.tls.TLSObject.exception_handlings">(cle.backends.tls.TLSObject attribute)</a>
+</li>
+        <li><a href="cle.html#cle.backends.xbe.XBE.exception_handlings">(cle.backends.xbe.XBE attribute)</a>
+</li>
+      </ul></li>
       <li><a href="cle.html#cle.backends.ExceptionHandling">ExceptionHandling (class in cle.backends)</a>
 </li>
       <li><a href="archinfo.html#archinfo.arch_soot.SootMethodDescriptor.exceptions">exceptions (archinfo.arch_soot.SootMethodDescriptor property)</a>
@@ -8938,9 +9142,19 @@
         <li><a href="angr.html#angr.analyses.propagator.prop_value.Detail.expr">(angr.analyses.propagator.prop_value.Detail attribute)</a>
 </li>
       </ul></li>
-      <li><a href="angr.html#angr.analyses.decompiler.peephole_optimizations.a_sub_a_sub_n.ASubASubN.expr_classes">expr_classes (angr.analyses.decompiler.peephole_optimizations.a_sub_a_sub_n.ASubASubN attribute)</a>
+      <li><a href="angr.html#angr.analyses.decompiler.peephole_optimizations.a_div_const_add_a_mul_n_div_const.ADivConstAddAMulNDivConst.expr_classes">expr_classes (angr.analyses.decompiler.peephole_optimizations.a_div_const_add_a_mul_n_div_const.ADivConstAddAMulNDivConst attribute)</a>
 
       <ul>
+        <li><a href="angr.html#angr.analyses.decompiler.peephole_optimizations.a_mul_const_div_shr_const.AMulConstDivShrConst.expr_classes">(angr.analyses.decompiler.peephole_optimizations.a_mul_const_div_shr_const.AMulConstDivShrConst attribute)</a>
+</li>
+        <li><a href="angr.html#angr.analyses.decompiler.peephole_optimizations.a_shl_const_sub_a.AShlConstSubA.expr_classes">(angr.analyses.decompiler.peephole_optimizations.a_shl_const_sub_a.AShlConstSubA attribute)</a>
+</li>
+        <li><a href="angr.html#angr.analyses.decompiler.peephole_optimizations.a_sub_a_div.ASubADiv.expr_classes">(angr.analyses.decompiler.peephole_optimizations.a_sub_a_div.ASubADiv attribute)</a>
+</li>
+        <li><a href="angr.html#angr.analyses.decompiler.peephole_optimizations.a_sub_a_div_const_mul_const.ASubADivConstMulConst.expr_classes">(angr.analyses.decompiler.peephole_optimizations.a_sub_a_div_const_mul_const.ASubADivConstMulConst attribute)</a>
+</li>
+        <li><a href="angr.html#angr.analyses.decompiler.peephole_optimizations.a_sub_a_sub_n.ASubASubN.expr_classes">(angr.analyses.decompiler.peephole_optimizations.a_sub_a_sub_n.ASubASubN attribute)</a>
+</li>
         <li><a href="angr.html#angr.analyses.decompiler.peephole_optimizations.base.PeepholeOptimizationExprBase.expr_classes">(angr.analyses.decompiler.peephole_optimizations.base.PeepholeOptimizationExprBase attribute)</a>
 </li>
         <li><a href="angr.html#angr.analyses.decompiler.peephole_optimizations.basepointeroffset_add_n.BasePointerOffsetAddN.expr_classes">(angr.analyses.decompiler.peephole_optimizations.basepointeroffset_add_n.BasePointerOffsetAddN attribute)</a>
@@ -8949,9 +9163,13 @@
 </li>
         <li><a href="angr.html#angr.analyses.decompiler.peephole_optimizations.bool_expr_xor_1.BoolExprXor1.expr_classes">(angr.analyses.decompiler.peephole_optimizations.bool_expr_xor_1.BoolExprXor1 attribute)</a>
 </li>
+        <li><a href="angr.html#angr.analyses.decompiler.peephole_optimizations.bswap.Bswap.expr_classes">(angr.analyses.decompiler.peephole_optimizations.bswap.Bswap attribute)</a>
+</li>
         <li><a href="angr.html#angr.analyses.decompiler.peephole_optimizations.constant_derefs.ConstantDereferences.expr_classes">(angr.analyses.decompiler.peephole_optimizations.constant_derefs.ConstantDereferences attribute)</a>
 </li>
         <li><a href="angr.html#angr.analyses.decompiler.peephole_optimizations.conv_a_sub0_shr_and.ConvASub0ShrAnd.expr_classes">(angr.analyses.decompiler.peephole_optimizations.conv_a_sub0_shr_and.ConvASub0ShrAnd attribute)</a>
+</li>
+        <li><a href="angr.html#angr.analyses.decompiler.peephole_optimizations.conv_const_mull_a_shift.ConvConstMullAShift.expr_classes">(angr.analyses.decompiler.peephole_optimizations.conv_const_mull_a_shift.ConvConstMullAShift attribute)</a>
 </li>
         <li><a href="angr.html#angr.analyses.decompiler.peephole_optimizations.conv_shl_shr.ConvShlShr.expr_classes">(angr.analyses.decompiler.peephole_optimizations.conv_shl_shr.ConvShlShr attribute)</a>
 </li>
@@ -8989,6 +9207,8 @@
       <li><a href="angr.html#angr.analyses.decompiler.region_simplifiers.expr_folding.ExpressionFolder">ExpressionFolder (class in angr.analyses.decompiler.region_simplifiers.expr_folding)</a>
 </li>
       <li><a href="angr.html#angr.analyses.decompiler.region_simplifiers.expr_folding.ExpressionLocation">ExpressionLocation (class in angr.analyses.decompiler.region_simplifiers.expr_folding)</a>
+</li>
+      <li><a href="angr.html#angr.analyses.decompiler.expression_narrower.ExpressionNarrowingWalker">ExpressionNarrowingWalker (class in angr.analyses.decompiler.expression_narrower)</a>
 </li>
       <li><a href="angr.html#angr.analyses.decompiler.region_simplifiers.expr_folding.ExpressionReplacer">ExpressionReplacer (class in angr.analyses.decompiler.region_simplifiers.expr_folding)</a>
 </li>
@@ -9209,9 +9429,9 @@
 </li>
         <li><a href="angr.html#angr.exploration_techniques.explorer.Explorer.filter">(angr.exploration_techniques.explorer.Explorer method)</a>
 </li>
-        <li><a href="angr.html#angr.exploration_techniques.loop_seer.LoopSeer.filter">(angr.exploration_techniques.loop_seer.LoopSeer method)</a>
+        <li><a href="angr.html#angr.exploration_techniques.local_loop_seer.LocalLoopSeer.filter">(angr.exploration_techniques.local_loop_seer.LocalLoopSeer method)</a>
 </li>
-        <li><a href="angr.html#angr.exploration_techniques.manual_mergepoint.ManualMergepoint.filter">(angr.exploration_techniques.manual_mergepoint.ManualMergepoint method)</a>
+        <li><a href="angr.html#angr.exploration_techniques.loop_seer.LoopSeer.filter">(angr.exploration_techniques.loop_seer.LoopSeer method)</a>
 </li>
         <li><a href="angr.html#angr.exploration_techniques.slicecutor.Slicecutor.filter">(angr.exploration_techniques.slicecutor.Slicecutor method)</a>
 </li>
@@ -9456,8 +9676,6 @@
 </li>
       <li><a href="claripy.html#claripy.fp.fpAdd">fpAdd() (in module claripy.fp)</a>
 </li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="claripy.html#claripy.fp.fpDiv">fpDiv() (in module claripy.fp)</a>
 </li>
       <li><a href="claripy.html#claripy.fp.fpEQ">fpEQ() (in module claripy.fp)</a>
@@ -9482,6 +9700,8 @@
 </li>
       <li><a href="claripy.html#claripy.fp.fpNeg">fpNeg() (in module claripy.fp)</a>
 </li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="claripy.html#claripy.backends.backend_z3.BackendZ3.FPS">FPS() (claripy.backends.backend_z3.BackendZ3 method)</a>
 
       <ul>
@@ -9698,6 +9918,56 @@
       </ul></li>
       <li><a href="angr.html#angr.analyses.vfg.VFG.function_final_states">function_final_states (angr.analyses.vfg.VFG property)</a>
 </li>
+      <li><a href="cle.html#cle.backends.binja.BinjaBin.function_hints">function_hints (cle.backends.binja.BinjaBin attribute)</a>
+
+      <ul>
+        <li><a href="cle.html#cle.backends.blob.Blob.function_hints">(cle.backends.blob.Blob attribute)</a>
+</li>
+        <li><a href="cle.html#cle.backends.cgc.backedcgc.BackedCGC.function_hints">(cle.backends.cgc.backedcgc.BackedCGC attribute)</a>
+</li>
+        <li><a href="cle.html#cle.backends.cgc.cgc.CGC.function_hints">(cle.backends.cgc.cgc.CGC attribute)</a>
+</li>
+        <li><a href="cle.html#cle.backends.elf.elf.ELF.function_hints">(cle.backends.elf.elf.ELF attribute)</a>
+</li>
+        <li><a href="cle.html#cle.backends.elf.elfcore.ELFCore.function_hints">(cle.backends.elf.elfcore.ELFCore attribute)</a>
+</li>
+        <li><a href="cle.html#cle.backends.elf.metaelf.MetaELF.function_hints">(cle.backends.elf.metaelf.MetaELF attribute)</a>
+</li>
+        <li><a href="cle.html#cle.backends.externs.ExternObject.function_hints">(cle.backends.externs.ExternObject attribute)</a>
+</li>
+        <li><a href="cle.html#cle.backends.externs.KernelObject.function_hints">(cle.backends.externs.KernelObject attribute)</a>
+</li>
+        <li><a href="cle.html#cle.backends.ihex.Hex.function_hints">(cle.backends.ihex.Hex attribute)</a>
+</li>
+        <li><a href="cle.html#cle.backends.java.apk.Apk.function_hints">(cle.backends.java.apk.Apk attribute)</a>
+</li>
+        <li><a href="cle.html#cle.backends.java.jar.Jar.function_hints">(cle.backends.java.jar.Jar attribute)</a>
+</li>
+        <li><a href="cle.html#cle.backends.java.soot.Soot.function_hints">(cle.backends.java.soot.Soot attribute)</a>
+</li>
+        <li><a href="cle.html#cle.backends.macho.macho.MachO.function_hints">(cle.backends.macho.macho.MachO attribute)</a>
+</li>
+        <li><a href="cle.html#cle.backends.minidump.Minidump.function_hints">(cle.backends.minidump.Minidump attribute)</a>
+</li>
+        <li><a href="cle.html#cle.backends.named_region.NamedRegion.function_hints">(cle.backends.named_region.NamedRegion attribute)</a>
+</li>
+        <li><a href="cle.html#cle.backends.pe.pe.PE.function_hints">(cle.backends.pe.pe.PE attribute)</a>
+</li>
+        <li><a href="cle.html#cle.backends.static_archive.StaticArchive.function_hints">(cle.backends.static_archive.StaticArchive attribute)</a>
+</li>
+        <li><a href="cle.html#cle.backends.tls.elf_tls.ELFTLSObject.function_hints">(cle.backends.tls.elf_tls.ELFTLSObject attribute)</a>
+</li>
+        <li><a href="cle.html#cle.backends.tls.elf_tls.ELFTLSObjectV1.function_hints">(cle.backends.tls.elf_tls.ELFTLSObjectV1 attribute)</a>
+</li>
+        <li><a href="cle.html#cle.backends.tls.elf_tls.ELFTLSObjectV2.function_hints">(cle.backends.tls.elf_tls.ELFTLSObjectV2 attribute)</a>
+</li>
+        <li><a href="cle.html#cle.backends.tls.pe_tls.PETLSObject.function_hints">(cle.backends.tls.pe_tls.PETLSObject attribute)</a>
+</li>
+        <li><a href="cle.html#cle.backends.tls.TLSObject.function_hints">(cle.backends.tls.TLSObject attribute)</a>
+</li>
+        <li><a href="cle.html#cle.backends.xbe.XBE.function_hints">(cle.backends.xbe.XBE attribute)</a>
+</li>
+      </ul></li>
       <li><a href="angr.html#angr.analyses.vfg.VFG.function_initial_states">function_initial_states (angr.analyses.vfg.VFG property)</a>
 </li>
       <li><a href="angr.html#angr.analyses.reassembler.FunctionLabel.function_name">function_name (angr.analyses.reassembler.FunctionLabel property)</a>
@@ -9956,6 +10226,8 @@
 </li>
       <li><a href="angr.html#angr.knowledge_plugins.functions.function.Function.get_block">get_block() (angr.knowledge_plugins.functions.function.Function method)</a>
 </li>
+      <li><a href="angr.html#angr.knowledge_plugins.functions.function.Function.get_block_size">get_block_size() (angr.knowledge_plugins.functions.function.Function method)</a>
+</li>
       <li><a href="angr.html#angr.analyses.cfg.cfg_base.CFGBase.get_branching_nodes">get_branching_nodes() (angr.analyses.cfg.cfg_base.CFGBase method)</a>
 
       <ul>
@@ -10206,6 +10478,8 @@
 </li>
       <li><a href="angr.html#angr.state_plugins.trace_additions.ChallRespInfo.get_real_len">get_real_len() (angr.state_plugins.trace_additions.ChallRespInfo method)</a>
 </li>
+      <li><a href="angr.html#angr.state_plugins.unicorn_engine.Unicorn.get_recent_bbl_addrs">get_recent_bbl_addrs() (angr.state_plugins.unicorn_engine.Unicorn method)</a>
+</li>
       <li><a href="angr.html#angr.exploration_techniques.spiller.PickledStatesDb.get_recent_n">get_recent_n() (angr.exploration_techniques.spiller.PickledStatesDb method)</a>
 </li>
       <li><a href="angr.html#angr.state_hierarchy.StateHierarchy.get_ref">get_ref() (angr.state_hierarchy.StateHierarchy method)</a>
@@ -10281,6 +10555,8 @@
       <li><a href="angr.html#angr.state_plugins.trace_additions.ChallRespInfo.get_stdin_indices">get_stdin_indices() (angr.state_plugins.trace_additions.ChallRespInfo method)</a>
 </li>
       <li><a href="angr.html#angr.state_plugins.trace_additions.ChallRespInfo.get_stdout_indices">get_stdout_indices() (angr.state_plugins.trace_additions.ChallRespInfo method)</a>
+</li>
+      <li><a href="angr.html#angr.state_plugins.unicorn_engine.Unicorn.get_stop_details">get_stop_details() (angr.state_plugins.unicorn_engine.Unicorn method)</a>
 </li>
       <li><a href="angr.html#angr.state_plugins.unicorn_engine.STOP.get_stop_msg">get_stop_msg() (angr.state_plugins.unicorn_engine.STOP static method)</a>
 </li>
@@ -10388,7 +10664,11 @@
 </li>
       <li><a href="angr.html#angr.knowledge_plugins.key_definitions.uses.Uses.get_uses">get_uses() (angr.knowledge_plugins.key_definitions.uses.Uses method)</a>
 </li>
+      <li><a href="angr.html#angr.knowledge_plugins.key_definitions.uses.Uses.get_uses_by_insaddr">get_uses_by_insaddr() (angr.knowledge_plugins.key_definitions.uses.Uses method)</a>
+</li>
       <li><a href="angr.html#angr.knowledge_plugins.key_definitions.uses.Uses.get_uses_by_location">get_uses_by_location() (angr.knowledge_plugins.key_definitions.uses.Uses method)</a>
+</li>
+      <li><a href="angr.html#angr.knowledge_plugins.key_definitions.uses.Uses.get_uses_with_expr">get_uses_with_expr() (angr.knowledge_plugins.key_definitions.uses.Uses method)</a>
 </li>
       <li><a href="pyvex.html#pyvex.lifting.gym.arm_spotter.ARMInstruction.get_V">get_V() (pyvex.lifting.gym.arm_spotter.ARMInstruction method)</a>
 </li>
@@ -10481,6 +10761,8 @@
 </li>
       </ul></li>
       <li><a href="angr.html#angr.analyses.stack_pointer_tracker.StackPointerTrackerState.give_up_on_memory_tracking">give_up_on_memory_tracking() (angr.analyses.stack_pointer_tracker.StackPointerTrackerState method)</a>
+</li>
+      <li><a href="angr.html#angr.analyses.propagator.propagator.PropagatorAILState.global_stores">global_stores (angr.analyses.propagator.propagator.PropagatorAILState attribute)</a>
 </li>
       <li><a href="cle.html#cle.backends.elf.compilation_unit.CompilationUnit.global_variables">global_variables (cle.backends.elf.compilation_unit.CompilationUnit attribute)</a>
 </li>
@@ -10690,6 +10972,8 @@
 </li>
       <li><a href="angr.html#angr.analyses.soot_class_hierarchy.SootClassHierarchy.has_super_class">has_super_class() (angr.analyses.soot_class_hierarchy.SootClassHierarchy method)</a>
 </li>
+      <li><a href="angr.html#angr.state_plugins.unicorn_engine.BlockDetails.has_symbolic_exit">has_symbolic_exit (angr.state_plugins.unicorn_engine.BlockDetails attribute)</a>
+</li>
       <li><a href="claripy.html#claripy.backends.Backend.has_true">has_true() (claripy.backends.Backend method)</a>
 
       <ul>
@@ -10722,7 +11006,7 @@
         <li><a href="cle.html#cle.backends.tls.elf_tls.ELFTLSObjectV2.head_offset">(cle.backends.tls.elf_tls.ELFTLSObjectV2 attribute)</a>
 </li>
       </ul></li>
-      <li><a href="archinfo.html#archinfo.tls.TLSArchInfo.head_offsets">head_offsets (archinfo.tls.TLSArchInfo property)</a>
+      <li><a href="archinfo.html#archinfo.tls.TLSArchInfo.head_offsets">head_offsets (archinfo.tls.TLSArchInfo attribute)</a>
 </li>
       <li><a href="angr.html#angr.analyses.reaching_definitions.rd_state.ReachingDefinitionsState.heap_address">heap_address() (angr.analyses.reaching_definitions.rd_state.ReachingDefinitionsState method)</a>
 </li>
@@ -10904,8 +11188,12 @@
 </li>
       <li><a href="angr.html#angr.analyses.identifier.identify.Identifier.identify_func">identify_func() (angr.analyses.identifier.identify.Identifier method)</a>
 </li>
-      <li><a href="angr.html#angr.analyses.typehoon.typevars.TypeVariable.idx">idx (angr.analyses.typehoon.typevars.TypeVariable attribute)</a>
+      <li><a href="angr.html#angr.analyses.decompiler.structurer_nodes.CodeNode.idx">idx (angr.analyses.decompiler.structurer_nodes.CodeNode property)</a>
+
+      <ul>
+        <li><a href="angr.html#angr.analyses.typehoon.typevars.TypeVariable.idx">(angr.analyses.typehoon.typevars.TypeVariable attribute)</a>
 </li>
+      </ul></li>
       <li><a href="pyvex.html#pyvex.lifting.util.vex_helper.Type.ieee_float_128">ieee_float_128 (pyvex.lifting.util.vex_helper.Type attribute)</a>
 </li>
       <li><a href="pyvex.html#pyvex.lifting.util.vex_helper.Type.ieee_float_16">ieee_float_16 (pyvex.lifting.util.vex_helper.Type attribute)</a>
@@ -12012,6 +12300,8 @@
 </li>
       <li><a href="cle.html#cle.backends.java.soot.Soot.is_zip_archive">is_zip_archive() (cle.backends.java.soot.Soot static method)</a>
 </li>
+      <li><a href="angr.html#angr.analyses.typehoon.typevars.IsArray">IsArray (class in angr.analyses.typehoon.typevars)</a>
+</li>
       <li><a href="claripy.html#claripy.ast.fp.FP.isInf">isInf() (claripy.ast.fp.FP method)</a>
 </li>
       <li><a href="claripy.html#claripy.ast.fp.FP.isNaN">isNaN() (claripy.ast.fp.FP method)</a>
@@ -12157,6 +12447,8 @@
       <li><a href="angr.html#angr.knowledge_plugins.cfg.indirect_jump.IndirectJump.jumptable_entry_size">jumptable_entry_size (angr.knowledge_plugins.cfg.indirect_jump.IndirectJump attribute)</a>
 </li>
       <li><a href="angr.html#angr.knowledge_plugins.cfg.indirect_jump.IndirectJump.jumptable_size">jumptable_size (angr.knowledge_plugins.cfg.indirect_jump.IndirectJump attribute)</a>
+</li>
+      <li><a href="angr.html#angr.analyses.decompiler.jumptable_entry_condition_rewriter.JumpTableEntryConditionRewriter">JumpTableEntryConditionRewriter (class in angr.analyses.decompiler.jumptable_entry_condition_rewriter)</a>
 </li>
       <li><a href="angr.html#angr.analyses.cfg.indirect_jump_resolvers.jumptable.JumpTableProcessor">JumpTableProcessor (class in angr.analyses.cfg.indirect_jump_resolvers.jumptable)</a>
 </li>
@@ -12342,7 +12634,7 @@
         <li><a href="angr.html#angr.storage.memory_object.SimMemoryObject.last_addr">(angr.storage.memory_object.SimMemoryObject property)</a>
 </li>
       </ul></li>
-      <li><a href="angr.html#angr.analyses.propagator.propagator.PropagatorAILState.last_store">last_store (angr.analyses.propagator.propagator.PropagatorAILState attribute)</a>
+      <li><a href="angr.html#angr.analyses.propagator.propagator.PropagatorAILState.last_stack_store">last_stack_store (angr.analyses.propagator.propagator.PropagatorAILState attribute)</a>
 </li>
       <li><a href="claripy.html#claripy.vsa.strided_interval.StridedInterval.lcm">lcm() (claripy.vsa.strided_interval.StridedInterval static method)</a>
 </li>
@@ -12740,11 +13032,15 @@
       </ul></li>
       <li><a href="angr.html#angr.knowledge_plugins.functions.function.Function.local_runtime_values">local_runtime_values (angr.knowledge_plugins.functions.function.Function property)</a>
 </li>
+      <li><a href="angr.html#angr.analyses.decompiler.decompilation_cache.DecompilationCache.local_types">local_types (angr.analyses.decompiler.decompilation_cache.DecompilationCache property)</a>
+</li>
       <li><a href="cle.html#cle.backends.elf.subprogram.Subprogram.local_variables">local_variables (cle.backends.elf.subprogram.Subprogram attribute)</a>
 </li>
       <li><a href="angr.html#angr.sim_procedure.SimProcedure.local_vars">local_vars (angr.sim_procedure.SimProcedure attribute)</a>
 </li>
       <li><a href="angr.html#angr.state_plugins.libc.SimStateLibc.LOCALE_ARRAY">LOCALE_ARRAY (angr.state_plugins.libc.SimStateLibc attribute)</a>
+</li>
+      <li><a href="angr.html#angr.exploration_techniques.local_loop_seer.LocalLoopSeer">LocalLoopSeer (class in angr.exploration_techniques.local_loop_seer)</a>
 </li>
       <li><a href="angr.html#angr.knowledge_plugins.key_definitions.tag.LocalVariableTag">LocalVariableTag (class in angr.knowledge_plugins.key_definitions.tag)</a>
 </li>
@@ -12818,6 +13114,8 @@
         <li><a href="claripy.html#claripy.backends.backend_vsa.BackendVSA.LShR">(claripy.backends.backend_vsa.BackendVSA static method)</a>
 </li>
         <li><a href="claripy.html#claripy.vsa.strided_interval.StridedInterval.LShR">(claripy.vsa.strided_interval.StridedInterval method)</a>
+</li>
+        <li><a href="claripy.html#claripy.vsa.valueset.ValueSet.LShR">(claripy.vsa.valueset.ValueSet method)</a>
 </li>
         <li><a href="claripy.html#claripy.bv.LShR">(in module claripy.bv)</a>
 </li>
@@ -13151,6 +13449,54 @@
       <li><a href="angr.html#angr.sim_state.SimState.memory">memory (angr.sim_state.SimState attribute)</a>
 
       <ul>
+        <li><a href="cle.html#cle.backends.binja.BinjaBin.memory">(cle.backends.binja.BinjaBin attribute)</a>
+</li>
+        <li><a href="cle.html#cle.backends.blob.Blob.memory">(cle.backends.blob.Blob attribute)</a>
+</li>
+        <li><a href="cle.html#cle.backends.cgc.backedcgc.BackedCGC.memory">(cle.backends.cgc.backedcgc.BackedCGC attribute)</a>
+</li>
+        <li><a href="cle.html#cle.backends.cgc.cgc.CGC.memory">(cle.backends.cgc.cgc.CGC attribute)</a>
+</li>
+        <li><a href="cle.html#cle.backends.elf.elf.ELF.memory">(cle.backends.elf.elf.ELF attribute)</a>
+</li>
+        <li><a href="cle.html#cle.backends.elf.elfcore.ELFCore.memory">(cle.backends.elf.elfcore.ELFCore attribute)</a>
+</li>
+        <li><a href="cle.html#cle.backends.elf.metaelf.MetaELF.memory">(cle.backends.elf.metaelf.MetaELF attribute)</a>
+</li>
+        <li><a href="cle.html#cle.backends.externs.ExternObject.memory">(cle.backends.externs.ExternObject attribute)</a>
+</li>
+        <li><a href="cle.html#cle.backends.externs.KernelObject.memory">(cle.backends.externs.KernelObject attribute)</a>
+</li>
+        <li><a href="cle.html#cle.backends.ihex.Hex.memory">(cle.backends.ihex.Hex attribute)</a>
+</li>
+        <li><a href="cle.html#cle.backends.java.apk.Apk.memory">(cle.backends.java.apk.Apk attribute)</a>
+</li>
+        <li><a href="cle.html#cle.backends.java.jar.Jar.memory">(cle.backends.java.jar.Jar attribute)</a>
+</li>
+        <li><a href="cle.html#cle.backends.java.soot.Soot.memory">(cle.backends.java.soot.Soot attribute)</a>
+</li>
+        <li><a href="cle.html#cle.backends.macho.macho.MachO.memory">(cle.backends.macho.macho.MachO attribute)</a>
+</li>
+        <li><a href="cle.html#cle.backends.minidump.Minidump.memory">(cle.backends.minidump.Minidump attribute)</a>
+</li>
+        <li><a href="cle.html#cle.backends.named_region.NamedRegion.memory">(cle.backends.named_region.NamedRegion attribute)</a>
+</li>
+        <li><a href="cle.html#cle.backends.pe.pe.PE.memory">(cle.backends.pe.pe.PE attribute)</a>
+</li>
+        <li><a href="cle.html#cle.backends.static_archive.StaticArchive.memory">(cle.backends.static_archive.StaticArchive attribute)</a>
+</li>
+        <li><a href="cle.html#cle.backends.tls.elf_tls.ELFTLSObject.memory">(cle.backends.tls.elf_tls.ELFTLSObject attribute)</a>
+</li>
+        <li><a href="cle.html#cle.backends.tls.elf_tls.ELFTLSObjectV1.memory">(cle.backends.tls.elf_tls.ELFTLSObjectV1 attribute)</a>
+</li>
+        <li><a href="cle.html#cle.backends.tls.elf_tls.ELFTLSObjectV2.memory">(cle.backends.tls.elf_tls.ELFTLSObjectV2 attribute)</a>
+</li>
+        <li><a href="cle.html#cle.backends.tls.pe_tls.PETLSObject.memory">(cle.backends.tls.pe_tls.PETLSObject attribute)</a>
+</li>
+        <li><a href="cle.html#cle.backends.tls.TLSObject.memory">(cle.backends.tls.TLSObject attribute)</a>
+</li>
+        <li><a href="cle.html#cle.backends.xbe.XBE.memory">(cle.backends.xbe.XBE attribute)</a>
+</li>
         <li><a href="cle.html#cle.loader.Loader.memory">(cle.loader.Loader attribute)</a>
 </li>
       </ul></li>
@@ -13674,7 +14020,11 @@
 </li>
         <li><a href="angr.html#module-angr.analyses.decompiler.empty_node_remover">angr.analyses.decompiler.empty_node_remover</a>
 </li>
+        <li><a href="angr.html#module-angr.analyses.decompiler.expression_narrower">angr.analyses.decompiler.expression_narrower</a>
+</li>
         <li><a href="angr.html#module-angr.analyses.decompiler.graph_region">angr.analyses.decompiler.graph_region</a>
+</li>
+        <li><a href="angr.html#module-angr.analyses.decompiler.jumptable_entry_condition_rewriter">angr.analyses.decompiler.jumptable_entry_condition_rewriter</a>
 </li>
         <li><a href="angr.html#module-angr.analyses.decompiler.optimization_passes">angr.analyses.decompiler.optimization_passes</a>
 </li>
@@ -13704,6 +14054,16 @@
 </li>
         <li><a href="angr.html#module-angr.analyses.decompiler.peephole_optimizations">angr.analyses.decompiler.peephole_optimizations</a>
 </li>
+        <li><a href="angr.html#module-angr.analyses.decompiler.peephole_optimizations.a_div_const_add_a_mul_n_div_const">angr.analyses.decompiler.peephole_optimizations.a_div_const_add_a_mul_n_div_const</a>
+</li>
+        <li><a href="angr.html#module-angr.analyses.decompiler.peephole_optimizations.a_mul_const_div_shr_const">angr.analyses.decompiler.peephole_optimizations.a_mul_const_div_shr_const</a>
+</li>
+        <li><a href="angr.html#module-angr.analyses.decompiler.peephole_optimizations.a_shl_const_sub_a">angr.analyses.decompiler.peephole_optimizations.a_shl_const_sub_a</a>
+</li>
+        <li><a href="angr.html#module-angr.analyses.decompiler.peephole_optimizations.a_sub_a_div">angr.analyses.decompiler.peephole_optimizations.a_sub_a_div</a>
+</li>
+        <li><a href="angr.html#module-angr.analyses.decompiler.peephole_optimizations.a_sub_a_div_const_mul_const">angr.analyses.decompiler.peephole_optimizations.a_sub_a_div_const_mul_const</a>
+</li>
         <li><a href="angr.html#module-angr.analyses.decompiler.peephole_optimizations.a_sub_a_sub_n">angr.analyses.decompiler.peephole_optimizations.a_sub_a_sub_n</a>
 </li>
         <li><a href="angr.html#module-angr.analyses.decompiler.peephole_optimizations.base">angr.analyses.decompiler.peephole_optimizations.base</a>
@@ -13714,11 +14074,15 @@
 </li>
         <li><a href="angr.html#module-angr.analyses.decompiler.peephole_optimizations.bool_expr_xor_1">angr.analyses.decompiler.peephole_optimizations.bool_expr_xor_1</a>
 </li>
+        <li><a href="angr.html#module-angr.analyses.decompiler.peephole_optimizations.bswap">angr.analyses.decompiler.peephole_optimizations.bswap</a>
+</li>
         <li><a href="angr.html#module-angr.analyses.decompiler.peephole_optimizations.coalesce_same_cascading_ifs">angr.analyses.decompiler.peephole_optimizations.coalesce_same_cascading_ifs</a>
 </li>
         <li><a href="angr.html#module-angr.analyses.decompiler.peephole_optimizations.constant_derefs">angr.analyses.decompiler.peephole_optimizations.constant_derefs</a>
 </li>
         <li><a href="angr.html#module-angr.analyses.decompiler.peephole_optimizations.conv_a_sub0_shr_and">angr.analyses.decompiler.peephole_optimizations.conv_a_sub0_shr_and</a>
+</li>
+        <li><a href="angr.html#module-angr.analyses.decompiler.peephole_optimizations.conv_const_mull_a_shift">angr.analyses.decompiler.peephole_optimizations.conv_const_mull_a_shift</a>
 </li>
         <li><a href="angr.html#module-angr.analyses.decompiler.peephole_optimizations.conv_shl_shr">angr.analyses.decompiler.peephole_optimizations.conv_shl_shr</a>
 </li>
@@ -14039,6 +14403,8 @@
         <li><a href="angr.html#module-angr.exploration_techniques.explorer">angr.exploration_techniques.explorer</a>
 </li>
         <li><a href="angr.html#module-angr.exploration_techniques.lengthlimiter">angr.exploration_techniques.lengthlimiter</a>
+</li>
+        <li><a href="angr.html#module-angr.exploration_techniques.local_loop_seer">angr.exploration_techniques.local_loop_seer</a>
 </li>
         <li><a href="angr.html#module-angr.exploration_techniques.loop_seer">angr.exploration_techniques.loop_seer</a>
 </li>
@@ -14409,6 +14775,8 @@
         <li><a href="angr.html#module-angr.utils.graph">angr.utils.graph</a>
 </li>
         <li><a href="angr.html#module-angr.utils.library">angr.utils.library</a>
+</li>
+        <li><a href="angr.html#module-angr.utils.mp">angr.utils.mp</a>
 </li>
         <li><a href="angr.html#module-angr.utils.timing">angr.utils.timing</a>
 </li>
@@ -14797,6 +15165,8 @@
 </li>
       <li><a href="angr.html#angr.sim_manager.SimulationManager.move">move() (angr.sim_manager.SimulationManager method)</a>
 </li>
+      <li><a href="angr.html#angr.utils.mp.mp_context">mp_context() (in module angr.utils.mp)</a>
+</li>
       <li><a href="pyvex.html#pyvex.stmt.Dirty.mSize">mSize (pyvex.stmt.Dirty attribute)</a>
 </li>
       <li><a href="angr.html#angr.engines.light.data.ArithmeticExpression.Mul">Mul (angr.engines.light.data.ArithmeticExpression attribute)</a>
@@ -14873,55 +15243,91 @@
 </li>
       <li><a href="claripy.html#claripy.vsa.strided_interval.StridedInterval.n_values">n_values (claripy.vsa.strided_interval.StridedInterval property)</a>
 </li>
-      <li><a href="angr.html#angr.analyses.decompiler.peephole_optimizations.a_sub_a_sub_n.ASubASubN.name">name (angr.analyses.decompiler.peephole_optimizations.a_sub_a_sub_n.ASubASubN attribute)</a>
+      <li><a href="angr.html#angr.analyses.decompiler.optimization_passes.base_ptr_save_simplifier.BasePointerSaveSimplifier.NAME">NAME (angr.analyses.decompiler.optimization_passes.base_ptr_save_simplifier.BasePointerSaveSimplifier attribute)</a>
 
       <ul>
-        <li><a href="angr.html#angr.analyses.decompiler.peephole_optimizations.base.PeepholeOptimizationExprBase.name">(angr.analyses.decompiler.peephole_optimizations.base.PeepholeOptimizationExprBase attribute)</a>
+        <li><a href="angr.html#angr.analyses.decompiler.optimization_passes.const_derefs.ConstantDereferencesSimplifier.NAME">(angr.analyses.decompiler.optimization_passes.const_derefs.ConstantDereferencesSimplifier attribute)</a>
 </li>
-        <li><a href="angr.html#angr.analyses.decompiler.peephole_optimizations.base.PeepholeOptimizationStmtBase.name">(angr.analyses.decompiler.peephole_optimizations.base.PeepholeOptimizationStmtBase attribute)</a>
+        <li><a href="angr.html#angr.analyses.decompiler.optimization_passes.div_simplifier.DivSimplifier.NAME">(angr.analyses.decompiler.optimization_passes.div_simplifier.DivSimplifier attribute)</a>
 </li>
-        <li><a href="angr.html#angr.analyses.decompiler.peephole_optimizations.basepointeroffset_add_n.BasePointerOffsetAddN.name">(angr.analyses.decompiler.peephole_optimizations.basepointeroffset_add_n.BasePointerOffsetAddN attribute)</a>
+        <li><a href="angr.html#angr.analyses.decompiler.optimization_passes.eager_returns.EagerReturnsSimplifier.NAME">(angr.analyses.decompiler.optimization_passes.eager_returns.EagerReturnsSimplifier attribute)</a>
 </li>
-        <li><a href="angr.html#angr.analyses.decompiler.peephole_optimizations.basepointeroffset_and_mask.BasePointerOffsetAndMask.name">(angr.analyses.decompiler.peephole_optimizations.basepointeroffset_and_mask.BasePointerOffsetAndMask attribute)</a>
+        <li><a href="angr.html#angr.analyses.decompiler.optimization_passes.mod_simplifier.ModSimplifier.NAME">(angr.analyses.decompiler.optimization_passes.mod_simplifier.ModSimplifier attribute)</a>
 </li>
-        <li><a href="angr.html#angr.analyses.decompiler.peephole_optimizations.bool_expr_xor_1.BoolExprXor1.name">(angr.analyses.decompiler.peephole_optimizations.bool_expr_xor_1.BoolExprXor1 attribute)</a>
+        <li><a href="angr.html#angr.analyses.decompiler.optimization_passes.multi_simplifier.MultiSimplifier.NAME">(angr.analyses.decompiler.optimization_passes.multi_simplifier.MultiSimplifier attribute)</a>
 </li>
-        <li><a href="angr.html#angr.analyses.decompiler.peephole_optimizations.coalesce_same_cascading_ifs.CoalesceSameCascadingIfs.name">(angr.analyses.decompiler.peephole_optimizations.coalesce_same_cascading_ifs.CoalesceSameCascadingIfs attribute)</a>
+        <li><a href="angr.html#angr.analyses.decompiler.optimization_passes.register_save_area_simplifier.RegisterSaveAreaSimplifier.NAME">(angr.analyses.decompiler.optimization_passes.register_save_area_simplifier.RegisterSaveAreaSimplifier attribute)</a>
 </li>
-        <li><a href="angr.html#angr.analyses.decompiler.peephole_optimizations.constant_derefs.ConstantDereferences.name">(angr.analyses.decompiler.peephole_optimizations.constant_derefs.ConstantDereferences attribute)</a>
+        <li><a href="angr.html#angr.analyses.decompiler.optimization_passes.ret_addr_save_simplifier.RetAddrSaveSimplifier.NAME">(angr.analyses.decompiler.optimization_passes.ret_addr_save_simplifier.RetAddrSaveSimplifier attribute)</a>
 </li>
-        <li><a href="angr.html#angr.analyses.decompiler.peephole_optimizations.conv_a_sub0_shr_and.ConvASub0ShrAnd.name">(angr.analyses.decompiler.peephole_optimizations.conv_a_sub0_shr_and.ConvASub0ShrAnd attribute)</a>
+        <li><a href="angr.html#angr.analyses.decompiler.optimization_passes.stack_canary_simplifier.StackCanarySimplifier.NAME">(angr.analyses.decompiler.optimization_passes.stack_canary_simplifier.StackCanarySimplifier attribute)</a>
 </li>
-        <li><a href="angr.html#angr.analyses.decompiler.peephole_optimizations.conv_shl_shr.ConvShlShr.name">(angr.analyses.decompiler.peephole_optimizations.conv_shl_shr.ConvShlShr attribute)</a>
+        <li><a href="angr.html#angr.analyses.decompiler.optimization_passes.x86_gcc_getpc_simplifier.X86GccGetPcSimplifier.NAME">(angr.analyses.decompiler.optimization_passes.x86_gcc_getpc_simplifier.X86GccGetPcSimplifier attribute)</a>
 </li>
-        <li><a href="angr.html#angr.analyses.decompiler.peephole_optimizations.eager_eval.EagerEvaluation.name">(angr.analyses.decompiler.peephole_optimizations.eager_eval.EagerEvaluation attribute)</a>
+        <li><a href="angr.html#angr.analyses.decompiler.peephole_optimizations.a_div_const_add_a_mul_n_div_const.ADivConstAddAMulNDivConst.NAME">(angr.analyses.decompiler.peephole_optimizations.a_div_const_add_a_mul_n_div_const.ADivConstAddAMulNDivConst attribute)</a>
 </li>
-        <li><a href="angr.html#angr.analyses.decompiler.peephole_optimizations.extended_byte_and_mask.ExtendedByteAndMask.name">(angr.analyses.decompiler.peephole_optimizations.extended_byte_and_mask.ExtendedByteAndMask attribute)</a>
+        <li><a href="angr.html#angr.analyses.decompiler.peephole_optimizations.a_mul_const_div_shr_const.AMulConstDivShrConst.NAME">(angr.analyses.decompiler.peephole_optimizations.a_mul_const_div_shr_const.AMulConstDivShrConst attribute)</a>
 </li>
-        <li><a href="angr.html#angr.analyses.decompiler.peephole_optimizations.one_sub_bool.OneSubBool.name">(angr.analyses.decompiler.peephole_optimizations.one_sub_bool.OneSubBool attribute)</a>
+        <li><a href="angr.html#angr.analyses.decompiler.peephole_optimizations.a_shl_const_sub_a.AShlConstSubA.NAME">(angr.analyses.decompiler.peephole_optimizations.a_shl_const_sub_a.AShlConstSubA attribute)</a>
 </li>
-        <li><a href="angr.html#angr.analyses.decompiler.peephole_optimizations.remove_cascading_conversions.RemoveCascadingConversions.name">(angr.analyses.decompiler.peephole_optimizations.remove_cascading_conversions.RemoveCascadingConversions attribute)</a>
+        <li><a href="angr.html#angr.analyses.decompiler.peephole_optimizations.a_sub_a_div.ASubADiv.NAME">(angr.analyses.decompiler.peephole_optimizations.a_sub_a_div.ASubADiv attribute)</a>
 </li>
-        <li><a href="angr.html#angr.analyses.decompiler.peephole_optimizations.remove_empty_if_body.RemoveEmptyIfBody.name">(angr.analyses.decompiler.peephole_optimizations.remove_empty_if_body.RemoveEmptyIfBody attribute)</a>
+        <li><a href="angr.html#angr.analyses.decompiler.peephole_optimizations.a_sub_a_div_const_mul_const.ASubADivConstMulConst.NAME">(angr.analyses.decompiler.peephole_optimizations.a_sub_a_div_const_mul_const.ASubADivConstMulConst attribute)</a>
 </li>
-        <li><a href="angr.html#angr.analyses.decompiler.peephole_optimizations.remove_redundant_bitmasks.RemoveRedundantBitmasks.name">(angr.analyses.decompiler.peephole_optimizations.remove_redundant_bitmasks.RemoveRedundantBitmasks attribute)</a>
+        <li><a href="angr.html#angr.analyses.decompiler.peephole_optimizations.a_sub_a_sub_n.ASubASubN.NAME">(angr.analyses.decompiler.peephole_optimizations.a_sub_a_sub_n.ASubASubN attribute)</a>
 </li>
-        <li><a href="angr.html#angr.analyses.decompiler.peephole_optimizations.remove_redundant_conversions.RemoveRedundantConversions.name">(angr.analyses.decompiler.peephole_optimizations.remove_redundant_conversions.RemoveRedundantConversions attribute)</a>
+        <li><a href="angr.html#angr.analyses.decompiler.peephole_optimizations.base.PeepholeOptimizationExprBase.NAME">(angr.analyses.decompiler.peephole_optimizations.base.PeepholeOptimizationExprBase attribute)</a>
 </li>
-        <li><a href="angr.html#angr.analyses.decompiler.peephole_optimizations.remove_redundant_ite_branch.RemoveRedundantITEBranches.name">(angr.analyses.decompiler.peephole_optimizations.remove_redundant_ite_branch.RemoveRedundantITEBranches attribute)</a>
+        <li><a href="angr.html#angr.analyses.decompiler.peephole_optimizations.base.PeepholeOptimizationStmtBase.NAME">(angr.analyses.decompiler.peephole_optimizations.base.PeepholeOptimizationStmtBase attribute)</a>
 </li>
-        <li><a href="angr.html#angr.analyses.decompiler.peephole_optimizations.remove_redundant_nots.RemoveRedundantNots.name">(angr.analyses.decompiler.peephole_optimizations.remove_redundant_nots.RemoveRedundantNots attribute)</a>
+        <li><a href="angr.html#angr.analyses.decompiler.peephole_optimizations.basepointeroffset_add_n.BasePointerOffsetAddN.NAME">(angr.analyses.decompiler.peephole_optimizations.basepointeroffset_add_n.BasePointerOffsetAddN attribute)</a>
 </li>
-        <li><a href="angr.html#angr.analyses.decompiler.peephole_optimizations.remove_redundant_shifts.RemoveRedundantShifts.name">(angr.analyses.decompiler.peephole_optimizations.remove_redundant_shifts.RemoveRedundantShifts attribute)</a>
+        <li><a href="angr.html#angr.analyses.decompiler.peephole_optimizations.basepointeroffset_and_mask.BasePointerOffsetAndMask.NAME">(angr.analyses.decompiler.peephole_optimizations.basepointeroffset_and_mask.BasePointerOffsetAndMask attribute)</a>
 </li>
-        <li><a href="angr.html#angr.analyses.decompiler.peephole_optimizations.rewrite_mips_gp_loads.RewriteMipsGpLoads.name">(angr.analyses.decompiler.peephole_optimizations.rewrite_mips_gp_loads.RewriteMipsGpLoads attribute)</a>
+        <li><a href="angr.html#angr.analyses.decompiler.peephole_optimizations.bool_expr_xor_1.BoolExprXor1.NAME">(angr.analyses.decompiler.peephole_optimizations.bool_expr_xor_1.BoolExprXor1 attribute)</a>
 </li>
-        <li><a href="angr.html#angr.analyses.decompiler.peephole_optimizations.simplify_pc_relative_loads.SimplifyPcRelativeLoads.name">(angr.analyses.decompiler.peephole_optimizations.simplify_pc_relative_loads.SimplifyPcRelativeLoads attribute)</a>
+        <li><a href="angr.html#angr.analyses.decompiler.peephole_optimizations.bswap.Bswap.NAME">(angr.analyses.decompiler.peephole_optimizations.bswap.Bswap attribute)</a>
 </li>
-        <li><a href="angr.html#angr.analyses.decompiler.peephole_optimizations.single_bit_xor.SingleBitXor.name">(angr.analyses.decompiler.peephole_optimizations.single_bit_xor.SingleBitXor attribute)</a>
+        <li><a href="angr.html#angr.analyses.decompiler.peephole_optimizations.coalesce_same_cascading_ifs.CoalesceSameCascadingIfs.NAME">(angr.analyses.decompiler.peephole_optimizations.coalesce_same_cascading_ifs.CoalesceSameCascadingIfs attribute)</a>
 </li>
-        <li><a href="angr.html#angr.analyses.decompiler.structured_codegen.c.CFunction.name">(angr.analyses.decompiler.structured_codegen.c.CFunction attribute)</a>
+        <li><a href="angr.html#angr.analyses.decompiler.peephole_optimizations.constant_derefs.ConstantDereferences.NAME">(angr.analyses.decompiler.peephole_optimizations.constant_derefs.ConstantDereferences attribute)</a>
 </li>
+        <li><a href="angr.html#angr.analyses.decompiler.peephole_optimizations.conv_a_sub0_shr_and.ConvASub0ShrAnd.NAME">(angr.analyses.decompiler.peephole_optimizations.conv_a_sub0_shr_and.ConvASub0ShrAnd attribute)</a>
+</li>
+        <li><a href="angr.html#angr.analyses.decompiler.peephole_optimizations.conv_const_mull_a_shift.ConvConstMullAShift.NAME">(angr.analyses.decompiler.peephole_optimizations.conv_const_mull_a_shift.ConvConstMullAShift attribute)</a>
+</li>
+        <li><a href="angr.html#angr.analyses.decompiler.peephole_optimizations.conv_shl_shr.ConvShlShr.NAME">(angr.analyses.decompiler.peephole_optimizations.conv_shl_shr.ConvShlShr attribute)</a>
+</li>
+        <li><a href="angr.html#angr.analyses.decompiler.peephole_optimizations.eager_eval.EagerEvaluation.NAME">(angr.analyses.decompiler.peephole_optimizations.eager_eval.EagerEvaluation attribute)</a>
+</li>
+        <li><a href="angr.html#angr.analyses.decompiler.peephole_optimizations.extended_byte_and_mask.ExtendedByteAndMask.NAME">(angr.analyses.decompiler.peephole_optimizations.extended_byte_and_mask.ExtendedByteAndMask attribute)</a>
+</li>
+        <li><a href="angr.html#angr.analyses.decompiler.peephole_optimizations.one_sub_bool.OneSubBool.NAME">(angr.analyses.decompiler.peephole_optimizations.one_sub_bool.OneSubBool attribute)</a>
+</li>
+        <li><a href="angr.html#angr.analyses.decompiler.peephole_optimizations.remove_cascading_conversions.RemoveCascadingConversions.NAME">(angr.analyses.decompiler.peephole_optimizations.remove_cascading_conversions.RemoveCascadingConversions attribute)</a>
+</li>
+        <li><a href="angr.html#angr.analyses.decompiler.peephole_optimizations.remove_empty_if_body.RemoveEmptyIfBody.NAME">(angr.analyses.decompiler.peephole_optimizations.remove_empty_if_body.RemoveEmptyIfBody attribute)</a>
+</li>
+        <li><a href="angr.html#angr.analyses.decompiler.peephole_optimizations.remove_redundant_bitmasks.RemoveRedundantBitmasks.NAME">(angr.analyses.decompiler.peephole_optimizations.remove_redundant_bitmasks.RemoveRedundantBitmasks attribute)</a>
+</li>
+        <li><a href="angr.html#angr.analyses.decompiler.peephole_optimizations.remove_redundant_conversions.RemoveRedundantConversions.NAME">(angr.analyses.decompiler.peephole_optimizations.remove_redundant_conversions.RemoveRedundantConversions attribute)</a>
+</li>
+        <li><a href="angr.html#angr.analyses.decompiler.peephole_optimizations.remove_redundant_ite_branch.RemoveRedundantITEBranches.NAME">(angr.analyses.decompiler.peephole_optimizations.remove_redundant_ite_branch.RemoveRedundantITEBranches attribute)</a>
+</li>
+        <li><a href="angr.html#angr.analyses.decompiler.peephole_optimizations.remove_redundant_nots.RemoveRedundantNots.NAME">(angr.analyses.decompiler.peephole_optimizations.remove_redundant_nots.RemoveRedundantNots attribute)</a>
+</li>
+        <li><a href="angr.html#angr.analyses.decompiler.peephole_optimizations.remove_redundant_shifts.RemoveRedundantShifts.NAME">(angr.analyses.decompiler.peephole_optimizations.remove_redundant_shifts.RemoveRedundantShifts attribute)</a>
+</li>
+        <li><a href="angr.html#angr.analyses.decompiler.peephole_optimizations.rewrite_mips_gp_loads.RewriteMipsGpLoads.NAME">(angr.analyses.decompiler.peephole_optimizations.rewrite_mips_gp_loads.RewriteMipsGpLoads attribute)</a>
+</li>
+        <li><a href="angr.html#angr.analyses.decompiler.peephole_optimizations.simplify_pc_relative_loads.SimplifyPcRelativeLoads.NAME">(angr.analyses.decompiler.peephole_optimizations.simplify_pc_relative_loads.SimplifyPcRelativeLoads attribute)</a>
+</li>
+        <li><a href="angr.html#angr.analyses.decompiler.peephole_optimizations.single_bit_xor.SingleBitXor.NAME">(angr.analyses.decompiler.peephole_optimizations.single_bit_xor.SingleBitXor attribute)</a>
+</li>
+      </ul></li>
+      <li><a href="angr.html#angr.analyses.decompiler.structured_codegen.c.CFunction.name">name (angr.analyses.decompiler.structured_codegen.c.CFunction attribute)</a>
+
+      <ul>
         <li><a href="angr.html#angr.analyses.reassembler.Procedure.name">(angr.analyses.reassembler.Procedure property)</a>
 </li>
         <li><a href="angr.html#angr.angrdb.models.DbKnowledgeBase.name">(angr.angrdb.models.DbKnowledgeBase attribute)</a>
@@ -15027,6 +15433,8 @@
         <li><a href="pyvex.html#pyvex.lifting.util.instr_helper.Instruction.name">(pyvex.lifting.util.instr_helper.Instruction property)</a>
 </li>
       </ul></li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="claripy.html#claripy.backends.Backend.name">name() (claripy.backends.Backend method)</a>
 
       <ul>
@@ -15045,8 +15453,6 @@
 </li>
       <li><a href="angr.html#angr.storage.memory_mixins.name_resolution_mixin.NameResolutionMixin">NameResolutionMixin (class in angr.storage.memory_mixins.name_resolution_mixin)</a>
 </li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="pyvex.html#pyvex.lifting.util.syntax_wrapper.VexValue.narrow_high">narrow_high() (pyvex.lifting.util.syntax_wrapper.VexValue method)</a>
 </li>
       <li><a href="pyvex.html#pyvex.lifting.util.syntax_wrapper.VexValue.narrow_low">narrow_low() (pyvex.lifting.util.syntax_wrapper.VexValue method)</a>
@@ -15513,8 +15919,6 @@
 </li>
       <li><a href="pyvex.html#pyvex.lifting.util.vex_helper.IRSBCustomizer.op_cmp_ule">op_cmp_ule() (pyvex.lifting.util.vex_helper.IRSBCustomizer method)</a>
 </li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="pyvex.html#pyvex.lifting.util.vex_helper.IRSBCustomizer.op_cmp_ult">op_cmp_ult() (pyvex.lifting.util.vex_helper.IRSBCustomizer method)</a>
 </li>
       <li><a href="pyvex.html#pyvex.lifting.util.vex_helper.IRSBCustomizer.op_extract_lsb">op_extract_lsb() (pyvex.lifting.util.vex_helper.IRSBCustomizer method)</a>
@@ -15543,6 +15947,8 @@
         <li><a href="pyvex.html#pyvex.const.V256.op_format">(pyvex.const.V256 attribute)</a>
 </li>
       </ul></li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="pyvex.html#pyvex.lifting.util.vex_helper.IRSBCustomizer.op_generic">op_generic() (pyvex.lifting.util.vex_helper.IRSBCustomizer method)</a>
 </li>
       <li><a href="pyvex.html#pyvex.expr.Binop.op_int">op_int (pyvex.expr.Binop attribute)</a>
@@ -15644,6 +16050,16 @@
       <li><a href="angr.html#angr.analyses.binary_optimizer.BinaryOptimizer.optimize">optimize() (angr.analyses.binary_optimizer.BinaryOptimizer method)</a>
 
       <ul>
+        <li><a href="angr.html#angr.analyses.decompiler.peephole_optimizations.a_div_const_add_a_mul_n_div_const.ADivConstAddAMulNDivConst.optimize">(angr.analyses.decompiler.peephole_optimizations.a_div_const_add_a_mul_n_div_const.ADivConstAddAMulNDivConst method)</a>
+</li>
+        <li><a href="angr.html#angr.analyses.decompiler.peephole_optimizations.a_mul_const_div_shr_const.AMulConstDivShrConst.optimize">(angr.analyses.decompiler.peephole_optimizations.a_mul_const_div_shr_const.AMulConstDivShrConst method)</a>
+</li>
+        <li><a href="angr.html#angr.analyses.decompiler.peephole_optimizations.a_shl_const_sub_a.AShlConstSubA.optimize">(angr.analyses.decompiler.peephole_optimizations.a_shl_const_sub_a.AShlConstSubA method)</a>
+</li>
+        <li><a href="angr.html#angr.analyses.decompiler.peephole_optimizations.a_sub_a_div.ASubADiv.optimize">(angr.analyses.decompiler.peephole_optimizations.a_sub_a_div.ASubADiv method)</a>
+</li>
+        <li><a href="angr.html#angr.analyses.decompiler.peephole_optimizations.a_sub_a_div_const_mul_const.ASubADivConstMulConst.optimize">(angr.analyses.decompiler.peephole_optimizations.a_sub_a_div_const_mul_const.ASubADivConstMulConst method)</a>
+</li>
         <li><a href="angr.html#angr.analyses.decompiler.peephole_optimizations.a_sub_a_sub_n.ASubASubN.optimize">(angr.analyses.decompiler.peephole_optimizations.a_sub_a_sub_n.ASubASubN method)</a>
 </li>
         <li><a href="angr.html#angr.analyses.decompiler.peephole_optimizations.base.PeepholeOptimizationExprBase.optimize">(angr.analyses.decompiler.peephole_optimizations.base.PeepholeOptimizationExprBase method)</a>
@@ -15656,11 +16072,15 @@
 </li>
         <li><a href="angr.html#angr.analyses.decompiler.peephole_optimizations.bool_expr_xor_1.BoolExprXor1.optimize">(angr.analyses.decompiler.peephole_optimizations.bool_expr_xor_1.BoolExprXor1 method)</a>
 </li>
+        <li><a href="angr.html#angr.analyses.decompiler.peephole_optimizations.bswap.Bswap.optimize">(angr.analyses.decompiler.peephole_optimizations.bswap.Bswap method)</a>
+</li>
         <li><a href="angr.html#angr.analyses.decompiler.peephole_optimizations.coalesce_same_cascading_ifs.CoalesceSameCascadingIfs.optimize">(angr.analyses.decompiler.peephole_optimizations.coalesce_same_cascading_ifs.CoalesceSameCascadingIfs method)</a>
 </li>
         <li><a href="angr.html#angr.analyses.decompiler.peephole_optimizations.constant_derefs.ConstantDereferences.optimize">(angr.analyses.decompiler.peephole_optimizations.constant_derefs.ConstantDereferences method)</a>
 </li>
         <li><a href="angr.html#angr.analyses.decompiler.peephole_optimizations.conv_a_sub0_shr_and.ConvASub0ShrAnd.optimize">(angr.analyses.decompiler.peephole_optimizations.conv_a_sub0_shr_and.ConvASub0ShrAnd method)</a>
+</li>
+        <li><a href="angr.html#angr.analyses.decompiler.peephole_optimizations.conv_const_mull_a_shift.ConvConstMullAShift.optimize">(angr.analyses.decompiler.peephole_optimizations.conv_const_mull_a_shift.ConvConstMullAShift method)</a>
 </li>
         <li><a href="angr.html#angr.analyses.decompiler.peephole_optimizations.conv_shl_shr.ConvShlShr.optimize">(angr.analyses.decompiler.peephole_optimizations.conv_shl_shr.ConvShlShr method)</a>
 </li>
@@ -15713,6 +16133,24 @@
 </li>
       <li><a href="angr.html#angr.procedures.stubs.format_parser.FormatParser.other_types">other_types (angr.procedures.stubs.format_parser.FormatParser attribute)</a>
 </li>
+      <li><a href="angr.html#angr.analyses.decompiler.optimization_passes.base_ptr_save_simplifier.BasePointerSaveSimplifier.out_graph">out_graph (angr.analyses.decompiler.optimization_passes.base_ptr_save_simplifier.BasePointerSaveSimplifier attribute)</a>
+
+      <ul>
+        <li><a href="angr.html#angr.analyses.decompiler.optimization_passes.div_simplifier.DivSimplifier.out_graph">(angr.analyses.decompiler.optimization_passes.div_simplifier.DivSimplifier attribute)</a>
+</li>
+        <li><a href="angr.html#angr.analyses.decompiler.optimization_passes.mod_simplifier.ModSimplifier.out_graph">(angr.analyses.decompiler.optimization_passes.mod_simplifier.ModSimplifier attribute)</a>
+</li>
+        <li><a href="angr.html#angr.analyses.decompiler.optimization_passes.multi_simplifier.MultiSimplifier.out_graph">(angr.analyses.decompiler.optimization_passes.multi_simplifier.MultiSimplifier attribute)</a>
+</li>
+        <li><a href="angr.html#angr.analyses.decompiler.optimization_passes.register_save_area_simplifier.RegisterSaveAreaSimplifier.out_graph">(angr.analyses.decompiler.optimization_passes.register_save_area_simplifier.RegisterSaveAreaSimplifier attribute)</a>
+</li>
+        <li><a href="angr.html#angr.analyses.decompiler.optimization_passes.ret_addr_save_simplifier.RetAddrSaveSimplifier.out_graph">(angr.analyses.decompiler.optimization_passes.ret_addr_save_simplifier.RetAddrSaveSimplifier attribute)</a>
+</li>
+        <li><a href="angr.html#angr.analyses.decompiler.optimization_passes.stack_canary_simplifier.StackCanarySimplifier.out_graph">(angr.analyses.decompiler.optimization_passes.stack_canary_simplifier.StackCanarySimplifier attribute)</a>
+</li>
+        <li><a href="angr.html#angr.analyses.decompiler.optimization_passes.x86_gcc_getpc_simplifier.X86GccGetPcSimplifier.out_graph">(angr.analyses.decompiler.optimization_passes.x86_gcc_getpc_simplifier.X86GccGetPcSimplifier attribute)</a>
+</li>
+      </ul></li>
       <li><a href="angr.html#angr.analyses.propagator.outdated_definition_walker.OutdatedDefinitionWalker">OutdatedDefinitionWalker (class in angr.analyses.propagator.outdated_definition_walker)</a>
 </li>
       <li><a href="angr.html#angr.analyses.cfg.cfg.OutdatedError">OutdatedError</a>
@@ -15846,6 +16284,8 @@
       <li><a href="angr.html#angr.sim_type.parse_type_with_name">parse_type_with_name() (in module angr.sim_type)</a>
 </li>
       <li><a href="angr.html#angr.sim_type.parse_types">parse_types() (in module angr.sim_type)</a>
+</li>
+      <li><a href="angr.html#angr.analyses.decompiler.clinic.Clinic.parse_variable_addr">parse_variable_addr() (angr.analyses.decompiler.clinic.Clinic method)</a>
 </li>
       <li><a href="angr.html#angr.utils.library.parsedcprotos2py">parsedcprotos2py() (in module angr.utils.library)</a>
 </li>
@@ -16093,10 +16533,10 @@
         <li><a href="angr.html#angr.analyses.typehoon.typevars.TypeVariable.pp_str">(angr.analyses.typehoon.typevars.TypeVariable method)</a>
 </li>
       </ul></li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="cle.html#cle.backends.elf.metaelf.MetaELF.ppc64_initial_rtoc">ppc64_initial_rtoc (cle.backends.elf.metaelf.MetaELF property)</a>
 </li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="angr.html#angr.state_plugins.preconstrainer.SimStatePreconstrainer.preconstrain">preconstrain() (angr.state_plugins.preconstrainer.SimStatePreconstrainer method)</a>
 </li>
       <li><a href="angr.html#angr.state_plugins.preconstrainer.SimStatePreconstrainer.preconstrain_file">preconstrain_file() (angr.state_plugins.preconstrainer.SimStatePreconstrainer method)</a>
@@ -16258,6 +16698,10 @@
 </li>
         <li><a href="angr.html#angr.knowledge_plugins.key_definitions.live_definitions.LiveDefinitions.project">(angr.knowledge_plugins.key_definitions.live_definitions.LiveDefinitions attribute)</a>
 </li>
+        <li><a href="angr.html#angr.procedures.stubs.format_parser.FormatParser.project">(angr.procedures.stubs.format_parser.FormatParser attribute)</a>
+</li>
+        <li><a href="angr.html#angr.procedures.stubs.format_parser.ScanfFormatParser.project">(angr.procedures.stubs.format_parser.ScanfFormatParser attribute)</a>
+</li>
       </ul></li>
       <li><a href="angr.html#angr.project.Project">Project (class in angr.project)</a>
 </li>
@@ -16278,6 +16722,10 @@
       <ul>
         <li><a href="angr.html#angr.knowledge_plugins.functions.soot_function.SootFunction.prototype">(angr.knowledge_plugins.functions.soot_function.SootFunction attribute)</a>
 </li>
+        <li><a href="angr.html#angr.procedures.stubs.format_parser.FormatParser.prototype">(angr.procedures.stubs.format_parser.FormatParser attribute)</a>
+</li>
+        <li><a href="angr.html#angr.procedures.stubs.format_parser.ScanfFormatParser.prototype">(angr.procedures.stubs.format_parser.ScanfFormatParser attribute)</a>
+</li>
       </ul></li>
       <li><a href="angr.html#angr.analyses.proximity_graph.ProximityGraphAnalysis">ProximityGraphAnalysis (class in angr.analyses.proximity_graph)</a>
 </li>
@@ -16291,7 +16739,7 @@
 </li>
       <li><a href="angr.html#angr.state_plugins.heap.heap_ptmalloc.PTChunkIterator">PTChunkIterator (class in angr.state_plugins.heap.heap_ptmalloc)</a>
 </li>
-      <li><a href="archinfo.html#archinfo.tls.TLSArchInfo.pthread_offsets">pthread_offsets (archinfo.tls.TLSArchInfo property)</a>
+      <li><a href="archinfo.html#archinfo.tls.TLSArchInfo.pthread_offsets">pthread_offsets (archinfo.tls.TLSArchInfo attribute)</a>
 </li>
       <li><a href="angr.html#angr.knowledge_plugins.sync.sync_controller.SyncController.pull">pull() (angr.knowledge_plugins.sync.sync_controller.SyncController method)</a>
 </li>
@@ -16974,8 +17422,6 @@
 </li>
       <li><a href="angr.html#angr.analyses.decompiler.condition_processor.ConditionProcessor.recover_reaching_conditions">recover_reaching_conditions() (angr.analyses.decompiler.condition_processor.ConditionProcessor method)</a>
 </li>
-      <li><a href="angr.html#angr.analyses.decompiler.condition_processor.ConditionProcessor.recover_reaching_conditions_for_jumptables">recover_reaching_conditions_for_jumptables() (angr.analyses.decompiler.condition_processor.ConditionProcessor method)</a>
-</li>
       <li><a href="claripy.html#claripy.ast.base.Base.recursive_children_asts">recursive_children_asts (claripy.ast.base.Base property)</a>
 </li>
       <li><a href="angr.html#angr.analyses.decompiler.graph_region.GraphRegion.recursive_copy">recursive_copy() (angr.analyses.decompiler.graph_region.GraphRegion method)</a>
@@ -17166,6 +17612,8 @@
         <li><a href="archinfo.html#archinfo.arch_x86.ArchX86.register_endness">(archinfo.arch_x86.ArchX86 attribute)</a>
 </li>
       </ul></li>
+      <li><a href="angr.html#angr.analyses.propagator.propagator.PropagatorAILState.register_expressions">register_expressions (angr.analyses.propagator.propagator.PropagatorAILState attribute)</a>
+</li>
       <li><a href="angr.html#angr.analyses.vfg.CallAnalysis.register_function_analysis">register_function_analysis() (angr.analyses.vfg.CallAnalysis method)</a>
 </li>
       <li><a href="angr.html#angr.analyses.reassembler.Reassembler.register_instruction_reference">register_instruction_reference() (angr.analyses.reassembler.Reassembler method)</a>
@@ -17288,8 +17736,6 @@
 </li>
       <li><a href="angr.html#angr.storage.memory_mixins.regioned_memory.region_meta_mixin.MemoryRegionMetaMixin.related_function_addr">related_function_addr (angr.storage.memory_mixins.regioned_memory.region_meta_mixin.MemoryRegionMetaMixin property)</a>
 </li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="angr.html#angr.storage.memory_mixins.regioned_memory.region_data.RegionDescriptor.related_function_address">related_function_address (angr.storage.memory_mixins.regioned_memory.region_data.RegionDescriptor attribute)</a>
 </li>
       <li><a href="angr.html#angr.storage.memory_mixins.regioned_memory.region_data.RegionMap.relativize">relativize() (angr.storage.memory_mixins.regioned_memory.region_data.RegionMap method)</a>
@@ -17316,6 +17762,12 @@
 </li>
       <li><a href="angr.html#angr.state_plugins.solver.SimSolver.reload_solver">reload_solver() (angr.state_plugins.solver.SimSolver method)</a>
 </li>
+      <li><a href="angr.html#angr.analyses.decompiler.structured_codegen.base.BaseStructuredCodeGenerator.reload_variable_types">reload_variable_types() (angr.analyses.decompiler.structured_codegen.base.BaseStructuredCodeGenerator method)</a>
+
+      <ul>
+        <li><a href="angr.html#angr.analyses.decompiler.structured_codegen.c.CStructuredCodeGenerator.reload_variable_types">(angr.analyses.decompiler.structured_codegen.c.CStructuredCodeGenerator method)</a>
+</li>
+      </ul></li>
       <li><a href="archinfo.html#archinfo.arch.Arch.reloc_b_a">reloc_b_a (archinfo.arch.Arch attribute)</a>
 </li>
       <li><a href="archinfo.html#archinfo.arch.Arch.reloc_copy">reloc_copy (archinfo.arch.Arch attribute)</a>
@@ -17665,11 +18117,701 @@
 </li>
       </ul></li>
       <li><a href="angr.html#angr.state_plugins.view.SimMemView.resolved">resolved (angr.state_plugins.view.SimMemView property)</a>
+
+      <ul>
+        <li><a href="cle.html#cle.backends.elf.relocation.amd64.R_X86_64_64.resolved">(cle.backends.elf.relocation.amd64.R_X86_64_64 attribute)</a>
 </li>
+        <li><a href="cle.html#cle.backends.elf.relocation.amd64.R_X86_64_COPY.resolved">(cle.backends.elf.relocation.amd64.R_X86_64_COPY attribute)</a>
+</li>
+        <li><a href="cle.html#cle.backends.elf.relocation.amd64.R_X86_64_DTPMOD64.resolved">(cle.backends.elf.relocation.amd64.R_X86_64_DTPMOD64 attribute)</a>
+</li>
+        <li><a href="cle.html#cle.backends.elf.relocation.amd64.R_X86_64_DTPOFF64.resolved">(cle.backends.elf.relocation.amd64.R_X86_64_DTPOFF64 attribute)</a>
+</li>
+        <li><a href="cle.html#cle.backends.elf.relocation.amd64.R_X86_64_GLOB_DAT.resolved">(cle.backends.elf.relocation.amd64.R_X86_64_GLOB_DAT attribute)</a>
+</li>
+        <li><a href="cle.html#cle.backends.elf.relocation.amd64.R_X86_64_IRELATIVE.resolved">(cle.backends.elf.relocation.amd64.R_X86_64_IRELATIVE attribute)</a>
+</li>
+        <li><a href="cle.html#cle.backends.elf.relocation.amd64.R_X86_64_JUMP_SLOT.resolved">(cle.backends.elf.relocation.amd64.R_X86_64_JUMP_SLOT attribute)</a>
+</li>
+        <li><a href="cle.html#cle.backends.elf.relocation.amd64.R_X86_64_RELATIVE.resolved">(cle.backends.elf.relocation.amd64.R_X86_64_RELATIVE attribute)</a>
+</li>
+        <li><a href="cle.html#cle.backends.elf.relocation.amd64.R_X86_64_TPOFF64.resolved">(cle.backends.elf.relocation.amd64.R_X86_64_TPOFF64 attribute)</a>
+</li>
+        <li><a href="cle.html#cle.backends.elf.relocation.arm.R_ARM_ABS32.resolved">(cle.backends.elf.relocation.arm.R_ARM_ABS32 attribute)</a>
+</li>
+        <li><a href="cle.html#cle.backends.elf.relocation.arm.R_ARM_ABS32_NOI.resolved">(cle.backends.elf.relocation.arm.R_ARM_ABS32_NOI attribute)</a>
+</li>
+        <li><a href="cle.html#cle.backends.elf.relocation.arm.R_ARM_CALL.resolved">(cle.backends.elf.relocation.arm.R_ARM_CALL attribute)</a>
+</li>
+        <li><a href="cle.html#cle.backends.elf.relocation.arm.R_ARM_COPY.resolved">(cle.backends.elf.relocation.arm.R_ARM_COPY attribute)</a>
+</li>
+        <li><a href="cle.html#cle.backends.elf.relocation.arm.R_ARM_GLOB_DAT.resolved">(cle.backends.elf.relocation.arm.R_ARM_GLOB_DAT attribute)</a>
+</li>
+        <li><a href="cle.html#cle.backends.elf.relocation.arm.R_ARM_JUMP24.resolved">(cle.backends.elf.relocation.arm.R_ARM_JUMP24 attribute)</a>
+</li>
+        <li><a href="cle.html#cle.backends.elf.relocation.arm.R_ARM_JUMP_SLOT.resolved">(cle.backends.elf.relocation.arm.R_ARM_JUMP_SLOT attribute)</a>
+</li>
+        <li><a href="cle.html#cle.backends.elf.relocation.arm.R_ARM_MOVT_ABS.resolved">(cle.backends.elf.relocation.arm.R_ARM_MOVT_ABS attribute)</a>
+</li>
+        <li><a href="cle.html#cle.backends.elf.relocation.arm.R_ARM_MOVW_ABS_NC.resolved">(cle.backends.elf.relocation.arm.R_ARM_MOVW_ABS_NC attribute)</a>
+</li>
+        <li><a href="cle.html#cle.backends.elf.relocation.arm.R_ARM_PC24.resolved">(cle.backends.elf.relocation.arm.R_ARM_PC24 attribute)</a>
+</li>
+        <li><a href="cle.html#cle.backends.elf.relocation.arm.R_ARM_PREL31.resolved">(cle.backends.elf.relocation.arm.R_ARM_PREL31 attribute)</a>
+</li>
+        <li><a href="cle.html#cle.backends.elf.relocation.arm.R_ARM_REL32.resolved">(cle.backends.elf.relocation.arm.R_ARM_REL32 attribute)</a>
+</li>
+        <li><a href="cle.html#cle.backends.elf.relocation.arm.R_ARM_REL32_NOI.resolved">(cle.backends.elf.relocation.arm.R_ARM_REL32_NOI attribute)</a>
+</li>
+        <li><a href="cle.html#cle.backends.elf.relocation.arm.R_ARM_RELATIVE.resolved">(cle.backends.elf.relocation.arm.R_ARM_RELATIVE attribute)</a>
+</li>
+        <li><a href="cle.html#cle.backends.elf.relocation.arm.R_ARM_THM_CALL.resolved">(cle.backends.elf.relocation.arm.R_ARM_THM_CALL attribute)</a>
+</li>
+        <li><a href="cle.html#cle.backends.elf.relocation.arm.R_ARM_THM_JUMP19.resolved">(cle.backends.elf.relocation.arm.R_ARM_THM_JUMP19 attribute)</a>
+</li>
+        <li><a href="cle.html#cle.backends.elf.relocation.arm.R_ARM_THM_JUMP24.resolved">(cle.backends.elf.relocation.arm.R_ARM_THM_JUMP24 attribute)</a>
+</li>
+        <li><a href="cle.html#cle.backends.elf.relocation.arm.R_ARM_THM_JUMP6.resolved">(cle.backends.elf.relocation.arm.R_ARM_THM_JUMP6 attribute)</a>
+</li>
+        <li><a href="cle.html#cle.backends.elf.relocation.arm.R_ARM_TLS_DTPMOD32.resolved">(cle.backends.elf.relocation.arm.R_ARM_TLS_DTPMOD32 attribute)</a>
+</li>
+        <li><a href="cle.html#cle.backends.elf.relocation.arm.R_ARM_TLS_DTPOFF32.resolved">(cle.backends.elf.relocation.arm.R_ARM_TLS_DTPOFF32 attribute)</a>
+</li>
+        <li><a href="cle.html#cle.backends.elf.relocation.arm.R_ARM_TLS_TPOFF32.resolved">(cle.backends.elf.relocation.arm.R_ARM_TLS_TPOFF32 attribute)</a>
+</li>
+        <li><a href="cle.html#cle.backends.elf.relocation.arm64.R_AARCH64_ABS64.resolved">(cle.backends.elf.relocation.arm64.R_AARCH64_ABS64 attribute)</a>
+</li>
+        <li><a href="cle.html#cle.backends.elf.relocation.arm64.R_AARCH64_ADD_ABS_LO12_NC.resolved">(cle.backends.elf.relocation.arm64.R_AARCH64_ADD_ABS_LO12_NC attribute)</a>
+</li>
+        <li><a href="cle.html#cle.backends.elf.relocation.arm64.R_AARCH64_ADR_PREL_PG_HI21.resolved">(cle.backends.elf.relocation.arm64.R_AARCH64_ADR_PREL_PG_HI21 attribute)</a>
+</li>
+        <li><a href="cle.html#cle.backends.elf.relocation.arm64.R_AARCH64_CALL26.resolved">(cle.backends.elf.relocation.arm64.R_AARCH64_CALL26 attribute)</a>
+</li>
+        <li><a href="cle.html#cle.backends.elf.relocation.arm64.R_AARCH64_COPY.resolved">(cle.backends.elf.relocation.arm64.R_AARCH64_COPY attribute)</a>
+</li>
+        <li><a href="cle.html#cle.backends.elf.relocation.arm64.R_AARCH64_GLOB_DAT.resolved">(cle.backends.elf.relocation.arm64.R_AARCH64_GLOB_DAT attribute)</a>
+</li>
+        <li><a href="cle.html#cle.backends.elf.relocation.arm64.R_AARCH64_IRELATIVE.resolved">(cle.backends.elf.relocation.arm64.R_AARCH64_IRELATIVE attribute)</a>
+</li>
+        <li><a href="cle.html#cle.backends.elf.relocation.arm64.R_AARCH64_JUMP_SLOT.resolved">(cle.backends.elf.relocation.arm64.R_AARCH64_JUMP_SLOT attribute)</a>
+</li>
+        <li><a href="cle.html#cle.backends.elf.relocation.arm64.R_AARCH64_RELATIVE.resolved">(cle.backends.elf.relocation.arm64.R_AARCH64_RELATIVE attribute)</a>
+</li>
+        <li><a href="cle.html#cle.backends.elf.relocation.arm64.R_AARCH64_TLS_DTPMOD.resolved">(cle.backends.elf.relocation.arm64.R_AARCH64_TLS_DTPMOD attribute)</a>
+</li>
+        <li><a href="cle.html#cle.backends.elf.relocation.arm64.R_AARCH64_TLS_DTPREL.resolved">(cle.backends.elf.relocation.arm64.R_AARCH64_TLS_DTPREL attribute)</a>
+</li>
+        <li><a href="cle.html#cle.backends.elf.relocation.arm64.R_AARCH64_TLS_TPREL.resolved">(cle.backends.elf.relocation.arm64.R_AARCH64_TLS_TPREL attribute)</a>
+</li>
+        <li><a href="cle.html#cle.backends.elf.relocation.arm64.R_AARCH64_TLSDESC.resolved">(cle.backends.elf.relocation.arm64.R_AARCH64_TLSDESC attribute)</a>
+</li>
+        <li><a href="cle.html#cle.backends.elf.relocation.elfreloc.ELFReloc.resolved">(cle.backends.elf.relocation.elfreloc.ELFReloc attribute)</a>
+</li>
+        <li><a href="cle.html#cle.backends.elf.relocation.generic.GenericAbsoluteAddendReloc.resolved">(cle.backends.elf.relocation.generic.GenericAbsoluteAddendReloc attribute)</a>
+</li>
+        <li><a href="cle.html#cle.backends.elf.relocation.generic.GenericAbsoluteReloc.resolved">(cle.backends.elf.relocation.generic.GenericAbsoluteReloc attribute)</a>
+</li>
+        <li><a href="cle.html#cle.backends.elf.relocation.generic.GenericCopyReloc.resolved">(cle.backends.elf.relocation.generic.GenericCopyReloc attribute)</a>
+</li>
+        <li><a href="cle.html#cle.backends.elf.relocation.generic.GenericIRelativeReloc.resolved">(cle.backends.elf.relocation.generic.GenericIRelativeReloc attribute)</a>
+</li>
+        <li><a href="cle.html#cle.backends.elf.relocation.generic.GenericJumpslotReloc.resolved">(cle.backends.elf.relocation.generic.GenericJumpslotReloc attribute)</a>
+</li>
+        <li><a href="cle.html#cle.backends.elf.relocation.generic.GenericPCRelativeAddendReloc.resolved">(cle.backends.elf.relocation.generic.GenericPCRelativeAddendReloc attribute)</a>
+</li>
+        <li><a href="cle.html#cle.backends.elf.relocation.generic.GenericRelativeReloc.resolved">(cle.backends.elf.relocation.generic.GenericRelativeReloc attribute)</a>
+</li>
+        <li><a href="cle.html#cle.backends.elf.relocation.generic.GenericTLSDescriptorReloc.resolved">(cle.backends.elf.relocation.generic.GenericTLSDescriptorReloc attribute)</a>
+</li>
+        <li><a href="cle.html#cle.backends.elf.relocation.generic.GenericTLSDoffsetReloc.resolved">(cle.backends.elf.relocation.generic.GenericTLSDoffsetReloc attribute)</a>
+</li>
+        <li><a href="cle.html#cle.backends.elf.relocation.generic.GenericTLSModIdReloc.resolved">(cle.backends.elf.relocation.generic.GenericTLSModIdReloc attribute)</a>
+</li>
+        <li><a href="cle.html#cle.backends.elf.relocation.generic.GenericTLSOffsetReloc.resolved">(cle.backends.elf.relocation.generic.GenericTLSOffsetReloc attribute)</a>
+</li>
+        <li><a href="cle.html#cle.backends.elf.relocation.generic.MipsGlobalReloc.resolved">(cle.backends.elf.relocation.generic.MipsGlobalReloc attribute)</a>
+</li>
+        <li><a href="cle.html#cle.backends.elf.relocation.generic.MipsLocalReloc.resolved">(cle.backends.elf.relocation.generic.MipsLocalReloc attribute)</a>
+</li>
+        <li><a href="cle.html#cle.backends.elf.relocation.i386.R_386_32.resolved">(cle.backends.elf.relocation.i386.R_386_32 attribute)</a>
+</li>
+        <li><a href="cle.html#cle.backends.elf.relocation.i386.R_386_COPY.resolved">(cle.backends.elf.relocation.i386.R_386_COPY attribute)</a>
+</li>
+        <li><a href="cle.html#cle.backends.elf.relocation.i386.R_386_GLOB_DAT.resolved">(cle.backends.elf.relocation.i386.R_386_GLOB_DAT attribute)</a>
+</li>
+        <li><a href="cle.html#cle.backends.elf.relocation.i386.R_386_IRELATIVE.resolved">(cle.backends.elf.relocation.i386.R_386_IRELATIVE attribute)</a>
+</li>
+        <li><a href="cle.html#cle.backends.elf.relocation.i386.R_386_JMP_SLOT.resolved">(cle.backends.elf.relocation.i386.R_386_JMP_SLOT attribute)</a>
+</li>
+        <li><a href="cle.html#cle.backends.elf.relocation.i386.R_386_PC32.resolved">(cle.backends.elf.relocation.i386.R_386_PC32 attribute)</a>
+</li>
+        <li><a href="cle.html#cle.backends.elf.relocation.i386.R_386_RELATIVE.resolved">(cle.backends.elf.relocation.i386.R_386_RELATIVE attribute)</a>
+</li>
+        <li><a href="cle.html#cle.backends.elf.relocation.i386.R_386_TLS_DTPMOD32.resolved">(cle.backends.elf.relocation.i386.R_386_TLS_DTPMOD32 attribute)</a>
+</li>
+        <li><a href="cle.html#cle.backends.elf.relocation.i386.R_386_TLS_DTPOFF32.resolved">(cle.backends.elf.relocation.i386.R_386_TLS_DTPOFF32 attribute)</a>
+</li>
+        <li><a href="cle.html#cle.backends.elf.relocation.i386.R_386_TLS_TPOFF.resolved">(cle.backends.elf.relocation.i386.R_386_TLS_TPOFF attribute)</a>
+</li>
+        <li><a href="cle.html#cle.backends.elf.relocation.mips.R_MIPS_32.resolved">(cle.backends.elf.relocation.mips.R_MIPS_32 attribute)</a>
+</li>
+        <li><a href="cle.html#cle.backends.elf.relocation.mips.R_MIPS_GLOB_DAT.resolved">(cle.backends.elf.relocation.mips.R_MIPS_GLOB_DAT attribute)</a>
+</li>
+        <li><a href="cle.html#cle.backends.elf.relocation.mips.R_MIPS_HI16.resolved">(cle.backends.elf.relocation.mips.R_MIPS_HI16 attribute)</a>
+</li>
+        <li><a href="cle.html#cle.backends.elf.relocation.mips.R_MIPS_JUMP_SLOT.resolved">(cle.backends.elf.relocation.mips.R_MIPS_JUMP_SLOT attribute)</a>
+</li>
+        <li><a href="cle.html#cle.backends.elf.relocation.mips.R_MIPS_LO16.resolved">(cle.backends.elf.relocation.mips.R_MIPS_LO16 attribute)</a>
+</li>
+        <li><a href="cle.html#cle.backends.elf.relocation.mips.R_MIPS_REL32.resolved">(cle.backends.elf.relocation.mips.R_MIPS_REL32 attribute)</a>
+</li>
+        <li><a href="cle.html#cle.backends.elf.relocation.mips.R_MIPS_TLS_DTPMOD32.resolved">(cle.backends.elf.relocation.mips.R_MIPS_TLS_DTPMOD32 attribute)</a>
+</li>
+        <li><a href="cle.html#cle.backends.elf.relocation.mips.R_MIPS_TLS_DTPREL32.resolved">(cle.backends.elf.relocation.mips.R_MIPS_TLS_DTPREL32 attribute)</a>
+</li>
+        <li><a href="cle.html#cle.backends.elf.relocation.mips.R_MIPS_TLS_TPREL32.resolved">(cle.backends.elf.relocation.mips.R_MIPS_TLS_TPREL32 attribute)</a>
+</li>
+        <li><a href="cle.html#cle.backends.elf.relocation.mips64.R_MIPS_64.resolved">(cle.backends.elf.relocation.mips64.R_MIPS_64 attribute)</a>
+</li>
+        <li><a href="cle.html#cle.backends.elf.relocation.mips64.R_MIPS_COPY.resolved">(cle.backends.elf.relocation.mips64.R_MIPS_COPY attribute)</a>
+</li>
+        <li><a href="cle.html#cle.backends.elf.relocation.mips64.R_MIPS_REL32.resolved">(cle.backends.elf.relocation.mips64.R_MIPS_REL32 attribute)</a>
+</li>
+        <li><a href="cle.html#cle.backends.elf.relocation.mips64.R_MIPS_TLS_DTPMOD64.resolved">(cle.backends.elf.relocation.mips64.R_MIPS_TLS_DTPMOD64 attribute)</a>
+</li>
+        <li><a href="cle.html#cle.backends.elf.relocation.mips64.R_MIPS_TLS_DTPREL64.resolved">(cle.backends.elf.relocation.mips64.R_MIPS_TLS_DTPREL64 attribute)</a>
+</li>
+        <li><a href="cle.html#cle.backends.elf.relocation.mips64.R_MIPS_TLS_TPREL64.resolved">(cle.backends.elf.relocation.mips64.R_MIPS_TLS_TPREL64 attribute)</a>
+</li>
+        <li><a href="cle.html#cle.backends.elf.relocation.pcc64.R_PPC64_ADDR64.resolved">(cle.backends.elf.relocation.pcc64.R_PPC64_ADDR64 attribute)</a>
+</li>
+        <li><a href="cle.html#cle.backends.elf.relocation.pcc64.R_PPC64_DTPMOD64.resolved">(cle.backends.elf.relocation.pcc64.R_PPC64_DTPMOD64 attribute)</a>
+</li>
+        <li><a href="cle.html#cle.backends.elf.relocation.pcc64.R_PPC64_DTPREL64.resolved">(cle.backends.elf.relocation.pcc64.R_PPC64_DTPREL64 attribute)</a>
+</li>
+        <li><a href="cle.html#cle.backends.elf.relocation.pcc64.R_PPC64_GLOB_DAT.resolved">(cle.backends.elf.relocation.pcc64.R_PPC64_GLOB_DAT attribute)</a>
+</li>
+        <li><a href="cle.html#cle.backends.elf.relocation.pcc64.R_PPC64_IRELATIVE.resolved">(cle.backends.elf.relocation.pcc64.R_PPC64_IRELATIVE attribute)</a>
+</li>
+        <li><a href="cle.html#cle.backends.elf.relocation.pcc64.R_PPC64_JMP_SLOT.resolved">(cle.backends.elf.relocation.pcc64.R_PPC64_JMP_SLOT attribute)</a>
+</li>
+        <li><a href="cle.html#cle.backends.elf.relocation.pcc64.R_PPC64_REL24.resolved">(cle.backends.elf.relocation.pcc64.R_PPC64_REL24 attribute)</a>
+</li>
+        <li><a href="cle.html#cle.backends.elf.relocation.pcc64.R_PPC64_RELATIVE.resolved">(cle.backends.elf.relocation.pcc64.R_PPC64_RELATIVE attribute)</a>
+</li>
+        <li><a href="cle.html#cle.backends.elf.relocation.pcc64.R_PPC64_TOC.resolved">(cle.backends.elf.relocation.pcc64.R_PPC64_TOC attribute)</a>
+</li>
+        <li><a href="cle.html#cle.backends.elf.relocation.pcc64.R_PPC64_TOC16_HA.resolved">(cle.backends.elf.relocation.pcc64.R_PPC64_TOC16_HA attribute)</a>
+</li>
+        <li><a href="cle.html#cle.backends.elf.relocation.pcc64.R_PPC64_TOC16_HI.resolved">(cle.backends.elf.relocation.pcc64.R_PPC64_TOC16_HI attribute)</a>
+</li>
+        <li><a href="cle.html#cle.backends.elf.relocation.pcc64.R_PPC64_TOC16_LO.resolved">(cle.backends.elf.relocation.pcc64.R_PPC64_TOC16_LO attribute)</a>
+</li>
+        <li><a href="cle.html#cle.backends.elf.relocation.pcc64.R_PPC64_TPREL64.resolved">(cle.backends.elf.relocation.pcc64.R_PPC64_TPREL64 attribute)</a>
+</li>
+        <li><a href="cle.html#cle.backends.elf.relocation.ppc.R_PPC_ADDR14.resolved">(cle.backends.elf.relocation.ppc.R_PPC_ADDR14 attribute)</a>
+</li>
+        <li><a href="cle.html#cle.backends.elf.relocation.ppc.R_PPC_ADDR14_BRNTAKEN.resolved">(cle.backends.elf.relocation.ppc.R_PPC_ADDR14_BRNTAKEN attribute)</a>
+</li>
+        <li><a href="cle.html#cle.backends.elf.relocation.ppc.R_PPC_ADDR14_BRTAKEN.resolved">(cle.backends.elf.relocation.ppc.R_PPC_ADDR14_BRTAKEN attribute)</a>
+</li>
+        <li><a href="cle.html#cle.backends.elf.relocation.ppc.R_PPC_ADDR16.resolved">(cle.backends.elf.relocation.ppc.R_PPC_ADDR16 attribute)</a>
+</li>
+        <li><a href="cle.html#cle.backends.elf.relocation.ppc.R_PPC_ADDR16_HA.resolved">(cle.backends.elf.relocation.ppc.R_PPC_ADDR16_HA attribute)</a>
+</li>
+        <li><a href="cle.html#cle.backends.elf.relocation.ppc.R_PPC_ADDR16_HI.resolved">(cle.backends.elf.relocation.ppc.R_PPC_ADDR16_HI attribute)</a>
+</li>
+        <li><a href="cle.html#cle.backends.elf.relocation.ppc.R_PPC_ADDR16_LO.resolved">(cle.backends.elf.relocation.ppc.R_PPC_ADDR16_LO attribute)</a>
+</li>
+        <li><a href="cle.html#cle.backends.elf.relocation.ppc.R_PPC_ADDR24.resolved">(cle.backends.elf.relocation.ppc.R_PPC_ADDR24 attribute)</a>
+</li>
+        <li><a href="cle.html#cle.backends.elf.relocation.ppc.R_PPC_ADDR30.resolved">(cle.backends.elf.relocation.ppc.R_PPC_ADDR30 attribute)</a>
+</li>
+        <li><a href="cle.html#cle.backends.elf.relocation.ppc.R_PPC_ADDR32.resolved">(cle.backends.elf.relocation.ppc.R_PPC_ADDR32 attribute)</a>
+</li>
+        <li><a href="cle.html#cle.backends.elf.relocation.ppc.R_PPC_COPY.resolved">(cle.backends.elf.relocation.ppc.R_PPC_COPY attribute)</a>
+</li>
+        <li><a href="cle.html#cle.backends.elf.relocation.ppc.R_PPC_DTPMOD32.resolved">(cle.backends.elf.relocation.ppc.R_PPC_DTPMOD32 attribute)</a>
+</li>
+        <li><a href="cle.html#cle.backends.elf.relocation.ppc.R_PPC_DTPREL32.resolved">(cle.backends.elf.relocation.ppc.R_PPC_DTPREL32 attribute)</a>
+</li>
+        <li><a href="cle.html#cle.backends.elf.relocation.ppc.R_PPC_GLOB_DAT.resolved">(cle.backends.elf.relocation.ppc.R_PPC_GLOB_DAT attribute)</a>
+</li>
+        <li><a href="cle.html#cle.backends.elf.relocation.ppc.R_PPC_JMP_SLOT.resolved">(cle.backends.elf.relocation.ppc.R_PPC_JMP_SLOT attribute)</a>
+</li>
+        <li><a href="cle.html#cle.backends.elf.relocation.ppc.R_PPC_REL14.resolved">(cle.backends.elf.relocation.ppc.R_PPC_REL14 attribute)</a>
+</li>
+        <li><a href="cle.html#cle.backends.elf.relocation.ppc.R_PPC_REL14_BRNTAKEN.resolved">(cle.backends.elf.relocation.ppc.R_PPC_REL14_BRNTAKEN attribute)</a>
+</li>
+        <li><a href="cle.html#cle.backends.elf.relocation.ppc.R_PPC_REL14_BRTAKEN.resolved">(cle.backends.elf.relocation.ppc.R_PPC_REL14_BRTAKEN attribute)</a>
+</li>
+        <li><a href="cle.html#cle.backends.elf.relocation.ppc.R_PPC_REL24.resolved">(cle.backends.elf.relocation.ppc.R_PPC_REL24 attribute)</a>
+</li>
+        <li><a href="cle.html#cle.backends.elf.relocation.ppc.R_PPC_REL32.resolved">(cle.backends.elf.relocation.ppc.R_PPC_REL32 attribute)</a>
+</li>
+        <li><a href="cle.html#cle.backends.elf.relocation.ppc.R_PPC_RELATIVE.resolved">(cle.backends.elf.relocation.ppc.R_PPC_RELATIVE attribute)</a>
+</li>
+        <li><a href="cle.html#cle.backends.elf.relocation.ppc.R_PPC_SECTOFF.resolved">(cle.backends.elf.relocation.ppc.R_PPC_SECTOFF attribute)</a>
+</li>
+        <li><a href="cle.html#cle.backends.elf.relocation.ppc.R_PPC_SECTOFF_HA.resolved">(cle.backends.elf.relocation.ppc.R_PPC_SECTOFF_HA attribute)</a>
+</li>
+        <li><a href="cle.html#cle.backends.elf.relocation.ppc.R_PPC_SECTOFF_HI.resolved">(cle.backends.elf.relocation.ppc.R_PPC_SECTOFF_HI attribute)</a>
+</li>
+        <li><a href="cle.html#cle.backends.elf.relocation.ppc.R_PPC_SECTOFF_LO.resolved">(cle.backends.elf.relocation.ppc.R_PPC_SECTOFF_LO attribute)</a>
+</li>
+        <li><a href="cle.html#cle.backends.elf.relocation.ppc.R_PPC_TPREL32.resolved">(cle.backends.elf.relocation.ppc.R_PPC_TPREL32 attribute)</a>
+</li>
+        <li><a href="cle.html#cle.backends.elf.relocation.ppc.R_PPC_UADDR16.resolved">(cle.backends.elf.relocation.ppc.R_PPC_UADDR16 attribute)</a>
+</li>
+        <li><a href="cle.html#cle.backends.elf.relocation.ppc.R_PPC_UADDR32.resolved">(cle.backends.elf.relocation.ppc.R_PPC_UADDR32 attribute)</a>
+</li>
+        <li><a href="cle.html#cle.backends.elf.relocation.s390x.R_390_64.resolved">(cle.backends.elf.relocation.s390x.R_390_64 attribute)</a>
+</li>
+        <li><a href="cle.html#cle.backends.elf.relocation.s390x.R_390_COPY.resolved">(cle.backends.elf.relocation.s390x.R_390_COPY attribute)</a>
+</li>
+        <li><a href="cle.html#cle.backends.elf.relocation.s390x.R_390_GLOB_DAT.resolved">(cle.backends.elf.relocation.s390x.R_390_GLOB_DAT attribute)</a>
+</li>
+        <li><a href="cle.html#cle.backends.elf.relocation.s390x.R_390_IRELATIVE.resolved">(cle.backends.elf.relocation.s390x.R_390_IRELATIVE attribute)</a>
+</li>
+        <li><a href="cle.html#cle.backends.elf.relocation.s390x.R_390_JMP_SLOT.resolved">(cle.backends.elf.relocation.s390x.R_390_JMP_SLOT attribute)</a>
+</li>
+        <li><a href="cle.html#cle.backends.elf.relocation.s390x.R_390_RELATIVE.resolved">(cle.backends.elf.relocation.s390x.R_390_RELATIVE attribute)</a>
+</li>
+        <li><a href="cle.html#cle.backends.elf.relocation.s390x.R_390_TLS_TPOFF.resolved">(cle.backends.elf.relocation.s390x.R_390_TLS_TPOFF attribute)</a>
+</li>
+        <li><a href="cle.html#cle.backends.pe.relocation.amd64.IMAGE_REL_BASED_DIR64.resolved">(cle.backends.pe.relocation.amd64.IMAGE_REL_BASED_DIR64 attribute)</a>
+</li>
+        <li><a href="cle.html#cle.backends.pe.relocation.amd64.IMAGE_REL_BASED_HIGH.resolved">(cle.backends.pe.relocation.amd64.IMAGE_REL_BASED_HIGH attribute)</a>
+</li>
+        <li><a href="cle.html#cle.backends.pe.relocation.amd64.IMAGE_REL_BASED_HIGHADJ.resolved">(cle.backends.pe.relocation.amd64.IMAGE_REL_BASED_HIGHADJ attribute)</a>
+</li>
+        <li><a href="cle.html#cle.backends.pe.relocation.amd64.IMAGE_REL_BASED_HIGHLOW.resolved">(cle.backends.pe.relocation.amd64.IMAGE_REL_BASED_HIGHLOW attribute)</a>
+</li>
+        <li><a href="cle.html#cle.backends.pe.relocation.amd64.IMAGE_REL_BASED_LOW.resolved">(cle.backends.pe.relocation.amd64.IMAGE_REL_BASED_LOW attribute)</a>
+</li>
+        <li><a href="cle.html#cle.backends.pe.relocation.arm.IMAGE_REL_BASED_ARM_MOV32.resolved">(cle.backends.pe.relocation.arm.IMAGE_REL_BASED_ARM_MOV32 attribute)</a>
+</li>
+        <li><a href="cle.html#cle.backends.pe.relocation.arm.IMAGE_REL_BASED_DIR64.resolved">(cle.backends.pe.relocation.arm.IMAGE_REL_BASED_DIR64 attribute)</a>
+</li>
+        <li><a href="cle.html#cle.backends.pe.relocation.arm.IMAGE_REL_BASED_HIGH.resolved">(cle.backends.pe.relocation.arm.IMAGE_REL_BASED_HIGH attribute)</a>
+</li>
+        <li><a href="cle.html#cle.backends.pe.relocation.arm.IMAGE_REL_BASED_HIGHADJ.resolved">(cle.backends.pe.relocation.arm.IMAGE_REL_BASED_HIGHADJ attribute)</a>
+</li>
+        <li><a href="cle.html#cle.backends.pe.relocation.arm.IMAGE_REL_BASED_HIGHLOW.resolved">(cle.backends.pe.relocation.arm.IMAGE_REL_BASED_HIGHLOW attribute)</a>
+</li>
+        <li><a href="cle.html#cle.backends.pe.relocation.arm.IMAGE_REL_BASED_LOW.resolved">(cle.backends.pe.relocation.arm.IMAGE_REL_BASED_LOW attribute)</a>
+</li>
+        <li><a href="cle.html#cle.backends.pe.relocation.arm.IMAGE_REL_BASED_THUMB_MOV32.resolved">(cle.backends.pe.relocation.arm.IMAGE_REL_BASED_THUMB_MOV32 attribute)</a>
+</li>
+        <li><a href="cle.html#cle.backends.pe.relocation.generic.DllImport.resolved">(cle.backends.pe.relocation.generic.DllImport attribute)</a>
+</li>
+        <li><a href="cle.html#cle.backends.pe.relocation.generic.IMAGE_REL_BASED_ABSOLUTE.resolved">(cle.backends.pe.relocation.generic.IMAGE_REL_BASED_ABSOLUTE attribute)</a>
+</li>
+        <li><a href="cle.html#cle.backends.pe.relocation.generic.IMAGE_REL_BASED_DIR64.resolved">(cle.backends.pe.relocation.generic.IMAGE_REL_BASED_DIR64 attribute)</a>
+</li>
+        <li><a href="cle.html#cle.backends.pe.relocation.generic.IMAGE_REL_BASED_HIGH.resolved">(cle.backends.pe.relocation.generic.IMAGE_REL_BASED_HIGH attribute)</a>
+</li>
+        <li><a href="cle.html#cle.backends.pe.relocation.generic.IMAGE_REL_BASED_HIGHADJ.resolved">(cle.backends.pe.relocation.generic.IMAGE_REL_BASED_HIGHADJ attribute)</a>
+</li>
+        <li><a href="cle.html#cle.backends.pe.relocation.generic.IMAGE_REL_BASED_HIGHLOW.resolved">(cle.backends.pe.relocation.generic.IMAGE_REL_BASED_HIGHLOW attribute)</a>
+</li>
+        <li><a href="cle.html#cle.backends.pe.relocation.generic.IMAGE_REL_BASED_LOW.resolved">(cle.backends.pe.relocation.generic.IMAGE_REL_BASED_LOW attribute)</a>
+</li>
+        <li><a href="cle.html#cle.backends.pe.relocation.i386.IMAGE_REL_BASED_DIR64.resolved">(cle.backends.pe.relocation.i386.IMAGE_REL_BASED_DIR64 attribute)</a>
+</li>
+        <li><a href="cle.html#cle.backends.pe.relocation.i386.IMAGE_REL_BASED_HIGH.resolved">(cle.backends.pe.relocation.i386.IMAGE_REL_BASED_HIGH attribute)</a>
+</li>
+        <li><a href="cle.html#cle.backends.pe.relocation.i386.IMAGE_REL_BASED_HIGHADJ.resolved">(cle.backends.pe.relocation.i386.IMAGE_REL_BASED_HIGHADJ attribute)</a>
+</li>
+        <li><a href="cle.html#cle.backends.pe.relocation.i386.IMAGE_REL_BASED_HIGHLOW.resolved">(cle.backends.pe.relocation.i386.IMAGE_REL_BASED_HIGHLOW attribute)</a>
+</li>
+        <li><a href="cle.html#cle.backends.pe.relocation.i386.IMAGE_REL_BASED_LOW.resolved">(cle.backends.pe.relocation.i386.IMAGE_REL_BASED_LOW attribute)</a>
+</li>
+        <li><a href="cle.html#cle.backends.pe.relocation.mips.IMAGE_REL_BASED_DIR64.resolved">(cle.backends.pe.relocation.mips.IMAGE_REL_BASED_DIR64 attribute)</a>
+</li>
+        <li><a href="cle.html#cle.backends.pe.relocation.mips.IMAGE_REL_BASED_HIGH.resolved">(cle.backends.pe.relocation.mips.IMAGE_REL_BASED_HIGH attribute)</a>
+</li>
+        <li><a href="cle.html#cle.backends.pe.relocation.mips.IMAGE_REL_BASED_HIGHADJ.resolved">(cle.backends.pe.relocation.mips.IMAGE_REL_BASED_HIGHADJ attribute)</a>
+</li>
+        <li><a href="cle.html#cle.backends.pe.relocation.mips.IMAGE_REL_BASED_HIGHLOW.resolved">(cle.backends.pe.relocation.mips.IMAGE_REL_BASED_HIGHLOW attribute)</a>
+</li>
+        <li><a href="cle.html#cle.backends.pe.relocation.mips.IMAGE_REL_BASED_LOW.resolved">(cle.backends.pe.relocation.mips.IMAGE_REL_BASED_LOW attribute)</a>
+</li>
+        <li><a href="cle.html#cle.backends.pe.relocation.mips.IMAGE_REL_BASED_MIPS_JMPADDR.resolved">(cle.backends.pe.relocation.mips.IMAGE_REL_BASED_MIPS_JMPADDR attribute)</a>
+</li>
+        <li><a href="cle.html#cle.backends.pe.relocation.mips.IMAGE_REL_BASED_MIPS_JMPADDR16.resolved">(cle.backends.pe.relocation.mips.IMAGE_REL_BASED_MIPS_JMPADDR16 attribute)</a>
+</li>
+        <li><a href="cle.html#cle.backends.pe.relocation.pereloc.PEReloc.resolved">(cle.backends.pe.relocation.pereloc.PEReloc attribute)</a>
+</li>
+        <li><a href="cle.html#cle.backends.pe.relocation.riscv.IMAGE_REL_BASED_DIR64.resolved">(cle.backends.pe.relocation.riscv.IMAGE_REL_BASED_DIR64 attribute)</a>
+</li>
+        <li><a href="cle.html#cle.backends.pe.relocation.riscv.IMAGE_REL_BASED_HIGH.resolved">(cle.backends.pe.relocation.riscv.IMAGE_REL_BASED_HIGH attribute)</a>
+</li>
+        <li><a href="cle.html#cle.backends.pe.relocation.riscv.IMAGE_REL_BASED_HIGHADJ.resolved">(cle.backends.pe.relocation.riscv.IMAGE_REL_BASED_HIGHADJ attribute)</a>
+</li>
+        <li><a href="cle.html#cle.backends.pe.relocation.riscv.IMAGE_REL_BASED_HIGHLOW.resolved">(cle.backends.pe.relocation.riscv.IMAGE_REL_BASED_HIGHLOW attribute)</a>
+</li>
+        <li><a href="cle.html#cle.backends.pe.relocation.riscv.IMAGE_REL_BASED_LOW.resolved">(cle.backends.pe.relocation.riscv.IMAGE_REL_BASED_LOW attribute)</a>
+</li>
+        <li><a href="cle.html#cle.backends.pe.relocation.riscv.IMAGE_REL_BASED_RISCV_HIGH20.resolved">(cle.backends.pe.relocation.riscv.IMAGE_REL_BASED_RISCV_HIGH20 attribute)</a>
+</li>
+        <li><a href="cle.html#cle.backends.pe.relocation.riscv.IMAGE_REL_BASED_RISCV_LOW12I.resolved">(cle.backends.pe.relocation.riscv.IMAGE_REL_BASED_RISCV_LOW12I attribute)</a>
+</li>
+        <li><a href="cle.html#cle.backends.pe.relocation.riscv.IMAGE_REL_BASED_RISCV_LOW12S.resolved">(cle.backends.pe.relocation.riscv.IMAGE_REL_BASED_RISCV_LOW12S attribute)</a>
+</li>
+        <li><a href="cle.html#cle.backends.tls.InternalTLSRelocation.resolved">(cle.backends.tls.InternalTLSRelocation attribute)</a>
+</li>
+      </ul></li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="angr.html#angr.knowledge_base.knowledge_base.KnowledgeBase.resolved_indirect_jumps">resolved_indirect_jumps (angr.knowledge_base.knowledge_base.KnowledgeBase property)</a>
 </li>
       <li><a href="angr.html#angr.knowledge_plugins.cfg.indirect_jump.IndirectJump.resolved_targets">resolved_targets (angr.knowledge_plugins.cfg.indirect_jump.IndirectJump attribute)</a>
 </li>
+      <li><a href="cle.html#cle.backends.elf.relocation.amd64.R_X86_64_64.resolvedby">resolvedby (cle.backends.elf.relocation.amd64.R_X86_64_64 attribute)</a>
+
+      <ul>
+        <li><a href="cle.html#cle.backends.elf.relocation.amd64.R_X86_64_COPY.resolvedby">(cle.backends.elf.relocation.amd64.R_X86_64_COPY attribute)</a>
+</li>
+        <li><a href="cle.html#cle.backends.elf.relocation.amd64.R_X86_64_DTPMOD64.resolvedby">(cle.backends.elf.relocation.amd64.R_X86_64_DTPMOD64 attribute)</a>
+</li>
+        <li><a href="cle.html#cle.backends.elf.relocation.amd64.R_X86_64_DTPOFF64.resolvedby">(cle.backends.elf.relocation.amd64.R_X86_64_DTPOFF64 attribute)</a>
+</li>
+        <li><a href="cle.html#cle.backends.elf.relocation.amd64.R_X86_64_GLOB_DAT.resolvedby">(cle.backends.elf.relocation.amd64.R_X86_64_GLOB_DAT attribute)</a>
+</li>
+        <li><a href="cle.html#cle.backends.elf.relocation.amd64.R_X86_64_IRELATIVE.resolvedby">(cle.backends.elf.relocation.amd64.R_X86_64_IRELATIVE attribute)</a>
+</li>
+        <li><a href="cle.html#cle.backends.elf.relocation.amd64.R_X86_64_JUMP_SLOT.resolvedby">(cle.backends.elf.relocation.amd64.R_X86_64_JUMP_SLOT attribute)</a>
+</li>
+        <li><a href="cle.html#cle.backends.elf.relocation.amd64.R_X86_64_RELATIVE.resolvedby">(cle.backends.elf.relocation.amd64.R_X86_64_RELATIVE attribute)</a>
+</li>
+        <li><a href="cle.html#cle.backends.elf.relocation.amd64.R_X86_64_TPOFF64.resolvedby">(cle.backends.elf.relocation.amd64.R_X86_64_TPOFF64 attribute)</a>
+</li>
+        <li><a href="cle.html#cle.backends.elf.relocation.arm.R_ARM_ABS32.resolvedby">(cle.backends.elf.relocation.arm.R_ARM_ABS32 attribute)</a>
+</li>
+        <li><a href="cle.html#cle.backends.elf.relocation.arm.R_ARM_ABS32_NOI.resolvedby">(cle.backends.elf.relocation.arm.R_ARM_ABS32_NOI attribute)</a>
+</li>
+        <li><a href="cle.html#cle.backends.elf.relocation.arm.R_ARM_CALL.resolvedby">(cle.backends.elf.relocation.arm.R_ARM_CALL attribute)</a>
+</li>
+        <li><a href="cle.html#cle.backends.elf.relocation.arm.R_ARM_COPY.resolvedby">(cle.backends.elf.relocation.arm.R_ARM_COPY attribute)</a>
+</li>
+        <li><a href="cle.html#cle.backends.elf.relocation.arm.R_ARM_GLOB_DAT.resolvedby">(cle.backends.elf.relocation.arm.R_ARM_GLOB_DAT attribute)</a>
+</li>
+        <li><a href="cle.html#cle.backends.elf.relocation.arm.R_ARM_JUMP24.resolvedby">(cle.backends.elf.relocation.arm.R_ARM_JUMP24 attribute)</a>
+</li>
+        <li><a href="cle.html#cle.backends.elf.relocation.arm.R_ARM_JUMP_SLOT.resolvedby">(cle.backends.elf.relocation.arm.R_ARM_JUMP_SLOT attribute)</a>
+</li>
+        <li><a href="cle.html#cle.backends.elf.relocation.arm.R_ARM_MOVT_ABS.resolvedby">(cle.backends.elf.relocation.arm.R_ARM_MOVT_ABS attribute)</a>
+</li>
+        <li><a href="cle.html#cle.backends.elf.relocation.arm.R_ARM_MOVW_ABS_NC.resolvedby">(cle.backends.elf.relocation.arm.R_ARM_MOVW_ABS_NC attribute)</a>
+</li>
+        <li><a href="cle.html#cle.backends.elf.relocation.arm.R_ARM_PC24.resolvedby">(cle.backends.elf.relocation.arm.R_ARM_PC24 attribute)</a>
+</li>
+        <li><a href="cle.html#cle.backends.elf.relocation.arm.R_ARM_PREL31.resolvedby">(cle.backends.elf.relocation.arm.R_ARM_PREL31 attribute)</a>
+</li>
+        <li><a href="cle.html#cle.backends.elf.relocation.arm.R_ARM_REL32.resolvedby">(cle.backends.elf.relocation.arm.R_ARM_REL32 attribute)</a>
+</li>
+        <li><a href="cle.html#cle.backends.elf.relocation.arm.R_ARM_REL32_NOI.resolvedby">(cle.backends.elf.relocation.arm.R_ARM_REL32_NOI attribute)</a>
+</li>
+        <li><a href="cle.html#cle.backends.elf.relocation.arm.R_ARM_RELATIVE.resolvedby">(cle.backends.elf.relocation.arm.R_ARM_RELATIVE attribute)</a>
+</li>
+        <li><a href="cle.html#cle.backends.elf.relocation.arm.R_ARM_THM_CALL.resolvedby">(cle.backends.elf.relocation.arm.R_ARM_THM_CALL attribute)</a>
+</li>
+        <li><a href="cle.html#cle.backends.elf.relocation.arm.R_ARM_THM_JUMP19.resolvedby">(cle.backends.elf.relocation.arm.R_ARM_THM_JUMP19 attribute)</a>
+</li>
+        <li><a href="cle.html#cle.backends.elf.relocation.arm.R_ARM_THM_JUMP24.resolvedby">(cle.backends.elf.relocation.arm.R_ARM_THM_JUMP24 attribute)</a>
+</li>
+        <li><a href="cle.html#cle.backends.elf.relocation.arm.R_ARM_THM_JUMP6.resolvedby">(cle.backends.elf.relocation.arm.R_ARM_THM_JUMP6 attribute)</a>
+</li>
+        <li><a href="cle.html#cle.backends.elf.relocation.arm.R_ARM_TLS_DTPMOD32.resolvedby">(cle.backends.elf.relocation.arm.R_ARM_TLS_DTPMOD32 attribute)</a>
+</li>
+        <li><a href="cle.html#cle.backends.elf.relocation.arm.R_ARM_TLS_DTPOFF32.resolvedby">(cle.backends.elf.relocation.arm.R_ARM_TLS_DTPOFF32 attribute)</a>
+</li>
+        <li><a href="cle.html#cle.backends.elf.relocation.arm.R_ARM_TLS_TPOFF32.resolvedby">(cle.backends.elf.relocation.arm.R_ARM_TLS_TPOFF32 attribute)</a>
+</li>
+        <li><a href="cle.html#cle.backends.elf.relocation.arm64.R_AARCH64_ABS64.resolvedby">(cle.backends.elf.relocation.arm64.R_AARCH64_ABS64 attribute)</a>
+</li>
+        <li><a href="cle.html#cle.backends.elf.relocation.arm64.R_AARCH64_ADD_ABS_LO12_NC.resolvedby">(cle.backends.elf.relocation.arm64.R_AARCH64_ADD_ABS_LO12_NC attribute)</a>
+</li>
+        <li><a href="cle.html#cle.backends.elf.relocation.arm64.R_AARCH64_ADR_PREL_PG_HI21.resolvedby">(cle.backends.elf.relocation.arm64.R_AARCH64_ADR_PREL_PG_HI21 attribute)</a>
+</li>
+        <li><a href="cle.html#cle.backends.elf.relocation.arm64.R_AARCH64_CALL26.resolvedby">(cle.backends.elf.relocation.arm64.R_AARCH64_CALL26 attribute)</a>
+</li>
+        <li><a href="cle.html#cle.backends.elf.relocation.arm64.R_AARCH64_COPY.resolvedby">(cle.backends.elf.relocation.arm64.R_AARCH64_COPY attribute)</a>
+</li>
+        <li><a href="cle.html#cle.backends.elf.relocation.arm64.R_AARCH64_GLOB_DAT.resolvedby">(cle.backends.elf.relocation.arm64.R_AARCH64_GLOB_DAT attribute)</a>
+</li>
+        <li><a href="cle.html#cle.backends.elf.relocation.arm64.R_AARCH64_IRELATIVE.resolvedby">(cle.backends.elf.relocation.arm64.R_AARCH64_IRELATIVE attribute)</a>
+</li>
+        <li><a href="cle.html#cle.backends.elf.relocation.arm64.R_AARCH64_JUMP_SLOT.resolvedby">(cle.backends.elf.relocation.arm64.R_AARCH64_JUMP_SLOT attribute)</a>
+</li>
+        <li><a href="cle.html#cle.backends.elf.relocation.arm64.R_AARCH64_RELATIVE.resolvedby">(cle.backends.elf.relocation.arm64.R_AARCH64_RELATIVE attribute)</a>
+</li>
+        <li><a href="cle.html#cle.backends.elf.relocation.arm64.R_AARCH64_TLS_DTPMOD.resolvedby">(cle.backends.elf.relocation.arm64.R_AARCH64_TLS_DTPMOD attribute)</a>
+</li>
+        <li><a href="cle.html#cle.backends.elf.relocation.arm64.R_AARCH64_TLS_DTPREL.resolvedby">(cle.backends.elf.relocation.arm64.R_AARCH64_TLS_DTPREL attribute)</a>
+</li>
+        <li><a href="cle.html#cle.backends.elf.relocation.arm64.R_AARCH64_TLS_TPREL.resolvedby">(cle.backends.elf.relocation.arm64.R_AARCH64_TLS_TPREL attribute)</a>
+</li>
+        <li><a href="cle.html#cle.backends.elf.relocation.arm64.R_AARCH64_TLSDESC.resolvedby">(cle.backends.elf.relocation.arm64.R_AARCH64_TLSDESC attribute)</a>
+</li>
+        <li><a href="cle.html#cle.backends.elf.relocation.elfreloc.ELFReloc.resolvedby">(cle.backends.elf.relocation.elfreloc.ELFReloc attribute)</a>
+</li>
+        <li><a href="cle.html#cle.backends.elf.relocation.generic.GenericAbsoluteAddendReloc.resolvedby">(cle.backends.elf.relocation.generic.GenericAbsoluteAddendReloc attribute)</a>
+</li>
+        <li><a href="cle.html#cle.backends.elf.relocation.generic.GenericAbsoluteReloc.resolvedby">(cle.backends.elf.relocation.generic.GenericAbsoluteReloc attribute)</a>
+</li>
+        <li><a href="cle.html#cle.backends.elf.relocation.generic.GenericCopyReloc.resolvedby">(cle.backends.elf.relocation.generic.GenericCopyReloc attribute)</a>
+</li>
+        <li><a href="cle.html#cle.backends.elf.relocation.generic.GenericIRelativeReloc.resolvedby">(cle.backends.elf.relocation.generic.GenericIRelativeReloc attribute)</a>
+</li>
+        <li><a href="cle.html#cle.backends.elf.relocation.generic.GenericJumpslotReloc.resolvedby">(cle.backends.elf.relocation.generic.GenericJumpslotReloc attribute)</a>
+</li>
+        <li><a href="cle.html#cle.backends.elf.relocation.generic.GenericPCRelativeAddendReloc.resolvedby">(cle.backends.elf.relocation.generic.GenericPCRelativeAddendReloc attribute)</a>
+</li>
+        <li><a href="cle.html#cle.backends.elf.relocation.generic.GenericRelativeReloc.resolvedby">(cle.backends.elf.relocation.generic.GenericRelativeReloc attribute)</a>
+</li>
+        <li><a href="cle.html#cle.backends.elf.relocation.generic.GenericTLSDescriptorReloc.resolvedby">(cle.backends.elf.relocation.generic.GenericTLSDescriptorReloc attribute)</a>
+</li>
+        <li><a href="cle.html#cle.backends.elf.relocation.generic.GenericTLSDoffsetReloc.resolvedby">(cle.backends.elf.relocation.generic.GenericTLSDoffsetReloc attribute)</a>
+</li>
+        <li><a href="cle.html#cle.backends.elf.relocation.generic.GenericTLSModIdReloc.resolvedby">(cle.backends.elf.relocation.generic.GenericTLSModIdReloc attribute)</a>
+</li>
+        <li><a href="cle.html#cle.backends.elf.relocation.generic.GenericTLSOffsetReloc.resolvedby">(cle.backends.elf.relocation.generic.GenericTLSOffsetReloc attribute)</a>
+</li>
+        <li><a href="cle.html#cle.backends.elf.relocation.generic.MipsGlobalReloc.resolvedby">(cle.backends.elf.relocation.generic.MipsGlobalReloc attribute)</a>
+</li>
+        <li><a href="cle.html#cle.backends.elf.relocation.generic.MipsLocalReloc.resolvedby">(cle.backends.elf.relocation.generic.MipsLocalReloc attribute)</a>
+</li>
+        <li><a href="cle.html#cle.backends.elf.relocation.i386.R_386_32.resolvedby">(cle.backends.elf.relocation.i386.R_386_32 attribute)</a>
+</li>
+        <li><a href="cle.html#cle.backends.elf.relocation.i386.R_386_COPY.resolvedby">(cle.backends.elf.relocation.i386.R_386_COPY attribute)</a>
+</li>
+        <li><a href="cle.html#cle.backends.elf.relocation.i386.R_386_GLOB_DAT.resolvedby">(cle.backends.elf.relocation.i386.R_386_GLOB_DAT attribute)</a>
+</li>
+        <li><a href="cle.html#cle.backends.elf.relocation.i386.R_386_IRELATIVE.resolvedby">(cle.backends.elf.relocation.i386.R_386_IRELATIVE attribute)</a>
+</li>
+        <li><a href="cle.html#cle.backends.elf.relocation.i386.R_386_JMP_SLOT.resolvedby">(cle.backends.elf.relocation.i386.R_386_JMP_SLOT attribute)</a>
+</li>
+        <li><a href="cle.html#cle.backends.elf.relocation.i386.R_386_PC32.resolvedby">(cle.backends.elf.relocation.i386.R_386_PC32 attribute)</a>
+</li>
+        <li><a href="cle.html#cle.backends.elf.relocation.i386.R_386_RELATIVE.resolvedby">(cle.backends.elf.relocation.i386.R_386_RELATIVE attribute)</a>
+</li>
+        <li><a href="cle.html#cle.backends.elf.relocation.i386.R_386_TLS_DTPMOD32.resolvedby">(cle.backends.elf.relocation.i386.R_386_TLS_DTPMOD32 attribute)</a>
+</li>
+        <li><a href="cle.html#cle.backends.elf.relocation.i386.R_386_TLS_DTPOFF32.resolvedby">(cle.backends.elf.relocation.i386.R_386_TLS_DTPOFF32 attribute)</a>
+</li>
+        <li><a href="cle.html#cle.backends.elf.relocation.i386.R_386_TLS_TPOFF.resolvedby">(cle.backends.elf.relocation.i386.R_386_TLS_TPOFF attribute)</a>
+</li>
+        <li><a href="cle.html#cle.backends.elf.relocation.mips.R_MIPS_32.resolvedby">(cle.backends.elf.relocation.mips.R_MIPS_32 attribute)</a>
+</li>
+        <li><a href="cle.html#cle.backends.elf.relocation.mips.R_MIPS_GLOB_DAT.resolvedby">(cle.backends.elf.relocation.mips.R_MIPS_GLOB_DAT attribute)</a>
+</li>
+        <li><a href="cle.html#cle.backends.elf.relocation.mips.R_MIPS_HI16.resolvedby">(cle.backends.elf.relocation.mips.R_MIPS_HI16 attribute)</a>
+</li>
+        <li><a href="cle.html#cle.backends.elf.relocation.mips.R_MIPS_JUMP_SLOT.resolvedby">(cle.backends.elf.relocation.mips.R_MIPS_JUMP_SLOT attribute)</a>
+</li>
+        <li><a href="cle.html#cle.backends.elf.relocation.mips.R_MIPS_LO16.resolvedby">(cle.backends.elf.relocation.mips.R_MIPS_LO16 attribute)</a>
+</li>
+        <li><a href="cle.html#cle.backends.elf.relocation.mips.R_MIPS_REL32.resolvedby">(cle.backends.elf.relocation.mips.R_MIPS_REL32 attribute)</a>
+</li>
+        <li><a href="cle.html#cle.backends.elf.relocation.mips.R_MIPS_TLS_DTPMOD32.resolvedby">(cle.backends.elf.relocation.mips.R_MIPS_TLS_DTPMOD32 attribute)</a>
+</li>
+        <li><a href="cle.html#cle.backends.elf.relocation.mips.R_MIPS_TLS_DTPREL32.resolvedby">(cle.backends.elf.relocation.mips.R_MIPS_TLS_DTPREL32 attribute)</a>
+</li>
+        <li><a href="cle.html#cle.backends.elf.relocation.mips.R_MIPS_TLS_TPREL32.resolvedby">(cle.backends.elf.relocation.mips.R_MIPS_TLS_TPREL32 attribute)</a>
+</li>
+        <li><a href="cle.html#cle.backends.elf.relocation.mips64.R_MIPS_64.resolvedby">(cle.backends.elf.relocation.mips64.R_MIPS_64 attribute)</a>
+</li>
+        <li><a href="cle.html#cle.backends.elf.relocation.mips64.R_MIPS_COPY.resolvedby">(cle.backends.elf.relocation.mips64.R_MIPS_COPY attribute)</a>
+</li>
+        <li><a href="cle.html#cle.backends.elf.relocation.mips64.R_MIPS_REL32.resolvedby">(cle.backends.elf.relocation.mips64.R_MIPS_REL32 attribute)</a>
+</li>
+        <li><a href="cle.html#cle.backends.elf.relocation.mips64.R_MIPS_TLS_DTPMOD64.resolvedby">(cle.backends.elf.relocation.mips64.R_MIPS_TLS_DTPMOD64 attribute)</a>
+</li>
+        <li><a href="cle.html#cle.backends.elf.relocation.mips64.R_MIPS_TLS_DTPREL64.resolvedby">(cle.backends.elf.relocation.mips64.R_MIPS_TLS_DTPREL64 attribute)</a>
+</li>
+        <li><a href="cle.html#cle.backends.elf.relocation.mips64.R_MIPS_TLS_TPREL64.resolvedby">(cle.backends.elf.relocation.mips64.R_MIPS_TLS_TPREL64 attribute)</a>
+</li>
+        <li><a href="cle.html#cle.backends.elf.relocation.pcc64.R_PPC64_ADDR64.resolvedby">(cle.backends.elf.relocation.pcc64.R_PPC64_ADDR64 attribute)</a>
+</li>
+        <li><a href="cle.html#cle.backends.elf.relocation.pcc64.R_PPC64_DTPMOD64.resolvedby">(cle.backends.elf.relocation.pcc64.R_PPC64_DTPMOD64 attribute)</a>
+</li>
+        <li><a href="cle.html#cle.backends.elf.relocation.pcc64.R_PPC64_DTPREL64.resolvedby">(cle.backends.elf.relocation.pcc64.R_PPC64_DTPREL64 attribute)</a>
+</li>
+        <li><a href="cle.html#cle.backends.elf.relocation.pcc64.R_PPC64_GLOB_DAT.resolvedby">(cle.backends.elf.relocation.pcc64.R_PPC64_GLOB_DAT attribute)</a>
+</li>
+        <li><a href="cle.html#cle.backends.elf.relocation.pcc64.R_PPC64_IRELATIVE.resolvedby">(cle.backends.elf.relocation.pcc64.R_PPC64_IRELATIVE attribute)</a>
+</li>
+        <li><a href="cle.html#cle.backends.elf.relocation.pcc64.R_PPC64_JMP_SLOT.resolvedby">(cle.backends.elf.relocation.pcc64.R_PPC64_JMP_SLOT attribute)</a>
+</li>
+        <li><a href="cle.html#cle.backends.elf.relocation.pcc64.R_PPC64_REL24.resolvedby">(cle.backends.elf.relocation.pcc64.R_PPC64_REL24 attribute)</a>
+</li>
+        <li><a href="cle.html#cle.backends.elf.relocation.pcc64.R_PPC64_RELATIVE.resolvedby">(cle.backends.elf.relocation.pcc64.R_PPC64_RELATIVE attribute)</a>
+</li>
+        <li><a href="cle.html#cle.backends.elf.relocation.pcc64.R_PPC64_TOC.resolvedby">(cle.backends.elf.relocation.pcc64.R_PPC64_TOC attribute)</a>
+</li>
+        <li><a href="cle.html#cle.backends.elf.relocation.pcc64.R_PPC64_TOC16_HA.resolvedby">(cle.backends.elf.relocation.pcc64.R_PPC64_TOC16_HA attribute)</a>
+</li>
+        <li><a href="cle.html#cle.backends.elf.relocation.pcc64.R_PPC64_TOC16_HI.resolvedby">(cle.backends.elf.relocation.pcc64.R_PPC64_TOC16_HI attribute)</a>
+</li>
+        <li><a href="cle.html#cle.backends.elf.relocation.pcc64.R_PPC64_TOC16_LO.resolvedby">(cle.backends.elf.relocation.pcc64.R_PPC64_TOC16_LO attribute)</a>
+</li>
+        <li><a href="cle.html#cle.backends.elf.relocation.pcc64.R_PPC64_TPREL64.resolvedby">(cle.backends.elf.relocation.pcc64.R_PPC64_TPREL64 attribute)</a>
+</li>
+        <li><a href="cle.html#cle.backends.elf.relocation.ppc.R_PPC_ADDR14.resolvedby">(cle.backends.elf.relocation.ppc.R_PPC_ADDR14 attribute)</a>
+</li>
+        <li><a href="cle.html#cle.backends.elf.relocation.ppc.R_PPC_ADDR14_BRNTAKEN.resolvedby">(cle.backends.elf.relocation.ppc.R_PPC_ADDR14_BRNTAKEN attribute)</a>
+</li>
+        <li><a href="cle.html#cle.backends.elf.relocation.ppc.R_PPC_ADDR14_BRTAKEN.resolvedby">(cle.backends.elf.relocation.ppc.R_PPC_ADDR14_BRTAKEN attribute)</a>
+</li>
+        <li><a href="cle.html#cle.backends.elf.relocation.ppc.R_PPC_ADDR16.resolvedby">(cle.backends.elf.relocation.ppc.R_PPC_ADDR16 attribute)</a>
+</li>
+        <li><a href="cle.html#cle.backends.elf.relocation.ppc.R_PPC_ADDR16_HA.resolvedby">(cle.backends.elf.relocation.ppc.R_PPC_ADDR16_HA attribute)</a>
+</li>
+        <li><a href="cle.html#cle.backends.elf.relocation.ppc.R_PPC_ADDR16_HI.resolvedby">(cle.backends.elf.relocation.ppc.R_PPC_ADDR16_HI attribute)</a>
+</li>
+        <li><a href="cle.html#cle.backends.elf.relocation.ppc.R_PPC_ADDR16_LO.resolvedby">(cle.backends.elf.relocation.ppc.R_PPC_ADDR16_LO attribute)</a>
+</li>
+        <li><a href="cle.html#cle.backends.elf.relocation.ppc.R_PPC_ADDR24.resolvedby">(cle.backends.elf.relocation.ppc.R_PPC_ADDR24 attribute)</a>
+</li>
+        <li><a href="cle.html#cle.backends.elf.relocation.ppc.R_PPC_ADDR30.resolvedby">(cle.backends.elf.relocation.ppc.R_PPC_ADDR30 attribute)</a>
+</li>
+        <li><a href="cle.html#cle.backends.elf.relocation.ppc.R_PPC_ADDR32.resolvedby">(cle.backends.elf.relocation.ppc.R_PPC_ADDR32 attribute)</a>
+</li>
+        <li><a href="cle.html#cle.backends.elf.relocation.ppc.R_PPC_COPY.resolvedby">(cle.backends.elf.relocation.ppc.R_PPC_COPY attribute)</a>
+</li>
+        <li><a href="cle.html#cle.backends.elf.relocation.ppc.R_PPC_DTPMOD32.resolvedby">(cle.backends.elf.relocation.ppc.R_PPC_DTPMOD32 attribute)</a>
+</li>
+        <li><a href="cle.html#cle.backends.elf.relocation.ppc.R_PPC_DTPREL32.resolvedby">(cle.backends.elf.relocation.ppc.R_PPC_DTPREL32 attribute)</a>
+</li>
+        <li><a href="cle.html#cle.backends.elf.relocation.ppc.R_PPC_GLOB_DAT.resolvedby">(cle.backends.elf.relocation.ppc.R_PPC_GLOB_DAT attribute)</a>
+</li>
+        <li><a href="cle.html#cle.backends.elf.relocation.ppc.R_PPC_JMP_SLOT.resolvedby">(cle.backends.elf.relocation.ppc.R_PPC_JMP_SLOT attribute)</a>
+</li>
+        <li><a href="cle.html#cle.backends.elf.relocation.ppc.R_PPC_REL14.resolvedby">(cle.backends.elf.relocation.ppc.R_PPC_REL14 attribute)</a>
+</li>
+        <li><a href="cle.html#cle.backends.elf.relocation.ppc.R_PPC_REL14_BRNTAKEN.resolvedby">(cle.backends.elf.relocation.ppc.R_PPC_REL14_BRNTAKEN attribute)</a>
+</li>
+        <li><a href="cle.html#cle.backends.elf.relocation.ppc.R_PPC_REL14_BRTAKEN.resolvedby">(cle.backends.elf.relocation.ppc.R_PPC_REL14_BRTAKEN attribute)</a>
+</li>
+        <li><a href="cle.html#cle.backends.elf.relocation.ppc.R_PPC_REL24.resolvedby">(cle.backends.elf.relocation.ppc.R_PPC_REL24 attribute)</a>
+</li>
+        <li><a href="cle.html#cle.backends.elf.relocation.ppc.R_PPC_REL32.resolvedby">(cle.backends.elf.relocation.ppc.R_PPC_REL32 attribute)</a>
+</li>
+        <li><a href="cle.html#cle.backends.elf.relocation.ppc.R_PPC_RELATIVE.resolvedby">(cle.backends.elf.relocation.ppc.R_PPC_RELATIVE attribute)</a>
+</li>
+        <li><a href="cle.html#cle.backends.elf.relocation.ppc.R_PPC_SECTOFF.resolvedby">(cle.backends.elf.relocation.ppc.R_PPC_SECTOFF attribute)</a>
+</li>
+        <li><a href="cle.html#cle.backends.elf.relocation.ppc.R_PPC_SECTOFF_HA.resolvedby">(cle.backends.elf.relocation.ppc.R_PPC_SECTOFF_HA attribute)</a>
+</li>
+        <li><a href="cle.html#cle.backends.elf.relocation.ppc.R_PPC_SECTOFF_HI.resolvedby">(cle.backends.elf.relocation.ppc.R_PPC_SECTOFF_HI attribute)</a>
+</li>
+        <li><a href="cle.html#cle.backends.elf.relocation.ppc.R_PPC_SECTOFF_LO.resolvedby">(cle.backends.elf.relocation.ppc.R_PPC_SECTOFF_LO attribute)</a>
+</li>
+        <li><a href="cle.html#cle.backends.elf.relocation.ppc.R_PPC_TPREL32.resolvedby">(cle.backends.elf.relocation.ppc.R_PPC_TPREL32 attribute)</a>
+</li>
+        <li><a href="cle.html#cle.backends.elf.relocation.ppc.R_PPC_UADDR16.resolvedby">(cle.backends.elf.relocation.ppc.R_PPC_UADDR16 attribute)</a>
+</li>
+        <li><a href="cle.html#cle.backends.elf.relocation.ppc.R_PPC_UADDR32.resolvedby">(cle.backends.elf.relocation.ppc.R_PPC_UADDR32 attribute)</a>
+</li>
+        <li><a href="cle.html#cle.backends.elf.relocation.s390x.R_390_64.resolvedby">(cle.backends.elf.relocation.s390x.R_390_64 attribute)</a>
+</li>
+        <li><a href="cle.html#cle.backends.elf.relocation.s390x.R_390_COPY.resolvedby">(cle.backends.elf.relocation.s390x.R_390_COPY attribute)</a>
+</li>
+        <li><a href="cle.html#cle.backends.elf.relocation.s390x.R_390_GLOB_DAT.resolvedby">(cle.backends.elf.relocation.s390x.R_390_GLOB_DAT attribute)</a>
+</li>
+        <li><a href="cle.html#cle.backends.elf.relocation.s390x.R_390_IRELATIVE.resolvedby">(cle.backends.elf.relocation.s390x.R_390_IRELATIVE attribute)</a>
+</li>
+        <li><a href="cle.html#cle.backends.elf.relocation.s390x.R_390_JMP_SLOT.resolvedby">(cle.backends.elf.relocation.s390x.R_390_JMP_SLOT attribute)</a>
+</li>
+        <li><a href="cle.html#cle.backends.elf.relocation.s390x.R_390_RELATIVE.resolvedby">(cle.backends.elf.relocation.s390x.R_390_RELATIVE attribute)</a>
+</li>
+        <li><a href="cle.html#cle.backends.elf.relocation.s390x.R_390_TLS_TPOFF.resolvedby">(cle.backends.elf.relocation.s390x.R_390_TLS_TPOFF attribute)</a>
+</li>
+        <li><a href="cle.html#cle.backends.pe.relocation.amd64.IMAGE_REL_BASED_DIR64.resolvedby">(cle.backends.pe.relocation.amd64.IMAGE_REL_BASED_DIR64 attribute)</a>
+</li>
+        <li><a href="cle.html#cle.backends.pe.relocation.amd64.IMAGE_REL_BASED_HIGH.resolvedby">(cle.backends.pe.relocation.amd64.IMAGE_REL_BASED_HIGH attribute)</a>
+</li>
+        <li><a href="cle.html#cle.backends.pe.relocation.amd64.IMAGE_REL_BASED_HIGHADJ.resolvedby">(cle.backends.pe.relocation.amd64.IMAGE_REL_BASED_HIGHADJ attribute)</a>
+</li>
+        <li><a href="cle.html#cle.backends.pe.relocation.amd64.IMAGE_REL_BASED_HIGHLOW.resolvedby">(cle.backends.pe.relocation.amd64.IMAGE_REL_BASED_HIGHLOW attribute)</a>
+</li>
+        <li><a href="cle.html#cle.backends.pe.relocation.amd64.IMAGE_REL_BASED_LOW.resolvedby">(cle.backends.pe.relocation.amd64.IMAGE_REL_BASED_LOW attribute)</a>
+</li>
+        <li><a href="cle.html#cle.backends.pe.relocation.arm.IMAGE_REL_BASED_ARM_MOV32.resolvedby">(cle.backends.pe.relocation.arm.IMAGE_REL_BASED_ARM_MOV32 attribute)</a>
+</li>
+        <li><a href="cle.html#cle.backends.pe.relocation.arm.IMAGE_REL_BASED_DIR64.resolvedby">(cle.backends.pe.relocation.arm.IMAGE_REL_BASED_DIR64 attribute)</a>
+</li>
+        <li><a href="cle.html#cle.backends.pe.relocation.arm.IMAGE_REL_BASED_HIGH.resolvedby">(cle.backends.pe.relocation.arm.IMAGE_REL_BASED_HIGH attribute)</a>
+</li>
+        <li><a href="cle.html#cle.backends.pe.relocation.arm.IMAGE_REL_BASED_HIGHADJ.resolvedby">(cle.backends.pe.relocation.arm.IMAGE_REL_BASED_HIGHADJ attribute)</a>
+</li>
+        <li><a href="cle.html#cle.backends.pe.relocation.arm.IMAGE_REL_BASED_HIGHLOW.resolvedby">(cle.backends.pe.relocation.arm.IMAGE_REL_BASED_HIGHLOW attribute)</a>
+</li>
+        <li><a href="cle.html#cle.backends.pe.relocation.arm.IMAGE_REL_BASED_LOW.resolvedby">(cle.backends.pe.relocation.arm.IMAGE_REL_BASED_LOW attribute)</a>
+</li>
+        <li><a href="cle.html#cle.backends.pe.relocation.arm.IMAGE_REL_BASED_THUMB_MOV32.resolvedby">(cle.backends.pe.relocation.arm.IMAGE_REL_BASED_THUMB_MOV32 attribute)</a>
+</li>
+        <li><a href="cle.html#cle.backends.pe.relocation.generic.DllImport.resolvedby">(cle.backends.pe.relocation.generic.DllImport attribute)</a>
+</li>
+        <li><a href="cle.html#cle.backends.pe.relocation.generic.IMAGE_REL_BASED_ABSOLUTE.resolvedby">(cle.backends.pe.relocation.generic.IMAGE_REL_BASED_ABSOLUTE attribute)</a>
+</li>
+        <li><a href="cle.html#cle.backends.pe.relocation.generic.IMAGE_REL_BASED_DIR64.resolvedby">(cle.backends.pe.relocation.generic.IMAGE_REL_BASED_DIR64 attribute)</a>
+</li>
+        <li><a href="cle.html#cle.backends.pe.relocation.generic.IMAGE_REL_BASED_HIGH.resolvedby">(cle.backends.pe.relocation.generic.IMAGE_REL_BASED_HIGH attribute)</a>
+</li>
+        <li><a href="cle.html#cle.backends.pe.relocation.generic.IMAGE_REL_BASED_HIGHADJ.resolvedby">(cle.backends.pe.relocation.generic.IMAGE_REL_BASED_HIGHADJ attribute)</a>
+</li>
+        <li><a href="cle.html#cle.backends.pe.relocation.generic.IMAGE_REL_BASED_HIGHLOW.resolvedby">(cle.backends.pe.relocation.generic.IMAGE_REL_BASED_HIGHLOW attribute)</a>
+</li>
+        <li><a href="cle.html#cle.backends.pe.relocation.generic.IMAGE_REL_BASED_LOW.resolvedby">(cle.backends.pe.relocation.generic.IMAGE_REL_BASED_LOW attribute)</a>
+</li>
+        <li><a href="cle.html#cle.backends.pe.relocation.i386.IMAGE_REL_BASED_DIR64.resolvedby">(cle.backends.pe.relocation.i386.IMAGE_REL_BASED_DIR64 attribute)</a>
+</li>
+        <li><a href="cle.html#cle.backends.pe.relocation.i386.IMAGE_REL_BASED_HIGH.resolvedby">(cle.backends.pe.relocation.i386.IMAGE_REL_BASED_HIGH attribute)</a>
+</li>
+        <li><a href="cle.html#cle.backends.pe.relocation.i386.IMAGE_REL_BASED_HIGHADJ.resolvedby">(cle.backends.pe.relocation.i386.IMAGE_REL_BASED_HIGHADJ attribute)</a>
+</li>
+        <li><a href="cle.html#cle.backends.pe.relocation.i386.IMAGE_REL_BASED_HIGHLOW.resolvedby">(cle.backends.pe.relocation.i386.IMAGE_REL_BASED_HIGHLOW attribute)</a>
+</li>
+        <li><a href="cle.html#cle.backends.pe.relocation.i386.IMAGE_REL_BASED_LOW.resolvedby">(cle.backends.pe.relocation.i386.IMAGE_REL_BASED_LOW attribute)</a>
+</li>
+        <li><a href="cle.html#cle.backends.pe.relocation.mips.IMAGE_REL_BASED_DIR64.resolvedby">(cle.backends.pe.relocation.mips.IMAGE_REL_BASED_DIR64 attribute)</a>
+</li>
+        <li><a href="cle.html#cle.backends.pe.relocation.mips.IMAGE_REL_BASED_HIGH.resolvedby">(cle.backends.pe.relocation.mips.IMAGE_REL_BASED_HIGH attribute)</a>
+</li>
+        <li><a href="cle.html#cle.backends.pe.relocation.mips.IMAGE_REL_BASED_HIGHADJ.resolvedby">(cle.backends.pe.relocation.mips.IMAGE_REL_BASED_HIGHADJ attribute)</a>
+</li>
+        <li><a href="cle.html#cle.backends.pe.relocation.mips.IMAGE_REL_BASED_HIGHLOW.resolvedby">(cle.backends.pe.relocation.mips.IMAGE_REL_BASED_HIGHLOW attribute)</a>
+</li>
+        <li><a href="cle.html#cle.backends.pe.relocation.mips.IMAGE_REL_BASED_LOW.resolvedby">(cle.backends.pe.relocation.mips.IMAGE_REL_BASED_LOW attribute)</a>
+</li>
+        <li><a href="cle.html#cle.backends.pe.relocation.mips.IMAGE_REL_BASED_MIPS_JMPADDR.resolvedby">(cle.backends.pe.relocation.mips.IMAGE_REL_BASED_MIPS_JMPADDR attribute)</a>
+</li>
+        <li><a href="cle.html#cle.backends.pe.relocation.mips.IMAGE_REL_BASED_MIPS_JMPADDR16.resolvedby">(cle.backends.pe.relocation.mips.IMAGE_REL_BASED_MIPS_JMPADDR16 attribute)</a>
+</li>
+        <li><a href="cle.html#cle.backends.pe.relocation.pereloc.PEReloc.resolvedby">(cle.backends.pe.relocation.pereloc.PEReloc attribute)</a>
+</li>
+        <li><a href="cle.html#cle.backends.pe.relocation.riscv.IMAGE_REL_BASED_DIR64.resolvedby">(cle.backends.pe.relocation.riscv.IMAGE_REL_BASED_DIR64 attribute)</a>
+</li>
+        <li><a href="cle.html#cle.backends.pe.relocation.riscv.IMAGE_REL_BASED_HIGH.resolvedby">(cle.backends.pe.relocation.riscv.IMAGE_REL_BASED_HIGH attribute)</a>
+</li>
+        <li><a href="cle.html#cle.backends.pe.relocation.riscv.IMAGE_REL_BASED_HIGHADJ.resolvedby">(cle.backends.pe.relocation.riscv.IMAGE_REL_BASED_HIGHADJ attribute)</a>
+</li>
+        <li><a href="cle.html#cle.backends.pe.relocation.riscv.IMAGE_REL_BASED_HIGHLOW.resolvedby">(cle.backends.pe.relocation.riscv.IMAGE_REL_BASED_HIGHLOW attribute)</a>
+</li>
+        <li><a href="cle.html#cle.backends.pe.relocation.riscv.IMAGE_REL_BASED_LOW.resolvedby">(cle.backends.pe.relocation.riscv.IMAGE_REL_BASED_LOW attribute)</a>
+</li>
+        <li><a href="cle.html#cle.backends.pe.relocation.riscv.IMAGE_REL_BASED_RISCV_HIGH20.resolvedby">(cle.backends.pe.relocation.riscv.IMAGE_REL_BASED_RISCV_HIGH20 attribute)</a>
+</li>
+        <li><a href="cle.html#cle.backends.pe.relocation.riscv.IMAGE_REL_BASED_RISCV_LOW12I.resolvedby">(cle.backends.pe.relocation.riscv.IMAGE_REL_BASED_RISCV_LOW12I attribute)</a>
+</li>
+        <li><a href="cle.html#cle.backends.pe.relocation.riscv.IMAGE_REL_BASED_RISCV_LOW12S.resolvedby">(cle.backends.pe.relocation.riscv.IMAGE_REL_BASED_RISCV_LOW12S attribute)</a>
+</li>
+        <li><a href="cle.html#cle.backends.tls.InternalTLSRelocation.resolvedby">(cle.backends.tls.InternalTLSRelocation attribute)</a>
+</li>
+      </ul></li>
       <li><a href="cle.html#cle.backends.elf.relocation.arm64.R_AARCH64_TLSDESC.RESOLVER_ADDR">RESOLVER_ADDR (cle.backends.elf.relocation.arm64.R_AARCH64_TLSDESC attribute)</a>
 
       <ul>
@@ -18459,6 +19601,8 @@
 </li>
         <li><a href="angr.html#angr.exploration_techniques.explorer.Explorer.setup">(angr.exploration_techniques.explorer.Explorer method)</a>
 </li>
+        <li><a href="angr.html#angr.exploration_techniques.local_loop_seer.LocalLoopSeer.setup">(angr.exploration_techniques.local_loop_seer.LocalLoopSeer method)</a>
+</li>
         <li><a href="angr.html#angr.exploration_techniques.loop_seer.LoopSeer.setup">(angr.exploration_techniques.loop_seer.LoopSeer method)</a>
 </li>
         <li><a href="angr.html#angr.exploration_techniques.manual_mergepoint.ManualMergepoint.setup">(angr.exploration_techniques.manual_mergepoint.ManualMergepoint method)</a>
@@ -19196,11 +20340,9 @@
         <li><a href="angr.html#angr.analyses.propagator.vex_vars.VEXReg.size">(angr.analyses.propagator.vex_vars.VEXReg attribute)</a>
 </li>
       </ul></li>
-      <li><a href="angr.html#angr.analyses.typehoon.typeconsts.Char.SIZE">SIZE (angr.analyses.typehoon.typeconsts.Char attribute)</a>
+      <li><a href="angr.html#angr.analyses.typehoon.typeconsts.Int1.SIZE">SIZE (angr.analyses.typehoon.typeconsts.Int1 attribute)</a>
 
       <ul>
-        <li><a href="angr.html#angr.analyses.typehoon.typeconsts.Int1.SIZE">(angr.analyses.typehoon.typeconsts.Int1 attribute)</a>
-</li>
         <li><a href="angr.html#angr.analyses.typehoon.typeconsts.Int128.SIZE">(angr.analyses.typehoon.typeconsts.Int128 attribute)</a>
 </li>
         <li><a href="angr.html#angr.analyses.typehoon.typeconsts.Int16.SIZE">(angr.analyses.typehoon.typeconsts.Int16 attribute)</a>
@@ -19281,9 +20423,7 @@
 </li>
         <li><a href="angr.html#angr.sim_type.TypeRef.size">(angr.sim_type.TypeRef property)</a>
 </li>
-        <li><a href="angr.html#angr.sim_variable.SimMemoryVariable.size">(angr.sim_variable.SimMemoryVariable attribute)</a>
-</li>
-        <li><a href="angr.html#angr.sim_variable.SimRegisterVariable.size">(angr.sim_variable.SimRegisterVariable attribute)</a>
+        <li><a href="angr.html#angr.sim_variable.SimVariable.size">(angr.sim_variable.SimVariable attribute)</a>
 </li>
         <li><a href="angr.html#angr.state_plugins.unicorn_engine.MemoryValue.size">(angr.state_plugins.unicorn_engine.MemoryValue attribute)</a>
 </li>
@@ -19412,8 +20552,6 @@
       </ul></li>
       <li><a href="angr.html#angr.storage.memory_mixins.smart_find_mixin.SmartFindMixin">SmartFindMixin (class in angr.storage.memory_mixins.smart_find_mixin)</a>
 </li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="claripy.html#claripy.backends.backend_z3.SmartLRUCache">SmartLRUCache (class in claripy.backends.backend_z3)</a>
 </li>
       <li><a href="angr.html#angr.state_plugins.sim_action_object.SimActionObject.SMod">SMod() (angr.state_plugins.sim_action_object.SimActionObject method)</a>
@@ -19518,6 +20656,8 @@
 </li>
       <li><a href="angr.html#angr.block.SootBlock.soot">soot (angr.block.SootBlock property)</a>
 </li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="cle.html#cle.backends.java.soot.Soot">Soot (class in cle.backends.java.soot)</a>
 </li>
       <li><a href="angr.html#angr.knowledge_plugins.cfg.cfg_node.CFGNode.soot_block">soot_block (angr.knowledge_plugins.cfg.cfg_node.CFGNode attribute)</a>
@@ -19649,11 +20789,7 @@
       <li><a href="angr.html#angr.analyses.vfg.PendingJob.src_block_id">src_block_id (angr.analyses.vfg.PendingJob attribute)</a>
 </li>
       <li><a href="angr.html#angr.analyses.cfg.cfg_fast.FunctionEdge.src_func_addr">src_func_addr (angr.analyses.cfg.cfg_fast.FunctionEdge attribute)</a>
-
-      <ul>
-        <li><a href="angr.html#angr.analyses.cfg.cfg_fast.FunctionTransitionEdge.src_func_addr">(angr.analyses.cfg.cfg_fast.FunctionTransitionEdge attribute)</a>
 </li>
-      </ul></li>
       <li><a href="angr.html#angr.analyses.cfg.cfg_fast.CFGJob.src_ins_addr">src_ins_addr (angr.analyses.cfg.cfg_fast.CFGJob attribute)</a>
 
       <ul>
@@ -19680,37 +20816,37 @@
 </li>
       <li><a href="angr.html#angr.calling_conventions.SimRegArg.sse_extend">sse_extend() (angr.calling_conventions.SimRegArg method)</a>
 </li>
-      <li><a href="angr.html#angr.state_plugins.filesystem.Stat.st_atime">st_atime (angr.state_plugins.filesystem.Stat property)</a>
+      <li><a href="angr.html#angr.state_plugins.filesystem.Stat.st_atime">st_atime (angr.state_plugins.filesystem.Stat attribute)</a>
 </li>
-      <li><a href="angr.html#angr.state_plugins.filesystem.Stat.st_atimensec">st_atimensec (angr.state_plugins.filesystem.Stat property)</a>
+      <li><a href="angr.html#angr.state_plugins.filesystem.Stat.st_atimensec">st_atimensec (angr.state_plugins.filesystem.Stat attribute)</a>
 </li>
-      <li><a href="angr.html#angr.state_plugins.filesystem.Stat.st_blksize">st_blksize (angr.state_plugins.filesystem.Stat property)</a>
+      <li><a href="angr.html#angr.state_plugins.filesystem.Stat.st_blksize">st_blksize (angr.state_plugins.filesystem.Stat attribute)</a>
 </li>
-      <li><a href="angr.html#angr.state_plugins.filesystem.Stat.st_blocks">st_blocks (angr.state_plugins.filesystem.Stat property)</a>
+      <li><a href="angr.html#angr.state_plugins.filesystem.Stat.st_blocks">st_blocks (angr.state_plugins.filesystem.Stat attribute)</a>
 </li>
-      <li><a href="angr.html#angr.state_plugins.filesystem.Stat.st_ctime">st_ctime (angr.state_plugins.filesystem.Stat property)</a>
+      <li><a href="angr.html#angr.state_plugins.filesystem.Stat.st_ctime">st_ctime (angr.state_plugins.filesystem.Stat attribute)</a>
 </li>
-      <li><a href="angr.html#angr.state_plugins.filesystem.Stat.st_ctimensec">st_ctimensec (angr.state_plugins.filesystem.Stat property)</a>
+      <li><a href="angr.html#angr.state_plugins.filesystem.Stat.st_ctimensec">st_ctimensec (angr.state_plugins.filesystem.Stat attribute)</a>
 </li>
-      <li><a href="angr.html#angr.state_plugins.filesystem.Stat.st_dev">st_dev (angr.state_plugins.filesystem.Stat property)</a>
+      <li><a href="angr.html#angr.state_plugins.filesystem.Stat.st_dev">st_dev (angr.state_plugins.filesystem.Stat attribute)</a>
 </li>
-      <li><a href="angr.html#angr.state_plugins.filesystem.Stat.st_gid">st_gid (angr.state_plugins.filesystem.Stat property)</a>
+      <li><a href="angr.html#angr.state_plugins.filesystem.Stat.st_gid">st_gid (angr.state_plugins.filesystem.Stat attribute)</a>
 </li>
-      <li><a href="angr.html#angr.state_plugins.filesystem.Stat.st_ino">st_ino (angr.state_plugins.filesystem.Stat property)</a>
+      <li><a href="angr.html#angr.state_plugins.filesystem.Stat.st_ino">st_ino (angr.state_plugins.filesystem.Stat attribute)</a>
 </li>
-      <li><a href="angr.html#angr.state_plugins.filesystem.Stat.st_mode">st_mode (angr.state_plugins.filesystem.Stat property)</a>
+      <li><a href="angr.html#angr.state_plugins.filesystem.Stat.st_mode">st_mode (angr.state_plugins.filesystem.Stat attribute)</a>
 </li>
-      <li><a href="angr.html#angr.state_plugins.filesystem.Stat.st_mtime">st_mtime (angr.state_plugins.filesystem.Stat property)</a>
+      <li><a href="angr.html#angr.state_plugins.filesystem.Stat.st_mtime">st_mtime (angr.state_plugins.filesystem.Stat attribute)</a>
 </li>
-      <li><a href="angr.html#angr.state_plugins.filesystem.Stat.st_mtimensec">st_mtimensec (angr.state_plugins.filesystem.Stat property)</a>
+      <li><a href="angr.html#angr.state_plugins.filesystem.Stat.st_mtimensec">st_mtimensec (angr.state_plugins.filesystem.Stat attribute)</a>
 </li>
-      <li><a href="angr.html#angr.state_plugins.filesystem.Stat.st_nlink">st_nlink (angr.state_plugins.filesystem.Stat property)</a>
+      <li><a href="angr.html#angr.state_plugins.filesystem.Stat.st_nlink">st_nlink (angr.state_plugins.filesystem.Stat attribute)</a>
 </li>
-      <li><a href="angr.html#angr.state_plugins.filesystem.Stat.st_rdev">st_rdev (angr.state_plugins.filesystem.Stat property)</a>
+      <li><a href="angr.html#angr.state_plugins.filesystem.Stat.st_rdev">st_rdev (angr.state_plugins.filesystem.Stat attribute)</a>
 </li>
-      <li><a href="angr.html#angr.state_plugins.filesystem.Stat.st_size">st_size (angr.state_plugins.filesystem.Stat property)</a>
+      <li><a href="angr.html#angr.state_plugins.filesystem.Stat.st_size">st_size (angr.state_plugins.filesystem.Stat attribute)</a>
 </li>
-      <li><a href="angr.html#angr.state_plugins.filesystem.Stat.st_uid">st_uid (angr.state_plugins.filesystem.Stat property)</a>
+      <li><a href="angr.html#angr.state_plugins.filesystem.Stat.st_uid">st_uid (angr.state_plugins.filesystem.Stat attribute)</a>
 </li>
       <li><a href="pyvex.html#pyvex.utils.stable_hash">stable_hash() (in module pyvex.utils)</a>
 </li>
@@ -19911,7 +21047,205 @@
 </li>
         <li><a href="angr.html#angr.sim_procedure.SimProcedure.state">(angr.sim_procedure.SimProcedure attribute)</a>
 </li>
+        <li><a href="angr.html#angr.state_plugins.callstack.CallStack.state">(angr.state_plugins.callstack.CallStack attribute)</a>
+</li>
+        <li><a href="angr.html#angr.state_plugins.cgc.SimStateCGC.state">(angr.state_plugins.cgc.SimStateCGC attribute)</a>
+</li>
+        <li><a href="angr.html#angr.state_plugins.concrete.Concrete.state">(angr.state_plugins.concrete.Concrete attribute)</a>
+</li>
+        <li><a href="angr.html#angr.state_plugins.filesystem.SimConcreteFilesystem.state">(angr.state_plugins.filesystem.SimConcreteFilesystem attribute)</a>
+</li>
+        <li><a href="angr.html#angr.state_plugins.filesystem.SimFilesystem.state">(angr.state_plugins.filesystem.SimFilesystem attribute)</a>
+</li>
+        <li><a href="angr.html#angr.state_plugins.filesystem.SimHostFilesystem.state">(angr.state_plugins.filesystem.SimHostFilesystem attribute)</a>
+</li>
+        <li><a href="angr.html#angr.state_plugins.filesystem.SimMount.state">(angr.state_plugins.filesystem.SimMount attribute)</a>
+</li>
+        <li><a href="angr.html#angr.state_plugins.gdb.GDB.state">(angr.state_plugins.gdb.GDB attribute)</a>
+</li>
+        <li><a href="angr.html#angr.state_plugins.globals.SimStateGlobals.state">(angr.state_plugins.globals.SimStateGlobals attribute)</a>
+</li>
+        <li><a href="angr.html#angr.state_plugins.heap.heap_base.SimHeapBase.state">(angr.state_plugins.heap.heap_base.SimHeapBase attribute)</a>
+</li>
+        <li><a href="angr.html#angr.state_plugins.heap.heap_brk.SimHeapBrk.state">(angr.state_plugins.heap.heap_brk.SimHeapBrk attribute)</a>
+</li>
+        <li><a href="angr.html#angr.state_plugins.heap.heap_freelist.SimHeapFreelist.state">(angr.state_plugins.heap.heap_freelist.SimHeapFreelist attribute)</a>
+</li>
+        <li><a href="angr.html#angr.state_plugins.heap.heap_libc.SimHeapLibc.state">(angr.state_plugins.heap.heap_libc.SimHeapLibc attribute)</a>
+</li>
+        <li><a href="angr.html#angr.state_plugins.heap.heap_ptmalloc.SimHeapPTMalloc.state">(angr.state_plugins.heap.heap_ptmalloc.SimHeapPTMalloc attribute)</a>
+</li>
+        <li><a href="angr.html#angr.state_plugins.history.SimStateHistory.state">(angr.state_plugins.history.SimStateHistory attribute)</a>
+</li>
+        <li><a href="angr.html#angr.state_plugins.inspect.SimInspector.state">(angr.state_plugins.inspect.SimInspector attribute)</a>
+</li>
+        <li><a href="angr.html#angr.state_plugins.javavm_classloader.SimJavaVmClassloader.state">(angr.state_plugins.javavm_classloader.SimJavaVmClassloader attribute)</a>
+</li>
+        <li><a href="angr.html#angr.state_plugins.jni_references.SimStateJNIReferences.state">(angr.state_plugins.jni_references.SimStateJNIReferences attribute)</a>
+</li>
+        <li><a href="angr.html#angr.state_plugins.libc.SimStateLibc.state">(angr.state_plugins.libc.SimStateLibc attribute)</a>
+</li>
+        <li><a href="angr.html#angr.state_plugins.light_registers.SimLightRegisters.state">(angr.state_plugins.light_registers.SimLightRegisters attribute)</a>
+</li>
+        <li><a href="angr.html#angr.state_plugins.log.SimStateLog.state">(angr.state_plugins.log.SimStateLog attribute)</a>
+</li>
+        <li><a href="angr.html#angr.state_plugins.loop_data.SimStateLoopData.state">(angr.state_plugins.loop_data.SimStateLoopData attribute)</a>
+</li>
+        <li><a href="angr.html#angr.state_plugins.posix.PosixDevFS.state">(angr.state_plugins.posix.PosixDevFS attribute)</a>
+</li>
+        <li><a href="angr.html#angr.state_plugins.posix.PosixProcFS.state">(angr.state_plugins.posix.PosixProcFS attribute)</a>
+</li>
+        <li><a href="angr.html#angr.state_plugins.posix.SimSystemPosix.state">(angr.state_plugins.posix.SimSystemPosix attribute)</a>
+</li>
+        <li><a href="angr.html#angr.state_plugins.preconstrainer.SimStatePreconstrainer.state">(angr.state_plugins.preconstrainer.SimStatePreconstrainer attribute)</a>
+</li>
+        <li><a href="angr.html#angr.state_plugins.scratch.SimStateScratch.state">(angr.state_plugins.scratch.SimStateScratch attribute)</a>
+</li>
+        <li><a href="angr.html#angr.state_plugins.solver.SimSolver.state">(angr.state_plugins.solver.SimSolver attribute)</a>
+</li>
+        <li><a href="angr.html#angr.state_plugins.symbolizer.SimSymbolizer.state">(angr.state_plugins.symbolizer.SimSymbolizer attribute)</a>
+</li>
+        <li><a href="angr.html#angr.state_plugins.trace_additions.ChallRespInfo.state">(angr.state_plugins.trace_additions.ChallRespInfo attribute)</a>
+</li>
+        <li><a href="angr.html#angr.state_plugins.trace_additions.ZenPlugin.state">(angr.state_plugins.trace_additions.ZenPlugin attribute)</a>
+</li>
+        <li><a href="angr.html#angr.state_plugins.uc_manager.SimUCManager.state">(angr.state_plugins.uc_manager.SimUCManager attribute)</a>
+</li>
+        <li><a href="angr.html#angr.state_plugins.unicorn_engine.Unicorn.state">(angr.state_plugins.unicorn_engine.Unicorn attribute)</a>
+</li>
         <li><a href="angr.html#angr.state_plugins.view.SimMemView.state">(angr.state_plugins.view.SimMemView attribute)</a>
+</li>
+        <li><a href="angr.html#angr.state_plugins.view.SimRegNameView.state">(angr.state_plugins.view.SimRegNameView attribute)</a>
+</li>
+        <li><a href="angr.html#angr.storage.file.SimFile.state">(angr.storage.file.SimFile attribute)</a>
+</li>
+        <li><a href="angr.html#angr.storage.file.SimFileBase.state">(angr.storage.file.SimFileBase attribute)</a>
+</li>
+        <li><a href="angr.html#angr.storage.file.SimFileDescriptor.state">(angr.storage.file.SimFileDescriptor attribute)</a>
+</li>
+        <li><a href="angr.html#angr.storage.file.SimFileDescriptorBase.state">(angr.storage.file.SimFileDescriptorBase attribute)</a>
+</li>
+        <li><a href="angr.html#angr.storage.file.SimFileDescriptorDuplex.state">(angr.storage.file.SimFileDescriptorDuplex attribute)</a>
+</li>
+        <li><a href="angr.html#angr.storage.file.SimFileStream.state">(angr.storage.file.SimFileStream attribute)</a>
+</li>
+        <li><a href="angr.html#angr.storage.file.SimPackets.state">(angr.storage.file.SimPackets attribute)</a>
+</li>
+        <li><a href="angr.html#angr.storage.file.SimPacketsSlots.state">(angr.storage.file.SimPacketsSlots attribute)</a>
+</li>
+        <li><a href="angr.html#angr.storage.file.SimPacketsStream.state">(angr.storage.file.SimPacketsStream attribute)</a>
+</li>
+        <li><a href="angr.html#angr.storage.memory_mixins.AbstractMemory.state">(angr.storage.memory_mixins.AbstractMemory attribute)</a>
+</li>
+        <li><a href="angr.html#angr.storage.memory_mixins.actions_mixin.ActionsMixinHigh.state">(angr.storage.memory_mixins.actions_mixin.ActionsMixinHigh attribute)</a>
+</li>
+        <li><a href="angr.html#angr.storage.memory_mixins.actions_mixin.ActionsMixinLow.state">(angr.storage.memory_mixins.actions_mixin.ActionsMixinLow attribute)</a>
+</li>
+        <li><a href="angr.html#angr.storage.memory_mixins.address_concretization_mixin.AddressConcretizationMixin.state">(angr.storage.memory_mixins.address_concretization_mixin.AddressConcretizationMixin attribute)</a>
+</li>
+        <li><a href="angr.html#angr.storage.memory_mixins.bvv_conversion_mixin.DataNormalizationMixin.state">(angr.storage.memory_mixins.bvv_conversion_mixin.DataNormalizationMixin attribute)</a>
+</li>
+        <li><a href="angr.html#angr.storage.memory_mixins.clouseau_mixin.InspectMixinHigh.state">(angr.storage.memory_mixins.clouseau_mixin.InspectMixinHigh attribute)</a>
+</li>
+        <li><a href="angr.html#angr.storage.memory_mixins.conditional_store_mixin.ConditionalMixin.state">(angr.storage.memory_mixins.conditional_store_mixin.ConditionalMixin attribute)</a>
+</li>
+        <li><a href="angr.html#angr.storage.memory_mixins.convenient_mappings_mixin.ConvenientMappingsMixin.state">(angr.storage.memory_mixins.convenient_mappings_mixin.ConvenientMappingsMixin attribute)</a>
+</li>
+        <li><a href="angr.html#angr.storage.memory_mixins.default_filler_mixin.DefaultFillerMixin.state">(angr.storage.memory_mixins.default_filler_mixin.DefaultFillerMixin attribute)</a>
+</li>
+        <li><a href="angr.html#angr.storage.memory_mixins.default_filler_mixin.ExplicitFillerMixin.state">(angr.storage.memory_mixins.default_filler_mixin.ExplicitFillerMixin attribute)</a>
+</li>
+        <li><a href="angr.html#angr.storage.memory_mixins.default_filler_mixin.SpecialFillerMixin.state">(angr.storage.memory_mixins.default_filler_mixin.SpecialFillerMixin attribute)</a>
+</li>
+        <li><a href="angr.html#angr.storage.memory_mixins.dirty_addrs_mixin.DirtyAddrsMixin.state">(angr.storage.memory_mixins.dirty_addrs_mixin.DirtyAddrsMixin attribute)</a>
+</li>
+        <li><a href="angr.html#angr.storage.memory_mixins.FastMemory.state">(angr.storage.memory_mixins.FastMemory attribute)</a>
+</li>
+        <li><a href="angr.html#angr.storage.memory_mixins.hex_dumper_mixin.HexDumperMixin.state">(angr.storage.memory_mixins.hex_dumper_mixin.HexDumperMixin attribute)</a>
+</li>
+        <li><a href="angr.html#angr.storage.memory_mixins.javavm_memory.javavm_memory_mixin.JavaVmMemoryMixin.state">(angr.storage.memory_mixins.javavm_memory.javavm_memory_mixin.JavaVmMemoryMixin attribute)</a>
+</li>
+        <li><a href="angr.html#angr.storage.memory_mixins.JavaVmMemory.state">(angr.storage.memory_mixins.JavaVmMemory attribute)</a>
+</li>
+        <li><a href="angr.html#angr.storage.memory_mixins.keyvalue_memory.keyvalue_memory_mixin.KeyValueMemoryMixin.state">(angr.storage.memory_mixins.keyvalue_memory.keyvalue_memory_mixin.KeyValueMemoryMixin attribute)</a>
+</li>
+        <li><a href="angr.html#angr.storage.memory_mixins.KeyValueMemory.state">(angr.storage.memory_mixins.KeyValueMemory attribute)</a>
+</li>
+        <li><a href="angr.html#angr.storage.memory_mixins.label_merger_mixin.LabelMergerMixin.state">(angr.storage.memory_mixins.label_merger_mixin.LabelMergerMixin attribute)</a>
+</li>
+        <li><a href="angr.html#angr.storage.memory_mixins.MemoryMixin.state">(angr.storage.memory_mixins.MemoryMixin attribute)</a>
+</li>
+        <li><a href="angr.html#angr.storage.memory_mixins.multi_value_merger_mixin.MultiValueMergerMixin.state">(angr.storage.memory_mixins.multi_value_merger_mixin.MultiValueMergerMixin attribute)</a>
+</li>
+        <li><a href="angr.html#angr.storage.memory_mixins.name_resolution_mixin.NameResolutionMixin.state">(angr.storage.memory_mixins.name_resolution_mixin.NameResolutionMixin attribute)</a>
+</li>
+        <li><a href="angr.html#angr.storage.memory_mixins.paged_memory.page_backer_mixins.ClemoryBackerMixin.state">(angr.storage.memory_mixins.paged_memory.page_backer_mixins.ClemoryBackerMixin attribute)</a>
+</li>
+        <li><a href="angr.html#angr.storage.memory_mixins.paged_memory.page_backer_mixins.DictBackerMixin.state">(angr.storage.memory_mixins.paged_memory.page_backer_mixins.DictBackerMixin attribute)</a>
+</li>
+        <li><a href="angr.html#angr.storage.memory_mixins.paged_memory.paged_memory_mixin.LabeledPagesMixin.state">(angr.storage.memory_mixins.paged_memory.paged_memory_mixin.LabeledPagesMixin attribute)</a>
+</li>
+        <li><a href="angr.html#angr.storage.memory_mixins.paged_memory.paged_memory_mixin.ListPagesMixin.state">(angr.storage.memory_mixins.paged_memory.paged_memory_mixin.ListPagesMixin attribute)</a>
+</li>
+        <li><a href="angr.html#angr.storage.memory_mixins.paged_memory.paged_memory_mixin.ListPagesWithLabelsMixin.state">(angr.storage.memory_mixins.paged_memory.paged_memory_mixin.ListPagesWithLabelsMixin attribute)</a>
+</li>
+        <li><a href="angr.html#angr.storage.memory_mixins.paged_memory.paged_memory_mixin.MVListPagesMixin.state">(angr.storage.memory_mixins.paged_memory.paged_memory_mixin.MVListPagesMixin attribute)</a>
+</li>
+        <li><a href="angr.html#angr.storage.memory_mixins.paged_memory.paged_memory_mixin.MVListPagesWithLabelsMixin.state">(angr.storage.memory_mixins.paged_memory.paged_memory_mixin.MVListPagesWithLabelsMixin attribute)</a>
+</li>
+        <li><a href="angr.html#angr.storage.memory_mixins.paged_memory.paged_memory_mixin.UltraPagesMixin.state">(angr.storage.memory_mixins.paged_memory.paged_memory_mixin.UltraPagesMixin attribute)</a>
+</li>
+        <li><a href="angr.html#angr.storage.memory_mixins.paged_memory.pages.history_tracking_mixin.HistoryTrackingMixin.state">(angr.storage.memory_mixins.paged_memory.pages.history_tracking_mixin.HistoryTrackingMixin attribute)</a>
+</li>
+        <li><a href="angr.html#angr.storage.memory_mixins.paged_memory.pages.ispo_mixin.ISPOMixin.state">(angr.storage.memory_mixins.paged_memory.pages.ispo_mixin.ISPOMixin attribute)</a>
+</li>
+        <li><a href="angr.html#angr.storage.memory_mixins.paged_memory.pages.list_page.ListPage.state">(angr.storage.memory_mixins.paged_memory.pages.list_page.ListPage attribute)</a>
+</li>
+        <li><a href="angr.html#angr.storage.memory_mixins.paged_memory.pages.mv_list_page.MVListPage.state">(angr.storage.memory_mixins.paged_memory.pages.mv_list_page.MVListPage attribute)</a>
+</li>
+        <li><a href="angr.html#angr.storage.memory_mixins.paged_memory.pages.PageBase.state">(angr.storage.memory_mixins.paged_memory.pages.PageBase attribute)</a>
+</li>
+        <li><a href="angr.html#angr.storage.memory_mixins.paged_memory.pages.permissions_mixin.PermissionsMixin.state">(angr.storage.memory_mixins.paged_memory.pages.permissions_mixin.PermissionsMixin attribute)</a>
+</li>
+        <li><a href="angr.html#angr.storage.memory_mixins.paged_memory.pages.refcount_mixin.RefcountMixin.state">(angr.storage.memory_mixins.paged_memory.pages.refcount_mixin.RefcountMixin attribute)</a>
+</li>
+        <li><a href="angr.html#angr.storage.memory_mixins.paged_memory.pages.ultra_page.UltraPage.state">(angr.storage.memory_mixins.paged_memory.pages.ultra_page.UltraPage attribute)</a>
+</li>
+        <li><a href="angr.html#angr.storage.memory_mixins.paged_memory.privileged_mixin.PrivilegedPagingMixin.state">(angr.storage.memory_mixins.paged_memory.privileged_mixin.PrivilegedPagingMixin attribute)</a>
+</li>
+        <li><a href="angr.html#angr.storage.memory_mixins.paged_memory.stack_allocation_mixin.StackAllocationMixin.state">(angr.storage.memory_mixins.paged_memory.stack_allocation_mixin.StackAllocationMixin attribute)</a>
+</li>
+        <li><a href="angr.html#angr.storage.memory_mixins.regioned_memory.abstract_merger_mixin.AbstractMergerMixin.state">(angr.storage.memory_mixins.regioned_memory.abstract_merger_mixin.AbstractMergerMixin attribute)</a>
+</li>
+        <li><a href="angr.html#angr.storage.memory_mixins.regioned_memory.region_category_mixin.RegionCategoryMixin.state">(angr.storage.memory_mixins.regioned_memory.region_category_mixin.RegionCategoryMixin attribute)</a>
+</li>
+        <li><a href="angr.html#angr.storage.memory_mixins.regioned_memory.region_meta_mixin.MemoryRegionMetaMixin.state">(angr.storage.memory_mixins.regioned_memory.region_meta_mixin.MemoryRegionMetaMixin attribute)</a>
+</li>
+        <li><a href="angr.html#angr.storage.memory_mixins.regioned_memory.regioned_address_concretization_mixin.RegionedAddressConcretizationMixin.state">(angr.storage.memory_mixins.regioned_memory.regioned_address_concretization_mixin.RegionedAddressConcretizationMixin attribute)</a>
+</li>
+        <li><a href="angr.html#angr.storage.memory_mixins.regioned_memory.regioned_memory_mixin.RegionedMemoryMixin.state">(angr.storage.memory_mixins.regioned_memory.regioned_memory_mixin.RegionedMemoryMixin attribute)</a>
+</li>
+        <li><a href="angr.html#angr.storage.memory_mixins.regioned_memory.static_find_mixin.StaticFindMixin.state">(angr.storage.memory_mixins.regioned_memory.static_find_mixin.StaticFindMixin attribute)</a>
+</li>
+        <li><a href="angr.html#angr.storage.memory_mixins.simple_interface_mixin.SimpleInterfaceMixin.state">(angr.storage.memory_mixins.simple_interface_mixin.SimpleInterfaceMixin attribute)</a>
+</li>
+        <li><a href="angr.html#angr.storage.memory_mixins.simplification_mixin.SimplificationMixin.state">(angr.storage.memory_mixins.simplification_mixin.SimplificationMixin attribute)</a>
+</li>
+        <li><a href="angr.html#angr.storage.memory_mixins.size_resolution_mixin.SizeConcretizationMixin.state">(angr.storage.memory_mixins.size_resolution_mixin.SizeConcretizationMixin attribute)</a>
+</li>
+        <li><a href="angr.html#angr.storage.memory_mixins.size_resolution_mixin.SizeNormalizationMixin.state">(angr.storage.memory_mixins.size_resolution_mixin.SizeNormalizationMixin attribute)</a>
+</li>
+        <li><a href="angr.html#angr.storage.memory_mixins.slotted_memory.SlottedMemoryMixin.state">(angr.storage.memory_mixins.slotted_memory.SlottedMemoryMixin attribute)</a>
+</li>
+        <li><a href="angr.html#angr.storage.memory_mixins.smart_find_mixin.SmartFindMixin.state">(angr.storage.memory_mixins.smart_find_mixin.SmartFindMixin attribute)</a>
+</li>
+        <li><a href="angr.html#angr.storage.memory_mixins.symbolic_merger_mixin.SymbolicMergerMixin.state">(angr.storage.memory_mixins.symbolic_merger_mixin.SymbolicMergerMixin attribute)</a>
+</li>
+        <li><a href="angr.html#angr.storage.memory_mixins.top_merger_mixin.TopMergerMixin.state">(angr.storage.memory_mixins.top_merger_mixin.TopMergerMixin attribute)</a>
+</li>
+        <li><a href="angr.html#angr.storage.memory_mixins.underconstrained_mixin.UnderconstrainedMixin.state">(angr.storage.memory_mixins.underconstrained_mixin.UnderconstrainedMixin attribute)</a>
+</li>
+        <li><a href="angr.html#angr.storage.memory_mixins.unwrapper_mixin.UnwrapperMixin.state">(angr.storage.memory_mixins.unwrapper_mixin.UnwrapperMixin attribute)</a>
 </li>
       </ul></li>
       <li><a href="angr.html#angr.simos.cgc.SimCGC.state_blank">state_blank() (angr.simos.cgc.SimCGC method)</a>
@@ -20125,8 +21459,6 @@
       <li><a href="angr.html#angr.state_plugins.unicorn_engine.STOP.STOP_SYMBOLIC_BLOCK_EXIT_CONDITION">STOP_SYMBOLIC_BLOCK_EXIT_CONDITION (angr.state_plugins.unicorn_engine.STOP attribute)</a>
 </li>
       <li><a href="angr.html#angr.state_plugins.unicorn_engine.STOP.STOP_SYMBOLIC_BLOCK_EXIT_TARGET">STOP_SYMBOLIC_BLOCK_EXIT_TARGET (angr.state_plugins.unicorn_engine.STOP attribute)</a>
-</li>
-      <li><a href="angr.html#angr.state_plugins.unicorn_engine.STOP.STOP_SYMBOLIC_CONDITION">STOP_SYMBOLIC_CONDITION (angr.state_plugins.unicorn_engine.STOP attribute)</a>
 </li>
       <li><a href="angr.html#angr.state_plugins.unicorn_engine.STOP.STOP_SYMBOLIC_MEM_DEP_NOT_LIVE">STOP_SYMBOLIC_MEM_DEP_NOT_LIVE (angr.state_plugins.unicorn_engine.STOP attribute)</a>
 </li>
@@ -20574,6 +21906,8 @@
         <li><a href="angr.html#angr.exploration_techniques.bucketizer.Bucketizer.successors">(angr.exploration_techniques.bucketizer.Bucketizer method)</a>
 </li>
         <li><a href="angr.html#angr.exploration_techniques.ExplorationTechnique.successors">(angr.exploration_techniques.ExplorationTechnique method)</a>
+</li>
+        <li><a href="angr.html#angr.exploration_techniques.local_loop_seer.LocalLoopSeer.successors">(angr.exploration_techniques.local_loop_seer.LocalLoopSeer method)</a>
 </li>
         <li><a href="angr.html#angr.exploration_techniques.loop_seer.LoopSeer.successors">(angr.exploration_techniques.loop_seer.LoopSeer method)</a>
 </li>
@@ -21051,6 +22385,8 @@
 </li>
         <li><a href="angr.html#angr.analyses.decompiler.structured_codegen.c.CITE.tags">(angr.analyses.decompiler.structured_codegen.c.CITE attribute)</a>
 </li>
+        <li><a href="angr.html#angr.analyses.decompiler.structured_codegen.c.CRegister.tags">(angr.analyses.decompiler.structured_codegen.c.CRegister attribute)</a>
+</li>
         <li><a href="angr.html#angr.analyses.decompiler.structured_codegen.c.CReturn.tags">(angr.analyses.decompiler.structured_codegen.c.CReturn attribute)</a>
 </li>
         <li><a href="angr.html#angr.analyses.decompiler.structured_codegen.c.CStructField.tags">(angr.analyses.decompiler.structured_codegen.c.CStructField attribute)</a>
@@ -21114,7 +22450,7 @@
         <li><a href="cle.html#cle.backends.tls.elf_tls.ELFTLSObjectV2.tcb_offset">(cle.backends.tls.elf_tls.ELFTLSObjectV2 attribute)</a>
 </li>
       </ul></li>
-      <li><a href="archinfo.html#archinfo.tls.TLSArchInfo.tcbhead_size">tcbhead_size (archinfo.tls.TLSArchInfo property)</a>
+      <li><a href="archinfo.html#archinfo.tls.TLSArchInfo.tcbhead_size">tcbhead_size (archinfo.tls.TLSArchInfo attribute)</a>
 </li>
       <li><a href="angr.html#angr.calling_conventions.SimCC.teardown_callsite">teardown_callsite() (angr.calling_conventions.SimCC method)</a>
 </li>
@@ -21132,6 +22468,8 @@
         <li><a href="cle.html#cle.patched_stream.PatchedStream.tell">(cle.patched_stream.PatchedStream method)</a>
 </li>
       </ul></li>
+      <li><a href="angr.html#angr.analyses.propagator.propagator.PropagatorAILState.temp_expressions">temp_expressions (angr.analyses.propagator.propagator.PropagatorAILState attribute)</a>
+</li>
       <li><a href="angr.html#angr.utils.graph.TemporaryNode">TemporaryNode (class in angr.utils.graph)</a>
 </li>
       <li><a href="claripy.html#claripy.backends.backend_smtlib_solvers.PopenSolverProxy.terminate">terminate() (claripy.backends.backend_smtlib_solvers.PopenSolverProxy method)</a>
@@ -21278,10 +22616,10 @@
 </li>
       <li><a href="angr.html#angr.analyses.decompiler.utils.to_ail_supergraph">to_ail_supergraph() (in module angr.analyses.decompiler.utils)</a>
 </li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="cle.html#cle.backends.symbol.SymbolSubType.to_base_type">to_base_type() (cle.backends.symbol.SymbolSubType method)</a>
 </li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="angr.html#angr.analyses.typehoon.typevars.ConvertTo.to_bits">to_bits (angr.analyses.typehoon.typevars.ConvertTo attribute)</a>
 
       <ul>
@@ -21362,7 +22700,7 @@
 </li>
       <li><a href="angr.html#angr.state_plugins.libc.SimStateLibc.TOUPPER_LOC_ARRAY">TOUPPER_LOC_ARRAY (angr.state_plugins.libc.SimStateLibc attribute)</a>
 </li>
-      <li><a href="archinfo.html#archinfo.tls.TLSArchInfo.tp_offset">tp_offset (archinfo.tls.TLSArchInfo property)</a>
+      <li><a href="archinfo.html#archinfo.tls.TLSArchInfo.tp_offset">tp_offset (archinfo.tls.TLSArchInfo attribute)</a>
 
       <ul>
         <li><a href="cle.html#cle.backends.tls.elf_tls.ELFTLSObjectV1.tp_offset">(cle.backends.tls.elf_tls.ELFTLSObjectV1 attribute)</a>
@@ -21485,7 +22823,11 @@
 </li>
         <li><a href="angr.html#angr.analyses.decompiler.structured_codegen.c.CFunctionCall.type">(angr.analyses.decompiler.structured_codegen.c.CFunctionCall property)</a>
 </li>
+        <li><a href="angr.html#angr.analyses.decompiler.structured_codegen.c.CIndexedVariable.type">(angr.analyses.decompiler.structured_codegen.c.CIndexedVariable property)</a>
+</li>
         <li><a href="angr.html#angr.analyses.decompiler.structured_codegen.c.CITE.type">(angr.analyses.decompiler.structured_codegen.c.CITE property)</a>
+</li>
+        <li><a href="angr.html#angr.analyses.decompiler.structured_codegen.c.CPlaceholder.type">(angr.analyses.decompiler.structured_codegen.c.CPlaceholder property)</a>
 </li>
         <li><a href="angr.html#angr.analyses.decompiler.structured_codegen.c.CRegister.type">(angr.analyses.decompiler.structured_codegen.c.CRegister property)</a>
 </li>
@@ -21496,6 +22838,8 @@
         <li><a href="angr.html#angr.analyses.decompiler.structured_codegen.c.CUnaryOp.type">(angr.analyses.decompiler.structured_codegen.c.CUnaryOp property)</a>
 </li>
         <li><a href="angr.html#angr.analyses.decompiler.structured_codegen.c.CVariable.type">(angr.analyses.decompiler.structured_codegen.c.CVariable property)</a>
+</li>
+        <li><a href="angr.html#angr.analyses.decompiler.structured_codegen.c.CVariableField.type">(angr.analyses.decompiler.structured_codegen.c.CVariableField property)</a>
 </li>
         <li><a href="angr.html#angr.analyses.loop_analysis.AnnotatedVariable.type">(angr.analyses.loop_analysis.AnnotatedVariable attribute)</a>
 </li>
@@ -21582,8 +22926,12 @@
 </li>
       <li><a href="angr.html#angr.analyses.typehoon.typevars.Equivalence.type_b">type_b (angr.analyses.typehoon.typevars.Equivalence attribute)</a>
 </li>
-      <li><a href="angr.html#angr.analyses.variable_recovery.engine_base.RichR.type_constraints">type_constraints (angr.analyses.variable_recovery.engine_base.RichR attribute)</a>
+      <li><a href="angr.html#angr.analyses.decompiler.decompilation_cache.DecompilationCache.type_constraints">type_constraints (angr.analyses.decompiler.decompilation_cache.DecompilationCache attribute)</a>
+
+      <ul>
+        <li><a href="angr.html#angr.analyses.variable_recovery.engine_base.RichR.type_constraints">(angr.analyses.variable_recovery.engine_base.RichR attribute)</a>
 </li>
+      </ul></li>
       <li><a href="cle.html#cle.backends.symbol.SymbolType.TYPE_FUNCTION">TYPE_FUNCTION (cle.backends.symbol.SymbolType attribute)</a>
 </li>
       <li><a href="cle.html#cle.backends.symbol.SymbolType.TYPE_NONE">TYPE_NONE (cle.backends.symbol.SymbolType attribute)</a>
@@ -22296,15 +23644,15 @@
 </li>
       <li><a href="angr.html#angr.angrdb.models.DbKnowledgeBase.var_collections">var_collections (angr.angrdb.models.DbKnowledgeBase attribute)</a>
 </li>
-      <li><a href="angr.html#angr.analyses.data_dep.dep_nodes.VarDepNode">VarDepNode (class in angr.analyses.data_dep.dep_nodes)</a>
+      <li><a href="angr.html#angr.analyses.decompiler.decompilation_cache.DecompilationCache.var_to_typevar">var_to_typevar (angr.analyses.decompiler.decompilation_cache.DecompilationCache attribute)</a>
 </li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="angr.html#angr.analyses.data_dep.dep_nodes.VarDepNode">VarDepNode (class in angr.analyses.data_dep.dep_nodes)</a>
+</li>
       <li><a href="angr.html#angr.analyses.decompiler.structured_codegen.c.CBinaryOp.variable">variable (angr.analyses.decompiler.structured_codegen.c.CBinaryOp attribute)</a>
 
       <ul>
-        <li><a href="angr.html#angr.analyses.decompiler.structured_codegen.c.CUnaryOp.variable">(angr.analyses.decompiler.structured_codegen.c.CUnaryOp attribute)</a>
-</li>
         <li><a href="angr.html#angr.analyses.decompiler.structured_codegen.c.CVariable.variable">(angr.analyses.decompiler.structured_codegen.c.CVariable attribute)</a>
 </li>
         <li><a href="angr.html#angr.analyses.loop_analysis.AnnotatedVariable.variable">(angr.analyses.loop_analysis.AnnotatedVariable attribute)</a>
@@ -22392,7 +23740,7 @@
       </ul></li>
       <li><a href="angr.html#angr.analyses.loop_analysis.VariableTypes">VariableTypes (class in angr.analyses.loop_analysis)</a>
 </li>
-      <li><a href="archinfo.html#archinfo.tls.TLSArchInfo.variant">variant (archinfo.tls.TLSArchInfo property)</a>
+      <li><a href="archinfo.html#archinfo.tls.TLSArchInfo.variant">variant (archinfo.tls.TLSArchInfo attribute)</a>
 </li>
       <li><a href="angr.html#angr.vaults.Vault">Vault (class in angr.vaults)</a>
 </li>
@@ -22538,7 +23886,7 @@
 <h2 id="W">W</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="angr.html#angr.analyses.decompiler.ailblock_walker.AILBlockWalker.walk">walk() (angr.analyses.decompiler.ailblock_walker.AILBlockWalker method)</a>
+      <li><a href="angr.html#angr.analyses.decompiler.ailblock_walker.AILBlockWalkerBase.walk">walk() (angr.analyses.decompiler.ailblock_walker.AILBlockWalkerBase method)</a>
 
       <ul>
         <li><a href="angr.html#angr.analyses.decompiler.ailgraph_walker.AILGraphWalker.walk">(angr.analyses.decompiler.ailgraph_walker.AILGraphWalker method)</a>
@@ -22548,9 +23896,9 @@
         <li><a href="angr.html#angr.analyses.decompiler.sequence_walker.SequenceWalker.walk">(angr.analyses.decompiler.sequence_walker.SequenceWalker method)</a>
 </li>
       </ul></li>
-      <li><a href="angr.html#angr.analyses.decompiler.ailblock_walker.AILBlockWalker.walk_expression">walk_expression() (angr.analyses.decompiler.ailblock_walker.AILBlockWalker method)</a>
+      <li><a href="angr.html#angr.analyses.decompiler.ailblock_walker.AILBlockWalkerBase.walk_expression">walk_expression() (angr.analyses.decompiler.ailblock_walker.AILBlockWalkerBase method)</a>
 </li>
-      <li><a href="angr.html#angr.analyses.decompiler.ailblock_walker.AILBlockWalker.walk_statement">walk_statement() (angr.analyses.decompiler.ailblock_walker.AILBlockWalker method)</a>
+      <li><a href="angr.html#angr.analyses.decompiler.ailblock_walker.AILBlockWalkerBase.walk_statement">walk_statement() (angr.analyses.decompiler.ailblock_walker.AILBlockWalkerBase method)</a>
 </li>
       <li><a href="claripy.html#claripy.vsa.strided_interval.WarrenMethods">WarrenMethods (class in claripy.vsa.strided_interval)</a>
 </li>
