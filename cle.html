@@ -4,7 +4,8 @@
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>cle — Binary Loader &mdash; angr 9.2.0 documentation</title>
+  <title>cle — Binary Loader &mdash; angr 9.2.1
+ documentation</title>
       <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
   <!--[if lt IE 9]>
@@ -30,7 +31,7 @@
             <a href="index.html" class="icon icon-home"> angr
           </a>
               <div class="version">
-                9.2.0.dev0
+                9.2.1
 
               </div>
 <div role="search">
@@ -8318,16 +8319,24 @@ encountered.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="cle.memory.Clemory.add_backer">
-<span class="sig-name descname"><span class="pre">add_backer</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">start</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">data</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#cle.memory.Clemory.add_backer" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">add_backer</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">start</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">data</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">overwrite</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#cle.memory.Clemory.add_backer" title="Permalink to this definition"></a></dt>
 <dd><p>Adds a backer to the memory.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>start</strong> – The address where the backer should be loaded.</p></li>
 <li><p><strong>data</strong> – The backer itself. Can be either a bytestring or another <a class="reference internal" href="#cle.memory.Clemory" title="cle.memory.Clemory"><code class="xref py py-class docutils literal notranslate"><span class="pre">Clemory</span></code></a>.</p></li>
+<li><p><strong>overwrite</strong> – If True and the range overlaps any existing backer, the existing backer will be split up and
+the overlapping part will be replaced with the new backer.</p></li>
 </ul>
 </dd>
 </dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="cle.memory.Clemory.split_backer">
+<span class="sig-name descname"><span class="pre">split_backer</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">addr</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#cle.memory.Clemory.split_backer" title="Permalink to this definition"></a></dt>
+<dd><p>Ensures that <code class="docutils literal notranslate"><span class="pre">addr</span></code> is the start of a backer, if it is backed.</p>
 </dd></dl>
 
 <dl class="py method">
