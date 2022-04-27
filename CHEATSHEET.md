@@ -49,7 +49,7 @@ simgr.explore(find=find_addr, avoid=avoid_addr)
 
 ```python
 found = simgr.found[0] # A state that reached the find condition from explore
-found.solver.eval(sym_arg, cast_to=str) # Return a concrete string value for the sym arg to reach this state
+found.solver.eval(sym_arg, cast_to=bytes) # Return a concrete string value for the sym arg to reach this state
 ```
 
 Symbolically execute until lambda expression is `True`
