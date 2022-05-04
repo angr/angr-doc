@@ -26,7 +26,6 @@ def main():
 
     assert sm.deadended
     flag = sm.deadended[-1].posix.dumps(0).split(b"\n")[0]
-    import ipdb; ipdb.set_trace()
     return flag
 
 def test():
