@@ -18,7 +18,7 @@ example_dirs = [s for s in os.listdir(_path('examples')) if '.' not in s]
 
 sys.path.append('.')
 
-# pylint: missing-class-docstring, consider-using-with, raise-missing-from, no-self-use
+# pylint: disable=missing-class-docstring, consider-using-with, raise-missing-from, no-self-use
 class TestGitbook(unittest.TestCase):
     def doctest_single(self, md_file):
         orig_path = os.getcwd()
