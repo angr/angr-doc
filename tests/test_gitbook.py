@@ -70,6 +70,4 @@ class TestGitbook(unittest.TestCase):
             self.doctest_single(md_file)
 
 if __name__ == '__main__':
-    # for tester, arg in test_docs():
-    #     tester(arg)
     unittest.main()
