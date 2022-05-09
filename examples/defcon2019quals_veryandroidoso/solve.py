@@ -128,6 +128,10 @@ def solve(apk_location):
     return solution
 
 
+def test():
+    assert solve("ooo.defcon2019.quals.veryandroidoso.apk") == b"OOO{fab43416484944beba}"
+
+
 if __name__ == "__main__":
     import logging
     logging.getLogger('cle.backends.soot').setLevel('DEBUG')
