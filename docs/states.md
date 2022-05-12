@@ -76,7 +76,7 @@ To perform a constraint solve and get a possible value that input could have tak
 We'll go over how our file and input subsystems work later on this very page, but for now, just use `state.posix.stdin.load(0, state.posix.stdin.size)` to retrieve a bitvector representing all the content read from stdin so far.
 
 ```python
->>> input_data = state1.posix.stdin.load(0, state.posix.stdin.size)
+>>> input_data = state1.posix.stdin.load(0, state1.posix.stdin.size)
 
 >>> state1.solver.eval(input_data, cast_to=bytes)
 b'\x00\x00\x00\x00\x00\x00\x00\x00\x00SOSNEAKY\x00\x00\x00'
