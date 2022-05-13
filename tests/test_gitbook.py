@@ -25,7 +25,6 @@ class TestGitbook(unittest.TestCase):
         os.chdir(_path('.'))
         try:
             claripy.ast.base.var_counter = itertools.count()
-            lines = open(md_file, encoding='utf-8').read().split('\n')
             test_enabled = False
             multiline_enabled = False
             multiline_stuff = ''
@@ -39,29 +38,31 @@ class TestGitbook(unittest.TestCase):
                     traceback.print_exc()
                     raise Exception('Error on line %d of %s: %s' % (i+1, md_file, e))
 
-            for i, line in enumerate(lines):
-                if test_enabled:
-                    if line == '```':
-                        test_enabled = False
-                    else:
-                        if not multiline_enabled:
-                            if line.startswith('>>> '):
-                                line = line[4:]
-                                if lines[i+1].startswith('... '):
-                                    multiline_enabled = True
-                                    multiline_stuff = line + '\n'
-                                else:
-                                    try_running(line, i)
+            with open(md_file,"r", encoding='utf-8') as file:
+                lines = [line.rstrip('\n') for line in file] 
+                for i, line in enumerate(lines):
+                    if test_enabled:
+                        if line == '```':
+                            test_enabled = False
                         else:
-                            assert line.startswith('... ')
-                            line = line[4:]
-                            multiline_stuff += line + '\n'
-                            if not lines[i+1].startswith('... '):
-                                multiline_enabled = False
-                                try_running(multiline_stuff, i)
-                else:
-                    if line == '```python':
-                        test_enabled = True
+                            if not multiline_enabled:
+                                if line.startswith('>>> '):
+                                    line = line[4:]
+                                    if lines[i+1].startswith('... '):
+                                        multiline_enabled = True
+                                        multiline_stuff = line + '\n'
+                                    else:
+                                        try_running(line, i)
+                            else:
+                                assert line.startswith('... ')
+                                line = line[4:]
+                                multiline_stuff += line + '\n'
+                                if not lines[i+1].startswith('... '):
+                                    multiline_enabled = False
+                                    try_running(multiline_stuff, i)
+                    else:
+                        if line == '```python':
+                            test_enabled = True
         finally:
             os.chdir(orig_path)
 
