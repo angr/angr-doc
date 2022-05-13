@@ -18,7 +18,7 @@ example_dirs = [s for s in os.listdir(_path('examples')) if '.' not in s]
 
 sys.path.append('.')
 
-# pylint: disable=missing-class-docstring, consider-using-with, raise-missing-from, no-self-use
+# pylint: disable=missing-class-docstring, no-self-use
 class TestGitbook(unittest.TestCase):
     def doctest_single(self, md_file):
         orig_path = os.getcwd()
@@ -36,7 +36,7 @@ class TestGitbook(unittest.TestCase):
                 except Exception as e:
                     print('Error on line %d of %s: %s' % (i+1, md_file, e))
                     traceback.print_exc()
-                    raise Exception('Error on line %d of %s: %s' % (i+1, md_file, e))
+                    raise Exception('Error on line %d of %s: %s' % (i+1, md_file, e)) from e
 
             with open(md_file,"r", encoding='utf-8') as file:
                 lines = [line.rstrip('\n') for line in file] 
