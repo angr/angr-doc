@@ -70,6 +70,7 @@ class TestGitbook(unittest.TestCase):
         sys.path.append('.')
         for md_file in self.md_files:
             self.doctest_single(md_file)
+        sys.path.pop()
 
 if __name__ == '__main__':
     unittest.main()
