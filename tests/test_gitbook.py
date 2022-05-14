@@ -6,23 +6,23 @@ import traceback
 import itertools
 import claripy
 
-filepath = __file__
-
-def _path(d):
-    return os.path.join(os.path.dirname(filepath), '..', d)
-
-md_files = []
-for _p in ('docs', 'docs/analyses', 'docs/courses'):
-    md_files += [os.path.join(_p, t) for t in os.listdir(_path(_p)) if t.endswith('.md')]
-example_dirs = [s for s in os.listdir(_path('examples')) if '.' not in s]
-
-sys.path.append('.')
-
 # pylint: disable=missing-class-docstring, no-self-use
 class TestGitbook(unittest.TestCase):
+
+    def setUp(self):
+        self.filepath = __file__
+
+        self.md_files = []
+        for _p in ('docs', 'docs/analyses', 'docs/courses'):
+            self.md_files += [os.path.join(_p, t) for t in os.listdir(self._path(_p)) if t.endswith('.md')]
+        example_dirs = [s for s in os.listdir(self._path('examples')) if '.' not in s]
+
+    def _path(self, d):
+            return os.path.join(os.path.dirname(self.filepath), '..', d)
+
     def doctest_single(self, md_file):
         orig_path = os.getcwd()
-        os.chdir(_path('.'))
+        os.chdir(self._path('.'))
         try:
             claripy.ast.base.var_counter = itertools.count()
             test_enabled = False
@@ -67,7 +67,8 @@ class TestGitbook(unittest.TestCase):
             os.chdir(orig_path)
 
     def test_docs(self):
-        for md_file in md_files:
+        sys.path.append('.')
+        for md_file in self.md_files:
             self.doctest_single(md_file)
 
 if __name__ == '__main__':
