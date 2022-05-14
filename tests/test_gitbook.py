@@ -15,10 +15,9 @@ class TestGitbook(unittest.TestCase):
         self.md_files = []
         for _p in ('docs', 'docs/analyses', 'docs/courses'):
             self.md_files += [os.path.join(_p, t) for t in os.listdir(self._path(_p)) if t.endswith('.md')]
-        example_dirs = [s for s in os.listdir(self._path('examples')) if '.' not in s]
 
     def _path(self, d):
-            return os.path.join(os.path.dirname(self.filepath), '..', d)
+        return os.path.join(os.path.dirname(self.filepath), '..', d)
 
     def doctest_single(self, md_file):
         orig_path = os.getcwd()
@@ -39,7 +38,7 @@ class TestGitbook(unittest.TestCase):
                     raise Exception('Error on line %d of %s: %s' % (i+1, md_file, e)) from e
 
             with open(md_file,"r", encoding='utf-8') as file:
-                lines = [line.rstrip('\n') for line in file] 
+                lines = [line.rstrip('\n') for line in file]
                 for i, line in enumerate(lines):
                     if test_enabled:
                         if line == '```':
