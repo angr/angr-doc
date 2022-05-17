@@ -4,7 +4,7 @@
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>cle — Binary Loader &mdash; angr 9.2.3
+  <title>cle — Binary Loader &mdash; angr 9.2.4
  documentation</title>
       <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
@@ -31,7 +31,7 @@
             <a href="index.html" class="icon icon-home"> angr
           </a>
               <div class="version">
-                9.2.3
+                9.2.4
 
               </div>
 <div role="search">
@@ -124,8 +124,8 @@ the case-sensitivity of the underlying filesystem.</p></li>
 <li><p><strong>rebase_granularity</strong> – The alignment to use for rebasing shared objects</p></li>
 <li><p><strong>except_missing_libs</strong> – Throw an exception when a shared library can’t be found.</p></li>
 <li><p><strong>aslr</strong> – Load libraries in symbolic address space. Do not use this option.</p></li>
-<li><p><strong>page_size</strong> – The granularity with which data is mapped into memory. Set to 1 if you are working
-in a non-paged environment.</p></li>
+<li><p><strong>page_size</strong> – The granularity with which data is mapped into memory. Set to 0x1000 if you are working
+in an environment where data will always be memory mapped in a page-graunlar way.</p></li>
 <li><p><strong>preload_libs</strong> – Similar to <cite>force_load_libs</cite> but will provide for symbol resolution, with precedence
 over any dependencies.</p></li>
 </ul>
