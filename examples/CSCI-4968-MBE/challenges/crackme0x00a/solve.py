@@ -1,4 +1,4 @@
-#!/usr/bin/env python2
+#!/usr/bin/env python3
 
 # Author: David Manouchehri <manouchehri@protonmail.com>
 # Modern Binary Exploitation

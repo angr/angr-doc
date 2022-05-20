@@ -1,4 +1,4 @@
-#!/usr/bin/env python2
+#!/usr/bin/env python3
 
 """
 In this challenge we're given a text file with trace of a program execution. The file has
