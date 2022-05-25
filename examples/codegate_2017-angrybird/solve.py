@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 # Author: David Manouchehri
-# Runtime: ~3 minutes
+# Runtime: ~15 seconds (thank you based lazy solves)
 
 import angr
 
@@ -16,7 +16,7 @@ def main():
     # Because I'm not interested in fixing a weird binary, I'm going to skip
     # all the beginning of the program.
     # this also skips a bunch of initialization, so let's fix that:
-    state = proj.factory.entry_state(addr=START_ADDR)
+    state = proj.factory.entry_state(addr=START_ADDR, add_options={angr.options.LAZY_SOLVES})
     state.regs.rbp = state.regs.rsp
     # this is the length for the read
     state.mem[state.regs.rbp - 0x74].int = 0x40
