@@ -2,13 +2,21 @@
 
 This is a collection of commonly-asked "how do I do X?" questions and other general questions about angr, for those too lazy to read this whole document.
 
-If your question is of the form "how do I fix X issue", see also the Troubleshooting section of the [install instructions](../INSTALL.md).
+If your question is of the form "how do I fix X issue after installing", see also the Troubleshooting section of the [install instructions](../INSTALL.md).
 
 ## Why is it named angr?
 The core of angr's analysis is on VEX IR, and when something is vexing, it makes you angry.
 
 ## How should "angr" be stylized?
 All lowercase, even at the beginning of sentences. It's an anti-proper noun.
+
+## Why isn't symbolic execution doing the thing I want?
+The universal debugging technique for symbolic execution is as follows:
+
+- Check your simulation manager for errored states. `print(simgr)` is a good place to start, and if you see anything to do with "errored", go for `print(simgr.errored)`.
+- If you have any errored states and it's not immediately obvious what you did wrong, you can get a [pdb](https://docs.python.org/3/library/pdb.html) shell at the crash site by going `simgr.errored[n].debug()`.
+- If no state has reached an address you care about, you should check the path each state has gone down: `import pprint; pprint.pprint(state.history.descriptions.hardcopy)`. This will show you a high-level summary of what the symbolic execution engine did at each step along the state's history. You will be able to see from this a basic block trace and also a list of executed simprocedures. If you're using unicorn engine, you can check `state.history.bbl_addrs.hardcopy` to see what blocks were executed in each invocation of unicorn.
+- If a state is going down the wrong path, you can check what constraints caused it to go that way: `print(state.solver.constraints)`. If a state has just gone past a branch, you can check the most recent branch condition with `state.history.events[-1]`.
 
 ## How can I get diagnostic information about what angr is doing?
 angr uses the standard `logging` module for logging, with every package and submodule creating a new logger.
