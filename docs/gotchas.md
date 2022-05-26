@@ -39,3 +39,24 @@ This is configurable by changing the memory concretization strategies of `state.
 SimProcedures, and especially system calls such as `read()` and `write()` might run into a situation where the *length* of a buffer is symbolic.
 In general, this is handled very poorly: in many cases, this length will end up being concretized outright or retroactively concretized in later steps of execution.
 Even in cases when it is not, the source or destination file might end up looking a bit "weird".
+
+## Division by Zero
+
+Z3 has some issues with divisions by zero.
+For example:
+
+```
+>>> z = z3.Solver()
+>>> a = z3.BitVec('a', 32)
+>>> b = z3.BitVec('b', 32)
+>>> c = z3.BitVec('c', 32)
+>>> z.add(a/b == c)
+>>> z.add(b == 0)
+>>> z.check()
+>>> print(z.model().eval(b), z.model().eval(a/b))
+0 4294967295
+```
+
+This makes it very difficult to handle certain situations in Claripy.
+We post-process the VEX IR itself to explicitly check for zero-divisions and create IRSB side-exits corresponding to the exceptional case, but SimProcedures and custom analysis code may let occurrences of zero divisions split through, which will then cause weird issues in your analysis.
+Be safe --- when dividing, add a constraint against the denominator being zero.
