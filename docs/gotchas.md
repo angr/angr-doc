@@ -53,10 +53,10 @@ For example:
 >>> z.add(a/b == c)
 >>> z.add(b == 0)
 >>> z.check()
->>> print z.model().eval(b), z.model().eval(a/b)
+>>> print(z.model().eval(b), z.model().eval(a/b))
 0 4294967295
 ```
 
 This makes it very difficult to handle certain situations in Claripy.
-We post-process the VEX IR itself to explicitly check for zero-divisions, but SimProcedures and custom analysis code may let occurrences of zero divisions split through, which will then cause weird issues in your analysis.
+We post-process the VEX IR itself to explicitly check for zero-divisions and create IRSB side-exits corresponding to the exceptional case, but SimProcedures and custom analysis code may let occurrences of zero divisions split through, which will then cause weird issues in your analysis.
 Be safe --- when dividing, add a constraint against the denominator being zero.
