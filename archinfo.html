@@ -4,7 +4,7 @@
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>archinfo — Arch Information Repository &mdash; angr 9.2.5
+  <title>archinfo — Arch Information Repository &mdash; angr 9.2.6
  documentation</title>
       <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
@@ -15,6 +15,7 @@
         <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
         <script src="_static/jquery.js"></script>
         <script src="_static/underscore.js"></script>
+        <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
         <script src="_static/doctools.js"></script>
     <script src="_static/js/theme.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
@@ -30,7 +31,7 @@
             <a href="index.html" class="icon icon-home"> angr
           </a>
               <div class="version">
-                9.2.5
+                9.2.6
 
               </div>
 <div role="search">
@@ -79,11 +80,11 @@
            <div itemprop="articleBody">
              
   <section id="module-archinfo">
-<span id="archinfo-arch-information-repository"></span><h1><a class="reference internal" href="#module-archinfo" title="archinfo"><code class="xref py py-mod docutils literal notranslate"><span class="pre">archinfo</span></code></a> — Arch Information Repository<a class="headerlink" href="#module-archinfo" title="Permalink to this headline"></a></h1>
+<span id="archinfo-arch-information-repository"></span><h1><a class="reference internal" href="#module-archinfo" title="archinfo"><code class="xref py py-mod docutils literal notranslate"><span class="pre">archinfo</span></code></a> — Arch Information Repository<a class="headerlink" href="#module-archinfo" title="Permalink to this heading"></a></h1>
 <p>archinfo is a collection of classes that contain architecture-specific information.
 It is useful for cross-architecture tools (such as pyvex).</p>
 <section id="module-archinfo.arch">
-<span id="architectures"></span><h2>Architectures<a class="headerlink" href="#module-archinfo.arch" title="Permalink to this headline"></a></h2>
+<span id="architectures"></span><h2>Architectures<a class="headerlink" href="#module-archinfo.arch" title="Permalink to this heading"></a></h2>
 <dl class="py class">
 <dt class="sig sig-object py" id="archinfo.arch.Endness">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">archinfo.arch.</span></span><span class="sig-name descname"><span class="pre">Endness</span></span><a class="headerlink" href="#archinfo.arch.Endness" title="Permalink to this definition"></a></dt>
@@ -221,7 +222,7 @@ the general purpose registers.</p></li>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="archinfo.arch.Arch.elf_tls">
-<span class="sig-name descname"><span class="pre">elf_tls</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="#archinfo.tls.TLSArchInfo" title="archinfo.tls.TLSArchInfo"><span class="pre">archinfo.tls.TLSArchInfo</span></a></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#archinfo.arch.Arch.elf_tls" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">elf_tls</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="#archinfo.tls.TLSArchInfo" title="archinfo.tls.TLSArchInfo"><span class="pre">TLSArchInfo</span></a></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#archinfo.arch.Arch.elf_tls" title="Permalink to this definition"></a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
@@ -703,7 +704,7 @@ to the instruction pointer register in order to execute the code in that block.<
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="archinfo.arch.Arch.register_list">
-<span class="sig-name descname"><span class="pre">register_list</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="#archinfo.arch.Register" title="archinfo.arch.Register"><span class="pre">archinfo.arch.Register</span></a><span class="p"><span class="pre">]</span></span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">[]</span></em><a class="headerlink" href="#archinfo.arch.Arch.register_list" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">register_list</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="#archinfo.arch.Register" title="archinfo.arch.Register"><span class="pre">Register</span></a><span class="p"><span class="pre">]</span></span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">[]</span></em><a class="headerlink" href="#archinfo.arch.Arch.register_list" title="Permalink to this definition"></a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
@@ -844,7 +845,7 @@ architecture has no intrinsic endianness.</p></li>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="archinfo.arch.arch_from_id">
-<span class="sig-prename descclassname"><span class="pre">archinfo.arch.</span></span><span class="sig-name descname"><span class="pre">arch_from_id</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ident</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">endness</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'any'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">bits</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#archinfo.arch.Arch" title="archinfo.arch.Arch"><span class="pre">archinfo.arch.Arch</span></a></span></span><a class="headerlink" href="#archinfo.arch.arch_from_id" title="Permalink to this definition"></a></dt>
+<span class="sig-prename descclassname"><span class="pre">archinfo.arch.</span></span><span class="sig-name descname"><span class="pre">arch_from_id</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ident</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">endness</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'any'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">bits</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#archinfo.arch.Arch" title="archinfo.arch.Arch"><span class="pre">Arch</span></a></span></span><a class="headerlink" href="#archinfo.arch.arch_from_id" title="Permalink to this definition"></a></dt>
 <dd><p>Take our best guess at the arch referred to by the given identifier, and return an instance of its class.</p>
 <p>You may optionally provide the <code class="docutils literal notranslate"><span class="pre">endness</span></code> and <code class="docutils literal notranslate"><span class="pre">bits</span></code> parameters (strings) to help this function out.</p>
 </dd></dl>
@@ -863,7 +864,7 @@ architecture has no intrinsic endianness.</p></li>
 <span class="target" id="module-archinfo.arch_aarch64"></span><dl class="py class">
 <dt class="sig sig-object py" id="archinfo.arch_aarch64.ArchAArch64">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">archinfo.arch_aarch64.</span></span><span class="sig-name descname"><span class="pre">ArchAArch64</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">endness</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'Iend_LE'</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#archinfo.arch_aarch64.ArchAArch64" title="Permalink to this definition"></a></dt>
-<dd><p>Bases: <a class="reference internal" href="#archinfo.arch.Arch" title="archinfo.arch.Arch"><code class="xref py py-class docutils literal notranslate"><span class="pre">archinfo.arch.Arch</span></code></a></p>
+<dd><p>Bases: <a class="reference internal" href="#archinfo.arch.Arch" title="archinfo.arch.Arch"><code class="xref py py-class docutils literal notranslate"><span class="pre">Arch</span></code></a></p>
 <dl class="py attribute">
 <dt class="sig sig-object py" id="archinfo.arch_aarch64.ArchAArch64.bits">
 <span class="sig-name descname"><span class="pre">bits</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">64</span></em><a class="headerlink" href="#archinfo.arch_aarch64.ArchAArch64.bits" title="Permalink to this definition"></a></dt>
@@ -1034,7 +1035,7 @@ architecture has no intrinsic endianness.</p></li>
 <span class="target" id="module-archinfo.arch_amd64"></span><dl class="py class">
 <dt class="sig sig-object py" id="archinfo.arch_amd64.ArchAMD64">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">archinfo.arch_amd64.</span></span><span class="sig-name descname"><span class="pre">ArchAMD64</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">endness</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'Iend_LE'</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#archinfo.arch_amd64.ArchAMD64" title="Permalink to this definition"></a></dt>
-<dd><p>Bases: <a class="reference internal" href="#archinfo.arch.Arch" title="archinfo.arch.Arch"><code class="xref py py-class docutils literal notranslate"><span class="pre">archinfo.arch.Arch</span></code></a></p>
+<dd><p>Bases: <a class="reference internal" href="#archinfo.arch.Arch" title="archinfo.arch.Arch"><code class="xref py py-class docutils literal notranslate"><span class="pre">Arch</span></code></a></p>
 <dl class="py property">
 <dt class="sig sig-object py" id="archinfo.arch_amd64.ArchAMD64.capstone_x86_syntax">
 <em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">capstone_x86_syntax</span></span><a class="headerlink" href="#archinfo.arch_amd64.ArchAMD64.capstone_x86_syntax" title="Permalink to this definition"></a></dt>
@@ -1253,7 +1254,7 @@ architecture has no intrinsic endianness.</p></li>
 <dl class="py class">
 <dt class="sig sig-object py" id="archinfo.arch_arm.ArchARM">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">archinfo.arch_arm.</span></span><span class="sig-name descname"><span class="pre">ArchARM</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">endness</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'Iend_LE'</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#archinfo.arch_arm.ArchARM" title="Permalink to this definition"></a></dt>
-<dd><p>Bases: <a class="reference internal" href="#archinfo.arch.Arch" title="archinfo.arch.Arch"><code class="xref py py-class docutils literal notranslate"><span class="pre">archinfo.arch.Arch</span></code></a></p>
+<dd><p>Bases: <a class="reference internal" href="#archinfo.arch.Arch" title="archinfo.arch.Arch"><code class="xref py py-class docutils literal notranslate"><span class="pre">Arch</span></code></a></p>
 <dl class="py property">
 <dt class="sig sig-object py" id="archinfo.arch_arm.ArchARM.capstone_thumb">
 <em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">capstone_thumb</span></span><a class="headerlink" href="#archinfo.arch_arm.ArchARM.capstone_thumb" title="Permalink to this definition"></a></dt>
@@ -1495,7 +1496,7 @@ Set this parameter to None (default) if you want to keep the address as is.</p><
 <dl class="py class">
 <dt class="sig sig-object py" id="archinfo.arch_arm.ArchARMHF">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">archinfo.arch_arm.</span></span><span class="sig-name descname"><span class="pre">ArchARMHF</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">endness</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'Iend_LE'</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#archinfo.arch_arm.ArchARMHF" title="Permalink to this definition"></a></dt>
-<dd><p>Bases: <a class="reference internal" href="#archinfo.arch_arm.ArchARM" title="archinfo.arch_arm.ArchARM"><code class="xref py py-class docutils literal notranslate"><span class="pre">archinfo.arch_arm.ArchARM</span></code></a></p>
+<dd><p>Bases: <a class="reference internal" href="#archinfo.arch_arm.ArchARM" title="archinfo.arch_arm.ArchARM"><code class="xref py py-class docutils literal notranslate"><span class="pre">ArchARM</span></code></a></p>
 <dl class="py attribute">
 <dt class="sig sig-object py" id="archinfo.arch_arm.ArchARMHF.name">
 <span class="sig-name descname"><span class="pre">name</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'ARMHF'</span></em><a class="headerlink" href="#archinfo.arch_arm.ArchARMHF.name" title="Permalink to this definition"></a></dt>
@@ -1516,7 +1517,7 @@ Set this parameter to None (default) if you want to keep the address as is.</p><
 <dl class="py class">
 <dt class="sig sig-object py" id="archinfo.arch_arm.ArchARMEL">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">archinfo.arch_arm.</span></span><span class="sig-name descname"><span class="pre">ArchARMEL</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">endness</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'Iend_LE'</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#archinfo.arch_arm.ArchARMEL" title="Permalink to this definition"></a></dt>
-<dd><p>Bases: <a class="reference internal" href="#archinfo.arch_arm.ArchARM" title="archinfo.arch_arm.ArchARM"><code class="xref py py-class docutils literal notranslate"><span class="pre">archinfo.arch_arm.ArchARM</span></code></a></p>
+<dd><p>Bases: <a class="reference internal" href="#archinfo.arch_arm.ArchARM" title="archinfo.arch_arm.ArchARM"><code class="xref py py-class docutils literal notranslate"><span class="pre">ArchARM</span></code></a></p>
 <dl class="py attribute">
 <dt class="sig sig-object py" id="archinfo.arch_arm.ArchARMEL.name">
 <span class="sig-name descname"><span class="pre">name</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'ARMEL'</span></em><a class="headerlink" href="#archinfo.arch_arm.ArchARMEL.name" title="Permalink to this definition"></a></dt>
@@ -1542,7 +1543,7 @@ Set this parameter to None (default) if you want to keep the address as is.</p><
 <dl class="py class">
 <dt class="sig sig-object py" id="archinfo.arch_arm.ArchARMCortexM">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">archinfo.arch_arm.</span></span><span class="sig-name descname"><span class="pre">ArchARMCortexM</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#archinfo.arch_arm.ArchARMCortexM" title="Permalink to this definition"></a></dt>
-<dd><p>Bases: <a class="reference internal" href="#archinfo.arch_arm.ArchARMEL" title="archinfo.arch_arm.ArchARMEL"><code class="xref py py-class docutils literal notranslate"><span class="pre">archinfo.arch_arm.ArchARMEL</span></code></a></p>
+<dd><p>Bases: <a class="reference internal" href="#archinfo.arch_arm.ArchARMEL" title="archinfo.arch_arm.ArchARMEL"><code class="xref py py-class docutils literal notranslate"><span class="pre">ArchARMEL</span></code></a></p>
 <p>This is an architecture description for ARM Cortex-M microcontroller-class CPUs.</p>
 <p>These CPUs have the following unusual / annoying distinctions from their relatives:
 - Explicitly only support the Thumb-2 instruction set.  Executing with the T-bit off causes the processor to fault
@@ -1634,7 +1635,7 @@ Uses its own fancy stack layout for this, which (UGH) varies by sub-sub-architec
 <span class="target" id="module-archinfo.arch_avr"></span><dl class="py class">
 <dt class="sig sig-object py" id="archinfo.arch_avr.ArchAVR8">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">archinfo.arch_avr.</span></span><span class="sig-name descname"><span class="pre">ArchAVR8</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">endness</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'Iend_LE'</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#archinfo.arch_avr.ArchAVR8" title="Permalink to this definition"></a></dt>
-<dd><p>Bases: <a class="reference internal" href="#archinfo.arch.Arch" title="archinfo.arch.Arch"><code class="xref py py-class docutils literal notranslate"><span class="pre">archinfo.arch.Arch</span></code></a></p>
+<dd><p>Bases: <a class="reference internal" href="#archinfo.arch.Arch" title="archinfo.arch.Arch"><code class="xref py py-class docutils literal notranslate"><span class="pre">Arch</span></code></a></p>
 <dl class="py attribute">
 <dt class="sig sig-object py" id="archinfo.arch_avr.ArchAVR8.bits">
 <span class="sig-name descname"><span class="pre">bits</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">32</span></em><a class="headerlink" href="#archinfo.arch_avr.ArchAVR8.bits" title="Permalink to this definition"></a></dt>
@@ -1685,7 +1686,7 @@ Uses its own fancy stack layout for this, which (UGH) varies by sub-sub-architec
 <span class="target" id="module-archinfo.arch_mips32"></span><dl class="py class">
 <dt class="sig sig-object py" id="archinfo.arch_mips32.ArchMIPS32">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">archinfo.arch_mips32.</span></span><span class="sig-name descname"><span class="pre">ArchMIPS32</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">endness</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'Iend_BE'</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#archinfo.arch_mips32.ArchMIPS32" title="Permalink to this definition"></a></dt>
-<dd><p>Bases: <a class="reference internal" href="#archinfo.arch.Arch" title="archinfo.arch.Arch"><code class="xref py py-class docutils literal notranslate"><span class="pre">archinfo.arch.Arch</span></code></a></p>
+<dd><p>Bases: <a class="reference internal" href="#archinfo.arch.Arch" title="archinfo.arch.Arch"><code class="xref py py-class docutils literal notranslate"><span class="pre">Arch</span></code></a></p>
 <dl class="py attribute">
 <dt class="sig sig-object py" id="archinfo.arch_mips32.ArchMIPS32.bits">
 <span class="sig-name descname"><span class="pre">bits</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">32</span></em><a class="headerlink" href="#archinfo.arch_mips32.ArchMIPS32.bits" title="Permalink to this definition"></a></dt>
@@ -1841,7 +1842,7 @@ Uses its own fancy stack layout for this, which (UGH) varies by sub-sub-architec
 <span class="target" id="module-archinfo.arch_mips64"></span><dl class="py class">
 <dt class="sig sig-object py" id="archinfo.arch_mips64.ArchMIPS64">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">archinfo.arch_mips64.</span></span><span class="sig-name descname"><span class="pre">ArchMIPS64</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">endness</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'Iend_BE'</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#archinfo.arch_mips64.ArchMIPS64" title="Permalink to this definition"></a></dt>
-<dd><p>Bases: <a class="reference internal" href="#archinfo.arch.Arch" title="archinfo.arch.Arch"><code class="xref py py-class docutils literal notranslate"><span class="pre">archinfo.arch.Arch</span></code></a></p>
+<dd><p>Bases: <a class="reference internal" href="#archinfo.arch.Arch" title="archinfo.arch.Arch"><code class="xref py py-class docutils literal notranslate"><span class="pre">Arch</span></code></a></p>
 <dl class="py attribute">
 <dt class="sig sig-object py" id="archinfo.arch_mips64.ArchMIPS64.bits">
 <span class="sig-name descname"><span class="pre">bits</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">64</span></em><a class="headerlink" href="#archinfo.arch_mips64.ArchMIPS64.bits" title="Permalink to this definition"></a></dt>
@@ -1997,7 +1998,7 @@ Uses its own fancy stack layout for this, which (UGH) varies by sub-sub-architec
 <span class="target" id="module-archinfo.arch_ppc32"></span><dl class="py class">
 <dt class="sig sig-object py" id="archinfo.arch_ppc32.ArchPPC32">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">archinfo.arch_ppc32.</span></span><span class="sig-name descname"><span class="pre">ArchPPC32</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">endness</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'Iend_LE'</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#archinfo.arch_ppc32.ArchPPC32" title="Permalink to this definition"></a></dt>
-<dd><p>Bases: <a class="reference internal" href="#archinfo.arch.Arch" title="archinfo.arch.Arch"><code class="xref py py-class docutils literal notranslate"><span class="pre">archinfo.arch.Arch</span></code></a></p>
+<dd><p>Bases: <a class="reference internal" href="#archinfo.arch.Arch" title="archinfo.arch.Arch"><code class="xref py py-class docutils literal notranslate"><span class="pre">Arch</span></code></a></p>
 <dl class="py attribute">
 <dt class="sig sig-object py" id="archinfo.arch_ppc32.ArchPPC32.bits">
 <span class="sig-name descname"><span class="pre">bits</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">32</span></em><a class="headerlink" href="#archinfo.arch_ppc32.ArchPPC32.bits" title="Permalink to this definition"></a></dt>
@@ -2123,7 +2124,7 @@ Uses its own fancy stack layout for this, which (UGH) varies by sub-sub-architec
 <span class="target" id="module-archinfo.arch_ppc64"></span><dl class="py class">
 <dt class="sig sig-object py" id="archinfo.arch_ppc64.ArchPPC64">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">archinfo.arch_ppc64.</span></span><span class="sig-name descname"><span class="pre">ArchPPC64</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">endness</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'Iend_LE'</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#archinfo.arch_ppc64.ArchPPC64" title="Permalink to this definition"></a></dt>
-<dd><p>Bases: <a class="reference internal" href="#archinfo.arch.Arch" title="archinfo.arch.Arch"><code class="xref py py-class docutils literal notranslate"><span class="pre">archinfo.arch.Arch</span></code></a></p>
+<dd><p>Bases: <a class="reference internal" href="#archinfo.arch.Arch" title="archinfo.arch.Arch"><code class="xref py py-class docutils literal notranslate"><span class="pre">Arch</span></code></a></p>
 <dl class="py attribute">
 <dt class="sig sig-object py" id="archinfo.arch_ppc64.ArchPPC64.bits">
 <span class="sig-name descname"><span class="pre">bits</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">64</span></em><a class="headerlink" href="#archinfo.arch_ppc64.ArchPPC64.bits" title="Permalink to this definition"></a></dt>
@@ -2259,7 +2260,7 @@ Uses its own fancy stack layout for this, which (UGH) varies by sub-sub-architec
 <span class="target" id="module-archinfo.arch_x86"></span><dl class="py class">
 <dt class="sig sig-object py" id="archinfo.arch_x86.ArchX86">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">archinfo.arch_x86.</span></span><span class="sig-name descname"><span class="pre">ArchX86</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">endness</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'Iend_LE'</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#archinfo.arch_x86.ArchX86" title="Permalink to this definition"></a></dt>
-<dd><p>Bases: <a class="reference internal" href="#archinfo.arch.Arch" title="archinfo.arch.Arch"><code class="xref py py-class docutils literal notranslate"><span class="pre">archinfo.arch.Arch</span></code></a></p>
+<dd><p>Bases: <a class="reference internal" href="#archinfo.arch.Arch" title="archinfo.arch.Arch"><code class="xref py py-class docutils literal notranslate"><span class="pre">Arch</span></code></a></p>
 <dl class="py property">
 <dt class="sig sig-object py" id="archinfo.arch_x86.ArchX86.capstone_x86_syntax">
 <em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">capstone_x86_syntax</span></span><a class="headerlink" href="#archinfo.arch_x86.ArchX86.capstone_x86_syntax" title="Permalink to this definition"></a></dt>
@@ -2600,7 +2601,7 @@ native method matches the name of the soot method.</p>
 <dl class="py class">
 <dt class="sig sig-object py" id="archinfo.arch_soot.SootAddressTerminator">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">archinfo.arch_soot.</span></span><span class="sig-name descname"><span class="pre">SootAddressTerminator</span></span><a class="headerlink" href="#archinfo.arch_soot.SootAddressTerminator" title="Permalink to this definition"></a></dt>
-<dd><p>Bases: <a class="reference internal" href="#archinfo.arch_soot.SootAddressDescriptor" title="archinfo.arch_soot.SootAddressDescriptor"><code class="xref py py-class docutils literal notranslate"><span class="pre">archinfo.arch_soot.SootAddressDescriptor</span></code></a></p>
+<dd><p>Bases: <a class="reference internal" href="#archinfo.arch_soot.SootAddressDescriptor" title="archinfo.arch_soot.SootAddressDescriptor"><code class="xref py py-class docutils literal notranslate"><span class="pre">SootAddressDescriptor</span></code></a></p>
 </dd></dl>
 
 <dl class="py class">
@@ -2709,7 +2710,7 @@ instance method is invoked.</p></li>
 <dl class="py class">
 <dt class="sig sig-object py" id="archinfo.arch_soot.ArchSoot">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">archinfo.arch_soot.</span></span><span class="sig-name descname"><span class="pre">ArchSoot</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">endness</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'Iend_LE'</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#archinfo.arch_soot.ArchSoot" title="Permalink to this definition"></a></dt>
-<dd><p>Bases: <a class="reference internal" href="#archinfo.arch.Arch" title="archinfo.arch.Arch"><code class="xref py py-class docutils literal notranslate"><span class="pre">archinfo.arch.Arch</span></code></a></p>
+<dd><p>Bases: <a class="reference internal" href="#archinfo.arch.Arch" title="archinfo.arch.Arch"><code class="xref py py-class docutils literal notranslate"><span class="pre">Arch</span></code></a></p>
 <dl class="py attribute">
 <dt class="sig sig-object py" id="archinfo.arch_soot.ArchSoot.name">
 <span class="sig-name descname"><span class="pre">name</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'Soot'</span></em><a class="headerlink" href="#archinfo.arch_soot.ArchSoot.name" title="Permalink to this definition"></a></dt>
@@ -2787,7 +2788,7 @@ specific paths.</p>
 <span class="target" id="module-archinfo.arch_s390x"></span><dl class="py class">
 <dt class="sig sig-object py" id="archinfo.arch_s390x.ArchS390X">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">archinfo.arch_s390x.</span></span><span class="sig-name descname"><span class="pre">ArchS390X</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">endness</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'Iend_BE'</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#archinfo.arch_s390x.ArchS390X" title="Permalink to this definition"></a></dt>
-<dd><p>Bases: <a class="reference internal" href="#archinfo.arch.Arch" title="archinfo.arch.Arch"><code class="xref py py-class docutils literal notranslate"><span class="pre">archinfo.arch.Arch</span></code></a></p>
+<dd><p>Bases: <a class="reference internal" href="#archinfo.arch.Arch" title="archinfo.arch.Arch"><code class="xref py py-class docutils literal notranslate"><span class="pre">Arch</span></code></a></p>
 <dl class="py attribute">
 <dt class="sig sig-object py" id="archinfo.arch_s390x.ArchS390X.bits">
 <span class="sig-name descname"><span class="pre">bits</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">64</span></em><a class="headerlink" href="#archinfo.arch_s390x.ArchS390X.bits" title="Permalink to this definition"></a></dt>
@@ -2912,7 +2913,7 @@ specific paths.</p>
 
 </section>
 <section id="module-archinfo.tls">
-<span id="utilities"></span><h2>Utilities<a class="headerlink" href="#module-archinfo.tls" title="Permalink to this headline"></a></h2>
+<span id="utilities"></span><h2>Utilities<a class="headerlink" href="#module-archinfo.tls" title="Permalink to this heading"></a></h2>
 <dl class="py class">
 <dt class="sig sig-object py" id="archinfo.tls.TLSArchInfo">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">archinfo.tls.</span></span><span class="sig-name descname"><span class="pre">TLSArchInfo</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">variant</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tcbhead_size</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">head_offsets</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dtv_offsets</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pthread_offsets</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tp_offset</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dtv_entry_offset</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#archinfo.tls.TLSArchInfo" title="Permalink to this definition"></a></dt>
@@ -2964,7 +2965,7 @@ specific paths.</p>
 
 <span class="target" id="module-archinfo.defines"></span></section>
 <section id="module-archinfo.archerror">
-<span id="errors"></span><h2>Errors<a class="headerlink" href="#module-archinfo.archerror" title="Permalink to this headline"></a></h2>
+<span id="errors"></span><h2>Errors<a class="headerlink" href="#module-archinfo.archerror" title="Permalink to this heading"></a></h2>
 <dl class="py exception">
 <dt class="sig sig-object py" id="archinfo.archerror.ArchError">
 <em class="property"><span class="pre">exception</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">archinfo.archerror.</span></span><span class="sig-name descname"><span class="pre">ArchError</span></span><a class="headerlink" href="#archinfo.archerror.ArchError" title="Permalink to this definition"></a></dt>
