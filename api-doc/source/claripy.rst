@@ -48,7 +48,6 @@ Backends
 .. automodule:: claripy.backends.backend_concrete
 .. automodule:: claripy.backends.backend_z3
 .. automodule:: claripy.backends.backend_z3_parallel
-.. automodule:: claripy.backends.celeryconfig
 .. automodule:: claripy.backends.backend_vsa
 .. automodule:: claripy.backends.backend_smtlib_solvers.z3str_popen
 .. automodule:: claripy.backends.backend_smtlib_solvers.cvc4_popen
@@ -56,7 +55,7 @@ Backends
 .. automodule:: claripy.backends.backend_smtlib_solvers.abc_popen
 .. automodule:: claripy.backends.backend_smtlib_solvers
 .. automodule:: claripy.backends.backend_smtlib
- 
+
 
 Frontends
 ---------
