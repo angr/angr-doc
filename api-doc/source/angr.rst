@@ -148,6 +148,7 @@ Exploration Techniques
 ----------------------
 
 .. automodule:: angr.exploration_techniques
+.. automodule:: angr.exploration_techniques.timeout
 .. automodule:: angr.exploration_techniques.dfs
 .. automodule:: angr.exploration_techniques.explorer
 .. automodule:: angr.exploration_techniques.lengthlimiter
