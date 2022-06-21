@@ -148,6 +148,7 @@ Exploration Techniques
 ----------------------
 
 .. automodule:: angr.exploration_techniques
+.. automodule:: angr.exploration_techniques.timeout
 .. automodule:: angr.exploration_techniques.dfs
 .. automodule:: angr.exploration_techniques.explorer
 .. automodule:: angr.exploration_techniques.lengthlimiter
@@ -360,6 +361,7 @@ Analysis
 .. automodule:: angr.analyses.decompiler.optimization_passes.stack_canary_simplifier
 .. automodule:: angr.analyses.decompiler.optimization_passes.base_ptr_save_simplifier
 .. automodule:: angr.analyses.decompiler.optimization_passes.div_simplifier
+.. automodule:: angr.analyses.decompiler.optimization_passes.ite_expr_converter
 .. automodule:: angr.analyses.decompiler.optimization_passes.multi_simplifier
 .. automodule:: angr.analyses.decompiler.optimization_passes.mod_simplifier
 .. automodule:: angr.analyses.decompiler.optimization_passes.engine_base
@@ -407,6 +409,7 @@ Analysis
 .. automodule:: angr.analyses.decompiler.region_simplifiers.loop
 .. automodule:: angr.analyses.decompiler.region_simplifiers.node_address_finder
 .. automodule:: angr.analyses.decompiler.region_simplifiers.region_simplifier
+.. automodule:: angr.analyses.decompiler.region_walker
 .. automodule:: angr.analyses.decompiler.sequence_walker
 .. automodule:: angr.analyses.decompiler.structured_codegen
 .. automodule:: angr.analyses.decompiler.structured_codegen.base
