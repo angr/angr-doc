@@ -32,14 +32,14 @@ If you use angr in an academic work, please cite the papers for which it was dev
 ```bibtex
 @article{shoshitaishvili2016state,
   title={SoK: (State of) The Art of War: Offensive Techniques in Binary Analysis},
-  author={Shoshitaishvili, Yan and Wang, Ruoyu and Salls, Christopher and Stephens, Nick and Polino, Mario and Dutcher, Audrey and Grosen, John and Feng, Siji and Hauser, Christophe and Kruegel, Christopher and Vigna, Giovanni},
+  author={Shoshitaishvili, Yan and Wang, Ruoyu and Salls, Christopher and Stephens, Nick and Polino, Mario and Dutcher, Audrey and Grosen, Jessie and Feng, Siji and Hauser, Christophe and Kruegel, Christopher and Vigna, Giovanni},
   booktitle={IEEE Symposium on Security and Privacy},
   year={2016}
 }
 
 @article{stephens2016driller,
   title={Driller: Augmenting Fuzzing Through Selective Symbolic Execution},
-  author={Stephens, Nick and Grosen, John and Salls, Christopher and Dutcher, Audrey and Wang, Ruoyu and Corbetta, Jacopo and Shoshitaishvili, Yan and Kruegel, Christopher and Vigna, Giovanni},
+  author={Stephens, Nick and Grosen, Jessie and Salls, Christopher and Dutcher, Audrey and Wang, Ruoyu and Corbetta, Jacopo and Shoshitaishvili, Yan and Kruegel, Christopher and Vigna, Giovanni},
   booktitle={NDSS},
   year={2016}
 }
@@ -58,9 +58,7 @@ To get help with angr, you can ask via:
 
 * the slack channel: [angr.slack.com](https://angr.slack.com), for which you can get an account [here](https://angr.io/invite/).
 * opening an issue on the appropriate github repository
-* the mailing list: angr@lists.cs.ucsb.edu
 
 ## Going further:
 
 You can read this [paper](https://www.cs.ucsb.edu/~vigna/publications/2016_SP_angrSoK.pdf), explaining some of the internals, algorithms, and used techniques to get a better understanding on what's going on under the hood.
-
