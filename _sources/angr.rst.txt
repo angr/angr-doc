@@ -521,6 +521,7 @@ Utils
 .. automodule:: angr.utils.cowdict
 .. automodule:: angr.utils.enums_conv
 .. automodule:: angr.utils.graph
+.. automodule:: angr.utils.lazy_import
 .. automodule:: angr.utils.library
 .. automodule:: angr.utils.timing
 .. automodule:: angr.utils.formatting
