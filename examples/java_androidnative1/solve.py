@@ -34,7 +34,7 @@ def test_androidnative1():
                     'entry_point': 'com.angr.nativetest1.MainActivity.onCreate',
                     'entry_point_params': ('android.os.Bundle', ),
                     'supported_jni_archs': ['x86']}
-    project = angr.Project(apk_location, main_opts=loading_opts, auto_load_libs=False)
+    project = angr.Project(apk_location, main_opts=loading_opts, auto_load_libs=True)
     project.hook(SootMethodDescriptor(class_name="java.lang.String", name="valueOf", params=('int',)).address(), Dummy_String_valueOf())
 
     blank_state = project.factory.blank_state()
