@@ -365,6 +365,7 @@ Analysis
 .. automodule:: angr.analyses.decompiler.optimization_passes.multi_simplifier
 .. automodule:: angr.analyses.decompiler.optimization_passes.mod_simplifier
 .. automodule:: angr.analyses.decompiler.optimization_passes.engine_base
+.. automodule:: angr.analyses.decompiler.optimization_passes.expr_op_swapper
 .. automodule:: angr.analyses.decompiler.optimization_passes.register_save_area_simplifier
 .. automodule:: angr.analyses.decompiler.optimization_passes.ret_addr_save_simplifier
 .. automodule:: angr.analyses.decompiler.optimization_passes.x86_gcc_getpc_simplifier
