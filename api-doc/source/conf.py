@@ -50,9 +50,9 @@ source_suffix = ['.rst', '.md']
 master_doc = 'index'
 
 # General information about the project.
-project = u'angr'
-copyright = u'2020, The angr project'
-author = u'The angr project'
+project = 'angr'
+copyright = '2020, The angr project'
+author = 'The angr project'
 
 # The version info for the project you're documenting, acts as replacement for
 # |version| and |release|, also used in various other places throughout the
@@ -253,8 +253,8 @@ latex_elements = {
 # (source start file, target name, title,
 #  author, documentclass [howto, manual, or own class]).
 latex_documents = [
-    (master_doc, 'angr.tex', u'angr Documentation',
-     u'The angr project', 'manual'),
+    (master_doc, 'angr.tex', 'angr Documentation',
+     'The angr project', 'manual'),
 ]
 
 # The name of an image file (relative to this directory) to place at the top of
@@ -283,12 +283,12 @@ latex_documents = [
 # One entry per manual page. List of tuples
 # (source start file, name, description, authors, manual section).
 man_pages = [
-    ('ailment', 'ailment', u'angr intermediate language', [author], 3),
-    ('angr', 'angr', u'angr analysis module', [author], 3),
-    ('claripy', 'claripy', u'angr numerical and constraint-solving module', [author], 3),
-    ('cle', 'cle', u'angr binary loader', [author], 3),
-    ('pyvex', 'pyvex', u'angr binary translator', [author], 3),
-    ('archinfo', 'archinfo', u'angr architecture information repository', [author], 3),
+    ('ailment', 'ailment', 'angr intermediate language', [author], 3),
+    ('angr', 'angr', 'angr analysis module', [author], 3),
+    ('claripy', 'claripy', 'angr numerical and constraint-solving module', [author], 3),
+    ('cle', 'cle', 'angr binary loader', [author], 3),
+    ('pyvex', 'pyvex', 'angr binary translator', [author], 3),
+    ('archinfo', 'archinfo', 'angr architecture information repository', [author], 3),
 ]
 
 # If true, show URL addresses after external links.
@@ -301,7 +301,7 @@ man_pages = [
 # (source start file, target name, title, author,
 #  dir menu entry, description, category)
 texinfo_documents = [
-    (master_doc, 'angr', u'angr Documentation',
+    (master_doc, 'angr', 'angr Documentation',
      author, 'angr', 'One line description of project.',
      'Miscellaneous'),
 ]
