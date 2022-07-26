@@ -3,17 +3,11 @@
 
 .. automodule:: ailment
 
-Analyses
---------
-.. automodule:: ailment.analyses
-.. automodule:: ailment.analyses.block_simplifier
-.. automodule:: ailment.analyses.callsite_maker
-.. automodule:: ailment.analyses.propagator
-.. automodule:: ailment.analyses.simplifier
-
 Converter
 ---------
-.. automodule:: ailment.converter
+.. automodule:: ailment.converter_common
+.. automodule:: ailment.converter_pcode
+.. automodule:: ailment.converter_vex
 
 Expressions
 -----------
@@ -28,3 +22,4 @@ Misc. Things
 .. automodule:: ailment.block
 .. automodule:: ailment.manager
 .. automodule:: ailment.tagged_object
+.. automodule:: ailment.utils
