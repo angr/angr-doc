@@ -172,6 +172,7 @@ Exploration Techniques
 .. automodule:: angr.exploration_techniques.symbion
 .. automodule:: angr.exploration_techniques.memory_watcher
 .. automodule:: angr.exploration_techniques.bucketizer
+.. automodule:: angr.exploration_techniques.suggestions
 
 Simulation Engines
 ------------------
