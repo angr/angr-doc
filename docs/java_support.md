@@ -18,21 +18,8 @@ Moreover, we added support for string constraint solving, modifying claripy and 
 Enabling Java support requires few more steps than typical angr installation.
 Assuming you installed [angr-dev](https://github.com/angr/angr-dev), activate the virtualenv and run:
 ```bash
-# CVC4 and pysoot should be already installed (if you used angr-dev to install angr)
-# install cvc4, needed for String solving
-pip install cvc4-solver
-# install pysoot, needed to lift code from JARs and APKs
-git clone git@github.com:angr/pysoot.git
-cd pysoot
-pip install -e .
-cd ..
-# install a specific version of pysmt (the one currently available on pip is buggy)
-pip uninstall pysmt
-git clone https://github.com/pysmt/pysmt.git
-cd pysmt
-git checkout 6d792db47be5f8734db15848faca9bc6b770085e
-pip install -e .
-cd ..
+pip install -e ./claripy[cvc4-solver]
+./setup.sh pysoot
 ```
 
 #### Analyzing Android apps.
