@@ -9,6 +9,7 @@ Mayhem, KLEE, etc) and various static analyses on binaries.
    :glob:
 
    angr
+   ailment
    claripy
    cle
    pyvex

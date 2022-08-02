@@ -172,6 +172,7 @@ Exploration Techniques
 .. automodule:: angr.exploration_techniques.symbion
 .. automodule:: angr.exploration_techniques.memory_watcher
 .. automodule:: angr.exploration_techniques.bucketizer
+.. automodule:: angr.exploration_techniques.suggestions
 
 Simulation Engines
 ------------------
@@ -365,6 +366,7 @@ Analysis
 .. automodule:: angr.analyses.decompiler.optimization_passes.multi_simplifier
 .. automodule:: angr.analyses.decompiler.optimization_passes.mod_simplifier
 .. automodule:: angr.analyses.decompiler.optimization_passes.engine_base
+.. automodule:: angr.analyses.decompiler.optimization_passes.expr_op_swapper
 .. automodule:: angr.analyses.decompiler.optimization_passes.register_save_area_simplifier
 .. automodule:: angr.analyses.decompiler.optimization_passes.ret_addr_save_simplifier
 .. automodule:: angr.analyses.decompiler.optimization_passes.x86_gcc_getpc_simplifier
@@ -374,6 +376,7 @@ Analysis
 .. automodule:: angr.analyses.decompiler.peephole_optimizations.bool_expr_xor_1
 .. automodule:: angr.analyses.decompiler.peephole_optimizations.basepointeroffset_and_mask
 .. automodule:: angr.analyses.decompiler.peephole_optimizations.basepointeroffset_add_n
+.. automodule:: angr.analyses.decompiler.peephole_optimizations.bitwise_or_to_logical_or
 .. automodule:: angr.analyses.decompiler.peephole_optimizations.extended_byte_and_mask
 .. automodule:: angr.analyses.decompiler.peephole_optimizations.coalesce_same_cascading_ifs
 .. automodule:: angr.analyses.decompiler.peephole_optimizations.constant_derefs
@@ -520,6 +523,7 @@ Utils
 .. automodule:: angr.utils.constants
 .. automodule:: angr.utils.cowdict
 .. automodule:: angr.utils.enums_conv
+.. automodule:: angr.utils.env
 .. automodule:: angr.utils.graph
 .. automodule:: angr.utils.lazy_import
 .. automodule:: angr.utils.library

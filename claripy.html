@@ -4,7 +4,7 @@
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>claripy — Solver Engine &mdash; angr 9.2.11
+  <title>claripy — Solver Engine &mdash; angr 9.2.12
  documentation</title>
       <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
@@ -21,7 +21,7 @@
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
     <link rel="next" title="cle — Binary Loader" href="cle.html" />
-    <link rel="prev" title="angr — Analysis and Coordination" href="angr.html" /> 
+    <link rel="prev" title="ailment — angr Intermediate Language" href="ailment.html" /> 
 </head>
 
 <body class="wy-body-for-nav"> 
@@ -32,7 +32,7 @@
             <a href="index.html" class="icon icon-home"> angr
           </a>
               <div class="version">
-                9.2.11
+                9.2.12
 
               </div>
 <div role="search">
@@ -45,6 +45,7 @@
         </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
               <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="angr.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">angr</span></code> — Analysis and Coordination</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ailment.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">ailment</span></code> — angr Intermediate Language</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#"><code class="xref py py-mod docutils literal notranslate"><span class="pre">claripy</span></code> — Solver Engine</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#module-claripy.ast">AST</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#module-claripy.backends">Backends</a></li>
@@ -499,6 +500,13 @@ execution mode.</p>
 <dd class="field-odd"><p>An integer indicating the allocation depth, or None if it’s not from lazy-initialization.</p>
 </dd>
 </dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="claripy.ast.base.Base.to_claripy">
+<span class="sig-name descname"><span class="pre">to_claripy</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#claripy.ast.base.Base.to_claripy" title="Permalink to this definition"></a></dt>
+<dd><p>Returns itself. Provides compatibility with other classes (such as SimActionObject) which provide a similar
+method to unwrap to an AST.</p>
 </dd></dl>
 
 <dl class="py attribute">
@@ -1962,6 +1970,11 @@ approximation.</p>
 </dd></dl>
 
 <span class="target" id="module-claripy.backends.backend_z3"></span><dl class="py function">
+<dt class="sig sig-object py" id="claripy.backends.backend_z3.handle_sigint">
+<span class="sig-prename descclassname"><span class="pre">claripy.backends.backend_z3.</span></span><span class="sig-name descname"><span class="pre">handle_sigint</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">signals</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">frametype</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#claripy.backends.backend_z3.handle_sigint" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
 <dt class="sig sig-object py" id="claripy.backends.backend_z3.z3_expr_to_smt2">
 <span class="sig-prename descclassname"><span class="pre">claripy.backends.backend_z3.</span></span><span class="sig-name descname"><span class="pre">z3_expr_to_smt2</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">f</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">status</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'unknown'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'benchmark'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">logic</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#claripy.backends.backend_z3.z3_expr_to_smt2" title="Permalink to this definition"></a></dt>
 <dd></dd></dl>
@@ -1974,6 +1987,11 @@ approximation.</p>
 <dl class="py function">
 <dt class="sig sig-object py" id="claripy.backends.backend_z3.condom">
 <span class="sig-prename descclassname"><span class="pre">claripy.backends.backend_z3.</span></span><span class="sig-name descname"><span class="pre">condom</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">f</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#claripy.backends.backend_z3.condom" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="claripy.backends.backend_z3.z3_solver_sat">
+<span class="sig-prename descclassname"><span class="pre">claripy.backends.backend_z3.</span></span><span class="sig-name descname"><span class="pre">z3_solver_sat</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">solver</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">extra_constraints</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">occasion</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#claripy.backends.backend_z3.z3_solver_sat" title="Permalink to this definition"></a></dt>
 <dd></dd></dl>
 
 <dl class="py class">
@@ -2056,7 +2074,7 @@ approximation.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="claripy.backends.backend_z3.BackendZ3.solver">
-<span class="sig-name descname"><span class="pre">solver</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">timeout</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#claripy.backends.backend_z3.BackendZ3.solver" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">solver</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">timeout</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">max_memory</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#claripy.backends.backend_z3.BackendZ3.solver" title="Permalink to this definition"></a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
@@ -2323,7 +2341,7 @@ approximation.</p>
 
 <dl class="py class">
 <dt class="sig sig-object py" id="claripy.backends.backend_smtlib_solvers.z3str_popen.Z3StrProxy">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">claripy.backends.backend_smtlib_solvers.z3str_popen.</span></span><span class="sig-name descname"><span class="pre">Z3StrProxy</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">timeout</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#claripy.backends.backend_smtlib_solvers.z3str_popen.Z3StrProxy" title="Permalink to this definition"></a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">claripy.backends.backend_smtlib_solvers.z3str_popen.</span></span><span class="sig-name descname"><span class="pre">Z3StrProxy</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">timeout</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">max_memory</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#claripy.backends.backend_smtlib_solvers.z3str_popen.Z3StrProxy" title="Permalink to this definition"></a></dt>
 <dd><p>Bases: <a class="reference internal" href="#claripy.backends.backend_smtlib_solvers.PopenSolverProxy" title="claripy.backends.backend_smtlib_solvers.PopenSolverProxy"><code class="xref py py-class docutils literal notranslate"><span class="pre">PopenSolverProxy</span></code></a></p>
 <dl class="py method">
 <dt class="sig sig-object py" id="claripy.backends.backend_smtlib_solvers.z3str_popen.Z3StrProxy.create_process">
@@ -2338,7 +2356,7 @@ approximation.</p>
 <dd><p>Bases: <a class="reference internal" href="#claripy.backends.backend_smtlib_solvers.SMTLibSolverBackend" title="claripy.backends.backend_smtlib_solvers.SMTLibSolverBackend"><code class="xref py py-class docutils literal notranslate"><span class="pre">SMTLibSolverBackend</span></code></a></p>
 <dl class="py method">
 <dt class="sig sig-object py" id="claripy.backends.backend_smtlib_solvers.z3str_popen.SolverBackendZ3Str.solver">
-<span class="sig-name descname"><span class="pre">solver</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">timeout</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#claripy.backends.backend_smtlib_solvers.z3str_popen.SolverBackendZ3Str.solver" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">solver</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">timeout</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">max_memory</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#claripy.backends.backend_smtlib_solvers.z3str_popen.SolverBackendZ3Str.solver" title="Permalink to this definition"></a></dt>
 <dd><p>This function should return an instance of whatever object handles
 solving for this backend. For example, in Z3, this would be z3.Solver().</p>
 </dd></dl>
@@ -2352,7 +2370,7 @@ solving for this backend. For example, in Z3, this would be z3.Solver().</p>
 
 <dl class="py class">
 <dt class="sig sig-object py" id="claripy.backends.backend_smtlib_solvers.cvc4_popen.CVC4Proxy">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">claripy.backends.backend_smtlib_solvers.cvc4_popen.</span></span><span class="sig-name descname"><span class="pre">CVC4Proxy</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">timeout</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#claripy.backends.backend_smtlib_solvers.cvc4_popen.CVC4Proxy" title="Permalink to this definition"></a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">claripy.backends.backend_smtlib_solvers.cvc4_popen.</span></span><span class="sig-name descname"><span class="pre">CVC4Proxy</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">timeout</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">max_memory</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#claripy.backends.backend_smtlib_solvers.cvc4_popen.CVC4Proxy" title="Permalink to this definition"></a></dt>
 <dd><p>Bases: <a class="reference internal" href="#claripy.backends.backend_smtlib_solvers.PopenSolverProxy" title="claripy.backends.backend_smtlib_solvers.PopenSolverProxy"><code class="xref py py-class docutils literal notranslate"><span class="pre">PopenSolverProxy</span></code></a></p>
 <dl class="py method">
 <dt class="sig sig-object py" id="claripy.backends.backend_smtlib_solvers.cvc4_popen.CVC4Proxy.create_process">
@@ -2367,7 +2385,7 @@ solving for this backend. For example, in Z3, this would be z3.Solver().</p>
 <dd><p>Bases: <a class="reference internal" href="#claripy.backends.backend_smtlib_solvers.SMTLibSolverBackend" title="claripy.backends.backend_smtlib_solvers.SMTLibSolverBackend"><code class="xref py py-class docutils literal notranslate"><span class="pre">SMTLibSolverBackend</span></code></a></p>
 <dl class="py method">
 <dt class="sig sig-object py" id="claripy.backends.backend_smtlib_solvers.cvc4_popen.SolverBackendCVC4.solver">
-<span class="sig-name descname"><span class="pre">solver</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">timeout</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#claripy.backends.backend_smtlib_solvers.cvc4_popen.SolverBackendCVC4.solver" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">solver</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">timeout</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">max_memory</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#claripy.backends.backend_smtlib_solvers.cvc4_popen.SolverBackendCVC4.solver" title="Permalink to this definition"></a></dt>
 <dd><p>This function should return an instance of whatever object handles
 solving for this backend. For example, in Z3, this would be z3.Solver().</p>
 </dd></dl>
@@ -2381,7 +2399,7 @@ solving for this backend. For example, in Z3, this would be z3.Solver().</p>
 
 <dl class="py class">
 <dt class="sig sig-object py" id="claripy.backends.backend_smtlib_solvers.z3_popen.Z3Proxy">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">claripy.backends.backend_smtlib_solvers.z3_popen.</span></span><span class="sig-name descname"><span class="pre">Z3Proxy</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">timeout</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#claripy.backends.backend_smtlib_solvers.z3_popen.Z3Proxy" title="Permalink to this definition"></a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">claripy.backends.backend_smtlib_solvers.z3_popen.</span></span><span class="sig-name descname"><span class="pre">Z3Proxy</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">timeout</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">max_memory</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#claripy.backends.backend_smtlib_solvers.z3_popen.Z3Proxy" title="Permalink to this definition"></a></dt>
 <dd><p>Bases: <a class="reference internal" href="#claripy.backends.backend_smtlib_solvers.PopenSolverProxy" title="claripy.backends.backend_smtlib_solvers.PopenSolverProxy"><code class="xref py py-class docutils literal notranslate"><span class="pre">PopenSolverProxy</span></code></a></p>
 <dl class="py method">
 <dt class="sig sig-object py" id="claripy.backends.backend_smtlib_solvers.z3_popen.Z3Proxy.create_process">
@@ -2396,7 +2414,7 @@ solving for this backend. For example, in Z3, this would be z3.Solver().</p>
 <dd><p>Bases: <a class="reference internal" href="#claripy.backends.backend_smtlib_solvers.SMTLibSolverBackend" title="claripy.backends.backend_smtlib_solvers.SMTLibSolverBackend"><code class="xref py py-class docutils literal notranslate"><span class="pre">SMTLibSolverBackend</span></code></a></p>
 <dl class="py method">
 <dt class="sig sig-object py" id="claripy.backends.backend_smtlib_solvers.z3_popen.SolverBackendZ3.solver">
-<span class="sig-name descname"><span class="pre">solver</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">timeout</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#claripy.backends.backend_smtlib_solvers.z3_popen.SolverBackendZ3.solver" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">solver</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">timeout</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">max_memory</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#claripy.backends.backend_smtlib_solvers.z3_popen.SolverBackendZ3.solver" title="Permalink to this definition"></a></dt>
 <dd><p>This function should return an instance of whatever object handles
 solving for this backend. For example, in Z3, this would be z3.Solver().</p>
 </dd></dl>
@@ -2425,7 +2443,7 @@ solving for this backend. For example, in Z3, this would be z3.Solver().</p>
 <dd><p>Bases: <a class="reference internal" href="#claripy.backends.backend_smtlib_solvers.SMTLibSolverBackend" title="claripy.backends.backend_smtlib_solvers.SMTLibSolverBackend"><code class="xref py py-class docutils literal notranslate"><span class="pre">SMTLibSolverBackend</span></code></a></p>
 <dl class="py method">
 <dt class="sig sig-object py" id="claripy.backends.backend_smtlib_solvers.abc_popen.SolverBackendABC.solver">
-<span class="sig-name descname"><span class="pre">solver</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">timeout</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#claripy.backends.backend_smtlib_solvers.abc_popen.SolverBackendABC.solver" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">solver</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">timeout</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">max_memory</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#claripy.backends.backend_smtlib_solvers.abc_popen.SolverBackendABC.solver" title="Permalink to this definition"></a></dt>
 <dd><p>This function should return an instance of whatever object handles
 solving for this backend. For example, in Z3, this would be z3.Solver().</p>
 </dd></dl>
@@ -2520,7 +2538,7 @@ solving for this backend. For example, in Z3, this would be z3.Solver().</p>
 <dd><p>Bases: <a class="reference internal" href="#claripy.backends.backend_smtlib.BackendSMTLibBase" title="claripy.backends.backend_smtlib.BackendSMTLibBase"><code class="xref py py-class docutils literal notranslate"><span class="pre">BackendSMTLibBase</span></code></a></p>
 <dl class="py method">
 <dt class="sig sig-object py" id="claripy.backends.backend_smtlib_solvers.SMTLibSolverBackend.solver">
-<span class="sig-name descname"><span class="pre">solver</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">timeout</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#claripy.backends.backend_smtlib_solvers.SMTLibSolverBackend.solver" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">solver</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">timeout</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">max_memory</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#claripy.backends.backend_smtlib_solvers.SMTLibSolverBackend.solver" title="Permalink to this definition"></a></dt>
 <dd><p>This function should return an instance of whatever object handles
 solving for this backend. For example, in Z3, this would be z3.Solver().</p>
 </dd></dl>
@@ -2939,6 +2957,11 @@ non-approximating backends.</p></li>
 <em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">timeout</span></span><a class="headerlink" href="#claripy.frontends.composite_frontend.CompositeFrontend.timeout" title="Permalink to this definition"></a></dt>
 <dd></dd></dl>
 
+<dl class="py property">
+<dt class="sig sig-object py" id="claripy.frontends.composite_frontend.CompositeFrontend.max_memory">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">max_memory</span></span><a class="headerlink" href="#claripy.frontends.composite_frontend.CompositeFrontend.max_memory" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
 <dl class="py method">
 <dt class="sig sig-object py" id="claripy.frontends.composite_frontend.CompositeFrontend.merge">
 <span class="sig-name descname"><span class="pre">merge</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">others</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">merge_conditions</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">common_ancestor</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#claripy.frontends.composite_frontend.CompositeFrontend.merge" title="Permalink to this definition"></a></dt>
@@ -3049,7 +3072,7 @@ non-approximating backends.</p></li>
 
 <span class="target" id="module-claripy.frontends.full_frontend"></span><dl class="py class">
 <dt class="sig sig-object py" id="claripy.frontends.full_frontend.FullFrontend">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">claripy.frontends.full_frontend.</span></span><span class="sig-name descname"><span class="pre">FullFrontend</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">solver_backend</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">timeout</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">track</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#claripy.frontends.full_frontend.FullFrontend" title="Permalink to this definition"></a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">claripy.frontends.full_frontend.</span></span><span class="sig-name descname"><span class="pre">FullFrontend</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">solver_backend</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">timeout</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">max_memory</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">track</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#claripy.frontends.full_frontend.FullFrontend" title="Permalink to this definition"></a></dt>
 <dd><p>Bases: <a class="reference internal" href="#claripy.frontends.constrained_frontend.ConstrainedFrontend" title="claripy.frontends.constrained_frontend.ConstrainedFrontend"><code class="xref py py-class docutils literal notranslate"><span class="pre">ConstrainedFrontend</span></code></a></p>
 <dl class="py method">
 <dt class="sig sig-object py" id="claripy.frontends.full_frontend.FullFrontend.add">
@@ -5754,6 +5777,12 @@ unknown terms on one side of an inequality.</p>
 </dd></dl>
 
 <dl class="py exception">
+<dt class="sig sig-object py" id="claripy.errors.ClaripySolverInterruptError">
+<em class="property"><span class="pre">exception</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">claripy.errors.</span></span><span class="sig-name descname"><span class="pre">ClaripySolverInterruptError</span></span><a class="headerlink" href="#claripy.errors.ClaripySolverInterruptError" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="#claripy.errors.ClaripyError" title="claripy.errors.ClaripyError"><code class="xref py py-class docutils literal notranslate"><span class="pre">ClaripyError</span></code></a></p>
+</dd></dl>
+
+<dl class="py exception">
 <dt class="sig sig-object py" id="claripy.errors.ClaripyASTError">
 <em class="property"><span class="pre">exception</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">claripy.errors.</span></span><span class="sig-name descname"><span class="pre">ClaripyASTError</span></span><a class="headerlink" href="#claripy.errors.ClaripyASTError" title="Permalink to this definition"></a></dt>
 <dd><p>Bases: <a class="reference internal" href="#claripy.errors.ClaripyError" title="claripy.errors.ClaripyError"><code class="xref py py-class docutils literal notranslate"><span class="pre">ClaripyError</span></code></a></p>
@@ -6576,7 +6605,7 @@ disable debug mode if you are running performance critical code.</p>
            </div>
           </div>
           <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
-        <a href="angr.html" class="btn btn-neutral float-left" title="angr — Analysis and Coordination" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="ailment.html" class="btn btn-neutral float-left" title="ailment — angr Intermediate Language" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
         <a href="cle.html" class="btn btn-neutral float-right" title="cle — Binary Loader" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
