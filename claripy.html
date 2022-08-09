@@ -4,7 +4,7 @@
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>claripy — Solver Engine &mdash; angr 9.2.12
+  <title>claripy — Solver Engine &mdash; angr 9.2.13
  documentation</title>
       <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
@@ -32,7 +32,7 @@
             <a href="index.html" class="icon icon-home"> angr
           </a>
               <div class="version">
-                9.2.12
+                9.2.13
 
               </div>
 <div role="search">
@@ -113,7 +113,13 @@ Most of the time, you’ll be using claripy as a simple frontend to z3:</p>
 </div>
 <section id="module-claripy.ast">
 <span id="ast"></span><h2>AST<a class="headerlink" href="#module-claripy.ast" title="Permalink to this heading"></a></h2>
-<span class="target" id="module-claripy.ast.base"></span><dl class="py class">
+<span class="target" id="module-claripy.ast.base"></span><dl class="py function">
+<dt class="sig sig-object py" id="claripy.ast.base.from_iterable">
+<span class="sig-prename descclassname"><span class="pre">claripy.ast.base.</span></span><span class="sig-name descname"><span class="pre">from_iterable</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">iterable</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">/</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#claripy.ast.base.from_iterable" title="Permalink to this definition"></a></dt>
+<dd><p>Alternative chain() constructor taking a single iterable argument that evaluates lazily.</p>
+</dd></dl>
+
+<dl class="py class">
 <dt class="sig sig-object py" id="claripy.ast.base.ASTCacheKey">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">claripy.ast.base.</span></span><span class="sig-name descname"><span class="pre">ASTCacheKey</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">a</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#claripy.ast.base.ASTCacheKey" title="Permalink to this definition"></a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
@@ -234,11 +240,14 @@ op), and 2 means simplified through z3.</p></li>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="claripy.ast.base.Base.annotate">
-<span class="sig-name descname"><span class="pre">annotate</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#claripy.ast.base.Base.annotate" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">annotate</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">remove_annotations</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#claripy.ast.base.Base.annotate" title="Permalink to this definition"></a></dt>
 <dd><p>Appends annotations to this AST.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>args</strong> – the tuple of annotations to append (variadic positional args)</p>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>args</strong> – the tuple of annotations to append (variadic positional args)</p></li>
+<li><p><strong>remove_annotations</strong> – annotations to remove</p></li>
+</ul>
 </dd>
 <dt class="field-even">Returns</dt>
 <dd class="field-even"><p>a new AST, with the annotations added</p>
@@ -5507,6 +5516,12 @@ one.</p>
 <dd></dd></dl>
 
 <dl class="py function">
+<dt class="sig sig-object py" id="claripy.from_iterable">
+<span class="sig-prename descclassname"><span class="pre">claripy.</span></span><span class="sig-name descname"><span class="pre">from_iterable</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">iterable</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">/</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#claripy.from_iterable" title="Permalink to this definition"></a></dt>
+<dd><p>Alternative chain() constructor taking a single iterable argument that evaluates lazily.</p>
+</dd></dl>
+
+<dl class="py function">
 <dt class="sig sig-object py" id="claripy.downsize">
 <span class="sig-prename descclassname"><span class="pre">claripy.</span></span><span class="sig-name descname"><span class="pre">downsize</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#claripy.downsize" title="Permalink to this definition"></a></dt>
 <dd><p>Clear all temporary data associated with any backend</p>
@@ -6373,6 +6388,12 @@ can be eliminated.</p>
 <dt class="sig sig-object py" id="claripy.ops.AbstractLocation">
 <span class="sig-prename descclassname"><span class="pre">claripy.ops.</span></span><span class="sig-name descname"><span class="pre">AbstractLocation</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#claripy.ops.AbstractLocation" title="Permalink to this definition"></a></dt>
 <dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="claripy.ops.from_iterable">
+<span class="sig-prename descclassname"><span class="pre">claripy.ops.</span></span><span class="sig-name descname"><span class="pre">from_iterable</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">iterable</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">/</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#claripy.ops.from_iterable" title="Permalink to this definition"></a></dt>
+<dd><p>Alternative chain() constructor taking a single iterable argument that evaluates lazily.</p>
+</dd></dl>
 
 <span class="target" id="module-claripy.smtlib_utils"></span><dl class="py function">
 <dt class="sig sig-object py" id="claripy.smtlib_utils.make_pysmt_const_from_type">
