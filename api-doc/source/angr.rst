@@ -522,6 +522,7 @@ Utils
 .. automodule:: angr.utils.algo
 .. automodule:: angr.utils.constants
 .. automodule:: angr.utils.cowdict
+.. automodule:: angr.utils.dynamic_dictlist
 .. automodule:: angr.utils.enums_conv
 .. automodule:: angr.utils.env
 .. automodule:: angr.utils.graph
