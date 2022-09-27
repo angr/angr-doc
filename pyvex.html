@@ -4,7 +4,7 @@
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>pyvex — Binary Translator &mdash; angr 9.2.19
+  <title>pyvex — Binary Translator &mdash; angr 9.2.20
  documentation</title>
       <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
@@ -17,6 +17,7 @@
         <script src="_static/underscore.js"></script>
         <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
         <script src="_static/doctools.js"></script>
+        <script src="_static/sphinx_highlight.js"></script>
     <script src="_static/js/theme.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
@@ -32,7 +33,7 @@
             <a href="index.html" class="icon icon-home"> angr
           </a>
               <div class="version">
-                9.2.19
+                9.2.20
 
               </div>
 <div role="search">
@@ -49,12 +50,710 @@
 <li class="toctree-l1"><a class="reference internal" href="claripy.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">claripy</span></code> — Solver Engine</a></li>
 <li class="toctree-l1"><a class="reference internal" href="cle.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">cle</span></code> — Binary Loader</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#"><code class="xref py py-mod docutils literal notranslate"><span class="pre">pyvex</span></code> — Binary Translator</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="#module-pyvex.block">Translation Interface</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#module-pyvex.stmt">IR Components</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#module-pyvex.data_ref">Lifting System</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#module-pyvex.lifting.zerodivision">Builtin IR Processors</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#module-pyvex.errors">Errors</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#module-pyvex.utils">Utilities</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#module-pyvex.block">Translation Interface</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#pyvex.block.IRSB"><code class="docutils literal notranslate"><span class="pre">IRSB</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#pyvex.block.IRSB.MAX_EXITS"><code class="docutils literal notranslate"><span class="pre">IRSB.MAX_EXITS</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#pyvex.block.IRSB.MAX_DATA_REFS"><code class="docutils literal notranslate"><span class="pre">IRSB.MAX_DATA_REFS</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#pyvex.block.IRSB.addr"><code class="docutils literal notranslate"><span class="pre">IRSB.addr</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#pyvex.block.IRSB.arch"><code class="docutils literal notranslate"><span class="pre">IRSB.arch</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#pyvex.block.IRSB.statements"><code class="docutils literal notranslate"><span class="pre">IRSB.statements</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#pyvex.block.IRSB.next"><code class="docutils literal notranslate"><span class="pre">IRSB.next</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#pyvex.block.IRSB.jumpkind"><code class="docutils literal notranslate"><span class="pre">IRSB.jumpkind</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#pyvex.block.IRSB.default_exit_target"><code class="docutils literal notranslate"><span class="pre">IRSB.default_exit_target</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#pyvex.block.IRSB.data_refs"><code class="docutils literal notranslate"><span class="pre">IRSB.data_refs</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#pyvex.block.IRSB.empty_block"><code class="docutils literal notranslate"><span class="pre">IRSB.empty_block()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#pyvex.block.IRSB.tyenv"><code class="docutils literal notranslate"><span class="pre">IRSB.tyenv</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#pyvex.block.IRSB.has_statements"><code class="docutils literal notranslate"><span class="pre">IRSB.has_statements</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#pyvex.block.IRSB.exit_statements"><code class="docutils literal notranslate"><span class="pre">IRSB.exit_statements</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#pyvex.block.IRSB.copy"><code class="docutils literal notranslate"><span class="pre">IRSB.copy()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#pyvex.block.IRSB.extend"><code class="docutils literal notranslate"><span class="pre">IRSB.extend()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#pyvex.block.IRSB.invalidate_direct_next"><code class="docutils literal notranslate"><span class="pre">IRSB.invalidate_direct_next()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#pyvex.block.IRSB.pp"><code class="docutils literal notranslate"><span class="pre">IRSB.pp()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#pyvex.block.IRSB.typecheck"><code class="docutils literal notranslate"><span class="pre">IRSB.typecheck()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#pyvex.block.IRSB.from_c"><code class="docutils literal notranslate"><span class="pre">IRSB.from_c()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#pyvex.block.IRSB.from_py"><code class="docutils literal notranslate"><span class="pre">IRSB.from_py()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#pyvex.block.IRSB.stmts_used"><code class="docutils literal notranslate"><span class="pre">IRSB.stmts_used</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#pyvex.block.IRSB.offsIP"><code class="docutils literal notranslate"><span class="pre">IRSB.offsIP</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#pyvex.block.IRSB.direct_next"><code class="docutils literal notranslate"><span class="pre">IRSB.direct_next</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#pyvex.block.IRSB.expressions"><code class="docutils literal notranslate"><span class="pre">IRSB.expressions</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#pyvex.block.IRSB.instructions"><code class="docutils literal notranslate"><span class="pre">IRSB.instructions</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#pyvex.block.IRSB.instruction_addresses"><code class="docutils literal notranslate"><span class="pre">IRSB.instruction_addresses</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#pyvex.block.IRSB.size"><code class="docutils literal notranslate"><span class="pre">IRSB.size</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#pyvex.block.IRSB.operations"><code class="docutils literal notranslate"><span class="pre">IRSB.operations</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#pyvex.block.IRSB.all_constants"><code class="docutils literal notranslate"><span class="pre">IRSB.all_constants</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#pyvex.block.IRSB.constants"><code class="docutils literal notranslate"><span class="pre">IRSB.constants</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#pyvex.block.IRSB.constant_jump_targets"><code class="docutils literal notranslate"><span class="pre">IRSB.constant_jump_targets</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#pyvex.block.IRSB.constant_jump_targets_and_jumpkinds"><code class="docutils literal notranslate"><span class="pre">IRSB.constant_jump_targets_and_jumpkinds</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#pyvex.block.IRTypeEnv"><code class="docutils literal notranslate"><span class="pre">IRTypeEnv</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#pyvex.block.IRTypeEnv.types"><code class="docutils literal notranslate"><span class="pre">IRTypeEnv.types</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#pyvex.block.IRTypeEnv.wordty"><code class="docutils literal notranslate"><span class="pre">IRTypeEnv.wordty</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#pyvex.block.IRTypeEnv.lookup"><code class="docutils literal notranslate"><span class="pre">IRTypeEnv.lookup()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#pyvex.block.IRTypeEnv.sizeof"><code class="docutils literal notranslate"><span class="pre">IRTypeEnv.sizeof()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#pyvex.block.IRTypeEnv.add"><code class="docutils literal notranslate"><span class="pre">IRTypeEnv.add()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#pyvex.block.IRTypeEnv.types_used"><code class="docutils literal notranslate"><span class="pre">IRTypeEnv.types_used</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#pyvex.block.IRTypeEnv.typecheck"><code class="docutils literal notranslate"><span class="pre">IRTypeEnv.typecheck()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#module-pyvex.stmt">IR Components</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#pyvex.stmt.IRStmt"><code class="docutils literal notranslate"><span class="pre">IRStmt</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#pyvex.stmt.IRStmt.tag"><code class="docutils literal notranslate"><span class="pre">IRStmt.tag</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#pyvex.stmt.IRStmt.tag_int"><code class="docutils literal notranslate"><span class="pre">IRStmt.tag_int</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#pyvex.stmt.IRStmt.pp"><code class="docutils literal notranslate"><span class="pre">IRStmt.pp()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#pyvex.stmt.IRStmt.child_expressions"><code class="docutils literal notranslate"><span class="pre">IRStmt.child_expressions</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#pyvex.stmt.IRStmt.expressions"><code class="docutils literal notranslate"><span class="pre">IRStmt.expressions</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#pyvex.stmt.IRStmt.constants"><code class="docutils literal notranslate"><span class="pre">IRStmt.constants</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#pyvex.stmt.IRStmt.typecheck"><code class="docutils literal notranslate"><span class="pre">IRStmt.typecheck()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#pyvex.stmt.IRStmt.replace_expression"><code class="docutils literal notranslate"><span class="pre">IRStmt.replace_expression()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#pyvex.stmt.NoOp"><code class="docutils literal notranslate"><span class="pre">NoOp</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#pyvex.stmt.NoOp.tag"><code class="docutils literal notranslate"><span class="pre">NoOp.tag</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#pyvex.stmt.NoOp.tag_int"><code class="docutils literal notranslate"><span class="pre">NoOp.tag_int</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#pyvex.stmt.IMark"><code class="docutils literal notranslate"><span class="pre">IMark</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#pyvex.stmt.IMark.tag"><code class="docutils literal notranslate"><span class="pre">IMark.tag</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#pyvex.stmt.IMark.addr"><code class="docutils literal notranslate"><span class="pre">IMark.addr</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#pyvex.stmt.IMark.len"><code class="docutils literal notranslate"><span class="pre">IMark.len</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#pyvex.stmt.IMark.delta"><code class="docutils literal notranslate"><span class="pre">IMark.delta</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#pyvex.stmt.IMark.tag_int"><code class="docutils literal notranslate"><span class="pre">IMark.tag_int</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#pyvex.stmt.AbiHint"><code class="docutils literal notranslate"><span class="pre">AbiHint</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#pyvex.stmt.AbiHint.tag"><code class="docutils literal notranslate"><span class="pre">AbiHint.tag</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#pyvex.stmt.AbiHint.base"><code class="docutils literal notranslate"><span class="pre">AbiHint.base</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#pyvex.stmt.AbiHint.len"><code class="docutils literal notranslate"><span class="pre">AbiHint.len</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#pyvex.stmt.AbiHint.nia"><code class="docutils literal notranslate"><span class="pre">AbiHint.nia</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#pyvex.stmt.AbiHint.tag_int"><code class="docutils literal notranslate"><span class="pre">AbiHint.tag_int</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#pyvex.stmt.Put"><code class="docutils literal notranslate"><span class="pre">Put</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#pyvex.stmt.Put.tag"><code class="docutils literal notranslate"><span class="pre">Put.tag</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#pyvex.stmt.Put.data"><code class="docutils literal notranslate"><span class="pre">Put.data</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#pyvex.stmt.Put.offset"><code class="docutils literal notranslate"><span class="pre">Put.offset</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#pyvex.stmt.Put.typecheck"><code class="docutils literal notranslate"><span class="pre">Put.typecheck()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#pyvex.stmt.Put.tag_int"><code class="docutils literal notranslate"><span class="pre">Put.tag_int</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#pyvex.stmt.PutI"><code class="docutils literal notranslate"><span class="pre">PutI</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#pyvex.stmt.PutI.tag"><code class="docutils literal notranslate"><span class="pre">PutI.tag</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#pyvex.stmt.PutI.descr"><code class="docutils literal notranslate"><span class="pre">PutI.descr</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#pyvex.stmt.PutI.ix"><code class="docutils literal notranslate"><span class="pre">PutI.ix</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#pyvex.stmt.PutI.data"><code class="docutils literal notranslate"><span class="pre">PutI.data</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#pyvex.stmt.PutI.bias"><code class="docutils literal notranslate"><span class="pre">PutI.bias</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#pyvex.stmt.PutI.typecheck"><code class="docutils literal notranslate"><span class="pre">PutI.typecheck()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#pyvex.stmt.PutI.tag_int"><code class="docutils literal notranslate"><span class="pre">PutI.tag_int</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#pyvex.stmt.WrTmp"><code class="docutils literal notranslate"><span class="pre">WrTmp</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#pyvex.stmt.WrTmp.tag"><code class="docutils literal notranslate"><span class="pre">WrTmp.tag</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#pyvex.stmt.WrTmp.tmp"><code class="docutils literal notranslate"><span class="pre">WrTmp.tmp</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#pyvex.stmt.WrTmp.data"><code class="docutils literal notranslate"><span class="pre">WrTmp.data</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#pyvex.stmt.WrTmp.typecheck"><code class="docutils literal notranslate"><span class="pre">WrTmp.typecheck()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#pyvex.stmt.WrTmp.tag_int"><code class="docutils literal notranslate"><span class="pre">WrTmp.tag_int</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#pyvex.stmt.Store"><code class="docutils literal notranslate"><span class="pre">Store</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#pyvex.stmt.Store.tag"><code class="docutils literal notranslate"><span class="pre">Store.tag</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#pyvex.stmt.Store.addr"><code class="docutils literal notranslate"><span class="pre">Store.addr</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#pyvex.stmt.Store.data"><code class="docutils literal notranslate"><span class="pre">Store.data</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#pyvex.stmt.Store.end"><code class="docutils literal notranslate"><span class="pre">Store.end</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#pyvex.stmt.Store.endness"><code class="docutils literal notranslate"><span class="pre">Store.endness</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#pyvex.stmt.Store.typecheck"><code class="docutils literal notranslate"><span class="pre">Store.typecheck()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#pyvex.stmt.Store.tag_int"><code class="docutils literal notranslate"><span class="pre">Store.tag_int</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#pyvex.stmt.CAS"><code class="docutils literal notranslate"><span class="pre">CAS</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#pyvex.stmt.CAS.tag"><code class="docutils literal notranslate"><span class="pre">CAS.tag</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#pyvex.stmt.CAS.addr"><code class="docutils literal notranslate"><span class="pre">CAS.addr</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#pyvex.stmt.CAS.dataLo"><code class="docutils literal notranslate"><span class="pre">CAS.dataLo</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#pyvex.stmt.CAS.dataHi"><code class="docutils literal notranslate"><span class="pre">CAS.dataHi</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#pyvex.stmt.CAS.expdLo"><code class="docutils literal notranslate"><span class="pre">CAS.expdLo</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#pyvex.stmt.CAS.expdHi"><code class="docutils literal notranslate"><span class="pre">CAS.expdHi</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#pyvex.stmt.CAS.oldLo"><code class="docutils literal notranslate"><span class="pre">CAS.oldLo</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#pyvex.stmt.CAS.oldHi"><code class="docutils literal notranslate"><span class="pre">CAS.oldHi</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#pyvex.stmt.CAS.end"><code class="docutils literal notranslate"><span class="pre">CAS.end</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#pyvex.stmt.CAS.endness"><code class="docutils literal notranslate"><span class="pre">CAS.endness</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#pyvex.stmt.CAS.typecheck"><code class="docutils literal notranslate"><span class="pre">CAS.typecheck()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#pyvex.stmt.CAS.tag_int"><code class="docutils literal notranslate"><span class="pre">CAS.tag_int</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#pyvex.stmt.LLSC"><code class="docutils literal notranslate"><span class="pre">LLSC</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#pyvex.stmt.LLSC.tag"><code class="docutils literal notranslate"><span class="pre">LLSC.tag</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#pyvex.stmt.LLSC.addr"><code class="docutils literal notranslate"><span class="pre">LLSC.addr</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#pyvex.stmt.LLSC.storedata"><code class="docutils literal notranslate"><span class="pre">LLSC.storedata</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#pyvex.stmt.LLSC.result"><code class="docutils literal notranslate"><span class="pre">LLSC.result</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#pyvex.stmt.LLSC.end"><code class="docutils literal notranslate"><span class="pre">LLSC.end</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#pyvex.stmt.LLSC.endness"><code class="docutils literal notranslate"><span class="pre">LLSC.endness</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#pyvex.stmt.LLSC.typecheck"><code class="docutils literal notranslate"><span class="pre">LLSC.typecheck()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#pyvex.stmt.LLSC.tag_int"><code class="docutils literal notranslate"><span class="pre">LLSC.tag_int</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#pyvex.stmt.MBE"><code class="docutils literal notranslate"><span class="pre">MBE</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#pyvex.stmt.MBE.tag"><code class="docutils literal notranslate"><span class="pre">MBE.tag</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#pyvex.stmt.MBE.event"><code class="docutils literal notranslate"><span class="pre">MBE.event</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#pyvex.stmt.MBE.tag_int"><code class="docutils literal notranslate"><span class="pre">MBE.tag_int</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#pyvex.stmt.Dirty"><code class="docutils literal notranslate"><span class="pre">Dirty</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#pyvex.stmt.Dirty.tag"><code class="docutils literal notranslate"><span class="pre">Dirty.tag</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#pyvex.stmt.Dirty.cee"><code class="docutils literal notranslate"><span class="pre">Dirty.cee</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#pyvex.stmt.Dirty.guard"><code class="docutils literal notranslate"><span class="pre">Dirty.guard</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#pyvex.stmt.Dirty.args"><code class="docutils literal notranslate"><span class="pre">Dirty.args</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#pyvex.stmt.Dirty.tmp"><code class="docutils literal notranslate"><span class="pre">Dirty.tmp</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#pyvex.stmt.Dirty.mFx"><code class="docutils literal notranslate"><span class="pre">Dirty.mFx</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#pyvex.stmt.Dirty.mAddr"><code class="docutils literal notranslate"><span class="pre">Dirty.mAddr</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#pyvex.stmt.Dirty.mSize"><code class="docutils literal notranslate"><span class="pre">Dirty.mSize</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#pyvex.stmt.Dirty.nFxState"><code class="docutils literal notranslate"><span class="pre">Dirty.nFxState</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#pyvex.stmt.Dirty.child_expressions"><code class="docutils literal notranslate"><span class="pre">Dirty.child_expressions</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#pyvex.stmt.Dirty.tag_int"><code class="docutils literal notranslate"><span class="pre">Dirty.tag_int</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#pyvex.stmt.Exit"><code class="docutils literal notranslate"><span class="pre">Exit</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#pyvex.stmt.Exit.tag"><code class="docutils literal notranslate"><span class="pre">Exit.tag</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#pyvex.stmt.Exit.guard"><code class="docutils literal notranslate"><span class="pre">Exit.guard</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#pyvex.stmt.Exit.dst"><code class="docutils literal notranslate"><span class="pre">Exit.dst</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#pyvex.stmt.Exit.offsIP"><code class="docutils literal notranslate"><span class="pre">Exit.offsIP</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#pyvex.stmt.Exit.jk"><code class="docutils literal notranslate"><span class="pre">Exit.jk</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#pyvex.stmt.Exit.jumpkind"><code class="docutils literal notranslate"><span class="pre">Exit.jumpkind</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#pyvex.stmt.Exit.child_expressions"><code class="docutils literal notranslate"><span class="pre">Exit.child_expressions</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#pyvex.stmt.Exit.typecheck"><code class="docutils literal notranslate"><span class="pre">Exit.typecheck()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#pyvex.stmt.Exit.tag_int"><code class="docutils literal notranslate"><span class="pre">Exit.tag_int</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#pyvex.stmt.LoadG"><code class="docutils literal notranslate"><span class="pre">LoadG</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#pyvex.stmt.LoadG.tag"><code class="docutils literal notranslate"><span class="pre">LoadG.tag</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#pyvex.stmt.LoadG.addr"><code class="docutils literal notranslate"><span class="pre">LoadG.addr</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#pyvex.stmt.LoadG.alt"><code class="docutils literal notranslate"><span class="pre">LoadG.alt</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#pyvex.stmt.LoadG.guard"><code class="docutils literal notranslate"><span class="pre">LoadG.guard</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#pyvex.stmt.LoadG.dst"><code class="docutils literal notranslate"><span class="pre">LoadG.dst</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#pyvex.stmt.LoadG.cvt"><code class="docutils literal notranslate"><span class="pre">LoadG.cvt</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#pyvex.stmt.LoadG.end"><code class="docutils literal notranslate"><span class="pre">LoadG.end</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#pyvex.stmt.LoadG.cvt_types"><code class="docutils literal notranslate"><span class="pre">LoadG.cvt_types</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#pyvex.stmt.LoadG.endness"><code class="docutils literal notranslate"><span class="pre">LoadG.endness</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#pyvex.stmt.LoadG.typecheck"><code class="docutils literal notranslate"><span class="pre">LoadG.typecheck()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#pyvex.stmt.LoadG.tag_int"><code class="docutils literal notranslate"><span class="pre">LoadG.tag_int</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#pyvex.stmt.StoreG"><code class="docutils literal notranslate"><span class="pre">StoreG</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#pyvex.stmt.StoreG.tag"><code class="docutils literal notranslate"><span class="pre">StoreG.tag</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#pyvex.stmt.StoreG.addr"><code class="docutils literal notranslate"><span class="pre">StoreG.addr</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#pyvex.stmt.StoreG.data"><code class="docutils literal notranslate"><span class="pre">StoreG.data</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#pyvex.stmt.StoreG.guard"><code class="docutils literal notranslate"><span class="pre">StoreG.guard</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#pyvex.stmt.StoreG.end"><code class="docutils literal notranslate"><span class="pre">StoreG.end</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#pyvex.stmt.StoreG.endness"><code class="docutils literal notranslate"><span class="pre">StoreG.endness</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#pyvex.stmt.StoreG.typecheck"><code class="docutils literal notranslate"><span class="pre">StoreG.typecheck()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#pyvex.stmt.StoreG.tag_int"><code class="docutils literal notranslate"><span class="pre">StoreG.tag_int</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#pyvex.stmt.tag_to_stmt_class"><code class="docutils literal notranslate"><span class="pre">tag_to_stmt_class()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#pyvex.stmt.enum_to_stmt_class"><code class="docutils literal notranslate"><span class="pre">enum_to_stmt_class()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#pyvex.expr.IRExpr"><code class="docutils literal notranslate"><span class="pre">IRExpr</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#pyvex.expr.IRExpr.tag"><code class="docutils literal notranslate"><span class="pre">IRExpr.tag</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#pyvex.expr.IRExpr.tag_int"><code class="docutils literal notranslate"><span class="pre">IRExpr.tag_int</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#pyvex.expr.IRExpr.pp"><code class="docutils literal notranslate"><span class="pre">IRExpr.pp()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#pyvex.expr.IRExpr.child_expressions"><code class="docutils literal notranslate"><span class="pre">IRExpr.child_expressions</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#pyvex.expr.IRExpr.constants"><code class="docutils literal notranslate"><span class="pre">IRExpr.constants</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#pyvex.expr.IRExpr.result_size"><code class="docutils literal notranslate"><span class="pre">IRExpr.result_size()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#pyvex.expr.IRExpr.result_type"><code class="docutils literal notranslate"><span class="pre">IRExpr.result_type()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#pyvex.expr.IRExpr.replace_expression"><code class="docutils literal notranslate"><span class="pre">IRExpr.replace_expression()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#pyvex.expr.IRExpr.typecheck"><code class="docutils literal notranslate"><span class="pre">IRExpr.typecheck()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#pyvex.expr.Binder"><code class="docutils literal notranslate"><span class="pre">Binder</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#pyvex.expr.Binder.tag"><code class="docutils literal notranslate"><span class="pre">Binder.tag</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#pyvex.expr.Binder.binder"><code class="docutils literal notranslate"><span class="pre">Binder.binder</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#pyvex.expr.Binder.result_type"><code class="docutils literal notranslate"><span class="pre">Binder.result_type()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#pyvex.expr.Binder.tag_int"><code class="docutils literal notranslate"><span class="pre">Binder.tag_int</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#pyvex.expr.VECRET"><code class="docutils literal notranslate"><span class="pre">VECRET</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#pyvex.expr.VECRET.tag"><code class="docutils literal notranslate"><span class="pre">VECRET.tag</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#pyvex.expr.VECRET.result_type"><code class="docutils literal notranslate"><span class="pre">VECRET.result_type()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#pyvex.expr.VECRET.tag_int"><code class="docutils literal notranslate"><span class="pre">VECRET.tag_int</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#pyvex.expr.GSPTR"><code class="docutils literal notranslate"><span class="pre">GSPTR</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#pyvex.expr.GSPTR.tag"><code class="docutils literal notranslate"><span class="pre">GSPTR.tag</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#pyvex.expr.GSPTR.result_type"><code class="docutils literal notranslate"><span class="pre">GSPTR.result_type()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#pyvex.expr.GSPTR.tag_int"><code class="docutils literal notranslate"><span class="pre">GSPTR.tag_int</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#pyvex.expr.GetI"><code class="docutils literal notranslate"><span class="pre">GetI</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#pyvex.expr.GetI.tag"><code class="docutils literal notranslate"><span class="pre">GetI.tag</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#pyvex.expr.GetI.descr"><code class="docutils literal notranslate"><span class="pre">GetI.descr</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#pyvex.expr.GetI.ix"><code class="docutils literal notranslate"><span class="pre">GetI.ix</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#pyvex.expr.GetI.bias"><code class="docutils literal notranslate"><span class="pre">GetI.bias</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#pyvex.expr.GetI.description"><code class="docutils literal notranslate"><span class="pre">GetI.description</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#pyvex.expr.GetI.index"><code class="docutils literal notranslate"><span class="pre">GetI.index</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#pyvex.expr.GetI.result_type"><code class="docutils literal notranslate"><span class="pre">GetI.result_type()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#pyvex.expr.GetI.tag_int"><code class="docutils literal notranslate"><span class="pre">GetI.tag_int</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#pyvex.expr.RdTmp"><code class="docutils literal notranslate"><span class="pre">RdTmp</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#pyvex.expr.RdTmp.tag"><code class="docutils literal notranslate"><span class="pre">RdTmp.tag</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#pyvex.expr.RdTmp.tmp"><code class="docutils literal notranslate"><span class="pre">RdTmp.tmp</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#pyvex.expr.RdTmp.get_instance"><code class="docutils literal notranslate"><span class="pre">RdTmp.get_instance()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#pyvex.expr.RdTmp.replace_expression"><code class="docutils literal notranslate"><span class="pre">RdTmp.replace_expression()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#pyvex.expr.RdTmp.result_type"><code class="docutils literal notranslate"><span class="pre">RdTmp.result_type()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#pyvex.expr.RdTmp.tag_int"><code class="docutils literal notranslate"><span class="pre">RdTmp.tag_int</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#pyvex.expr.Get"><code class="docutils literal notranslate"><span class="pre">Get</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#pyvex.expr.Get.tag"><code class="docutils literal notranslate"><span class="pre">Get.tag</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#pyvex.expr.Get.offset"><code class="docutils literal notranslate"><span class="pre">Get.offset</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#pyvex.expr.Get.ty_int"><code class="docutils literal notranslate"><span class="pre">Get.ty_int</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#pyvex.expr.Get.ty"><code class="docutils literal notranslate"><span class="pre">Get.ty</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#pyvex.expr.Get.type"><code class="docutils literal notranslate"><span class="pre">Get.type</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#pyvex.expr.Get.result_type"><code class="docutils literal notranslate"><span class="pre">Get.result_type()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#pyvex.expr.Get.tag_int"><code class="docutils literal notranslate"><span class="pre">Get.tag_int</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#pyvex.expr.Qop"><code class="docutils literal notranslate"><span class="pre">Qop</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#pyvex.expr.Qop.tag"><code class="docutils literal notranslate"><span class="pre">Qop.tag</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#pyvex.expr.Qop.op"><code class="docutils literal notranslate"><span class="pre">Qop.op</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#pyvex.expr.Qop.args"><code class="docutils literal notranslate"><span class="pre">Qop.args</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#pyvex.expr.Qop.child_expressions"><code class="docutils literal notranslate"><span class="pre">Qop.child_expressions</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#pyvex.expr.Qop.result_type"><code class="docutils literal notranslate"><span class="pre">Qop.result_type()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#pyvex.expr.Qop.typecheck"><code class="docutils literal notranslate"><span class="pre">Qop.typecheck()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#pyvex.expr.Qop.tag_int"><code class="docutils literal notranslate"><span class="pre">Qop.tag_int</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#pyvex.expr.Triop"><code class="docutils literal notranslate"><span class="pre">Triop</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#pyvex.expr.Triop.tag"><code class="docutils literal notranslate"><span class="pre">Triop.tag</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#pyvex.expr.Triop.op"><code class="docutils literal notranslate"><span class="pre">Triop.op</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#pyvex.expr.Triop.args"><code class="docutils literal notranslate"><span class="pre">Triop.args</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#pyvex.expr.Triop.child_expressions"><code class="docutils literal notranslate"><span class="pre">Triop.child_expressions</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#pyvex.expr.Triop.result_type"><code class="docutils literal notranslate"><span class="pre">Triop.result_type()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#pyvex.expr.Triop.typecheck"><code class="docutils literal notranslate"><span class="pre">Triop.typecheck()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#pyvex.expr.Triop.tag_int"><code class="docutils literal notranslate"><span class="pre">Triop.tag_int</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#pyvex.expr.Binop"><code class="docutils literal notranslate"><span class="pre">Binop</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#pyvex.expr.Binop.tag"><code class="docutils literal notranslate"><span class="pre">Binop.tag</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#pyvex.expr.Binop.op_int"><code class="docutils literal notranslate"><span class="pre">Binop.op_int</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#pyvex.expr.Binop.args"><code class="docutils literal notranslate"><span class="pre">Binop.args</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#pyvex.expr.Binop.op"><code class="docutils literal notranslate"><span class="pre">Binop.op</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#pyvex.expr.Binop.child_expressions"><code class="docutils literal notranslate"><span class="pre">Binop.child_expressions</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#pyvex.expr.Binop.result_type"><code class="docutils literal notranslate"><span class="pre">Binop.result_type()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#pyvex.expr.Binop.typecheck"><code class="docutils literal notranslate"><span class="pre">Binop.typecheck()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#pyvex.expr.Binop.tag_int"><code class="docutils literal notranslate"><span class="pre">Binop.tag_int</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#pyvex.expr.Unop"><code class="docutils literal notranslate"><span class="pre">Unop</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#pyvex.expr.Unop.tag"><code class="docutils literal notranslate"><span class="pre">Unop.tag</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#pyvex.expr.Unop.op"><code class="docutils literal notranslate"><span class="pre">Unop.op</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#pyvex.expr.Unop.args"><code class="docutils literal notranslate"><span class="pre">Unop.args</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#pyvex.expr.Unop.child_expressions"><code class="docutils literal notranslate"><span class="pre">Unop.child_expressions</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#pyvex.expr.Unop.result_type"><code class="docutils literal notranslate"><span class="pre">Unop.result_type()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#pyvex.expr.Unop.typecheck"><code class="docutils literal notranslate"><span class="pre">Unop.typecheck()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#pyvex.expr.Unop.tag_int"><code class="docutils literal notranslate"><span class="pre">Unop.tag_int</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#pyvex.expr.Load"><code class="docutils literal notranslate"><span class="pre">Load</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#pyvex.expr.Load.tag"><code class="docutils literal notranslate"><span class="pre">Load.tag</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#pyvex.expr.Load.end"><code class="docutils literal notranslate"><span class="pre">Load.end</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#pyvex.expr.Load.ty"><code class="docutils literal notranslate"><span class="pre">Load.ty</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#pyvex.expr.Load.addr"><code class="docutils literal notranslate"><span class="pre">Load.addr</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#pyvex.expr.Load.endness"><code class="docutils literal notranslate"><span class="pre">Load.endness</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#pyvex.expr.Load.type"><code class="docutils literal notranslate"><span class="pre">Load.type</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#pyvex.expr.Load.result_type"><code class="docutils literal notranslate"><span class="pre">Load.result_type()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#pyvex.expr.Load.typecheck"><code class="docutils literal notranslate"><span class="pre">Load.typecheck()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#pyvex.expr.Load.tag_int"><code class="docutils literal notranslate"><span class="pre">Load.tag_int</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#pyvex.expr.Const"><code class="docutils literal notranslate"><span class="pre">Const</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#pyvex.expr.Const.tag"><code class="docutils literal notranslate"><span class="pre">Const.tag</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#pyvex.expr.Const.con"><code class="docutils literal notranslate"><span class="pre">Const.con</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#pyvex.expr.Const.get_instance"><code class="docutils literal notranslate"><span class="pre">Const.get_instance()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#pyvex.expr.Const.result_type"><code class="docutils literal notranslate"><span class="pre">Const.result_type()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#pyvex.expr.Const.tag_int"><code class="docutils literal notranslate"><span class="pre">Const.tag_int</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#pyvex.expr.ITE"><code class="docutils literal notranslate"><span class="pre">ITE</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#pyvex.expr.ITE.tag"><code class="docutils literal notranslate"><span class="pre">ITE.tag</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#pyvex.expr.ITE.cond"><code class="docutils literal notranslate"><span class="pre">ITE.cond</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#pyvex.expr.ITE.iffalse"><code class="docutils literal notranslate"><span class="pre">ITE.iffalse</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#pyvex.expr.ITE.iftrue"><code class="docutils literal notranslate"><span class="pre">ITE.iftrue</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#pyvex.expr.ITE.result_type"><code class="docutils literal notranslate"><span class="pre">ITE.result_type()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#pyvex.expr.ITE.typecheck"><code class="docutils literal notranslate"><span class="pre">ITE.typecheck()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#pyvex.expr.ITE.tag_int"><code class="docutils literal notranslate"><span class="pre">ITE.tag_int</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#pyvex.expr.CCall"><code class="docutils literal notranslate"><span class="pre">CCall</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#pyvex.expr.CCall.tag"><code class="docutils literal notranslate"><span class="pre">CCall.tag</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#pyvex.expr.CCall.retty"><code class="docutils literal notranslate"><span class="pre">CCall.retty</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#pyvex.expr.CCall.cee"><code class="docutils literal notranslate"><span class="pre">CCall.cee</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#pyvex.expr.CCall.args"><code class="docutils literal notranslate"><span class="pre">CCall.args</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#pyvex.expr.CCall.ret_type"><code class="docutils literal notranslate"><span class="pre">CCall.ret_type</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#pyvex.expr.CCall.callee"><code class="docutils literal notranslate"><span class="pre">CCall.callee</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#pyvex.expr.CCall.child_expressions"><code class="docutils literal notranslate"><span class="pre">CCall.child_expressions</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#pyvex.expr.CCall.result_type"><code class="docutils literal notranslate"><span class="pre">CCall.result_type()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#pyvex.expr.CCall.tag_int"><code class="docutils literal notranslate"><span class="pre">CCall.tag_int</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#pyvex.expr.get_op_retty"><code class="docutils literal notranslate"><span class="pre">get_op_retty()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#pyvex.expr.PyvexOpMatchException"><code class="docutils literal notranslate"><span class="pre">PyvexOpMatchException</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#pyvex.expr.PyvexTypeErrorException"><code class="docutils literal notranslate"><span class="pre">PyvexTypeErrorException</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#pyvex.expr.int_type_for_size"><code class="docutils literal notranslate"><span class="pre">int_type_for_size()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#pyvex.expr.unop_signature"><code class="docutils literal notranslate"><span class="pre">unop_signature()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#pyvex.expr.binop_signature"><code class="docutils literal notranslate"><span class="pre">binop_signature()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#pyvex.expr.shift_signature"><code class="docutils literal notranslate"><span class="pre">shift_signature()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#pyvex.expr.cmp_signature"><code class="docutils literal notranslate"><span class="pre">cmp_signature()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#pyvex.expr.mull_signature"><code class="docutils literal notranslate"><span class="pre">mull_signature()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#pyvex.expr.half_signature"><code class="docutils literal notranslate"><span class="pre">half_signature()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#pyvex.expr.cast_signature"><code class="docutils literal notranslate"><span class="pre">cast_signature()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#pyvex.expr.op_arg_types"><code class="docutils literal notranslate"><span class="pre">op_arg_types()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#pyvex.expr.tag_to_expr_class"><code class="docutils literal notranslate"><span class="pre">tag_to_expr_class()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#pyvex.expr.enum_to_expr_class"><code class="docutils literal notranslate"><span class="pre">enum_to_expr_class()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#pyvex.const.IRConst"><code class="docutils literal notranslate"><span class="pre">IRConst</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#pyvex.const.IRConst.type"><code class="docutils literal notranslate"><span class="pre">IRConst.type</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#pyvex.const.IRConst.size"><code class="docutils literal notranslate"><span class="pre">IRConst.size</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#pyvex.const.IRConst.tag"><code class="docutils literal notranslate"><span class="pre">IRConst.tag</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#pyvex.const.IRConst.c_constructor"><code class="docutils literal notranslate"><span class="pre">IRConst.c_constructor</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#pyvex.const.IRConst.pp"><code class="docutils literal notranslate"><span class="pre">IRConst.pp()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#pyvex.const.IRConst.value"><code class="docutils literal notranslate"><span class="pre">IRConst.value</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#pyvex.const.U1"><code class="docutils literal notranslate"><span class="pre">U1</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#pyvex.const.U1.type"><code class="docutils literal notranslate"><span class="pre">U1.type</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#pyvex.const.U1.size"><code class="docutils literal notranslate"><span class="pre">U1.size</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#pyvex.const.U1.tag"><code class="docutils literal notranslate"><span class="pre">U1.tag</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#pyvex.const.U1.op_format"><code class="docutils literal notranslate"><span class="pre">U1.op_format</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#pyvex.const.U1.c_constructor"><code class="docutils literal notranslate"><span class="pre">U1.c_constructor</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#pyvex.const.U8"><code class="docutils literal notranslate"><span class="pre">U8</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#pyvex.const.U8.type"><code class="docutils literal notranslate"><span class="pre">U8.type</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#pyvex.const.U8.size"><code class="docutils literal notranslate"><span class="pre">U8.size</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#pyvex.const.U8.tag"><code class="docutils literal notranslate"><span class="pre">U8.tag</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#pyvex.const.U8.op_format"><code class="docutils literal notranslate"><span class="pre">U8.op_format</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#pyvex.const.U8.c_constructor"><code class="docutils literal notranslate"><span class="pre">U8.c_constructor</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#pyvex.const.U16"><code class="docutils literal notranslate"><span class="pre">U16</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#pyvex.const.U16.type"><code class="docutils literal notranslate"><span class="pre">U16.type</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#pyvex.const.U16.size"><code class="docutils literal notranslate"><span class="pre">U16.size</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#pyvex.const.U16.tag"><code class="docutils literal notranslate"><span class="pre">U16.tag</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#pyvex.const.U16.op_format"><code class="docutils literal notranslate"><span class="pre">U16.op_format</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#pyvex.const.U16.c_constructor"><code class="docutils literal notranslate"><span class="pre">U16.c_constructor</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#pyvex.const.U32"><code class="docutils literal notranslate"><span class="pre">U32</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#pyvex.const.U32.type"><code class="docutils literal notranslate"><span class="pre">U32.type</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#pyvex.const.U32.size"><code class="docutils literal notranslate"><span class="pre">U32.size</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#pyvex.const.U32.tag"><code class="docutils literal notranslate"><span class="pre">U32.tag</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#pyvex.const.U32.op_format"><code class="docutils literal notranslate"><span class="pre">U32.op_format</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#pyvex.const.U32.c_constructor"><code class="docutils literal notranslate"><span class="pre">U32.c_constructor</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#pyvex.const.U64"><code class="docutils literal notranslate"><span class="pre">U64</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#pyvex.const.U64.type"><code class="docutils literal notranslate"><span class="pre">U64.type</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#pyvex.const.U64.size"><code class="docutils literal notranslate"><span class="pre">U64.size</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#pyvex.const.U64.tag"><code class="docutils literal notranslate"><span class="pre">U64.tag</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#pyvex.const.U64.op_format"><code class="docutils literal notranslate"><span class="pre">U64.op_format</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#pyvex.const.U64.c_constructor"><code class="docutils literal notranslate"><span class="pre">U64.c_constructor</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#pyvex.const.vex_int_class"><code class="docutils literal notranslate"><span class="pre">vex_int_class()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#pyvex.const.F32"><code class="docutils literal notranslate"><span class="pre">F32</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#pyvex.const.F32.type"><code class="docutils literal notranslate"><span class="pre">F32.type</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#pyvex.const.F32.tag"><code class="docutils literal notranslate"><span class="pre">F32.tag</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#pyvex.const.F32.op_format"><code class="docutils literal notranslate"><span class="pre">F32.op_format</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#pyvex.const.F32.c_constructor"><code class="docutils literal notranslate"><span class="pre">F32.c_constructor</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#pyvex.const.F32i"><code class="docutils literal notranslate"><span class="pre">F32i</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#pyvex.const.F32i.type"><code class="docutils literal notranslate"><span class="pre">F32i.type</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#pyvex.const.F32i.tag"><code class="docutils literal notranslate"><span class="pre">F32i.tag</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#pyvex.const.F32i.op_format"><code class="docutils literal notranslate"><span class="pre">F32i.op_format</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#pyvex.const.F32i.c_constructor"><code class="docutils literal notranslate"><span class="pre">F32i.c_constructor</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#pyvex.const.F64"><code class="docutils literal notranslate"><span class="pre">F64</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#pyvex.const.F64.type"><code class="docutils literal notranslate"><span class="pre">F64.type</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#pyvex.const.F64.tag"><code class="docutils literal notranslate"><span class="pre">F64.tag</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#pyvex.const.F64.op_format"><code class="docutils literal notranslate"><span class="pre">F64.op_format</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#pyvex.const.F64.c_constructor"><code class="docutils literal notranslate"><span class="pre">F64.c_constructor</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#pyvex.const.F64i"><code class="docutils literal notranslate"><span class="pre">F64i</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#pyvex.const.F64i.type"><code class="docutils literal notranslate"><span class="pre">F64i.type</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#pyvex.const.F64i.tag"><code class="docutils literal notranslate"><span class="pre">F64i.tag</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#pyvex.const.F64i.op_format"><code class="docutils literal notranslate"><span class="pre">F64i.op_format</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#pyvex.const.F64i.c_constructor"><code class="docutils literal notranslate"><span class="pre">F64i.c_constructor</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#pyvex.const.V128"><code class="docutils literal notranslate"><span class="pre">V128</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#pyvex.const.V128.type"><code class="docutils literal notranslate"><span class="pre">V128.type</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#pyvex.const.V128.tag"><code class="docutils literal notranslate"><span class="pre">V128.tag</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#pyvex.const.V128.op_format"><code class="docutils literal notranslate"><span class="pre">V128.op_format</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#pyvex.const.V128.c_constructor"><code class="docutils literal notranslate"><span class="pre">V128.c_constructor</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#pyvex.const.V256"><code class="docutils literal notranslate"><span class="pre">V256</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#pyvex.const.V256.type"><code class="docutils literal notranslate"><span class="pre">V256.type</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#pyvex.const.V256.tag"><code class="docutils literal notranslate"><span class="pre">V256.tag</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#pyvex.const.V256.op_format"><code class="docutils literal notranslate"><span class="pre">V256.op_format</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#pyvex.const.V256.c_constructor"><code class="docutils literal notranslate"><span class="pre">V256.c_constructor</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#pyvex.const.is_int_ty"><code class="docutils literal notranslate"><span class="pre">is_int_ty()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#pyvex.const.is_int_tag"><code class="docutils literal notranslate"><span class="pre">is_int_tag()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#pyvex.const.get_tag_size"><code class="docutils literal notranslate"><span class="pre">get_tag_size()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#pyvex.const.get_type_size"><code class="docutils literal notranslate"><span class="pre">get_type_size()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#pyvex.const.get_type_spec_size"><code class="docutils literal notranslate"><span class="pre">get_type_spec_size()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#pyvex.const.ty_to_const_class"><code class="docutils literal notranslate"><span class="pre">ty_to_const_class()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#pyvex.const.tag_to_const_class"><code class="docutils literal notranslate"><span class="pre">tag_to_const_class()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#pyvex.enums.VEXObject"><code class="docutils literal notranslate"><span class="pre">VEXObject</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#pyvex.enums.IRCallee"><code class="docutils literal notranslate"><span class="pre">IRCallee</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#pyvex.enums.IRCallee.regparms"><code class="docutils literal notranslate"><span class="pre">IRCallee.regparms</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#pyvex.enums.IRCallee.name"><code class="docutils literal notranslate"><span class="pre">IRCallee.name</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#pyvex.enums.IRCallee.mcx_mask"><code class="docutils literal notranslate"><span class="pre">IRCallee.mcx_mask</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#pyvex.enums.IRRegArray"><code class="docutils literal notranslate"><span class="pre">IRRegArray</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#pyvex.enums.IRRegArray.base"><code class="docutils literal notranslate"><span class="pre">IRRegArray.base</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#pyvex.enums.IRRegArray.elemTy"><code class="docutils literal notranslate"><span class="pre">IRRegArray.elemTy</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#pyvex.enums.IRRegArray.nElems"><code class="docutils literal notranslate"><span class="pre">IRRegArray.nElems</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#pyvex.enums.get_enum_from_int"><code class="docutils literal notranslate"><span class="pre">get_enum_from_int()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#pyvex.enums.get_int_from_enum"><code class="docutils literal notranslate"><span class="pre">get_int_from_enum()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#pyvex.enums.vex_endness_from_string"><code class="docutils literal notranslate"><span class="pre">vex_endness_from_string()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#pyvex.enums.default_vex_archinfo"><code class="docutils literal notranslate"><span class="pre">default_vex_archinfo()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#module-pyvex.data_ref">Lifting System</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#pyvex.data_ref.data_ref_type_str"><code class="docutils literal notranslate"><span class="pre">data_ref_type_str()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#pyvex.data_ref.DataRef"><code class="docutils literal notranslate"><span class="pre">DataRef</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#pyvex.data_ref.DataRef.data_addr"><code class="docutils literal notranslate"><span class="pre">DataRef.data_addr</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#pyvex.data_ref.DataRef.data_size"><code class="docutils literal notranslate"><span class="pre">DataRef.data_size</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#pyvex.data_ref.DataRef.data_type"><code class="docutils literal notranslate"><span class="pre">DataRef.data_type</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#pyvex.data_ref.DataRef.stmt_idx"><code class="docutils literal notranslate"><span class="pre">DataRef.stmt_idx</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#pyvex.data_ref.DataRef.ins_addr"><code class="docutils literal notranslate"><span class="pre">DataRef.ins_addr</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#pyvex.data_ref.DataRef.data_type_str"><code class="docutils literal notranslate"><span class="pre">DataRef.data_type_str</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#pyvex.data_ref.DataRef.from_c"><code class="docutils literal notranslate"><span class="pre">DataRef.from_c()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#pyvex.lifting.lift"><code class="docutils literal notranslate"><span class="pre">lift()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#pyvex.lifting.register"><code class="docutils literal notranslate"><span class="pre">register()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#pyvex.lifting.libvex.VexRegisterUpdates"><code class="docutils literal notranslate"><span class="pre">VexRegisterUpdates</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#pyvex.lifting.libvex.VexRegisterUpdates.VexRegUpd_INVALID"><code class="docutils literal notranslate"><span class="pre">VexRegisterUpdates.VexRegUpd_INVALID</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#pyvex.lifting.libvex.VexRegisterUpdates.VexRegUpdSpAtMemAccess"><code class="docutils literal notranslate"><span class="pre">VexRegisterUpdates.VexRegUpdSpAtMemAccess</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#pyvex.lifting.libvex.VexRegisterUpdates.VexRegUpdUnwindregsAtMemAccess"><code class="docutils literal notranslate"><span class="pre">VexRegisterUpdates.VexRegUpdUnwindregsAtMemAccess</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#pyvex.lifting.libvex.VexRegisterUpdates.VexRegUpdAllregsAtMemAccess"><code class="docutils literal notranslate"><span class="pre">VexRegisterUpdates.VexRegUpdAllregsAtMemAccess</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#pyvex.lifting.libvex.VexRegisterUpdates.VexRegUpdAllregsAtEachInsn"><code class="docutils literal notranslate"><span class="pre">VexRegisterUpdates.VexRegUpdAllregsAtEachInsn</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#pyvex.lifting.libvex.VexRegisterUpdates.VexRegUpdLdAllregsAtEachInsn"><code class="docutils literal notranslate"><span class="pre">VexRegisterUpdates.VexRegUpdLdAllregsAtEachInsn</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#pyvex.lifting.libvex.LibVEXLifter"><code class="docutils literal notranslate"><span class="pre">LibVEXLifter</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#pyvex.lifting.libvex.LibVEXLifter.REQUIRE_DATA_C"><code class="docutils literal notranslate"><span class="pre">LibVEXLifter.REQUIRE_DATA_C</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#pyvex.lifting.libvex.LibVEXLifter.get_vex_log"><code class="docutils literal notranslate"><span class="pre">LibVEXLifter.get_vex_log()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#pyvex.lifting.libvex.LibVEXLifter.lift"><code class="docutils literal notranslate"><span class="pre">LibVEXLifter.lift()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#pyvex.lifting.lifter.Lifter"><code class="docutils literal notranslate"><span class="pre">Lifter</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#pyvex.lifting.lifter.Lifter.REQUIRE_DATA_C"><code class="docutils literal notranslate"><span class="pre">Lifter.REQUIRE_DATA_C</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#pyvex.lifting.lifter.Lifter.REQUIRE_DATA_PY"><code class="docutils literal notranslate"><span class="pre">Lifter.REQUIRE_DATA_PY</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#pyvex.lifting.lifter.Lifter.arch"><code class="docutils literal notranslate"><span class="pre">Lifter.arch</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#pyvex.lifting.lifter.Lifter.addr"><code class="docutils literal notranslate"><span class="pre">Lifter.addr</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#pyvex.lifting.lifter.Lifter.data"><code class="docutils literal notranslate"><span class="pre">Lifter.data</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#pyvex.lifting.lifter.Lifter.bytes_offset"><code class="docutils literal notranslate"><span class="pre">Lifter.bytes_offset</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#pyvex.lifting.lifter.Lifter.opt_level"><code class="docutils literal notranslate"><span class="pre">Lifter.opt_level</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#pyvex.lifting.lifter.Lifter.traceflags"><code class="docutils literal notranslate"><span class="pre">Lifter.traceflags</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#pyvex.lifting.lifter.Lifter.allow_arch_optimizations"><code class="docutils literal notranslate"><span class="pre">Lifter.allow_arch_optimizations</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#pyvex.lifting.lifter.Lifter.strict_block_end"><code class="docutils literal notranslate"><span class="pre">Lifter.strict_block_end</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#pyvex.lifting.lifter.Lifter.collect_data_refs"><code class="docutils literal notranslate"><span class="pre">Lifter.collect_data_refs</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#pyvex.lifting.lifter.Lifter.max_inst"><code class="docutils literal notranslate"><span class="pre">Lifter.max_inst</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#pyvex.lifting.lifter.Lifter.max_bytes"><code class="docutils literal notranslate"><span class="pre">Lifter.max_bytes</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#pyvex.lifting.lifter.Lifter.skip_stmts"><code class="docutils literal notranslate"><span class="pre">Lifter.skip_stmts</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#pyvex.lifting.lifter.Lifter.irsb"><code class="docutils literal notranslate"><span class="pre">Lifter.irsb</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#pyvex.lifting.lifter.Lifter.cross_insn_opt"><code class="docutils literal notranslate"><span class="pre">Lifter.cross_insn_opt</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#pyvex.lifting.lifter.Lifter.load_from_ro_regions"><code class="docutils literal notranslate"><span class="pre">Lifter.load_from_ro_regions</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#pyvex.lifting.lifter.Lifter.lift"><code class="docutils literal notranslate"><span class="pre">Lifter.lift()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#pyvex.lifting.post_processor.Postprocessor"><code class="docutils literal notranslate"><span class="pre">Postprocessor</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#pyvex.lifting.post_processor.Postprocessor.postprocess"><code class="docutils literal notranslate"><span class="pre">Postprocessor.postprocess()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#pyvex.lifting.util.irsb_postprocess.irsb_postproc_flatten"><code class="docutils literal notranslate"><span class="pre">irsb_postproc_flatten()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#pyvex.lifting.util.syntax_wrapper.checkparams"><code class="docutils literal notranslate"><span class="pre">checkparams()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#pyvex.lifting.util.syntax_wrapper.vvifyresults"><code class="docutils literal notranslate"><span class="pre">vvifyresults()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#pyvex.lifting.util.syntax_wrapper.VexValue"><code class="docutils literal notranslate"><span class="pre">VexValue</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#pyvex.lifting.util.syntax_wrapper.VexValue.value"><code class="docutils literal notranslate"><span class="pre">VexValue.value</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#pyvex.lifting.util.syntax_wrapper.VexValue.signed"><code class="docutils literal notranslate"><span class="pre">VexValue.signed</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#pyvex.lifting.util.syntax_wrapper.VexValue.widen_unsigned"><code class="docutils literal notranslate"><span class="pre">VexValue.widen_unsigned()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#pyvex.lifting.util.syntax_wrapper.VexValue.cast_to"><code class="docutils literal notranslate"><span class="pre">VexValue.cast_to()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#pyvex.lifting.util.syntax_wrapper.VexValue.widen_signed"><code class="docutils literal notranslate"><span class="pre">VexValue.widen_signed()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#pyvex.lifting.util.syntax_wrapper.VexValue.narrow_high"><code class="docutils literal notranslate"><span class="pre">VexValue.narrow_high()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#pyvex.lifting.util.syntax_wrapper.VexValue.narrow_low"><code class="docutils literal notranslate"><span class="pre">VexValue.narrow_low()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#pyvex.lifting.util.syntax_wrapper.VexValue.set_bit"><code class="docutils literal notranslate"><span class="pre">VexValue.set_bit()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#pyvex.lifting.util.syntax_wrapper.VexValue.set_bits"><code class="docutils literal notranslate"><span class="pre">VexValue.set_bits()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#pyvex.lifting.util.syntax_wrapper.VexValue.ite"><code class="docutils literal notranslate"><span class="pre">VexValue.ite()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#pyvex.lifting.util.syntax_wrapper.VexValue.sar"><code class="docutils literal notranslate"><span class="pre">VexValue.sar()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#pyvex.lifting.util.syntax_wrapper.VexValue.Constant"><code class="docutils literal notranslate"><span class="pre">VexValue.Constant()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#pyvex.lifting.util.vex_helper.JumpKind"><code class="docutils literal notranslate"><span class="pre">JumpKind</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#pyvex.lifting.util.vex_helper.JumpKind.Boring"><code class="docutils literal notranslate"><span class="pre">JumpKind.Boring</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#pyvex.lifting.util.vex_helper.JumpKind.Call"><code class="docutils literal notranslate"><span class="pre">JumpKind.Call</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#pyvex.lifting.util.vex_helper.JumpKind.Ret"><code class="docutils literal notranslate"><span class="pre">JumpKind.Ret</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#pyvex.lifting.util.vex_helper.JumpKind.Segfault"><code class="docutils literal notranslate"><span class="pre">JumpKind.Segfault</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#pyvex.lifting.util.vex_helper.JumpKind.Exit"><code class="docutils literal notranslate"><span class="pre">JumpKind.Exit</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#pyvex.lifting.util.vex_helper.JumpKind.Syscall"><code class="docutils literal notranslate"><span class="pre">JumpKind.Syscall</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#pyvex.lifting.util.vex_helper.JumpKind.Sysenter"><code class="docutils literal notranslate"><span class="pre">JumpKind.Sysenter</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#pyvex.lifting.util.vex_helper.JumpKind.Invalid"><code class="docutils literal notranslate"><span class="pre">JumpKind.Invalid</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#pyvex.lifting.util.vex_helper.JumpKind.NoDecode"><code class="docutils literal notranslate"><span class="pre">JumpKind.NoDecode</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#pyvex.lifting.util.vex_helper.TypeMeta"><code class="docutils literal notranslate"><span class="pre">TypeMeta</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#pyvex.lifting.util.vex_helper.TypeMeta.typemeta_re"><code class="docutils literal notranslate"><span class="pre">TypeMeta.typemeta_re</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#pyvex.lifting.util.vex_helper.Type"><code class="docutils literal notranslate"><span class="pre">Type</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#pyvex.lifting.util.vex_helper.Type.ieee_float_16"><code class="docutils literal notranslate"><span class="pre">Type.ieee_float_16</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#pyvex.lifting.util.vex_helper.Type.ieee_float_32"><code class="docutils literal notranslate"><span class="pre">Type.ieee_float_32</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#pyvex.lifting.util.vex_helper.Type.ieee_float_64"><code class="docutils literal notranslate"><span class="pre">Type.ieee_float_64</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#pyvex.lifting.util.vex_helper.Type.ieee_float_128"><code class="docutils literal notranslate"><span class="pre">Type.ieee_float_128</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#pyvex.lifting.util.vex_helper.Type.decimal_float_32"><code class="docutils literal notranslate"><span class="pre">Type.decimal_float_32</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#pyvex.lifting.util.vex_helper.Type.decimal_float_64"><code class="docutils literal notranslate"><span class="pre">Type.decimal_float_64</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#pyvex.lifting.util.vex_helper.Type.decimal_float_128"><code class="docutils literal notranslate"><span class="pre">Type.decimal_float_128</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#pyvex.lifting.util.vex_helper.Type.simd_vector_128"><code class="docutils literal notranslate"><span class="pre">Type.simd_vector_128</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#pyvex.lifting.util.vex_helper.Type.simd_vector_256"><code class="docutils literal notranslate"><span class="pre">Type.simd_vector_256</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#pyvex.lifting.util.vex_helper.get_op_format_from_const_ty"><code class="docutils literal notranslate"><span class="pre">get_op_format_from_const_ty()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#pyvex.lifting.util.vex_helper.make_format_op_generator"><code class="docutils literal notranslate"><span class="pre">make_format_op_generator()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#pyvex.lifting.util.vex_helper.mkbinop"><code class="docutils literal notranslate"><span class="pre">mkbinop()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#pyvex.lifting.util.vex_helper.mkunop"><code class="docutils literal notranslate"><span class="pre">mkunop()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#pyvex.lifting.util.vex_helper.mkcmpop"><code class="docutils literal notranslate"><span class="pre">mkcmpop()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#pyvex.lifting.util.vex_helper.IRSBCustomizer"><code class="docutils literal notranslate"><span class="pre">IRSBCustomizer</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#pyvex.lifting.util.vex_helper.IRSBCustomizer.op_add"><code class="docutils literal notranslate"><span class="pre">IRSBCustomizer.op_add()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#pyvex.lifting.util.vex_helper.IRSBCustomizer.op_sub"><code class="docutils literal notranslate"><span class="pre">IRSBCustomizer.op_sub()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#pyvex.lifting.util.vex_helper.IRSBCustomizer.op_umul"><code class="docutils literal notranslate"><span class="pre">IRSBCustomizer.op_umul()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#pyvex.lifting.util.vex_helper.IRSBCustomizer.op_smul"><code class="docutils literal notranslate"><span class="pre">IRSBCustomizer.op_smul()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#pyvex.lifting.util.vex_helper.IRSBCustomizer.op_sdiv"><code class="docutils literal notranslate"><span class="pre">IRSBCustomizer.op_sdiv()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#pyvex.lifting.util.vex_helper.IRSBCustomizer.op_udiv"><code class="docutils literal notranslate"><span class="pre">IRSBCustomizer.op_udiv()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#pyvex.lifting.util.vex_helper.IRSBCustomizer.op_mod"><code class="docutils literal notranslate"><span class="pre">IRSBCustomizer.op_mod()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#pyvex.lifting.util.vex_helper.IRSBCustomizer.op_or"><code class="docutils literal notranslate"><span class="pre">IRSBCustomizer.op_or()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#pyvex.lifting.util.vex_helper.IRSBCustomizer.op_and"><code class="docutils literal notranslate"><span class="pre">IRSBCustomizer.op_and()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#pyvex.lifting.util.vex_helper.IRSBCustomizer.op_xor"><code class="docutils literal notranslate"><span class="pre">IRSBCustomizer.op_xor()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#pyvex.lifting.util.vex_helper.IRSBCustomizer.op_shr"><code class="docutils literal notranslate"><span class="pre">IRSBCustomizer.op_shr()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#pyvex.lifting.util.vex_helper.IRSBCustomizer.op_shl"><code class="docutils literal notranslate"><span class="pre">IRSBCustomizer.op_shl()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#pyvex.lifting.util.vex_helper.IRSBCustomizer.op_sar"><code class="docutils literal notranslate"><span class="pre">IRSBCustomizer.op_sar()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#pyvex.lifting.util.vex_helper.IRSBCustomizer.op_not"><code class="docutils literal notranslate"><span class="pre">IRSBCustomizer.op_not()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#pyvex.lifting.util.vex_helper.IRSBCustomizer.op_cmp_eq"><code class="docutils literal notranslate"><span class="pre">IRSBCustomizer.op_cmp_eq()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#pyvex.lifting.util.vex_helper.IRSBCustomizer.op_cmp_ne"><code class="docutils literal notranslate"><span class="pre">IRSBCustomizer.op_cmp_ne()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#pyvex.lifting.util.vex_helper.IRSBCustomizer.op_cmp_slt"><code class="docutils literal notranslate"><span class="pre">IRSBCustomizer.op_cmp_slt()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#pyvex.lifting.util.vex_helper.IRSBCustomizer.op_cmp_sle"><code class="docutils literal notranslate"><span class="pre">IRSBCustomizer.op_cmp_sle()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#pyvex.lifting.util.vex_helper.IRSBCustomizer.op_cmp_ult"><code class="docutils literal notranslate"><span class="pre">IRSBCustomizer.op_cmp_ult()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#pyvex.lifting.util.vex_helper.IRSBCustomizer.op_cmp_ule"><code class="docutils literal notranslate"><span class="pre">IRSBCustomizer.op_cmp_ule()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#pyvex.lifting.util.vex_helper.IRSBCustomizer.op_cmp_sge"><code class="docutils literal notranslate"><span class="pre">IRSBCustomizer.op_cmp_sge()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#pyvex.lifting.util.vex_helper.IRSBCustomizer.op_cmp_uge"><code class="docutils literal notranslate"><span class="pre">IRSBCustomizer.op_cmp_uge()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#pyvex.lifting.util.vex_helper.IRSBCustomizer.op_cmp_sgt"><code class="docutils literal notranslate"><span class="pre">IRSBCustomizer.op_cmp_sgt()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#pyvex.lifting.util.vex_helper.IRSBCustomizer.op_cmp_ugt"><code class="docutils literal notranslate"><span class="pre">IRSBCustomizer.op_cmp_ugt()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#pyvex.lifting.util.vex_helper.IRSBCustomizer.get_type"><code class="docutils literal notranslate"><span class="pre">IRSBCustomizer.get_type()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#pyvex.lifting.util.vex_helper.IRSBCustomizer.imark"><code class="docutils literal notranslate"><span class="pre">IRSBCustomizer.imark()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#pyvex.lifting.util.vex_helper.IRSBCustomizer.get_reg"><code class="docutils literal notranslate"><span class="pre">IRSBCustomizer.get_reg()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#pyvex.lifting.util.vex_helper.IRSBCustomizer.put"><code class="docutils literal notranslate"><span class="pre">IRSBCustomizer.put()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#pyvex.lifting.util.vex_helper.IRSBCustomizer.store"><code class="docutils literal notranslate"><span class="pre">IRSBCustomizer.store()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#pyvex.lifting.util.vex_helper.IRSBCustomizer.noop"><code class="docutils literal notranslate"><span class="pre">IRSBCustomizer.noop()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#pyvex.lifting.util.vex_helper.IRSBCustomizer.add_exit"><code class="docutils literal notranslate"><span class="pre">IRSBCustomizer.add_exit()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#pyvex.lifting.util.vex_helper.IRSBCustomizer.goto"><code class="docutils literal notranslate"><span class="pre">IRSBCustomizer.goto()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#pyvex.lifting.util.vex_helper.IRSBCustomizer.ret"><code class="docutils literal notranslate"><span class="pre">IRSBCustomizer.ret()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#pyvex.lifting.util.vex_helper.IRSBCustomizer.call"><code class="docutils literal notranslate"><span class="pre">IRSBCustomizer.call()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#pyvex.lifting.util.vex_helper.IRSBCustomizer.rdreg"><code class="docutils literal notranslate"><span class="pre">IRSBCustomizer.rdreg()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#pyvex.lifting.util.vex_helper.IRSBCustomizer.load"><code class="docutils literal notranslate"><span class="pre">IRSBCustomizer.load()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#pyvex.lifting.util.vex_helper.IRSBCustomizer.op_ccall"><code class="docutils literal notranslate"><span class="pre">IRSBCustomizer.op_ccall()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#pyvex.lifting.util.vex_helper.IRSBCustomizer.dirty"><code class="docutils literal notranslate"><span class="pre">IRSBCustomizer.dirty()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#pyvex.lifting.util.vex_helper.IRSBCustomizer.ite"><code class="docutils literal notranslate"><span class="pre">IRSBCustomizer.ite()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#pyvex.lifting.util.vex_helper.IRSBCustomizer.mkconst"><code class="docutils literal notranslate"><span class="pre">IRSBCustomizer.mkconst()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#pyvex.lifting.util.vex_helper.IRSBCustomizer.op_generic"><code class="docutils literal notranslate"><span class="pre">IRSBCustomizer.op_generic()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#pyvex.lifting.util.vex_helper.IRSBCustomizer.op_binary"><code class="docutils literal notranslate"><span class="pre">IRSBCustomizer.op_binary()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#pyvex.lifting.util.vex_helper.IRSBCustomizer.op_unary"><code class="docutils literal notranslate"><span class="pre">IRSBCustomizer.op_unary()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#pyvex.lifting.util.vex_helper.IRSBCustomizer.cast_to"><code class="docutils literal notranslate"><span class="pre">IRSBCustomizer.cast_to()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#pyvex.lifting.util.vex_helper.IRSBCustomizer.op_to_one_bit"><code class="docutils literal notranslate"><span class="pre">IRSBCustomizer.op_to_one_bit()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#pyvex.lifting.util.vex_helper.IRSBCustomizer.op_narrow_int"><code class="docutils literal notranslate"><span class="pre">IRSBCustomizer.op_narrow_int()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#pyvex.lifting.util.vex_helper.IRSBCustomizer.op_widen_int"><code class="docutils literal notranslate"><span class="pre">IRSBCustomizer.op_widen_int()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#pyvex.lifting.util.vex_helper.IRSBCustomizer.op_widen_int_signed"><code class="docutils literal notranslate"><span class="pre">IRSBCustomizer.op_widen_int_signed()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#pyvex.lifting.util.vex_helper.IRSBCustomizer.op_widen_int_unsigned"><code class="docutils literal notranslate"><span class="pre">IRSBCustomizer.op_widen_int_unsigned()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#pyvex.lifting.util.vex_helper.IRSBCustomizer.get_msb"><code class="docutils literal notranslate"><span class="pre">IRSBCustomizer.get_msb()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#pyvex.lifting.util.vex_helper.IRSBCustomizer.get_bit"><code class="docutils literal notranslate"><span class="pre">IRSBCustomizer.get_bit()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#pyvex.lifting.util.vex_helper.IRSBCustomizer.op_extract_lsb"><code class="docutils literal notranslate"><span class="pre">IRSBCustomizer.op_extract_lsb()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#pyvex.lifting.util.vex_helper.IRSBCustomizer.set_bit"><code class="docutils literal notranslate"><span class="pre">IRSBCustomizer.set_bit()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#pyvex.lifting.util.vex_helper.IRSBCustomizer.set_bits"><code class="docutils literal notranslate"><span class="pre">IRSBCustomizer.set_bits()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#pyvex.lifting.util.vex_helper.IRSBCustomizer.get_rdt_width"><code class="docutils literal notranslate"><span class="pre">IRSBCustomizer.get_rdt_width()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#pyvex.lifting.util.lifter_helper.is_empty"><code class="docutils literal notranslate"><span class="pre">is_empty()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#pyvex.lifting.util.lifter_helper.ParseError"><code class="docutils literal notranslate"><span class="pre">ParseError</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#pyvex.lifting.util.lifter_helper.GymratLifter"><code class="docutils literal notranslate"><span class="pre">GymratLifter</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#pyvex.lifting.util.lifter_helper.GymratLifter.REQUIRE_DATA_PY"><code class="docutils literal notranslate"><span class="pre">GymratLifter.REQUIRE_DATA_PY</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#pyvex.lifting.util.lifter_helper.GymratLifter.instrs"><code class="docutils literal notranslate"><span class="pre">GymratLifter.instrs</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#pyvex.lifting.util.lifter_helper.GymratLifter.bitstrm"><code class="docutils literal notranslate"><span class="pre">GymratLifter.bitstrm</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#pyvex.lifting.util.lifter_helper.GymratLifter.errors"><code class="docutils literal notranslate"><span class="pre">GymratLifter.errors</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#pyvex.lifting.util.lifter_helper.GymratLifter.thedata"><code class="docutils literal notranslate"><span class="pre">GymratLifter.thedata</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#pyvex.lifting.util.lifter_helper.GymratLifter.create_bitstrm"><code class="docutils literal notranslate"><span class="pre">GymratLifter.create_bitstrm()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#pyvex.lifting.util.lifter_helper.GymratLifter.decode"><code class="docutils literal notranslate"><span class="pre">GymratLifter.decode()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#pyvex.lifting.util.lifter_helper.GymratLifter.lift"><code class="docutils literal notranslate"><span class="pre">GymratLifter.lift()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#pyvex.lifting.util.lifter_helper.GymratLifter.pp_disas"><code class="docutils literal notranslate"><span class="pre">GymratLifter.pp_disas()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#pyvex.lifting.util.lifter_helper.GymratLifter.error"><code class="docutils literal notranslate"><span class="pre">GymratLifter.error()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#pyvex.lifting.util.lifter_helper.GymratLifter.disassemble"><code class="docutils literal notranslate"><span class="pre">GymratLifter.disassemble()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#pyvex.lifting.util.instr_helper.Instruction"><code class="docutils literal notranslate"><span class="pre">Instruction</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#pyvex.lifting.util.instr_helper.Instruction.irsb_c"><code class="docutils literal notranslate"><span class="pre">Instruction.irsb_c</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#pyvex.lifting.util.instr_helper.Instruction.data"><code class="docutils literal notranslate"><span class="pre">Instruction.data</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#pyvex.lifting.util.instr_helper.Instruction.bin_format"><code class="docutils literal notranslate"><span class="pre">Instruction.bin_format</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#pyvex.lifting.util.instr_helper.Instruction.name"><code class="docutils literal notranslate"><span class="pre">Instruction.name</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#pyvex.lifting.util.instr_helper.Instruction.mark_instruction_start"><code class="docutils literal notranslate"><span class="pre">Instruction.mark_instruction_start()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#pyvex.lifting.util.instr_helper.Instruction.fetch_operands"><code class="docutils literal notranslate"><span class="pre">Instruction.fetch_operands()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#pyvex.lifting.util.instr_helper.Instruction.lift"><code class="docutils literal notranslate"><span class="pre">Instruction.lift()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#pyvex.lifting.util.instr_helper.Instruction.commit_result"><code class="docutils literal notranslate"><span class="pre">Instruction.commit_result()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#pyvex.lifting.util.instr_helper.Instruction.compute_result"><code class="docutils literal notranslate"><span class="pre">Instruction.compute_result()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#pyvex.lifting.util.instr_helper.Instruction.compute_flags"><code class="docutils literal notranslate"><span class="pre">Instruction.compute_flags()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#pyvex.lifting.util.instr_helper.Instruction.match_instruction"><code class="docutils literal notranslate"><span class="pre">Instruction.match_instruction()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#pyvex.lifting.util.instr_helper.Instruction.parse"><code class="docutils literal notranslate"><span class="pre">Instruction.parse()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#pyvex.lifting.util.instr_helper.Instruction.bytewidth"><code class="docutils literal notranslate"><span class="pre">Instruction.bytewidth</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#pyvex.lifting.util.instr_helper.Instruction.disassemble"><code class="docutils literal notranslate"><span class="pre">Instruction.disassemble()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#pyvex.lifting.util.instr_helper.Instruction.load"><code class="docutils literal notranslate"><span class="pre">Instruction.load()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#pyvex.lifting.util.instr_helper.Instruction.constant"><code class="docutils literal notranslate"><span class="pre">Instruction.constant()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#pyvex.lifting.util.instr_helper.Instruction.get"><code class="docutils literal notranslate"><span class="pre">Instruction.get()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#pyvex.lifting.util.instr_helper.Instruction.put"><code class="docutils literal notranslate"><span class="pre">Instruction.put()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#pyvex.lifting.util.instr_helper.Instruction.put_conditional"><code class="docutils literal notranslate"><span class="pre">Instruction.put_conditional()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#pyvex.lifting.util.instr_helper.Instruction.store"><code class="docutils literal notranslate"><span class="pre">Instruction.store()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#pyvex.lifting.util.instr_helper.Instruction.jump"><code class="docutils literal notranslate"><span class="pre">Instruction.jump()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#pyvex.lifting.util.instr_helper.Instruction.ite"><code class="docutils literal notranslate"><span class="pre">Instruction.ite()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#pyvex.lifting.util.instr_helper.Instruction.ccall"><code class="docutils literal notranslate"><span class="pre">Instruction.ccall()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#pyvex.lifting.util.instr_helper.Instruction.dirty"><code class="docutils literal notranslate"><span class="pre">Instruction.dirty()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#module-pyvex.lifting.zerodivision">Builtin IR Processors</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#pyvex.lifting.zerodivision.ZeroDivisionPostProcessor"><code class="docutils literal notranslate"><span class="pre">ZeroDivisionPostProcessor</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#pyvex.lifting.zerodivision.ZeroDivisionPostProcessor.postprocess"><code class="docutils literal notranslate"><span class="pre">ZeroDivisionPostProcessor.postprocess()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#module-pyvex.errors">Errors</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#pyvex.errors.PyVEXError"><code class="docutils literal notranslate"><span class="pre">PyVEXError</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#pyvex.errors.SkipStatementsError"><code class="docutils literal notranslate"><span class="pre">SkipStatementsError</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#pyvex.errors.LiftingException"><code class="docutils literal notranslate"><span class="pre">LiftingException</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#pyvex.errors.NeedStatementsNotification"><code class="docutils literal notranslate"><span class="pre">NeedStatementsNotification</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#module-pyvex.utils">Utilities</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#pyvex.utils.stable_hash"><code class="docutils literal notranslate"><span class="pre">stable_hash()</span></code></a></li>
+</ul>
+</li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="archinfo.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">archinfo</span></code> — Arch Information Repository</a></li>
@@ -330,7 +1029,7 @@ default exit are used.
 <p>An IR type environment.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Variables</dt>
-<dd class="field-odd"><p><strong>types</strong> (<em>list of str</em>) – A list of the types of all the temporaries in this block as VEX enum strings.
+<dd class="field-odd"><p><strong>types</strong> (<em>list</em><em> of </em><em>str</em>) – A list of the types of all the temporaries in this block as VEX enum strings.
 <cite>types[3]</cite> is the type of t3.</p>
 </dd>
 </dl>
@@ -1799,7 +2498,7 @@ else it is a Store-Conditional.</p>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="pyvex.const.U1.c_constructor">
-<span class="sig-name descname"><span class="pre">c_constructor</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">&lt;cdata</span> <span class="pre">'IRConst</span> <span class="pre">*(*)(unsigned</span> <span class="pre">char)'</span> <span class="pre">0x7f04283ea936&gt;</span></em><a class="headerlink" href="#pyvex.const.U1.c_constructor" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">c_constructor</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">&lt;cdata</span> <span class="pre">'IRConst</span> <span class="pre">*(*)(unsigned</span> <span class="pre">char)'</span> <span class="pre">0x7f18c70a7936&gt;</span></em><a class="headerlink" href="#pyvex.const.U1.c_constructor" title="Permalink to this definition"></a></dt>
 <dd></dd></dl>
 
 </dd></dl>
@@ -1830,7 +2529,7 @@ else it is a Store-Conditional.</p>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="pyvex.const.U8.c_constructor">
-<span class="sig-name descname"><span class="pre">c_constructor</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">&lt;cdata</span> <span class="pre">'IRConst</span> <span class="pre">*(*)(unsigned</span> <span class="pre">char)'</span> <span class="pre">0x7f04283ea9b1&gt;</span></em><a class="headerlink" href="#pyvex.const.U8.c_constructor" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">c_constructor</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">&lt;cdata</span> <span class="pre">'IRConst</span> <span class="pre">*(*)(unsigned</span> <span class="pre">char)'</span> <span class="pre">0x7f18c70a79b1&gt;</span></em><a class="headerlink" href="#pyvex.const.U8.c_constructor" title="Permalink to this definition"></a></dt>
 <dd></dd></dl>
 
 </dd></dl>
@@ -1861,7 +2560,7 @@ else it is a Store-Conditional.</p>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="pyvex.const.U16.c_constructor">
-<span class="sig-name descname"><span class="pre">c_constructor</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">&lt;cdata</span> <span class="pre">'IRConst</span> <span class="pre">*(*)(unsigned</span> <span class="pre">short)'</span> <span class="pre">0x7f04283ea9eb&gt;</span></em><a class="headerlink" href="#pyvex.const.U16.c_constructor" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">c_constructor</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">&lt;cdata</span> <span class="pre">'IRConst</span> <span class="pre">*(*)(unsigned</span> <span class="pre">short)'</span> <span class="pre">0x7f18c70a79eb&gt;</span></em><a class="headerlink" href="#pyvex.const.U16.c_constructor" title="Permalink to this definition"></a></dt>
 <dd></dd></dl>
 
 </dd></dl>
@@ -1892,7 +2591,7 @@ else it is a Store-Conditional.</p>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="pyvex.const.U32.c_constructor">
-<span class="sig-name descname"><span class="pre">c_constructor</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">&lt;cdata</span> <span class="pre">'IRConst</span> <span class="pre">*(*)(unsigned</span> <span class="pre">int)'</span> <span class="pre">0x7f04283eaa27&gt;</span></em><a class="headerlink" href="#pyvex.const.U32.c_constructor" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">c_constructor</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">&lt;cdata</span> <span class="pre">'IRConst</span> <span class="pre">*(*)(unsigned</span> <span class="pre">int)'</span> <span class="pre">0x7f18c70a7a27&gt;</span></em><a class="headerlink" href="#pyvex.const.U32.c_constructor" title="Permalink to this definition"></a></dt>
 <dd></dd></dl>
 
 </dd></dl>
@@ -1923,7 +2622,7 @@ else it is a Store-Conditional.</p>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="pyvex.const.U64.c_constructor">
-<span class="sig-name descname"><span class="pre">c_constructor</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">&lt;cdata</span> <span class="pre">'IRConst</span> <span class="pre">*(*)(unsigned</span> <span class="pre">long</span> <span class="pre">long)'</span> <span class="pre">0x7f04283eaa5e&gt;</span></em><a class="headerlink" href="#pyvex.const.U64.c_constructor" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">c_constructor</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">&lt;cdata</span> <span class="pre">'IRConst</span> <span class="pre">*(*)(unsigned</span> <span class="pre">long</span> <span class="pre">long)'</span> <span class="pre">0x7f18c70a7a5e&gt;</span></em><a class="headerlink" href="#pyvex.const.U64.c_constructor" title="Permalink to this definition"></a></dt>
 <dd></dd></dl>
 
 </dd></dl>
@@ -1954,7 +2653,7 @@ else it is a Store-Conditional.</p>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="pyvex.const.F32.c_constructor">
-<span class="sig-name descname"><span class="pre">c_constructor</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">&lt;cdata</span> <span class="pre">'IRConst</span> <span class="pre">*(*)(float)'</span> <span class="pre">0x7f04283eaa98&gt;</span></em><a class="headerlink" href="#pyvex.const.F32.c_constructor" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">c_constructor</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">&lt;cdata</span> <span class="pre">'IRConst</span> <span class="pre">*(*)(float)'</span> <span class="pre">0x7f18c70a7a98&gt;</span></em><a class="headerlink" href="#pyvex.const.F32.c_constructor" title="Permalink to this definition"></a></dt>
 <dd></dd></dl>
 
 </dd></dl>
@@ -1980,7 +2679,7 @@ else it is a Store-Conditional.</p>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="pyvex.const.F32i.c_constructor">
-<span class="sig-name descname"><span class="pre">c_constructor</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">&lt;cdata</span> <span class="pre">'IRConst</span> <span class="pre">*(*)(unsigned</span> <span class="pre">int)'</span> <span class="pre">0x7f04283eaad5&gt;</span></em><a class="headerlink" href="#pyvex.const.F32i.c_constructor" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">c_constructor</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">&lt;cdata</span> <span class="pre">'IRConst</span> <span class="pre">*(*)(unsigned</span> <span class="pre">int)'</span> <span class="pre">0x7f18c70a7ad5&gt;</span></em><a class="headerlink" href="#pyvex.const.F32i.c_constructor" title="Permalink to this definition"></a></dt>
 <dd></dd></dl>
 
 </dd></dl>
@@ -2006,7 +2705,7 @@ else it is a Store-Conditional.</p>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="pyvex.const.F64.c_constructor">
-<span class="sig-name descname"><span class="pre">c_constructor</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">&lt;cdata</span> <span class="pre">'IRConst</span> <span class="pre">*(*)(double)'</span> <span class="pre">0x7f04283eab0c&gt;</span></em><a class="headerlink" href="#pyvex.const.F64.c_constructor" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">c_constructor</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">&lt;cdata</span> <span class="pre">'IRConst</span> <span class="pre">*(*)(double)'</span> <span class="pre">0x7f18c70a7b0c&gt;</span></em><a class="headerlink" href="#pyvex.const.F64.c_constructor" title="Permalink to this definition"></a></dt>
 <dd></dd></dl>
 
 </dd></dl>
@@ -2032,7 +2731,7 @@ else it is a Store-Conditional.</p>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="pyvex.const.F64i.c_constructor">
-<span class="sig-name descname"><span class="pre">c_constructor</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">&lt;cdata</span> <span class="pre">'IRConst</span> <span class="pre">*(*)(unsigned</span> <span class="pre">long</span> <span class="pre">long)'</span> <span class="pre">0x7f04283eab49&gt;</span></em><a class="headerlink" href="#pyvex.const.F64i.c_constructor" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">c_constructor</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">&lt;cdata</span> <span class="pre">'IRConst</span> <span class="pre">*(*)(unsigned</span> <span class="pre">long</span> <span class="pre">long)'</span> <span class="pre">0x7f18c70a7b49&gt;</span></em><a class="headerlink" href="#pyvex.const.F64i.c_constructor" title="Permalink to this definition"></a></dt>
 <dd></dd></dl>
 
 </dd></dl>
@@ -2058,7 +2757,7 @@ else it is a Store-Conditional.</p>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="pyvex.const.V128.c_constructor">
-<span class="sig-name descname"><span class="pre">c_constructor</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">&lt;cdata</span> <span class="pre">'IRConst</span> <span class="pre">*(*)(unsigned</span> <span class="pre">short)'</span> <span class="pre">0x7f04283eab83&gt;</span></em><a class="headerlink" href="#pyvex.const.V128.c_constructor" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">c_constructor</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">&lt;cdata</span> <span class="pre">'IRConst</span> <span class="pre">*(*)(unsigned</span> <span class="pre">short)'</span> <span class="pre">0x7f18c70a7b83&gt;</span></em><a class="headerlink" href="#pyvex.const.V128.c_constructor" title="Permalink to this definition"></a></dt>
 <dd></dd></dl>
 
 </dd></dl>
@@ -2084,7 +2783,7 @@ else it is a Store-Conditional.</p>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="pyvex.const.V256.c_constructor">
-<span class="sig-name descname"><span class="pre">c_constructor</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">&lt;cdata</span> <span class="pre">'IRConst</span> <span class="pre">*(*)(unsigned</span> <span class="pre">int)'</span> <span class="pre">0x7f04283eabbf&gt;</span></em><a class="headerlink" href="#pyvex.const.V256.c_constructor" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">c_constructor</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">&lt;cdata</span> <span class="pre">'IRConst</span> <span class="pre">*(*)(unsigned</span> <span class="pre">int)'</span> <span class="pre">0x7f18c70a7bbf&gt;</span></em><a class="headerlink" href="#pyvex.const.V256.c_constructor" title="Permalink to this definition"></a></dt>
 <dd></dd></dl>
 
 </dd></dl>

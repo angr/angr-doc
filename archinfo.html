@@ -4,7 +4,7 @@
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>archinfo — Arch Information Repository &mdash; angr 9.2.19
+  <title>archinfo — Arch Information Repository &mdash; angr 9.2.20
  documentation</title>
       <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
@@ -17,6 +17,7 @@
         <script src="_static/underscore.js"></script>
         <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
         <script src="_static/doctools.js"></script>
+        <script src="_static/sphinx_highlight.js"></script>
     <script src="_static/js/theme.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
@@ -31,7 +32,7 @@
             <a href="index.html" class="icon icon-home"> angr
           </a>
               <div class="version">
-                9.2.19
+                9.2.20
 
               </div>
 <div role="search">
@@ -49,9 +50,550 @@
 <li class="toctree-l1"><a class="reference internal" href="cle.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">cle</span></code> — Binary Loader</a></li>
 <li class="toctree-l1"><a class="reference internal" href="pyvex.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">pyvex</span></code> — Binary Translator</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#"><code class="xref py py-mod docutils literal notranslate"><span class="pre">archinfo</span></code> — Arch Information Repository</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="#module-archinfo.arch">Architectures</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#module-archinfo.tls">Utilities</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#module-archinfo.archerror">Errors</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#module-archinfo.arch">Architectures</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#archinfo.arch.Endness"><code class="docutils literal notranslate"><span class="pre">Endness</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#archinfo.arch.Endness.LE"><code class="docutils literal notranslate"><span class="pre">Endness.LE</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#archinfo.arch.Endness.BE"><code class="docutils literal notranslate"><span class="pre">Endness.BE</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#archinfo.arch.Endness.ME"><code class="docutils literal notranslate"><span class="pre">Endness.ME</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#archinfo.arch.Register"><code class="docutils literal notranslate"><span class="pre">Register</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#archinfo.arch.Arch"><code class="docutils literal notranslate"><span class="pre">Arch</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#archinfo.arch.Arch.byte_width"><code class="docutils literal notranslate"><span class="pre">Arch.byte_width</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#archinfo.arch.Arch.elf_tls"><code class="docutils literal notranslate"><span class="pre">Arch.elf_tls</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#archinfo.arch.Arch.instruction_endness"><code class="docutils literal notranslate"><span class="pre">Arch.instruction_endness</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#archinfo.arch.Arch.copy"><code class="docutils literal notranslate"><span class="pre">Arch.copy()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#archinfo.arch.Arch.get_register_by_name"><code class="docutils literal notranslate"><span class="pre">Arch.get_register_by_name()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#archinfo.arch.Arch.get_default_reg_value"><code class="docutils literal notranslate"><span class="pre">Arch.get_default_reg_value()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#archinfo.arch.Arch.struct_fmt"><code class="docutils literal notranslate"><span class="pre">Arch.struct_fmt()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#archinfo.arch.Arch.sizeof"><code class="docutils literal notranslate"><span class="pre">Arch.sizeof</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#archinfo.arch.Arch.capstone"><code class="docutils literal notranslate"><span class="pre">Arch.capstone</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#archinfo.arch.Arch.keystone"><code class="docutils literal notranslate"><span class="pre">Arch.keystone</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#archinfo.arch.Arch.unicorn"><code class="docutils literal notranslate"><span class="pre">Arch.unicorn</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#archinfo.arch.Arch.asm"><code class="docutils literal notranslate"><span class="pre">Arch.asm()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#archinfo.arch.Arch.disasm"><code class="docutils literal notranslate"><span class="pre">Arch.disasm()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#archinfo.arch.Arch.translate_dynamic_tag"><code class="docutils literal notranslate"><span class="pre">Arch.translate_dynamic_tag()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#archinfo.arch.Arch.translate_symbol_type"><code class="docutils literal notranslate"><span class="pre">Arch.translate_symbol_type()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#archinfo.arch.Arch.translate_register_name"><code class="docutils literal notranslate"><span class="pre">Arch.translate_register_name()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#archinfo.arch.Arch.get_base_register"><code class="docutils literal notranslate"><span class="pre">Arch.get_base_register()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#archinfo.arch.Arch.get_register_offset"><code class="docutils literal notranslate"><span class="pre">Arch.get_register_offset()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#archinfo.arch.Arch.is_artificial_register"><code class="docutils literal notranslate"><span class="pre">Arch.is_artificial_register()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#archinfo.arch.Arch.library_search_path"><code class="docutils literal notranslate"><span class="pre">Arch.library_search_path()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#archinfo.arch.Arch.m_addr"><code class="docutils literal notranslate"><span class="pre">Arch.m_addr()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#archinfo.arch.Arch.x_addr"><code class="docutils literal notranslate"><span class="pre">Arch.x_addr()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#archinfo.arch.Arch.is_thumb"><code class="docutils literal notranslate"><span class="pre">Arch.is_thumb()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#archinfo.arch.Arch.vex_support"><code class="docutils literal notranslate"><span class="pre">Arch.vex_support</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#archinfo.arch.Arch.unicorn_support"><code class="docutils literal notranslate"><span class="pre">Arch.unicorn_support</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#archinfo.arch.Arch.capstone_support"><code class="docutils literal notranslate"><span class="pre">Arch.capstone_support</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#archinfo.arch.Arch.keystone_support"><code class="docutils literal notranslate"><span class="pre">Arch.keystone_support</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#archinfo.arch.Arch.address_types"><code class="docutils literal notranslate"><span class="pre">Arch.address_types</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#archinfo.arch.Arch.function_address_types"><code class="docutils literal notranslate"><span class="pre">Arch.function_address_types</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#archinfo.arch.Arch.name"><code class="docutils literal notranslate"><span class="pre">Arch.name</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#archinfo.arch.Arch.vex_arch"><code class="docutils literal notranslate"><span class="pre">Arch.vex_arch</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#archinfo.arch.Arch.qemu_name"><code class="docutils literal notranslate"><span class="pre">Arch.qemu_name</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#archinfo.arch.Arch.ida_processor"><code class="docutils literal notranslate"><span class="pre">Arch.ida_processor</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#archinfo.arch.Arch.linux_name"><code class="docutils literal notranslate"><span class="pre">Arch.linux_name</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#archinfo.arch.Arch.triplet"><code class="docutils literal notranslate"><span class="pre">Arch.triplet</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#archinfo.arch.Arch.max_inst_bytes"><code class="docutils literal notranslate"><span class="pre">Arch.max_inst_bytes</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#archinfo.arch.Arch.ret_instruction"><code class="docutils literal notranslate"><span class="pre">Arch.ret_instruction</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#archinfo.arch.Arch.nop_instruction"><code class="docutils literal notranslate"><span class="pre">Arch.nop_instruction</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#archinfo.arch.Arch.instruction_alignment"><code class="docutils literal notranslate"><span class="pre">Arch.instruction_alignment</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#archinfo.arch.Arch.ip_offset"><code class="docutils literal notranslate"><span class="pre">Arch.ip_offset</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#archinfo.arch.Arch.sp_offset"><code class="docutils literal notranslate"><span class="pre">Arch.sp_offset</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#archinfo.arch.Arch.bp_offset"><code class="docutils literal notranslate"><span class="pre">Arch.bp_offset</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#archinfo.arch.Arch.ret_offset"><code class="docutils literal notranslate"><span class="pre">Arch.ret_offset</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#archinfo.arch.Arch.lr_offset"><code class="docutils literal notranslate"><span class="pre">Arch.lr_offset</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#archinfo.arch.Arch.vex_conditional_helpers"><code class="docutils literal notranslate"><span class="pre">Arch.vex_conditional_helpers</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#archinfo.arch.Arch.bits"><code class="docutils literal notranslate"><span class="pre">Arch.bits</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#archinfo.arch.Arch.memory_endness"><code class="docutils literal notranslate"><span class="pre">Arch.memory_endness</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#archinfo.arch.Arch.register_endness"><code class="docutils literal notranslate"><span class="pre">Arch.register_endness</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#archinfo.arch.Arch.stack_change"><code class="docutils literal notranslate"><span class="pre">Arch.stack_change</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#archinfo.arch.Arch.cache_irsb"><code class="docutils literal notranslate"><span class="pre">Arch.cache_irsb</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#archinfo.arch.Arch.branch_delay_slot"><code class="docutils literal notranslate"><span class="pre">Arch.branch_delay_slot</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#archinfo.arch.Arch.function_prologs"><code class="docutils literal notranslate"><span class="pre">Arch.function_prologs</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#archinfo.arch.Arch.function_epilogs"><code class="docutils literal notranslate"><span class="pre">Arch.function_epilogs</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#archinfo.arch.Arch.cs_arch"><code class="docutils literal notranslate"><span class="pre">Arch.cs_arch</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#archinfo.arch.Arch.cs_mode"><code class="docutils literal notranslate"><span class="pre">Arch.cs_mode</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#archinfo.arch.Arch.ks_arch"><code class="docutils literal notranslate"><span class="pre">Arch.ks_arch</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#archinfo.arch.Arch.ks_mode"><code class="docutils literal notranslate"><span class="pre">Arch.ks_mode</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#archinfo.arch.Arch.uc_arch"><code class="docutils literal notranslate"><span class="pre">Arch.uc_arch</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#archinfo.arch.Arch.uc_mode"><code class="docutils literal notranslate"><span class="pre">Arch.uc_mode</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#archinfo.arch.Arch.uc_const"><code class="docutils literal notranslate"><span class="pre">Arch.uc_const</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#archinfo.arch.Arch.uc_prefix"><code class="docutils literal notranslate"><span class="pre">Arch.uc_prefix</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#archinfo.arch.Arch.uc_regs"><code class="docutils literal notranslate"><span class="pre">Arch.uc_regs</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#archinfo.arch.Arch.artificial_registers_offsets"><code class="docutils literal notranslate"><span class="pre">Arch.artificial_registers_offsets</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#archinfo.arch.Arch.artificial_registers"><code class="docutils literal notranslate"><span class="pre">Arch.artificial_registers</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#archinfo.arch.Arch.cpu_flag_register_offsets_and_bitmasks_map"><code class="docutils literal notranslate"><span class="pre">Arch.cpu_flag_register_offsets_and_bitmasks_map</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#archinfo.arch.Arch.reg_blacklist"><code class="docutils literal notranslate"><span class="pre">Arch.reg_blacklist</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#archinfo.arch.Arch.reg_blacklist_offsets"><code class="docutils literal notranslate"><span class="pre">Arch.reg_blacklist_offsets</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#archinfo.arch.Arch.vex_to_unicorn_map"><code class="docutils literal notranslate"><span class="pre">Arch.vex_to_unicorn_map</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#archinfo.arch.Arch.vex_cc_regs"><code class="docutils literal notranslate"><span class="pre">Arch.vex_cc_regs</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#archinfo.arch.Arch.call_pushes_ret"><code class="docutils literal notranslate"><span class="pre">Arch.call_pushes_ret</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#archinfo.arch.Arch.initial_sp"><code class="docutils literal notranslate"><span class="pre">Arch.initial_sp</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#archinfo.arch.Arch.call_sp_fix"><code class="docutils literal notranslate"><span class="pre">Arch.call_sp_fix</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#archinfo.arch.Arch.stack_size"><code class="docutils literal notranslate"><span class="pre">Arch.stack_size</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#archinfo.arch.Arch.register_list"><code class="docutils literal notranslate"><span class="pre">Arch.register_list</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#archinfo.arch.Arch.default_register_values"><code class="docutils literal notranslate"><span class="pre">Arch.default_register_values</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#archinfo.arch.Arch.entry_register_values"><code class="docutils literal notranslate"><span class="pre">Arch.entry_register_values</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#archinfo.arch.Arch.default_symbolic_registers"><code class="docutils literal notranslate"><span class="pre">Arch.default_symbolic_registers</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#archinfo.arch.Arch.registers"><code class="docutils literal notranslate"><span class="pre">Arch.registers</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#archinfo.arch.Arch.register_names"><code class="docutils literal notranslate"><span class="pre">Arch.register_names</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#archinfo.arch.Arch.argument_registers"><code class="docutils literal notranslate"><span class="pre">Arch.argument_registers</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#archinfo.arch.Arch.argument_register_positions"><code class="docutils literal notranslate"><span class="pre">Arch.argument_register_positions</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#archinfo.arch.Arch.persistent_regs"><code class="docutils literal notranslate"><span class="pre">Arch.persistent_regs</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#archinfo.arch.Arch.concretize_unique_registers"><code class="docutils literal notranslate"><span class="pre">Arch.concretize_unique_registers</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#archinfo.arch.Arch.lib_paths"><code class="docutils literal notranslate"><span class="pre">Arch.lib_paths</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#archinfo.arch.Arch.reloc_s_a"><code class="docutils literal notranslate"><span class="pre">Arch.reloc_s_a</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#archinfo.arch.Arch.reloc_b_a"><code class="docutils literal notranslate"><span class="pre">Arch.reloc_b_a</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#archinfo.arch.Arch.reloc_s"><code class="docutils literal notranslate"><span class="pre">Arch.reloc_s</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#archinfo.arch.Arch.reloc_copy"><code class="docutils literal notranslate"><span class="pre">Arch.reloc_copy</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#archinfo.arch.Arch.reloc_tls_mod_id"><code class="docutils literal notranslate"><span class="pre">Arch.reloc_tls_mod_id</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#archinfo.arch.Arch.reloc_tls_doffset"><code class="docutils literal notranslate"><span class="pre">Arch.reloc_tls_doffset</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#archinfo.arch.Arch.reloc_tls_offset"><code class="docutils literal notranslate"><span class="pre">Arch.reloc_tls_offset</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#archinfo.arch.Arch.dynamic_tag_translation"><code class="docutils literal notranslate"><span class="pre">Arch.dynamic_tag_translation</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#archinfo.arch.Arch.symbol_type_translation"><code class="docutils literal notranslate"><span class="pre">Arch.symbol_type_translation</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#archinfo.arch.Arch.got_section_name"><code class="docutils literal notranslate"><span class="pre">Arch.got_section_name</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#archinfo.arch.Arch.vex_archinfo"><code class="docutils literal notranslate"><span class="pre">Arch.vex_archinfo</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#archinfo.arch.register_arch"><code class="docutils literal notranslate"><span class="pre">register_arch()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#archinfo.arch.ArchNotFound"><code class="docutils literal notranslate"><span class="pre">ArchNotFound</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#archinfo.arch.arch_from_id"><code class="docutils literal notranslate"><span class="pre">arch_from_id()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#archinfo.arch.reverse_ends"><code class="docutils literal notranslate"><span class="pre">reverse_ends()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#archinfo.arch.get_host_arch"><code class="docutils literal notranslate"><span class="pre">get_host_arch()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#archinfo.arch_aarch64.ArchAArch64"><code class="docutils literal notranslate"><span class="pre">ArchAArch64</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#archinfo.arch_aarch64.ArchAArch64.bits"><code class="docutils literal notranslate"><span class="pre">ArchAArch64.bits</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#archinfo.arch_aarch64.ArchAArch64.vex_arch"><code class="docutils literal notranslate"><span class="pre">ArchAArch64.vex_arch</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#archinfo.arch_aarch64.ArchAArch64.name"><code class="docutils literal notranslate"><span class="pre">ArchAArch64.name</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#archinfo.arch_aarch64.ArchAArch64.qemu_name"><code class="docutils literal notranslate"><span class="pre">ArchAArch64.qemu_name</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#archinfo.arch_aarch64.ArchAArch64.ida_processor"><code class="docutils literal notranslate"><span class="pre">ArchAArch64.ida_processor</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#archinfo.arch_aarch64.ArchAArch64.linux_name"><code class="docutils literal notranslate"><span class="pre">ArchAArch64.linux_name</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#archinfo.arch_aarch64.ArchAArch64.triplet"><code class="docutils literal notranslate"><span class="pre">ArchAArch64.triplet</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#archinfo.arch_aarch64.ArchAArch64.max_inst_bytes"><code class="docutils literal notranslate"><span class="pre">ArchAArch64.max_inst_bytes</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#archinfo.arch_aarch64.ArchAArch64.ret_offset"><code class="docutils literal notranslate"><span class="pre">ArchAArch64.ret_offset</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#archinfo.arch_aarch64.ArchAArch64.vex_conditional_helpers"><code class="docutils literal notranslate"><span class="pre">ArchAArch64.vex_conditional_helpers</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#archinfo.arch_aarch64.ArchAArch64.syscall_num_offset"><code class="docutils literal notranslate"><span class="pre">ArchAArch64.syscall_num_offset</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#archinfo.arch_aarch64.ArchAArch64.call_pushes_ret"><code class="docutils literal notranslate"><span class="pre">ArchAArch64.call_pushes_ret</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#archinfo.arch_aarch64.ArchAArch64.stack_change"><code class="docutils literal notranslate"><span class="pre">ArchAArch64.stack_change</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#archinfo.arch_aarch64.ArchAArch64.memory_endness"><code class="docutils literal notranslate"><span class="pre">ArchAArch64.memory_endness</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#archinfo.arch_aarch64.ArchAArch64.register_endness"><code class="docutils literal notranslate"><span class="pre">ArchAArch64.register_endness</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#archinfo.arch_aarch64.ArchAArch64.instruction_endness"><code class="docutils literal notranslate"><span class="pre">ArchAArch64.instruction_endness</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#archinfo.arch_aarch64.ArchAArch64.sizeof"><code class="docutils literal notranslate"><span class="pre">ArchAArch64.sizeof</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#archinfo.arch_aarch64.ArchAArch64.cs_arch"><code class="docutils literal notranslate"><span class="pre">ArchAArch64.cs_arch</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#archinfo.arch_aarch64.ArchAArch64.cs_mode"><code class="docutils literal notranslate"><span class="pre">ArchAArch64.cs_mode</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#archinfo.arch_aarch64.ArchAArch64.uc_arch"><code class="docutils literal notranslate"><span class="pre">ArchAArch64.uc_arch</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#archinfo.arch_aarch64.ArchAArch64.uc_mode"><code class="docutils literal notranslate"><span class="pre">ArchAArch64.uc_mode</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#archinfo.arch_aarch64.ArchAArch64.uc_const"><code class="docutils literal notranslate"><span class="pre">ArchAArch64.uc_const</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#archinfo.arch_aarch64.ArchAArch64.uc_prefix"><code class="docutils literal notranslate"><span class="pre">ArchAArch64.uc_prefix</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#archinfo.arch_aarch64.ArchAArch64.initial_sp"><code class="docutils literal notranslate"><span class="pre">ArchAArch64.initial_sp</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#archinfo.arch_aarch64.ArchAArch64.ret_instruction"><code class="docutils literal notranslate"><span class="pre">ArchAArch64.ret_instruction</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#archinfo.arch_aarch64.ArchAArch64.nop_instruction"><code class="docutils literal notranslate"><span class="pre">ArchAArch64.nop_instruction</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#archinfo.arch_aarch64.ArchAArch64.function_prologs"><code class="docutils literal notranslate"><span class="pre">ArchAArch64.function_prologs</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#archinfo.arch_aarch64.ArchAArch64.function_epilogs"><code class="docutils literal notranslate"><span class="pre">ArchAArch64.function_epilogs</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#archinfo.arch_aarch64.ArchAArch64.instruction_alignment"><code class="docutils literal notranslate"><span class="pre">ArchAArch64.instruction_alignment</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#archinfo.arch_aarch64.ArchAArch64.register_list"><code class="docutils literal notranslate"><span class="pre">ArchAArch64.register_list</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#archinfo.arch_aarch64.ArchAArch64.got_section_name"><code class="docutils literal notranslate"><span class="pre">ArchAArch64.got_section_name</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#archinfo.arch_aarch64.ArchAArch64.ld_linux_name"><code class="docutils literal notranslate"><span class="pre">ArchAArch64.ld_linux_name</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#archinfo.arch_aarch64.ArchAArch64.elf_tls"><code class="docutils literal notranslate"><span class="pre">ArchAArch64.elf_tls</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#archinfo.arch_amd64.ArchAMD64"><code class="docutils literal notranslate"><span class="pre">ArchAMD64</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#archinfo.arch_amd64.ArchAMD64.capstone_x86_syntax"><code class="docutils literal notranslate"><span class="pre">ArchAMD64.capstone_x86_syntax</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#archinfo.arch_amd64.ArchAMD64.keystone_x86_syntax"><code class="docutils literal notranslate"><span class="pre">ArchAMD64.keystone_x86_syntax</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#archinfo.arch_amd64.ArchAMD64.bits"><code class="docutils literal notranslate"><span class="pre">ArchAMD64.bits</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#archinfo.arch_amd64.ArchAMD64.vex_arch"><code class="docutils literal notranslate"><span class="pre">ArchAMD64.vex_arch</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#archinfo.arch_amd64.ArchAMD64.vex_endness"><code class="docutils literal notranslate"><span class="pre">ArchAMD64.vex_endness</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#archinfo.arch_amd64.ArchAMD64.name"><code class="docutils literal notranslate"><span class="pre">ArchAMD64.name</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#archinfo.arch_amd64.ArchAMD64.qemu_name"><code class="docutils literal notranslate"><span class="pre">ArchAMD64.qemu_name</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#archinfo.arch_amd64.ArchAMD64.ida_processor"><code class="docutils literal notranslate"><span class="pre">ArchAMD64.ida_processor</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#archinfo.arch_amd64.ArchAMD64.linux_name"><code class="docutils literal notranslate"><span class="pre">ArchAMD64.linux_name</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#archinfo.arch_amd64.ArchAMD64.triplet"><code class="docutils literal notranslate"><span class="pre">ArchAMD64.triplet</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#archinfo.arch_amd64.ArchAMD64.max_inst_bytes"><code class="docutils literal notranslate"><span class="pre">ArchAMD64.max_inst_bytes</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#archinfo.arch_amd64.ArchAMD64.ret_offset"><code class="docutils literal notranslate"><span class="pre">ArchAMD64.ret_offset</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#archinfo.arch_amd64.ArchAMD64.vex_conditional_helpers"><code class="docutils literal notranslate"><span class="pre">ArchAMD64.vex_conditional_helpers</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#archinfo.arch_amd64.ArchAMD64.syscall_num_offset"><code class="docutils literal notranslate"><span class="pre">ArchAMD64.syscall_num_offset</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#archinfo.arch_amd64.ArchAMD64.call_pushes_ret"><code class="docutils literal notranslate"><span class="pre">ArchAMD64.call_pushes_ret</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#archinfo.arch_amd64.ArchAMD64.stack_change"><code class="docutils literal notranslate"><span class="pre">ArchAMD64.stack_change</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#archinfo.arch_amd64.ArchAMD64.initial_sp"><code class="docutils literal notranslate"><span class="pre">ArchAMD64.initial_sp</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#archinfo.arch_amd64.ArchAMD64.call_sp_fix"><code class="docutils literal notranslate"><span class="pre">ArchAMD64.call_sp_fix</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#archinfo.arch_amd64.ArchAMD64.memory_endness"><code class="docutils literal notranslate"><span class="pre">ArchAMD64.memory_endness</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#archinfo.arch_amd64.ArchAMD64.register_endness"><code class="docutils literal notranslate"><span class="pre">ArchAMD64.register_endness</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#archinfo.arch_amd64.ArchAMD64.sizeof"><code class="docutils literal notranslate"><span class="pre">ArchAMD64.sizeof</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#archinfo.arch_amd64.ArchAMD64.cs_arch"><code class="docutils literal notranslate"><span class="pre">ArchAMD64.cs_arch</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#archinfo.arch_amd64.ArchAMD64.cs_mode"><code class="docutils literal notranslate"><span class="pre">ArchAMD64.cs_mode</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#archinfo.arch_amd64.ArchAMD64.uc_arch"><code class="docutils literal notranslate"><span class="pre">ArchAMD64.uc_arch</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#archinfo.arch_amd64.ArchAMD64.uc_mode"><code class="docutils literal notranslate"><span class="pre">ArchAMD64.uc_mode</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#archinfo.arch_amd64.ArchAMD64.uc_const"><code class="docutils literal notranslate"><span class="pre">ArchAMD64.uc_const</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#archinfo.arch_amd64.ArchAMD64.uc_prefix"><code class="docutils literal notranslate"><span class="pre">ArchAMD64.uc_prefix</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#archinfo.arch_amd64.ArchAMD64.function_prologs"><code class="docutils literal notranslate"><span class="pre">ArchAMD64.function_prologs</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#archinfo.arch_amd64.ArchAMD64.function_epilogs"><code class="docutils literal notranslate"><span class="pre">ArchAMD64.function_epilogs</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#archinfo.arch_amd64.ArchAMD64.ret_instruction"><code class="docutils literal notranslate"><span class="pre">ArchAMD64.ret_instruction</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#archinfo.arch_amd64.ArchAMD64.nop_instruction"><code class="docutils literal notranslate"><span class="pre">ArchAMD64.nop_instruction</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#archinfo.arch_amd64.ArchAMD64.instruction_alignment"><code class="docutils literal notranslate"><span class="pre">ArchAMD64.instruction_alignment</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#archinfo.arch_amd64.ArchAMD64.register_list"><code class="docutils literal notranslate"><span class="pre">ArchAMD64.register_list</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#archinfo.arch_amd64.ArchAMD64.symbol_type_translation"><code class="docutils literal notranslate"><span class="pre">ArchAMD64.symbol_type_translation</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#archinfo.arch_amd64.ArchAMD64.got_section_name"><code class="docutils literal notranslate"><span class="pre">ArchAMD64.got_section_name</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#archinfo.arch_amd64.ArchAMD64.ld_linux_name"><code class="docutils literal notranslate"><span class="pre">ArchAMD64.ld_linux_name</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#archinfo.arch_amd64.ArchAMD64.elf_tls"><code class="docutils literal notranslate"><span class="pre">ArchAMD64.elf_tls</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#archinfo.arch_arm.is_arm_arch"><code class="docutils literal notranslate"><span class="pre">is_arm_arch()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#archinfo.arch_arm.get_real_address_if_arm"><code class="docutils literal notranslate"><span class="pre">get_real_address_if_arm()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#archinfo.arch_arm.ArchARM"><code class="docutils literal notranslate"><span class="pre">ArchARM</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#archinfo.arch_arm.ArchARM.capstone_thumb"><code class="docutils literal notranslate"><span class="pre">ArchARM.capstone_thumb</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#archinfo.arch_arm.ArchARM.keystone_thumb"><code class="docutils literal notranslate"><span class="pre">ArchARM.keystone_thumb</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#archinfo.arch_arm.ArchARM.unicorn_thumb"><code class="docutils literal notranslate"><span class="pre">ArchARM.unicorn_thumb</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#archinfo.arch_arm.ArchARM.m_addr"><code class="docutils literal notranslate"><span class="pre">ArchARM.m_addr()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#archinfo.arch_arm.ArchARM.x_addr"><code class="docutils literal notranslate"><span class="pre">ArchARM.x_addr()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#archinfo.arch_arm.ArchARM.is_thumb"><code class="docutils literal notranslate"><span class="pre">ArchARM.is_thumb()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#archinfo.arch_arm.ArchARM.bits"><code class="docutils literal notranslate"><span class="pre">ArchARM.bits</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#archinfo.arch_arm.ArchARM.vex_arch"><code class="docutils literal notranslate"><span class="pre">ArchARM.vex_arch</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#archinfo.arch_arm.ArchARM.name"><code class="docutils literal notranslate"><span class="pre">ArchARM.name</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#archinfo.arch_arm.ArchARM.qemu_name"><code class="docutils literal notranslate"><span class="pre">ArchARM.qemu_name</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#archinfo.arch_arm.ArchARM.ida_processor"><code class="docutils literal notranslate"><span class="pre">ArchARM.ida_processor</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#archinfo.arch_arm.ArchARM.linux_name"><code class="docutils literal notranslate"><span class="pre">ArchARM.linux_name</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#archinfo.arch_arm.ArchARM.triplet"><code class="docutils literal notranslate"><span class="pre">ArchARM.triplet</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#archinfo.arch_arm.ArchARM.max_inst_bytes"><code class="docutils literal notranslate"><span class="pre">ArchARM.max_inst_bytes</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#archinfo.arch_arm.ArchARM.ret_offset"><code class="docutils literal notranslate"><span class="pre">ArchARM.ret_offset</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#archinfo.arch_arm.ArchARM.vex_conditional_helpers"><code class="docutils literal notranslate"><span class="pre">ArchARM.vex_conditional_helpers</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#archinfo.arch_arm.ArchARM.syscall_num_offset"><code class="docutils literal notranslate"><span class="pre">ArchARM.syscall_num_offset</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#archinfo.arch_arm.ArchARM.call_pushes_ret"><code class="docutils literal notranslate"><span class="pre">ArchARM.call_pushes_ret</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#archinfo.arch_arm.ArchARM.stack_change"><code class="docutils literal notranslate"><span class="pre">ArchARM.stack_change</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#archinfo.arch_arm.ArchARM.memory_endness"><code class="docutils literal notranslate"><span class="pre">ArchARM.memory_endness</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#archinfo.arch_arm.ArchARM.register_endness"><code class="docutils literal notranslate"><span class="pre">ArchARM.register_endness</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#archinfo.arch_arm.ArchARM.sizeof"><code class="docutils literal notranslate"><span class="pre">ArchARM.sizeof</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#archinfo.arch_arm.ArchARM.cs_arch"><code class="docutils literal notranslate"><span class="pre">ArchARM.cs_arch</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#archinfo.arch_arm.ArchARM.cs_mode"><code class="docutils literal notranslate"><span class="pre">ArchARM.cs_mode</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#archinfo.arch_arm.ArchARM.uc_arch"><code class="docutils literal notranslate"><span class="pre">ArchARM.uc_arch</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#archinfo.arch_arm.ArchARM.uc_mode"><code class="docutils literal notranslate"><span class="pre">ArchARM.uc_mode</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#archinfo.arch_arm.ArchARM.uc_mode_thumb"><code class="docutils literal notranslate"><span class="pre">ArchARM.uc_mode_thumb</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#archinfo.arch_arm.ArchARM.uc_const"><code class="docutils literal notranslate"><span class="pre">ArchARM.uc_const</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#archinfo.arch_arm.ArchARM.uc_prefix"><code class="docutils literal notranslate"><span class="pre">ArchARM.uc_prefix</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#archinfo.arch_arm.ArchARM.ret_instruction"><code class="docutils literal notranslate"><span class="pre">ArchARM.ret_instruction</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#archinfo.arch_arm.ArchARM.nop_instruction"><code class="docutils literal notranslate"><span class="pre">ArchARM.nop_instruction</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#archinfo.arch_arm.ArchARM.function_prologs"><code class="docutils literal notranslate"><span class="pre">ArchARM.function_prologs</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#archinfo.arch_arm.ArchARM.thumb_prologs"><code class="docutils literal notranslate"><span class="pre">ArchARM.thumb_prologs</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#archinfo.arch_arm.ArchARM.function_epilogs"><code class="docutils literal notranslate"><span class="pre">ArchARM.function_epilogs</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#archinfo.arch_arm.ArchARM.instruction_alignment"><code class="docutils literal notranslate"><span class="pre">ArchARM.instruction_alignment</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#archinfo.arch_arm.ArchARM.register_list"><code class="docutils literal notranslate"><span class="pre">ArchARM.register_list</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#archinfo.arch_arm.ArchARM.got_section_name"><code class="docutils literal notranslate"><span class="pre">ArchARM.got_section_name</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#archinfo.arch_arm.ArchARM.ld_linux_name"><code class="docutils literal notranslate"><span class="pre">ArchARM.ld_linux_name</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#archinfo.arch_arm.ArchARM.elf_tls"><code class="docutils literal notranslate"><span class="pre">ArchARM.elf_tls</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#archinfo.arch_arm.ArchARMHF"><code class="docutils literal notranslate"><span class="pre">ArchARMHF</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#archinfo.arch_arm.ArchARMHF.name"><code class="docutils literal notranslate"><span class="pre">ArchARMHF.name</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#archinfo.arch_arm.ArchARMHF.triplet"><code class="docutils literal notranslate"><span class="pre">ArchARMHF.triplet</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#archinfo.arch_arm.ArchARMHF.ld_linux_name"><code class="docutils literal notranslate"><span class="pre">ArchARMHF.ld_linux_name</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#archinfo.arch_arm.ArchARMEL"><code class="docutils literal notranslate"><span class="pre">ArchARMEL</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#archinfo.arch_arm.ArchARMEL.name"><code class="docutils literal notranslate"><span class="pre">ArchARMEL.name</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#archinfo.arch_arm.ArchARMEL.triplet"><code class="docutils literal notranslate"><span class="pre">ArchARMEL.triplet</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#archinfo.arch_arm.ArchARMEL.ld_linux_name"><code class="docutils literal notranslate"><span class="pre">ArchARMEL.ld_linux_name</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#archinfo.arch_arm.ArchARMEL.elf_tls"><code class="docutils literal notranslate"><span class="pre">ArchARMEL.elf_tls</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#archinfo.arch_arm.ArchARMCortexM"><code class="docutils literal notranslate"><span class="pre">ArchARMCortexM</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#archinfo.arch_arm.ArchARMCortexM.name"><code class="docutils literal notranslate"><span class="pre">ArchARMCortexM.name</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#archinfo.arch_arm.ArchARMCortexM.triplet"><code class="docutils literal notranslate"><span class="pre">ArchARMCortexM.triplet</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#archinfo.arch_arm.ArchARMCortexM.function_prologs"><code class="docutils literal notranslate"><span class="pre">ArchARMCortexM.function_prologs</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#archinfo.arch_arm.ArchARMCortexM.thumb_prologs"><code class="docutils literal notranslate"><span class="pre">ArchARMCortexM.thumb_prologs</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#archinfo.arch_arm.ArchARMCortexM.function_epilogs"><code class="docutils literal notranslate"><span class="pre">ArchARMCortexM.function_epilogs</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#archinfo.arch_arm.ArchARMCortexM.register_list"><code class="docutils literal notranslate"><span class="pre">ArchARMCortexM.register_list</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#archinfo.arch_arm.ArchARMCortexM.cs_arch"><code class="docutils literal notranslate"><span class="pre">ArchARMCortexM.cs_arch</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#archinfo.arch_arm.ArchARMCortexM.cs_mode"><code class="docutils literal notranslate"><span class="pre">ArchARMCortexM.cs_mode</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#archinfo.arch_arm.ArchARMCortexM.uc_arch"><code class="docutils literal notranslate"><span class="pre">ArchARMCortexM.uc_arch</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#archinfo.arch_arm.ArchARMCortexM.uc_mode"><code class="docutils literal notranslate"><span class="pre">ArchARMCortexM.uc_mode</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#archinfo.arch_arm.ArchARMCortexM.uc_mode_thumb"><code class="docutils literal notranslate"><span class="pre">ArchARMCortexM.uc_mode_thumb</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#archinfo.arch_arm.ArchARMCortexM.capstone_thumb"><code class="docutils literal notranslate"><span class="pre">ArchARMCortexM.capstone_thumb</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#archinfo.arch_arm.ArchARMCortexM.keystone_thumb"><code class="docutils literal notranslate"><span class="pre">ArchARMCortexM.keystone_thumb</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#archinfo.arch_avr.ArchAVR8"><code class="docutils literal notranslate"><span class="pre">ArchAVR8</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#archinfo.arch_avr.ArchAVR8.bits"><code class="docutils literal notranslate"><span class="pre">ArchAVR8.bits</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#archinfo.arch_avr.ArchAVR8.vex_arch"><code class="docutils literal notranslate"><span class="pre">ArchAVR8.vex_arch</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#archinfo.arch_avr.ArchAVR8.name"><code class="docutils literal notranslate"><span class="pre">ArchAVR8.name</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#archinfo.arch_avr.ArchAVR8.qemu_name"><code class="docutils literal notranslate"><span class="pre">ArchAVR8.qemu_name</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#archinfo.arch_avr.ArchAVR8.linux_name"><code class="docutils literal notranslate"><span class="pre">ArchAVR8.linux_name</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#archinfo.arch_avr.ArchAVR8.triplet"><code class="docutils literal notranslate"><span class="pre">ArchAVR8.triplet</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#archinfo.arch_avr.ArchAVR8.max_inst_bytes"><code class="docutils literal notranslate"><span class="pre">ArchAVR8.max_inst_bytes</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#archinfo.arch_avr.ArchAVR8.instruction_alignment"><code class="docutils literal notranslate"><span class="pre">ArchAVR8.instruction_alignment</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#archinfo.arch_avr.ArchAVR8.elf_tls"><code class="docutils literal notranslate"><span class="pre">ArchAVR8.elf_tls</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#archinfo.arch_mips32.ArchMIPS32"><code class="docutils literal notranslate"><span class="pre">ArchMIPS32</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#archinfo.arch_mips32.ArchMIPS32.bits"><code class="docutils literal notranslate"><span class="pre">ArchMIPS32.bits</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#archinfo.arch_mips32.ArchMIPS32.vex_arch"><code class="docutils literal notranslate"><span class="pre">ArchMIPS32.vex_arch</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#archinfo.arch_mips32.ArchMIPS32.name"><code class="docutils literal notranslate"><span class="pre">ArchMIPS32.name</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#archinfo.arch_mips32.ArchMIPS32.ida_processor"><code class="docutils literal notranslate"><span class="pre">ArchMIPS32.ida_processor</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#archinfo.arch_mips32.ArchMIPS32.qemu_name"><code class="docutils literal notranslate"><span class="pre">ArchMIPS32.qemu_name</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#archinfo.arch_mips32.ArchMIPS32.linux_name"><code class="docutils literal notranslate"><span class="pre">ArchMIPS32.linux_name</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#archinfo.arch_mips32.ArchMIPS32.triplet"><code class="docutils literal notranslate"><span class="pre">ArchMIPS32.triplet</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#archinfo.arch_mips32.ArchMIPS32.max_inst_bytes"><code class="docutils literal notranslate"><span class="pre">ArchMIPS32.max_inst_bytes</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#archinfo.arch_mips32.ArchMIPS32.ret_offset"><code class="docutils literal notranslate"><span class="pre">ArchMIPS32.ret_offset</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#archinfo.arch_mips32.ArchMIPS32.syscall_num_offset"><code class="docutils literal notranslate"><span class="pre">ArchMIPS32.syscall_num_offset</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#archinfo.arch_mips32.ArchMIPS32.call_pushes_ret"><code class="docutils literal notranslate"><span class="pre">ArchMIPS32.call_pushes_ret</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#archinfo.arch_mips32.ArchMIPS32.stack_change"><code class="docutils literal notranslate"><span class="pre">ArchMIPS32.stack_change</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#archinfo.arch_mips32.ArchMIPS32.branch_delay_slot"><code class="docutils literal notranslate"><span class="pre">ArchMIPS32.branch_delay_slot</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#archinfo.arch_mips32.ArchMIPS32.sizeof"><code class="docutils literal notranslate"><span class="pre">ArchMIPS32.sizeof</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#archinfo.arch_mips32.ArchMIPS32.cs_arch"><code class="docutils literal notranslate"><span class="pre">ArchMIPS32.cs_arch</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#archinfo.arch_mips32.ArchMIPS32.cs_mode"><code class="docutils literal notranslate"><span class="pre">ArchMIPS32.cs_mode</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#archinfo.arch_mips32.ArchMIPS32.uc_arch"><code class="docutils literal notranslate"><span class="pre">ArchMIPS32.uc_arch</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#archinfo.arch_mips32.ArchMIPS32.uc_mode"><code class="docutils literal notranslate"><span class="pre">ArchMIPS32.uc_mode</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#archinfo.arch_mips32.ArchMIPS32.uc_const"><code class="docutils literal notranslate"><span class="pre">ArchMIPS32.uc_const</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#archinfo.arch_mips32.ArchMIPS32.uc_prefix"><code class="docutils literal notranslate"><span class="pre">ArchMIPS32.uc_prefix</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#archinfo.arch_mips32.ArchMIPS32.function_prologs"><code class="docutils literal notranslate"><span class="pre">ArchMIPS32.function_prologs</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#archinfo.arch_mips32.ArchMIPS32.function_epilogs"><code class="docutils literal notranslate"><span class="pre">ArchMIPS32.function_epilogs</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#archinfo.arch_mips32.ArchMIPS32.ret_instruction"><code class="docutils literal notranslate"><span class="pre">ArchMIPS32.ret_instruction</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#archinfo.arch_mips32.ArchMIPS32.nop_instruction"><code class="docutils literal notranslate"><span class="pre">ArchMIPS32.nop_instruction</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#archinfo.arch_mips32.ArchMIPS32.instruction_alignment"><code class="docutils literal notranslate"><span class="pre">ArchMIPS32.instruction_alignment</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#archinfo.arch_mips32.ArchMIPS32.register_list"><code class="docutils literal notranslate"><span class="pre">ArchMIPS32.register_list</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#archinfo.arch_mips32.ArchMIPS32.dynamic_tag_translation"><code class="docutils literal notranslate"><span class="pre">ArchMIPS32.dynamic_tag_translation</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#archinfo.arch_mips32.ArchMIPS32.got_section_name"><code class="docutils literal notranslate"><span class="pre">ArchMIPS32.got_section_name</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#archinfo.arch_mips32.ArchMIPS32.ld_linux_name"><code class="docutils literal notranslate"><span class="pre">ArchMIPS32.ld_linux_name</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#archinfo.arch_mips32.ArchMIPS32.elf_tls"><code class="docutils literal notranslate"><span class="pre">ArchMIPS32.elf_tls</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#archinfo.arch_mips64.ArchMIPS64"><code class="docutils literal notranslate"><span class="pre">ArchMIPS64</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#archinfo.arch_mips64.ArchMIPS64.bits"><code class="docutils literal notranslate"><span class="pre">ArchMIPS64.bits</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#archinfo.arch_mips64.ArchMIPS64.vex_arch"><code class="docutils literal notranslate"><span class="pre">ArchMIPS64.vex_arch</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#archinfo.arch_mips64.ArchMIPS64.name"><code class="docutils literal notranslate"><span class="pre">ArchMIPS64.name</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#archinfo.arch_mips64.ArchMIPS64.qemu_name"><code class="docutils literal notranslate"><span class="pre">ArchMIPS64.qemu_name</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#archinfo.arch_mips64.ArchMIPS64.ida_processor"><code class="docutils literal notranslate"><span class="pre">ArchMIPS64.ida_processor</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#archinfo.arch_mips64.ArchMIPS64.linux_name"><code class="docutils literal notranslate"><span class="pre">ArchMIPS64.linux_name</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#archinfo.arch_mips64.ArchMIPS64.triplet"><code class="docutils literal notranslate"><span class="pre">ArchMIPS64.triplet</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#archinfo.arch_mips64.ArchMIPS64.max_inst_bytes"><code class="docutils literal notranslate"><span class="pre">ArchMIPS64.max_inst_bytes</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#archinfo.arch_mips64.ArchMIPS64.ret_offset"><code class="docutils literal notranslate"><span class="pre">ArchMIPS64.ret_offset</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#archinfo.arch_mips64.ArchMIPS64.syscall_register_offset"><code class="docutils literal notranslate"><span class="pre">ArchMIPS64.syscall_register_offset</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#archinfo.arch_mips64.ArchMIPS64.call_pushes_ret"><code class="docutils literal notranslate"><span class="pre">ArchMIPS64.call_pushes_ret</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#archinfo.arch_mips64.ArchMIPS64.stack_change"><code class="docutils literal notranslate"><span class="pre">ArchMIPS64.stack_change</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#archinfo.arch_mips64.ArchMIPS64.branch_delay_slot"><code class="docutils literal notranslate"><span class="pre">ArchMIPS64.branch_delay_slot</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#archinfo.arch_mips64.ArchMIPS64.sizeof"><code class="docutils literal notranslate"><span class="pre">ArchMIPS64.sizeof</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#archinfo.arch_mips64.ArchMIPS64.cs_arch"><code class="docutils literal notranslate"><span class="pre">ArchMIPS64.cs_arch</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#archinfo.arch_mips64.ArchMIPS64.cs_mode"><code class="docutils literal notranslate"><span class="pre">ArchMIPS64.cs_mode</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#archinfo.arch_mips64.ArchMIPS64.uc_arch"><code class="docutils literal notranslate"><span class="pre">ArchMIPS64.uc_arch</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#archinfo.arch_mips64.ArchMIPS64.uc_mode"><code class="docutils literal notranslate"><span class="pre">ArchMIPS64.uc_mode</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#archinfo.arch_mips64.ArchMIPS64.uc_const"><code class="docutils literal notranslate"><span class="pre">ArchMIPS64.uc_const</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#archinfo.arch_mips64.ArchMIPS64.uc_prefix"><code class="docutils literal notranslate"><span class="pre">ArchMIPS64.uc_prefix</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#archinfo.arch_mips64.ArchMIPS64.function_prologs"><code class="docutils literal notranslate"><span class="pre">ArchMIPS64.function_prologs</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#archinfo.arch_mips64.ArchMIPS64.function_epilogs"><code class="docutils literal notranslate"><span class="pre">ArchMIPS64.function_epilogs</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#archinfo.arch_mips64.ArchMIPS64.ret_instruction"><code class="docutils literal notranslate"><span class="pre">ArchMIPS64.ret_instruction</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#archinfo.arch_mips64.ArchMIPS64.nop_instruction"><code class="docutils literal notranslate"><span class="pre">ArchMIPS64.nop_instruction</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#archinfo.arch_mips64.ArchMIPS64.instruction_alignment"><code class="docutils literal notranslate"><span class="pre">ArchMIPS64.instruction_alignment</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#archinfo.arch_mips64.ArchMIPS64.register_list"><code class="docutils literal notranslate"><span class="pre">ArchMIPS64.register_list</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#archinfo.arch_mips64.ArchMIPS64.dynamic_tag_translation"><code class="docutils literal notranslate"><span class="pre">ArchMIPS64.dynamic_tag_translation</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#archinfo.arch_mips64.ArchMIPS64.got_section_name"><code class="docutils literal notranslate"><span class="pre">ArchMIPS64.got_section_name</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#archinfo.arch_mips64.ArchMIPS64.ld_linux_name"><code class="docutils literal notranslate"><span class="pre">ArchMIPS64.ld_linux_name</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#archinfo.arch_mips64.ArchMIPS64.elf_tls"><code class="docutils literal notranslate"><span class="pre">ArchMIPS64.elf_tls</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#archinfo.arch_ppc32.ArchPPC32"><code class="docutils literal notranslate"><span class="pre">ArchPPC32</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#archinfo.arch_ppc32.ArchPPC32.bits"><code class="docutils literal notranslate"><span class="pre">ArchPPC32.bits</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#archinfo.arch_ppc32.ArchPPC32.vex_arch"><code class="docutils literal notranslate"><span class="pre">ArchPPC32.vex_arch</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#archinfo.arch_ppc32.ArchPPC32.name"><code class="docutils literal notranslate"><span class="pre">ArchPPC32.name</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#archinfo.arch_ppc32.ArchPPC32.qemu_name"><code class="docutils literal notranslate"><span class="pre">ArchPPC32.qemu_name</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#archinfo.arch_ppc32.ArchPPC32.ida_processor"><code class="docutils literal notranslate"><span class="pre">ArchPPC32.ida_processor</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#archinfo.arch_ppc32.ArchPPC32.linux_name"><code class="docutils literal notranslate"><span class="pre">ArchPPC32.linux_name</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#archinfo.arch_ppc32.ArchPPC32.triplet"><code class="docutils literal notranslate"><span class="pre">ArchPPC32.triplet</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#archinfo.arch_ppc32.ArchPPC32.max_inst_bytes"><code class="docutils literal notranslate"><span class="pre">ArchPPC32.max_inst_bytes</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#archinfo.arch_ppc32.ArchPPC32.ret_offset"><code class="docutils literal notranslate"><span class="pre">ArchPPC32.ret_offset</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#archinfo.arch_ppc32.ArchPPC32.syscall_num_offset"><code class="docutils literal notranslate"><span class="pre">ArchPPC32.syscall_num_offset</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#archinfo.arch_ppc32.ArchPPC32.call_pushes_ret"><code class="docutils literal notranslate"><span class="pre">ArchPPC32.call_pushes_ret</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#archinfo.arch_ppc32.ArchPPC32.stack_change"><code class="docutils literal notranslate"><span class="pre">ArchPPC32.stack_change</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#archinfo.arch_ppc32.ArchPPC32.sizeof"><code class="docutils literal notranslate"><span class="pre">ArchPPC32.sizeof</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#archinfo.arch_ppc32.ArchPPC32.cs_arch"><code class="docutils literal notranslate"><span class="pre">ArchPPC32.cs_arch</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#archinfo.arch_ppc32.ArchPPC32.cs_mode"><code class="docutils literal notranslate"><span class="pre">ArchPPC32.cs_mode</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#archinfo.arch_ppc32.ArchPPC32.ret_instruction"><code class="docutils literal notranslate"><span class="pre">ArchPPC32.ret_instruction</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#archinfo.arch_ppc32.ArchPPC32.nop_instruction"><code class="docutils literal notranslate"><span class="pre">ArchPPC32.nop_instruction</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#archinfo.arch_ppc32.ArchPPC32.instruction_alignment"><code class="docutils literal notranslate"><span class="pre">ArchPPC32.instruction_alignment</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#archinfo.arch_ppc32.ArchPPC32.register_list"><code class="docutils literal notranslate"><span class="pre">ArchPPC32.register_list</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#archinfo.arch_ppc32.ArchPPC32.function_prologs"><code class="docutils literal notranslate"><span class="pre">ArchPPC32.function_prologs</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#archinfo.arch_ppc32.ArchPPC32.function_epilogs"><code class="docutils literal notranslate"><span class="pre">ArchPPC32.function_epilogs</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#archinfo.arch_ppc32.ArchPPC32.got_section_name"><code class="docutils literal notranslate"><span class="pre">ArchPPC32.got_section_name</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#archinfo.arch_ppc32.ArchPPC32.ld_linux_name"><code class="docutils literal notranslate"><span class="pre">ArchPPC32.ld_linux_name</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#archinfo.arch_ppc32.ArchPPC32.elf_tls"><code class="docutils literal notranslate"><span class="pre">ArchPPC32.elf_tls</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#archinfo.arch_ppc64.ArchPPC64"><code class="docutils literal notranslate"><span class="pre">ArchPPC64</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#archinfo.arch_ppc64.ArchPPC64.bits"><code class="docutils literal notranslate"><span class="pre">ArchPPC64.bits</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#archinfo.arch_ppc64.ArchPPC64.vex_arch"><code class="docutils literal notranslate"><span class="pre">ArchPPC64.vex_arch</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#archinfo.arch_ppc64.ArchPPC64.name"><code class="docutils literal notranslate"><span class="pre">ArchPPC64.name</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#archinfo.arch_ppc64.ArchPPC64.qemu_name"><code class="docutils literal notranslate"><span class="pre">ArchPPC64.qemu_name</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#archinfo.arch_ppc64.ArchPPC64.ida_processor"><code class="docutils literal notranslate"><span class="pre">ArchPPC64.ida_processor</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#archinfo.arch_ppc64.ArchPPC64.triplet"><code class="docutils literal notranslate"><span class="pre">ArchPPC64.triplet</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#archinfo.arch_ppc64.ArchPPC64.linux_name"><code class="docutils literal notranslate"><span class="pre">ArchPPC64.linux_name</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#archinfo.arch_ppc64.ArchPPC64.max_inst_bytes"><code class="docutils literal notranslate"><span class="pre">ArchPPC64.max_inst_bytes</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#archinfo.arch_ppc64.ArchPPC64.ret_offset"><code class="docutils literal notranslate"><span class="pre">ArchPPC64.ret_offset</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#archinfo.arch_ppc64.ArchPPC64.syscall_num_offset"><code class="docutils literal notranslate"><span class="pre">ArchPPC64.syscall_num_offset</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#archinfo.arch_ppc64.ArchPPC64.call_pushes_ret"><code class="docutils literal notranslate"><span class="pre">ArchPPC64.call_pushes_ret</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#archinfo.arch_ppc64.ArchPPC64.stack_change"><code class="docutils literal notranslate"><span class="pre">ArchPPC64.stack_change</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#archinfo.arch_ppc64.ArchPPC64.initial_sp"><code class="docutils literal notranslate"><span class="pre">ArchPPC64.initial_sp</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#archinfo.arch_ppc64.ArchPPC64.sizeof"><code class="docutils literal notranslate"><span class="pre">ArchPPC64.sizeof</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#archinfo.arch_ppc64.ArchPPC64.cs_arch"><code class="docutils literal notranslate"><span class="pre">ArchPPC64.cs_arch</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#archinfo.arch_ppc64.ArchPPC64.cs_mode"><code class="docutils literal notranslate"><span class="pre">ArchPPC64.cs_mode</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#archinfo.arch_ppc64.ArchPPC64.ret_instruction"><code class="docutils literal notranslate"><span class="pre">ArchPPC64.ret_instruction</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#archinfo.arch_ppc64.ArchPPC64.nop_instruction"><code class="docutils literal notranslate"><span class="pre">ArchPPC64.nop_instruction</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#archinfo.arch_ppc64.ArchPPC64.instruction_alignment"><code class="docutils literal notranslate"><span class="pre">ArchPPC64.instruction_alignment</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#archinfo.arch_ppc64.ArchPPC64.register_list"><code class="docutils literal notranslate"><span class="pre">ArchPPC64.register_list</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#archinfo.arch_ppc64.ArchPPC64.dynamic_tag_translation"><code class="docutils literal notranslate"><span class="pre">ArchPPC64.dynamic_tag_translation</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#archinfo.arch_ppc64.ArchPPC64.function_prologs"><code class="docutils literal notranslate"><span class="pre">ArchPPC64.function_prologs</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#archinfo.arch_ppc64.ArchPPC64.function_epilogs"><code class="docutils literal notranslate"><span class="pre">ArchPPC64.function_epilogs</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#archinfo.arch_ppc64.ArchPPC64.got_section_name"><code class="docutils literal notranslate"><span class="pre">ArchPPC64.got_section_name</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#archinfo.arch_ppc64.ArchPPC64.ld_linux_name"><code class="docutils literal notranslate"><span class="pre">ArchPPC64.ld_linux_name</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#archinfo.arch_ppc64.ArchPPC64.elf_tls"><code class="docutils literal notranslate"><span class="pre">ArchPPC64.elf_tls</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#archinfo.arch_x86.ArchX86"><code class="docutils literal notranslate"><span class="pre">ArchX86</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#archinfo.arch_x86.ArchX86.capstone_x86_syntax"><code class="docutils literal notranslate"><span class="pre">ArchX86.capstone_x86_syntax</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#archinfo.arch_x86.ArchX86.keystone_x86_syntax"><code class="docutils literal notranslate"><span class="pre">ArchX86.keystone_x86_syntax</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#archinfo.arch_x86.ArchX86.bits"><code class="docutils literal notranslate"><span class="pre">ArchX86.bits</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#archinfo.arch_x86.ArchX86.vex_arch"><code class="docutils literal notranslate"><span class="pre">ArchX86.vex_arch</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#archinfo.arch_x86.ArchX86.name"><code class="docutils literal notranslate"><span class="pre">ArchX86.name</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#archinfo.arch_x86.ArchX86.qemu_name"><code class="docutils literal notranslate"><span class="pre">ArchX86.qemu_name</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#archinfo.arch_x86.ArchX86.ida_processor"><code class="docutils literal notranslate"><span class="pre">ArchX86.ida_processor</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#archinfo.arch_x86.ArchX86.linux_name"><code class="docutils literal notranslate"><span class="pre">ArchX86.linux_name</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#archinfo.arch_x86.ArchX86.triplet"><code class="docutils literal notranslate"><span class="pre">ArchX86.triplet</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#archinfo.arch_x86.ArchX86.max_inst_bytes"><code class="docutils literal notranslate"><span class="pre">ArchX86.max_inst_bytes</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#archinfo.arch_x86.ArchX86.call_sp_fix"><code class="docutils literal notranslate"><span class="pre">ArchX86.call_sp_fix</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#archinfo.arch_x86.ArchX86.ret_offset"><code class="docutils literal notranslate"><span class="pre">ArchX86.ret_offset</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#archinfo.arch_x86.ArchX86.vex_conditional_helpers"><code class="docutils literal notranslate"><span class="pre">ArchX86.vex_conditional_helpers</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#archinfo.arch_x86.ArchX86.syscall_num_offset"><code class="docutils literal notranslate"><span class="pre">ArchX86.syscall_num_offset</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#archinfo.arch_x86.ArchX86.call_pushes_ret"><code class="docutils literal notranslate"><span class="pre">ArchX86.call_pushes_ret</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#archinfo.arch_x86.ArchX86.stack_change"><code class="docutils literal notranslate"><span class="pre">ArchX86.stack_change</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#archinfo.arch_x86.ArchX86.memory_endness"><code class="docutils literal notranslate"><span class="pre">ArchX86.memory_endness</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#archinfo.arch_x86.ArchX86.register_endness"><code class="docutils literal notranslate"><span class="pre">ArchX86.register_endness</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#archinfo.arch_x86.ArchX86.sizeof"><code class="docutils literal notranslate"><span class="pre">ArchX86.sizeof</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#archinfo.arch_x86.ArchX86.cs_arch"><code class="docutils literal notranslate"><span class="pre">ArchX86.cs_arch</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#archinfo.arch_x86.ArchX86.cs_mode"><code class="docutils literal notranslate"><span class="pre">ArchX86.cs_mode</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#archinfo.arch_x86.ArchX86.uc_arch"><code class="docutils literal notranslate"><span class="pre">ArchX86.uc_arch</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#archinfo.arch_x86.ArchX86.uc_mode"><code class="docutils literal notranslate"><span class="pre">ArchX86.uc_mode</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#archinfo.arch_x86.ArchX86.uc_const"><code class="docutils literal notranslate"><span class="pre">ArchX86.uc_const</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#archinfo.arch_x86.ArchX86.uc_prefix"><code class="docutils literal notranslate"><span class="pre">ArchX86.uc_prefix</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#archinfo.arch_x86.ArchX86.function_prologs"><code class="docutils literal notranslate"><span class="pre">ArchX86.function_prologs</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#archinfo.arch_x86.ArchX86.function_epilogs"><code class="docutils literal notranslate"><span class="pre">ArchX86.function_epilogs</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#archinfo.arch_x86.ArchX86.ret_instruction"><code class="docutils literal notranslate"><span class="pre">ArchX86.ret_instruction</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#archinfo.arch_x86.ArchX86.nop_instruction"><code class="docutils literal notranslate"><span class="pre">ArchX86.nop_instruction</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#archinfo.arch_x86.ArchX86.instruction_alignment"><code class="docutils literal notranslate"><span class="pre">ArchX86.instruction_alignment</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#archinfo.arch_x86.ArchX86.register_list"><code class="docutils literal notranslate"><span class="pre">ArchX86.register_list</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#archinfo.arch_x86.ArchX86.symbol_type_translation"><code class="docutils literal notranslate"><span class="pre">ArchX86.symbol_type_translation</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#archinfo.arch_x86.ArchX86.lib_paths"><code class="docutils literal notranslate"><span class="pre">ArchX86.lib_paths</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#archinfo.arch_x86.ArchX86.got_section_name"><code class="docutils literal notranslate"><span class="pre">ArchX86.got_section_name</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#archinfo.arch_x86.ArchX86.ld_linux_name"><code class="docutils literal notranslate"><span class="pre">ArchX86.ld_linux_name</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#archinfo.arch_x86.ArchX86.elf_tls"><code class="docutils literal notranslate"><span class="pre">ArchX86.elf_tls</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#archinfo.arch_soot.SootMethodDescriptor"><code class="docutils literal notranslate"><span class="pre">SootMethodDescriptor</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#archinfo.arch_soot.SootMethodDescriptor.class_name"><code class="docutils literal notranslate"><span class="pre">SootMethodDescriptor.class_name</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#archinfo.arch_soot.SootMethodDescriptor.name"><code class="docutils literal notranslate"><span class="pre">SootMethodDescriptor.name</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#archinfo.arch_soot.SootMethodDescriptor.params"><code class="docutils literal notranslate"><span class="pre">SootMethodDescriptor.params</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#archinfo.arch_soot.SootMethodDescriptor.ret"><code class="docutils literal notranslate"><span class="pre">SootMethodDescriptor.ret</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#archinfo.arch_soot.SootMethodDescriptor.address"><code class="docutils literal notranslate"><span class="pre">SootMethodDescriptor.address()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#archinfo.arch_soot.SootMethodDescriptor.fullname"><code class="docutils literal notranslate"><span class="pre">SootMethodDescriptor.fullname</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#archinfo.arch_soot.SootMethodDescriptor.symbolic"><code class="docutils literal notranslate"><span class="pre">SootMethodDescriptor.symbolic</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#archinfo.arch_soot.SootMethodDescriptor.is_loaded"><code class="docutils literal notranslate"><span class="pre">SootMethodDescriptor.is_loaded</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#archinfo.arch_soot.SootMethodDescriptor.attrs"><code class="docutils literal notranslate"><span class="pre">SootMethodDescriptor.attrs</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#archinfo.arch_soot.SootMethodDescriptor.exceptions"><code class="docutils literal notranslate"><span class="pre">SootMethodDescriptor.exceptions</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#archinfo.arch_soot.SootMethodDescriptor.block_by_label"><code class="docutils literal notranslate"><span class="pre">SootMethodDescriptor.block_by_label</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#archinfo.arch_soot.SootMethodDescriptor.addr"><code class="docutils literal notranslate"><span class="pre">SootMethodDescriptor.addr</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#archinfo.arch_soot.SootMethodDescriptor.matches_with_native_name"><code class="docutils literal notranslate"><span class="pre">SootMethodDescriptor.matches_with_native_name()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#archinfo.arch_soot.SootMethodDescriptor.from_string"><code class="docutils literal notranslate"><span class="pre">SootMethodDescriptor.from_string()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#archinfo.arch_soot.SootMethodDescriptor.from_soot_method"><code class="docutils literal notranslate"><span class="pre">SootMethodDescriptor.from_soot_method()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#archinfo.arch_soot.SootAddressDescriptor"><code class="docutils literal notranslate"><span class="pre">SootAddressDescriptor</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#archinfo.arch_soot.SootAddressDescriptor.method"><code class="docutils literal notranslate"><span class="pre">SootAddressDescriptor.method</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#archinfo.arch_soot.SootAddressDescriptor.block_idx"><code class="docutils literal notranslate"><span class="pre">SootAddressDescriptor.block_idx</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#archinfo.arch_soot.SootAddressDescriptor.stmt_idx"><code class="docutils literal notranslate"><span class="pre">SootAddressDescriptor.stmt_idx</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#archinfo.arch_soot.SootAddressDescriptor.copy"><code class="docutils literal notranslate"><span class="pre">SootAddressDescriptor.copy()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#archinfo.arch_soot.SootAddressDescriptor.symbolic"><code class="docutils literal notranslate"><span class="pre">SootAddressDescriptor.symbolic</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#archinfo.arch_soot.SootAddressTerminator"><code class="docutils literal notranslate"><span class="pre">SootAddressTerminator</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#archinfo.arch_soot.SootFieldDescriptor"><code class="docutils literal notranslate"><span class="pre">SootFieldDescriptor</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#archinfo.arch_soot.SootFieldDescriptor.class_name"><code class="docutils literal notranslate"><span class="pre">SootFieldDescriptor.class_name</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#archinfo.arch_soot.SootFieldDescriptor.name"><code class="docutils literal notranslate"><span class="pre">SootFieldDescriptor.name</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#archinfo.arch_soot.SootFieldDescriptor.type"><code class="docutils literal notranslate"><span class="pre">SootFieldDescriptor.type</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#archinfo.arch_soot.SootClassDescriptor"><code class="docutils literal notranslate"><span class="pre">SootClassDescriptor</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#archinfo.arch_soot.SootClassDescriptor.name"><code class="docutils literal notranslate"><span class="pre">SootClassDescriptor.name</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#archinfo.arch_soot.SootClassDescriptor.is_loaded"><code class="docutils literal notranslate"><span class="pre">SootClassDescriptor.is_loaded</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#archinfo.arch_soot.SootClassDescriptor.fields"><code class="docutils literal notranslate"><span class="pre">SootClassDescriptor.fields</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#archinfo.arch_soot.SootClassDescriptor.methods"><code class="docutils literal notranslate"><span class="pre">SootClassDescriptor.methods</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#archinfo.arch_soot.SootClassDescriptor.superclass_name"><code class="docutils literal notranslate"><span class="pre">SootClassDescriptor.superclass_name</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#archinfo.arch_soot.SootClassDescriptor.type"><code class="docutils literal notranslate"><span class="pre">SootClassDescriptor.type</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#archinfo.arch_soot.SootNullConstant"><code class="docutils literal notranslate"><span class="pre">SootNullConstant</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#archinfo.arch_soot.SootArgument"><code class="docutils literal notranslate"><span class="pre">SootArgument</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#archinfo.arch_soot.SootArgument.value"><code class="docutils literal notranslate"><span class="pre">SootArgument.value</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#archinfo.arch_soot.SootArgument.type"><code class="docutils literal notranslate"><span class="pre">SootArgument.type</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#archinfo.arch_soot.SootArgument.is_this_ref"><code class="docutils literal notranslate"><span class="pre">SootArgument.is_this_ref</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#archinfo.arch_soot.ArchSoot"><code class="docutils literal notranslate"><span class="pre">ArchSoot</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#archinfo.arch_soot.ArchSoot.name"><code class="docutils literal notranslate"><span class="pre">ArchSoot.name</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#archinfo.arch_soot.ArchSoot.vex_arch"><code class="docutils literal notranslate"><span class="pre">ArchSoot.vex_arch</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#archinfo.arch_soot.ArchSoot.qemu_name"><code class="docutils literal notranslate"><span class="pre">ArchSoot.qemu_name</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#archinfo.arch_soot.ArchSoot.bits"><code class="docutils literal notranslate"><span class="pre">ArchSoot.bits</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#archinfo.arch_soot.ArchSoot.address_types"><code class="docutils literal notranslate"><span class="pre">ArchSoot.address_types</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#archinfo.arch_soot.ArchSoot.function_address_types"><code class="docutils literal notranslate"><span class="pre">ArchSoot.function_address_types</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#archinfo.arch_soot.ArchSoot.sizeof"><code class="docutils literal notranslate"><span class="pre">ArchSoot.sizeof</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#archinfo.arch_soot.ArchSoot.primitive_types"><code class="docutils literal notranslate"><span class="pre">ArchSoot.primitive_types</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#archinfo.arch_soot.ArchSoot.sig_dict"><code class="docutils literal notranslate"><span class="pre">ArchSoot.sig_dict</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#archinfo.arch_soot.ArchSoot.decode_type_signature"><code class="docutils literal notranslate"><span class="pre">ArchSoot.decode_type_signature()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#archinfo.arch_soot.ArchSoot.decode_parameter_list_signature"><code class="docutils literal notranslate"><span class="pre">ArchSoot.decode_parameter_list_signature()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#archinfo.arch_soot.ArchSoot.decode_method_signature"><code class="docutils literal notranslate"><span class="pre">ArchSoot.decode_method_signature()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#archinfo.arch_soot.ArchSoot.library_search_path"><code class="docutils literal notranslate"><span class="pre">ArchSoot.library_search_path()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#archinfo.arch_s390x.ArchS390X"><code class="docutils literal notranslate"><span class="pre">ArchS390X</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#archinfo.arch_s390x.ArchS390X.bits"><code class="docutils literal notranslate"><span class="pre">ArchS390X.bits</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#archinfo.arch_s390x.ArchS390X.vex_arch"><code class="docutils literal notranslate"><span class="pre">ArchS390X.vex_arch</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#archinfo.arch_s390x.ArchS390X.name"><code class="docutils literal notranslate"><span class="pre">ArchS390X.name</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#archinfo.arch_s390x.ArchS390X.qemu_name"><code class="docutils literal notranslate"><span class="pre">ArchS390X.qemu_name</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#archinfo.arch_s390x.ArchS390X.triplet"><code class="docutils literal notranslate"><span class="pre">ArchS390X.triplet</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#archinfo.arch_s390x.ArchS390X.linux_name"><code class="docutils literal notranslate"><span class="pre">ArchS390X.linux_name</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#archinfo.arch_s390x.ArchS390X.max_inst_bytes"><code class="docutils literal notranslate"><span class="pre">ArchS390X.max_inst_bytes</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#archinfo.arch_s390x.ArchS390X.ret_offset"><code class="docutils literal notranslate"><span class="pre">ArchS390X.ret_offset</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#archinfo.arch_s390x.ArchS390X.syscall_num_offset"><code class="docutils literal notranslate"><span class="pre">ArchS390X.syscall_num_offset</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#archinfo.arch_s390x.ArchS390X.call_pushes_ret"><code class="docutils literal notranslate"><span class="pre">ArchS390X.call_pushes_ret</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#archinfo.arch_s390x.ArchS390X.stack_change"><code class="docutils literal notranslate"><span class="pre">ArchS390X.stack_change</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#archinfo.arch_s390x.ArchS390X.initial_sp"><code class="docutils literal notranslate"><span class="pre">ArchS390X.initial_sp</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#archinfo.arch_s390x.ArchS390X.sizeof"><code class="docutils literal notranslate"><span class="pre">ArchS390X.sizeof</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#archinfo.arch_s390x.ArchS390X.cs_arch"><code class="docutils literal notranslate"><span class="pre">ArchS390X.cs_arch</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#archinfo.arch_s390x.ArchS390X.cs_mode"><code class="docutils literal notranslate"><span class="pre">ArchS390X.cs_mode</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#archinfo.arch_s390x.ArchS390X.ret_instruction"><code class="docutils literal notranslate"><span class="pre">ArchS390X.ret_instruction</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#archinfo.arch_s390x.ArchS390X.nop_instruction"><code class="docutils literal notranslate"><span class="pre">ArchS390X.nop_instruction</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#archinfo.arch_s390x.ArchS390X.instruction_alignment"><code class="docutils literal notranslate"><span class="pre">ArchS390X.instruction_alignment</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#archinfo.arch_s390x.ArchS390X.register_list"><code class="docutils literal notranslate"><span class="pre">ArchS390X.register_list</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#archinfo.arch_s390x.ArchS390X.function_prologs"><code class="docutils literal notranslate"><span class="pre">ArchS390X.function_prologs</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#archinfo.arch_s390x.ArchS390X.function_epilogs"><code class="docutils literal notranslate"><span class="pre">ArchS390X.function_epilogs</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#archinfo.arch_s390x.ArchS390X.got_section_name"><code class="docutils literal notranslate"><span class="pre">ArchS390X.got_section_name</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#archinfo.arch_s390x.ArchS390X.ld_linux_name"><code class="docutils literal notranslate"><span class="pre">ArchS390X.ld_linux_name</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#archinfo.arch_s390x.ArchS390X.elf_tls"><code class="docutils literal notranslate"><span class="pre">ArchS390X.elf_tls</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#module-archinfo.tls">Utilities</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#archinfo.tls.TLSArchInfo"><code class="docutils literal notranslate"><span class="pre">TLSArchInfo</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#archinfo.tls.TLSArchInfo.dtv_entry_offset"><code class="docutils literal notranslate"><span class="pre">TLSArchInfo.dtv_entry_offset</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#archinfo.tls.TLSArchInfo.dtv_offsets"><code class="docutils literal notranslate"><span class="pre">TLSArchInfo.dtv_offsets</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#archinfo.tls.TLSArchInfo.head_offsets"><code class="docutils literal notranslate"><span class="pre">TLSArchInfo.head_offsets</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#archinfo.tls.TLSArchInfo.pthread_offsets"><code class="docutils literal notranslate"><span class="pre">TLSArchInfo.pthread_offsets</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#archinfo.tls.TLSArchInfo.tcbhead_size"><code class="docutils literal notranslate"><span class="pre">TLSArchInfo.tcbhead_size</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#archinfo.tls.TLSArchInfo.tp_offset"><code class="docutils literal notranslate"><span class="pre">TLSArchInfo.tp_offset</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#archinfo.tls.TLSArchInfo.variant"><code class="docutils literal notranslate"><span class="pre">TLSArchInfo.variant</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#module-archinfo.archerror">Errors</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#archinfo.archerror.ArchError"><code class="docutils literal notranslate"><span class="pre">ArchError</span></code></a></li>
+</ul>
+</li>
 </ul>
 </li>
 </ul>

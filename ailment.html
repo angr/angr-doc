@@ -4,7 +4,7 @@
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>ailment — angr Intermediate Language &mdash; angr 9.2.19
+  <title>ailment — angr Intermediate Language &mdash; angr 9.2.20
  documentation</title>
       <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
@@ -17,6 +17,7 @@
         <script src="_static/underscore.js"></script>
         <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
         <script src="_static/doctools.js"></script>
+        <script src="_static/sphinx_highlight.js"></script>
     <script src="_static/js/theme.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
@@ -32,7 +33,7 @@
             <a href="index.html" class="icon icon-home"> angr
           </a>
               <div class="version">
-                9.2.19
+                9.2.20
 
               </div>
 <div role="search">
@@ -46,10 +47,308 @@
               <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="angr.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">angr</span></code> — Analysis and Coordination</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#"><code class="xref py py-mod docutils literal notranslate"><span class="pre">ailment</span></code> — angr Intermediate Language</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="#module-ailment.converter_common">Converter</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#module-ailment.expression">Expressions</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#module-ailment.statement">Statement</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#module-ailment.block">Misc. Things</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#ailment.IRSBConverter"><code class="docutils literal notranslate"><span class="pre">IRSBConverter</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#ailment.IRSBConverter.convert"><code class="docutils literal notranslate"><span class="pre">IRSBConverter.convert()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#module-ailment.converter_common">Converter</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#ailment.converter_common.SkipConversionNotice"><code class="docutils literal notranslate"><span class="pre">SkipConversionNotice</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#ailment.converter_common.Converter"><code class="docutils literal notranslate"><span class="pre">Converter</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#ailment.converter_common.Converter.convert"><code class="docutils literal notranslate"><span class="pre">Converter.convert()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#ailment.converter_vex.VEXExprConverter"><code class="docutils literal notranslate"><span class="pre">VEXExprConverter</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#ailment.converter_vex.VEXExprConverter.simop_from_vexop"><code class="docutils literal notranslate"><span class="pre">VEXExprConverter.simop_from_vexop()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#ailment.converter_vex.VEXExprConverter.generic_name_from_vex_op"><code class="docutils literal notranslate"><span class="pre">VEXExprConverter.generic_name_from_vex_op()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#ailment.converter_vex.VEXExprConverter.convert"><code class="docutils literal notranslate"><span class="pre">VEXExprConverter.convert()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#ailment.converter_vex.VEXExprConverter.convert_list"><code class="docutils literal notranslate"><span class="pre">VEXExprConverter.convert_list()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#ailment.converter_vex.VEXExprConverter.register"><code class="docutils literal notranslate"><span class="pre">VEXExprConverter.register()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#ailment.converter_vex.VEXExprConverter.tmp"><code class="docutils literal notranslate"><span class="pre">VEXExprConverter.tmp()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#ailment.converter_vex.VEXExprConverter.RdTmp"><code class="docutils literal notranslate"><span class="pre">VEXExprConverter.RdTmp()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#ailment.converter_vex.VEXExprConverter.Get"><code class="docutils literal notranslate"><span class="pre">VEXExprConverter.Get()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#ailment.converter_vex.VEXExprConverter.Load"><code class="docutils literal notranslate"><span class="pre">VEXExprConverter.Load()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#ailment.converter_vex.VEXExprConverter.Unop"><code class="docutils literal notranslate"><span class="pre">VEXExprConverter.Unop()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#ailment.converter_vex.VEXExprConverter.Binop"><code class="docutils literal notranslate"><span class="pre">VEXExprConverter.Binop()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#ailment.converter_vex.VEXExprConverter.Const"><code class="docutils literal notranslate"><span class="pre">VEXExprConverter.Const()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#ailment.converter_vex.VEXExprConverter.const_n"><code class="docutils literal notranslate"><span class="pre">VEXExprConverter.const_n()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#ailment.converter_vex.VEXExprConverter.ITE"><code class="docutils literal notranslate"><span class="pre">VEXExprConverter.ITE()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#ailment.converter_vex.VEXStmtConverter"><code class="docutils literal notranslate"><span class="pre">VEXStmtConverter</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#ailment.converter_vex.VEXStmtConverter.convert"><code class="docutils literal notranslate"><span class="pre">VEXStmtConverter.convert()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#ailment.converter_vex.VEXStmtConverter.WrTmp"><code class="docutils literal notranslate"><span class="pre">VEXStmtConverter.WrTmp()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#ailment.converter_vex.VEXStmtConverter.Put"><code class="docutils literal notranslate"><span class="pre">VEXStmtConverter.Put()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#ailment.converter_vex.VEXStmtConverter.Store"><code class="docutils literal notranslate"><span class="pre">VEXStmtConverter.Store()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#ailment.converter_vex.VEXStmtConverter.Exit"><code class="docutils literal notranslate"><span class="pre">VEXStmtConverter.Exit()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#ailment.converter_vex.VEXStmtConverter.LoadG"><code class="docutils literal notranslate"><span class="pre">VEXStmtConverter.LoadG()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#ailment.converter_vex.VEXStmtConverter.StoreG"><code class="docutils literal notranslate"><span class="pre">VEXStmtConverter.StoreG()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#ailment.converter_vex.VEXStmtConverter.CAS"><code class="docutils literal notranslate"><span class="pre">VEXStmtConverter.CAS()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#ailment.converter_vex.VEXIRSBConverter"><code class="docutils literal notranslate"><span class="pre">VEXIRSBConverter</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#ailment.converter_vex.VEXIRSBConverter.convert"><code class="docutils literal notranslate"><span class="pre">VEXIRSBConverter.convert()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#module-ailment.expression">Expressions</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#ailment.expression.Expression"><code class="docutils literal notranslate"><span class="pre">Expression</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#ailment.expression.Expression.depth"><code class="docutils literal notranslate"><span class="pre">Expression.depth</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#ailment.expression.Expression.has_atom"><code class="docutils literal notranslate"><span class="pre">Expression.has_atom()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#ailment.expression.Expression.likes"><code class="docutils literal notranslate"><span class="pre">Expression.likes()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#ailment.expression.Expression.replace"><code class="docutils literal notranslate"><span class="pre">Expression.replace()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#ailment.expression.Atom"><code class="docutils literal notranslate"><span class="pre">Atom</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#ailment.expression.Atom.variable"><code class="docutils literal notranslate"><span class="pre">Atom.variable</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#ailment.expression.Atom.variable_offset"><code class="docutils literal notranslate"><span class="pre">Atom.variable_offset</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#ailment.expression.Atom.copy"><code class="docutils literal notranslate"><span class="pre">Atom.copy()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#ailment.expression.Const"><code class="docutils literal notranslate"><span class="pre">Const</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#ailment.expression.Const.value"><code class="docutils literal notranslate"><span class="pre">Const.value</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#ailment.expression.Const.bits"><code class="docutils literal notranslate"><span class="pre">Const.bits</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#ailment.expression.Const.size"><code class="docutils literal notranslate"><span class="pre">Const.size</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#ailment.expression.Const.likes"><code class="docutils literal notranslate"><span class="pre">Const.likes()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#ailment.expression.Const.sign_bit"><code class="docutils literal notranslate"><span class="pre">Const.sign_bit</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#ailment.expression.Const.copy"><code class="docutils literal notranslate"><span class="pre">Const.copy()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#ailment.expression.Tmp"><code class="docutils literal notranslate"><span class="pre">Tmp</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#ailment.expression.Tmp.tmp_idx"><code class="docutils literal notranslate"><span class="pre">Tmp.tmp_idx</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#ailment.expression.Tmp.bits"><code class="docutils literal notranslate"><span class="pre">Tmp.bits</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#ailment.expression.Tmp.size"><code class="docutils literal notranslate"><span class="pre">Tmp.size</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#ailment.expression.Tmp.likes"><code class="docutils literal notranslate"><span class="pre">Tmp.likes()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#ailment.expression.Tmp.copy"><code class="docutils literal notranslate"><span class="pre">Tmp.copy()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#ailment.expression.Register"><code class="docutils literal notranslate"><span class="pre">Register</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#ailment.expression.Register.reg_offset"><code class="docutils literal notranslate"><span class="pre">Register.reg_offset</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#ailment.expression.Register.bits"><code class="docutils literal notranslate"><span class="pre">Register.bits</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#ailment.expression.Register.size"><code class="docutils literal notranslate"><span class="pre">Register.size</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#ailment.expression.Register.likes"><code class="docutils literal notranslate"><span class="pre">Register.likes()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#ailment.expression.Register.copy"><code class="docutils literal notranslate"><span class="pre">Register.copy()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#ailment.expression.Op"><code class="docutils literal notranslate"><span class="pre">Op</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#ailment.expression.Op.op"><code class="docutils literal notranslate"><span class="pre">Op.op</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#ailment.expression.Op.verbose_op"><code class="docutils literal notranslate"><span class="pre">Op.verbose_op</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#ailment.expression.UnaryOp"><code class="docutils literal notranslate"><span class="pre">UnaryOp</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#ailment.expression.UnaryOp.operand"><code class="docutils literal notranslate"><span class="pre">UnaryOp.operand</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#ailment.expression.UnaryOp.bits"><code class="docutils literal notranslate"><span class="pre">UnaryOp.bits</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#ailment.expression.UnaryOp.variable"><code class="docutils literal notranslate"><span class="pre">UnaryOp.variable</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#ailment.expression.UnaryOp.variable_offset"><code class="docutils literal notranslate"><span class="pre">UnaryOp.variable_offset</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#ailment.expression.UnaryOp.likes"><code class="docutils literal notranslate"><span class="pre">UnaryOp.likes()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#ailment.expression.UnaryOp.replace"><code class="docutils literal notranslate"><span class="pre">UnaryOp.replace()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#ailment.expression.UnaryOp.operands"><code class="docutils literal notranslate"><span class="pre">UnaryOp.operands</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#ailment.expression.UnaryOp.size"><code class="docutils literal notranslate"><span class="pre">UnaryOp.size</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#ailment.expression.UnaryOp.copy"><code class="docutils literal notranslate"><span class="pre">UnaryOp.copy()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#ailment.expression.UnaryOp.has_atom"><code class="docutils literal notranslate"><span class="pre">UnaryOp.has_atom()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#ailment.expression.Convert"><code class="docutils literal notranslate"><span class="pre">Convert</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#ailment.expression.Convert.from_bits"><code class="docutils literal notranslate"><span class="pre">Convert.from_bits</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#ailment.expression.Convert.to_bits"><code class="docutils literal notranslate"><span class="pre">Convert.to_bits</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#ailment.expression.Convert.is_signed"><code class="docutils literal notranslate"><span class="pre">Convert.is_signed</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#ailment.expression.Convert.likes"><code class="docutils literal notranslate"><span class="pre">Convert.likes()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#ailment.expression.Convert.replace"><code class="docutils literal notranslate"><span class="pre">Convert.replace()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#ailment.expression.Convert.copy"><code class="docutils literal notranslate"><span class="pre">Convert.copy()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#ailment.expression.Reinterpret"><code class="docutils literal notranslate"><span class="pre">Reinterpret</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#ailment.expression.Reinterpret.from_bits"><code class="docutils literal notranslate"><span class="pre">Reinterpret.from_bits</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#ailment.expression.Reinterpret.from_type"><code class="docutils literal notranslate"><span class="pre">Reinterpret.from_type</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#ailment.expression.Reinterpret.to_bits"><code class="docutils literal notranslate"><span class="pre">Reinterpret.to_bits</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#ailment.expression.Reinterpret.to_type"><code class="docutils literal notranslate"><span class="pre">Reinterpret.to_type</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#ailment.expression.Reinterpret.likes"><code class="docutils literal notranslate"><span class="pre">Reinterpret.likes()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#ailment.expression.Reinterpret.replace"><code class="docutils literal notranslate"><span class="pre">Reinterpret.replace()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#ailment.expression.Reinterpret.copy"><code class="docutils literal notranslate"><span class="pre">Reinterpret.copy()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#ailment.expression.BinaryOp"><code class="docutils literal notranslate"><span class="pre">BinaryOp</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#ailment.expression.BinaryOp.OPSTR_MAP"><code class="docutils literal notranslate"><span class="pre">BinaryOp.OPSTR_MAP</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#ailment.expression.BinaryOp.COMPARISON_NEGATION"><code class="docutils literal notranslate"><span class="pre">BinaryOp.COMPARISON_NEGATION</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#ailment.expression.BinaryOp.operands"><code class="docutils literal notranslate"><span class="pre">BinaryOp.operands</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#ailment.expression.BinaryOp.bits"><code class="docutils literal notranslate"><span class="pre">BinaryOp.bits</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#ailment.expression.BinaryOp.signed"><code class="docutils literal notranslate"><span class="pre">BinaryOp.signed</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#ailment.expression.BinaryOp.variable"><code class="docutils literal notranslate"><span class="pre">BinaryOp.variable</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#ailment.expression.BinaryOp.variable_offset"><code class="docutils literal notranslate"><span class="pre">BinaryOp.variable_offset</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#ailment.expression.BinaryOp.likes"><code class="docutils literal notranslate"><span class="pre">BinaryOp.likes()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#ailment.expression.BinaryOp.has_atom"><code class="docutils literal notranslate"><span class="pre">BinaryOp.has_atom()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#ailment.expression.BinaryOp.replace"><code class="docutils literal notranslate"><span class="pre">BinaryOp.replace()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#ailment.expression.BinaryOp.verbose_op"><code class="docutils literal notranslate"><span class="pre">BinaryOp.verbose_op</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#ailment.expression.BinaryOp.size"><code class="docutils literal notranslate"><span class="pre">BinaryOp.size</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#ailment.expression.BinaryOp.copy"><code class="docutils literal notranslate"><span class="pre">BinaryOp.copy()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#ailment.expression.Load"><code class="docutils literal notranslate"><span class="pre">Load</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#ailment.expression.Load.addr"><code class="docutils literal notranslate"><span class="pre">Load.addr</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#ailment.expression.Load.size"><code class="docutils literal notranslate"><span class="pre">Load.size</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#ailment.expression.Load.endness"><code class="docutils literal notranslate"><span class="pre">Load.endness</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#ailment.expression.Load.guard"><code class="docutils literal notranslate"><span class="pre">Load.guard</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#ailment.expression.Load.alt"><code class="docutils literal notranslate"><span class="pre">Load.alt</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#ailment.expression.Load.variable"><code class="docutils literal notranslate"><span class="pre">Load.variable</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#ailment.expression.Load.variable_offset"><code class="docutils literal notranslate"><span class="pre">Load.variable_offset</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#ailment.expression.Load.bits"><code class="docutils literal notranslate"><span class="pre">Load.bits</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#ailment.expression.Load.has_atom"><code class="docutils literal notranslate"><span class="pre">Load.has_atom()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#ailment.expression.Load.replace"><code class="docutils literal notranslate"><span class="pre">Load.replace()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#ailment.expression.Load.likes"><code class="docutils literal notranslate"><span class="pre">Load.likes()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#ailment.expression.Load.copy"><code class="docutils literal notranslate"><span class="pre">Load.copy()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#ailment.expression.ITE"><code class="docutils literal notranslate"><span class="pre">ITE</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#ailment.expression.ITE.cond"><code class="docutils literal notranslate"><span class="pre">ITE.cond</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#ailment.expression.ITE.iffalse"><code class="docutils literal notranslate"><span class="pre">ITE.iffalse</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#ailment.expression.ITE.iftrue"><code class="docutils literal notranslate"><span class="pre">ITE.iftrue</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#ailment.expression.ITE.bits"><code class="docutils literal notranslate"><span class="pre">ITE.bits</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#ailment.expression.ITE.variable"><code class="docutils literal notranslate"><span class="pre">ITE.variable</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#ailment.expression.ITE.variable_offset"><code class="docutils literal notranslate"><span class="pre">ITE.variable_offset</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#ailment.expression.ITE.likes"><code class="docutils literal notranslate"><span class="pre">ITE.likes()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#ailment.expression.ITE.has_atom"><code class="docutils literal notranslate"><span class="pre">ITE.has_atom()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#ailment.expression.ITE.replace"><code class="docutils literal notranslate"><span class="pre">ITE.replace()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#ailment.expression.ITE.size"><code class="docutils literal notranslate"><span class="pre">ITE.size</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#ailment.expression.ITE.copy"><code class="docutils literal notranslate"><span class="pre">ITE.copy()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#ailment.expression.DirtyExpression"><code class="docutils literal notranslate"><span class="pre">DirtyExpression</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#ailment.expression.DirtyExpression.dirty_expr"><code class="docutils literal notranslate"><span class="pre">DirtyExpression.dirty_expr</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#ailment.expression.DirtyExpression.bits"><code class="docutils literal notranslate"><span class="pre">DirtyExpression.bits</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#ailment.expression.DirtyExpression.likes"><code class="docutils literal notranslate"><span class="pre">DirtyExpression.likes()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#ailment.expression.DirtyExpression.copy"><code class="docutils literal notranslate"><span class="pre">DirtyExpression.copy()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#ailment.expression.DirtyExpression.replace"><code class="docutils literal notranslate"><span class="pre">DirtyExpression.replace()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#ailment.expression.DirtyExpression.size"><code class="docutils literal notranslate"><span class="pre">DirtyExpression.size</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#ailment.expression.VEXCCallExpression"><code class="docutils literal notranslate"><span class="pre">VEXCCallExpression</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#ailment.expression.VEXCCallExpression.cee_name"><code class="docutils literal notranslate"><span class="pre">VEXCCallExpression.cee_name</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#ailment.expression.VEXCCallExpression.operands"><code class="docutils literal notranslate"><span class="pre">VEXCCallExpression.operands</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#ailment.expression.VEXCCallExpression.bits"><code class="docutils literal notranslate"><span class="pre">VEXCCallExpression.bits</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#ailment.expression.VEXCCallExpression.likes"><code class="docutils literal notranslate"><span class="pre">VEXCCallExpression.likes()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#ailment.expression.VEXCCallExpression.copy"><code class="docutils literal notranslate"><span class="pre">VEXCCallExpression.copy()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#ailment.expression.VEXCCallExpression.replace"><code class="docutils literal notranslate"><span class="pre">VEXCCallExpression.replace()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#ailment.expression.VEXCCallExpression.size"><code class="docutils literal notranslate"><span class="pre">VEXCCallExpression.size</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#ailment.expression.BasePointerOffset"><code class="docutils literal notranslate"><span class="pre">BasePointerOffset</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#ailment.expression.BasePointerOffset.bits"><code class="docutils literal notranslate"><span class="pre">BasePointerOffset.bits</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#ailment.expression.BasePointerOffset.base"><code class="docutils literal notranslate"><span class="pre">BasePointerOffset.base</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#ailment.expression.BasePointerOffset.offset"><code class="docutils literal notranslate"><span class="pre">BasePointerOffset.offset</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#ailment.expression.BasePointerOffset.variable"><code class="docutils literal notranslate"><span class="pre">BasePointerOffset.variable</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#ailment.expression.BasePointerOffset.variable_offset"><code class="docutils literal notranslate"><span class="pre">BasePointerOffset.variable_offset</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#ailment.expression.BasePointerOffset.size"><code class="docutils literal notranslate"><span class="pre">BasePointerOffset.size</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#ailment.expression.BasePointerOffset.likes"><code class="docutils literal notranslate"><span class="pre">BasePointerOffset.likes()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#ailment.expression.BasePointerOffset.replace"><code class="docutils literal notranslate"><span class="pre">BasePointerOffset.replace()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#ailment.expression.BasePointerOffset.copy"><code class="docutils literal notranslate"><span class="pre">BasePointerOffset.copy()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#ailment.expression.StackBaseOffset"><code class="docutils literal notranslate"><span class="pre">StackBaseOffset</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#ailment.expression.StackBaseOffset.copy"><code class="docutils literal notranslate"><span class="pre">StackBaseOffset.copy()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#module-ailment.statement">Statement</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#ailment.statement.Statement"><code class="docutils literal notranslate"><span class="pre">Statement</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#ailment.statement.Statement.replace"><code class="docutils literal notranslate"><span class="pre">Statement.replace()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#ailment.statement.Statement.eq"><code class="docutils literal notranslate"><span class="pre">Statement.eq()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#ailment.statement.Assignment"><code class="docutils literal notranslate"><span class="pre">Assignment</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#ailment.statement.Assignment.dst"><code class="docutils literal notranslate"><span class="pre">Assignment.dst</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#ailment.statement.Assignment.src"><code class="docutils literal notranslate"><span class="pre">Assignment.src</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#ailment.statement.Assignment.likes"><code class="docutils literal notranslate"><span class="pre">Assignment.likes()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#ailment.statement.Assignment.replace"><code class="docutils literal notranslate"><span class="pre">Assignment.replace()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#ailment.statement.Assignment.copy"><code class="docutils literal notranslate"><span class="pre">Assignment.copy()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#ailment.statement.Store"><code class="docutils literal notranslate"><span class="pre">Store</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#ailment.statement.Store.addr"><code class="docutils literal notranslate"><span class="pre">Store.addr</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#ailment.statement.Store.data"><code class="docutils literal notranslate"><span class="pre">Store.data</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#ailment.statement.Store.size"><code class="docutils literal notranslate"><span class="pre">Store.size</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#ailment.statement.Store.endness"><code class="docutils literal notranslate"><span class="pre">Store.endness</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#ailment.statement.Store.variable"><code class="docutils literal notranslate"><span class="pre">Store.variable</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#ailment.statement.Store.guard"><code class="docutils literal notranslate"><span class="pre">Store.guard</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#ailment.statement.Store.offset"><code class="docutils literal notranslate"><span class="pre">Store.offset</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#ailment.statement.Store.likes"><code class="docutils literal notranslate"><span class="pre">Store.likes()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#ailment.statement.Store.replace"><code class="docutils literal notranslate"><span class="pre">Store.replace()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#ailment.statement.Store.copy"><code class="docutils literal notranslate"><span class="pre">Store.copy()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#ailment.statement.Jump"><code class="docutils literal notranslate"><span class="pre">Jump</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#ailment.statement.Jump.target"><code class="docutils literal notranslate"><span class="pre">Jump.target</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#ailment.statement.Jump.likes"><code class="docutils literal notranslate"><span class="pre">Jump.likes()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#ailment.statement.Jump.replace"><code class="docutils literal notranslate"><span class="pre">Jump.replace()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#ailment.statement.Jump.copy"><code class="docutils literal notranslate"><span class="pre">Jump.copy()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#ailment.statement.ConditionalJump"><code class="docutils literal notranslate"><span class="pre">ConditionalJump</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#ailment.statement.ConditionalJump.condition"><code class="docutils literal notranslate"><span class="pre">ConditionalJump.condition</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#ailment.statement.ConditionalJump.true_target"><code class="docutils literal notranslate"><span class="pre">ConditionalJump.true_target</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#ailment.statement.ConditionalJump.false_target"><code class="docutils literal notranslate"><span class="pre">ConditionalJump.false_target</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#ailment.statement.ConditionalJump.likes"><code class="docutils literal notranslate"><span class="pre">ConditionalJump.likes()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#ailment.statement.ConditionalJump.replace"><code class="docutils literal notranslate"><span class="pre">ConditionalJump.replace()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#ailment.statement.ConditionalJump.copy"><code class="docutils literal notranslate"><span class="pre">ConditionalJump.copy()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#ailment.statement.Call"><code class="docutils literal notranslate"><span class="pre">Call</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#ailment.statement.Call.target"><code class="docutils literal notranslate"><span class="pre">Call.target</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#ailment.statement.Call.calling_convention"><code class="docutils literal notranslate"><span class="pre">Call.calling_convention</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#ailment.statement.Call.prototype"><code class="docutils literal notranslate"><span class="pre">Call.prototype</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#ailment.statement.Call.args"><code class="docutils literal notranslate"><span class="pre">Call.args</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#ailment.statement.Call.ret_expr"><code class="docutils literal notranslate"><span class="pre">Call.ret_expr</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#ailment.statement.Call.likes"><code class="docutils literal notranslate"><span class="pre">Call.likes()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#ailment.statement.Call.bits"><code class="docutils literal notranslate"><span class="pre">Call.bits</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#ailment.statement.Call.size"><code class="docutils literal notranslate"><span class="pre">Call.size</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#ailment.statement.Call.verbose_op"><code class="docutils literal notranslate"><span class="pre">Call.verbose_op</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#ailment.statement.Call.op"><code class="docutils literal notranslate"><span class="pre">Call.op</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#ailment.statement.Call.replace"><code class="docutils literal notranslate"><span class="pre">Call.replace()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#ailment.statement.Call.copy"><code class="docutils literal notranslate"><span class="pre">Call.copy()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#ailment.statement.Return"><code class="docutils literal notranslate"><span class="pre">Return</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#ailment.statement.Return.target"><code class="docutils literal notranslate"><span class="pre">Return.target</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#ailment.statement.Return.ret_exprs"><code class="docutils literal notranslate"><span class="pre">Return.ret_exprs</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#ailment.statement.Return.likes"><code class="docutils literal notranslate"><span class="pre">Return.likes()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#ailment.statement.Return.replace"><code class="docutils literal notranslate"><span class="pre">Return.replace()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#ailment.statement.Return.copy"><code class="docutils literal notranslate"><span class="pre">Return.copy()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#ailment.statement.DirtyStatement"><code class="docutils literal notranslate"><span class="pre">DirtyStatement</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#ailment.statement.DirtyStatement.dirty_stmt"><code class="docutils literal notranslate"><span class="pre">DirtyStatement.dirty_stmt</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#ailment.statement.DirtyStatement.copy"><code class="docutils literal notranslate"><span class="pre">DirtyStatement.copy()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#module-ailment.block">Misc. Things</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#ailment.block.Block"><code class="docutils literal notranslate"><span class="pre">Block</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#ailment.block.Block.addr"><code class="docutils literal notranslate"><span class="pre">Block.addr</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#ailment.block.Block.original_size"><code class="docutils literal notranslate"><span class="pre">Block.original_size</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#ailment.block.Block.statements"><code class="docutils literal notranslate"><span class="pre">Block.statements</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#ailment.block.Block.idx"><code class="docutils literal notranslate"><span class="pre">Block.idx</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#ailment.block.Block.copy"><code class="docutils literal notranslate"><span class="pre">Block.copy()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#ailment.block.Block.likes"><code class="docutils literal notranslate"><span class="pre">Block.likes()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#ailment.manager.Manager"><code class="docutils literal notranslate"><span class="pre">Manager</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#ailment.manager.Manager.next_atom"><code class="docutils literal notranslate"><span class="pre">Manager.next_atom()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#ailment.manager.Manager.reset"><code class="docutils literal notranslate"><span class="pre">Manager.reset()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#ailment.manager.Manager.ins_addr"><code class="docutils literal notranslate"><span class="pre">Manager.ins_addr</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#ailment.tagged_object.TaggedObject"><code class="docutils literal notranslate"><span class="pre">TaggedObject</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#ailment.tagged_object.TaggedObject.idx"><code class="docutils literal notranslate"><span class="pre">TaggedObject.idx</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#ailment.tagged_object.TaggedObject.initialize_tags"><code class="docutils literal notranslate"><span class="pre">TaggedObject.initialize_tags()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#ailment.tagged_object.TaggedObject.tags"><code class="docutils literal notranslate"><span class="pre">TaggedObject.tags</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#ailment.utils.get_bits"><code class="docutils literal notranslate"><span class="pre">get_bits()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#ailment.utils.stable_hash"><code class="docutils literal notranslate"><span class="pre">stable_hash()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#ailment.utils.is_none_or_likeable"><code class="docutils literal notranslate"><span class="pre">is_none_or_likeable()</span></code></a></li>
+</ul>
+</li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="claripy.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">claripy</span></code> — Solver Engine</a></li>

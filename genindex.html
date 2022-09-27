@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Index &mdash; angr 9.2.19
+  <title>Index &mdash; angr 9.2.20
  documentation</title>
       <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
@@ -16,6 +16,7 @@
         <script src="_static/underscore.js"></script>
         <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
         <script src="_static/doctools.js"></script>
+        <script src="_static/sphinx_highlight.js"></script>
     <script src="_static/js/theme.js"></script>
     <link rel="index" title="Index" href="#" />
     <link rel="search" title="Search" href="search.html" /> 
@@ -29,7 +30,7 @@
             <a href="index.html" class="icon icon-home"> angr
           </a>
               <div class="version">
-                9.2.19
+                9.2.20
 
               </div>
 <div role="search">
@@ -5137,6 +5138,8 @@
 </li>
         <li><a href="angr.html#angr.sim_type.SimTypeArray.c_repr">(angr.sim_type.SimTypeArray method)</a>
 </li>
+        <li><a href="angr.html#angr.sim_type.SimTypeBottom.c_repr">(angr.sim_type.SimTypeBottom method)</a>
+</li>
         <li><a href="angr.html#angr.sim_type.SimTypeFixedSizeArray.c_repr">(angr.sim_type.SimTypeFixedSizeArray method)</a>
 </li>
         <li><a href="angr.html#angr.sim_type.SimTypeFunction.c_repr">(angr.sim_type.SimTypeFunction method)</a>
@@ -7044,8 +7047,12 @@
 </li>
       <li><a href="angr.html#angr.analyses.code_tagging.CodeTags">CodeTags (class in angr.analyses.code_tagging)</a>
 </li>
-      <li><a href="claripy.html#claripy.vsa.discrete_strided_interval_set.DiscreteStridedIntervalSet.collapse">collapse() (claripy.vsa.discrete_strided_interval_set.DiscreteStridedIntervalSet method)</a>
+      <li><a href="angr.html#angr.analyses.decompiler.structured_codegen.c.MakeTypecastsImplicit.collapse">collapse() (angr.analyses.decompiler.structured_codegen.c.MakeTypecastsImplicit class method)</a>
+
+      <ul>
+        <li><a href="claripy.html#claripy.vsa.discrete_strided_interval_set.DiscreteStridedIntervalSet.collapse">(claripy.vsa.discrete_strided_interval_set.DiscreteStridedIntervalSet method)</a>
 </li>
+      </ul></li>
       <li><a href="claripy.html#claripy.vsa.discrete_strided_interval_set.collapse_operand">collapse_operand() (in module claripy.vsa.discrete_strided_interval_set)</a>
 </li>
       <li><a href="angr.html#angr.analyses.decompiler.structured_codegen.c.CExpression.collapsed">collapsed (angr.analyses.decompiler.structured_codegen.c.CExpression attribute)</a>
@@ -7089,6 +7096,8 @@
       <li><a href="pyvex.html#pyvex.lifting.util.instr_helper.Instruction.commit_result">commit_result() (pyvex.lifting.util.instr_helper.Instruction method)</a>
 </li>
       <li><a href="cle.html#cle.backends.macho.symbol.SymbolTableSymbol.common_align">common_align (cle.backends.macho.symbol.SymbolTableSymbol property)</a>
+</li>
+      <li><a href="angr.html#angr.analyses.decompiler.structured_codegen.c.CBinaryOp.common_type">common_type (angr.analyses.decompiler.structured_codegen.c.CBinaryOp attribute)</a>
 </li>
       <li><a href="claripy.html#claripy.bv.compare_bits">compare_bits() (in module claripy.bv)</a>
 </li>
@@ -7152,6 +7161,8 @@
         <li><a href="angr.html#angr.state_plugins.trace_additions.FormatInfoStrToInt.compute">(angr.state_plugins.trace_additions.FormatInfoStrToInt method)</a>
 </li>
       </ul></li>
+      <li><a href="angr.html#angr.analyses.decompiler.structured_codegen.c.CBinaryOp.compute_common_type">compute_common_type() (angr.analyses.decompiler.structured_codegen.c.CBinaryOp static method)</a>
+</li>
       <li><a href="angr.html#angr.utils.graph.compute_dominance_frontier">compute_dominance_frontier() (in module angr.utils.graph)</a>
 </li>
       <li><a href="pyvex.html#pyvex.lifting.util.instr_helper.Instruction.compute_flags">compute_flags() (pyvex.lifting.util.instr_helper.Instruction method)</a>
@@ -11099,13 +11110,13 @@
       <li><a href="angr.html#angr.analyses.decompiler.structured_codegen.c.CStructuredCodeWalker.handle_CAssignment">handle_CAssignment() (angr.analyses.decompiler.structured_codegen.c.CStructuredCodeWalker class method)</a>
 
       <ul>
-        <li><a href="angr.html#angr.analyses.decompiler.structured_codegen.c.OptimizeTypecastsWalker.handle_CAssignment">(angr.analyses.decompiler.structured_codegen.c.OptimizeTypecastsWalker class method)</a>
+        <li><a href="angr.html#angr.analyses.decompiler.structured_codegen.c.MakeTypecastsImplicit.handle_CAssignment">(angr.analyses.decompiler.structured_codegen.c.MakeTypecastsImplicit class method)</a>
 </li>
       </ul></li>
       <li><a href="angr.html#angr.analyses.decompiler.structured_codegen.c.CStructuredCodeWalker.handle_CBinaryOp">handle_CBinaryOp() (angr.analyses.decompiler.structured_codegen.c.CStructuredCodeWalker class method)</a>
 
       <ul>
-        <li><a href="angr.html#angr.analyses.decompiler.structured_codegen.c.OptimizeTypecastsWalker.handle_CBinaryOp">(angr.analyses.decompiler.structured_codegen.c.OptimizeTypecastsWalker class method)</a>
+        <li><a href="angr.html#angr.analyses.decompiler.structured_codegen.c.MakeTypecastsImplicit.handle_CBinaryOp">(angr.analyses.decompiler.structured_codegen.c.MakeTypecastsImplicit class method)</a>
 </li>
         <li><a href="angr.html#angr.analyses.decompiler.structured_codegen.c.PointerArithmeticFixer.handle_CBinaryOp">(angr.analyses.decompiler.structured_codegen.c.PointerArithmeticFixer class method)</a>
 </li>
@@ -11119,7 +11130,7 @@
       <li><a href="angr.html#angr.analyses.decompiler.structured_codegen.c.CStructuredCodeWalker.handle_CFunctionCall">handle_CFunctionCall() (angr.analyses.decompiler.structured_codegen.c.CStructuredCodeWalker class method)</a>
 
       <ul>
-        <li><a href="angr.html#angr.analyses.decompiler.structured_codegen.c.OptimizeTypecastsWalker.handle_CFunctionCall">(angr.analyses.decompiler.structured_codegen.c.OptimizeTypecastsWalker class method)</a>
+        <li><a href="angr.html#angr.analyses.decompiler.structured_codegen.c.MakeTypecastsImplicit.handle_CFunctionCall">(angr.analyses.decompiler.structured_codegen.c.MakeTypecastsImplicit class method)</a>
 </li>
       </ul></li>
       <li><a href="angr.html#angr.analyses.decompiler.structured_codegen.c.CStructuredCodeWalker.handle_CGoto">handle_CGoto() (angr.analyses.decompiler.structured_codegen.c.CStructuredCodeWalker class method)</a>
@@ -11135,7 +11146,7 @@
       <li><a href="angr.html#angr.analyses.decompiler.structured_codegen.c.CStructuredCodeWalker.handle_CReturn">handle_CReturn() (angr.analyses.decompiler.structured_codegen.c.CStructuredCodeWalker class method)</a>
 
       <ul>
-        <li><a href="angr.html#angr.analyses.decompiler.structured_codegen.c.OptimizeTypecastsWalker.handle_CReturn">(angr.analyses.decompiler.structured_codegen.c.OptimizeTypecastsWalker class method)</a>
+        <li><a href="angr.html#angr.analyses.decompiler.structured_codegen.c.MakeTypecastsImplicit.handle_CReturn">(angr.analyses.decompiler.structured_codegen.c.MakeTypecastsImplicit class method)</a>
 </li>
       </ul></li>
       <li><a href="angr.html#angr.analyses.decompiler.structured_codegen.c.CStructuredCodeWalker.handle_CStatements">handle_CStatements() (angr.analyses.decompiler.structured_codegen.c.CStructuredCodeWalker class method)</a>
@@ -11147,7 +11158,7 @@
       <ul>
         <li><a href="angr.html#angr.analyses.decompiler.structured_codegen.c.FieldReferenceCleanup.handle_CTypeCast">(angr.analyses.decompiler.structured_codegen.c.FieldReferenceCleanup class method)</a>
 </li>
-        <li><a href="angr.html#angr.analyses.decompiler.structured_codegen.c.OptimizeTypecastsWalker.handle_CTypeCast">(angr.analyses.decompiler.structured_codegen.c.OptimizeTypecastsWalker class method)</a>
+        <li><a href="angr.html#angr.analyses.decompiler.structured_codegen.c.MakeTypecastsImplicit.handle_CTypeCast">(angr.analyses.decompiler.structured_codegen.c.MakeTypecastsImplicit class method)</a>
 </li>
       </ul></li>
       <li><a href="angr.html#angr.analyses.decompiler.structured_codegen.c.CStructuredCodeWalker.handle_CUnaryOp">handle_CUnaryOp() (angr.analyses.decompiler.structured_codegen.c.CStructuredCodeWalker class method)</a>
@@ -13769,6 +13780,8 @@
       <li><a href="angr.html#angr.knowledge_plugins.sync.sync_controller.make_state">make_state() (in module angr.knowledge_plugins.sync.sync_controller)</a>
 </li>
       <li><a href="angr.html#angr.analyses.identifier.identify.Identifier.make_symbolic_state">make_symbolic_state() (angr.analyses.identifier.identify.Identifier static method)</a>
+</li>
+      <li><a href="angr.html#angr.analyses.decompiler.structured_codegen.c.MakeTypecastsImplicit">MakeTypecastsImplicit (class in angr.analyses.decompiler.structured_codegen.c)</a>
 </li>
       <li><a href="angr.html#angr.state_plugins.heap.heap_libc.SimHeapLibc.malloc">malloc() (angr.state_plugins.heap.heap_libc.SimHeapLibc method)</a>
 
@@ -16541,8 +16554,6 @@
         <li><a href="angr.html#angr.analyses.decompiler.peephole_optimizations.base.PeepholeOptimizationStmtBase.optimize">(angr.analyses.decompiler.peephole_optimizations.base.PeepholeOptimizationStmtBase method)</a>
 </li>
       </ul></li>
-      <li><a href="angr.html#angr.analyses.decompiler.structured_codegen.c.OptimizeTypecastsWalker">OptimizeTypecastsWalker (class in angr.analyses.decompiler.structured_codegen.c)</a>
-</li>
       <li><a href="angr.html#angr.analyses.cfg.cfg_arch_options.CFGArchOptions.OPTIONS">OPTIONS (angr.analyses.cfg.cfg_arch_options.CFGArchOptions attribute)</a>
 
       <ul>

@@ -4,7 +4,7 @@
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>claripy — Solver Engine &mdash; angr 9.2.19
+  <title>claripy — Solver Engine &mdash; angr 9.2.20
  documentation</title>
       <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
@@ -17,6 +17,7 @@
         <script src="_static/underscore.js"></script>
         <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
         <script src="_static/doctools.js"></script>
+        <script src="_static/sphinx_highlight.js"></script>
     <script src="_static/js/theme.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
@@ -32,7 +33,7 @@
             <a href="index.html" class="icon icon-home"> angr
           </a>
               <div class="version">
-                9.2.19
+                9.2.20
 
               </div>
 <div role="search">
@@ -47,13 +48,1017 @@
 <li class="toctree-l1"><a class="reference internal" href="angr.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">angr</span></code> — Analysis and Coordination</a></li>
 <li class="toctree-l1"><a class="reference internal" href="ailment.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">ailment</span></code> — angr Intermediate Language</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#"><code class="xref py py-mod docutils literal notranslate"><span class="pre">claripy</span></code> — Solver Engine</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="#module-claripy.ast">AST</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#module-claripy.backends">Backends</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#module-claripy.frontend">Frontends</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#module-claripy.frontend_mixins">Frontend Mixins</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#module-claripy.annotation">Annotations</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#module-claripy.vsa">VSA</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#module-claripy">Misc. Things</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#module-claripy.ast">AST</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#claripy.ast.base.from_iterable"><code class="docutils literal notranslate"><span class="pre">from_iterable()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#claripy.ast.base.ASTCacheKey"><code class="docutils literal notranslate"><span class="pre">ASTCacheKey</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#claripy.ast.base.Base"><code class="docutils literal notranslate"><span class="pre">Base</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#claripy.ast.base.Base.FULL_SIMPLIFY"><code class="docutils literal notranslate"><span class="pre">Base.FULL_SIMPLIFY</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#claripy.ast.base.Base.LITE_SIMPLIFY"><code class="docutils literal notranslate"><span class="pre">Base.LITE_SIMPLIFY</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#claripy.ast.base.Base.UNSIMPLIFIED"><code class="docutils literal notranslate"><span class="pre">Base.UNSIMPLIFIED</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#claripy.ast.base.Base.LITE_REPR"><code class="docutils literal notranslate"><span class="pre">Base.LITE_REPR</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#claripy.ast.base.Base.MID_REPR"><code class="docutils literal notranslate"><span class="pre">Base.MID_REPR</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#claripy.ast.base.Base.FULL_REPR"><code class="docutils literal notranslate"><span class="pre">Base.FULL_REPR</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#claripy.ast.base.Base.cache_key"><code class="docutils literal notranslate"><span class="pre">Base.cache_key</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#claripy.ast.base.Base.make_like"><code class="docutils literal notranslate"><span class="pre">Base.make_like()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#claripy.ast.base.Base.append_annotation"><code class="docutils literal notranslate"><span class="pre">Base.append_annotation()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#claripy.ast.base.Base.append_annotations"><code class="docutils literal notranslate"><span class="pre">Base.append_annotations()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#claripy.ast.base.Base.annotate"><code class="docutils literal notranslate"><span class="pre">Base.annotate()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#claripy.ast.base.Base.insert_annotation"><code class="docutils literal notranslate"><span class="pre">Base.insert_annotation()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#claripy.ast.base.Base.insert_annotations"><code class="docutils literal notranslate"><span class="pre">Base.insert_annotations()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#claripy.ast.base.Base.replace_annotations"><code class="docutils literal notranslate"><span class="pre">Base.replace_annotations()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#claripy.ast.base.Base.remove_annotation"><code class="docutils literal notranslate"><span class="pre">Base.remove_annotation()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#claripy.ast.base.Base.remove_annotations"><code class="docutils literal notranslate"><span class="pre">Base.remove_annotations()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#claripy.ast.base.Base.dbg_repr"><code class="docutils literal notranslate"><span class="pre">Base.dbg_repr()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#claripy.ast.base.Base.shallow_repr"><code class="docutils literal notranslate"><span class="pre">Base.shallow_repr()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#claripy.ast.base.Base.children_asts"><code class="docutils literal notranslate"><span class="pre">Base.children_asts()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#claripy.ast.base.Base.leaf_asts"><code class="docutils literal notranslate"><span class="pre">Base.leaf_asts()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#claripy.ast.base.Base.recursive_children_asts"><code class="docutils literal notranslate"><span class="pre">Base.recursive_children_asts</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#claripy.ast.base.Base.recursive_leaf_asts"><code class="docutils literal notranslate"><span class="pre">Base.recursive_leaf_asts</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#claripy.ast.base.Base.dbg_is_looped"><code class="docutils literal notranslate"><span class="pre">Base.dbg_is_looped()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#claripy.ast.base.Base.swap_args"><code class="docutils literal notranslate"><span class="pre">Base.swap_args()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#claripy.ast.base.Base.split"><code class="docutils literal notranslate"><span class="pre">Base.split()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#claripy.ast.base.Base.structurally_match"><code class="docutils literal notranslate"><span class="pre">Base.structurally_match()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#claripy.ast.base.Base.replace_dict"><code class="docutils literal notranslate"><span class="pre">Base.replace_dict()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#claripy.ast.base.Base.replace"><code class="docutils literal notranslate"><span class="pre">Base.replace()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#claripy.ast.base.Base.canonicalize"><code class="docutils literal notranslate"><span class="pre">Base.canonicalize()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#claripy.ast.base.Base.ite_burrowed"><code class="docutils literal notranslate"><span class="pre">Base.ite_burrowed</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#claripy.ast.base.Base.ite_excavated"><code class="docutils literal notranslate"><span class="pre">Base.ite_excavated</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#claripy.ast.base.Base.singlevalued"><code class="docutils literal notranslate"><span class="pre">Base.singlevalued</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#claripy.ast.base.Base.multivalued"><code class="docutils literal notranslate"><span class="pre">Base.multivalued</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#claripy.ast.base.Base.cardinality"><code class="docutils literal notranslate"><span class="pre">Base.cardinality</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#claripy.ast.base.Base.concrete"><code class="docutils literal notranslate"><span class="pre">Base.concrete</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#claripy.ast.base.Base.uninitialized"><code class="docutils literal notranslate"><span class="pre">Base.uninitialized</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#claripy.ast.base.Base.uc_alloc_depth"><code class="docutils literal notranslate"><span class="pre">Base.uc_alloc_depth</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#claripy.ast.base.Base.to_claripy"><code class="docutils literal notranslate"><span class="pre">Base.to_claripy()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#claripy.ast.base.Base.op"><code class="docutils literal notranslate"><span class="pre">Base.op</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#claripy.ast.base.Base.args"><code class="docutils literal notranslate"><span class="pre">Base.args</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#claripy.ast.base.Base.variables"><code class="docutils literal notranslate"><span class="pre">Base.variables</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#claripy.ast.base.Base.symbolic"><code class="docutils literal notranslate"><span class="pre">Base.symbolic</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#claripy.ast.base.Base.length"><code class="docutils literal notranslate"><span class="pre">Base.length</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#claripy.ast.base.Base.annotations"><code class="docutils literal notranslate"><span class="pre">Base.annotations</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#claripy.ast.base.Base.simplifiable"><code class="docutils literal notranslate"><span class="pre">Base.simplifiable</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#claripy.ast.base.Base.depth"><code class="docutils literal notranslate"><span class="pre">Base.depth</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#claripy.ast.base.simplify"><code class="docutils literal notranslate"><span class="pre">simplify()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#claripy.ast.bits.Bits"><code class="docutils literal notranslate"><span class="pre">Bits</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#claripy.ast.bits.Bits.length"><code class="docutils literal notranslate"><span class="pre">Bits.length</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#claripy.ast.bits.Bits.make_like"><code class="docutils literal notranslate"><span class="pre">Bits.make_like()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#claripy.ast.bits.Bits.size"><code class="docutils literal notranslate"><span class="pre">Bits.size()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#claripy.ast.bits.Bits.raw_to_bv"><code class="docutils literal notranslate"><span class="pre">Bits.raw_to_bv()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#claripy.ast.bits.Bits.raw_to_fp"><code class="docutils literal notranslate"><span class="pre">Bits.raw_to_fp()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#claripy.ast.bool.cleanup"><code class="docutils literal notranslate"><span class="pre">cleanup()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#claripy.ast.bool.Bool"><code class="docutils literal notranslate"><span class="pre">Bool</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#claripy.ast.bool.Bool.is_true"><code class="docutils literal notranslate"><span class="pre">Bool.is_true()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#claripy.ast.bool.Bool.is_false"><code class="docutils literal notranslate"><span class="pre">Bool.is_false()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#claripy.ast.bool.Bool.intersection"><code class="docutils literal notranslate"><span class="pre">Bool.intersection()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#claripy.ast.bool.BoolS"><code class="docutils literal notranslate"><span class="pre">BoolS()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#claripy.ast.bool.BoolV"><code class="docutils literal notranslate"><span class="pre">BoolV()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#claripy.ast.bool.If"><code class="docutils literal notranslate"><span class="pre">If()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#claripy.ast.bool.is_true"><code class="docutils literal notranslate"><span class="pre">is_true()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#claripy.ast.bool.is_false"><code class="docutils literal notranslate"><span class="pre">is_false()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#claripy.ast.bool.ite_dict"><code class="docutils literal notranslate"><span class="pre">ite_dict()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#claripy.ast.bool.ite_cases"><code class="docutils literal notranslate"><span class="pre">ite_cases()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#claripy.ast.bool.reverse_ite_cases"><code class="docutils literal notranslate"><span class="pre">reverse_ite_cases()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#claripy.ast.bool.constraint_to_si"><code class="docutils literal notranslate"><span class="pre">constraint_to_si()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#claripy.ast.bv.cleanup"><code class="docutils literal notranslate"><span class="pre">cleanup()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#claripy.ast.bv.BV"><code class="docutils literal notranslate"><span class="pre">BV</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#claripy.ast.bv.BV.chop"><code class="docutils literal notranslate"><span class="pre">BV.chop()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#claripy.ast.bv.BV.get_byte"><code class="docutils literal notranslate"><span class="pre">BV.get_byte()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#claripy.ast.bv.BV.get_bytes"><code class="docutils literal notranslate"><span class="pre">BV.get_bytes()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#claripy.ast.bv.BV.zero_extend"><code class="docutils literal notranslate"><span class="pre">BV.zero_extend()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#claripy.ast.bv.BV.sign_extend"><code class="docutils literal notranslate"><span class="pre">BV.sign_extend()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#claripy.ast.bv.BV.concat"><code class="docutils literal notranslate"><span class="pre">BV.concat()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#claripy.ast.bv.BV.val_to_fp"><code class="docutils literal notranslate"><span class="pre">BV.val_to_fp()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#claripy.ast.bv.BV.raw_to_fp"><code class="docutils literal notranslate"><span class="pre">BV.raw_to_fp()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#claripy.ast.bv.BV.raw_to_bv"><code class="docutils literal notranslate"><span class="pre">BV.raw_to_bv()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#claripy.ast.bv.BV.to_bv"><code class="docutils literal notranslate"><span class="pre">BV.to_bv()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#claripy.ast.bv.BV.Concat"><code class="docutils literal notranslate"><span class="pre">BV.Concat()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#claripy.ast.bv.BV.Extract"><code class="docutils literal notranslate"><span class="pre">BV.Extract()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#claripy.ast.bv.BV.LShR"><code class="docutils literal notranslate"><span class="pre">BV.LShR()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#claripy.ast.bv.BV.SDiv"><code class="docutils literal notranslate"><span class="pre">BV.SDiv()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#claripy.ast.bv.BV.SGE"><code class="docutils literal notranslate"><span class="pre">BV.SGE()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#claripy.ast.bv.BV.SGT"><code class="docutils literal notranslate"><span class="pre">BV.SGT()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#claripy.ast.bv.BV.SLE"><code class="docutils literal notranslate"><span class="pre">BV.SLE()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#claripy.ast.bv.BV.SLT"><code class="docutils literal notranslate"><span class="pre">BV.SLT()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#claripy.ast.bv.BV.SMod"><code class="docutils literal notranslate"><span class="pre">BV.SMod()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#claripy.ast.bv.BV.UGE"><code class="docutils literal notranslate"><span class="pre">BV.UGE()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#claripy.ast.bv.BV.UGT"><code class="docutils literal notranslate"><span class="pre">BV.UGT()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#claripy.ast.bv.BV.ULE"><code class="docutils literal notranslate"><span class="pre">BV.ULE()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#claripy.ast.bv.BV.ULT"><code class="docutils literal notranslate"><span class="pre">BV.ULT()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#claripy.ast.bv.BV.intersection"><code class="docutils literal notranslate"><span class="pre">BV.intersection()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#claripy.ast.bv.BV.reversed"><code class="docutils literal notranslate"><span class="pre">BV.reversed</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#claripy.ast.bv.BV.union"><code class="docutils literal notranslate"><span class="pre">BV.union()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#claripy.ast.bv.BV.widen"><code class="docutils literal notranslate"><span class="pre">BV.widen()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#claripy.ast.bv.BVS"><code class="docutils literal notranslate"><span class="pre">BVS()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#claripy.ast.bv.BVV"><code class="docutils literal notranslate"><span class="pre">BVV()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#claripy.ast.bv.SI"><code class="docutils literal notranslate"><span class="pre">SI()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#claripy.ast.bv.TSI"><code class="docutils literal notranslate"><span class="pre">TSI()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#claripy.ast.bv.ESI"><code class="docutils literal notranslate"><span class="pre">ESI()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#claripy.ast.bv.ValueSet"><code class="docutils literal notranslate"><span class="pre">ValueSet()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#claripy.ast.bv.VS"><code class="docutils literal notranslate"><span class="pre">VS()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#claripy.ast.bv.DSIS"><code class="docutils literal notranslate"><span class="pre">DSIS()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#claripy.ast.fp.FP"><code class="docutils literal notranslate"><span class="pre">FP</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#claripy.ast.fp.FP.to_fp"><code class="docutils literal notranslate"><span class="pre">FP.to_fp()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#claripy.ast.fp.FP.raw_to_fp"><code class="docutils literal notranslate"><span class="pre">FP.raw_to_fp()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#claripy.ast.fp.FP.raw_to_bv"><code class="docutils literal notranslate"><span class="pre">FP.raw_to_bv()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#claripy.ast.fp.FP.to_bv"><code class="docutils literal notranslate"><span class="pre">FP.to_bv()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#claripy.ast.fp.FP.val_to_bv"><code class="docutils literal notranslate"><span class="pre">FP.val_to_bv()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#claripy.ast.fp.FP.sort"><code class="docutils literal notranslate"><span class="pre">FP.sort</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#claripy.ast.fp.FP.Sqrt"><code class="docutils literal notranslate"><span class="pre">FP.Sqrt()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#claripy.ast.fp.FP.isInf"><code class="docutils literal notranslate"><span class="pre">FP.isInf()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#claripy.ast.fp.FP.isNaN"><code class="docutils literal notranslate"><span class="pre">FP.isNaN()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#claripy.ast.fp.FPS"><code class="docutils literal notranslate"><span class="pre">FPS()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#claripy.ast.fp.FPV"><code class="docutils literal notranslate"><span class="pre">FPV()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#claripy.ast.int.Int"><code class="docutils literal notranslate"><span class="pre">Int</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#claripy.ast.strings.String"><code class="docutils literal notranslate"><span class="pre">String</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#claripy.ast.strings.String.STRING_TYPE_IDENTIFIER"><code class="docutils literal notranslate"><span class="pre">String.STRING_TYPE_IDENTIFIER</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#claripy.ast.strings.String.GENERATED_BVS_IDENTIFIER"><code class="docutils literal notranslate"><span class="pre">String.GENERATED_BVS_IDENTIFIER</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#claripy.ast.strings.String.MAX_LENGTH"><code class="docutils literal notranslate"><span class="pre">String.MAX_LENGTH</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#claripy.ast.strings.String.string_length"><code class="docutils literal notranslate"><span class="pre">String.string_length</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#claripy.ast.strings.String.strReplace"><code class="docutils literal notranslate"><span class="pre">String.strReplace()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#claripy.ast.strings.String.toInt"><code class="docutils literal notranslate"><span class="pre">String.toInt()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#claripy.ast.strings.String.indexOf"><code class="docutils literal notranslate"><span class="pre">String.indexOf()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#claripy.ast.strings.String.raw_to_bv"><code class="docutils literal notranslate"><span class="pre">String.raw_to_bv()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#claripy.ast.strings.String.raw_to_fp"><code class="docutils literal notranslate"><span class="pre">String.raw_to_fp()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#claripy.ast.strings.String.IntToStr"><code class="docutils literal notranslate"><span class="pre">String.IntToStr()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#claripy.ast.strings.String.StrConcat"><code class="docutils literal notranslate"><span class="pre">String.StrConcat()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#claripy.ast.strings.String.StrContains"><code class="docutils literal notranslate"><span class="pre">String.StrContains()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#claripy.ast.strings.String.StrIndexOf"><code class="docutils literal notranslate"><span class="pre">String.StrIndexOf()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#claripy.ast.strings.String.StrIsDigit"><code class="docutils literal notranslate"><span class="pre">String.StrIsDigit()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#claripy.ast.strings.String.StrLen"><code class="docutils literal notranslate"><span class="pre">String.StrLen()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#claripy.ast.strings.String.StrPrefixOf"><code class="docutils literal notranslate"><span class="pre">String.StrPrefixOf()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#claripy.ast.strings.String.StrReplace"><code class="docutils literal notranslate"><span class="pre">String.StrReplace()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#claripy.ast.strings.String.StrSubstr"><code class="docutils literal notranslate"><span class="pre">String.StrSubstr()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#claripy.ast.strings.String.StrSuffixOf"><code class="docutils literal notranslate"><span class="pre">String.StrSuffixOf()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#claripy.ast.strings.String.StrToInt"><code class="docutils literal notranslate"><span class="pre">String.StrToInt()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#claripy.ast.strings.StringS"><code class="docutils literal notranslate"><span class="pre">StringS()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#claripy.ast.strings.StringV"><code class="docutils literal notranslate"><span class="pre">StringV()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#claripy.ast.vs.VS"><code class="docutils literal notranslate"><span class="pre">VS</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#module-claripy.backends">Backends</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#claripy.backends.Backend"><code class="docutils literal notranslate"><span class="pre">Backend</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#claripy.backends.Backend.is_smt_backend"><code class="docutils literal notranslate"><span class="pre">Backend.is_smt_backend</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#claripy.backends.Backend.downsize"><code class="docutils literal notranslate"><span class="pre">Backend.downsize()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#claripy.backends.Backend.handles"><code class="docutils literal notranslate"><span class="pre">Backend.handles()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#claripy.backends.Backend.convert"><code class="docutils literal notranslate"><span class="pre">Backend.convert()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#claripy.backends.Backend.convert_list"><code class="docutils literal notranslate"><span class="pre">Backend.convert_list()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#claripy.backends.Backend.call"><code class="docutils literal notranslate"><span class="pre">Backend.call()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#claripy.backends.Backend.simplify"><code class="docutils literal notranslate"><span class="pre">Backend.simplify()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#claripy.backends.Backend.is_true"><code class="docutils literal notranslate"><span class="pre">Backend.is_true()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#claripy.backends.Backend.is_false"><code class="docutils literal notranslate"><span class="pre">Backend.is_false()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#claripy.backends.Backend.has_true"><code class="docutils literal notranslate"><span class="pre">Backend.has_true()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#claripy.backends.Backend.has_false"><code class="docutils literal notranslate"><span class="pre">Backend.has_false()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#claripy.backends.Backend.solver"><code class="docutils literal notranslate"><span class="pre">Backend.solver()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#claripy.backends.Backend.add"><code class="docutils literal notranslate"><span class="pre">Backend.add()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#claripy.backends.Backend.unsat_core"><code class="docutils literal notranslate"><span class="pre">Backend.unsat_core()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#claripy.backends.Backend.eval"><code class="docutils literal notranslate"><span class="pre">Backend.eval()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#claripy.backends.Backend.batch_eval"><code class="docutils literal notranslate"><span class="pre">Backend.batch_eval()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#claripy.backends.Backend.min"><code class="docutils literal notranslate"><span class="pre">Backend.min()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#claripy.backends.Backend.max"><code class="docutils literal notranslate"><span class="pre">Backend.max()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#claripy.backends.Backend.check_satisfiability"><code class="docutils literal notranslate"><span class="pre">Backend.check_satisfiability()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#claripy.backends.Backend.satisfiable"><code class="docutils literal notranslate"><span class="pre">Backend.satisfiable()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#claripy.backends.Backend.solution"><code class="docutils literal notranslate"><span class="pre">Backend.solution()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#claripy.backends.Backend.name"><code class="docutils literal notranslate"><span class="pre">Backend.name()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#claripy.backends.Backend.identical"><code class="docutils literal notranslate"><span class="pre">Backend.identical()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#claripy.backends.Backend.cardinality"><code class="docutils literal notranslate"><span class="pre">Backend.cardinality()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#claripy.backends.Backend.singlevalued"><code class="docutils literal notranslate"><span class="pre">Backend.singlevalued()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#claripy.backends.Backend.multivalued"><code class="docutils literal notranslate"><span class="pre">Backend.multivalued()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#claripy.backends.Backend.apply_annotation"><code class="docutils literal notranslate"><span class="pre">Backend.apply_annotation()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#claripy.backends.Backend.default_op"><code class="docutils literal notranslate"><span class="pre">Backend.default_op()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#claripy.backend_manager.BackendManager"><code class="docutils literal notranslate"><span class="pre">BackendManager</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#claripy.backend_manager.BackendManager.downsize"><code class="docutils literal notranslate"><span class="pre">BackendManager.downsize()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#claripy.backend_object.BackendObject"><code class="docutils literal notranslate"><span class="pre">BackendObject</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#claripy.backend_object.BackendObject.to_claripy"><code class="docutils literal notranslate"><span class="pre">BackendObject.to_claripy()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#claripy.backends.backend_concrete.BackendConcrete"><code class="docutils literal notranslate"><span class="pre">BackendConcrete</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#claripy.backends.backend_concrete.BackendConcrete.BVV"><code class="docutils literal notranslate"><span class="pre">BackendConcrete.BVV()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#claripy.backends.backend_concrete.BackendConcrete.StringV"><code class="docutils literal notranslate"><span class="pre">BackendConcrete.StringV()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#claripy.backends.backend_concrete.BackendConcrete.FPV"><code class="docutils literal notranslate"><span class="pre">BackendConcrete.FPV()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#claripy.backends.backend_concrete.BackendConcrete.convert"><code class="docutils literal notranslate"><span class="pre">BackendConcrete.convert()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#claripy.backends.backend_concrete.BackendConcrete.is_true"><code class="docutils literal notranslate"><span class="pre">BackendConcrete.is_true()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#claripy.backends.backend_concrete.BackendConcrete.is_false"><code class="docutils literal notranslate"><span class="pre">BackendConcrete.is_false()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#claripy.backends.backend_z3.handle_sigint"><code class="docutils literal notranslate"><span class="pre">handle_sigint()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#claripy.backends.backend_z3.z3_expr_to_smt2"><code class="docutils literal notranslate"><span class="pre">z3_expr_to_smt2()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#claripy.backends.backend_z3.claripy_solver_to_smt2"><code class="docutils literal notranslate"><span class="pre">claripy_solver_to_smt2()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#claripy.backends.backend_z3.condom"><code class="docutils literal notranslate"><span class="pre">condom()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#claripy.backends.backend_z3.z3_solver_sat"><code class="docutils literal notranslate"><span class="pre">z3_solver_sat()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#claripy.backends.backend_z3.SmartLRUCache"><code class="docutils literal notranslate"><span class="pre">SmartLRUCache</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#claripy.backends.backend_z3.SmartLRUCache.popitem"><code class="docutils literal notranslate"><span class="pre">SmartLRUCache.popitem()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#claripy.backends.backend_z3.BackendZ3"><code class="docutils literal notranslate"><span class="pre">BackendZ3</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#claripy.backends.backend_z3.BackendZ3.extra_bvs_data"><code class="docutils literal notranslate"><span class="pre">BackendZ3.extra_bvs_data</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#claripy.backends.backend_z3.BackendZ3.downsize"><code class="docutils literal notranslate"><span class="pre">BackendZ3.downsize()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#claripy.backends.backend_z3.BackendZ3.BVS"><code class="docutils literal notranslate"><span class="pre">BackendZ3.BVS()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#claripy.backends.backend_z3.BackendZ3.BVV"><code class="docutils literal notranslate"><span class="pre">BackendZ3.BVV()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#claripy.backends.backend_z3.BackendZ3.FPS"><code class="docutils literal notranslate"><span class="pre">BackendZ3.FPS()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#claripy.backends.backend_z3.BackendZ3.FPV"><code class="docutils literal notranslate"><span class="pre">BackendZ3.FPV()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#claripy.backends.backend_z3.BackendZ3.BoolS"><code class="docutils literal notranslate"><span class="pre">BackendZ3.BoolS()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#claripy.backends.backend_z3.BackendZ3.BoolV"><code class="docutils literal notranslate"><span class="pre">BackendZ3.BoolV()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#claripy.backends.backend_z3.BackendZ3.StringV"><code class="docutils literal notranslate"><span class="pre">BackendZ3.StringV()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#claripy.backends.backend_z3.BackendZ3.StringS"><code class="docutils literal notranslate"><span class="pre">BackendZ3.StringS()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#claripy.backends.backend_z3.BackendZ3.call"><code class="docutils literal notranslate"><span class="pre">BackendZ3.call()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#claripy.backends.backend_z3.BackendZ3.solver"><code class="docutils literal notranslate"><span class="pre">BackendZ3.solver()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#claripy.backends.backend_z3.BackendZ3.clone_solver"><code class="docutils literal notranslate"><span class="pre">BackendZ3.clone_solver()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#claripy.backends.backend_z3.BackendZ3.add"><code class="docutils literal notranslate"><span class="pre">BackendZ3.add()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#claripy.backends.backend_z3.BackendZ3.simplify"><code class="docutils literal notranslate"><span class="pre">BackendZ3.simplify()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#claripy.backends.backend_z3_parallel.BackendZ3Parallel"><code class="docutils literal notranslate"><span class="pre">BackendZ3Parallel</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#claripy.backends.backend_z3_parallel.BackendZ3Parallel.abstract"><code class="docutils literal notranslate"><span class="pre">BackendZ3Parallel.abstract()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#claripy.backends.backend_z3_parallel.BackendZ3Parallel.solver"><code class="docutils literal notranslate"><span class="pre">BackendZ3Parallel.solver()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#claripy.backends.backend_z3_parallel.BackendZ3Parallel.call"><code class="docutils literal notranslate"><span class="pre">BackendZ3Parallel.call()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#claripy.backends.backend_z3_parallel.BackendZ3Parallel.resolve"><code class="docutils literal notranslate"><span class="pre">BackendZ3Parallel.resolve()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#claripy.backends.backend_z3_parallel.BackendZ3Parallel.simplify"><code class="docutils literal notranslate"><span class="pre">BackendZ3Parallel.simplify()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#claripy.backends.backend_vsa.arg_filter"><code class="docutils literal notranslate"><span class="pre">arg_filter()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#claripy.backends.backend_vsa.normalize_arg_order"><code class="docutils literal notranslate"><span class="pre">normalize_arg_order()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#claripy.backends.backend_vsa.convert_args"><code class="docutils literal notranslate"><span class="pre">convert_args()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#claripy.backends.backend_vsa.BackendVSA"><code class="docutils literal notranslate"><span class="pre">BackendVSA</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#claripy.backends.backend_vsa.BackendVSA.convert"><code class="docutils literal notranslate"><span class="pre">BackendVSA.convert()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#claripy.backends.backend_vsa.BackendVSA.simplify"><code class="docutils literal notranslate"><span class="pre">BackendVSA.simplify()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#claripy.backends.backend_vsa.BackendVSA.name"><code class="docutils literal notranslate"><span class="pre">BackendVSA.name()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#claripy.backends.backend_vsa.BackendVSA.apply_annotation"><code class="docutils literal notranslate"><span class="pre">BackendVSA.apply_annotation()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#claripy.backends.backend_vsa.BackendVSA.BVV"><code class="docutils literal notranslate"><span class="pre">BackendVSA.BVV()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#claripy.backends.backend_vsa.BackendVSA.BoolV"><code class="docutils literal notranslate"><span class="pre">BackendVSA.BoolV()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#claripy.backends.backend_vsa.BackendVSA.And"><code class="docutils literal notranslate"><span class="pre">BackendVSA.And()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#claripy.backends.backend_vsa.BackendVSA.Not"><code class="docutils literal notranslate"><span class="pre">BackendVSA.Not()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#claripy.backends.backend_vsa.BackendVSA.ULT"><code class="docutils literal notranslate"><span class="pre">BackendVSA.ULT()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#claripy.backends.backend_vsa.BackendVSA.ULE"><code class="docutils literal notranslate"><span class="pre">BackendVSA.ULE()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#claripy.backends.backend_vsa.BackendVSA.UGT"><code class="docutils literal notranslate"><span class="pre">BackendVSA.UGT()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#claripy.backends.backend_vsa.BackendVSA.UGE"><code class="docutils literal notranslate"><span class="pre">BackendVSA.UGE()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#claripy.backends.backend_vsa.BackendVSA.SLT"><code class="docutils literal notranslate"><span class="pre">BackendVSA.SLT()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#claripy.backends.backend_vsa.BackendVSA.SLE"><code class="docutils literal notranslate"><span class="pre">BackendVSA.SLE()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#claripy.backends.backend_vsa.BackendVSA.SGT"><code class="docutils literal notranslate"><span class="pre">BackendVSA.SGT()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#claripy.backends.backend_vsa.BackendVSA.SGE"><code class="docutils literal notranslate"><span class="pre">BackendVSA.SGE()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#claripy.backends.backend_vsa.BackendVSA.BVS"><code class="docutils literal notranslate"><span class="pre">BackendVSA.BVS()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#claripy.backends.backend_vsa.BackendVSA.If"><code class="docutils literal notranslate"><span class="pre">BackendVSA.If()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#claripy.backends.backend_vsa.BackendVSA.Or"><code class="docutils literal notranslate"><span class="pre">BackendVSA.Or()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#claripy.backends.backend_vsa.BackendVSA.LShR"><code class="docutils literal notranslate"><span class="pre">BackendVSA.LShR()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#claripy.backends.backend_vsa.BackendVSA.Concat"><code class="docutils literal notranslate"><span class="pre">BackendVSA.Concat()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#claripy.backends.backend_vsa.BackendVSA.Extract"><code class="docutils literal notranslate"><span class="pre">BackendVSA.Extract()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#claripy.backends.backend_vsa.BackendVSA.SignExt"><code class="docutils literal notranslate"><span class="pre">BackendVSA.SignExt()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#claripy.backends.backend_vsa.BackendVSA.ZeroExt"><code class="docutils literal notranslate"><span class="pre">BackendVSA.ZeroExt()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#claripy.backends.backend_vsa.BackendVSA.Reverse"><code class="docutils literal notranslate"><span class="pre">BackendVSA.Reverse()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#claripy.backends.backend_vsa.BackendVSA.union"><code class="docutils literal notranslate"><span class="pre">BackendVSA.union()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#claripy.backends.backend_vsa.BackendVSA.intersection"><code class="docutils literal notranslate"><span class="pre">BackendVSA.intersection()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#claripy.backends.backend_vsa.BackendVSA.widen"><code class="docutils literal notranslate"><span class="pre">BackendVSA.widen()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#claripy.backends.backend_vsa.BackendVSA.CreateTopStridedInterval"><code class="docutils literal notranslate"><span class="pre">BackendVSA.CreateTopStridedInterval()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#claripy.backends.backend_vsa.BackendVSA.constraint_to_si"><code class="docutils literal notranslate"><span class="pre">BackendVSA.constraint_to_si()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#claripy.backends.backend_vsa.BackendVSA.CreateStridedInterval"><code class="docutils literal notranslate"><span class="pre">BackendVSA.CreateStridedInterval()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#claripy.backends.backend_smtlib_solvers.z3str_popen.get_version"><code class="docutils literal notranslate"><span class="pre">get_version()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#claripy.backends.backend_smtlib_solvers.z3str_popen.Z3StrProxy"><code class="docutils literal notranslate"><span class="pre">Z3StrProxy</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#claripy.backends.backend_smtlib_solvers.z3str_popen.Z3StrProxy.create_process"><code class="docutils literal notranslate"><span class="pre">Z3StrProxy.create_process()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#claripy.backends.backend_smtlib_solvers.z3str_popen.SolverBackendZ3Str"><code class="docutils literal notranslate"><span class="pre">SolverBackendZ3Str</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#claripy.backends.backend_smtlib_solvers.z3str_popen.SolverBackendZ3Str.solver"><code class="docutils literal notranslate"><span class="pre">SolverBackendZ3Str.solver()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#claripy.backends.backend_smtlib_solvers.cvc4_popen.get_version"><code class="docutils literal notranslate"><span class="pre">get_version()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#claripy.backends.backend_smtlib_solvers.cvc4_popen.CVC4Proxy"><code class="docutils literal notranslate"><span class="pre">CVC4Proxy</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#claripy.backends.backend_smtlib_solvers.cvc4_popen.CVC4Proxy.create_process"><code class="docutils literal notranslate"><span class="pre">CVC4Proxy.create_process()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#claripy.backends.backend_smtlib_solvers.cvc4_popen.SolverBackendCVC4"><code class="docutils literal notranslate"><span class="pre">SolverBackendCVC4</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#claripy.backends.backend_smtlib_solvers.cvc4_popen.SolverBackendCVC4.solver"><code class="docutils literal notranslate"><span class="pre">SolverBackendCVC4.solver()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#claripy.backends.backend_smtlib_solvers.z3_popen.get_version"><code class="docutils literal notranslate"><span class="pre">get_version()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#claripy.backends.backend_smtlib_solvers.z3_popen.Z3Proxy"><code class="docutils literal notranslate"><span class="pre">Z3Proxy</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#claripy.backends.backend_smtlib_solvers.z3_popen.Z3Proxy.create_process"><code class="docutils literal notranslate"><span class="pre">Z3Proxy.create_process()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#claripy.backends.backend_smtlib_solvers.z3_popen.SolverBackendZ3"><code class="docutils literal notranslate"><span class="pre">SolverBackendZ3</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#claripy.backends.backend_smtlib_solvers.z3_popen.SolverBackendZ3.solver"><code class="docutils literal notranslate"><span class="pre">SolverBackendZ3.solver()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#claripy.backends.backend_smtlib_solvers.abc_popen.get_version"><code class="docutils literal notranslate"><span class="pre">get_version()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#claripy.backends.backend_smtlib_solvers.abc_popen.ABCProxy"><code class="docutils literal notranslate"><span class="pre">ABCProxy</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#claripy.backends.backend_smtlib_solvers.abc_popen.ABCProxy.create_process"><code class="docutils literal notranslate"><span class="pre">ABCProxy.create_process()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#claripy.backends.backend_smtlib_solvers.abc_popen.SolverBackendABC"><code class="docutils literal notranslate"><span class="pre">SolverBackendABC</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#claripy.backends.backend_smtlib_solvers.abc_popen.SolverBackendABC.solver"><code class="docutils literal notranslate"><span class="pre">SolverBackendABC.solver()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#claripy.backends.backend_smtlib_solvers.AbstractSMTLibSolverProxy"><code class="docutils literal notranslate"><span class="pre">AbstractSMTLibSolverProxy</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#claripy.backends.backend_smtlib_solvers.AbstractSMTLibSolverProxy.write"><code class="docutils literal notranslate"><span class="pre">AbstractSMTLibSolverProxy.write()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#claripy.backends.backend_smtlib_solvers.AbstractSMTLibSolverProxy.read"><code class="docutils literal notranslate"><span class="pre">AbstractSMTLibSolverProxy.read()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#claripy.backends.backend_smtlib_solvers.AbstractSMTLibSolverProxy.setup"><code class="docutils literal notranslate"><span class="pre">AbstractSMTLibSolverProxy.setup()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#claripy.backends.backend_smtlib_solvers.AbstractSMTLibSolverProxy.reset"><code class="docutils literal notranslate"><span class="pre">AbstractSMTLibSolverProxy.reset()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#claripy.backends.backend_smtlib_solvers.AbstractSMTLibSolverProxy.readuntil"><code class="docutils literal notranslate"><span class="pre">AbstractSMTLibSolverProxy.readuntil()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#claripy.backends.backend_smtlib_solvers.AbstractSMTLibSolverProxy.readline"><code class="docutils literal notranslate"><span class="pre">AbstractSMTLibSolverProxy.readline()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#claripy.backends.backend_smtlib_solvers.AbstractSMTLibSolverProxy.writeline"><code class="docutils literal notranslate"><span class="pre">AbstractSMTLibSolverProxy.writeline()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#claripy.backends.backend_smtlib_solvers.AbstractSMTLibSolverProxy.read_sat"><code class="docutils literal notranslate"><span class="pre">AbstractSMTLibSolverProxy.read_sat()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#claripy.backends.backend_smtlib_solvers.AbstractSMTLibSolverProxy.read_model"><code class="docutils literal notranslate"><span class="pre">AbstractSMTLibSolverProxy.read_model()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#claripy.backends.backend_smtlib_solvers.AbstractSMTLibSolverProxy.create_process"><code class="docutils literal notranslate"><span class="pre">AbstractSMTLibSolverProxy.create_process()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#claripy.backends.backend_smtlib_solvers.PopenSolverProxy"><code class="docutils literal notranslate"><span class="pre">PopenSolverProxy</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#claripy.backends.backend_smtlib_solvers.PopenSolverProxy.read"><code class="docutils literal notranslate"><span class="pre">PopenSolverProxy.read()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#claripy.backends.backend_smtlib_solvers.PopenSolverProxy.write"><code class="docutils literal notranslate"><span class="pre">PopenSolverProxy.write()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#claripy.backends.backend_smtlib_solvers.PopenSolverProxy.add_constraints"><code class="docutils literal notranslate"><span class="pre">PopenSolverProxy.add_constraints()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#claripy.backends.backend_smtlib_solvers.PopenSolverProxy.terminate"><code class="docutils literal notranslate"><span class="pre">PopenSolverProxy.terminate()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#claripy.backends.backend_smtlib_solvers.SMTLibSolverBackend"><code class="docutils literal notranslate"><span class="pre">SMTLibSolverBackend</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#claripy.backends.backend_smtlib_solvers.SMTLibSolverBackend.solver"><code class="docutils literal notranslate"><span class="pre">SMTLibSolverBackend.solver()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#claripy.backends.backend_smtlib_solvers.SMTLibSolverBackend.eval"><code class="docutils literal notranslate"><span class="pre">SMTLibSolverBackend.eval()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#claripy.backends.backend_smtlib.BackendSMTLibBase"><code class="docutils literal notranslate"><span class="pre">BackendSMTLibBase</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#claripy.backends.backend_smtlib.BackendSMTLibBase.is_smt_backend"><code class="docutils literal notranslate"><span class="pre">BackendSMTLibBase.is_smt_backend</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#claripy.backends.backend_smtlib.BackendSMTLibBase.StringV"><code class="docutils literal notranslate"><span class="pre">BackendSMTLibBase.StringV()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#claripy.backends.backend_smtlib.BackendSMTLibBase.StringS"><code class="docutils literal notranslate"><span class="pre">BackendSMTLibBase.StringS()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#claripy.backends.backend_smtlib.BackendSMTLibBase.BoolV"><code class="docutils literal notranslate"><span class="pre">BackendSMTLibBase.BoolV()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#claripy.backends.backend_smtlib.BackendSMTLibBase.BoolS"><code class="docutils literal notranslate"><span class="pre">BackendSMTLibBase.BoolS()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#claripy.backends.backend_smtlib.BackendSMTLibBase.BVV"><code class="docutils literal notranslate"><span class="pre">BackendSMTLibBase.BVV()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#claripy.backends.backend_smtlib.BackendSMTLibBase.BVS"><code class="docutils literal notranslate"><span class="pre">BackendSMTLibBase.BVS()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#module-claripy.frontend">Frontends</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#claripy.frontend.Frontend"><code class="docutils literal notranslate"><span class="pre">Frontend</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#claripy.frontend.Frontend.branch"><code class="docutils literal notranslate"><span class="pre">Frontend.branch()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#claripy.frontend.Frontend.blank_copy"><code class="docutils literal notranslate"><span class="pre">Frontend.blank_copy()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#claripy.frontend.Frontend.eval_to_ast"><code class="docutils literal notranslate"><span class="pre">Frontend.eval_to_ast()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#claripy.frontend.Frontend.finalize"><code class="docutils literal notranslate"><span class="pre">Frontend.finalize()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#claripy.frontend.Frontend.merge"><code class="docutils literal notranslate"><span class="pre">Frontend.merge()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#claripy.frontend.Frontend.combine"><code class="docutils literal notranslate"><span class="pre">Frontend.combine()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#claripy.frontend.Frontend.split"><code class="docutils literal notranslate"><span class="pre">Frontend.split()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#claripy.frontend.Frontend.add"><code class="docutils literal notranslate"><span class="pre">Frontend.add()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#claripy.frontend.Frontend.simplify"><code class="docutils literal notranslate"><span class="pre">Frontend.simplify()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#claripy.frontend.Frontend.check_satisfiability"><code class="docutils literal notranslate"><span class="pre">Frontend.check_satisfiability()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#claripy.frontend.Frontend.satisfiable"><code class="docutils literal notranslate"><span class="pre">Frontend.satisfiable()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#claripy.frontend.Frontend.eval"><code class="docutils literal notranslate"><span class="pre">Frontend.eval()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#claripy.frontend.Frontend.batch_eval"><code class="docutils literal notranslate"><span class="pre">Frontend.batch_eval()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#claripy.frontend.Frontend.max"><code class="docutils literal notranslate"><span class="pre">Frontend.max()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#claripy.frontend.Frontend.min"><code class="docutils literal notranslate"><span class="pre">Frontend.min()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#claripy.frontend.Frontend.solution"><code class="docutils literal notranslate"><span class="pre">Frontend.solution()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#claripy.frontend.Frontend.is_true"><code class="docutils literal notranslate"><span class="pre">Frontend.is_true()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#claripy.frontend.Frontend.is_false"><code class="docutils literal notranslate"><span class="pre">Frontend.is_false()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#claripy.frontend.Frontend.downsize"><code class="docutils literal notranslate"><span class="pre">Frontend.downsize()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#claripy.frontends.composite_frontend.CompositeFrontend"><code class="docutils literal notranslate"><span class="pre">CompositeFrontend</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#claripy.frontends.composite_frontend.CompositeFrontend.downsize"><code class="docutils literal notranslate"><span class="pre">CompositeFrontend.downsize()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#claripy.frontends.composite_frontend.CompositeFrontend.variables"><code class="docutils literal notranslate"><span class="pre">CompositeFrontend.variables</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#claripy.frontends.composite_frontend.CompositeFrontend.add"><code class="docutils literal notranslate"><span class="pre">CompositeFrontend.add()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#claripy.frontends.composite_frontend.CompositeFrontend.check_satisfiability"><code class="docutils literal notranslate"><span class="pre">CompositeFrontend.check_satisfiability()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#claripy.frontends.composite_frontend.CompositeFrontend.satisfiable"><code class="docutils literal notranslate"><span class="pre">CompositeFrontend.satisfiable()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#claripy.frontends.composite_frontend.CompositeFrontend.eval"><code class="docutils literal notranslate"><span class="pre">CompositeFrontend.eval()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#claripy.frontends.composite_frontend.CompositeFrontend.batch_eval"><code class="docutils literal notranslate"><span class="pre">CompositeFrontend.batch_eval()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#claripy.frontends.composite_frontend.CompositeFrontend.max"><code class="docutils literal notranslate"><span class="pre">CompositeFrontend.max()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#claripy.frontends.composite_frontend.CompositeFrontend.min"><code class="docutils literal notranslate"><span class="pre">CompositeFrontend.min()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#claripy.frontends.composite_frontend.CompositeFrontend.solution"><code class="docutils literal notranslate"><span class="pre">CompositeFrontend.solution()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#claripy.frontends.composite_frontend.CompositeFrontend.is_true"><code class="docutils literal notranslate"><span class="pre">CompositeFrontend.is_true()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#claripy.frontends.composite_frontend.CompositeFrontend.is_false"><code class="docutils literal notranslate"><span class="pre">CompositeFrontend.is_false()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#claripy.frontends.composite_frontend.CompositeFrontend.unsat_core"><code class="docutils literal notranslate"><span class="pre">CompositeFrontend.unsat_core()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#claripy.frontends.composite_frontend.CompositeFrontend.simplify"><code class="docutils literal notranslate"><span class="pre">CompositeFrontend.simplify()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#claripy.frontends.composite_frontend.CompositeFrontend.finalize"><code class="docutils literal notranslate"><span class="pre">CompositeFrontend.finalize()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#claripy.frontends.composite_frontend.CompositeFrontend.timeout"><code class="docutils literal notranslate"><span class="pre">CompositeFrontend.timeout</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#claripy.frontends.composite_frontend.CompositeFrontend.max_memory"><code class="docutils literal notranslate"><span class="pre">CompositeFrontend.max_memory</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#claripy.frontends.composite_frontend.CompositeFrontend.merge"><code class="docutils literal notranslate"><span class="pre">CompositeFrontend.merge()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#claripy.frontends.composite_frontend.CompositeFrontend.combine"><code class="docutils literal notranslate"><span class="pre">CompositeFrontend.combine()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#claripy.frontends.composite_frontend.CompositeFrontend.split"><code class="docutils literal notranslate"><span class="pre">CompositeFrontend.split()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#claripy.frontends.constrained_frontend.ConstrainedFrontend"><code class="docutils literal notranslate"><span class="pre">ConstrainedFrontend</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#claripy.frontends.constrained_frontend.ConstrainedFrontend.independent_constraints"><code class="docutils literal notranslate"><span class="pre">ConstrainedFrontend.independent_constraints()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#claripy.frontends.constrained_frontend.ConstrainedFrontend.downsize"><code class="docutils literal notranslate"><span class="pre">ConstrainedFrontend.downsize()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#claripy.frontends.constrained_frontend.ConstrainedFrontend.finalize"><code class="docutils literal notranslate"><span class="pre">ConstrainedFrontend.finalize()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#claripy.frontends.constrained_frontend.ConstrainedFrontend.merge"><code class="docutils literal notranslate"><span class="pre">ConstrainedFrontend.merge()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#claripy.frontends.constrained_frontend.ConstrainedFrontend.combine"><code class="docutils literal notranslate"><span class="pre">ConstrainedFrontend.combine()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#claripy.frontends.constrained_frontend.ConstrainedFrontend.split"><code class="docutils literal notranslate"><span class="pre">ConstrainedFrontend.split()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#claripy.frontends.constrained_frontend.ConstrainedFrontend.add"><code class="docutils literal notranslate"><span class="pre">ConstrainedFrontend.add()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#claripy.frontends.constrained_frontend.ConstrainedFrontend.simplify"><code class="docutils literal notranslate"><span class="pre">ConstrainedFrontend.simplify()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#claripy.frontends.constrained_frontend.ConstrainedFrontend.check_satisfiability"><code class="docutils literal notranslate"><span class="pre">ConstrainedFrontend.check_satisfiability()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#claripy.frontends.constrained_frontend.ConstrainedFrontend.satisfiable"><code class="docutils literal notranslate"><span class="pre">ConstrainedFrontend.satisfiable()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#claripy.frontends.constrained_frontend.ConstrainedFrontend.batch_eval"><code class="docutils literal notranslate"><span class="pre">ConstrainedFrontend.batch_eval()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#claripy.frontends.constrained_frontend.ConstrainedFrontend.eval"><code class="docutils literal notranslate"><span class="pre">ConstrainedFrontend.eval()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#claripy.frontends.constrained_frontend.ConstrainedFrontend.min"><code class="docutils literal notranslate"><span class="pre">ConstrainedFrontend.min()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#claripy.frontends.constrained_frontend.ConstrainedFrontend.max"><code class="docutils literal notranslate"><span class="pre">ConstrainedFrontend.max()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#claripy.frontends.constrained_frontend.ConstrainedFrontend.solution"><code class="docutils literal notranslate"><span class="pre">ConstrainedFrontend.solution()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#claripy.frontends.constrained_frontend.ConstrainedFrontend.is_true"><code class="docutils literal notranslate"><span class="pre">ConstrainedFrontend.is_true()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#claripy.frontends.constrained_frontend.ConstrainedFrontend.is_false"><code class="docutils literal notranslate"><span class="pre">ConstrainedFrontend.is_false()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#claripy.frontends.full_frontend.FullFrontend"><code class="docutils literal notranslate"><span class="pre">FullFrontend</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#claripy.frontends.full_frontend.FullFrontend.add"><code class="docutils literal notranslate"><span class="pre">FullFrontend.add()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#claripy.frontends.full_frontend.FullFrontend.simplify"><code class="docutils literal notranslate"><span class="pre">FullFrontend.simplify()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#claripy.frontends.full_frontend.FullFrontend.check_satisfiability"><code class="docutils literal notranslate"><span class="pre">FullFrontend.check_satisfiability()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#claripy.frontends.full_frontend.FullFrontend.satisfiable"><code class="docutils literal notranslate"><span class="pre">FullFrontend.satisfiable()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#claripy.frontends.full_frontend.FullFrontend.eval"><code class="docutils literal notranslate"><span class="pre">FullFrontend.eval()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#claripy.frontends.full_frontend.FullFrontend.batch_eval"><code class="docutils literal notranslate"><span class="pre">FullFrontend.batch_eval()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#claripy.frontends.full_frontend.FullFrontend.max"><code class="docutils literal notranslate"><span class="pre">FullFrontend.max()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#claripy.frontends.full_frontend.FullFrontend.min"><code class="docutils literal notranslate"><span class="pre">FullFrontend.min()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#claripy.frontends.full_frontend.FullFrontend.solution"><code class="docutils literal notranslate"><span class="pre">FullFrontend.solution()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#claripy.frontends.full_frontend.FullFrontend.is_true"><code class="docutils literal notranslate"><span class="pre">FullFrontend.is_true()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#claripy.frontends.full_frontend.FullFrontend.is_false"><code class="docutils literal notranslate"><span class="pre">FullFrontend.is_false()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#claripy.frontends.full_frontend.FullFrontend.unsat_core"><code class="docutils literal notranslate"><span class="pre">FullFrontend.unsat_core()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#claripy.frontends.full_frontend.FullFrontend.downsize"><code class="docutils literal notranslate"><span class="pre">FullFrontend.downsize()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#claripy.frontends.full_frontend.FullFrontend.merge"><code class="docutils literal notranslate"><span class="pre">FullFrontend.merge()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#claripy.frontends.hybrid_frontend.HybridFrontend"><code class="docutils literal notranslate"><span class="pre">HybridFrontend</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#claripy.frontends.hybrid_frontend.HybridFrontend.constraints"><code class="docutils literal notranslate"><span class="pre">HybridFrontend.constraints</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#claripy.frontends.hybrid_frontend.HybridFrontend.variables"><code class="docutils literal notranslate"><span class="pre">HybridFrontend.variables</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#claripy.frontends.hybrid_frontend.HybridFrontend.satisfiable"><code class="docutils literal notranslate"><span class="pre">HybridFrontend.satisfiable()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#claripy.frontends.hybrid_frontend.HybridFrontend.eval_to_ast"><code class="docutils literal notranslate"><span class="pre">HybridFrontend.eval_to_ast()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#claripy.frontends.hybrid_frontend.HybridFrontend.eval"><code class="docutils literal notranslate"><span class="pre">HybridFrontend.eval()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#claripy.frontends.hybrid_frontend.HybridFrontend.batch_eval"><code class="docutils literal notranslate"><span class="pre">HybridFrontend.batch_eval()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#claripy.frontends.hybrid_frontend.HybridFrontend.max"><code class="docutils literal notranslate"><span class="pre">HybridFrontend.max()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#claripy.frontends.hybrid_frontend.HybridFrontend.min"><code class="docutils literal notranslate"><span class="pre">HybridFrontend.min()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#claripy.frontends.hybrid_frontend.HybridFrontend.solution"><code class="docutils literal notranslate"><span class="pre">HybridFrontend.solution()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#claripy.frontends.hybrid_frontend.HybridFrontend.is_true"><code class="docutils literal notranslate"><span class="pre">HybridFrontend.is_true()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#claripy.frontends.hybrid_frontend.HybridFrontend.is_false"><code class="docutils literal notranslate"><span class="pre">HybridFrontend.is_false()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#claripy.frontends.hybrid_frontend.HybridFrontend.unsat_core"><code class="docutils literal notranslate"><span class="pre">HybridFrontend.unsat_core()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#claripy.frontends.hybrid_frontend.HybridFrontend.add"><code class="docutils literal notranslate"><span class="pre">HybridFrontend.add()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#claripy.frontends.hybrid_frontend.HybridFrontend.combine"><code class="docutils literal notranslate"><span class="pre">HybridFrontend.combine()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#claripy.frontends.hybrid_frontend.HybridFrontend.merge"><code class="docutils literal notranslate"><span class="pre">HybridFrontend.merge()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#claripy.frontends.hybrid_frontend.HybridFrontend.simplify"><code class="docutils literal notranslate"><span class="pre">HybridFrontend.simplify()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#claripy.frontends.hybrid_frontend.HybridFrontend.downsize"><code class="docutils literal notranslate"><span class="pre">HybridFrontend.downsize()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#claripy.frontends.hybrid_frontend.HybridFrontend.finalize"><code class="docutils literal notranslate"><span class="pre">HybridFrontend.finalize()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#claripy.frontends.hybrid_frontend.HybridFrontend.split"><code class="docutils literal notranslate"><span class="pre">HybridFrontend.split()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#claripy.frontends.light_frontend.LightFrontend"><code class="docutils literal notranslate"><span class="pre">LightFrontend</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#claripy.frontends.light_frontend.LightFrontend.eval"><code class="docutils literal notranslate"><span class="pre">LightFrontend.eval()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#claripy.frontends.light_frontend.LightFrontend.batch_eval"><code class="docutils literal notranslate"><span class="pre">LightFrontend.batch_eval()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#claripy.frontends.light_frontend.LightFrontend.max"><code class="docutils literal notranslate"><span class="pre">LightFrontend.max()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#claripy.frontends.light_frontend.LightFrontend.min"><code class="docutils literal notranslate"><span class="pre">LightFrontend.min()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#claripy.frontends.light_frontend.LightFrontend.solution"><code class="docutils literal notranslate"><span class="pre">LightFrontend.solution()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#claripy.frontends.light_frontend.LightFrontend.is_true"><code class="docutils literal notranslate"><span class="pre">LightFrontend.is_true()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#claripy.frontends.light_frontend.LightFrontend.is_false"><code class="docutils literal notranslate"><span class="pre">LightFrontend.is_false()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#claripy.frontends.light_frontend.LightFrontend.satisfiable"><code class="docutils literal notranslate"><span class="pre">LightFrontend.satisfiable()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#claripy.frontends.light_frontend.LightFrontend.merge"><code class="docutils literal notranslate"><span class="pre">LightFrontend.merge()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#claripy.frontends.replacement_frontend.ReplacementFrontend"><code class="docutils literal notranslate"><span class="pre">ReplacementFrontend</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#claripy.frontends.replacement_frontend.ReplacementFrontend.add_replacement"><code class="docutils literal notranslate"><span class="pre">ReplacementFrontend.add_replacement()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#claripy.frontends.replacement_frontend.ReplacementFrontend.remove_replacements"><code class="docutils literal notranslate"><span class="pre">ReplacementFrontend.remove_replacements()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#claripy.frontends.replacement_frontend.ReplacementFrontend.clear_replacements"><code class="docutils literal notranslate"><span class="pre">ReplacementFrontend.clear_replacements()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#claripy.frontends.replacement_frontend.ReplacementFrontend.downsize"><code class="docutils literal notranslate"><span class="pre">ReplacementFrontend.downsize()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#claripy.frontends.replacement_frontend.ReplacementFrontend.eval"><code class="docutils literal notranslate"><span class="pre">ReplacementFrontend.eval()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#claripy.frontends.replacement_frontend.ReplacementFrontend.batch_eval"><code class="docutils literal notranslate"><span class="pre">ReplacementFrontend.batch_eval()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#claripy.frontends.replacement_frontend.ReplacementFrontend.max"><code class="docutils literal notranslate"><span class="pre">ReplacementFrontend.max()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#claripy.frontends.replacement_frontend.ReplacementFrontend.min"><code class="docutils literal notranslate"><span class="pre">ReplacementFrontend.min()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#claripy.frontends.replacement_frontend.ReplacementFrontend.solution"><code class="docutils literal notranslate"><span class="pre">ReplacementFrontend.solution()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#claripy.frontends.replacement_frontend.ReplacementFrontend.is_true"><code class="docutils literal notranslate"><span class="pre">ReplacementFrontend.is_true()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#claripy.frontends.replacement_frontend.ReplacementFrontend.is_false"><code class="docutils literal notranslate"><span class="pre">ReplacementFrontend.is_false()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#claripy.frontends.replacement_frontend.ReplacementFrontend.satisfiable"><code class="docutils literal notranslate"><span class="pre">ReplacementFrontend.satisfiable()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#claripy.frontends.replacement_frontend.ReplacementFrontend.add"><code class="docutils literal notranslate"><span class="pre">ReplacementFrontend.add()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#claripy.solvers.Solver"><code class="docutils literal notranslate"><span class="pre">Solver</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#claripy.solvers.SolverCacheless"><code class="docutils literal notranslate"><span class="pre">SolverCacheless</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#claripy.solvers.SolverReplacement"><code class="docutils literal notranslate"><span class="pre">SolverReplacement</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#claripy.solvers.SolverHybrid"><code class="docutils literal notranslate"><span class="pre">SolverHybrid</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#claripy.solvers.SolverVSA"><code class="docutils literal notranslate"><span class="pre">SolverVSA</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#claripy.solvers.SolverConcrete"><code class="docutils literal notranslate"><span class="pre">SolverConcrete</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#claripy.solvers.SolverStrings"><code class="docutils literal notranslate"><span class="pre">SolverStrings</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#claripy.solvers.SolverCompositeChild"><code class="docutils literal notranslate"><span class="pre">SolverCompositeChild</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#claripy.solvers.SolverComposite"><code class="docutils literal notranslate"><span class="pre">SolverComposite</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#module-claripy.frontend_mixins">Frontend Mixins</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#claripy.frontend_mixins.composited_cache_mixin.CompositedCacheMixin"><code class="docutils literal notranslate"><span class="pre">CompositedCacheMixin</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#claripy.frontend_mixins.composited_cache_mixin.CompositedCacheMixin.downsize"><code class="docutils literal notranslate"><span class="pre">CompositedCacheMixin.downsize()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#claripy.frontend_mixins.concrete_handler_mixin.ConcreteHandlerMixin"><code class="docutils literal notranslate"><span class="pre">ConcreteHandlerMixin</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#claripy.frontend_mixins.concrete_handler_mixin.ConcreteHandlerMixin.eval"><code class="docutils literal notranslate"><span class="pre">ConcreteHandlerMixin.eval()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#claripy.frontend_mixins.concrete_handler_mixin.ConcreteHandlerMixin.batch_eval"><code class="docutils literal notranslate"><span class="pre">ConcreteHandlerMixin.batch_eval()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#claripy.frontend_mixins.concrete_handler_mixin.ConcreteHandlerMixin.max"><code class="docutils literal notranslate"><span class="pre">ConcreteHandlerMixin.max()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#claripy.frontend_mixins.concrete_handler_mixin.ConcreteHandlerMixin.min"><code class="docutils literal notranslate"><span class="pre">ConcreteHandlerMixin.min()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#claripy.frontend_mixins.concrete_handler_mixin.ConcreteHandlerMixin.solution"><code class="docutils literal notranslate"><span class="pre">ConcreteHandlerMixin.solution()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#claripy.frontend_mixins.concrete_handler_mixin.ConcreteHandlerMixin.is_true"><code class="docutils literal notranslate"><span class="pre">ConcreteHandlerMixin.is_true()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#claripy.frontend_mixins.concrete_handler_mixin.ConcreteHandlerMixin.is_false"><code class="docutils literal notranslate"><span class="pre">ConcreteHandlerMixin.is_false()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#claripy.frontend_mixins.constraint_deduplicator_mixin.ConstraintDeduplicatorMixin"><code class="docutils literal notranslate"><span class="pre">ConstraintDeduplicatorMixin</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#claripy.frontend_mixins.constraint_deduplicator_mixin.ConstraintDeduplicatorMixin.simplify"><code class="docutils literal notranslate"><span class="pre">ConstraintDeduplicatorMixin.simplify()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#claripy.frontend_mixins.constraint_deduplicator_mixin.ConstraintDeduplicatorMixin.add"><code class="docutils literal notranslate"><span class="pre">ConstraintDeduplicatorMixin.add()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#claripy.frontend_mixins.constraint_expansion_mixin.ConstraintExpansionMixin"><code class="docutils literal notranslate"><span class="pre">ConstraintExpansionMixin</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#claripy.frontend_mixins.constraint_expansion_mixin.ConstraintExpansionMixin.eval"><code class="docutils literal notranslate"><span class="pre">ConstraintExpansionMixin.eval()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#claripy.frontend_mixins.constraint_expansion_mixin.ConstraintExpansionMixin.max"><code class="docutils literal notranslate"><span class="pre">ConstraintExpansionMixin.max()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#claripy.frontend_mixins.constraint_expansion_mixin.ConstraintExpansionMixin.min"><code class="docutils literal notranslate"><span class="pre">ConstraintExpansionMixin.min()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#claripy.frontend_mixins.constraint_expansion_mixin.ConstraintExpansionMixin.solution"><code class="docutils literal notranslate"><span class="pre">ConstraintExpansionMixin.solution()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#claripy.frontend_mixins.constraint_filter_mixin.ConstraintFilterMixin"><code class="docutils literal notranslate"><span class="pre">ConstraintFilterMixin</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#claripy.frontend_mixins.constraint_filter_mixin.ConstraintFilterMixin.add"><code class="docutils literal notranslate"><span class="pre">ConstraintFilterMixin.add()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#claripy.frontend_mixins.constraint_filter_mixin.ConstraintFilterMixin.satisfiable"><code class="docutils literal notranslate"><span class="pre">ConstraintFilterMixin.satisfiable()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#claripy.frontend_mixins.constraint_filter_mixin.ConstraintFilterMixin.eval"><code class="docutils literal notranslate"><span class="pre">ConstraintFilterMixin.eval()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#claripy.frontend_mixins.constraint_filter_mixin.ConstraintFilterMixin.batch_eval"><code class="docutils literal notranslate"><span class="pre">ConstraintFilterMixin.batch_eval()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#claripy.frontend_mixins.constraint_filter_mixin.ConstraintFilterMixin.max"><code class="docutils literal notranslate"><span class="pre">ConstraintFilterMixin.max()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#claripy.frontend_mixins.constraint_filter_mixin.ConstraintFilterMixin.min"><code class="docutils literal notranslate"><span class="pre">ConstraintFilterMixin.min()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#claripy.frontend_mixins.constraint_filter_mixin.ConstraintFilterMixin.solution"><code class="docutils literal notranslate"><span class="pre">ConstraintFilterMixin.solution()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#claripy.frontend_mixins.constraint_filter_mixin.ConstraintFilterMixin.is_true"><code class="docutils literal notranslate"><span class="pre">ConstraintFilterMixin.is_true()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#claripy.frontend_mixins.constraint_filter_mixin.ConstraintFilterMixin.is_false"><code class="docutils literal notranslate"><span class="pre">ConstraintFilterMixin.is_false()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#claripy.frontend_mixins.constraint_fixer_mixin.ConstraintFixerMixin"><code class="docutils literal notranslate"><span class="pre">ConstraintFixerMixin</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#claripy.frontend_mixins.constraint_fixer_mixin.ConstraintFixerMixin.add"><code class="docutils literal notranslate"><span class="pre">ConstraintFixerMixin.add()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#claripy.frontend_mixins.debug_mixin.DebugMixin"><code class="docutils literal notranslate"><span class="pre">DebugMixin</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#claripy.frontend_mixins.debug_mixin.debug_decorator"><code class="docutils literal notranslate"><span class="pre">debug_decorator()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#claripy.frontend_mixins.eager_resolution_mixin.EagerResolutionMixin"><code class="docutils literal notranslate"><span class="pre">EagerResolutionMixin</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#claripy.frontend_mixins.model_cache_mixin.ModelCache"><code class="docutils literal notranslate"><span class="pre">ModelCache</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#claripy.frontend_mixins.model_cache_mixin.ModelCache.filter"><code class="docutils literal notranslate"><span class="pre">ModelCache.filter()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#claripy.frontend_mixins.model_cache_mixin.ModelCache.combine"><code class="docutils literal notranslate"><span class="pre">ModelCache.combine()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#claripy.frontend_mixins.model_cache_mixin.ModelCache.eval_ast"><code class="docutils literal notranslate"><span class="pre">ModelCache.eval_ast()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#claripy.frontend_mixins.model_cache_mixin.ModelCache.eval_constraints"><code class="docutils literal notranslate"><span class="pre">ModelCache.eval_constraints()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#claripy.frontend_mixins.model_cache_mixin.ModelCache.eval_list"><code class="docutils literal notranslate"><span class="pre">ModelCache.eval_list()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#claripy.frontend_mixins.model_cache_mixin.ModelCacheMixin"><code class="docutils literal notranslate"><span class="pre">ModelCacheMixin</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#claripy.frontend_mixins.model_cache_mixin.ModelCacheMixin.simplify"><code class="docutils literal notranslate"><span class="pre">ModelCacheMixin.simplify()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#claripy.frontend_mixins.model_cache_mixin.ModelCacheMixin.add"><code class="docutils literal notranslate"><span class="pre">ModelCacheMixin.add()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#claripy.frontend_mixins.model_cache_mixin.ModelCacheMixin.split"><code class="docutils literal notranslate"><span class="pre">ModelCacheMixin.split()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#claripy.frontend_mixins.model_cache_mixin.ModelCacheMixin.combine"><code class="docutils literal notranslate"><span class="pre">ModelCacheMixin.combine()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#claripy.frontend_mixins.model_cache_mixin.ModelCacheMixin.update"><code class="docutils literal notranslate"><span class="pre">ModelCacheMixin.update()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#claripy.frontend_mixins.model_cache_mixin.ModelCacheMixin.satisfiable"><code class="docutils literal notranslate"><span class="pre">ModelCacheMixin.satisfiable()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#claripy.frontend_mixins.model_cache_mixin.ModelCacheMixin.batch_eval"><code class="docutils literal notranslate"><span class="pre">ModelCacheMixin.batch_eval()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#claripy.frontend_mixins.model_cache_mixin.ModelCacheMixin.eval"><code class="docutils literal notranslate"><span class="pre">ModelCacheMixin.eval()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#claripy.frontend_mixins.model_cache_mixin.ModelCacheMixin.min"><code class="docutils literal notranslate"><span class="pre">ModelCacheMixin.min()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#claripy.frontend_mixins.model_cache_mixin.ModelCacheMixin.max"><code class="docutils literal notranslate"><span class="pre">ModelCacheMixin.max()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#claripy.frontend_mixins.model_cache_mixin.ModelCacheMixin.solution"><code class="docutils literal notranslate"><span class="pre">ModelCacheMixin.solution()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#claripy.frontend_mixins.sat_cache_mixin.SatCacheMixin"><code class="docutils literal notranslate"><span class="pre">SatCacheMixin</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#claripy.frontend_mixins.sat_cache_mixin.SatCacheMixin.add"><code class="docutils literal notranslate"><span class="pre">SatCacheMixin.add()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#claripy.frontend_mixins.sat_cache_mixin.SatCacheMixin.simplify"><code class="docutils literal notranslate"><span class="pre">SatCacheMixin.simplify()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#claripy.frontend_mixins.sat_cache_mixin.SatCacheMixin.satisfiable"><code class="docutils literal notranslate"><span class="pre">SatCacheMixin.satisfiable()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#claripy.frontend_mixins.sat_cache_mixin.SatCacheMixin.eval"><code class="docutils literal notranslate"><span class="pre">SatCacheMixin.eval()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#claripy.frontend_mixins.sat_cache_mixin.SatCacheMixin.batch_eval"><code class="docutils literal notranslate"><span class="pre">SatCacheMixin.batch_eval()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#claripy.frontend_mixins.sat_cache_mixin.SatCacheMixin.max"><code class="docutils literal notranslate"><span class="pre">SatCacheMixin.max()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#claripy.frontend_mixins.sat_cache_mixin.SatCacheMixin.min"><code class="docutils literal notranslate"><span class="pre">SatCacheMixin.min()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#claripy.frontend_mixins.sat_cache_mixin.SatCacheMixin.solution"><code class="docutils literal notranslate"><span class="pre">SatCacheMixin.solution()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#claripy.frontend_mixins.simplify_helper_mixin.SimplifyHelperMixin"><code class="docutils literal notranslate"><span class="pre">SimplifyHelperMixin</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#claripy.frontend_mixins.simplify_helper_mixin.SimplifyHelperMixin.max"><code class="docutils literal notranslate"><span class="pre">SimplifyHelperMixin.max()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#claripy.frontend_mixins.simplify_helper_mixin.SimplifyHelperMixin.min"><code class="docutils literal notranslate"><span class="pre">SimplifyHelperMixin.min()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#claripy.frontend_mixins.simplify_helper_mixin.SimplifyHelperMixin.eval"><code class="docutils literal notranslate"><span class="pre">SimplifyHelperMixin.eval()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#claripy.frontend_mixins.simplify_helper_mixin.SimplifyHelperMixin.batch_eval"><code class="docutils literal notranslate"><span class="pre">SimplifyHelperMixin.batch_eval()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#claripy.frontend_mixins.simplify_skipper_mixin.SimplifySkipperMixin"><code class="docutils literal notranslate"><span class="pre">SimplifySkipperMixin</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#claripy.frontend_mixins.simplify_skipper_mixin.SimplifySkipperMixin.add"><code class="docutils literal notranslate"><span class="pre">SimplifySkipperMixin.add()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#claripy.frontend_mixins.simplify_skipper_mixin.SimplifySkipperMixin.simplify"><code class="docutils literal notranslate"><span class="pre">SimplifySkipperMixin.simplify()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#claripy.frontend_mixins.solve_block_mixin.SolveBlockMixin"><code class="docutils literal notranslate"><span class="pre">SolveBlockMixin</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#claripy.frontend_mixins.solve_block_mixin.SolveBlockMixin.eval"><code class="docutils literal notranslate"><span class="pre">SolveBlockMixin.eval()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#claripy.frontend_mixins.solve_block_mixin.SolveBlockMixin.batch_eval"><code class="docutils literal notranslate"><span class="pre">SolveBlockMixin.batch_eval()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#claripy.frontend_mixins.solve_block_mixin.SolveBlockMixin.min"><code class="docutils literal notranslate"><span class="pre">SolveBlockMixin.min()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#claripy.frontend_mixins.solve_block_mixin.SolveBlockMixin.max"><code class="docutils literal notranslate"><span class="pre">SolveBlockMixin.max()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#claripy.frontend_mixins.solve_block_mixin.SolveBlockMixin.satisfiable"><code class="docutils literal notranslate"><span class="pre">SolveBlockMixin.satisfiable()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#claripy.frontend_mixins.solve_block_mixin.SolveBlockMixin.solution"><code class="docutils literal notranslate"><span class="pre">SolveBlockMixin.solution()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#claripy.frontend_mixins.eval_string_to_ast_mixin.EvalStringsToASTsMixin"><code class="docutils literal notranslate"><span class="pre">EvalStringsToASTsMixin</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#claripy.frontend_mixins.eval_string_to_ast_mixin.EvalStringsToASTsMixin.eval_to_ast"><code class="docutils literal notranslate"><span class="pre">EvalStringsToASTsMixin.eval_to_ast()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#claripy.frontend_mixins.smtlib_script_dumper_mixin.SMTLibScriptDumperMixin"><code class="docutils literal notranslate"><span class="pre">SMTLibScriptDumperMixin</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#claripy.frontend_mixins.smtlib_script_dumper_mixin.SMTLibScriptDumperMixin.get_smtlib_script_satisfiability"><code class="docutils literal notranslate"><span class="pre">SMTLibScriptDumperMixin.get_smtlib_script_satisfiability()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#module-claripy.annotation">Annotations</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#claripy.annotation.Annotation"><code class="docutils literal notranslate"><span class="pre">Annotation</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#claripy.annotation.Annotation.eliminatable"><code class="docutils literal notranslate"><span class="pre">Annotation.eliminatable</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#claripy.annotation.Annotation.relocatable"><code class="docutils literal notranslate"><span class="pre">Annotation.relocatable</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#claripy.annotation.Annotation.relocate"><code class="docutils literal notranslate"><span class="pre">Annotation.relocate()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#claripy.annotation.SimplificationAvoidanceAnnotation"><code class="docutils literal notranslate"><span class="pre">SimplificationAvoidanceAnnotation</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#claripy.annotation.SimplificationAvoidanceAnnotation.eliminatable"><code class="docutils literal notranslate"><span class="pre">SimplificationAvoidanceAnnotation.eliminatable</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#claripy.annotation.SimplificationAvoidanceAnnotation.relocatable"><code class="docutils literal notranslate"><span class="pre">SimplificationAvoidanceAnnotation.relocatable</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#module-claripy.vsa">VSA</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#claripy.vsa.abstract_location.Segment"><code class="docutils literal notranslate"><span class="pre">Segment</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#claripy.vsa.abstract_location.AbstractLocation"><code class="docutils literal notranslate"><span class="pre">AbstractLocation</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#claripy.vsa.abstract_location.AbstractLocation.basicblock_key"><code class="docutils literal notranslate"><span class="pre">AbstractLocation.basicblock_key</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#claripy.vsa.abstract_location.AbstractLocation.statement_id"><code class="docutils literal notranslate"><span class="pre">AbstractLocation.statement_id</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#claripy.vsa.abstract_location.AbstractLocation.region"><code class="docutils literal notranslate"><span class="pre">AbstractLocation.region</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#claripy.vsa.abstract_location.AbstractLocation.segments"><code class="docutils literal notranslate"><span class="pre">AbstractLocation.segments</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#claripy.vsa.abstract_location.AbstractLocation.update"><code class="docutils literal notranslate"><span class="pre">AbstractLocation.update()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#claripy.vsa.abstract_location.AbstractLocation.copy"><code class="docutils literal notranslate"><span class="pre">AbstractLocation.copy()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#claripy.vsa.abstract_location.AbstractLocation.merge"><code class="docutils literal notranslate"><span class="pre">AbstractLocation.merge()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#claripy.vsa.bool_result.BoolResult"><code class="docutils literal notranslate"><span class="pre">BoolResult</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#claripy.vsa.bool_result.BoolResult.value"><code class="docutils literal notranslate"><span class="pre">BoolResult.value()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#claripy.vsa.bool_result.BoolResult.identical"><code class="docutils literal notranslate"><span class="pre">BoolResult.identical()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#claripy.vsa.bool_result.BoolResult.union"><code class="docutils literal notranslate"><span class="pre">BoolResult.union()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#claripy.vsa.bool_result.BoolResult.size"><code class="docutils literal notranslate"><span class="pre">BoolResult.size()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#claripy.vsa.bool_result.BoolResult.is_maybe"><code class="docutils literal notranslate"><span class="pre">BoolResult.is_maybe()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#claripy.vsa.bool_result.BoolResult.has_true"><code class="docutils literal notranslate"><span class="pre">BoolResult.has_true()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#claripy.vsa.bool_result.BoolResult.has_false"><code class="docutils literal notranslate"><span class="pre">BoolResult.has_false()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#claripy.vsa.bool_result.BoolResult.is_true"><code class="docutils literal notranslate"><span class="pre">BoolResult.is_true()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#claripy.vsa.bool_result.BoolResult.is_false"><code class="docutils literal notranslate"><span class="pre">BoolResult.is_false()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#claripy.vsa.bool_result.TrueResult"><code class="docutils literal notranslate"><span class="pre">TrueResult</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#claripy.vsa.bool_result.TrueResult.cardinality"><code class="docutils literal notranslate"><span class="pre">TrueResult.cardinality</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#claripy.vsa.bool_result.TrueResult.value"><code class="docutils literal notranslate"><span class="pre">TrueResult.value</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#claripy.vsa.bool_result.TrueResult.identical"><code class="docutils literal notranslate"><span class="pre">TrueResult.identical()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#claripy.vsa.bool_result.TrueResult.union"><code class="docutils literal notranslate"><span class="pre">TrueResult.union()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#claripy.vsa.bool_result.FalseResult"><code class="docutils literal notranslate"><span class="pre">FalseResult</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#claripy.vsa.bool_result.FalseResult.cardinality"><code class="docutils literal notranslate"><span class="pre">FalseResult.cardinality</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#claripy.vsa.bool_result.FalseResult.value"><code class="docutils literal notranslate"><span class="pre">FalseResult.value</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#claripy.vsa.bool_result.FalseResult.identical"><code class="docutils literal notranslate"><span class="pre">FalseResult.identical()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#claripy.vsa.bool_result.FalseResult.union"><code class="docutils literal notranslate"><span class="pre">FalseResult.union()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#claripy.vsa.bool_result.MaybeResult"><code class="docutils literal notranslate"><span class="pre">MaybeResult</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#claripy.vsa.bool_result.MaybeResult.cardinality"><code class="docutils literal notranslate"><span class="pre">MaybeResult.cardinality</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#claripy.vsa.bool_result.MaybeResult.value"><code class="docutils literal notranslate"><span class="pre">MaybeResult.value</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#claripy.vsa.bool_result.MaybeResult.identical"><code class="docutils literal notranslate"><span class="pre">MaybeResult.identical()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#claripy.vsa.bool_result.MaybeResult.union"><code class="docutils literal notranslate"><span class="pre">MaybeResult.union()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#claripy.vsa.discrete_strided_interval_set.apply_on_each_si"><code class="docutils literal notranslate"><span class="pre">apply_on_each_si()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#claripy.vsa.discrete_strided_interval_set.convert_operand_to_si"><code class="docutils literal notranslate"><span class="pre">convert_operand_to_si()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#claripy.vsa.discrete_strided_interval_set.collapse_operand"><code class="docutils literal notranslate"><span class="pre">collapse_operand()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#claripy.vsa.discrete_strided_interval_set.DiscreteStridedIntervalSet"><code class="docutils literal notranslate"><span class="pre">DiscreteStridedIntervalSet</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#claripy.vsa.discrete_strided_interval_set.DiscreteStridedIntervalSet.cardinality"><code class="docutils literal notranslate"><span class="pre">DiscreteStridedIntervalSet.cardinality</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#claripy.vsa.discrete_strided_interval_set.DiscreteStridedIntervalSet.number_of_values"><code class="docutils literal notranslate"><span class="pre">DiscreteStridedIntervalSet.number_of_values</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#claripy.vsa.discrete_strided_interval_set.DiscreteStridedIntervalSet.stride"><code class="docutils literal notranslate"><span class="pre">DiscreteStridedIntervalSet.stride</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#claripy.vsa.discrete_strided_interval_set.DiscreteStridedIntervalSet.should_collapse"><code class="docutils literal notranslate"><span class="pre">DiscreteStridedIntervalSet.should_collapse()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#claripy.vsa.discrete_strided_interval_set.DiscreteStridedIntervalSet.collapse"><code class="docutils literal notranslate"><span class="pre">DiscreteStridedIntervalSet.collapse()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#claripy.vsa.discrete_strided_interval_set.DiscreteStridedIntervalSet.normalize"><code class="docutils literal notranslate"><span class="pre">DiscreteStridedIntervalSet.normalize()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#claripy.vsa.discrete_strided_interval_set.DiscreteStridedIntervalSet.copy"><code class="docutils literal notranslate"><span class="pre">DiscreteStridedIntervalSet.copy()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#claripy.vsa.discrete_strided_interval_set.DiscreteStridedIntervalSet.concat"><code class="docutils literal notranslate"><span class="pre">DiscreteStridedIntervalSet.concat()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#claripy.vsa.discrete_strided_interval_set.DiscreteStridedIntervalSet.extract"><code class="docutils literal notranslate"><span class="pre">DiscreteStridedIntervalSet.extract()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#claripy.vsa.discrete_strided_interval_set.DiscreteStridedIntervalSet.eval"><code class="docutils literal notranslate"><span class="pre">DiscreteStridedIntervalSet.eval()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#claripy.vsa.discrete_strided_interval_set.DiscreteStridedIntervalSet.union"><code class="docutils literal notranslate"><span class="pre">DiscreteStridedIntervalSet.union()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#claripy.vsa.discrete_strided_interval_set.DiscreteStridedIntervalSet.intersection"><code class="docutils literal notranslate"><span class="pre">DiscreteStridedIntervalSet.intersection()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#claripy.vsa.discrete_strided_interval_set.DiscreteStridedIntervalSet.reverse"><code class="docutils literal notranslate"><span class="pre">DiscreteStridedIntervalSet.reverse()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#claripy.vsa.discrete_strided_interval_set.DiscreteStridedIntervalSet.sign_extend"><code class="docutils literal notranslate"><span class="pre">DiscreteStridedIntervalSet.sign_extend()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#claripy.vsa.discrete_strided_interval_set.DiscreteStridedIntervalSet.zero_extend"><code class="docutils literal notranslate"><span class="pre">DiscreteStridedIntervalSet.zero_extend()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#claripy.vsa.discrete_strided_interval_set.DiscreteStridedIntervalSet.widen"><code class="docutils literal notranslate"><span class="pre">DiscreteStridedIntervalSet.widen()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#claripy.vsa.errors.ClaripyVSAError"><code class="docutils literal notranslate"><span class="pre">ClaripyVSAError</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#claripy.vsa.errors.ClaripyVSAOperationError"><code class="docutils literal notranslate"><span class="pre">ClaripyVSAOperationError</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#claripy.vsa.strided_interval.reversed_processor"><code class="docutils literal notranslate"><span class="pre">reversed_processor()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#claripy.vsa.strided_interval.normalize_types"><code class="docutils literal notranslate"><span class="pre">normalize_types()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#claripy.vsa.strided_interval.WarrenMethods"><code class="docutils literal notranslate"><span class="pre">WarrenMethods</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#claripy.vsa.strided_interval.WarrenMethods.min_or"><code class="docutils literal notranslate"><span class="pre">WarrenMethods.min_or()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#claripy.vsa.strided_interval.WarrenMethods.max_or"><code class="docutils literal notranslate"><span class="pre">WarrenMethods.max_or()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#claripy.vsa.strided_interval.WarrenMethods.min_and"><code class="docutils literal notranslate"><span class="pre">WarrenMethods.min_and()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#claripy.vsa.strided_interval.WarrenMethods.max_and"><code class="docutils literal notranslate"><span class="pre">WarrenMethods.max_and()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#claripy.vsa.strided_interval.WarrenMethods.min_xor"><code class="docutils literal notranslate"><span class="pre">WarrenMethods.min_xor()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#claripy.vsa.strided_interval.WarrenMethods.max_xor"><code class="docutils literal notranslate"><span class="pre">WarrenMethods.max_xor()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#claripy.vsa.strided_interval.StridedInterval"><code class="docutils literal notranslate"><span class="pre">StridedInterval</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#claripy.vsa.strided_interval.StridedInterval.copy"><code class="docutils literal notranslate"><span class="pre">StridedInterval.copy()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#claripy.vsa.strided_interval.StridedInterval.nameless_copy"><code class="docutils literal notranslate"><span class="pre">StridedInterval.nameless_copy()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#claripy.vsa.strided_interval.StridedInterval.normalize"><code class="docutils literal notranslate"><span class="pre">StridedInterval.normalize()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#claripy.vsa.strided_interval.StridedInterval.eval"><code class="docutils literal notranslate"><span class="pre">StridedInterval.eval()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#claripy.vsa.strided_interval.StridedInterval.solution"><code class="docutils literal notranslate"><span class="pre">StridedInterval.solution()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#claripy.vsa.strided_interval.StridedInterval.identical"><code class="docutils literal notranslate"><span class="pre">StridedInterval.identical()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#claripy.vsa.strided_interval.StridedInterval.SLT"><code class="docutils literal notranslate"><span class="pre">StridedInterval.SLT()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#claripy.vsa.strided_interval.StridedInterval.SLE"><code class="docutils literal notranslate"><span class="pre">StridedInterval.SLE()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#claripy.vsa.strided_interval.StridedInterval.SGT"><code class="docutils literal notranslate"><span class="pre">StridedInterval.SGT()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#claripy.vsa.strided_interval.StridedInterval.SGE"><code class="docutils literal notranslate"><span class="pre">StridedInterval.SGE()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#claripy.vsa.strided_interval.StridedInterval.ULT"><code class="docutils literal notranslate"><span class="pre">StridedInterval.ULT()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#claripy.vsa.strided_interval.StridedInterval.ULE"><code class="docutils literal notranslate"><span class="pre">StridedInterval.ULE()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#claripy.vsa.strided_interval.StridedInterval.UGT"><code class="docutils literal notranslate"><span class="pre">StridedInterval.UGT()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#claripy.vsa.strided_interval.StridedInterval.UGE"><code class="docutils literal notranslate"><span class="pre">StridedInterval.UGE()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#claripy.vsa.strided_interval.StridedInterval.eq"><code class="docutils literal notranslate"><span class="pre">StridedInterval.eq()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#claripy.vsa.strided_interval.StridedInterval.LShR"><code class="docutils literal notranslate"><span class="pre">StridedInterval.LShR()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#claripy.vsa.strided_interval.StridedInterval.name"><code class="docutils literal notranslate"><span class="pre">StridedInterval.name</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#claripy.vsa.strided_interval.StridedInterval.reversed"><code class="docutils literal notranslate"><span class="pre">StridedInterval.reversed</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#claripy.vsa.strided_interval.StridedInterval.size"><code class="docutils literal notranslate"><span class="pre">StridedInterval.size</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#claripy.vsa.strided_interval.StridedInterval.cardinality"><code class="docutils literal notranslate"><span class="pre">StridedInterval.cardinality</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#claripy.vsa.strided_interval.StridedInterval.complement"><code class="docutils literal notranslate"><span class="pre">StridedInterval.complement</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#claripy.vsa.strided_interval.StridedInterval.lower_bound"><code class="docutils literal notranslate"><span class="pre">StridedInterval.lower_bound</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#claripy.vsa.strided_interval.StridedInterval.upper_bound"><code class="docutils literal notranslate"><span class="pre">StridedInterval.upper_bound</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#claripy.vsa.strided_interval.StridedInterval.bits"><code class="docutils literal notranslate"><span class="pre">StridedInterval.bits</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#claripy.vsa.strided_interval.StridedInterval.stride"><code class="docutils literal notranslate"><span class="pre">StridedInterval.stride</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#claripy.vsa.strided_interval.StridedInterval.max"><code class="docutils literal notranslate"><span class="pre">StridedInterval.max</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#claripy.vsa.strided_interval.StridedInterval.min"><code class="docutils literal notranslate"><span class="pre">StridedInterval.min</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#claripy.vsa.strided_interval.StridedInterval.unique"><code class="docutils literal notranslate"><span class="pre">StridedInterval.unique</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#claripy.vsa.strided_interval.StridedInterval.is_empty"><code class="docutils literal notranslate"><span class="pre">StridedInterval.is_empty</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#claripy.vsa.strided_interval.StridedInterval.is_top"><code class="docutils literal notranslate"><span class="pre">StridedInterval.is_top</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#claripy.vsa.strided_interval.StridedInterval.is_bottom"><code class="docutils literal notranslate"><span class="pre">StridedInterval.is_bottom</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#claripy.vsa.strided_interval.StridedInterval.is_integer"><code class="docutils literal notranslate"><span class="pre">StridedInterval.is_integer</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#claripy.vsa.strided_interval.StridedInterval.is_interval"><code class="docutils literal notranslate"><span class="pre">StridedInterval.is_interval</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#claripy.vsa.strided_interval.StridedInterval.n_values"><code class="docutils literal notranslate"><span class="pre">StridedInterval.n_values</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#claripy.vsa.strided_interval.StridedInterval.lcm"><code class="docutils literal notranslate"><span class="pre">StridedInterval.lcm()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#claripy.vsa.strided_interval.StridedInterval.gcd"><code class="docutils literal notranslate"><span class="pre">StridedInterval.gcd()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#claripy.vsa.strided_interval.StridedInterval.highbit"><code class="docutils literal notranslate"><span class="pre">StridedInterval.highbit()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#claripy.vsa.strided_interval.StridedInterval.min_bits"><code class="docutils literal notranslate"><span class="pre">StridedInterval.min_bits()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#claripy.vsa.strided_interval.StridedInterval.max_int"><code class="docutils literal notranslate"><span class="pre">StridedInterval.max_int()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#claripy.vsa.strided_interval.StridedInterval.min_int"><code class="docutils literal notranslate"><span class="pre">StridedInterval.min_int()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#claripy.vsa.strided_interval.StridedInterval.signed_max_int"><code class="docutils literal notranslate"><span class="pre">StridedInterval.signed_max_int()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#claripy.vsa.strided_interval.StridedInterval.signed_min_int"><code class="docutils literal notranslate"><span class="pre">StridedInterval.signed_min_int()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#claripy.vsa.strided_interval.StridedInterval.upper"><code class="docutils literal notranslate"><span class="pre">StridedInterval.upper()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#claripy.vsa.strided_interval.StridedInterval.lower"><code class="docutils literal notranslate"><span class="pre">StridedInterval.lower()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#claripy.vsa.strided_interval.StridedInterval.top"><code class="docutils literal notranslate"><span class="pre">StridedInterval.top()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#claripy.vsa.strided_interval.StridedInterval.empty"><code class="docutils literal notranslate"><span class="pre">StridedInterval.empty()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#claripy.vsa.strided_interval.StridedInterval.neg"><code class="docutils literal notranslate"><span class="pre">StridedInterval.neg()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#claripy.vsa.strided_interval.StridedInterval.add"><code class="docutils literal notranslate"><span class="pre">StridedInterval.add()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#claripy.vsa.strided_interval.StridedInterval.sub"><code class="docutils literal notranslate"><span class="pre">StridedInterval.sub()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#claripy.vsa.strided_interval.StridedInterval.mul"><code class="docutils literal notranslate"><span class="pre">StridedInterval.mul()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#claripy.vsa.strided_interval.StridedInterval.sdiv"><code class="docutils literal notranslate"><span class="pre">StridedInterval.sdiv()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#claripy.vsa.strided_interval.StridedInterval.udiv"><code class="docutils literal notranslate"><span class="pre">StridedInterval.udiv()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#claripy.vsa.strided_interval.StridedInterval.bitwise_not"><code class="docutils literal notranslate"><span class="pre">StridedInterval.bitwise_not()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#claripy.vsa.strided_interval.StridedInterval.bitwise_or"><code class="docutils literal notranslate"><span class="pre">StridedInterval.bitwise_or()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#claripy.vsa.strided_interval.StridedInterval.bitwise_and"><code class="docutils literal notranslate"><span class="pre">StridedInterval.bitwise_and()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#claripy.vsa.strided_interval.StridedInterval.bitwise_xor"><code class="docutils literal notranslate"><span class="pre">StridedInterval.bitwise_xor()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#claripy.vsa.strided_interval.StridedInterval.rshift_logical"><code class="docutils literal notranslate"><span class="pre">StridedInterval.rshift_logical()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#claripy.vsa.strided_interval.StridedInterval.rshift_arithmetic"><code class="docutils literal notranslate"><span class="pre">StridedInterval.rshift_arithmetic()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#claripy.vsa.strided_interval.StridedInterval.lshift"><code class="docutils literal notranslate"><span class="pre">StridedInterval.lshift()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#claripy.vsa.strided_interval.StridedInterval.cast_low"><code class="docutils literal notranslate"><span class="pre">StridedInterval.cast_low()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#claripy.vsa.strided_interval.StridedInterval.concat"><code class="docutils literal notranslate"><span class="pre">StridedInterval.concat()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#claripy.vsa.strided_interval.StridedInterval.extract"><code class="docutils literal notranslate"><span class="pre">StridedInterval.extract()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#claripy.vsa.strided_interval.StridedInterval.agnostic_extend"><code class="docutils literal notranslate"><span class="pre">StridedInterval.agnostic_extend()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#claripy.vsa.strided_interval.StridedInterval.zero_extend"><code class="docutils literal notranslate"><span class="pre">StridedInterval.zero_extend()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#claripy.vsa.strided_interval.StridedInterval.sign_extend"><code class="docutils literal notranslate"><span class="pre">StridedInterval.sign_extend()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#claripy.vsa.strided_interval.StridedInterval.union"><code class="docutils literal notranslate"><span class="pre">StridedInterval.union()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#claripy.vsa.strided_interval.StridedInterval.least_upper_bound"><code class="docutils literal notranslate"><span class="pre">StridedInterval.least_upper_bound()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#claripy.vsa.strided_interval.StridedInterval.pseudo_join"><code class="docutils literal notranslate"><span class="pre">StridedInterval.pseudo_join()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#claripy.vsa.strided_interval.StridedInterval.extended_euclid"><code class="docutils literal notranslate"><span class="pre">StridedInterval.extended_euclid()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#claripy.vsa.strided_interval.StridedInterval.sign"><code class="docutils literal notranslate"><span class="pre">StridedInterval.sign()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#claripy.vsa.strided_interval.StridedInterval.igcd"><code class="docutils literal notranslate"><span class="pre">StridedInterval.igcd()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#claripy.vsa.strided_interval.StridedInterval.diop_natural_solution_linear"><code class="docutils literal notranslate"><span class="pre">StridedInterval.diop_natural_solution_linear()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#claripy.vsa.strided_interval.StridedInterval.intersection"><code class="docutils literal notranslate"><span class="pre">StridedInterval.intersection()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#claripy.vsa.strided_interval.StridedInterval.widen"><code class="docutils literal notranslate"><span class="pre">StridedInterval.widen()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#claripy.vsa.strided_interval.StridedInterval.reverse"><code class="docutils literal notranslate"><span class="pre">StridedInterval.reverse()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#claripy.vsa.strided_interval.CreateStridedInterval"><code class="docutils literal notranslate"><span class="pre">CreateStridedInterval()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#claripy.vsa.valueset.normalize_types_two_args"><code class="docutils literal notranslate"><span class="pre">normalize_types_two_args()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#claripy.vsa.valueset.normalize_types_one_arg"><code class="docutils literal notranslate"><span class="pre">normalize_types_one_arg()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#claripy.vsa.valueset.RegionAnnotation"><code class="docutils literal notranslate"><span class="pre">RegionAnnotation</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#claripy.vsa.valueset.RegionAnnotation.eliminatable"><code class="docutils literal notranslate"><span class="pre">RegionAnnotation.eliminatable</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#claripy.vsa.valueset.RegionAnnotation.relocatable"><code class="docutils literal notranslate"><span class="pre">RegionAnnotation.relocatable</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#claripy.vsa.valueset.RegionAnnotation.relocate"><code class="docutils literal notranslate"><span class="pre">RegionAnnotation.relocate()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#claripy.vsa.valueset.ValueSet"><code class="docutils literal notranslate"><span class="pre">ValueSet</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#claripy.vsa.valueset.ValueSet.name"><code class="docutils literal notranslate"><span class="pre">ValueSet.name</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#claripy.vsa.valueset.ValueSet.bits"><code class="docutils literal notranslate"><span class="pre">ValueSet.bits</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#claripy.vsa.valueset.ValueSet.regions"><code class="docutils literal notranslate"><span class="pre">ValueSet.regions</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#claripy.vsa.valueset.ValueSet.reversed"><code class="docutils literal notranslate"><span class="pre">ValueSet.reversed</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#claripy.vsa.valueset.ValueSet.unique"><code class="docutils literal notranslate"><span class="pre">ValueSet.unique</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#claripy.vsa.valueset.ValueSet.cardinality"><code class="docutils literal notranslate"><span class="pre">ValueSet.cardinality</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#claripy.vsa.valueset.ValueSet.is_empty"><code class="docutils literal notranslate"><span class="pre">ValueSet.is_empty</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#claripy.vsa.valueset.ValueSet.valueset"><code class="docutils literal notranslate"><span class="pre">ValueSet.valueset</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#claripy.vsa.valueset.ValueSet.empty"><code class="docutils literal notranslate"><span class="pre">ValueSet.empty()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#claripy.vsa.valueset.ValueSet.items"><code class="docutils literal notranslate"><span class="pre">ValueSet.items()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#claripy.vsa.valueset.ValueSet.size"><code class="docutils literal notranslate"><span class="pre">ValueSet.size()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#claripy.vsa.valueset.ValueSet.copy"><code class="docutils literal notranslate"><span class="pre">ValueSet.copy()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#claripy.vsa.valueset.ValueSet.get_si"><code class="docutils literal notranslate"><span class="pre">ValueSet.get_si()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#claripy.vsa.valueset.ValueSet.stridedinterval"><code class="docutils literal notranslate"><span class="pre">ValueSet.stridedinterval()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#claripy.vsa.valueset.ValueSet.apply_annotation"><code class="docutils literal notranslate"><span class="pre">ValueSet.apply_annotation()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#claripy.vsa.valueset.ValueSet.LShR"><code class="docutils literal notranslate"><span class="pre">ValueSet.LShR()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#claripy.vsa.valueset.ValueSet.SLT"><code class="docutils literal notranslate"><span class="pre">ValueSet.SLT()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#claripy.vsa.valueset.ValueSet.SGT"><code class="docutils literal notranslate"><span class="pre">ValueSet.SGT()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#claripy.vsa.valueset.ValueSet.SLE"><code class="docutils literal notranslate"><span class="pre">ValueSet.SLE()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#claripy.vsa.valueset.ValueSet.SGE"><code class="docutils literal notranslate"><span class="pre">ValueSet.SGE()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#claripy.vsa.valueset.ValueSet.eval"><code class="docutils literal notranslate"><span class="pre">ValueSet.eval()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#claripy.vsa.valueset.ValueSet.min"><code class="docutils literal notranslate"><span class="pre">ValueSet.min</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#claripy.vsa.valueset.ValueSet.max"><code class="docutils literal notranslate"><span class="pre">ValueSet.max</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#claripy.vsa.valueset.ValueSet.reverse"><code class="docutils literal notranslate"><span class="pre">ValueSet.reverse()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#claripy.vsa.valueset.ValueSet.extract"><code class="docutils literal notranslate"><span class="pre">ValueSet.extract()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#claripy.vsa.valueset.ValueSet.concat"><code class="docutils literal notranslate"><span class="pre">ValueSet.concat()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#claripy.vsa.valueset.ValueSet.union"><code class="docutils literal notranslate"><span class="pre">ValueSet.union()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#claripy.vsa.valueset.ValueSet.widen"><code class="docutils literal notranslate"><span class="pre">ValueSet.widen()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#claripy.vsa.valueset.ValueSet.intersection"><code class="docutils literal notranslate"><span class="pre">ValueSet.intersection()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#claripy.vsa.valueset.ValueSet.identical"><code class="docutils literal notranslate"><span class="pre">ValueSet.identical()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#module-claripy">Misc. Things</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#claripy.BV"><code class="docutils literal notranslate"><span class="pre">BV()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#claripy.from_iterable"><code class="docutils literal notranslate"><span class="pre">from_iterable()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#claripy.downsize"><code class="docutils literal notranslate"><span class="pre">downsize()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#claripy.reset"><code class="docutils literal notranslate"><span class="pre">reset()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#claripy.balancer.Balancer"><code class="docutils literal notranslate"><span class="pre">Balancer</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#claripy.balancer.Balancer.compat_ret"><code class="docutils literal notranslate"><span class="pre">Balancer.compat_ret</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#claripy.balancer.Balancer.replacements"><code class="docutils literal notranslate"><span class="pre">Balancer.replacements</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#claripy.balancer.Balancer.comparison_info"><code class="docutils literal notranslate"><span class="pre">Balancer.comparison_info</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#claripy.balancer.is_true"><code class="docutils literal notranslate"><span class="pre">is_true()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#claripy.balancer.is_false"><code class="docutils literal notranslate"><span class="pre">is_false()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#claripy.bv.compare_bits"><code class="docutils literal notranslate"><span class="pre">compare_bits()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#claripy.bv.compare_bits_0_length"><code class="docutils literal notranslate"><span class="pre">compare_bits_0_length()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#claripy.bv.normalize_types"><code class="docutils literal notranslate"><span class="pre">normalize_types()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#claripy.bv.BVV"><code class="docutils literal notranslate"><span class="pre">BVV</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#claripy.bv.BVV.bits"><code class="docutils literal notranslate"><span class="pre">BVV.bits</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#claripy.bv.BVV.mod"><code class="docutils literal notranslate"><span class="pre">BVV.mod</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#claripy.bv.BVV.value"><code class="docutils literal notranslate"><span class="pre">BVV.value</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#claripy.bv.BVV.signed"><code class="docutils literal notranslate"><span class="pre">BVV.signed</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#claripy.bv.BVV.size"><code class="docutils literal notranslate"><span class="pre">BVV.size()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#claripy.bv.BitVecVal"><code class="docutils literal notranslate"><span class="pre">BitVecVal()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#claripy.bv.ZeroExt"><code class="docutils literal notranslate"><span class="pre">ZeroExt()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#claripy.bv.SignExt"><code class="docutils literal notranslate"><span class="pre">SignExt()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#claripy.bv.Extract"><code class="docutils literal notranslate"><span class="pre">Extract()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#claripy.bv.Concat"><code class="docutils literal notranslate"><span class="pre">Concat()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#claripy.bv.RotateRight"><code class="docutils literal notranslate"><span class="pre">RotateRight()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#claripy.bv.RotateLeft"><code class="docutils literal notranslate"><span class="pre">RotateLeft()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#claripy.bv.Reverse"><code class="docutils literal notranslate"><span class="pre">Reverse()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#claripy.bv.ULT"><code class="docutils literal notranslate"><span class="pre">ULT()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#claripy.bv.UGT"><code class="docutils literal notranslate"><span class="pre">UGT()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#claripy.bv.ULE"><code class="docutils literal notranslate"><span class="pre">ULE()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#claripy.bv.UGE"><code class="docutils literal notranslate"><span class="pre">UGE()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#claripy.bv.SLT"><code class="docutils literal notranslate"><span class="pre">SLT()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#claripy.bv.SGT"><code class="docutils literal notranslate"><span class="pre">SGT()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#claripy.bv.SLE"><code class="docutils literal notranslate"><span class="pre">SLE()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#claripy.bv.SGE"><code class="docutils literal notranslate"><span class="pre">SGE()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#claripy.bv.SMod"><code class="docutils literal notranslate"><span class="pre">SMod()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#claripy.bv.SDiv"><code class="docutils literal notranslate"><span class="pre">SDiv()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#claripy.bv.BoolV"><code class="docutils literal notranslate"><span class="pre">BoolV()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#claripy.bv.And"><code class="docutils literal notranslate"><span class="pre">And()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#claripy.bv.Or"><code class="docutils literal notranslate"><span class="pre">Or()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#claripy.bv.Not"><code class="docutils literal notranslate"><span class="pre">Not()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#claripy.bv.normalizer"><code class="docutils literal notranslate"><span class="pre">normalizer()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#claripy.bv.If"><code class="docutils literal notranslate"><span class="pre">If()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#claripy.bv.LShR"><code class="docutils literal notranslate"><span class="pre">LShR()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#claripy.errors.ClaripyError"><code class="docutils literal notranslate"><span class="pre">ClaripyError</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#claripy.errors.UnsatError"><code class="docutils literal notranslate"><span class="pre">UnsatError</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#claripy.errors.ClaripyFrontendError"><code class="docutils literal notranslate"><span class="pre">ClaripyFrontendError</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#claripy.errors.ClaripySerializationError"><code class="docutils literal notranslate"><span class="pre">ClaripySerializationError</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#claripy.errors.BackendError"><code class="docutils literal notranslate"><span class="pre">BackendError</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#claripy.errors.BackendUnsupportedError"><code class="docutils literal notranslate"><span class="pre">BackendUnsupportedError</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#claripy.errors.ClaripyZ3Error"><code class="docutils literal notranslate"><span class="pre">ClaripyZ3Error</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#claripy.errors.ClaripyBackendVSAError"><code class="docutils literal notranslate"><span class="pre">ClaripyBackendVSAError</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#claripy.errors.MissingSolverError"><code class="docutils literal notranslate"><span class="pre">MissingSolverError</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#claripy.errors.ClaripySolverInterruptError"><code class="docutils literal notranslate"><span class="pre">ClaripySolverInterruptError</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#claripy.errors.ClaripyASTError"><code class="docutils literal notranslate"><span class="pre">ClaripyASTError</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#claripy.errors.ClaripyBalancerError"><code class="docutils literal notranslate"><span class="pre">ClaripyBalancerError</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#claripy.errors.ClaripyBalancerUnsatError"><code class="docutils literal notranslate"><span class="pre">ClaripyBalancerUnsatError</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#claripy.errors.ClaripyTypeError"><code class="docutils literal notranslate"><span class="pre">ClaripyTypeError</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#claripy.errors.ClaripyValueError"><code class="docutils literal notranslate"><span class="pre">ClaripyValueError</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#claripy.errors.ClaripySizeError"><code class="docutils literal notranslate"><span class="pre">ClaripySizeError</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#claripy.errors.ClaripyOperationError"><code class="docutils literal notranslate"><span class="pre">ClaripyOperationError</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#claripy.errors.ClaripyReplacementError"><code class="docutils literal notranslate"><span class="pre">ClaripyReplacementError</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#claripy.errors.ClaripyRecursionError"><code class="docutils literal notranslate"><span class="pre">ClaripyRecursionError</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#claripy.errors.ClaripyZeroDivisionError"><code class="docutils literal notranslate"><span class="pre">ClaripyZeroDivisionError</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#claripy.fp.compare_sorts"><code class="docutils literal notranslate"><span class="pre">compare_sorts()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#claripy.fp.normalize_types"><code class="docutils literal notranslate"><span class="pre">normalize_types()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#claripy.fp.RM"><code class="docutils literal notranslate"><span class="pre">RM</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#claripy.fp.RM.RM_NearestTiesEven"><code class="docutils literal notranslate"><span class="pre">RM.RM_NearestTiesEven</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#claripy.fp.RM.RM_NearestTiesAwayFromZero"><code class="docutils literal notranslate"><span class="pre">RM.RM_NearestTiesAwayFromZero</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#claripy.fp.RM.RM_TowardsZero"><code class="docutils literal notranslate"><span class="pre">RM.RM_TowardsZero</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#claripy.fp.RM.RM_TowardsPositiveInf"><code class="docutils literal notranslate"><span class="pre">RM.RM_TowardsPositiveInf</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#claripy.fp.RM.RM_TowardsNegativeInf"><code class="docutils literal notranslate"><span class="pre">RM.RM_TowardsNegativeInf</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#claripy.fp.RM.default"><code class="docutils literal notranslate"><span class="pre">RM.default()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#claripy.fp.RM.pydecimal_equivalent_rounding_mode"><code class="docutils literal notranslate"><span class="pre">RM.pydecimal_equivalent_rounding_mode()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#claripy.fp.FSort"><code class="docutils literal notranslate"><span class="pre">FSort</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#claripy.fp.FSort.length"><code class="docutils literal notranslate"><span class="pre">FSort.length</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#claripy.fp.FSort.from_size"><code class="docutils literal notranslate"><span class="pre">FSort.from_size()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#claripy.fp.FSort.from_params"><code class="docutils literal notranslate"><span class="pre">FSort.from_params()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#claripy.fp.FPV"><code class="docutils literal notranslate"><span class="pre">FPV</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#claripy.fp.FPV.value"><code class="docutils literal notranslate"><span class="pre">FPV.value</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#claripy.fp.FPV.sort"><code class="docutils literal notranslate"><span class="pre">FPV.sort</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#claripy.fp.FPV.fpSqrt"><code class="docutils literal notranslate"><span class="pre">FPV.fpSqrt()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#claripy.fp.fpToFP"><code class="docutils literal notranslate"><span class="pre">fpToFP()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#claripy.fp.fpToFPUnsigned"><code class="docutils literal notranslate"><span class="pre">fpToFPUnsigned()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#claripy.fp.fpToIEEEBV"><code class="docutils literal notranslate"><span class="pre">fpToIEEEBV()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#claripy.fp.fpFP"><code class="docutils literal notranslate"><span class="pre">fpFP()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#claripy.fp.fpToSBV"><code class="docutils literal notranslate"><span class="pre">fpToSBV()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#claripy.fp.fpToUBV"><code class="docutils literal notranslate"><span class="pre">fpToUBV()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#claripy.fp.fpEQ"><code class="docutils literal notranslate"><span class="pre">fpEQ()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#claripy.fp.fpNE"><code class="docutils literal notranslate"><span class="pre">fpNE()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#claripy.fp.fpGT"><code class="docutils literal notranslate"><span class="pre">fpGT()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#claripy.fp.fpGEQ"><code class="docutils literal notranslate"><span class="pre">fpGEQ()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#claripy.fp.fpLT"><code class="docutils literal notranslate"><span class="pre">fpLT()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#claripy.fp.fpLEQ"><code class="docutils literal notranslate"><span class="pre">fpLEQ()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#claripy.fp.fpAbs"><code class="docutils literal notranslate"><span class="pre">fpAbs()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#claripy.fp.fpNeg"><code class="docutils literal notranslate"><span class="pre">fpNeg()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#claripy.fp.fpSub"><code class="docutils literal notranslate"><span class="pre">fpSub()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#claripy.fp.fpAdd"><code class="docutils literal notranslate"><span class="pre">fpAdd()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#claripy.fp.fpMul"><code class="docutils literal notranslate"><span class="pre">fpMul()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#claripy.fp.fpDiv"><code class="docutils literal notranslate"><span class="pre">fpDiv()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#claripy.fp.fpIsNaN"><code class="docutils literal notranslate"><span class="pre">fpIsNaN()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#claripy.fp.fpIsInf"><code class="docutils literal notranslate"><span class="pre">fpIsInf()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#claripy.operations.op"><code class="docutils literal notranslate"><span class="pre">op()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#claripy.operations.reversed_op"><code class="docutils literal notranslate"><span class="pre">reversed_op()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#claripy.operations.preprocess_union"><code class="docutils literal notranslate"><span class="pre">preprocess_union()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#claripy.operations.length_same_check"><code class="docutils literal notranslate"><span class="pre">length_same_check()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#claripy.operations.basic_length_calc"><code class="docutils literal notranslate"><span class="pre">basic_length_calc()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#claripy.operations.extract_check"><code class="docutils literal notranslate"><span class="pre">extract_check()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#claripy.operations.extend_check"><code class="docutils literal notranslate"><span class="pre">extend_check()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#claripy.operations.concat_length_calc"><code class="docutils literal notranslate"><span class="pre">concat_length_calc()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#claripy.operations.extract_length_calc"><code class="docutils literal notranslate"><span class="pre">extract_length_calc()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#claripy.operations.str_basic_length_calc"><code class="docutils literal notranslate"><span class="pre">str_basic_length_calc()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#claripy.operations.int_to_str_length_calc"><code class="docutils literal notranslate"><span class="pre">int_to_str_length_calc()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#claripy.operations.str_replace_check"><code class="docutils literal notranslate"><span class="pre">str_replace_check()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#claripy.operations.substr_length_calc"><code class="docutils literal notranslate"><span class="pre">substr_length_calc()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#claripy.operations.ext_length_calc"><code class="docutils literal notranslate"><span class="pre">ext_length_calc()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#claripy.operations.str_concat_length_calc"><code class="docutils literal notranslate"><span class="pre">str_concat_length_calc()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#claripy.operations.str_replace_length_calc"><code class="docutils literal notranslate"><span class="pre">str_replace_length_calc()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#claripy.operations.strlen_bv_size_calc"><code class="docutils literal notranslate"><span class="pre">strlen_bv_size_calc()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#claripy.operations.strindexof_bv_size_calc"><code class="docutils literal notranslate"><span class="pre">strindexof_bv_size_calc()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#claripy.operations.strtoint_bv_size_calc"><code class="docutils literal notranslate"><span class="pre">strtoint_bv_size_calc()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#claripy.simplifications.SimplificationManager"><code class="docutils literal notranslate"><span class="pre">SimplificationManager</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#claripy.simplifications.SimplificationManager.simplify"><code class="docutils literal notranslate"><span class="pre">SimplificationManager.simplify()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#claripy.simplifications.SimplificationManager.if_simplifier"><code class="docutils literal notranslate"><span class="pre">SimplificationManager.if_simplifier()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#claripy.simplifications.SimplificationManager.concat_simplifier"><code class="docutils literal notranslate"><span class="pre">SimplificationManager.concat_simplifier()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#claripy.simplifications.SimplificationManager.rshift_simplifier"><code class="docutils literal notranslate"><span class="pre">SimplificationManager.rshift_simplifier()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#claripy.simplifications.SimplificationManager.lshr_simplifier"><code class="docutils literal notranslate"><span class="pre">SimplificationManager.lshr_simplifier()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#claripy.simplifications.SimplificationManager.lshift_simplifier"><code class="docutils literal notranslate"><span class="pre">SimplificationManager.lshift_simplifier()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#claripy.simplifications.SimplificationManager.eq_simplifier"><code class="docutils literal notranslate"><span class="pre">SimplificationManager.eq_simplifier()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#claripy.simplifications.SimplificationManager.ne_simplifier"><code class="docutils literal notranslate"><span class="pre">SimplificationManager.ne_simplifier()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#claripy.simplifications.SimplificationManager.bv_reverse_simplifier"><code class="docutils literal notranslate"><span class="pre">SimplificationManager.bv_reverse_simplifier()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#claripy.simplifications.SimplificationManager.boolean_and_simplifier"><code class="docutils literal notranslate"><span class="pre">SimplificationManager.boolean_and_simplifier()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#claripy.simplifications.SimplificationManager.boolean_or_simplifier"><code class="docutils literal notranslate"><span class="pre">SimplificationManager.boolean_or_simplifier()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#claripy.simplifications.SimplificationManager.bitwise_add_simplifier"><code class="docutils literal notranslate"><span class="pre">SimplificationManager.bitwise_add_simplifier()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#claripy.simplifications.SimplificationManager.bitwise_mul_simplifier"><code class="docutils literal notranslate"><span class="pre">SimplificationManager.bitwise_mul_simplifier()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#claripy.simplifications.SimplificationManager.bitwise_sub_simplifier"><code class="docutils literal notranslate"><span class="pre">SimplificationManager.bitwise_sub_simplifier()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#claripy.simplifications.SimplificationManager.bitwise_xor_simplifier_minmax"><code class="docutils literal notranslate"><span class="pre">SimplificationManager.bitwise_xor_simplifier_minmax()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#claripy.simplifications.SimplificationManager.bitwise_xor_simplifier"><code class="docutils literal notranslate"><span class="pre">SimplificationManager.bitwise_xor_simplifier()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#claripy.simplifications.SimplificationManager.bitwise_or_simplifier"><code class="docutils literal notranslate"><span class="pre">SimplificationManager.bitwise_or_simplifier()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#claripy.simplifications.SimplificationManager.bitwise_and_simplifier"><code class="docutils literal notranslate"><span class="pre">SimplificationManager.bitwise_and_simplifier()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#claripy.simplifications.SimplificationManager.boolean_not_simplifier"><code class="docutils literal notranslate"><span class="pre">SimplificationManager.boolean_not_simplifier()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#claripy.simplifications.SimplificationManager.zeroext_simplifier"><code class="docutils literal notranslate"><span class="pre">SimplificationManager.zeroext_simplifier()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#claripy.simplifications.SimplificationManager.signext_simplifier"><code class="docutils literal notranslate"><span class="pre">SimplificationManager.signext_simplifier()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#claripy.simplifications.SimplificationManager.extract_simplifier"><code class="docutils literal notranslate"><span class="pre">SimplificationManager.extract_simplifier()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#claripy.simplifications.SimplificationManager.fptobv_simplifier"><code class="docutils literal notranslate"><span class="pre">SimplificationManager.fptobv_simplifier()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#claripy.simplifications.SimplificationManager.fptofp_simplifier"><code class="docutils literal notranslate"><span class="pre">SimplificationManager.fptofp_simplifier()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#claripy.simplifications.SimplificationManager.rotate_shift_mask_simplifier"><code class="docutils literal notranslate"><span class="pre">SimplificationManager.rotate_shift_mask_simplifier()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#claripy.simplifications.SimplificationManager.str_reverse_simplifier"><code class="docutils literal notranslate"><span class="pre">SimplificationManager.str_reverse_simplifier()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#claripy.simplifications.SimplificationManager.and_mask_comparing_against_constant_simplifier"><code class="docutils literal notranslate"><span class="pre">SimplificationManager.and_mask_comparing_against_constant_simplifier()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#claripy.simplifications.SimplificationManager.zeroext_extract_comparing_against_constant_simplifier"><code class="docutils literal notranslate"><span class="pre">SimplificationManager.zeroext_extract_comparing_against_constant_simplifier()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#claripy.simplifications.SimplificationManager.zeroext_comparing_against_simplifier"><code class="docutils literal notranslate"><span class="pre">SimplificationManager.zeroext_comparing_against_simplifier()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#claripy.ops.AbstractLocation"><code class="docutils literal notranslate"><span class="pre">AbstractLocation()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#claripy.ops.from_iterable"><code class="docutils literal notranslate"><span class="pre">from_iterable()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#claripy.smtlib_utils.make_pysmt_const_from_type"><code class="docutils literal notranslate"><span class="pre">make_pysmt_const_from_type()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#claripy.smtlib_utils.SMTParser"><code class="docutils literal notranslate"><span class="pre">SMTParser</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#claripy.smtlib_utils.SMTParser.expect"><code class="docutils literal notranslate"><span class="pre">SMTParser.expect()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#claripy.smtlib_utils.SMTParser.expect_assignment_tuple"><code class="docutils literal notranslate"><span class="pre">SMTParser.expect_assignment_tuple()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#claripy.smtlib_utils.SMTParser.consume_assignment_list"><code class="docutils literal notranslate"><span class="pre">SMTParser.consume_assignment_list()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#claripy.strings.StringV"><code class="docutils literal notranslate"><span class="pre">StringV</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#claripy.strings.StrConcat"><code class="docutils literal notranslate"><span class="pre">StrConcat()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#claripy.strings.StrSubstr"><code class="docutils literal notranslate"><span class="pre">StrSubstr()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#claripy.strings.StrReplace"><code class="docutils literal notranslate"><span class="pre">StrReplace()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#claripy.strings.StrLen"><code class="docutils literal notranslate"><span class="pre">StrLen()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#claripy.strings.StrContains"><code class="docutils literal notranslate"><span class="pre">StrContains()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#claripy.strings.StrPrefixOf"><code class="docutils literal notranslate"><span class="pre">StrPrefixOf()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#claripy.strings.StrSuffixOf"><code class="docutils literal notranslate"><span class="pre">StrSuffixOf()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#claripy.strings.StrIndexOf"><code class="docutils literal notranslate"><span class="pre">StrIndexOf()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#claripy.strings.StrToInt"><code class="docutils literal notranslate"><span class="pre">StrToInt()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#claripy.strings.StrIsDigit"><code class="docutils literal notranslate"><span class="pre">StrIsDigit()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#claripy.strings.IntToStr"><code class="docutils literal notranslate"><span class="pre">IntToStr()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#claripy.debug.set_debug"><code class="docutils literal notranslate"><span class="pre">set_debug()</span></code></a></li>
+</ul>
+</li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="cle.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">cle</span></code> — Binary Loader</a></li>
