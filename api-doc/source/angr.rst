@@ -498,6 +498,7 @@ Utils
 .. automodule:: angr.utils.env
 .. automodule:: angr.utils.graph
 .. automodule:: angr.utils.lazy_import
+.. automodule:: angr.utils.loader
 .. automodule:: angr.utils.library
 .. automodule:: angr.utils.timing
 .. automodule:: angr.utils.formatting
