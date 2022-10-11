@@ -4,7 +4,7 @@
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>ailment — angr Intermediate Language &mdash; angr 9.2.21
+  <title>ailment — angr Intermediate Language &mdash; angr 9.2.22
  documentation</title>
       <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
@@ -33,7 +33,7 @@
             <a href="index.html" class="icon icon-home"> angr
           </a>
               <div class="version">
-                9.2.21
+                9.2.22
 
               </div>
 <div role="search">
@@ -69,6 +69,7 @@
 <li class="toctree-l4"><a class="reference internal" href="#ailment.converter_vex.VEXExprConverter.Load"><code class="docutils literal notranslate"><span class="pre">VEXExprConverter.Load()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="#ailment.converter_vex.VEXExprConverter.Unop"><code class="docutils literal notranslate"><span class="pre">VEXExprConverter.Unop()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="#ailment.converter_vex.VEXExprConverter.Binop"><code class="docutils literal notranslate"><span class="pre">VEXExprConverter.Binop()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#ailment.converter_vex.VEXExprConverter.Triop"><code class="docutils literal notranslate"><span class="pre">VEXExprConverter.Triop()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="#ailment.converter_vex.VEXExprConverter.Const"><code class="docutils literal notranslate"><span class="pre">VEXExprConverter.Const()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="#ailment.converter_vex.VEXExprConverter.const_n"><code class="docutils literal notranslate"><span class="pre">VEXExprConverter.const_n()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="#ailment.converter_vex.VEXExprConverter.ITE"><code class="docutils literal notranslate"><span class="pre">VEXExprConverter.ITE()</span></code></a></li>
@@ -149,9 +150,14 @@
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="#ailment.expression.Convert"><code class="docutils literal notranslate"><span class="pre">Convert</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#ailment.expression.Convert.TYPE_INT"><code class="docutils literal notranslate"><span class="pre">Convert.TYPE_INT</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#ailment.expression.Convert.TYPE_FP"><code class="docutils literal notranslate"><span class="pre">Convert.TYPE_FP</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="#ailment.expression.Convert.from_bits"><code class="docutils literal notranslate"><span class="pre">Convert.from_bits</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="#ailment.expression.Convert.to_bits"><code class="docutils literal notranslate"><span class="pre">Convert.to_bits</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="#ailment.expression.Convert.is_signed"><code class="docutils literal notranslate"><span class="pre">Convert.is_signed</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#ailment.expression.Convert.from_type"><code class="docutils literal notranslate"><span class="pre">Convert.from_type</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#ailment.expression.Convert.to_type"><code class="docutils literal notranslate"><span class="pre">Convert.to_type</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#ailment.expression.Convert.rounding_mode"><code class="docutils literal notranslate"><span class="pre">Convert.rounding_mode</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="#ailment.expression.Convert.likes"><code class="docutils literal notranslate"><span class="pre">Convert.likes()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="#ailment.expression.Convert.replace"><code class="docutils literal notranslate"><span class="pre">Convert.replace()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="#ailment.expression.Convert.copy"><code class="docutils literal notranslate"><span class="pre">Convert.copy()</span></code></a></li>
@@ -175,12 +181,26 @@
 <li class="toctree-l4"><a class="reference internal" href="#ailment.expression.BinaryOp.signed"><code class="docutils literal notranslate"><span class="pre">BinaryOp.signed</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="#ailment.expression.BinaryOp.variable"><code class="docutils literal notranslate"><span class="pre">BinaryOp.variable</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="#ailment.expression.BinaryOp.variable_offset"><code class="docutils literal notranslate"><span class="pre">BinaryOp.variable_offset</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#ailment.expression.BinaryOp.floating_point"><code class="docutils literal notranslate"><span class="pre">BinaryOp.floating_point</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#ailment.expression.BinaryOp.rounding_mode"><code class="docutils literal notranslate"><span class="pre">BinaryOp.rounding_mode</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="#ailment.expression.BinaryOp.likes"><code class="docutils literal notranslate"><span class="pre">BinaryOp.likes()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="#ailment.expression.BinaryOp.has_atom"><code class="docutils literal notranslate"><span class="pre">BinaryOp.has_atom()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="#ailment.expression.BinaryOp.replace"><code class="docutils literal notranslate"><span class="pre">BinaryOp.replace()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="#ailment.expression.BinaryOp.verbose_op"><code class="docutils literal notranslate"><span class="pre">BinaryOp.verbose_op</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="#ailment.expression.BinaryOp.size"><code class="docutils literal notranslate"><span class="pre">BinaryOp.size</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="#ailment.expression.BinaryOp.copy"><code class="docutils literal notranslate"><span class="pre">BinaryOp.copy()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#ailment.expression.TernaryOp"><code class="docutils literal notranslate"><span class="pre">TernaryOp</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#ailment.expression.TernaryOp.OPSTR_MAP"><code class="docutils literal notranslate"><span class="pre">TernaryOp.OPSTR_MAP</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#ailment.expression.TernaryOp.operands"><code class="docutils literal notranslate"><span class="pre">TernaryOp.operands</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#ailment.expression.TernaryOp.bits"><code class="docutils literal notranslate"><span class="pre">TernaryOp.bits</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#ailment.expression.TernaryOp.likes"><code class="docutils literal notranslate"><span class="pre">TernaryOp.likes()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#ailment.expression.TernaryOp.has_atom"><code class="docutils literal notranslate"><span class="pre">TernaryOp.has_atom()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#ailment.expression.TernaryOp.replace"><code class="docutils literal notranslate"><span class="pre">TernaryOp.replace()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#ailment.expression.TernaryOp.verbose_op"><code class="docutils literal notranslate"><span class="pre">TernaryOp.verbose_op</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#ailment.expression.TernaryOp.size"><code class="docutils literal notranslate"><span class="pre">TernaryOp.size</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#ailment.expression.TernaryOp.copy"><code class="docutils literal notranslate"><span class="pre">TernaryOp.copy()</span></code></a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="#ailment.expression.Load"><code class="docutils literal notranslate"><span class="pre">Load</span></code></a><ul>
@@ -490,6 +510,11 @@
 <dl class="py method">
 <dt class="sig sig-object py" id="ailment.converter_vex.VEXExprConverter.Binop">
 <em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">Binop</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">expr</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">manager</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#ailment.converter_vex.VEXExprConverter.Binop" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="ailment.converter_vex.VEXExprConverter.Triop">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">Triop</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">expr</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">manager</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#ailment.converter_vex.VEXExprConverter.Triop" title="Permalink to this definition"></a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
@@ -871,6 +896,16 @@ to exists.</p>
 <cite>TaggedObject</cite> with <cite>copy.deepcopy</cite>.</p>
 <p>Hence, we set <cite>_tags</cite> attribute here to prevent this problem.</p>
 <dl class="py attribute">
+<dt class="sig sig-object py" id="ailment.expression.Convert.TYPE_INT">
+<span class="sig-name descname"><span class="pre">TYPE_INT</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">0</span></em><a class="headerlink" href="#ailment.expression.Convert.TYPE_INT" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="ailment.expression.Convert.TYPE_FP">
+<span class="sig-name descname"><span class="pre">TYPE_FP</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">1</span></em><a class="headerlink" href="#ailment.expression.Convert.TYPE_FP" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
 <dt class="sig sig-object py" id="ailment.expression.Convert.from_bits">
 <span class="sig-name descname"><span class="pre">from_bits</span></span><a class="headerlink" href="#ailment.expression.Convert.from_bits" title="Permalink to this definition"></a></dt>
 <dd></dd></dl>
@@ -883,6 +918,21 @@ to exists.</p>
 <dl class="py attribute">
 <dt class="sig sig-object py" id="ailment.expression.Convert.is_signed">
 <span class="sig-name descname"><span class="pre">is_signed</span></span><a class="headerlink" href="#ailment.expression.Convert.is_signed" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="ailment.expression.Convert.from_type">
+<span class="sig-name descname"><span class="pre">from_type</span></span><a class="headerlink" href="#ailment.expression.Convert.from_type" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="ailment.expression.Convert.to_type">
+<span class="sig-name descname"><span class="pre">to_type</span></span><a class="headerlink" href="#ailment.expression.Convert.to_type" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="ailment.expression.Convert.rounding_mode">
+<span class="sig-name descname"><span class="pre">rounding_mode</span></span><a class="headerlink" href="#ailment.expression.Convert.rounding_mode" title="Permalink to this definition"></a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
@@ -963,7 +1013,7 @@ to exists.</p>
 <p>Hence, we set <cite>_tags</cite> attribute here to prevent this problem.</p>
 <dl class="py attribute">
 <dt class="sig sig-object py" id="ailment.expression.BinaryOp.OPSTR_MAP">
-<span class="sig-name descname"><span class="pre">OPSTR_MAP</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">{'Add':</span> <span class="pre">'+',</span> <span class="pre">'And':</span> <span class="pre">'&amp;',</span> <span class="pre">'CmpEQ':</span> <span class="pre">'==',</span> <span class="pre">'CmpF':</span> <span class="pre">'==f',</span> <span class="pre">'CmpGE':</span> <span class="pre">'&gt;=',</span> <span class="pre">'CmpGEs':</span> <span class="pre">'&gt;=s',</span> <span class="pre">'CmpGT':</span> <span class="pre">'&gt;',</span> <span class="pre">'CmpGTs':</span> <span class="pre">'&gt;s',</span> <span class="pre">'CmpLE':</span> <span class="pre">'&lt;=',</span> <span class="pre">'CmpLEs':</span> <span class="pre">'&lt;=s',</span> <span class="pre">'CmpLT':</span> <span class="pre">'&lt;',</span> <span class="pre">'CmpLTs':</span> <span class="pre">'&lt;s',</span> <span class="pre">'CmpNE':</span> <span class="pre">'!=',</span> <span class="pre">'Concat':</span> <span class="pre">'CONCAT',</span> <span class="pre">'Div':</span> <span class="pre">'/',</span> <span class="pre">'DivMod':</span> <span class="pre">'/m',</span> <span class="pre">'LogicalAnd':</span> <span class="pre">'&amp;&amp;',</span> <span class="pre">'LogicalOr':</span> <span class="pre">'||',</span> <span class="pre">'Mul':</span> <span class="pre">'*',</span> <span class="pre">'Or':</span> <span class="pre">'|',</span> <span class="pre">'Sar':</span> <span class="pre">'&gt;&gt;a',</span> <span class="pre">'Shl':</span> <span class="pre">'&lt;&lt;',</span> <span class="pre">'Shr':</span> <span class="pre">'&gt;&gt;',</span> <span class="pre">'Sub':</span> <span class="pre">'-',</span> <span class="pre">'Xor':</span> <span class="pre">'^'}</span></em><a class="headerlink" href="#ailment.expression.BinaryOp.OPSTR_MAP" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">OPSTR_MAP</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">{'Add':</span> <span class="pre">'+',</span> <span class="pre">'AddF':</span> <span class="pre">'+',</span> <span class="pre">'And':</span> <span class="pre">'&amp;',</span> <span class="pre">'CmpEQ':</span> <span class="pre">'==',</span> <span class="pre">'CmpF':</span> <span class="pre">'CmpF',</span> <span class="pre">'CmpGE':</span> <span class="pre">'&gt;=',</span> <span class="pre">'CmpGEs':</span> <span class="pre">'&gt;=s',</span> <span class="pre">'CmpGT':</span> <span class="pre">'&gt;',</span> <span class="pre">'CmpGTs':</span> <span class="pre">'&gt;s',</span> <span class="pre">'CmpLE':</span> <span class="pre">'&lt;=',</span> <span class="pre">'CmpLEs':</span> <span class="pre">'&lt;=s',</span> <span class="pre">'CmpLT':</span> <span class="pre">'&lt;',</span> <span class="pre">'CmpLTs':</span> <span class="pre">'&lt;s',</span> <span class="pre">'CmpNE':</span> <span class="pre">'!=',</span> <span class="pre">'Concat':</span> <span class="pre">'CONCAT',</span> <span class="pre">'Div':</span> <span class="pre">'/',</span> <span class="pre">'DivF':</span> <span class="pre">'/',</span> <span class="pre">'DivMod':</span> <span class="pre">'/m',</span> <span class="pre">'LogicalAnd':</span> <span class="pre">'&amp;&amp;',</span> <span class="pre">'LogicalOr':</span> <span class="pre">'||',</span> <span class="pre">'Mul':</span> <span class="pre">'*',</span> <span class="pre">'MulF':</span> <span class="pre">'*',</span> <span class="pre">'Or':</span> <span class="pre">'|',</span> <span class="pre">'Sar':</span> <span class="pre">'&gt;&gt;a',</span> <span class="pre">'Shl':</span> <span class="pre">'&lt;&lt;',</span> <span class="pre">'Shr':</span> <span class="pre">'&gt;&gt;',</span> <span class="pre">'Sub':</span> <span class="pre">'-',</span> <span class="pre">'SubF':</span> <span class="pre">'-',</span> <span class="pre">'Xor':</span> <span class="pre">'^'}</span></em><a class="headerlink" href="#ailment.expression.BinaryOp.OPSTR_MAP" title="Permalink to this definition"></a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
@@ -996,6 +1046,16 @@ to exists.</p>
 <span class="sig-name descname"><span class="pre">variable_offset</span></span><a class="headerlink" href="#ailment.expression.BinaryOp.variable_offset" title="Permalink to this definition"></a></dt>
 <dd></dd></dl>
 
+<dl class="py attribute">
+<dt class="sig sig-object py" id="ailment.expression.BinaryOp.floating_point">
+<span class="sig-name descname"><span class="pre">floating_point</span></span><a class="headerlink" href="#ailment.expression.BinaryOp.floating_point" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="ailment.expression.BinaryOp.rounding_mode">
+<span class="sig-name descname"><span class="pre">rounding_mode</span></span><a class="headerlink" href="#ailment.expression.BinaryOp.rounding_mode" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
 <dl class="py method">
 <dt class="sig sig-object py" id="ailment.expression.BinaryOp.likes">
 <span class="sig-name descname"><span class="pre">likes</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">other</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#ailment.expression.BinaryOp.likes" title="Permalink to this definition"></a></dt>
@@ -1024,6 +1084,64 @@ to exists.</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="ailment.expression.BinaryOp.copy">
 <span class="sig-name descname"><span class="pre">copy</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#ailment.expression.BinaryOp" title="ailment.expression.BinaryOp"><span class="pre">BinaryOp</span></a></span></span><a class="headerlink" href="#ailment.expression.BinaryOp.copy" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="ailment.expression.TernaryOp">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">ailment.expression.</span></span><span class="sig-name descname"><span class="pre">TernaryOp</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#ailment.expression.TernaryOp" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="#ailment.expression.Op" title="ailment.expression.Op"><code class="xref py py-class docutils literal notranslate"><span class="pre">Op</span></code></a></p>
+<p>Create a new instance and set <cite>_tags</cite> attribute.</p>
+<p>Since TaggedObject override <cite>__getattr__</cite> method and try to access the
+<cite>_tags</cite> attribute, infinite recursion could occur if <cite>_tags</cite> not ready
+to exists.</p>
+<p>This behavior causes an infinite recursion error when copying
+<cite>TaggedObject</cite> with <cite>copy.deepcopy</cite>.</p>
+<p>Hence, we set <cite>_tags</cite> attribute here to prevent this problem.</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="ailment.expression.TernaryOp.OPSTR_MAP">
+<span class="sig-name descname"><span class="pre">OPSTR_MAP</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">{}</span></em><a class="headerlink" href="#ailment.expression.TernaryOp.OPSTR_MAP" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="ailment.expression.TernaryOp.operands">
+<span class="sig-name descname"><span class="pre">operands</span></span><a class="headerlink" href="#ailment.expression.TernaryOp.operands" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="ailment.expression.TernaryOp.bits">
+<span class="sig-name descname"><span class="pre">bits</span></span><a class="headerlink" href="#ailment.expression.TernaryOp.bits" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="ailment.expression.TernaryOp.likes">
+<span class="sig-name descname"><span class="pre">likes</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">other</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#ailment.expression.TernaryOp.likes" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="ailment.expression.TernaryOp.has_atom">
+<span class="sig-name descname"><span class="pre">has_atom</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">atom</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">identity</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#ailment.expression.TernaryOp.has_atom" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="ailment.expression.TernaryOp.replace">
+<span class="sig-name descname"><span class="pre">replace</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">old_expr</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">new_expr</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#ailment.expression.TernaryOp.replace" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="ailment.expression.TernaryOp.verbose_op">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">verbose_op</span></span><a class="headerlink" href="#ailment.expression.TernaryOp.verbose_op" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="ailment.expression.TernaryOp.size">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">size</span></span><a class="headerlink" href="#ailment.expression.TernaryOp.size" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="ailment.expression.TernaryOp.copy">
+<span class="sig-name descname"><span class="pre">copy</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#ailment.expression.TernaryOp" title="ailment.expression.TernaryOp"><span class="pre">TernaryOp</span></a></span></span><a class="headerlink" href="#ailment.expression.TernaryOp.copy" title="Permalink to this definition"></a></dt>
 <dd></dd></dl>
 
 </dd></dl>

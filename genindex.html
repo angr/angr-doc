@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Index &mdash; angr 9.2.21
+  <title>Index &mdash; angr 9.2.22
  documentation</title>
       <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
@@ -30,7 +30,7 @@
             <a href="index.html" class="icon icon-home"> angr
           </a>
               <div class="version">
-                9.2.21
+                9.2.22
 
               </div>
 <div role="search">
@@ -4741,6 +4741,8 @@
 </li>
         <li><a href="ailment.html#ailment.expression.Register.bits">(ailment.expression.Register attribute)</a>
 </li>
+        <li><a href="ailment.html#ailment.expression.TernaryOp.bits">(ailment.expression.TernaryOp attribute)</a>
+</li>
         <li><a href="ailment.html#ailment.expression.Tmp.bits">(ailment.expression.Tmp attribute)</a>
 </li>
         <li><a href="ailment.html#ailment.expression.UnaryOp.bits">(ailment.expression.UnaryOp attribute)</a>
@@ -6757,8 +6759,6 @@
         <li><a href="cle.html#module-cle.backends.pe.relocation.arm">module</a>
 </li>
       </ul></li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
       <li>
     cle.backends.pe.relocation.generic
 
@@ -6766,6 +6766,8 @@
         <li><a href="cle.html#module-cle.backends.pe.relocation.generic">module</a>
 </li>
       </ul></li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
       <li>
     cle.backends.pe.relocation.i386
 
@@ -7550,6 +7552,8 @@
         <li><a href="ailment.html#ailment.expression.Reinterpret.copy">(ailment.expression.Reinterpret method)</a>
 </li>
         <li><a href="ailment.html#ailment.expression.StackBaseOffset.copy">(ailment.expression.StackBaseOffset method)</a>
+</li>
+        <li><a href="ailment.html#ailment.expression.TernaryOp.copy">(ailment.expression.TernaryOp method)</a>
 </li>
         <li><a href="ailment.html#ailment.expression.Tmp.copy">(ailment.expression.Tmp method)</a>
 </li>
@@ -8468,10 +8472,10 @@
 </li>
       <li><a href="angr.html#angr.analyses.reassembler.Data.desymbolize">desymbolize() (angr.analyses.reassembler.Data method)</a>
 </li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="angr.html#angr.analyses.propagator.prop_value.Detail">Detail (class in angr.analyses.propagator.prop_value)</a>
 </li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="angr.html#angr.analyses.typehoon.simple_solver.SimpleSolver.determine">determine() (angr.analyses.typehoon.simple_solver.SimpleSolver method)</a>
 </li>
       <li><a href="angr.html#angr.exploration_techniques.dfs.DFS">DFS (class in angr.exploration_techniques.dfs)</a>
@@ -8613,6 +8617,8 @@
 </li>
       </ul></li>
       <li><a href="angr.html#angr.analyses.calling_convention.UpdateArgumentsOption.DoNotUpdate">DoNotUpdate (angr.analyses.calling_convention.UpdateArgumentsOption attribute)</a>
+</li>
+      <li><a href="angr.html#angr.analyses.typehoon.typeconsts.Double">Double (class in angr.analyses.typehoon.typeconsts)</a>
 </li>
       <li><a href="angr.html#angr.analyses.cfg.cfg_emulated.CFGEmulated.downsize">downsize() (angr.analyses.cfg.cfg_emulated.CFGEmulated method)</a>
 
@@ -9774,9 +9780,17 @@
 </li>
       <li><a href="angr.html#angr.flirt.FlirtSignature">FlirtSignature (class in angr.flirt)</a>
 </li>
+      <li><a href="angr.html#angr.analyses.typehoon.typeconsts.Float">Float (class in angr.analyses.typehoon.typeconsts)</a>
+</li>
       <li><a href="angr.html#angr.procedures.stubs.format_parser.ScanfFormatParser.float_len_mod">float_len_mod (angr.procedures.stubs.format_parser.ScanfFormatParser attribute)</a>
 </li>
       <li><a href="angr.html#angr.procedures.stubs.format_parser.ScanfFormatParser.float_spec">float_spec (angr.procedures.stubs.format_parser.ScanfFormatParser attribute)</a>
+</li>
+      <li><a href="angr.html#angr.analyses.typehoon.typeconsts.float_type">float_type() (in module angr.analyses.typehoon.typeconsts)</a>
+</li>
+      <li><a href="angr.html#angr.analyses.typehoon.typeconsts.FloatBase">FloatBase (class in angr.analyses.typehoon.typeconsts)</a>
+</li>
+      <li><a href="ailment.html#ailment.expression.BinaryOp.floating_point">floating_point (ailment.expression.BinaryOp attribute)</a>
 </li>
       <li><a href="angr.html#angr.knowledge_plugins.cfg.memory_data.MemoryDataSort.FloatingPoint">FloatingPoint (angr.knowledge_plugins.cfg.memory_data.MemoryDataSort attribute)</a>
 </li>
@@ -9904,10 +9918,10 @@
 </li>
       <li><a href="claripy.html#claripy.fp.fpLT">fpLT() (in module claripy.fp)</a>
 </li>
-      <li><a href="claripy.html#claripy.fp.fpMul">fpMul() (in module claripy.fp)</a>
-</li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="claripy.html#claripy.fp.fpMul">fpMul() (in module claripy.fp)</a>
+</li>
       <li><a href="claripy.html#claripy.fp.fpNE">fpNE() (in module claripy.fp)</a>
 </li>
       <li><a href="claripy.html#claripy.fp.fpNeg">fpNeg() (in module claripy.fp)</a>
@@ -10024,8 +10038,12 @@
 </li>
       <li><a href="archinfo.html#archinfo.arch_soot.SootMethodDescriptor.from_string">from_string() (archinfo.arch_soot.SootMethodDescriptor class method)</a>
 </li>
-      <li><a href="ailment.html#ailment.expression.Reinterpret.from_type">from_type (ailment.expression.Reinterpret attribute)</a>
+      <li><a href="ailment.html#ailment.expression.Convert.from_type">from_type (ailment.expression.Convert attribute)</a>
+
+      <ul>
+        <li><a href="ailment.html#ailment.expression.Reinterpret.from_type">(ailment.expression.Reinterpret attribute)</a>
 </li>
+      </ul></li>
       <li><a href="cle.html#cle.address_translator.AddressTranslator.from_va">from_va() (cle.address_translator.AddressTranslator class method)</a>
 </li>
       <li><a href="angr.html#angr.analyses.propagator.prop_value.PropValue.from_value_and_details">from_value_and_details() (angr.analyses.propagator.prop_value.PropValue static method)</a>
@@ -11218,6 +11236,8 @@
         <li><a href="ailment.html#ailment.expression.ITE.has_atom">(ailment.expression.ITE method)</a>
 </li>
         <li><a href="ailment.html#ailment.expression.Load.has_atom">(ailment.expression.Load method)</a>
+</li>
+        <li><a href="ailment.html#ailment.expression.TernaryOp.has_atom">(ailment.expression.TernaryOp method)</a>
 </li>
         <li><a href="ailment.html#ailment.expression.UnaryOp.has_atom">(ailment.expression.UnaryOp method)</a>
 </li>
@@ -13304,6 +13324,8 @@
         <li><a href="ailment.html#ailment.expression.Register.likes">(ailment.expression.Register method)</a>
 </li>
         <li><a href="ailment.html#ailment.expression.Reinterpret.likes">(ailment.expression.Reinterpret method)</a>
+</li>
+        <li><a href="ailment.html#ailment.expression.TernaryOp.likes">(ailment.expression.TernaryOp method)</a>
 </li>
         <li><a href="ailment.html#ailment.expression.Tmp.likes">(ailment.expression.Tmp method)</a>
 </li>
@@ -16407,10 +16429,10 @@
 </li>
       <li><a href="pyvex.html#pyvex.lifting.util.vex_helper.IRSBCustomizer.op_cmp_eq">op_cmp_eq() (pyvex.lifting.util.vex_helper.IRSBCustomizer method)</a>
 </li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="pyvex.html#pyvex.lifting.util.vex_helper.IRSBCustomizer.op_cmp_ne">op_cmp_ne() (pyvex.lifting.util.vex_helper.IRSBCustomizer method)</a>
 </li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="pyvex.html#pyvex.lifting.util.vex_helper.IRSBCustomizer.op_cmp_sge">op_cmp_sge() (pyvex.lifting.util.vex_helper.IRSBCustomizer method)</a>
 </li>
       <li><a href="pyvex.html#pyvex.lifting.util.vex_helper.IRSBCustomizer.op_cmp_sgt">op_cmp_sgt() (pyvex.lifting.util.vex_helper.IRSBCustomizer method)</a>
@@ -16542,6 +16564,8 @@
       <li><a href="ailment.html#ailment.expression.BinaryOp.operands">operands (ailment.expression.BinaryOp attribute)</a>
 
       <ul>
+        <li><a href="ailment.html#ailment.expression.TernaryOp.operands">(ailment.expression.TernaryOp attribute)</a>
+</li>
         <li><a href="ailment.html#ailment.expression.UnaryOp.operands">(ailment.expression.UnaryOp property)</a>
 </li>
         <li><a href="ailment.html#ailment.expression.VEXCCallExpression.operands">(ailment.expression.VEXCCallExpression attribute)</a>
@@ -16560,7 +16584,11 @@
       <li><a href="angr.html#angr.exploration_techniques.oppologist.Oppologist">Oppologist (class in angr.exploration_techniques.oppologist)</a>
 </li>
       <li><a href="ailment.html#ailment.expression.BinaryOp.OPSTR_MAP">OPSTR_MAP (ailment.expression.BinaryOp attribute)</a>
+
+      <ul>
+        <li><a href="ailment.html#ailment.expression.TernaryOp.OPSTR_MAP">(ailment.expression.TernaryOp attribute)</a>
 </li>
+      </ul></li>
       <li><a href="pyvex.html#pyvex.lifting.lifter.Lifter.opt_level">opt_level (pyvex.lifting.lifter.Lifter attribute)</a>
 </li>
       <li><a href="angr.html#angr.analyses.decompiler.optimization_passes.optimization_pass.OptimizationPass">OptimizationPass (class in angr.analyses.decompiler.optimization_passes.optimization_pass)</a>
@@ -18502,6 +18530,8 @@
 </li>
         <li><a href="ailment.html#ailment.expression.Reinterpret.replace">(ailment.expression.Reinterpret method)</a>
 </li>
+        <li><a href="ailment.html#ailment.expression.TernaryOp.replace">(ailment.expression.TernaryOp method)</a>
+</li>
         <li><a href="ailment.html#ailment.expression.UnaryOp.replace">(ailment.expression.UnaryOp method)</a>
 </li>
         <li><a href="ailment.html#ailment.expression.VEXCCallExpression.replace">(ailment.expression.VEXCCallExpression method)</a>
@@ -19715,6 +19745,12 @@
 </li>
       <li><a href="claripy.html#claripy.bv.RotateRight">RotateRight() (in module claripy.bv)</a>
 </li>
+      <li><a href="ailment.html#ailment.expression.BinaryOp.rounding_mode">rounding_mode (ailment.expression.BinaryOp attribute)</a>
+
+      <ul>
+        <li><a href="ailment.html#ailment.expression.Convert.rounding_mode">(ailment.expression.Convert attribute)</a>
+</li>
+      </ul></li>
       <li><a href="cle.html#cle.backends.tls.elf_tls.roundup">roundup() (in module cle.backends.tls.elf_tls)</a>
 </li>
       <li><a href="angr.html#angr.engines.light.data.ArithmeticExpression.RShift">RShift (angr.engines.light.data.ArithmeticExpression attribute)</a>
@@ -20926,6 +20962,8 @@
 </li>
         <li><a href="ailment.html#ailment.expression.Register.size">(ailment.expression.Register property)</a>
 </li>
+        <li><a href="ailment.html#ailment.expression.TernaryOp.size">(ailment.expression.TernaryOp property)</a>
+</li>
         <li><a href="ailment.html#ailment.expression.Tmp.size">(ailment.expression.Tmp property)</a>
 </li>
         <li><a href="ailment.html#ailment.expression.UnaryOp.size">(ailment.expression.UnaryOp property)</a>
@@ -20947,9 +20985,13 @@
         <li><a href="angr.html#angr.analyses.propagator.vex_vars.VEXReg.size">(angr.analyses.propagator.vex_vars.VEXReg attribute)</a>
 </li>
       </ul></li>
-      <li><a href="angr.html#angr.analyses.typehoon.typeconsts.Int1.SIZE">SIZE (angr.analyses.typehoon.typeconsts.Int1 attribute)</a>
+      <li><a href="angr.html#angr.analyses.typehoon.typeconsts.Double.SIZE">SIZE (angr.analyses.typehoon.typeconsts.Double attribute)</a>
 
       <ul>
+        <li><a href="angr.html#angr.analyses.typehoon.typeconsts.Float.SIZE">(angr.analyses.typehoon.typeconsts.Float attribute)</a>
+</li>
+        <li><a href="angr.html#angr.analyses.typehoon.typeconsts.Int1.SIZE">(angr.analyses.typehoon.typeconsts.Int1 attribute)</a>
+</li>
         <li><a href="angr.html#angr.analyses.typehoon.typeconsts.Int128.SIZE">(angr.analyses.typehoon.typeconsts.Int128 attribute)</a>
 </li>
         <li><a href="angr.html#angr.analyses.typehoon.typeconsts.Int16.SIZE">(angr.analyses.typehoon.typeconsts.Int16 attribute)</a>
@@ -21265,10 +21307,10 @@
 </li>
       <li><a href="angr.html#angr.block.SootBlock.soot">soot (angr.block.SootBlock property)</a>
 </li>
-      <li><a href="cle.html#cle.backends.java.soot.Soot">Soot (class in cle.backends.java.soot)</a>
-</li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="cle.html#cle.backends.java.soot.Soot">Soot (class in cle.backends.java.soot)</a>
+</li>
       <li><a href="angr.html#angr.knowledge_plugins.cfg.cfg_node.CFGNode.soot_block">soot_block (angr.knowledge_plugins.cfg.cfg_node.CFGNode attribute)</a>
 </li>
       <li><a href="archinfo.html#archinfo.arch_soot.SootAddressDescriptor">SootAddressDescriptor (class in archinfo.arch_soot)</a>
@@ -23149,6 +23191,8 @@
         <li><a href="angr.html#angr.project.Project.terminate_execution">(angr.project.Project method)</a>
 </li>
       </ul></li>
+      <li><a href="ailment.html#ailment.expression.TernaryOp">TernaryOp (class in ailment.expression)</a>
+</li>
       <li><a href="angr.html#angr.analyses.decompiler.structurer_nodes.BaseNode.test_empty_condition_node">test_empty_condition_node() (angr.analyses.decompiler.structurer_nodes.BaseNode static method)</a>
 </li>
       <li><a href="angr.html#angr.analyses.decompiler.structurer_nodes.BaseNode.test_empty_node">test_empty_node() (angr.analyses.decompiler.structurer_nodes.BaseNode static method)</a>
@@ -23283,8 +23327,6 @@
 </li>
       <li><a href="cle.html#cle.backends.symbol.SymbolSubType.to_base_type">to_base_type() (cle.backends.symbol.SymbolSubType method)</a>
 </li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="ailment.html#ailment.expression.Convert.to_bits">to_bits (ailment.expression.Convert attribute)</a>
 
       <ul>
@@ -23295,6 +23337,8 @@
         <li><a href="angr.html#angr.analyses.typehoon.typevars.ReinterpretAs.to_bits">(angr.analyses.typehoon.typevars.ReinterpretAs attribute)</a>
 </li>
       </ul></li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="claripy.html#claripy.ast.bv.BV.to_bv">to_bv() (claripy.ast.bv.BV method)</a>
 
       <ul>
@@ -23335,9 +23379,11 @@
 </li>
       <li><a href="angr.html#angr.knowledge_plugins.xrefs.xref_types.XRefType.to_string">to_string() (angr.knowledge_plugins.xrefs.xref_types.XRefType static method)</a>
 </li>
-      <li><a href="ailment.html#ailment.expression.Reinterpret.to_type">to_type (ailment.expression.Reinterpret attribute)</a>
+      <li><a href="ailment.html#ailment.expression.Convert.to_type">to_type (ailment.expression.Convert attribute)</a>
 
       <ul>
+        <li><a href="ailment.html#ailment.expression.Reinterpret.to_type">(ailment.expression.Reinterpret attribute)</a>
+</li>
         <li><a href="angr.html#angr.analyses.typehoon.typevars.ReinterpretAs.to_type">(angr.analyses.typehoon.typevars.ReinterpretAs attribute)</a>
 </li>
       </ul></li>
@@ -23426,6 +23472,8 @@
       <li><a href="angr.html#angr.state_plugins.history.SimStateHistory.trim">trim() (angr.state_plugins.history.SimStateHistory method)</a>
 </li>
       <li><a href="pyvex.html#pyvex.expr.Triop">Triop (class in pyvex.expr)</a>
+</li>
+      <li><a href="ailment.html#ailment.converter_vex.VEXExprConverter.Triop">Triop() (ailment.converter_vex.VEXExprConverter static method)</a>
 </li>
       <li><a href="archinfo.html#archinfo.arch.Arch.triplet">triplet (archinfo.arch.Arch attribute)</a>
 
@@ -23609,7 +23657,11 @@
         <li><a href="angr.html#angr.analyses.variable_recovery.engine_base.RichR.type_constraints">(angr.analyses.variable_recovery.engine_base.RichR attribute)</a>
 </li>
       </ul></li>
+      <li><a href="ailment.html#ailment.expression.Convert.TYPE_FP">TYPE_FP (ailment.expression.Convert attribute)</a>
+</li>
       <li><a href="cle.html#cle.backends.symbol.SymbolType.TYPE_FUNCTION">TYPE_FUNCTION (cle.backends.symbol.SymbolType attribute)</a>
+</li>
+      <li><a href="ailment.html#ailment.expression.Convert.TYPE_INT">TYPE_INT (ailment.expression.Convert attribute)</a>
 </li>
       <li><a href="cle.html#cle.backends.symbol.SymbolType.TYPE_NONE">TYPE_NONE (cle.backends.symbol.SymbolType attribute)</a>
 </li>
@@ -24481,6 +24533,8 @@
 
       <ul>
         <li><a href="ailment.html#ailment.expression.Op.verbose_op">(ailment.expression.Op property)</a>
+</li>
+        <li><a href="ailment.html#ailment.expression.TernaryOp.verbose_op">(ailment.expression.TernaryOp property)</a>
 </li>
         <li><a href="ailment.html#ailment.statement.Call.verbose_op">(ailment.statement.Call property)</a>
 </li>
