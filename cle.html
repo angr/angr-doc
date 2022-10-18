@@ -4,7 +4,7 @@
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>cle — Binary Loader &mdash; angr 9.2.22
+  <title>cle — Binary Loader &mdash; angr 9.2.23
  documentation</title>
       <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
@@ -33,7 +33,7 @@
             <a href="index.html" class="icon icon-home"> angr
           </a>
               <div class="version">
-                9.2.22
+                9.2.23
 
               </div>
 <div role="search">
@@ -1726,6 +1726,18 @@
 <li class="toctree-l3"><a class="reference internal" href="#cle.backends.elf.relocation.arm.R_ARM_THM_JUMP6"><code class="docutils literal notranslate"><span class="pre">R_ARM_THM_JUMP6</span></code></a><ul>
 <li class="toctree-l4"><a class="reference internal" href="#cle.backends.elf.relocation.arm.R_ARM_THM_JUMP6.resolvedby"><code class="docutils literal notranslate"><span class="pre">R_ARM_THM_JUMP6.resolvedby</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="#cle.backends.elf.relocation.arm.R_ARM_THM_JUMP6.resolved"><code class="docutils literal notranslate"><span class="pre">R_ARM_THM_JUMP6.resolved</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#cle.backends.elf.relocation.arm.R_ARM_THM_MOVW_ABS_NC"><code class="docutils literal notranslate"><span class="pre">R_ARM_THM_MOVW_ABS_NC</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#cle.backends.elf.relocation.arm.R_ARM_THM_MOVW_ABS_NC.value"><code class="docutils literal notranslate"><span class="pre">R_ARM_THM_MOVW_ABS_NC.value</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#cle.backends.elf.relocation.arm.R_ARM_THM_MOVW_ABS_NC.resolvedby"><code class="docutils literal notranslate"><span class="pre">R_ARM_THM_MOVW_ABS_NC.resolvedby</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#cle.backends.elf.relocation.arm.R_ARM_THM_MOVW_ABS_NC.resolved"><code class="docutils literal notranslate"><span class="pre">R_ARM_THM_MOVW_ABS_NC.resolved</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#cle.backends.elf.relocation.arm.R_ARM_THM_MOVT_ABS"><code class="docutils literal notranslate"><span class="pre">R_ARM_THM_MOVT_ABS</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#cle.backends.elf.relocation.arm.R_ARM_THM_MOVT_ABS.value"><code class="docutils literal notranslate"><span class="pre">R_ARM_THM_MOVT_ABS.value</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#cle.backends.elf.relocation.arm.R_ARM_THM_MOVT_ABS.resolvedby"><code class="docutils literal notranslate"><span class="pre">R_ARM_THM_MOVT_ABS.resolvedby</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#cle.backends.elf.relocation.arm.R_ARM_THM_MOVT_ABS.resolved"><code class="docutils literal notranslate"><span class="pre">R_ARM_THM_MOVT_ABS.resolved</span></code></a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="#cle.backends.elf.relocation.arm64.R_AARCH64_ABS64"><code class="docutils literal notranslate"><span class="pre">R_AARCH64_ABS64</span></code></a><ul>
@@ -10068,6 +10080,52 @@ for whether or not the target is Thumb.</p>
 <dl class="py attribute">
 <dt class="sig sig-object py" id="cle.backends.elf.relocation.arm.R_ARM_THM_JUMP6.resolved">
 <span class="sig-name descname"><span class="pre">resolved</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">bool</span></em><a class="headerlink" href="#cle.backends.elf.relocation.arm.R_ARM_THM_JUMP6.resolved" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="cle.backends.elf.relocation.arm.R_ARM_THM_MOVW_ABS_NC">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">cle.backends.elf.relocation.arm.</span></span><span class="sig-name descname"><span class="pre">R_ARM_THM_MOVW_ABS_NC</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">owner</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">symbol</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">relative_addr</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">addend</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#cle.backends.elf.relocation.arm.R_ARM_THM_MOVW_ABS_NC" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="#cle.backends.elf.relocation.elfreloc.ELFReloc" title="cle.backends.elf.relocation.elfreloc.ELFReloc"><code class="xref py py-class docutils literal notranslate"><span class="pre">ELFReloc</span></code></a></p>
+<p>((S + A) | T) &amp; 0xffff
+Ref: <a class="reference external" href="https://github.com/ARM-software/abi-aa/blob/main/aaelf32/aaelf32.rst">https://github.com/ARM-software/abi-aa/blob/main/aaelf32/aaelf32.rst</a></p>
+<dl class="py property">
+<dt class="sig sig-object py" id="cle.backends.elf.relocation.arm.R_ARM_THM_MOVW_ABS_NC.value">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">value</span></span><a class="headerlink" href="#cle.backends.elf.relocation.arm.R_ARM_THM_MOVW_ABS_NC.value" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="cle.backends.elf.relocation.arm.R_ARM_THM_MOVW_ABS_NC.resolvedby">
+<span class="sig-name descname"><span class="pre">resolvedby</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="#cle.backends.symbol.Symbol" title="cle.backends.symbol.Symbol"><span class="pre">Symbol</span></a><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#cle.backends.elf.relocation.arm.R_ARM_THM_MOVW_ABS_NC.resolvedby" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="cle.backends.elf.relocation.arm.R_ARM_THM_MOVW_ABS_NC.resolved">
+<span class="sig-name descname"><span class="pre">resolved</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">bool</span></em><a class="headerlink" href="#cle.backends.elf.relocation.arm.R_ARM_THM_MOVW_ABS_NC.resolved" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="cle.backends.elf.relocation.arm.R_ARM_THM_MOVT_ABS">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">cle.backends.elf.relocation.arm.</span></span><span class="sig-name descname"><span class="pre">R_ARM_THM_MOVT_ABS</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">owner</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">symbol</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">relative_addr</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">addend</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#cle.backends.elf.relocation.arm.R_ARM_THM_MOVT_ABS" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="#cle.backends.elf.relocation.elfreloc.ELFReloc" title="cle.backends.elf.relocation.elfreloc.ELFReloc"><code class="xref py py-class docutils literal notranslate"><span class="pre">ELFReloc</span></code></a></p>
+<p>(S + A) &amp; 0xffff0000
+Ref: <a class="reference external" href="https://github.com/ARM-software/abi-aa/blob/main/aaelf32/aaelf32.rst">https://github.com/ARM-software/abi-aa/blob/main/aaelf32/aaelf32.rst</a></p>
+<dl class="py property">
+<dt class="sig sig-object py" id="cle.backends.elf.relocation.arm.R_ARM_THM_MOVT_ABS.value">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">value</span></span><a class="headerlink" href="#cle.backends.elf.relocation.arm.R_ARM_THM_MOVT_ABS.value" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="cle.backends.elf.relocation.arm.R_ARM_THM_MOVT_ABS.resolvedby">
+<span class="sig-name descname"><span class="pre">resolvedby</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="#cle.backends.symbol.Symbol" title="cle.backends.symbol.Symbol"><span class="pre">Symbol</span></a><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#cle.backends.elf.relocation.arm.R_ARM_THM_MOVT_ABS.resolvedby" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="cle.backends.elf.relocation.arm.R_ARM_THM_MOVT_ABS.resolved">
+<span class="sig-name descname"><span class="pre">resolved</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">bool</span></em><a class="headerlink" href="#cle.backends.elf.relocation.arm.R_ARM_THM_MOVT_ABS.resolved" title="Permalink to this definition"></a></dt>
 <dd></dd></dl>
 
 </dd></dl>

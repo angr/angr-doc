@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Index &mdash; angr 9.2.22
+  <title>Index &mdash; angr 9.2.23
  documentation</title>
       <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
@@ -30,7 +30,7 @@
             <a href="index.html" class="icon icon-home"> angr
           </a>
               <div class="version">
-                9.2.22
+                9.2.23
 
               </div>
 <div role="search">
@@ -2298,8 +2298,6 @@
         <li><a href="angr.html#module-angr.engines.light.engine">module</a>
 </li>
       </ul></li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
       <li>
     angr.engines.procedure
 
@@ -2307,6 +2305,8 @@
         <li><a href="angr.html#module-angr.engines.procedure">module</a>
 </li>
       </ul></li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
       <li>
     angr.engines.soot
 
@@ -3971,6 +3971,8 @@
 </li>
         <li><a href="angr.html#angr.calling_conventions.SimCCARM.ARCH">(angr.calling_conventions.SimCCARM attribute)</a>
 </li>
+        <li><a href="angr.html#angr.calling_conventions.SimCCARMHF.ARCH">(angr.calling_conventions.SimCCARMHF attribute)</a>
+</li>
         <li><a href="angr.html#angr.calling_conventions.SimCCARMLinuxSyscall.ARCH">(angr.calling_conventions.SimCCARMLinuxSyscall attribute)</a>
 </li>
         <li><a href="angr.html#angr.calling_conventions.SimCCCdecl.ARCH">(angr.calling_conventions.SimCCCdecl attribute)</a>
@@ -4270,6 +4272,8 @@
         <li><a href="angr.html#angr.calling_conventions.SimCCAMD64WindowsSyscall.ARG_REGS">(angr.calling_conventions.SimCCAMD64WindowsSyscall attribute)</a>
 </li>
         <li><a href="angr.html#angr.calling_conventions.SimCCARM.ARG_REGS">(angr.calling_conventions.SimCCARM attribute)</a>
+</li>
+        <li><a href="angr.html#angr.calling_conventions.SimCCARMHF.ARG_REGS">(angr.calling_conventions.SimCCARMHF attribute)</a>
 </li>
         <li><a href="angr.html#angr.calling_conventions.SimCCARMLinuxSyscall.ARG_REGS">(angr.calling_conventions.SimCCARMLinuxSyscall attribute)</a>
 </li>
@@ -4912,6 +4916,8 @@
         <li><a href="archinfo.html#archinfo.arch_soot.SootAddressDescriptor.block_idx">(archinfo.arch_soot.SootAddressDescriptor attribute)</a>
 </li>
       </ul></li>
+      <li><a href="angr.html#angr.analyses.propagator.propagator.PropagatorAILState.block_initial_reg_values">block_initial_reg_values (angr.analyses.propagator.propagator.PropagatorAILState attribute)</a>
+</li>
       <li><a href="angr.html#angr.analyses.bindiff.FunctionDiff.block_matches">block_matches (angr.analyses.bindiff.FunctionDiff property)</a>
 </li>
       <li><a href="angr.html#angr.block.Block.BLOCK_MAX_SIZE">BLOCK_MAX_SIZE (angr.block.Block attribute)</a>
@@ -5344,6 +5350,8 @@
 
       <ul>
         <li><a href="angr.html#angr.calling_conventions.SimCCARM.CALLER_SAVED_REGS">(angr.calling_conventions.SimCCARM attribute)</a>
+</li>
+        <li><a href="angr.html#angr.calling_conventions.SimCCARMHF.CALLER_SAVED_REGS">(angr.calling_conventions.SimCCARMHF attribute)</a>
 </li>
         <li><a href="angr.html#angr.calling_conventions.SimCCCdecl.CALLER_SAVED_REGS">(angr.calling_conventions.SimCCCdecl attribute)</a>
 </li>
@@ -6759,6 +6767,8 @@
         <li><a href="cle.html#module-cle.backends.pe.relocation.arm">module</a>
 </li>
       </ul></li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
       <li>
     cle.backends.pe.relocation.generic
 
@@ -6766,8 +6776,6 @@
         <li><a href="cle.html#module-cle.backends.pe.relocation.generic">module</a>
 </li>
       </ul></li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
       <li>
     cle.backends.pe.relocation.i386
 
@@ -9845,6 +9853,8 @@
 </li>
         <li><a href="angr.html#angr.calling_conventions.SimCCARM.FP_ARG_REGS">(angr.calling_conventions.SimCCARM attribute)</a>
 </li>
+        <li><a href="angr.html#angr.calling_conventions.SimCCARMHF.FP_ARG_REGS">(angr.calling_conventions.SimCCARMHF attribute)</a>
+</li>
         <li><a href="angr.html#angr.calling_conventions.SimCCARMLinuxSyscall.FP_ARG_REGS">(angr.calling_conventions.SimCCARMLinuxSyscall attribute)</a>
 </li>
         <li><a href="angr.html#angr.calling_conventions.SimCCCdecl.FP_ARG_REGS">(angr.calling_conventions.SimCCCdecl attribute)</a>
@@ -9886,9 +9896,21 @@
         <li><a href="angr.html#angr.calling_conventions.SimCC.ArgSession.fp_iter">(angr.calling_conventions.SimCC.ArgSession attribute)</a>
 </li>
       </ul></li>
+      <li><a href="ailment.html#ailment.statement.Call.fp_ret_expr">fp_ret_expr (ailment.statement.Call attribute)</a>
+</li>
+      <li><a href="archinfo.html#archinfo.arch.Arch.fp_ret_offset">fp_ret_offset (archinfo.arch.Arch attribute)</a>
+
+      <ul>
+        <li><a href="archinfo.html#archinfo.arch_arm.ArchARM.fp_ret_offset">(archinfo.arch_arm.ArchARM attribute)</a>
+</li>
+        <li><a href="archinfo.html#archinfo.arch_arm.ArchARMHF.fp_ret_offset">(archinfo.arch_arm.ArchARMHF attribute)</a>
+</li>
+      </ul></li>
       <li><a href="angr.html#angr.calling_conventions.SimCC.FP_RETURN_VAL">FP_RETURN_VAL (angr.calling_conventions.SimCC attribute)</a>
 
       <ul>
+        <li><a href="angr.html#angr.calling_conventions.SimCCARMHF.FP_RETURN_VAL">(angr.calling_conventions.SimCCARMHF attribute)</a>
+</li>
         <li><a href="angr.html#angr.calling_conventions.SimCCCdecl.FP_RETURN_VAL">(angr.calling_conventions.SimCCCdecl attribute)</a>
 </li>
         <li><a href="angr.html#angr.calling_conventions.SimCCMicrosoftAMD64.FP_RETURN_VAL">(angr.calling_conventions.SimCCMicrosoftAMD64 attribute)</a>
@@ -9912,14 +9934,14 @@
 </li>
       <li><a href="claripy.html#claripy.fp.fpIsInf">fpIsInf() (in module claripy.fp)</a>
 </li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="claripy.html#claripy.fp.fpIsNaN">fpIsNaN() (in module claripy.fp)</a>
 </li>
       <li><a href="claripy.html#claripy.fp.fpLEQ">fpLEQ() (in module claripy.fp)</a>
 </li>
       <li><a href="claripy.html#claripy.fp.fpLT">fpLT() (in module claripy.fp)</a>
 </li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="claripy.html#claripy.fp.fpMul">fpMul() (in module claripy.fp)</a>
 </li>
       <li><a href="claripy.html#claripy.fp.fpNE">fpNE() (in module claripy.fp)</a>
@@ -12118,10 +12140,10 @@
 </li>
       <li><a href="angr.html#angr.analyses.disassembly.IROp">IROp (class in angr.analyses.disassembly)</a>
 </li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="pyvex.html#pyvex.enums.IRRegArray">IRRegArray (class in pyvex.enums)</a>
 </li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="angr.html#angr.analyses.disassembly.IROp.irsb">irsb (angr.analyses.disassembly.IROp attribute)</a>
 
       <ul>
@@ -12215,6 +12237,8 @@
 </li>
       </ul></li>
       <li><a href="angr.html#angr.analyses.init_finder.SimEngineInitFinderVEX.is_concrete">is_concrete() (angr.analyses.init_finder.SimEngineInitFinderVEX static method)</a>
+</li>
+      <li><a href="angr.html#angr.analyses.propagator.propagator.PropagatorAILState.is_const_or_register">is_const_or_register() (angr.analyses.propagator.propagator.PropagatorAILState static method)</a>
 </li>
       <li><a href="angr.html#angr.analyses.vtable.VtableFinder.is_cross_referenced">is_cross_referenced() (angr.analyses.vtable.VtableFinder method)</a>
 </li>
@@ -15985,10 +16009,10 @@
         <li><a href="angr.html#angr.analyses.reassembler.SymbolManager.new_label">(angr.analyses.reassembler.SymbolManager method)</a>
 </li>
       </ul></li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="angr.html#angr.knowledge_plugins.cfg.cfg_manager.CFGManager.new_model">new_model() (angr.knowledge_plugins.cfg.cfg_manager.CFGManager method)</a>
 </li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="cle.html#cle.backends.tls.elfcore_tls.ELFCoreThreadManager.new_thread">new_thread() (cle.backends.tls.elfcore_tls.ELFCoreThreadManager method)</a>
 
       <ul>
@@ -16015,6 +16039,8 @@
 
       <ul>
         <li><a href="angr.html#angr.calling_conventions.SimCCARM.next_arg">(angr.calling_conventions.SimCCARM method)</a>
+</li>
+        <li><a href="angr.html#angr.calling_conventions.SimCCARMHF.next_arg">(angr.calling_conventions.SimCCARMHF method)</a>
 </li>
         <li><a href="angr.html#angr.calling_conventions.SimCCCdecl.next_arg">(angr.calling_conventions.SimCCCdecl method)</a>
 </li>
@@ -17583,6 +17609,10 @@
 </li>
       <li><a href="cle.html#cle.backends.elf.relocation.arm.R_ARM_THM_JUMP6">R_ARM_THM_JUMP6 (class in cle.backends.elf.relocation.arm)</a>
 </li>
+      <li><a href="cle.html#cle.backends.elf.relocation.arm.R_ARM_THM_MOVT_ABS">R_ARM_THM_MOVT_ABS (class in cle.backends.elf.relocation.arm)</a>
+</li>
+      <li><a href="cle.html#cle.backends.elf.relocation.arm.R_ARM_THM_MOVW_ABS_NC">R_ARM_THM_MOVW_ABS_NC (class in cle.backends.elf.relocation.arm)</a>
+</li>
       <li><a href="cle.html#cle.backends.elf.relocation.arm.R_ARM_TLS_DTPMOD32">R_ARM_TLS_DTPMOD32 (class in cle.backends.elf.relocation.arm)</a>
 </li>
       <li><a href="cle.html#cle.backends.elf.relocation.arm.R_ARM_TLS_DTPOFF32">R_ARM_TLS_DTPOFF32 (class in cle.backends.elf.relocation.arm)</a>
@@ -18764,6 +18794,10 @@
 </li>
         <li><a href="cle.html#cle.backends.elf.relocation.arm.R_ARM_THM_JUMP6.resolved">(cle.backends.elf.relocation.arm.R_ARM_THM_JUMP6 attribute)</a>
 </li>
+        <li><a href="cle.html#cle.backends.elf.relocation.arm.R_ARM_THM_MOVT_ABS.resolved">(cle.backends.elf.relocation.arm.R_ARM_THM_MOVT_ABS attribute)</a>
+</li>
+        <li><a href="cle.html#cle.backends.elf.relocation.arm.R_ARM_THM_MOVW_ABS_NC.resolved">(cle.backends.elf.relocation.arm.R_ARM_THM_MOVW_ABS_NC attribute)</a>
+</li>
         <li><a href="cle.html#cle.backends.elf.relocation.arm.R_ARM_TLS_DTPMOD32.resolved">(cle.backends.elf.relocation.arm.R_ARM_TLS_DTPMOD32 attribute)</a>
 </li>
         <li><a href="cle.html#cle.backends.elf.relocation.arm.R_ARM_TLS_DTPOFF32.resolved">(cle.backends.elf.relocation.arm.R_ARM_TLS_DTPOFF32 attribute)</a>
@@ -19111,6 +19145,10 @@
         <li><a href="cle.html#cle.backends.elf.relocation.arm.R_ARM_THM_JUMP24.resolvedby">(cle.backends.elf.relocation.arm.R_ARM_THM_JUMP24 attribute)</a>
 </li>
         <li><a href="cle.html#cle.backends.elf.relocation.arm.R_ARM_THM_JUMP6.resolvedby">(cle.backends.elf.relocation.arm.R_ARM_THM_JUMP6 attribute)</a>
+</li>
+        <li><a href="cle.html#cle.backends.elf.relocation.arm.R_ARM_THM_MOVT_ABS.resolvedby">(cle.backends.elf.relocation.arm.R_ARM_THM_MOVT_ABS attribute)</a>
+</li>
+        <li><a href="cle.html#cle.backends.elf.relocation.arm.R_ARM_THM_MOVW_ABS_NC.resolvedby">(cle.backends.elf.relocation.arm.R_ARM_THM_MOVW_ABS_NC attribute)</a>
 </li>
         <li><a href="cle.html#cle.backends.elf.relocation.arm.R_ARM_TLS_DTPMOD32.resolvedby">(cle.backends.elf.relocation.arm.R_ARM_TLS_DTPMOD32 attribute)</a>
 </li>
@@ -19560,6 +19598,8 @@
 </li>
         <li><a href="angr.html#angr.calling_conventions.SimCCARM.RETURN_ADDR">(angr.calling_conventions.SimCCARM attribute)</a>
 </li>
+        <li><a href="angr.html#angr.calling_conventions.SimCCARMHF.RETURN_ADDR">(angr.calling_conventions.SimCCARMHF attribute)</a>
+</li>
         <li><a href="angr.html#angr.calling_conventions.SimCCARMLinuxSyscall.RETURN_ADDR">(angr.calling_conventions.SimCCARMLinuxSyscall attribute)</a>
 </li>
         <li><a href="angr.html#angr.calling_conventions.SimCCCdecl.RETURN_ADDR">(angr.calling_conventions.SimCCCdecl attribute)</a>
@@ -19623,6 +19663,8 @@
         <li><a href="angr.html#angr.calling_conventions.SimCCAMD64WindowsSyscall.RETURN_VAL">(angr.calling_conventions.SimCCAMD64WindowsSyscall attribute)</a>
 </li>
         <li><a href="angr.html#angr.calling_conventions.SimCCARM.RETURN_VAL">(angr.calling_conventions.SimCCARM attribute)</a>
+</li>
+        <li><a href="angr.html#angr.calling_conventions.SimCCARMHF.RETURN_VAL">(angr.calling_conventions.SimCCARMHF attribute)</a>
 </li>
         <li><a href="angr.html#angr.calling_conventions.SimCCARMLinuxSyscall.RETURN_VAL">(angr.calling_conventions.SimCCARMLinuxSyscall attribute)</a>
 </li>
@@ -20420,6 +20462,8 @@
       <li><a href="angr.html#angr.calling_conventions.SimCCAMD64WindowsSyscall">SimCCAMD64WindowsSyscall (class in angr.calling_conventions)</a>
 </li>
       <li><a href="angr.html#angr.calling_conventions.SimCCARM">SimCCARM (class in angr.calling_conventions)</a>
+</li>
+      <li><a href="angr.html#angr.calling_conventions.SimCCARMHF">SimCCARMHF (class in angr.calling_conventions)</a>
 </li>
       <li><a href="angr.html#angr.calling_conventions.SimCCARMLinuxSyscall">SimCCARMLinuxSyscall (class in angr.calling_conventions)</a>
 </li>
@@ -21305,10 +21349,10 @@
 </li>
       <li><a href="claripy.html#claripy.solvers.SolverVSA">SolverVSA (class in claripy.solvers)</a>
 </li>
-      <li><a href="angr.html#angr.block.SootBlock.soot">soot (angr.block.SootBlock property)</a>
-</li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="angr.html#angr.block.SootBlock.soot">soot (angr.block.SootBlock property)</a>
+</li>
       <li><a href="cle.html#cle.backends.java.soot.Soot">Soot (class in cle.backends.java.soot)</a>
 </li>
       <li><a href="angr.html#angr.knowledge_plugins.cfg.cfg_node.CFGNode.soot_block">soot_block (angr.knowledge_plugins.cfg.cfg_node.CFGNode attribute)</a>
@@ -24255,6 +24299,10 @@
         <li><a href="cle.html#cle.backends.elf.relocation.arm.R_ARM_REL32.value">(cle.backends.elf.relocation.arm.R_ARM_REL32 property)</a>
 </li>
         <li><a href="cle.html#cle.backends.elf.relocation.arm.R_ARM_THM_CALL.value">(cle.backends.elf.relocation.arm.R_ARM_THM_CALL property)</a>
+</li>
+        <li><a href="cle.html#cle.backends.elf.relocation.arm.R_ARM_THM_MOVT_ABS.value">(cle.backends.elf.relocation.arm.R_ARM_THM_MOVT_ABS property)</a>
+</li>
+        <li><a href="cle.html#cle.backends.elf.relocation.arm.R_ARM_THM_MOVW_ABS_NC.value">(cle.backends.elf.relocation.arm.R_ARM_THM_MOVW_ABS_NC property)</a>
 </li>
         <li><a href="cle.html#cle.backends.elf.relocation.arm64.R_AARCH64_ADD_ABS_LO12_NC.value">(cle.backends.elf.relocation.arm64.R_AARCH64_ADD_ABS_LO12_NC property)</a>
 </li>
