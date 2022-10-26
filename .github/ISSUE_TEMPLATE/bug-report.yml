@@ -1,5 +1,5 @@
 name: Report a bug
-description: Report a bug in angr
+description: Report a bug in angr-doc
 labels: [bug,needs-triage]
 body:
   - type: markdown

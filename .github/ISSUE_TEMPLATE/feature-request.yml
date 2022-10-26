@@ -1,5 +1,5 @@
 name: Request a feature
-description: Request a new feature for angr
+description: Request a new feature for angr-doc
 labels: [enhancement,needs-triage]
 body:
   - type: markdown
