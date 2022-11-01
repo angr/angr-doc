@@ -4,7 +4,7 @@
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>claripy — Solver Engine &mdash; angr 9.2.24
+  <title>claripy — Solver Engine &mdash; angr 9.2.25
  documentation</title>
       <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
@@ -33,7 +33,7 @@
             <a href="index.html" class="icon icon-home"> angr
           </a>
               <div class="version">
-                9.2.24
+                9.2.25
 
               </div>
 <div role="search">
@@ -102,11 +102,18 @@
 </li>
 <li class="toctree-l3"><a class="reference internal" href="#claripy.ast.base.simplify"><code class="docutils literal notranslate"><span class="pre">simplify()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="#claripy.ast.bits.Bits"><code class="docutils literal notranslate"><span class="pre">Bits</span></code></a><ul>
-<li class="toctree-l4"><a class="reference internal" href="#claripy.ast.bits.Bits.length"><code class="docutils literal notranslate"><span class="pre">Bits.length</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="#claripy.ast.bits.Bits.make_like"><code class="docutils literal notranslate"><span class="pre">Bits.make_like()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="#claripy.ast.bits.Bits.size"><code class="docutils literal notranslate"><span class="pre">Bits.size()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="#claripy.ast.bits.Bits.raw_to_bv"><code class="docutils literal notranslate"><span class="pre">Bits.raw_to_bv()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="#claripy.ast.bits.Bits.raw_to_fp"><code class="docutils literal notranslate"><span class="pre">Bits.raw_to_fp()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#claripy.ast.bits.Bits.op"><code class="docutils literal notranslate"><span class="pre">Bits.op</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#claripy.ast.bits.Bits.args"><code class="docutils literal notranslate"><span class="pre">Bits.args</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#claripy.ast.bits.Bits.variables"><code class="docutils literal notranslate"><span class="pre">Bits.variables</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#claripy.ast.bits.Bits.symbolic"><code class="docutils literal notranslate"><span class="pre">Bits.symbolic</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#claripy.ast.bits.Bits.length"><code class="docutils literal notranslate"><span class="pre">Bits.length</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#claripy.ast.bits.Bits.annotations"><code class="docutils literal notranslate"><span class="pre">Bits.annotations</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#claripy.ast.bits.Bits.simplifiable"><code class="docutils literal notranslate"><span class="pre">Bits.simplifiable</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#claripy.ast.bits.Bits.depth"><code class="docutils literal notranslate"><span class="pre">Bits.depth</span></code></a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="#claripy.ast.bool.cleanup"><code class="docutils literal notranslate"><span class="pre">cleanup()</span></code></a></li>
@@ -1164,7 +1171,7 @@ it creates, initializes, and returns the AST.</p>
 <li><p><strong>args</strong> – The arguments to the AST operation (i.e., the objects to add)</p></li>
 <li><p><strong>variables</strong> – The symbolic variables present in the AST (default: empty set)</p></li>
 <li><p><strong>symbolic</strong> – A flag saying whether or not the AST is symbolic (default: False)</p></li>
-<li><p><strong>length</strong> – An integer specifying the length of this AST (default: None)</p></li>
+<li><p><strong>length</strong> – An integer specifying the bit length of this AST (default: None)</p></li>
 <li><p><strong>simplified</strong> – A measure of how simplified this AST is. 0 means unsimplified,
 1 means fast-simplified (basically, just undoing the Reverse
 op), and 2 means simplified through z3.</p></li>
@@ -1591,7 +1598,7 @@ it creates, initializes, and returns the AST.</p>
 <li><p><strong>args</strong> – The arguments to the AST operation (i.e., the objects to add)</p></li>
 <li><p><strong>variables</strong> – The symbolic variables present in the AST (default: empty set)</p></li>
 <li><p><strong>symbolic</strong> – A flag saying whether or not the AST is symbolic (default: False)</p></li>
-<li><p><strong>length</strong> – An integer specifying the length of this AST (default: None)</p></li>
+<li><p><strong>length</strong> – An integer specifying the bit length of this AST (default: None)</p></li>
 <li><p><strong>simplified</strong> – A measure of how simplified this AST is. 0 means unsimplified,
 1 means fast-simplified (basically, just undoing the Reverse
 op), and 2 means simplified through z3.</p></li>
@@ -1601,11 +1608,6 @@ op), and 2 means simplified through z3.</p></li>
 </ul>
 </dd>
 </dl>
-<dl class="py attribute">
-<dt class="sig sig-object py" id="claripy.ast.bits.Bits.length">
-<span class="sig-name descname"><span class="pre">length</span></span><a class="headerlink" href="#claripy.ast.bits.Bits.length" title="Permalink to this definition"></a></dt>
-<dd></dd></dl>
-
 <dl class="py method">
 <dt class="sig sig-object py" id="claripy.ast.bits.Bits.make_like">
 <span class="sig-name descname"><span class="pre">make_like</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">op</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#claripy.ast.bits.Bits.make_like" title="Permalink to this definition"></a></dt>
@@ -1614,7 +1616,12 @@ op), and 2 means simplified through z3.</p></li>
 <dl class="py method">
 <dt class="sig sig-object py" id="claripy.ast.bits.Bits.size">
 <span class="sig-name descname"><span class="pre">size</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#claripy.ast.bits.Bits.size" title="Permalink to this definition"></a></dt>
-<dd></dd></dl>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>The bit length of this AST</p>
+</dd>
+</dl>
+</dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="claripy.ast.bits.Bits.raw_to_bv">
@@ -1627,6 +1634,46 @@ op), and 2 means simplified through z3.</p></li>
 <span class="sig-name descname"><span class="pre">raw_to_fp</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#claripy.ast.bits.Bits.raw_to_fp" title="Permalink to this definition"></a></dt>
 <dd><p>Converts this data’s bit-pattern to an IEEE float.</p>
 </dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="claripy.ast.bits.Bits.op">
+<span class="sig-name descname"><span class="pre">op</span></span><a class="headerlink" href="#claripy.ast.bits.Bits.op" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="claripy.ast.bits.Bits.args">
+<span class="sig-name descname"><span class="pre">args</span></span><a class="headerlink" href="#claripy.ast.bits.Bits.args" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="claripy.ast.bits.Bits.variables">
+<span class="sig-name descname"><span class="pre">variables</span></span><a class="headerlink" href="#claripy.ast.bits.Bits.variables" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="claripy.ast.bits.Bits.symbolic">
+<span class="sig-name descname"><span class="pre">symbolic</span></span><a class="headerlink" href="#claripy.ast.bits.Bits.symbolic" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="claripy.ast.bits.Bits.length">
+<span class="sig-name descname"><span class="pre">length</span></span><a class="headerlink" href="#claripy.ast.bits.Bits.length" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="claripy.ast.bits.Bits.annotations">
+<span class="sig-name descname"><span class="pre">annotations</span></span><a class="headerlink" href="#claripy.ast.bits.Bits.annotations" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="claripy.ast.bits.Bits.simplifiable">
+<span class="sig-name descname"><span class="pre">simplifiable</span></span><a class="headerlink" href="#claripy.ast.bits.Bits.simplifiable" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="claripy.ast.bits.Bits.depth">
+<span class="sig-name descname"><span class="pre">depth</span></span><a class="headerlink" href="#claripy.ast.bits.Bits.depth" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
 
 </dd></dl>
 
@@ -1650,7 +1697,7 @@ it creates, initializes, and returns the AST.</p>
 <li><p><strong>args</strong> – The arguments to the AST operation (i.e., the objects to add)</p></li>
 <li><p><strong>variables</strong> – The symbolic variables present in the AST (default: empty set)</p></li>
 <li><p><strong>symbolic</strong> – A flag saying whether or not the AST is symbolic (default: False)</p></li>
-<li><p><strong>length</strong> – An integer specifying the length of this AST (default: None)</p></li>
+<li><p><strong>length</strong> – An integer specifying the bit length of this AST (default: None)</p></li>
 <li><p><strong>simplified</strong> – A measure of how simplified this AST is. 0 means unsimplified,
 1 means fast-simplified (basically, just undoing the Reverse
 op), and 2 means simplified through z3.</p></li>
@@ -1810,7 +1857,7 @@ it creates, initializes, and returns the AST.</p>
 <li><p><strong>args</strong> – The arguments to the AST operation (i.e., the objects to add)</p></li>
 <li><p><strong>variables</strong> – The symbolic variables present in the AST (default: empty set)</p></li>
 <li><p><strong>symbolic</strong> – A flag saying whether or not the AST is symbolic (default: False)</p></li>
-<li><p><strong>length</strong> – An integer specifying the length of this AST (default: None)</p></li>
+<li><p><strong>length</strong> – An integer specifying the bit length of this AST (default: None)</p></li>
 <li><p><strong>simplified</strong> – A measure of how simplified this AST is. 0 means unsimplified,
 1 means fast-simplified (basically, just undoing the Reverse
 op), and 2 means simplified through z3.</p></li>
@@ -2122,7 +2169,7 @@ it creates, initializes, and returns the AST.</p>
 <li><p><strong>args</strong> – The arguments to the AST operation (i.e., the objects to add)</p></li>
 <li><p><strong>variables</strong> – The symbolic variables present in the AST (default: empty set)</p></li>
 <li><p><strong>symbolic</strong> – A flag saying whether or not the AST is symbolic (default: False)</p></li>
-<li><p><strong>length</strong> – An integer specifying the length of this AST (default: None)</p></li>
+<li><p><strong>length</strong> – An integer specifying the bit length of this AST (default: None)</p></li>
 <li><p><strong>simplified</strong> – A measure of how simplified this AST is. 0 means unsimplified,
 1 means fast-simplified (basically, just undoing the Reverse
 op), and 2 means simplified through z3.</p></li>
@@ -2262,7 +2309,7 @@ it creates, initializes, and returns the AST.</p>
 <li><p><strong>args</strong> – The arguments to the AST operation (i.e., the objects to add)</p></li>
 <li><p><strong>variables</strong> – The symbolic variables present in the AST (default: empty set)</p></li>
 <li><p><strong>symbolic</strong> – A flag saying whether or not the AST is symbolic (default: False)</p></li>
-<li><p><strong>length</strong> – An integer specifying the length of this AST (default: None)</p></li>
+<li><p><strong>length</strong> – An integer specifying the bit length of this AST (default: None)</p></li>
 <li><p><strong>simplified</strong> – A measure of how simplified this AST is. 0 means unsimplified,
 1 means fast-simplified (basically, just undoing the Reverse
 op), and 2 means simplified through z3.</p></li>
@@ -2281,25 +2328,9 @@ op), and 2 means simplified through z3.</p></li>
 <p>Base class that represent the AST of a String object and implements all the operation useful to create and modify the AST.</p>
 <p>Do not instantiate this class directly, instead use StringS or StringV to construct a symbol or value, and then use
 operations to construct more complicated expressions.</p>
-<p>This is called when you create a new Base object, whether directly or through an operation.
-It finalizes the arguments (see the _finalize function, above) and then computes
-a hash. If an AST of this hash already exists, it returns that AST. Otherwise,
-it creates, initializes, and returns the AST.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>op</strong> – The AST operation (‘__add__’, ‘Or’, etc)</p></li>
-<li><p><strong>args</strong> – The arguments to the AST operation (i.e., the objects to add)</p></li>
-<li><p><strong>variables</strong> – The symbolic variables present in the AST (default: empty set)</p></li>
-<li><p><strong>symbolic</strong> – A flag saying whether or not the AST is symbolic (default: False)</p></li>
-<li><p><strong>length</strong> – An integer specifying the length of this AST (default: None)</p></li>
-<li><p><strong>simplified</strong> – A measure of how simplified this AST is. 0 means unsimplified,
-1 means fast-simplified (basically, just undoing the Reverse
-op), and 2 means simplified through z3.</p></li>
-<li><p><strong>errored</strong> – A set of backends that are known to be unable to handle this AST.</p></li>
-<li><p><strong>eager_backends</strong> – A list of backends with which to attempt eager evaluation</p></li>
-<li><p><strong>annotations</strong> – A frozenset of annotations applied onto this AST.</p></li>
-</ul>
+<dd class="field-odd"><p><strong>length</strong> – The string byte length</p>
 </dd>
 </dl>
 <dl class="py attribute">
@@ -2319,7 +2350,7 @@ op), and 2 means simplified through z3.</p></li>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="claripy.ast.strings.String.string_length">
-<span class="sig-name descname"><span class="pre">string_length</span></span><a class="headerlink" href="#claripy.ast.strings.String.string_length" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">string_length</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span></em><a class="headerlink" href="#claripy.ast.strings.String.string_length" title="Permalink to this definition"></a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
@@ -2450,11 +2481,14 @@ analysis.</p></li>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="claripy.ast.strings.StringV">
-<span class="sig-prename descclassname"><span class="pre">claripy.ast.strings.</span></span><span class="sig-name descname"><span class="pre">StringV</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">length</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#claripy.ast.strings.StringV" title="Permalink to this definition"></a></dt>
+<span class="sig-prename descclassname"><span class="pre">claripy.ast.strings.</span></span><span class="sig-name descname"><span class="pre">StringV</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">length</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#claripy.ast.strings.StringV" title="Permalink to this definition"></a></dt>
 <dd><p>Create a new Concrete string (analogous to z3.StringVal())</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>value</strong> – The constant value of the concrete string</p>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>value</strong> – The constant value of the concrete string</p></li>
+<li><p><strong>length</strong> – The byte length of the string</p></li>
+</ul>
 </dd>
 <dt class="field-even">Returns</dt>
 <dd class="field-even"><p>The String object representing the concrete string</p>
@@ -2477,7 +2511,7 @@ it creates, initializes, and returns the AST.</p>
 <li><p><strong>args</strong> – The arguments to the AST operation (i.e., the objects to add)</p></li>
 <li><p><strong>variables</strong> – The symbolic variables present in the AST (default: empty set)</p></li>
 <li><p><strong>symbolic</strong> – A flag saying whether or not the AST is symbolic (default: False)</p></li>
-<li><p><strong>length</strong> – An integer specifying the length of this AST (default: None)</p></li>
+<li><p><strong>length</strong> – An integer specifying the bit length of this AST (default: None)</p></li>
 <li><p><strong>simplified</strong> – A measure of how simplified this AST is. 0 means unsimplified,
 1 means fast-simplified (basically, just undoing the Reverse
 op), and 2 means simplified through z3.</p></li>
@@ -4629,8 +4663,18 @@ non-approximating backends.</p></li>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="claripy.frontend_mixins.model_cache_mixin.ModelCache.eval_ast">
-<span class="sig-name descname"><span class="pre">eval_ast</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ast</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#claripy.frontend_mixins.model_cache_mixin.ModelCache.eval_ast" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">eval_ast</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ast</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">allow_unconstrained</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#claripy.frontend_mixins.model_cache_mixin.ModelCache.eval_ast" title="Permalink to this definition"></a></dt>
 <dd><p>Eval the ast, replacing symbols by their last value in the model.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>ast</strong> – The AST to evaluate.</p></li>
+<li><p><strong>allow_unconstrained</strong> – When set to True, we will treat non-existent variables as unconstrained variables
+and will use arbitrary concrete values for them during evaluation. Otherwise, raise
+KeyErrors for non-existent variables.</p></li>
+</ul>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py method">
@@ -4642,8 +4686,22 @@ last model.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="claripy.frontend_mixins.model_cache_mixin.ModelCache.eval_list">
-<span class="sig-name descname"><span class="pre">eval_list</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">asts</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#claripy.frontend_mixins.model_cache_mixin.ModelCache.eval_list" title="Permalink to this definition"></a></dt>
-<dd></dd></dl>
+<span class="sig-name descname"><span class="pre">eval_list</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">asts</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">allow_unconstrained</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Tuple</span></span></span><a class="headerlink" href="#claripy.frontend_mixins.model_cache_mixin.ModelCache.eval_list" title="Permalink to this definition"></a></dt>
+<dd><p>Evaluate a list of ASTs.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>asts</strong> – A list of ASTs to evaluate.</p></li>
+<li><p><strong>allow_unconstrained</strong> – When set to True, we will treat non-existent variables as unconstrained variables
+and will use arbitrary concrete values for them during evaluation. Otherwise, raise
+KeyErrors for non-existent variables.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>A tuple of evaluated results, one element per AST.</p>
+</dd>
+</dl>
+</dd></dl>
 
 </dd></dl>
 
