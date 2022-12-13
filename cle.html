@@ -4,7 +4,7 @@
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>cle — Binary Loader &mdash; angr 9.2.28
+  <title>cle — Binary Loader &mdash; angr 9.2.29
  documentation</title>
       <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
@@ -33,7 +33,7 @@
             <a href="index.html" class="icon icon-home"> angr
           </a>
               <div class="version">
-                9.2.28
+                9.2.29
 
               </div>
 <div role="search">
@@ -366,16 +366,70 @@
 <li class="toctree-l4"><a class="reference internal" href="#cle.backends.elf.hashtable.GNUHashTable.gnu_hash"><code class="docutils literal notranslate"><span class="pre">GNUHashTable.gnu_hash()</span></code></a></li>
 </ul>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="#cle.backends.elf.variable.Variable"><code class="docutils literal notranslate"><span class="pre">Variable</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="#cle.backends.elf.subprogram.Subprogram"><code class="docutils literal notranslate"><span class="pre">Subprogram</span></code></a><ul>
-<li class="toctree-l4"><a class="reference internal" href="#cle.backends.elf.subprogram.Subprogram.local_variables"><code class="docutils literal notranslate"><span class="pre">Subprogram.local_variables</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#cle.backends.elf.variable.Variable"><code class="docutils literal notranslate"><span class="pre">Variable</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#cle.backends.elf.variable.Variable.from_die"><code class="docutils literal notranslate"><span class="pre">Variable.from_die()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#cle.backends.elf.variable.Variable.rebased_addr_from_cfa"><code class="docutils literal notranslate"><span class="pre">Variable.rebased_addr_from_cfa()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#cle.backends.elf.variable.Variable.rebased_addr"><code class="docutils literal notranslate"><span class="pre">Variable.rebased_addr</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#cle.backends.elf.variable.Variable.addr"><code class="docutils literal notranslate"><span class="pre">Variable.addr</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#cle.backends.elf.variable.Variable.type"><code class="docutils literal notranslate"><span class="pre">Variable.type</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#cle.backends.elf.variable.Variable.sort"><code class="docutils literal notranslate"><span class="pre">Variable.sort</span></code></a></li>
 </ul>
 </li>
+<li class="toctree-l3"><a class="reference internal" href="#cle.backends.elf.variable.MemoryVariable"><code class="docutils literal notranslate"><span class="pre">MemoryVariable</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#cle.backends.elf.variable.MemoryVariable.rebased_addr"><code class="docutils literal notranslate"><span class="pre">MemoryVariable.rebased_addr</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#cle.backends.elf.variable.MemoryVariable.sort"><code class="docutils literal notranslate"><span class="pre">MemoryVariable.sort</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#cle.backends.elf.variable.StackVariable"><code class="docutils literal notranslate"><span class="pre">StackVariable</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#cle.backends.elf.variable.StackVariable.rebased_addr_from_cfa"><code class="docutils literal notranslate"><span class="pre">StackVariable.rebased_addr_from_cfa()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#cle.backends.elf.variable.StackVariable.sort"><code class="docutils literal notranslate"><span class="pre">StackVariable.sort</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#cle.backends.elf.variable.RegisterVariable"><code class="docutils literal notranslate"><span class="pre">RegisterVariable</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#cle.backends.elf.variable.RegisterVariable.sort"><code class="docutils literal notranslate"><span class="pre">RegisterVariable.sort</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#cle.backends.elf.subprogram.LexicalBlock"><code class="docutils literal notranslate"><span class="pre">LexicalBlock</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#cle.backends.elf.subprogram.Subprogram"><code class="docutils literal notranslate"><span class="pre">Subprogram</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="#cle.backends.elf.variable_type.VariableType"><code class="docutils literal notranslate"><span class="pre">VariableType</span></code></a><ul>
 <li class="toctree-l4"><a class="reference internal" href="#cle.backends.elf.variable_type.VariableType.read_from_die"><code class="docutils literal notranslate"><span class="pre">VariableType.read_from_die()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#cle.backends.elf.variable_type.VariableType.supported_die"><code class="docutils literal notranslate"><span class="pre">VariableType.supported_die()</span></code></a></li>
 </ul>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="#cle.backends.elf.compilation_unit.CompilationUnit"><code class="docutils literal notranslate"><span class="pre">CompilationUnit</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#cle.backends.elf.variable_type.PointerType"><code class="docutils literal notranslate"><span class="pre">PointerType</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#cle.backends.elf.variable_type.PointerType.read_from_die"><code class="docutils literal notranslate"><span class="pre">PointerType.read_from_die()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#cle.backends.elf.variable_type.PointerType.referenced_type"><code class="docutils literal notranslate"><span class="pre">PointerType.referenced_type</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#cle.backends.elf.variable_type.BaseType"><code class="docutils literal notranslate"><span class="pre">BaseType</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#cle.backends.elf.variable_type.BaseType.read_from_die"><code class="docutils literal notranslate"><span class="pre">BaseType.read_from_die()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#cle.backends.elf.variable_type.StructType"><code class="docutils literal notranslate"><span class="pre">StructType</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#cle.backends.elf.variable_type.StructType.read_from_die"><code class="docutils literal notranslate"><span class="pre">StructType.read_from_die()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#cle.backends.elf.variable_type.UnionType"><code class="docutils literal notranslate"><span class="pre">UnionType</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#cle.backends.elf.variable_type.StructMember"><code class="docutils literal notranslate"><span class="pre">StructMember</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#cle.backends.elf.variable_type.StructMember.read_from_die"><code class="docutils literal notranslate"><span class="pre">StructMember.read_from_die()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#cle.backends.elf.variable_type.StructMember.type"><code class="docutils literal notranslate"><span class="pre">StructMember.type</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#cle.backends.elf.variable_type.ArrayType"><code class="docutils literal notranslate"><span class="pre">ArrayType</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#cle.backends.elf.variable_type.ArrayType.read_from_die"><code class="docutils literal notranslate"><span class="pre">ArrayType.read_from_die()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#cle.backends.elf.variable_type.ArrayType.element_type"><code class="docutils literal notranslate"><span class="pre">ArrayType.element_type</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#cle.backends.elf.variable_type.TypedefType"><code class="docutils literal notranslate"><span class="pre">TypedefType</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#cle.backends.elf.variable_type.TypedefType.read_from_die"><code class="docutils literal notranslate"><span class="pre">TypedefType.read_from_die()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#cle.backends.elf.variable_type.TypedefType.type"><code class="docutils literal notranslate"><span class="pre">TypedefType.type</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#cle.backends.elf.compilation_unit.CompilationUnit"><code class="docutils literal notranslate"><span class="pre">CompilationUnit</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#cle.backends.elf.compilation_unit.CompilationUnit.min_addr"><code class="docutils literal notranslate"><span class="pre">CompilationUnit.min_addr</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#cle.backends.elf.compilation_unit.CompilationUnit.max_addr"><code class="docutils literal notranslate"><span class="pre">CompilationUnit.max_addr</span></code></a></li>
+</ul>
+</li>
 <li class="toctree-l3"><a class="reference internal" href="#cle.backends.named_region.NamedRegion"><code class="docutils literal notranslate"><span class="pre">NamedRegion</span></code></a><ul>
 <li class="toctree-l4"><a class="reference internal" href="#cle.backends.named_region.NamedRegion.is_default"><code class="docutils literal notranslate"><span class="pre">NamedRegion.is_default</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="#cle.backends.named_region.NamedRegion.has_memory"><code class="docutils literal notranslate"><span class="pre">NamedRegion.has_memory</span></code></a></li>
@@ -4185,42 +4239,366 @@ default types: <cite>ELFSymbolType(10)</cite> rather than <cite>ELFSymbolType((1
 
 <span class="target" id="module-cle.backends.elf.variable"></span><dl class="py class">
 <dt class="sig sig-object py" id="cle.backends.elf.variable.Variable">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">cle.backends.elf.variable.</span></span><span class="sig-name descname"><span class="pre">Variable</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">type_</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="#cle.backends.elf.variable_type.VariableType" title="cle.backends.elf.variable_type.VariableType"><span class="pre">VariableType</span></a><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">decl_file</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">decl_line</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">addr</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sort</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">''</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#cle.backends.elf.variable.Variable" title="Permalink to this definition"></a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">cle.backends.elf.variable.</span></span><span class="sig-name descname"><span class="pre">Variable</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">elf_object</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#cle.backends.elf.elf.ELF" title="cle.backends.elf.elf.ELF"><span class="pre">ELF</span></a></span></em><span class="sig-paren">)</span><a class="headerlink" href="#cle.backends.elf.variable.Variable" title="Permalink to this definition"></a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
 <p>Variable for DWARF
 from a DW_TAG_variable or DW_TAG_formal_parameter</p>
+<dl class="field-list simple">
+<dt class="field-odd">Variables</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>name</strong> (<em>str</em>) – The name of the variable</p></li>
+<li><p><strong>relative_addr</strong> – The relative addr (base addr depends on the type)</p></li>
+<li><p><strong>lexical_block</strong> – For a local variable, the lexical block where the variable is declared</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="cle.backends.elf.variable.Variable.from_die">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">from_die</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">die</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">DIE</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">expr_parser</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">elf_object</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#cle.backends.elf.elf.ELF" title="cle.backends.elf.elf.ELF"><span class="pre">ELF</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">lexical_block</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="#cle.backends.elf.subprogram.LexicalBlock" title="cle.backends.elf.subprogram.LexicalBlock"><span class="pre">LexicalBlock</span></a><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#cle.backends.elf.variable.Variable.from_die" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="cle.backends.elf.variable.Variable.rebased_addr_from_cfa">
+<span class="sig-name descname"><span class="pre">rebased_addr_from_cfa</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">cfa</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#cle.backends.elf.variable.Variable.rebased_addr_from_cfa" title="Permalink to this definition"></a></dt>
+<dd><p>The address of this variable in the global memory.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>cfa</strong> – The canonical frame address as described by the DWARF standard.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="cle.backends.elf.variable.Variable.rebased_addr">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">rebased_addr</span></span><a class="headerlink" href="#cle.backends.elf.variable.Variable.rebased_addr" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="cle.backends.elf.variable.Variable.addr">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">addr</span></span><a class="headerlink" href="#cle.backends.elf.variable.Variable.addr" title="Permalink to this definition"></a></dt>
+<dd><p>Please use ‘relative_addr’ or ‘rebased_addr’ instead.</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="cle.backends.elf.variable.Variable.type">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">type</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="#cle.backends.elf.variable_type.VariableType" title="cle.backends.elf.variable_type.VariableType"><span class="pre">VariableType</span></a></em><a class="headerlink" href="#cle.backends.elf.variable.Variable.type" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="cle.backends.elf.variable.Variable.sort">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">sort</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><a class="headerlink" href="#cle.backends.elf.variable.Variable.sort" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="cle.backends.elf.variable.MemoryVariable">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">cle.backends.elf.variable.</span></span><span class="sig-name descname"><span class="pre">MemoryVariable</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">elf_object</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#cle.backends.elf.elf.ELF" title="cle.backends.elf.elf.ELF"><span class="pre">ELF</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">relative_addr</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#cle.backends.elf.variable.MemoryVariable" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="#cle.backends.elf.variable.Variable" title="cle.backends.elf.variable.Variable"><code class="xref py py-class docutils literal notranslate"><span class="pre">Variable</span></code></a></p>
+<p>This includes all variables that are not on the stack and not in a register.
+So all global variables, and also local static variables in C!</p>
+<dl class="py property">
+<dt class="sig sig-object py" id="cle.backends.elf.variable.MemoryVariable.rebased_addr">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">rebased_addr</span></span><a class="headerlink" href="#cle.backends.elf.variable.MemoryVariable.rebased_addr" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="cle.backends.elf.variable.MemoryVariable.sort">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">sort</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><a class="headerlink" href="#cle.backends.elf.variable.MemoryVariable.sort" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="cle.backends.elf.variable.StackVariable">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">cle.backends.elf.variable.</span></span><span class="sig-name descname"><span class="pre">StackVariable</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">elf_object</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#cle.backends.elf.elf.ELF" title="cle.backends.elf.elf.ELF"><span class="pre">ELF</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">relative_addr</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#cle.backends.elf.variable.StackVariable" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="#cle.backends.elf.variable.Variable" title="cle.backends.elf.variable.Variable"><code class="xref py py-class docutils literal notranslate"><span class="pre">Variable</span></code></a></p>
+<p>Stack Variable from DWARF.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="cle.backends.elf.variable.StackVariable.rebased_addr_from_cfa">
+<span class="sig-name descname"><span class="pre">rebased_addr_from_cfa</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">cfa</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#cle.backends.elf.variable.StackVariable.rebased_addr_from_cfa" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="cle.backends.elf.variable.StackVariable.sort">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">sort</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><a class="headerlink" href="#cle.backends.elf.variable.StackVariable.sort" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="cle.backends.elf.variable.RegisterVariable">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">cle.backends.elf.variable.</span></span><span class="sig-name descname"><span class="pre">RegisterVariable</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">elf_object</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#cle.backends.elf.elf.ELF" title="cle.backends.elf.elf.ELF"><span class="pre">ELF</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">register_addr</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#cle.backends.elf.variable.RegisterVariable" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="#cle.backends.elf.variable.Variable" title="cle.backends.elf.variable.Variable"><code class="xref py py-class docutils literal notranslate"><span class="pre">Variable</span></code></a></p>
+<p>Register Variable from DWARF.</p>
+<dl class="py property">
+<dt class="sig sig-object py" id="cle.backends.elf.variable.RegisterVariable.sort">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">sort</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><a class="headerlink" href="#cle.backends.elf.variable.RegisterVariable.sort" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
 </dd></dl>
 
 <span class="target" id="module-cle.backends.elf.subprogram"></span><dl class="py class">
+<dt class="sig sig-object py" id="cle.backends.elf.subprogram.LexicalBlock">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">cle.backends.elf.subprogram.</span></span><span class="sig-name descname"><span class="pre">LexicalBlock</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">low_pc</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">high_pc</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#cle.backends.elf.subprogram.LexicalBlock" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>A lexical block is a sequence of source statements, e.g. a while/for
+loop or an if statement or some bracketed block.</p>
+<p>Corresponds to a DW_TAG_LexicalBlock in DWARF.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>super_block</strong> – The lexical block which contains this block</p></li>
+<li><p><strong>low_pc</strong> – The relative start address of the block</p></li>
+<li><p><strong>high_pc</strong> – The relative end address of the block</p></li>
+</ul>
+</dd>
+<dt class="field-even">Variables</dt>
+<dd class="field-even"><ul class="simple">
+<li><p><strong>low_pc</strong> – The relative start address of the subprogram</p></li>
+<li><p><strong>high_pc</strong> – The relative end address of the subprogram</p></li>
+<li><p><strong>child_blocks</strong> – Lexical blocks inside this block (only direct childs)</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py class">
 <dt class="sig sig-object py" id="cle.backends.elf.subprogram.Subprogram">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">cle.backends.elf.subprogram.</span></span><span class="sig-name descname"><span class="pre">Subprogram</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">low_pc</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">high_pc</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#cle.backends.elf.subprogram.Subprogram" title="Permalink to this definition"></a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
-<p>DW_TAG_subprogram for DWARF</p>
-<dl class="py attribute">
-<dt class="sig sig-object py" id="cle.backends.elf.subprogram.Subprogram.local_variables">
-<span class="sig-name descname"><span class="pre">local_variables</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="#cle.backends.elf.variable.Variable" title="cle.backends.elf.variable.Variable"><span class="pre">Variable</span></a><span class="p"><span class="pre">]</span></span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">[]</span></em><a class="headerlink" href="#cle.backends.elf.subprogram.Subprogram.local_variables" title="Permalink to this definition"></a></dt>
-<dd></dd></dl>
-
+<dd><p>Bases: <a class="reference internal" href="#cle.backends.elf.subprogram.LexicalBlock" title="cle.backends.elf.subprogram.LexicalBlock"><code class="xref py py-class docutils literal notranslate"><span class="pre">LexicalBlock</span></code></a></p>
+<p>DW_TAG_subprogram for DWARF. The behavior is mostly inherited from
+LexicalBlock to avoid redundancy.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>name</strong> (<em>str</em>) – The name of the function/program</p></li>
+<li><p><strong>low_pc</strong> – The relative start address of the subprogram</p></li>
+<li><p><strong>high_pc</strong> – The relative end address of the subprogram</p></li>
+</ul>
+</dd>
+<dt class="field-even">Variables</dt>
+<dd class="field-even"><ul class="simple">
+<li><p><strong>name</strong> – The name of the function/program</p></li>
+<li><p><strong>local_variables</strong> – All local variables in a Subprogram (they may reside in serveral child blocks)</p></li>
+</ul>
+</dd>
+</dl>
 </dd></dl>
 
 <span class="target" id="module-cle.backends.elf.variable_type"></span><dl class="py class">
 <dt class="sig sig-object py" id="cle.backends.elf.variable_type.VariableType">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">cle.backends.elf.variable_type.</span></span><span class="sig-name descname"><span class="pre">VariableType</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">byte_size</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#cle.backends.elf.variable_type.VariableType" title="Permalink to this definition"></a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">cle.backends.elf.variable_type.</span></span><span class="sig-name descname"><span class="pre">VariableType</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">byte_size</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">elf_object</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#cle.backends.elf.variable_type.VariableType" title="Permalink to this definition"></a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
-<p>DW_TAG_base_type for DWARF</p>
+<p>Entry class for DW_TAG_xxx_type</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>name</strong> (<em>str</em>) – name of the type</p></li>
+<li><p><strong>byte_size</strong> – amount of bytes the type take in memory</p></li>
+<li><p><strong>elf_object</strong> – elf object to reference to (useful for pointer,…)</p></li>
+</ul>
+</dd>
+<dt class="field-even">Variables</dt>
+<dd class="field-even"><ul class="simple">
+<li><p><strong>name</strong> – name of the type</p></li>
+<li><p><strong>byte_size</strong> – amount of bytes the type take in memory</p></li>
+</ul>
+</dd>
+</dl>
 <dl class="py method">
 <dt class="sig sig-object py" id="cle.backends.elf.variable_type.VariableType.read_from_die">
-<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">read_from_die</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">die</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">DIE</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#cle.backends.elf.variable_type.VariableType.read_from_die" title="Permalink to this definition"></a></dt>
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">read_from_die</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">die</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">DIE</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">elf_object</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#cle.backends.elf.variable_type.VariableType.read_from_die" title="Permalink to this definition"></a></dt>
+<dd><p>entry method to read a DW_TAG_xxx_type</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="cle.backends.elf.variable_type.VariableType.supported_die">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">supported_die</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">die</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">DIE</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">bool</span></span></span><a class="headerlink" href="#cle.backends.elf.variable_type.VariableType.supported_die" title="Permalink to this definition"></a></dt>
 <dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="cle.backends.elf.variable_type.PointerType">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">cle.backends.elf.variable_type.</span></span><span class="sig-name descname"><span class="pre">PointerType</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">byte_size</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">elf_object</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">referenced_offset</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#cle.backends.elf.variable_type.PointerType" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="#cle.backends.elf.variable_type.VariableType" title="cle.backends.elf.variable_type.VariableType"><code class="xref py py-class docutils literal notranslate"><span class="pre">VariableType</span></code></a></p>
+<p>Entry class for DW_TAG_pointer_type. It is inherited from VariableType</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>byte_size</strong> – amount of bytes the type take in memory</p></li>
+<li><p><strong>elf_object</strong> – elf object to reference to (useful for pointer,…)</p></li>
+<li><p><strong>referenced_offset</strong> – type of the referenced as offset in the compilation_unit</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="cle.backends.elf.variable_type.PointerType.read_from_die">
+<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">read_from_die</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">die</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">DIE</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">elf_object</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#cle.backends.elf.variable_type.PointerType.read_from_die" title="Permalink to this definition"></a></dt>
+<dd><p>read an entry of DW_TAG_pointer_type. return None when there is no
+byte_size or type attribute.</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="cle.backends.elf.variable_type.PointerType.referenced_type">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">referenced_type</span></span><a class="headerlink" href="#cle.backends.elf.variable_type.PointerType.referenced_type" title="Permalink to this definition"></a></dt>
+<dd><p>attribute to get the referenced type. Return None if the type is not loaded</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="cle.backends.elf.variable_type.BaseType">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">cle.backends.elf.variable_type.</span></span><span class="sig-name descname"><span class="pre">BaseType</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">byte_size</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">elf_object</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#cle.backends.elf.variable_type.BaseType" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="#cle.backends.elf.variable_type.VariableType" title="cle.backends.elf.variable_type.VariableType"><code class="xref py py-class docutils literal notranslate"><span class="pre">VariableType</span></code></a></p>
+<p>Entry class for DW_TAG_base_type. It is inherited from VariableType</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="cle.backends.elf.variable_type.BaseType.read_from_die">
+<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">read_from_die</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">die</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">DIE</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">elf_object</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#cle.backends.elf.variable_type.BaseType.read_from_die" title="Permalink to this definition"></a></dt>
+<dd><p>read an entry of DW_TAG_base_type. return None when there is no
+byte_size attribute.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="cle.backends.elf.variable_type.StructType">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">cle.backends.elf.variable_type.</span></span><span class="sig-name descname"><span class="pre">StructType</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">byte_size</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">elf_object</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">members</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#cle.backends.elf.variable_type.StructType" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="#cle.backends.elf.variable_type.VariableType" title="cle.backends.elf.variable_type.VariableType"><code class="xref py py-class docutils literal notranslate"><span class="pre">VariableType</span></code></a></p>
+<p>Entry class for DW_TAG_structure_type. It is inherited from VariableType</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>name</strong> – name of the type</p></li>
+<li><p><strong>byte_size</strong> – amount of bytes the type take in memory</p></li>
+<li><p><strong>elf_object</strong> – elf object to reference to (useful for pointer,…)</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="cle.backends.elf.variable_type.StructType.read_from_die">
+<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">read_from_die</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">die</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">DIE</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">elf_object</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#cle.backends.elf.variable_type.StructType.read_from_die" title="Permalink to this definition"></a></dt>
+<dd><p>read an entry of DW_TAG_structure_type. return None when there is no
+byte_size attribute.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="cle.backends.elf.variable_type.UnionType">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">cle.backends.elf.variable_type.</span></span><span class="sig-name descname"><span class="pre">UnionType</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">byte_size</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">elf_object</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">members</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#cle.backends.elf.variable_type.UnionType" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="#cle.backends.elf.variable_type.StructType" title="cle.backends.elf.variable_type.StructType"><code class="xref py py-class docutils literal notranslate"><span class="pre">StructType</span></code></a></p>
+<p>Entry class for DW_TAG_union_type. Inherits from StructType to make it trivial.</p>
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="cle.backends.elf.variable_type.StructMember">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">cle.backends.elf.variable_type.</span></span><span class="sig-name descname"><span class="pre">StructMember</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">addr_offset</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">type_offset</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">elf_object</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#cle.backends.elf.variable_type.StructMember" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Entry class for DW_TAG_member. This is not a type but a named member inside a struct.
+Use the property <cite>type</cite> to get its variable type.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>name</strong> – name of the member</p></li>
+<li><p><strong>addr_offset</strong> – address offset of the member in the struct</p></li>
+<li><p><strong>elf_object</strong> – elf object to reference to (useful for pointer,…)</p></li>
+<li><p><strong>type_offset</strong> – type as offset in the compilation_unit</p></li>
+</ul>
+</dd>
+<dt class="field-even">Variables</dt>
+<dd class="field-even"><p><strong>name</strong> – name of the member</p>
+</dd>
+</dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="cle.backends.elf.variable_type.StructMember.read_from_die">
+<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">read_from_die</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">die</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">DIE</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">elf_object</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#cle.backends.elf.variable_type.StructMember.read_from_die" title="Permalink to this definition"></a></dt>
+<dd><p>read an entry of DW_TAG_member_type. return None when there is no
+type attribute.</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="cle.backends.elf.variable_type.StructMember.type">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">type</span></span><a class="headerlink" href="#cle.backends.elf.variable_type.StructMember.type" title="Permalink to this definition"></a></dt>
+<dd><p>attribute to get the type of the member. Return None if the type is not loaded</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="cle.backends.elf.variable_type.ArrayType">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">cle.backends.elf.variable_type.</span></span><span class="sig-name descname"><span class="pre">ArrayType</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">byte_size</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">elf_object</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">element_offset</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#cle.backends.elf.variable_type.ArrayType" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="#cle.backends.elf.variable_type.VariableType" title="cle.backends.elf.variable_type.VariableType"><code class="xref py py-class docutils literal notranslate"><span class="pre">VariableType</span></code></a></p>
+<p>Entry class for DW_TAG_array_type. It is inherited from VariableType</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>byte_size</strong> – amount of bytes the type take in memory</p></li>
+<li><p><strong>elf_object</strong> – elf object to reference to (useful for pointer,…)</p></li>
+<li><p><strong>element_offset</strong> – type of the array elements as offset in the compilation_unit</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="cle.backends.elf.variable_type.ArrayType.read_from_die">
+<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">read_from_die</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">die</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">DIE</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">elf_object</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#cle.backends.elf.variable_type.ArrayType.read_from_die" title="Permalink to this definition"></a></dt>
+<dd><p>read an entry of DW_TAG_array_type. return None when there is no
+type attribute.</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="cle.backends.elf.variable_type.ArrayType.element_type">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">element_type</span></span><a class="headerlink" href="#cle.backends.elf.variable_type.ArrayType.element_type" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="cle.backends.elf.variable_type.TypedefType">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">cle.backends.elf.variable_type.</span></span><span class="sig-name descname"><span class="pre">TypedefType</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">byte_size</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">elf_object</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">type_offset</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#cle.backends.elf.variable_type.TypedefType" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="#cle.backends.elf.variable_type.VariableType" title="cle.backends.elf.variable_type.VariableType"><code class="xref py py-class docutils literal notranslate"><span class="pre">VariableType</span></code></a></p>
+<p>Entry class for DW_TAG_typedef. Inherits from VariableType.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>name</strong> – name of the new type</p></li>
+<li><p><strong>elf_object</strong> – elf object to reference to (useful for pointer,…)</p></li>
+<li><p><strong>type_offset</strong> – type as offset in the compilation_unit</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="cle.backends.elf.variable_type.TypedefType.read_from_die">
+<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">read_from_die</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">die</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">DIE</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">elf_object</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#cle.backends.elf.variable_type.TypedefType.read_from_die" title="Permalink to this definition"></a></dt>
+<dd><p>read an entry of DW_TAG_member_type. return None when there is no
+type attribute.</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="cle.backends.elf.variable_type.TypedefType.type">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">type</span></span><a class="headerlink" href="#cle.backends.elf.variable_type.TypedefType.type" title="Permalink to this definition"></a></dt>
+<dd><p>attribute to get the type of the member. Return None if the type is not loaded</p>
+</dd></dl>
 
 </dd></dl>
 
 <span class="target" id="module-cle.backends.elf.compilation_unit"></span><dl class="py class">
 <dt class="sig sig-object py" id="cle.backends.elf.compilation_unit.CompilationUnit">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">cle.backends.elf.compilation_unit.</span></span><span class="sig-name descname"><span class="pre">CompilationUnit</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">comp_dir</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">low_pc</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">high_pc</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">language</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#cle.backends.elf.compilation_unit.CompilationUnit" title="Permalink to this definition"></a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">cle.backends.elf.compilation_unit.</span></span><span class="sig-name descname"><span class="pre">CompilationUnit</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">comp_dir</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">low_pc</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">high_pc</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">language</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">elf_object</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#cle.backends.elf.compilation_unit.CompilationUnit" title="Permalink to this definition"></a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
 <p>CompilationUnit for DWARF
 See <a class="reference external" href="http://dwarfstd.org/doc/DWARF5.pdf">http://dwarfstd.org/doc/DWARF5.pdf</a> page 60</p>
+<dl class="py property">
+<dt class="sig sig-object py" id="cle.backends.elf.compilation_unit.CompilationUnit.min_addr">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">min_addr</span></span><a class="headerlink" href="#cle.backends.elf.compilation_unit.CompilationUnit.min_addr" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="cle.backends.elf.compilation_unit.CompilationUnit.max_addr">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">max_addr</span></span><a class="headerlink" href="#cle.backends.elf.compilation_unit.CompilationUnit.max_addr" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
 </dd></dl>
 
 <span class="target" id="module-cle.backends.named_region"></span><dl class="py class">
