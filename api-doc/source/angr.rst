@@ -232,6 +232,7 @@ Knowledge Base
 .. automodule:: angr.knowledge_plugins.cfg.cfg_manager
 .. automodule:: angr.knowledge_plugins.cfg.cfg_node
 .. automodule:: angr.knowledge_plugins.cfg.indirect_jump
+.. automodule:: angr.knowledge_plugins.gotos
 .. automodule:: angr.knowledge_plugins.types
 .. automodule:: angr.knowledge_plugins.propagations
 .. automodule:: angr.knowledge_plugins.comments
@@ -338,7 +339,12 @@ Analysis
 .. automodule:: angr.angrdb.serializers.xrefs
 .. automodule:: angr.angrdb.serializers.variables
 .. automodule:: angr.angrdb.serializers.structured_code
-.. automodule:: angr.analyses.decompiler.structurer
+.. automodule:: angr.analyses.decompiler.structuring.recursive_structurer
+.. automodule:: angr.analyses.decompiler.structuring
+.. automodule:: angr.analyses.decompiler.structuring.dream
+.. automodule:: angr.analyses.decompiler.structuring.structurer_nodes
+.. automodule:: angr.analyses.decompiler.structuring.structurer_base
+.. automodule:: angr.analyses.decompiler.structuring.phoenix
 .. automodule:: angr.analyses.decompiler
 .. automodule:: angr.analyses.decompiler.ail_simplifier
 .. automodule:: angr.analyses.decompiler.ailblock_walker
@@ -392,7 +398,6 @@ Analysis
 .. automodule:: angr.analyses.decompiler.structured_codegen.c
 .. automodule:: angr.analyses.decompiler.structured_codegen.dwarf_import
 .. automodule:: angr.analyses.decompiler.structured_codegen.dummy
-.. automodule:: angr.analyses.decompiler.structurer_nodes
 .. automodule:: angr.analyses.decompiler.utils
 .. automodule:: angr.analyses.ddg
 .. automodule:: angr.analyses.flirt
