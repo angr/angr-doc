@@ -493,6 +493,9 @@ Function Signature Matching
 .. automodule:: angr.flirt
 .. automodule:: angr.flirt.build_sig
 
+C Expression Evaluation
+-----------------------
+.. automodule:: angr.c_expr_eval
 
 Utils
 -----
