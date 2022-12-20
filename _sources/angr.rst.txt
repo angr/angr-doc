@@ -51,6 +51,7 @@ Program State
 .. automodule:: angr.state_plugins.heap.heap_ptmalloc
 .. automodule:: angr.state_plugins.heap.utils
 .. automodule:: angr.state_plugins.symbolizer
+.. automodule:: angr.state_plugins.debug_variables
 
 Storage
 -------
@@ -247,6 +248,7 @@ Knowledge Base
 .. automodule:: angr.knowledge_plugins.variables
 .. automodule:: angr.knowledge_plugins.variables.variable_access
 .. automodule:: angr.knowledge_plugins.variables.variable_manager
+.. automodule:: angr.knowledge_plugins.debug_variables
 .. automodule:: angr.knowledge_plugins.structured_code
 .. automodule:: angr.knowledge_plugins.structured_code.manager
 .. automodule:: angr.knowledge_plugins.key_definitions

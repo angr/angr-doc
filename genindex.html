@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Index &mdash; angr 9.2.29
+  <title>Index &mdash; angr 9.2.30
  documentation</title>
       <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
@@ -30,7 +30,7 @@
             <a href="index.html" class="icon icon-home"> angr
           </a>
               <div class="version">
-                9.2.29
+                9.2.30
 
               </div>
 <div role="search">
@@ -430,9 +430,13 @@
       <li><a href="angr.html#angr.keyed_region.KeyedRegion.add_variable">add_variable() (angr.keyed_region.KeyedRegion method)</a>
 
       <ul>
+        <li><a href="angr.html#angr.knowledge_plugins.debug_variables.DebugVariableManager.add_variable">(angr.knowledge_plugins.debug_variables.DebugVariableManager method)</a>
+</li>
         <li><a href="angr.html#angr.knowledge_plugins.variables.variable_manager.VariableManagerInternal.add_variable">(angr.knowledge_plugins.variables.variable_manager.VariableManagerInternal method)</a>
 </li>
       </ul></li>
+      <li><a href="angr.html#angr.knowledge_plugins.debug_variables.DebugVariableManager.add_variable_list">add_variable_list() (angr.knowledge_plugins.debug_variables.DebugVariableManager method)</a>
+</li>
       <li><a href="angr.html#angr.analyses.xrefs.SimEngineXRefsVEX.add_xref">add_xref() (angr.analyses.xrefs.SimEngineXRefsVEX method)</a>
 
       <ul>
@@ -2332,8 +2336,6 @@
         <li><a href="angr.html#module-angr.engines.light.engine">module</a>
 </li>
       </ul></li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
       <li>
     angr.engines.procedure
 
@@ -2341,6 +2343,8 @@
         <li><a href="angr.html#module-angr.engines.procedure">module</a>
 </li>
       </ul></li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
       <li>
     angr.engines.soot
 
@@ -2675,6 +2679,13 @@
 
       <ul>
         <li><a href="angr.html#module-angr.knowledge_plugins.data">module</a>
+</li>
+      </ul></li>
+      <li>
+    angr.knowledge_plugins.debug_variables
+
+      <ul>
+        <li><a href="angr.html#module-angr.knowledge_plugins.debug_variables">module</a>
 </li>
       </ul></li>
       <li>
@@ -3116,6 +3127,13 @@
 
       <ul>
         <li><a href="angr.html#module-angr.state_plugins.concrete">module</a>
+</li>
+      </ul></li>
+      <li>
+    angr.state_plugins.debug_variables
+
+      <ul>
+        <li><a href="angr.html#module-angr.state_plugins.debug_variables">module</a>
 </li>
       </ul></li>
       <li>
@@ -4427,8 +4445,12 @@
 </li>
       <li><a href="angr.html#angr.analyses.typehoon.typeconsts.Array">Array (class in angr.analyses.typehoon.typeconsts)</a>
 </li>
-      <li><a href="angr.html#angr.state_plugins.view.SimMemView.array">array() (angr.state_plugins.view.SimMemView method)</a>
+      <li><a href="angr.html#angr.state_plugins.debug_variables.SimDebugVariable.array">array() (angr.state_plugins.debug_variables.SimDebugVariable method)</a>
+
+      <ul>
+        <li><a href="angr.html#angr.state_plugins.view.SimMemView.array">(angr.state_plugins.view.SimMemView method)</a>
 </li>
+      </ul></li>
       <li><a href="cle.html#cle.backends.elf.variable_type.ArrayType">ArrayType (class in cle.backends.elf.variable_type)</a>
 </li>
       <li><a href="archinfo.html#archinfo.arch.Arch.artificial_registers">artificial_registers (archinfo.arch.Arch attribute)</a>
@@ -7495,6 +7517,8 @@
 </li>
       <li><a href="angr.html#angr.utils.graph.ContainerNode">ContainerNode (class in angr.utils.graph)</a>
 </li>
+      <li><a href="angr.html#angr.knowledge_plugins.debug_variables.DebugVariable.contains">contains() (angr.knowledge_plugins.debug_variables.DebugVariable method)</a>
+</li>
       <li><a href="angr.html#angr.knowledge_plugins.functions.function_manager.FunctionManager.contains_addr">contains_addr() (angr.knowledge_plugins.functions.function_manager.FunctionManager method)</a>
 
       <ul>
@@ -8345,6 +8369,12 @@
 </li>
       <li><a href="claripy.html#claripy.frontend_mixins.debug_mixin.DebugMixin">DebugMixin (class in claripy.frontend_mixins.debug_mixin)</a>
 </li>
+      <li><a href="angr.html#angr.knowledge_plugins.debug_variables.DebugVariable">DebugVariable (class in angr.knowledge_plugins.debug_variables)</a>
+</li>
+      <li><a href="angr.html#angr.knowledge_plugins.debug_variables.DebugVariableContainer">DebugVariableContainer (class in angr.knowledge_plugins.debug_variables)</a>
+</li>
+      <li><a href="angr.html#angr.knowledge_plugins.debug_variables.DebugVariableManager">DebugVariableManager (class in angr.knowledge_plugins.debug_variables)</a>
+</li>
       <li><a href="angr.html#angr.distributed.server.Server.dec_active_workers">dec_active_workers() (angr.distributed.server.Server method)</a>
 </li>
       <li><a href="pyvex.html#pyvex.lifting.util.vex_helper.Type.decimal_float_128">decimal_float_128 (pyvex.lifting.util.vex_helper.Type attribute)</a>
@@ -8485,8 +8515,12 @@
         <li><a href="claripy.html#claripy.ast.bits.Bits.depth">(claripy.ast.bits.Bits attribute)</a>
 </li>
       </ul></li>
-      <li><a href="angr.html#angr.state_plugins.view.SimMemView.deref">deref (angr.state_plugins.view.SimMemView property)</a>
+      <li><a href="angr.html#angr.state_plugins.debug_variables.SimDebugVariable.deref">deref (angr.state_plugins.debug_variables.SimDebugVariable property)</a>
+
+      <ul>
+        <li><a href="angr.html#angr.state_plugins.view.SimMemView.deref">(angr.state_plugins.view.SimMemView property)</a>
 </li>
+      </ul></li>
       <li><a href="angr.html#angr.analyses.typehoon.typevars.DerivedTypeVariable">DerivedTypeVariable (class in angr.analyses.typehoon.typevars)</a>
 </li>
       <li><a href="pyvex.html#pyvex.expr.GetI.descr">descr (pyvex.expr.GetI attribute)</a>
@@ -8646,6 +8680,10 @@
       <li><a href="claripy.html#claripy.vsa.discrete_strided_interval_set.DiscreteStridedIntervalSet">DiscreteStridedIntervalSet (class in claripy.vsa.discrete_strided_interval_set)</a>
 </li>
       <li><a href="angr.html#angr.analyses.disassembly.Instruction.disect_instruction">disect_instruction() (angr.analyses.disassembly.Instruction method)</a>
+</li>
+      <li><a href="angr.html#angr.analyses.disassembly.Instruction.disect_instruction_by_default">disect_instruction_by_default() (angr.analyses.disassembly.Instruction method)</a>
+</li>
+      <li><a href="angr.html#angr.analyses.disassembly.Instruction.disect_instruction_for_aarch64">disect_instruction_for_aarch64() (angr.analyses.disassembly.Instruction method)</a>
 </li>
       <li><a href="angr.html#angr.analyses.data_dep.dep_nodes.VarDepNode.display_name">display_name (angr.analyses.data_dep.dep_nodes.VarDepNode property)</a>
 </li>
@@ -8830,6 +8868,10 @@
       <li><a href="angr.html#angr.analyses.decompiler.structured_codegen.base.PositionMapping.DUPLICATION_CHECK">DUPLICATION_CHECK (angr.analyses.decompiler.structured_codegen.base.PositionMapping attribute)</a>
 </li>
       <li><a href="angr.html#angr.analyses.decompiler.optimization_passes.optimization_pass.OptimizationPassStage.DURING_REGION_IDENTIFICATION">DURING_REGION_IDENTIFICATION (angr.analyses.decompiler.optimization_passes.optimization_pass.OptimizationPassStage attribute)</a>
+</li>
+      <li><a href="angr.html#angr.state_plugins.debug_variables.SimDebugVariablePlugin.dwarf_cfa">dwarf_cfa (angr.state_plugins.debug_variables.SimDebugVariablePlugin property)</a>
+</li>
+      <li><a href="angr.html#angr.state_plugins.debug_variables.SimDebugVariablePlugin.dwarf_cfa_approx">dwarf_cfa_approx (angr.state_plugins.debug_variables.SimDebugVariablePlugin property)</a>
 </li>
       <li><a href="cle.html#cle.backends.macho.structs.dyld_chained_fixups_header">dyld_chained_fixups_header (class in cle.backends.macho.structs)</a>
 </li>
@@ -10007,14 +10049,14 @@
 </li>
       <li><a href="claripy.html#claripy.fp.fpIsInf">fpIsInf() (in module claripy.fp)</a>
 </li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="claripy.html#claripy.fp.fpIsNaN">fpIsNaN() (in module claripy.fp)</a>
 </li>
       <li><a href="claripy.html#claripy.fp.fpLEQ">fpLEQ() (in module claripy.fp)</a>
 </li>
       <li><a href="claripy.html#claripy.fp.fpLT">fpLT() (in module claripy.fp)</a>
 </li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="claripy.html#claripy.fp.fpMul">fpMul() (in module claripy.fp)</a>
 </li>
       <li><a href="claripy.html#claripy.fp.fpNE">fpNE() (in module claripy.fp)</a>
@@ -10089,6 +10131,8 @@
         <li><a href="pyvex.html#pyvex.data_ref.DataRef.from_c">(pyvex.data_ref.DataRef class method)</a>
 </li>
       </ul></li>
+      <li><a href="angr.html#angr.state_plugins.debug_variables.SimDebugVariable.from_cle_variable">from_cle_variable() (angr.state_plugins.debug_variables.SimDebugVariable static method)</a>
+</li>
       <li><a href="cle.html#cle.backends.elf.variable.Variable.from_die">from_die() (cle.backends.elf.variable.Variable static method)</a>
 </li>
       <li><a href="angr.html#angr.annocfg.AnnotatedCFG.from_digraph">from_digraph() (angr.annocfg.AnnotatedCFG method)</a>
@@ -10109,10 +10153,20 @@
 </li>
       <li><a href="cle.html#cle.address_translator.AddressTranslator.from_mva">from_mva() (cle.address_translator.AddressTranslator class method)</a>
 </li>
+      <li><a href="angr.html#angr.knowledge_plugins.debug_variables.DebugVariableManager.from_name">from_name() (angr.knowledge_plugins.debug_variables.DebugVariableManager method)</a>
+</li>
+      <li><a href="angr.html#angr.knowledge_plugins.debug_variables.DebugVariableManager.from_name_and_pc">from_name_and_pc() (angr.knowledge_plugins.debug_variables.DebugVariableManager method)</a>
+</li>
       <li><a href="angr.html#angr.analyses.loop_analysis.Condition.from_opstr">from_opstr() (angr.analyses.loop_analysis.Condition class method)</a>
 </li>
       <li><a href="claripy.html#claripy.fp.FSort.from_params">from_params() (claripy.fp.FSort static method)</a>
 </li>
+      <li><a href="angr.html#angr.knowledge_plugins.debug_variables.DebugVariable.from_pc">from_pc() (angr.knowledge_plugins.debug_variables.DebugVariable method)</a>
+
+      <ul>
+        <li><a href="angr.html#angr.knowledge_plugins.debug_variables.DebugVariableContainer.from_pc">(angr.knowledge_plugins.debug_variables.DebugVariableContainer method)</a>
+</li>
+      </ul></li>
       <li><a href="pyvex.html#pyvex.block.IRSB.from_py">from_py() (pyvex.block.IRSB static method)</a>
 </li>
       <li><a href="cle.html#cle.address_translator.AddressTranslator.from_raw">from_raw() (cle.address_translator.AddressTranslator class method)</a>
@@ -10819,10 +10873,10 @@
       </ul></li>
       <li><a href="cle.html#cle.backends.externs.ExternObject.get_pseudo_addr">get_pseudo_addr() (cle.backends.externs.ExternObject method)</a>
 </li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="pyvex.html#pyvex.lifting.util.vex_helper.IRSBCustomizer.get_rdt_width">get_rdt_width() (pyvex.lifting.util.vex_helper.IRSBCustomizer method)</a>
 </li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="angr.html#angr.analyses.reaching_definitions.reaching_definitions.ReachingDefinitionsAnalysis.get_reaching_definitions">get_reaching_definitions() (angr.analyses.reaching_definitions.reaching_definitions.ReachingDefinitionsAnalysis method)</a>
 </li>
       <li><a href="angr.html#angr.analyses.reaching_definitions.reaching_definitions.ReachingDefinitionsAnalysis.get_reaching_definitions_by_insn">get_reaching_definitions_by_insn() (angr.analyses.reaching_definitions.reaching_definitions.ReachingDefinitionsAnalysis method)</a>
@@ -11058,7 +11112,11 @@
       <li><a href="angr.html#angr.knowledge_plugins.key_definitions.live_definitions.LiveDefinitions.get_value_from_definition">get_value_from_definition() (angr.knowledge_plugins.key_definitions.live_definitions.LiveDefinitions method)</a>
 </li>
       <li><a href="angr.html#angr.analyses.decompiler.optimization_passes.engine_base.SimplifierAILState.get_variable">get_variable() (angr.analyses.decompiler.optimization_passes.engine_base.SimplifierAILState method)</a>
+
+      <ul>
+        <li><a href="angr.html#angr.state_plugins.debug_variables.SimDebugVariablePlugin.get_variable">(angr.state_plugins.debug_variables.SimDebugVariablePlugin method)</a>
 </li>
+      </ul></li>
       <li><a href="angr.html#angr.knowledge_plugins.variables.variable_manager.VariableManager.get_variable_accesses">get_variable_accesses() (angr.knowledge_plugins.variables.variable_manager.VariableManager method)</a>
 
       <ul>
@@ -13649,8 +13707,12 @@
 </li>
       <li><a href="angr.html#angr.storage.memory_mixins.javavm_memory.javavm_memory_mixin.JavaVmMemoryMixin.load_array_elements">load_array_elements() (angr.storage.memory_mixins.javavm_memory.javavm_memory_mixin.JavaVmMemoryMixin method)</a>
 </li>
-      <li><a href="angr.html#angr.knowledge_plugins.variables.variable_manager.VariableManager.load_from_dwarf">load_from_dwarf() (angr.knowledge_plugins.variables.variable_manager.VariableManager method)</a>
+      <li><a href="angr.html#angr.knowledge_plugins.debug_variables.DebugVariableManager.load_from_dwarf">load_from_dwarf() (angr.knowledge_plugins.debug_variables.DebugVariableManager method)</a>
+
+      <ul>
+        <li><a href="angr.html#angr.knowledge_plugins.variables.variable_manager.VariableManager.load_from_dwarf">(angr.knowledge_plugins.variables.variable_manager.VariableManager method)</a>
 </li>
+      </ul></li>
       <li><a href="pyvex.html#pyvex.lifting.lifter.Lifter.load_from_ro_regions">load_from_ro_regions (pyvex.lifting.lifter.Lifter attribute)</a>
 </li>
       <li><a href="angr.html#angr.angrdb.serializers.variables.VariableManagerSerializer.load_internal">load_internal() (angr.angrdb.serializers.variables.VariableManagerSerializer static method)</a>
@@ -14150,7 +14212,11 @@
       <li><a href="archinfo.html#archinfo.arch.Endness.ME">ME (archinfo.arch.Endness attribute)</a>
 </li>
       <li><a href="angr.html#angr.sim_state.SimState.mem">mem (angr.sim_state.SimState attribute)</a>
+
+      <ul>
+        <li><a href="angr.html#angr.state_plugins.debug_variables.SimDebugVariable.mem">(angr.state_plugins.debug_variables.SimDebugVariable property)</a>
 </li>
+      </ul></li>
       <li><a href="angr.html#angr.state_plugins.sim_action.SimAction.MEM">MEM (angr.state_plugins.sim_action.SimAction attribute)</a>
 </li>
       <li><a href="angr.html#angr.sim_state.SimState.mem_concrete">mem_concrete() (angr.sim_state.SimState method)</a>
@@ -14164,6 +14230,8 @@
       <li><a href="angr.html#angr.state_plugins.unicorn_engine.Uniwrapper.mem_reset">mem_reset() (angr.state_plugins.unicorn_engine.Uniwrapper method)</a>
 </li>
       <li><a href="angr.html#angr.state_plugins.unicorn_engine.Uniwrapper.mem_unmap">mem_unmap() (angr.state_plugins.unicorn_engine.Uniwrapper method)</a>
+</li>
+      <li><a href="angr.html#angr.state_plugins.debug_variables.SimDebugVariable.member">member() (angr.state_plugins.debug_variables.SimDebugVariable method)</a>
 </li>
       <li><a href="angr.html#angr.sim_type.SimCppClass.members">members (angr.sim_type.SimCppClass property)</a>
 </li>
@@ -15185,6 +15253,8 @@
 </li>
         <li><a href="angr.html#module-angr.knowledge_plugins.data">angr.knowledge_plugins.data</a>
 </li>
+        <li><a href="angr.html#module-angr.knowledge_plugins.debug_variables">angr.knowledge_plugins.debug_variables</a>
+</li>
         <li><a href="angr.html#module-angr.knowledge_plugins.functions">angr.knowledge_plugins.functions</a>
 </li>
         <li><a href="angr.html#module-angr.knowledge_plugins.functions.function">angr.knowledge_plugins.functions.function</a>
@@ -15310,6 +15380,8 @@
         <li><a href="angr.html#module-angr.state_plugins.cgc">angr.state_plugins.cgc</a>
 </li>
         <li><a href="angr.html#module-angr.state_plugins.concrete">angr.state_plugins.concrete</a>
+</li>
+        <li><a href="angr.html#module-angr.state_plugins.debug_variables">angr.state_plugins.debug_variables</a>
 </li>
         <li><a href="angr.html#module-angr.state_plugins.filesystem">angr.state_plugins.filesystem</a>
 </li>
@@ -20750,6 +20822,10 @@
 </li>
       <li><a href="cle.html#cle.backends.externs.simdata.common.SimDataSimpleRelocation">SimDataSimpleRelocation (class in cle.backends.externs.simdata.common)</a>
 </li>
+      <li><a href="angr.html#angr.state_plugins.debug_variables.SimDebugVariable">SimDebugVariable (class in angr.state_plugins.debug_variables)</a>
+</li>
+      <li><a href="angr.html#angr.state_plugins.debug_variables.SimDebugVariablePlugin">SimDebugVariablePlugin (class in angr.state_plugins.debug_variables)</a>
+</li>
       <li><a href="angr.html#angr.errors.SimEmptyCallStackError">SimEmptyCallStackError</a>
 </li>
       <li><a href="angr.html#angr.engines.engine.SimEngine">SimEngine (class in angr.engines.engine)</a>
@@ -21546,10 +21622,10 @@
 </li>
       <li><a href="archinfo.html#archinfo.arch_soot.SootAddressTerminator">SootAddressTerminator (class in archinfo.arch_soot)</a>
 </li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="archinfo.html#archinfo.arch_soot.SootArgument">SootArgument (class in archinfo.arch_soot)</a>
 </li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="angr.html#angr.block.SootBlock">SootBlock (class in angr.block)</a>
 </li>
       <li><a href="angr.html#angr.codenode.SootBlockNode">SootBlockNode (class in angr.codenode)</a>
@@ -21670,6 +21746,8 @@
         <li><a href="claripy.html#claripy.frontends.hybrid_frontend.HybridFrontend.split">(claripy.frontends.hybrid_frontend.HybridFrontend method)</a>
 </li>
       </ul></li>
+      <li><a href="angr.html#angr.analyses.disassembly.Instruction.split_aarch64_op_string">split_aarch64_op_string() (angr.analyses.disassembly.Instruction static method)</a>
+</li>
       <li><a href="cle.html#cle.memory.Clemory.split_backer">split_backer() (cle.memory.Clemory method)</a>
 </li>
       <li><a href="angr.html#angr.analyses.disassembly.Instruction.split_op_string">split_op_string() (angr.analyses.disassembly.Instruction static method)</a>
@@ -21970,6 +22048,8 @@
         <li><a href="angr.html#angr.state_plugins.cgc.SimStateCGC.state">(angr.state_plugins.cgc.SimStateCGC attribute)</a>
 </li>
         <li><a href="angr.html#angr.state_plugins.concrete.Concrete.state">(angr.state_plugins.concrete.Concrete attribute)</a>
+</li>
+        <li><a href="angr.html#angr.state_plugins.debug_variables.SimDebugVariablePlugin.state">(angr.state_plugins.debug_variables.SimDebugVariablePlugin attribute)</a>
 </li>
         <li><a href="angr.html#angr.state_plugins.filesystem.SimConcreteFilesystem.state">(angr.state_plugins.filesystem.SimConcreteFilesystem attribute)</a>
 </li>
@@ -22625,7 +22705,11 @@
 </li>
       </ul></li>
       <li><a href="angr.html#angr.procedures.stubs.format_parser.FormatSpecifier.string">string (angr.procedures.stubs.format_parser.FormatSpecifier attribute)</a>
+
+      <ul>
+        <li><a href="angr.html#angr.state_plugins.debug_variables.SimDebugVariable.string">(angr.state_plugins.debug_variables.SimDebugVariable property)</a>
 </li>
+      </ul></li>
       <li><a href="claripy.html#claripy.ast.strings.String">String (class in claripy.ast.strings)</a>
 </li>
       <li><a href="angr.html#angr.analyses.reassembler.string_escape">string_escape() (in module angr.analyses.reassembler)</a>
@@ -23453,6 +23537,8 @@
       <li><a href="angr.html#angr.analyses.decompiler.structuring.structurer_nodes.BaseNode.test_empty_condition_node">test_empty_condition_node() (angr.analyses.decompiler.structuring.structurer_nodes.BaseNode static method)</a>
 </li>
       <li><a href="angr.html#angr.analyses.decompiler.structuring.structurer_nodes.BaseNode.test_empty_node">test_empty_node() (angr.analyses.decompiler.structuring.structurer_nodes.BaseNode static method)</a>
+</li>
+      <li><a href="angr.html#angr.knowledge_plugins.debug_variables.DebugVariable.test_unsupported_overlap">test_unsupported_overlap() (angr.knowledge_plugins.debug_variables.DebugVariable method)</a>
 </li>
       <li><a href="pyvex.html#pyvex.lifting.util.lifter_helper.GymratLifter.thedata">thedata (pyvex.lifting.util.lifter_helper.GymratLifter attribute)</a>
 </li>
