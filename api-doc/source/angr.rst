@@ -226,6 +226,7 @@ Knowledge Base
 .. automodule:: angr.knowledge_plugins
 .. automodule:: angr.knowledge_plugins.patches
 .. automodule:: angr.knowledge_plugins.plugin
+.. automodule:: angr.knowledge_plugins.callsite_prototypes
 .. automodule:: angr.knowledge_plugins.cfg
 .. automodule:: angr.knowledge_plugins.cfg.cfg_model
 .. automodule:: angr.knowledge_plugins.cfg.memory_data
