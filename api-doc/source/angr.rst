@@ -363,6 +363,7 @@ Analysis
 .. automodule:: angr.analyses.decompiler.empty_node_remover
 .. automodule:: angr.analyses.decompiler.expression_narrower
 .. automodule:: angr.analyses.decompiler.graph_region
+.. automodule:: angr.analyses.decompiler.jump_target_collector
 .. automodule:: angr.analyses.decompiler.jumptable_entry_condition_rewriter
 .. automodule:: angr.analyses.decompiler.optimization_passes
 .. automodule:: angr.analyses.decompiler.optimization_passes.const_derefs
@@ -393,6 +394,7 @@ Analysis
 .. automodule:: angr.analyses.decompiler.region_simplifiers.node_address_finder
 .. automodule:: angr.analyses.decompiler.region_simplifiers.region_simplifier
 .. automodule:: angr.analyses.decompiler.region_walker
+.. automodule:: angr.analyses.decompiler.redundant_label_remover
 .. automodule:: angr.analyses.decompiler.sequence_walker
 .. automodule:: angr.analyses.decompiler.structured_codegen
 .. automodule:: angr.analyses.decompiler.structured_codegen.base
