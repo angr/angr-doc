@@ -7,7 +7,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   
-  <title>Index &mdash; angr 9.2.32
+  <title>Index &mdash; angr 9.2.33
  documentation</title>
   
 
@@ -64,7 +64,7 @@
             
             
               <div class="version">
-                9.2.32
+                9.2.33
 
               </div>
             
@@ -1362,6 +1362,13 @@
 </li>
       </ul></li>
       <li>
+    angr.analyses.decompiler.jump_target_collector
+
+      <ul>
+        <li><a href="angr.html#module-angr.analyses.decompiler.jump_target_collector">module</a>
+</li>
+      </ul></li>
+      <li>
     angr.analyses.decompiler.jumptable_entry_condition_rewriter
 
       <ul>
@@ -1485,6 +1492,13 @@
 
       <ul>
         <li><a href="angr.html#module-angr.analyses.decompiler.peephole_optimizations.base">module</a>
+</li>
+      </ul></li>
+      <li>
+    angr.analyses.decompiler.redundant_label_remover
+
+      <ul>
+        <li><a href="angr.html#module-angr.analyses.decompiler.redundant_label_remover">module</a>
 </li>
       </ul></li>
       <li>
@@ -2425,6 +2439,8 @@
         <li><a href="angr.html#module-angr.engines.light.engine">module</a>
 </li>
       </ul></li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
       <li>
     angr.engines.procedure
 
@@ -2432,8 +2448,6 @@
         <li><a href="angr.html#module-angr.engines.procedure">module</a>
 </li>
       </ul></li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
       <li>
     angr.engines.soot
 
@@ -5081,10 +5095,14 @@
         <li><a href="angr.html#angr.knowledge_plugins.cfg.cfg_node.CFGNode.block_id">(angr.knowledge_plugins.cfg.cfg_node.CFGNode attribute)</a>
 </li>
       </ul></li>
-      <li><a href="angr.html#angr.analyses.decompiler.region_simplifiers.expr_folding.ExpressionLocation.block_idx">block_idx (angr.analyses.decompiler.region_simplifiers.expr_folding.ExpressionLocation attribute)</a>
+      <li><a href="ailment.html#ailment.statement.Label.block_idx">block_idx (ailment.statement.Label attribute)</a>
 
       <ul>
+        <li><a href="angr.html#angr.analyses.decompiler.region_simplifiers.expr_folding.ExpressionLocation.block_idx">(angr.analyses.decompiler.region_simplifiers.expr_folding.ExpressionLocation attribute)</a>
+</li>
         <li><a href="angr.html#angr.analyses.decompiler.region_simplifiers.expr_folding.StatementLocation.block_idx">(angr.analyses.decompiler.region_simplifiers.expr_folding.StatementLocation attribute)</a>
+</li>
+        <li><a href="angr.html#angr.analyses.decompiler.structured_codegen.c.CLabel.block_idx">(angr.analyses.decompiler.structured_codegen.c.CLabel attribute)</a>
 </li>
         <li><a href="angr.html#angr.code_location.CodeLocation.block_idx">(angr.code_location.CodeLocation attribute)</a>
 </li>
@@ -5379,6 +5397,8 @@
         <li><a href="angr.html#angr.analyses.decompiler.structured_codegen.c.CIndexedVariable.c_repr_chunks">(angr.analyses.decompiler.structured_codegen.c.CIndexedVariable method)</a>
 </li>
         <li><a href="angr.html#angr.analyses.decompiler.structured_codegen.c.CITE.c_repr_chunks">(angr.analyses.decompiler.structured_codegen.c.CITE method)</a>
+</li>
+        <li><a href="angr.html#angr.analyses.decompiler.structured_codegen.c.CLabel.c_repr_chunks">(angr.analyses.decompiler.structured_codegen.c.CLabel method)</a>
 </li>
         <li><a href="angr.html#angr.analyses.decompiler.structured_codegen.c.CRegister.c_repr_chunks">(angr.analyses.decompiler.structured_codegen.c.CRegister method)</a>
 </li>
@@ -6004,6 +6024,8 @@
       <li><a href="angr.html#angr.analyses.decompiler.structured_codegen.c.CIndexedVariable">CIndexedVariable (class in angr.analyses.decompiler.structured_codegen.c)</a>
 </li>
       <li><a href="angr.html#angr.analyses.decompiler.structured_codegen.c.CITE">CITE (class in angr.analyses.decompiler.structured_codegen.c)</a>
+</li>
+      <li><a href="angr.html#angr.analyses.decompiler.structured_codegen.c.CLabel">CLabel (class in angr.analyses.decompiler.structured_codegen.c)</a>
 </li>
       <li>
     claripy
@@ -7765,6 +7787,8 @@
         <li><a href="ailment.html#ailment.statement.DirtyStatement.copy">(ailment.statement.DirtyStatement method)</a>
 </li>
         <li><a href="ailment.html#ailment.statement.Jump.copy">(ailment.statement.Jump method)</a>
+</li>
+        <li><a href="ailment.html#ailment.statement.Label.copy">(ailment.statement.Label method)</a>
 </li>
         <li><a href="ailment.html#ailment.statement.Return.copy">(ailment.statement.Return method)</a>
 </li>
@@ -9993,6 +10017,10 @@
 </li>
       <li><a href="angr.html#angr.state_plugins.inspect.BP.fire">fire() (angr.state_plugins.inspect.BP method)</a>
 </li>
+      <li><a href="angr.html#angr.analyses.decompiler.utils.first_nonlabel_node">first_nonlabel_node() (in module angr.analyses.decompiler.utils)</a>
+</li>
+      <li><a href="angr.html#angr.analyses.decompiler.utils.first_nonlabel_statement">first_nonlabel_statement() (in module angr.analyses.decompiler.utils)</a>
+</li>
       <li><a href="cle.html#cle.backends.macho.structs.dyld_chained_fixups_header.fixups_version">fixups_version (cle.backends.macho.structs.dyld_chained_fixups_header attribute)</a>
 </li>
       <li><a href="angr.html#angr.procedures.stubs.format_parser.FormatParser.flags">flags (angr.procedures.stubs.format_parser.FormatParser attribute)</a>
@@ -10155,10 +10183,10 @@
 </li>
       <li><a href="claripy.html#claripy.fp.fpLEQ">fpLEQ() (in module claripy.fp)</a>
 </li>
-      <li><a href="claripy.html#claripy.fp.fpLT">fpLT() (in module claripy.fp)</a>
-</li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="claripy.html#claripy.fp.fpLT">fpLT() (in module claripy.fp)</a>
+</li>
       <li><a href="claripy.html#claripy.fp.fpMul">fpMul() (in module claripy.fp)</a>
 </li>
       <li><a href="claripy.html#claripy.fp.fpNE">fpNE() (in module claripy.fp)</a>
@@ -11559,6 +11587,8 @@
       </ul></li>
       <li><a href="angr.html#angr.knowledge_plugins.key_definitions.key_definition_manager.KeyDefinitionManager.has_model">has_model() (angr.knowledge_plugins.key_definitions.key_definition_manager.KeyDefinitionManager method)</a>
 </li>
+      <li><a href="angr.html#angr.analyses.decompiler.utils.has_nonlabel_statements">has_nonlabel_statements() (in module angr.analyses.decompiler.utils)</a>
+</li>
       <li><a href="angr.html#angr.knowledge_base.knowledge_base.KnowledgeBase.has_plugin">has_plugin() (angr.knowledge_base.knowledge_base.KnowledgeBase method)</a>
 
       <ul>
@@ -11567,10 +11597,10 @@
         <li><a href="angr.html#angr.sim_state.SimState.has_plugin">(angr.sim_state.SimState method)</a>
 </li>
       </ul></li>
-      <li><a href="angr.html#angr.misc.plugins.PluginHub.has_plugin_preset">has_plugin_preset (angr.misc.plugins.PluginHub property)</a>
-</li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="angr.html#angr.misc.plugins.PluginHub.has_plugin_preset">has_plugin_preset (angr.misc.plugins.PluginHub property)</a>
+</li>
       <li><a href="angr.html#angr.knowledge_plugins.callsite_prototypes.CallsitePrototypes.has_prototype">has_prototype() (angr.knowledge_plugins.callsite_prototypes.CallsitePrototypes method)</a>
 
       <ul>
@@ -12184,9 +12214,13 @@
       <li><a href="ailment.html#ailment.manager.Manager.ins_addr">ins_addr (ailment.manager.Manager property)</a>
 
       <ul>
+        <li><a href="ailment.html#ailment.statement.Label.ins_addr">(ailment.statement.Label attribute)</a>
+</li>
         <li><a href="angr.html#angr.analyses.cfg.cfg_fast.FunctionEdge.ins_addr">(angr.analyses.cfg.cfg_fast.FunctionEdge attribute)</a>
 </li>
         <li><a href="angr.html#angr.analyses.decompiler.structured_codegen.base.InstructionMappingElement.ins_addr">(angr.analyses.decompiler.structured_codegen.base.InstructionMappingElement attribute)</a>
+</li>
+        <li><a href="angr.html#angr.analyses.decompiler.structured_codegen.c.CLabel.ins_addr">(angr.analyses.decompiler.structured_codegen.c.CLabel attribute)</a>
 </li>
         <li><a href="angr.html#angr.code_location.CodeLocation.ins_addr">(angr.code_location.CodeLocation attribute)</a>
 </li>
@@ -12409,10 +12443,10 @@
 </li>
       <li><a href="pyvex.html#pyvex.expr.IRExpr">IRExpr (class in pyvex.expr)</a>
 </li>
-      <li><a href="angr.html#angr.analyses.disassembly.IROp">IROp (class in angr.analyses.disassembly)</a>
-</li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="angr.html#angr.analyses.disassembly.IROp">IROp (class in angr.analyses.disassembly)</a>
+</li>
       <li><a href="pyvex.html#pyvex.enums.IRRegArray">IRRegArray (class in pyvex.enums)</a>
 </li>
       <li><a href="angr.html#angr.analyses.disassembly.IROp.irsb">irsb (angr.analyses.disassembly.IROp attribute)</a>
@@ -12578,6 +12612,8 @@
 </li>
       </ul></li>
       <li><a href="angr.html#angr.analyses.decompiler.utils.is_empty_node">is_empty_node() (in module angr.analyses.decompiler.utils)</a>
+</li>
+      <li><a href="angr.html#angr.analyses.decompiler.utils.is_empty_or_label_only_node">is_empty_or_label_only_node() (in module angr.analyses.decompiler.utils)</a>
 </li>
       <li><a href="angr.html#angr.analyses.cfg.cfg_fast.FunctionTransitionEdge.is_exception">is_exception (angr.analyses.cfg.cfg_fast.FunctionTransitionEdge attribute)</a>
 </li>
@@ -13179,6 +13215,8 @@
 </li>
       <li><a href="angr.html#angr.analyses.cfg.indirect_jump_resolvers.jumptable.JumpTargetBaseAddr">JumpTargetBaseAddr (class in angr.analyses.cfg.indirect_jump_resolvers.jumptable)</a>
 </li>
+      <li><a href="angr.html#angr.analyses.decompiler.jump_target_collector.JumpTargetCollector">JumpTargetCollector (class in angr.analyses.decompiler.jump_target_collector)</a>
+</li>
   </ul></td>
 </tr></table>
 
@@ -13327,9 +13365,11 @@
         <li><a href="angr.html#angr.storage.memory_object.SimLabeledMemoryObject.label">(angr.storage.memory_object.SimLabeledMemoryObject attribute)</a>
 </li>
       </ul></li>
-      <li><a href="angr.html#angr.analyses.disassembly.Label">Label (class in angr.analyses.disassembly)</a>
+      <li><a href="ailment.html#ailment.statement.Label">Label (class in ailment.statement)</a>
 
       <ul>
+        <li><a href="angr.html#angr.analyses.disassembly.Label">(class in angr.analyses.disassembly)</a>
+</li>
         <li><a href="angr.html#angr.analyses.reassembler.Label">(class in angr.analyses.reassembler)</a>
 </li>
       </ul></li>
@@ -13643,6 +13683,8 @@
         <li><a href="ailment.html#ailment.statement.ConditionalJump.likes">(ailment.statement.ConditionalJump method)</a>
 </li>
         <li><a href="ailment.html#ailment.statement.Jump.likes">(ailment.statement.Jump method)</a>
+</li>
+        <li><a href="ailment.html#ailment.statement.Label.likes">(ailment.statement.Label method)</a>
 </li>
         <li><a href="ailment.html#ailment.statement.Return.likes">(ailment.statement.Return method)</a>
 </li>
@@ -14965,6 +15007,8 @@
 </li>
         <li><a href="angr.html#module-angr.analyses.decompiler.graph_region">angr.analyses.decompiler.graph_region</a>
 </li>
+        <li><a href="angr.html#module-angr.analyses.decompiler.jump_target_collector">angr.analyses.decompiler.jump_target_collector</a>
+</li>
         <li><a href="angr.html#module-angr.analyses.decompiler.jumptable_entry_condition_rewriter">angr.analyses.decompiler.jumptable_entry_condition_rewriter</a>
 </li>
         <li><a href="angr.html#module-angr.analyses.decompiler.optimization_passes">angr.analyses.decompiler.optimization_passes</a>
@@ -15000,6 +15044,8 @@
         <li><a href="angr.html#module-angr.analyses.decompiler.peephole_optimizations">angr.analyses.decompiler.peephole_optimizations</a>
 </li>
         <li><a href="angr.html#module-angr.analyses.decompiler.peephole_optimizations.base">angr.analyses.decompiler.peephole_optimizations.base</a>
+</li>
+        <li><a href="angr.html#module-angr.analyses.decompiler.redundant_label_remover">angr.analyses.decompiler.redundant_label_remover</a>
 </li>
         <li><a href="angr.html#module-angr.analyses.decompiler.region_identifier">angr.analyses.decompiler.region_identifier</a>
 </li>
@@ -16160,6 +16206,8 @@
 </li>
       <li><a href="claripy.html#claripy.vsa.strided_interval.StridedInterval.n_values">n_values (claripy.vsa.strided_interval.StridedInterval property)</a>
 </li>
+      <li><a href="ailment.html#ailment.statement.Label.name">name (ailment.statement.Label attribute)</a>
+</li>
       <li><a href="angr.html#angr.analyses.decompiler.optimization_passes.base_ptr_save_simplifier.BasePointerSaveSimplifier.NAME">NAME (angr.analyses.decompiler.optimization_passes.base_ptr_save_simplifier.BasePointerSaveSimplifier attribute)</a>
 
       <ul>
@@ -16194,6 +16242,8 @@
 
       <ul>
         <li><a href="angr.html#angr.analyses.decompiler.structured_codegen.c.CFunction.name">(angr.analyses.decompiler.structured_codegen.c.CFunction attribute)</a>
+</li>
+        <li><a href="angr.html#angr.analyses.decompiler.structured_codegen.c.CLabel.name">(angr.analyses.decompiler.structured_codegen.c.CLabel attribute)</a>
 </li>
         <li><a href="angr.html#angr.analyses.reassembler.Procedure.name">(angr.analyses.reassembler.Procedure property)</a>
 </li>
@@ -16324,10 +16374,10 @@
         <li><a href="angr.html#angr.analyses.reassembler.SymbolManager.new_label">(angr.analyses.reassembler.SymbolManager method)</a>
 </li>
       </ul></li>
-      <li><a href="angr.html#angr.knowledge_plugins.cfg.cfg_manager.CFGManager.new_model">new_model() (angr.knowledge_plugins.cfg.cfg_manager.CFGManager method)</a>
-</li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="angr.html#angr.knowledge_plugins.cfg.cfg_manager.CFGManager.new_model">new_model() (angr.knowledge_plugins.cfg.cfg_manager.CFGManager method)</a>
+</li>
       <li><a href="cle.html#cle.backends.tls.elfcore_tls.ELFCoreThreadManager.new_thread">new_thread() (cle.backends.tls.elfcore_tls.ELFCoreThreadManager method)</a>
 
       <ul>
@@ -18319,6 +18369,8 @@
       <li><a href="angr.html#angr.analyses.typehoon.simple_solver.RecursiveType">RecursiveType (class in angr.analyses.typehoon.simple_solver)</a>
 </li>
       <li><a href="angr.html#angr.storage.pcap.PCAP.recv">recv() (angr.storage.pcap.PCAP method)</a>
+</li>
+      <li><a href="angr.html#angr.analyses.decompiler.redundant_label_remover.RedundantLabelRemover">RedundantLabelRemover (class in angr.analyses.decompiler.redundant_label_remover)</a>
 </li>
       <li><a href="angr.html#angr.analyses.binary_optimizer.RedundantStackVariable">RedundantStackVariable (class in angr.analyses.binary_optimizer)</a>
 </li>
@@ -23549,6 +23601,8 @@
 </li>
         <li><a href="angr.html#angr.analyses.decompiler.structured_codegen.c.CITE.tags">(angr.analyses.decompiler.structured_codegen.c.CITE attribute)</a>
 </li>
+        <li><a href="angr.html#angr.analyses.decompiler.structured_codegen.c.CLabel.tags">(angr.analyses.decompiler.structured_codegen.c.CLabel attribute)</a>
+</li>
         <li><a href="angr.html#angr.analyses.decompiler.structured_codegen.c.CRegister.tags">(angr.analyses.decompiler.structured_codegen.c.CRegister attribute)</a>
 </li>
         <li><a href="angr.html#angr.analyses.decompiler.structured_codegen.c.CReturn.tags">(angr.analyses.decompiler.structured_codegen.c.CReturn attribute)</a>
@@ -23615,7 +23669,11 @@
 </li>
       </ul></li>
       <li><a href="ailment.html#ailment.statement.Jump.target_idx">target_idx (ailment.statement.Jump attribute)</a>
+
+      <ul>
+        <li><a href="angr.html#angr.analyses.decompiler.structured_codegen.c.CGoto.target_idx">(angr.analyses.decompiler.structured_codegen.c.CGoto attribute)</a>
 </li>
+      </ul></li>
       <li><a href="angr.html#angr.analyses.typehoon.translator.TypeTranslator.tc2simtype">tc2simtype() (angr.analyses.typehoon.translator.TypeTranslator method)</a>
 </li>
       <li><a href="cle.html#cle.backends.tls.elf_tls.ELFTLSObjectV1.tcb_offset">tcb_offset (cle.backends.tls.elf_tls.ELFTLSObjectV1 attribute)</a>

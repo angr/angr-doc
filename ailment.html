@@ -8,7 +8,7 @@
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   
-  <title>ailment — angr Intermediate Language &mdash; angr 9.2.32
+  <title>ailment — angr Intermediate Language &mdash; angr 9.2.33
  documentation</title>
   
 
@@ -67,7 +67,7 @@
             
             
               <div class="version">
-                9.2.32
+                9.2.33
 
               </div>
             
@@ -389,6 +389,14 @@
 <li class="toctree-l3"><a class="reference internal" href="#ailment.statement.DirtyStatement"><code class="docutils literal notranslate"><span class="pre">DirtyStatement</span></code></a><ul>
 <li class="toctree-l4"><a class="reference internal" href="#ailment.statement.DirtyStatement.dirty_stmt"><code class="docutils literal notranslate"><span class="pre">DirtyStatement.dirty_stmt</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="#ailment.statement.DirtyStatement.copy"><code class="docutils literal notranslate"><span class="pre">DirtyStatement.copy()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#ailment.statement.Label"><code class="docutils literal notranslate"><span class="pre">Label</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#ailment.statement.Label.name"><code class="docutils literal notranslate"><span class="pre">Label.name</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#ailment.statement.Label.ins_addr"><code class="docutils literal notranslate"><span class="pre">Label.ins_addr</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#ailment.statement.Label.block_idx"><code class="docutils literal notranslate"><span class="pre">Label.block_idx</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#ailment.statement.Label.likes"><code class="docutils literal notranslate"><span class="pre">Label.likes()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#ailment.statement.Label.copy"><code class="docutils literal notranslate"><span class="pre">Label.copy()</span></code></a></li>
 </ul>
 </li>
 </ul>
@@ -1898,6 +1906,45 @@ to exists.</p>
 
 </dd></dl>
 
+<dl class="py class">
+<dt class="sig sig-object py" id="ailment.statement.Label">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">ailment.statement.</span></span><span class="sig-name descname"><span class="pre">Label</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#ailment.statement.Label" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#ailment.statement.Statement" title="ailment.statement.Statement"><code class="xref py py-class docutils literal notranslate"><span class="pre">Statement</span></code></a></p>
+<p>A dummy statement that indicates a label with a name.</p>
+<p>Create a new instance and set <cite>_tags</cite> attribute.</p>
+<p>Since TaggedObject override <cite>__getattr__</cite> method and try to access the
+<cite>_tags</cite> attribute, infinite recursion could occur if <cite>_tags</cite> not ready
+to exists.</p>
+<p>This behavior causes an infinite recursion error when copying
+<cite>TaggedObject</cite> with <cite>copy.deepcopy</cite>.</p>
+<p>Hence, we set <cite>_tags</cite> attribute here to prevent this problem.</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="ailment.statement.Label.name">
+<span class="sig-name descname"><span class="pre">name</span></span><a class="headerlink" href="#ailment.statement.Label.name" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="ailment.statement.Label.ins_addr">
+<span class="sig-name descname"><span class="pre">ins_addr</span></span><a class="headerlink" href="#ailment.statement.Label.ins_addr" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="ailment.statement.Label.block_idx">
+<span class="sig-name descname"><span class="pre">block_idx</span></span><a class="headerlink" href="#ailment.statement.Label.block_idx" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="ailment.statement.Label.likes">
+<span class="sig-name descname"><span class="pre">likes</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">other</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#ailment.statement.Label" title="ailment.statement.Label"><span class="pre">Label</span></a></span></em><span class="sig-paren">)</span><a class="headerlink" href="#ailment.statement.Label.likes" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="ailment.statement.Label.copy">
+<span class="sig-name descname"><span class="pre">copy</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#ailment.statement.Label" title="ailment.statement.Label"><span class="pre">Label</span></a></span></span><a class="headerlink" href="#ailment.statement.Label.copy" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
 </section>
 <section id="module-ailment.block">
 <span id="misc-things"></span><h2>Misc. Things<a class="headerlink" href="#module-ailment.block" title="Permalink to this heading">¶</a></h2>
@@ -1940,7 +1987,7 @@ to exists.</p>
 
 <span class="target" id="module-ailment.manager"></span><dl class="py class">
 <dt class="sig sig-object py" id="ailment.manager.Manager">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">ailment.manager.</span></span><span class="sig-name descname"><span class="pre">Manager</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">arch</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#ailment.manager.Manager" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">ailment.manager.</span></span><span class="sig-name descname"><span class="pre">Manager</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">arch</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#ailment.manager.Manager" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
 <dl class="py method">
 <dt class="sig sig-object py" id="ailment.manager.Manager.next_atom">
@@ -1954,7 +2001,7 @@ to exists.</p>
 
 <dl class="py property">
 <dt class="sig sig-object py" id="ailment.manager.Manager.ins_addr">
-<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">ins_addr</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#ailment.manager.Manager.ins_addr" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">ins_addr</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#ailment.manager.Manager.ins_addr" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 </dd></dl>
@@ -1990,7 +2037,7 @@ to exists.</p>
 
 <span class="target" id="module-ailment.utils"></span><dl class="py function">
 <dt class="sig sig-object py" id="ailment.utils.get_bits">
-<span class="sig-prename descclassname"><span class="pre">ailment.utils.</span></span><span class="sig-name descname"><span class="pre">get_bits</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">expr</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference internal" href="claripy.html#claripy.ast.bits.Bits" title="claripy.ast.bits.Bits"><span class="pre">Bits</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference internal" href="#ailment.expression.Expression" title="ailment.expression.Expression"><span class="pre">Expression</span></a><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#ailment.utils.get_bits" title="Permalink to this definition">¶</a></dt>
+<span class="sig-prename descclassname"><span class="pre">ailment.utils.</span></span><span class="sig-name descname"><span class="pre">get_bits</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">expr</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference internal" href="claripy.html#claripy.ast.bits.Bits" title="claripy.ast.bits.Bits"><span class="pre">Bits</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference internal" href="#ailment.expression.Expression" title="ailment.expression.Expression"><span class="pre">Expression</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">int</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span></span><a class="headerlink" href="#ailment.utils.get_bits" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py function">

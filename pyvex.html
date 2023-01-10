@@ -8,7 +8,7 @@
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   
-  <title>pyvex — Binary Translator &mdash; angr 9.2.32
+  <title>pyvex — Binary Translator &mdash; angr 9.2.33
  documentation</title>
   
 
@@ -67,7 +67,7 @@
             
             
               <div class="version">
-                9.2.32
+                9.2.33
 
               </div>
             
@@ -963,12 +963,12 @@ ends properly or until it runs out of data to lift.</p>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="pyvex.block.IRSB.next">
-<span class="sig-name descname"><span class="pre">next</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="#pyvex.expr.IRExpr" title="pyvex.expr.IRExpr"><span class="pre">IRExpr</span></a><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#pyvex.block.IRSB.next" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">next</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="#pyvex.expr.IRExpr" title="pyvex.expr.IRExpr"><span class="pre">IRExpr</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#pyvex.block.IRSB.next" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="pyvex.block.IRSB.jumpkind">
-<span class="sig-name descname"><span class="pre">jumpkind</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#pyvex.block.IRSB.jumpkind" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">jumpkind</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#pyvex.block.IRSB.jumpkind" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
@@ -1172,7 +1172,7 @@ default exit are used.
 <p>IR statements in VEX represents operations with side-effects.</p>
 <dl class="py attribute">
 <dt class="sig sig-object py" id="pyvex.stmt.IRStmt.tag">
-<span class="sig-name descname"><span class="pre">tag</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#pyvex.stmt.IRStmt.tag" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">tag</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#pyvex.stmt.IRStmt.tag" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
@@ -1228,7 +1228,7 @@ default exit are used.
 <p>A no-operation statement. It is usually the result of an IR optimization.</p>
 <dl class="py attribute">
 <dt class="sig sig-object py" id="pyvex.stmt.NoOp.tag">
-<span class="sig-name descname"><span class="pre">tag</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'Ist_NoOp'</span></em><a class="headerlink" href="#pyvex.stmt.NoOp.tag" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">tag</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'Ist_NoOp'</span></em><a class="headerlink" href="#pyvex.stmt.NoOp.tag" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
@@ -1247,7 +1247,7 @@ those statements is marked by the next IMark or the end of the IRSB).  Contains 
 instruction.</p>
 <dl class="py attribute">
 <dt class="sig sig-object py" id="pyvex.stmt.IMark.tag">
-<span class="sig-name descname"><span class="pre">tag</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'Ist_IMark'</span></em><a class="headerlink" href="#pyvex.stmt.IMark.tag" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">tag</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'Ist_IMark'</span></em><a class="headerlink" href="#pyvex.stmt.IMark.tag" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
@@ -1279,7 +1279,7 @@ instruction.</p>
 <p>An ABI hint, provides specific information about this platform’s ABI.</p>
 <dl class="py attribute">
 <dt class="sig sig-object py" id="pyvex.stmt.AbiHint.tag">
-<span class="sig-name descname"><span class="pre">tag</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'Ist_AbiHint'</span></em><a class="headerlink" href="#pyvex.stmt.AbiHint.tag" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">tag</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'Ist_AbiHint'</span></em><a class="headerlink" href="#pyvex.stmt.AbiHint.tag" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
@@ -1311,7 +1311,7 @@ instruction.</p>
 <p>Write to a guest register, at a fixed offset in the guest state.</p>
 <dl class="py attribute">
 <dt class="sig sig-object py" id="pyvex.stmt.Put.tag">
-<span class="sig-name descname"><span class="pre">tag</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'Ist_Put'</span></em><a class="headerlink" href="#pyvex.stmt.Put.tag" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">tag</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'Ist_Put'</span></em><a class="headerlink" href="#pyvex.stmt.Put.tag" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
@@ -1343,7 +1343,7 @@ instruction.</p>
 <p>Write to a guest register, at a non-fixed offset in the guest state.</p>
 <dl class="py attribute">
 <dt class="sig sig-object py" id="pyvex.stmt.PutI.tag">
-<span class="sig-name descname"><span class="pre">tag</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'Ist_PutI'</span></em><a class="headerlink" href="#pyvex.stmt.PutI.tag" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">tag</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'Ist_PutI'</span></em><a class="headerlink" href="#pyvex.stmt.PutI.tag" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
@@ -1386,7 +1386,7 @@ instruction.</p>
 will reject any block containing a temporary which is not assigned to exactly once.</p>
 <dl class="py attribute">
 <dt class="sig sig-object py" id="pyvex.stmt.WrTmp.tag">
-<span class="sig-name descname"><span class="pre">tag</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'Ist_WrTmp'</span></em><a class="headerlink" href="#pyvex.stmt.WrTmp.tag" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">tag</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'Ist_WrTmp'</span></em><a class="headerlink" href="#pyvex.stmt.WrTmp.tag" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
@@ -1418,7 +1418,7 @@ will reject any block containing a temporary which is not assigned to exactly on
 <p>Write a value to memory..</p>
 <dl class="py attribute">
 <dt class="sig sig-object py" id="pyvex.stmt.Store.tag">
-<span class="sig-name descname"><span class="pre">tag</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'Ist_Store'</span></em><a class="headerlink" href="#pyvex.stmt.Store.tag" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">tag</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'Ist_Store'</span></em><a class="headerlink" href="#pyvex.stmt.Store.tag" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
@@ -1460,7 +1460,7 @@ will reject any block containing a temporary which is not assigned to exactly on
 <p>an atomic compare-and-swap operation.</p>
 <dl class="py attribute">
 <dt class="sig sig-object py" id="pyvex.stmt.CAS.tag">
-<span class="sig-name descname"><span class="pre">tag</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'Ist_CAS'</span></em><a class="headerlink" href="#pyvex.stmt.CAS.tag" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">tag</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'Ist_CAS'</span></em><a class="headerlink" href="#pyvex.stmt.CAS.tag" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
@@ -1528,7 +1528,7 @@ will reject any block containing a temporary which is not assigned to exactly on
 else it is a Store-Conditional.</p>
 <dl class="py attribute">
 <dt class="sig sig-object py" id="pyvex.stmt.LLSC.tag">
-<span class="sig-name descname"><span class="pre">tag</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'Ist_LLSC'</span></em><a class="headerlink" href="#pyvex.stmt.LLSC.tag" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">tag</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'Ist_LLSC'</span></em><a class="headerlink" href="#pyvex.stmt.LLSC.tag" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
@@ -1574,7 +1574,7 @@ else it is a Store-Conditional.</p>
 <dd><p>Bases: <a class="reference internal" href="#pyvex.stmt.IRStmt" title="pyvex.stmt.IRStmt"><code class="xref py py-class docutils literal notranslate"><span class="pre">IRStmt</span></code></a></p>
 <dl class="py attribute">
 <dt class="sig sig-object py" id="pyvex.stmt.MBE.tag">
-<span class="sig-name descname"><span class="pre">tag</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'Ist_MBE'</span></em><a class="headerlink" href="#pyvex.stmt.MBE.tag" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">tag</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'Ist_MBE'</span></em><a class="headerlink" href="#pyvex.stmt.MBE.tag" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
@@ -1595,7 +1595,7 @@ else it is a Store-Conditional.</p>
 <dd><p>Bases: <a class="reference internal" href="#pyvex.stmt.IRStmt" title="pyvex.stmt.IRStmt"><code class="xref py py-class docutils literal notranslate"><span class="pre">IRStmt</span></code></a></p>
 <dl class="py attribute">
 <dt class="sig sig-object py" id="pyvex.stmt.Dirty.tag">
-<span class="sig-name descname"><span class="pre">tag</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'Ist_Dirty'</span></em><a class="headerlink" href="#pyvex.stmt.Dirty.tag" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">tag</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'Ist_Dirty'</span></em><a class="headerlink" href="#pyvex.stmt.Dirty.tag" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
@@ -1657,7 +1657,7 @@ else it is a Store-Conditional.</p>
 <p>A conditional exit from the middle of an IRSB.</p>
 <dl class="py attribute">
 <dt class="sig sig-object py" id="pyvex.stmt.Exit.tag">
-<span class="sig-name descname"><span class="pre">tag</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'Ist_Exit'</span></em><a class="headerlink" href="#pyvex.stmt.Exit.tag" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">tag</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'Ist_Exit'</span></em><a class="headerlink" href="#pyvex.stmt.Exit.tag" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
@@ -1709,7 +1709,7 @@ else it is a Store-Conditional.</p>
 <p>A guarded load.</p>
 <dl class="py attribute">
 <dt class="sig sig-object py" id="pyvex.stmt.LoadG.tag">
-<span class="sig-name descname"><span class="pre">tag</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'Ist_LoadG'</span></em><a class="headerlink" href="#pyvex.stmt.LoadG.tag" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">tag</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'Ist_LoadG'</span></em><a class="headerlink" href="#pyvex.stmt.LoadG.tag" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
@@ -1771,7 +1771,7 @@ else it is a Store-Conditional.</p>
 <p>A guarded store.</p>
 <dl class="py attribute">
 <dt class="sig sig-object py" id="pyvex.stmt.StoreG.tag">
-<span class="sig-name descname"><span class="pre">tag</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'Ist_StoreG'</span></em><a class="headerlink" href="#pyvex.stmt.StoreG.tag" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">tag</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'Ist_StoreG'</span></em><a class="headerlink" href="#pyvex.stmt.StoreG.tag" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
@@ -1828,7 +1828,7 @@ else it is a Store-Conditional.</p>
 <p>IR expressions in VEX represent operations without side effects.</p>
 <dl class="py attribute">
 <dt class="sig sig-object py" id="pyvex.expr.IRExpr.tag">
-<span class="sig-name descname"><span class="pre">tag</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#pyvex.expr.IRExpr.tag" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">tag</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#pyvex.expr.IRExpr.tag" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
@@ -1891,7 +1891,7 @@ else it is a Store-Conditional.</p>
 <p>Used only in pattern matching within Vex. Should not be seen outside of Vex.</p>
 <dl class="py attribute">
 <dt class="sig sig-object py" id="pyvex.expr.Binder.tag">
-<span class="sig-name descname"><span class="pre">tag</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'Iex_Binder'</span></em><a class="headerlink" href="#pyvex.expr.Binder.tag" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">tag</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'Iex_Binder'</span></em><a class="headerlink" href="#pyvex.expr.Binder.tag" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
@@ -1917,7 +1917,7 @@ else it is a Store-Conditional.</p>
 <dd><p>Bases: <a class="reference internal" href="#pyvex.expr.IRExpr" title="pyvex.expr.IRExpr"><code class="xref py py-class docutils literal notranslate"><span class="pre">IRExpr</span></code></a></p>
 <dl class="py attribute">
 <dt class="sig sig-object py" id="pyvex.expr.VECRET.tag">
-<span class="sig-name descname"><span class="pre">tag</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'Iex_VECRET'</span></em><a class="headerlink" href="#pyvex.expr.VECRET.tag" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">tag</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'Iex_VECRET'</span></em><a class="headerlink" href="#pyvex.expr.VECRET.tag" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
@@ -1938,7 +1938,7 @@ else it is a Store-Conditional.</p>
 <dd><p>Bases: <a class="reference internal" href="#pyvex.expr.IRExpr" title="pyvex.expr.IRExpr"><code class="xref py py-class docutils literal notranslate"><span class="pre">IRExpr</span></code></a></p>
 <dl class="py attribute">
 <dt class="sig sig-object py" id="pyvex.expr.GSPTR.tag">
-<span class="sig-name descname"><span class="pre">tag</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'Iex_GSPTR'</span></em><a class="headerlink" href="#pyvex.expr.GSPTR.tag" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">tag</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'Iex_GSPTR'</span></em><a class="headerlink" href="#pyvex.expr.GSPTR.tag" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
@@ -1960,7 +1960,7 @@ else it is a Store-Conditional.</p>
 <p>Read a guest register at a non-fixed offset in the guest state.</p>
 <dl class="py attribute">
 <dt class="sig sig-object py" id="pyvex.expr.GetI.tag">
-<span class="sig-name descname"><span class="pre">tag</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'Iex_GetI'</span></em><a class="headerlink" href="#pyvex.expr.GetI.tag" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">tag</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'Iex_GetI'</span></em><a class="headerlink" href="#pyvex.expr.GetI.tag" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
@@ -2007,7 +2007,7 @@ else it is a Store-Conditional.</p>
 <p>Read the value held by a temporary.</p>
 <dl class="py attribute">
 <dt class="sig sig-object py" id="pyvex.expr.RdTmp.tag">
-<span class="sig-name descname"><span class="pre">tag</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'Iex_RdTmp'</span></em><a class="headerlink" href="#pyvex.expr.RdTmp.tag" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">tag</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'Iex_RdTmp'</span></em><a class="headerlink" href="#pyvex.expr.RdTmp.tag" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py property">
@@ -2039,12 +2039,12 @@ else it is a Store-Conditional.</p>
 
 <dl class="py class">
 <dt class="sig sig-object py" id="pyvex.expr.Get">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">pyvex.expr.</span></span><span class="sig-name descname"><span class="pre">Get</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">offset</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="angr.html#angr.engines.light.data.RegisterOffset" title="angr.engines.light.data.RegisterOffset"><span class="pre">RegisterOffset</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">ty</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ty_int</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pyvex.expr.Get" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">pyvex.expr.</span></span><span class="sig-name descname"><span class="pre">Get</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">offset</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="angr.html#angr.engines.light.data.RegisterOffset" title="angr.engines.light.data.RegisterOffset"><span class="pre">RegisterOffset</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">ty</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ty_int</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pyvex.expr.Get" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="#pyvex.expr.IRExpr" title="pyvex.expr.IRExpr"><code class="xref py py-class docutils literal notranslate"><span class="pre">IRExpr</span></code></a></p>
 <p>Read a guest register, at a fixed offset in the guest state.</p>
 <dl class="py attribute">
 <dt class="sig sig-object py" id="pyvex.expr.Get.tag">
-<span class="sig-name descname"><span class="pre">tag</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'Iex_Get'</span></em><a class="headerlink" href="#pyvex.expr.Get.tag" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">tag</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'Iex_Get'</span></em><a class="headerlink" href="#pyvex.expr.Get.tag" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
@@ -2086,7 +2086,7 @@ else it is a Store-Conditional.</p>
 <p>A quaternary operation (4 arguments).</p>
 <dl class="py attribute">
 <dt class="sig sig-object py" id="pyvex.expr.Qop.tag">
-<span class="sig-name descname"><span class="pre">tag</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'Iex_Qop'</span></em><a class="headerlink" href="#pyvex.expr.Qop.tag" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">tag</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'Iex_Qop'</span></em><a class="headerlink" href="#pyvex.expr.Qop.tag" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
@@ -2128,7 +2128,7 @@ else it is a Store-Conditional.</p>
 <p>A ternary operation (3 arguments)</p>
 <dl class="py attribute">
 <dt class="sig sig-object py" id="pyvex.expr.Triop.tag">
-<span class="sig-name descname"><span class="pre">tag</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'Iex_Triop'</span></em><a class="headerlink" href="#pyvex.expr.Triop.tag" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">tag</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'Iex_Triop'</span></em><a class="headerlink" href="#pyvex.expr.Triop.tag" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
@@ -2170,7 +2170,7 @@ else it is a Store-Conditional.</p>
 <p>A binary operation (2 arguments).</p>
 <dl class="py attribute">
 <dt class="sig sig-object py" id="pyvex.expr.Binop.tag">
-<span class="sig-name descname"><span class="pre">tag</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'Iex_Binop'</span></em><a class="headerlink" href="#pyvex.expr.Binop.tag" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">tag</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'Iex_Binop'</span></em><a class="headerlink" href="#pyvex.expr.Binop.tag" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
@@ -2217,7 +2217,7 @@ else it is a Store-Conditional.</p>
 <p>A unary operation (1 argument).</p>
 <dl class="py attribute">
 <dt class="sig sig-object py" id="pyvex.expr.Unop.tag">
-<span class="sig-name descname"><span class="pre">tag</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'Iex_Unop'</span></em><a class="headerlink" href="#pyvex.expr.Unop.tag" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">tag</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'Iex_Unop'</span></em><a class="headerlink" href="#pyvex.expr.Unop.tag" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
@@ -2259,7 +2259,7 @@ else it is a Store-Conditional.</p>
 <p>A load from memory.</p>
 <dl class="py attribute">
 <dt class="sig sig-object py" id="pyvex.expr.Load.tag">
-<span class="sig-name descname"><span class="pre">tag</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'Iex_Load'</span></em><a class="headerlink" href="#pyvex.expr.Load.tag" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">tag</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'Iex_Load'</span></em><a class="headerlink" href="#pyvex.expr.Load.tag" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
@@ -2311,7 +2311,7 @@ else it is a Store-Conditional.</p>
 <p>A constant expression.</p>
 <dl class="py attribute">
 <dt class="sig sig-object py" id="pyvex.expr.Const.tag">
-<span class="sig-name descname"><span class="pre">tag</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'Iex_Const'</span></em><a class="headerlink" href="#pyvex.expr.Const.tag" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">tag</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'Iex_Const'</span></em><a class="headerlink" href="#pyvex.expr.Const.tag" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py property">
@@ -2343,7 +2343,7 @@ else it is a Store-Conditional.</p>
 <p>An if-then-else expression.</p>
 <dl class="py attribute">
 <dt class="sig sig-object py" id="pyvex.expr.ITE.tag">
-<span class="sig-name descname"><span class="pre">tag</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'Iex_ITE'</span></em><a class="headerlink" href="#pyvex.expr.ITE.tag" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">tag</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'Iex_ITE'</span></em><a class="headerlink" href="#pyvex.expr.ITE.tag" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
@@ -2385,7 +2385,7 @@ else it is a Store-Conditional.</p>
 <p>A call to a pure (no side-effects) helper C function.</p>
 <dl class="py attribute">
 <dt class="sig sig-object py" id="pyvex.expr.CCall.tag">
-<span class="sig-name descname"><span class="pre">tag</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'Iex_CCall'</span></em><a class="headerlink" href="#pyvex.expr.CCall.tag" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">tag</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'Iex_CCall'</span></em><a class="headerlink" href="#pyvex.expr.CCall.tag" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
@@ -2532,7 +2532,7 @@ else it is a Store-Conditional.</p>
 <dd><p>Bases: <a class="reference internal" href="#pyvex.enums.VEXObject" title="pyvex.enums.VEXObject"><code class="xref py py-class docutils literal notranslate"><span class="pre">VEXObject</span></code></a></p>
 <dl class="py attribute">
 <dt class="sig sig-object py" id="pyvex.const.IRConst.type">
-<span class="sig-name descname"><span class="pre">type</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#pyvex.const.IRConst.type" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">type</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#pyvex.const.IRConst.type" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
@@ -2542,7 +2542,7 @@ else it is a Store-Conditional.</p>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="pyvex.const.IRConst.tag">
-<span class="sig-name descname"><span class="pre">tag</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#pyvex.const.IRConst.tag" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">tag</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#pyvex.const.IRConst.tag" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
@@ -2568,7 +2568,7 @@ else it is a Store-Conditional.</p>
 <dd><p>Bases: <a class="reference internal" href="#pyvex.const.IRConst" title="pyvex.const.IRConst"><code class="xref py py-class docutils literal notranslate"><span class="pre">IRConst</span></code></a></p>
 <dl class="py attribute">
 <dt class="sig sig-object py" id="pyvex.const.U1.type">
-<span class="sig-name descname"><span class="pre">type</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'Ity_I1'</span></em><a class="headerlink" href="#pyvex.const.U1.type" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">type</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'Ity_I1'</span></em><a class="headerlink" href="#pyvex.const.U1.type" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
@@ -2578,7 +2578,7 @@ else it is a Store-Conditional.</p>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="pyvex.const.U1.tag">
-<span class="sig-name descname"><span class="pre">tag</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'Ico_U1'</span></em><a class="headerlink" href="#pyvex.const.U1.tag" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">tag</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'Ico_U1'</span></em><a class="headerlink" href="#pyvex.const.U1.tag" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
@@ -2588,7 +2588,7 @@ else it is a Store-Conditional.</p>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="pyvex.const.U1.c_constructor">
-<span class="sig-name descname"><span class="pre">c_constructor</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">&lt;cdata</span> <span class="pre">'IRConst</span> <span class="pre">*(*)(unsigned</span> <span class="pre">char)'</span> <span class="pre">0x7efd7996b936&gt;</span></em><a class="headerlink" href="#pyvex.const.U1.c_constructor" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">c_constructor</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">&lt;cdata</span> <span class="pre">'IRConst</span> <span class="pre">*(*)(unsigned</span> <span class="pre">char)'</span> <span class="pre">0x7f8f00518936&gt;</span></em><a class="headerlink" href="#pyvex.const.U1.c_constructor" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 </dd></dl>
@@ -2599,7 +2599,7 @@ else it is a Store-Conditional.</p>
 <dd><p>Bases: <a class="reference internal" href="#pyvex.const.IRConst" title="pyvex.const.IRConst"><code class="xref py py-class docutils literal notranslate"><span class="pre">IRConst</span></code></a></p>
 <dl class="py attribute">
 <dt class="sig sig-object py" id="pyvex.const.U8.type">
-<span class="sig-name descname"><span class="pre">type</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'Ity_I8'</span></em><a class="headerlink" href="#pyvex.const.U8.type" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">type</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'Ity_I8'</span></em><a class="headerlink" href="#pyvex.const.U8.type" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
@@ -2609,7 +2609,7 @@ else it is a Store-Conditional.</p>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="pyvex.const.U8.tag">
-<span class="sig-name descname"><span class="pre">tag</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'Ico_U8'</span></em><a class="headerlink" href="#pyvex.const.U8.tag" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">tag</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'Ico_U8'</span></em><a class="headerlink" href="#pyvex.const.U8.tag" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
@@ -2619,7 +2619,7 @@ else it is a Store-Conditional.</p>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="pyvex.const.U8.c_constructor">
-<span class="sig-name descname"><span class="pre">c_constructor</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">&lt;cdata</span> <span class="pre">'IRConst</span> <span class="pre">*(*)(unsigned</span> <span class="pre">char)'</span> <span class="pre">0x7efd7996b9b1&gt;</span></em><a class="headerlink" href="#pyvex.const.U8.c_constructor" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">c_constructor</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">&lt;cdata</span> <span class="pre">'IRConst</span> <span class="pre">*(*)(unsigned</span> <span class="pre">char)'</span> <span class="pre">0x7f8f005189b1&gt;</span></em><a class="headerlink" href="#pyvex.const.U8.c_constructor" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 </dd></dl>
@@ -2630,7 +2630,7 @@ else it is a Store-Conditional.</p>
 <dd><p>Bases: <a class="reference internal" href="#pyvex.const.IRConst" title="pyvex.const.IRConst"><code class="xref py py-class docutils literal notranslate"><span class="pre">IRConst</span></code></a></p>
 <dl class="py attribute">
 <dt class="sig sig-object py" id="pyvex.const.U16.type">
-<span class="sig-name descname"><span class="pre">type</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'Ity_I16'</span></em><a class="headerlink" href="#pyvex.const.U16.type" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">type</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'Ity_I16'</span></em><a class="headerlink" href="#pyvex.const.U16.type" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
@@ -2640,7 +2640,7 @@ else it is a Store-Conditional.</p>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="pyvex.const.U16.tag">
-<span class="sig-name descname"><span class="pre">tag</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'Ico_U16'</span></em><a class="headerlink" href="#pyvex.const.U16.tag" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">tag</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'Ico_U16'</span></em><a class="headerlink" href="#pyvex.const.U16.tag" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
@@ -2650,7 +2650,7 @@ else it is a Store-Conditional.</p>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="pyvex.const.U16.c_constructor">
-<span class="sig-name descname"><span class="pre">c_constructor</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">&lt;cdata</span> <span class="pre">'IRConst</span> <span class="pre">*(*)(unsigned</span> <span class="pre">short)'</span> <span class="pre">0x7efd7996b9eb&gt;</span></em><a class="headerlink" href="#pyvex.const.U16.c_constructor" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">c_constructor</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">&lt;cdata</span> <span class="pre">'IRConst</span> <span class="pre">*(*)(unsigned</span> <span class="pre">short)'</span> <span class="pre">0x7f8f005189eb&gt;</span></em><a class="headerlink" href="#pyvex.const.U16.c_constructor" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 </dd></dl>
@@ -2661,7 +2661,7 @@ else it is a Store-Conditional.</p>
 <dd><p>Bases: <a class="reference internal" href="#pyvex.const.IRConst" title="pyvex.const.IRConst"><code class="xref py py-class docutils literal notranslate"><span class="pre">IRConst</span></code></a></p>
 <dl class="py attribute">
 <dt class="sig sig-object py" id="pyvex.const.U32.type">
-<span class="sig-name descname"><span class="pre">type</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'Ity_I32'</span></em><a class="headerlink" href="#pyvex.const.U32.type" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">type</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'Ity_I32'</span></em><a class="headerlink" href="#pyvex.const.U32.type" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
@@ -2671,7 +2671,7 @@ else it is a Store-Conditional.</p>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="pyvex.const.U32.tag">
-<span class="sig-name descname"><span class="pre">tag</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'Ico_U32'</span></em><a class="headerlink" href="#pyvex.const.U32.tag" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">tag</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'Ico_U32'</span></em><a class="headerlink" href="#pyvex.const.U32.tag" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
@@ -2681,7 +2681,7 @@ else it is a Store-Conditional.</p>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="pyvex.const.U32.c_constructor">
-<span class="sig-name descname"><span class="pre">c_constructor</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">&lt;cdata</span> <span class="pre">'IRConst</span> <span class="pre">*(*)(unsigned</span> <span class="pre">int)'</span> <span class="pre">0x7efd7996ba27&gt;</span></em><a class="headerlink" href="#pyvex.const.U32.c_constructor" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">c_constructor</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">&lt;cdata</span> <span class="pre">'IRConst</span> <span class="pre">*(*)(unsigned</span> <span class="pre">int)'</span> <span class="pre">0x7f8f00518a27&gt;</span></em><a class="headerlink" href="#pyvex.const.U32.c_constructor" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 </dd></dl>
@@ -2692,7 +2692,7 @@ else it is a Store-Conditional.</p>
 <dd><p>Bases: <a class="reference internal" href="#pyvex.const.IRConst" title="pyvex.const.IRConst"><code class="xref py py-class docutils literal notranslate"><span class="pre">IRConst</span></code></a></p>
 <dl class="py attribute">
 <dt class="sig sig-object py" id="pyvex.const.U64.type">
-<span class="sig-name descname"><span class="pre">type</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'Ity_I64'</span></em><a class="headerlink" href="#pyvex.const.U64.type" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">type</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'Ity_I64'</span></em><a class="headerlink" href="#pyvex.const.U64.type" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
@@ -2702,7 +2702,7 @@ else it is a Store-Conditional.</p>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="pyvex.const.U64.tag">
-<span class="sig-name descname"><span class="pre">tag</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'Ico_U64'</span></em><a class="headerlink" href="#pyvex.const.U64.tag" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">tag</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'Ico_U64'</span></em><a class="headerlink" href="#pyvex.const.U64.tag" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
@@ -2712,7 +2712,7 @@ else it is a Store-Conditional.</p>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="pyvex.const.U64.c_constructor">
-<span class="sig-name descname"><span class="pre">c_constructor</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">&lt;cdata</span> <span class="pre">'IRConst</span> <span class="pre">*(*)(unsigned</span> <span class="pre">long</span> <span class="pre">long)'</span> <span class="pre">0x7efd7996ba5e&gt;</span></em><a class="headerlink" href="#pyvex.const.U64.c_constructor" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">c_constructor</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">&lt;cdata</span> <span class="pre">'IRConst</span> <span class="pre">*(*)(unsigned</span> <span class="pre">long</span> <span class="pre">long)'</span> <span class="pre">0x7f8f00518a5e&gt;</span></em><a class="headerlink" href="#pyvex.const.U64.c_constructor" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 </dd></dl>
@@ -2728,12 +2728,12 @@ else it is a Store-Conditional.</p>
 <dd><p>Bases: <a class="reference internal" href="#pyvex.const.IRConst" title="pyvex.const.IRConst"><code class="xref py py-class docutils literal notranslate"><span class="pre">IRConst</span></code></a></p>
 <dl class="py attribute">
 <dt class="sig sig-object py" id="pyvex.const.F32.type">
-<span class="sig-name descname"><span class="pre">type</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'Ity_F32'</span></em><a class="headerlink" href="#pyvex.const.F32.type" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">type</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'Ity_F32'</span></em><a class="headerlink" href="#pyvex.const.F32.type" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="pyvex.const.F32.tag">
-<span class="sig-name descname"><span class="pre">tag</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'Ico_F32'</span></em><a class="headerlink" href="#pyvex.const.F32.tag" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">tag</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'Ico_F32'</span></em><a class="headerlink" href="#pyvex.const.F32.tag" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
@@ -2743,7 +2743,7 @@ else it is a Store-Conditional.</p>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="pyvex.const.F32.c_constructor">
-<span class="sig-name descname"><span class="pre">c_constructor</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">&lt;cdata</span> <span class="pre">'IRConst</span> <span class="pre">*(*)(float)'</span> <span class="pre">0x7efd7996ba98&gt;</span></em><a class="headerlink" href="#pyvex.const.F32.c_constructor" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">c_constructor</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">&lt;cdata</span> <span class="pre">'IRConst</span> <span class="pre">*(*)(float)'</span> <span class="pre">0x7f8f00518a98&gt;</span></em><a class="headerlink" href="#pyvex.const.F32.c_constructor" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 </dd></dl>
@@ -2754,12 +2754,12 @@ else it is a Store-Conditional.</p>
 <dd><p>Bases: <a class="reference internal" href="#pyvex.const.IRConst" title="pyvex.const.IRConst"><code class="xref py py-class docutils literal notranslate"><span class="pre">IRConst</span></code></a></p>
 <dl class="py attribute">
 <dt class="sig sig-object py" id="pyvex.const.F32i.type">
-<span class="sig-name descname"><span class="pre">type</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'Ity_F32'</span></em><a class="headerlink" href="#pyvex.const.F32i.type" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">type</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'Ity_F32'</span></em><a class="headerlink" href="#pyvex.const.F32i.type" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="pyvex.const.F32i.tag">
-<span class="sig-name descname"><span class="pre">tag</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'Ico_F32i'</span></em><a class="headerlink" href="#pyvex.const.F32i.tag" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">tag</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'Ico_F32i'</span></em><a class="headerlink" href="#pyvex.const.F32i.tag" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
@@ -2769,7 +2769,7 @@ else it is a Store-Conditional.</p>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="pyvex.const.F32i.c_constructor">
-<span class="sig-name descname"><span class="pre">c_constructor</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">&lt;cdata</span> <span class="pre">'IRConst</span> <span class="pre">*(*)(unsigned</span> <span class="pre">int)'</span> <span class="pre">0x7efd7996bad5&gt;</span></em><a class="headerlink" href="#pyvex.const.F32i.c_constructor" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">c_constructor</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">&lt;cdata</span> <span class="pre">'IRConst</span> <span class="pre">*(*)(unsigned</span> <span class="pre">int)'</span> <span class="pre">0x7f8f00518ad5&gt;</span></em><a class="headerlink" href="#pyvex.const.F32i.c_constructor" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 </dd></dl>
@@ -2780,12 +2780,12 @@ else it is a Store-Conditional.</p>
 <dd><p>Bases: <a class="reference internal" href="#pyvex.const.IRConst" title="pyvex.const.IRConst"><code class="xref py py-class docutils literal notranslate"><span class="pre">IRConst</span></code></a></p>
 <dl class="py attribute">
 <dt class="sig sig-object py" id="pyvex.const.F64.type">
-<span class="sig-name descname"><span class="pre">type</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'Ity_F64'</span></em><a class="headerlink" href="#pyvex.const.F64.type" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">type</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'Ity_F64'</span></em><a class="headerlink" href="#pyvex.const.F64.type" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="pyvex.const.F64.tag">
-<span class="sig-name descname"><span class="pre">tag</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'Ico_F64'</span></em><a class="headerlink" href="#pyvex.const.F64.tag" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">tag</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'Ico_F64'</span></em><a class="headerlink" href="#pyvex.const.F64.tag" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
@@ -2795,7 +2795,7 @@ else it is a Store-Conditional.</p>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="pyvex.const.F64.c_constructor">
-<span class="sig-name descname"><span class="pre">c_constructor</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">&lt;cdata</span> <span class="pre">'IRConst</span> <span class="pre">*(*)(double)'</span> <span class="pre">0x7efd7996bb0c&gt;</span></em><a class="headerlink" href="#pyvex.const.F64.c_constructor" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">c_constructor</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">&lt;cdata</span> <span class="pre">'IRConst</span> <span class="pre">*(*)(double)'</span> <span class="pre">0x7f8f00518b0c&gt;</span></em><a class="headerlink" href="#pyvex.const.F64.c_constructor" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 </dd></dl>
@@ -2806,12 +2806,12 @@ else it is a Store-Conditional.</p>
 <dd><p>Bases: <a class="reference internal" href="#pyvex.const.IRConst" title="pyvex.const.IRConst"><code class="xref py py-class docutils literal notranslate"><span class="pre">IRConst</span></code></a></p>
 <dl class="py attribute">
 <dt class="sig sig-object py" id="pyvex.const.F64i.type">
-<span class="sig-name descname"><span class="pre">type</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'Ity_F64'</span></em><a class="headerlink" href="#pyvex.const.F64i.type" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">type</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'Ity_F64'</span></em><a class="headerlink" href="#pyvex.const.F64i.type" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="pyvex.const.F64i.tag">
-<span class="sig-name descname"><span class="pre">tag</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'Ico_F64i'</span></em><a class="headerlink" href="#pyvex.const.F64i.tag" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">tag</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'Ico_F64i'</span></em><a class="headerlink" href="#pyvex.const.F64i.tag" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
@@ -2821,7 +2821,7 @@ else it is a Store-Conditional.</p>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="pyvex.const.F64i.c_constructor">
-<span class="sig-name descname"><span class="pre">c_constructor</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">&lt;cdata</span> <span class="pre">'IRConst</span> <span class="pre">*(*)(unsigned</span> <span class="pre">long</span> <span class="pre">long)'</span> <span class="pre">0x7efd7996bb49&gt;</span></em><a class="headerlink" href="#pyvex.const.F64i.c_constructor" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">c_constructor</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">&lt;cdata</span> <span class="pre">'IRConst</span> <span class="pre">*(*)(unsigned</span> <span class="pre">long</span> <span class="pre">long)'</span> <span class="pre">0x7f8f00518b49&gt;</span></em><a class="headerlink" href="#pyvex.const.F64i.c_constructor" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 </dd></dl>
@@ -2832,12 +2832,12 @@ else it is a Store-Conditional.</p>
 <dd><p>Bases: <a class="reference internal" href="#pyvex.const.IRConst" title="pyvex.const.IRConst"><code class="xref py py-class docutils literal notranslate"><span class="pre">IRConst</span></code></a></p>
 <dl class="py attribute">
 <dt class="sig sig-object py" id="pyvex.const.V128.type">
-<span class="sig-name descname"><span class="pre">type</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'Ity_V128'</span></em><a class="headerlink" href="#pyvex.const.V128.type" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">type</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'Ity_V128'</span></em><a class="headerlink" href="#pyvex.const.V128.type" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="pyvex.const.V128.tag">
-<span class="sig-name descname"><span class="pre">tag</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'Ico_V128'</span></em><a class="headerlink" href="#pyvex.const.V128.tag" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">tag</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'Ico_V128'</span></em><a class="headerlink" href="#pyvex.const.V128.tag" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
@@ -2847,7 +2847,7 @@ else it is a Store-Conditional.</p>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="pyvex.const.V128.c_constructor">
-<span class="sig-name descname"><span class="pre">c_constructor</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">&lt;cdata</span> <span class="pre">'IRConst</span> <span class="pre">*(*)(unsigned</span> <span class="pre">short)'</span> <span class="pre">0x7efd7996bb83&gt;</span></em><a class="headerlink" href="#pyvex.const.V128.c_constructor" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">c_constructor</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">&lt;cdata</span> <span class="pre">'IRConst</span> <span class="pre">*(*)(unsigned</span> <span class="pre">short)'</span> <span class="pre">0x7f8f00518b83&gt;</span></em><a class="headerlink" href="#pyvex.const.V128.c_constructor" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 </dd></dl>
@@ -2858,12 +2858,12 @@ else it is a Store-Conditional.</p>
 <dd><p>Bases: <a class="reference internal" href="#pyvex.const.IRConst" title="pyvex.const.IRConst"><code class="xref py py-class docutils literal notranslate"><span class="pre">IRConst</span></code></a></p>
 <dl class="py attribute">
 <dt class="sig sig-object py" id="pyvex.const.V256.type">
-<span class="sig-name descname"><span class="pre">type</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'Ity_V256'</span></em><a class="headerlink" href="#pyvex.const.V256.type" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">type</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'Ity_V256'</span></em><a class="headerlink" href="#pyvex.const.V256.type" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="pyvex.const.V256.tag">
-<span class="sig-name descname"><span class="pre">tag</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'Ico_V256'</span></em><a class="headerlink" href="#pyvex.const.V256.tag" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">tag</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'Ico_V256'</span></em><a class="headerlink" href="#pyvex.const.V256.tag" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
@@ -2873,7 +2873,7 @@ else it is a Store-Conditional.</p>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="pyvex.const.V256.c_constructor">
-<span class="sig-name descname"><span class="pre">c_constructor</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">&lt;cdata</span> <span class="pre">'IRConst</span> <span class="pre">*(*)(unsigned</span> <span class="pre">int)'</span> <span class="pre">0x7efd7996bbbf&gt;</span></em><a class="headerlink" href="#pyvex.const.V256.c_constructor" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">c_constructor</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">&lt;cdata</span> <span class="pre">'IRConst</span> <span class="pre">*(*)(unsigned</span> <span class="pre">int)'</span> <span class="pre">0x7f8f00518bbf&gt;</span></em><a class="headerlink" href="#pyvex.const.V256.c_constructor" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 </dd></dl>
@@ -3301,7 +3301,7 @@ Ijk_NoDecode, signalling to pyvex that other lifters should be used on the undec
 
 <span class="target" id="module-pyvex.lifting.util.irsb_postprocess"></span><dl class="py function">
 <dt class="sig sig-object py" id="pyvex.lifting.util.irsb_postprocess.irsb_postproc_flatten">
-<span class="sig-prename descclassname"><span class="pre">pyvex.lifting.util.irsb_postprocess.</span></span><span class="sig-name descname"><span class="pre">irsb_postproc_flatten</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">irsb_old</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#pyvex.block.IRSB" title="pyvex.block.IRSB"><span class="pre">IRSB</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">irsb_new</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="#pyvex.block.IRSB" title="pyvex.block.IRSB"><span class="pre">IRSB</span></a><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#pyvex.block.IRSB" title="pyvex.block.IRSB"><span class="pre">IRSB</span></a></span></span><a class="headerlink" href="#pyvex.lifting.util.irsb_postprocess.irsb_postproc_flatten" title="Permalink to this definition">¶</a></dt>
+<span class="sig-prename descclassname"><span class="pre">pyvex.lifting.util.irsb_postprocess.</span></span><span class="sig-name descname"><span class="pre">irsb_postproc_flatten</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">irsb_old</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#pyvex.block.IRSB" title="pyvex.block.IRSB"><span class="pre">IRSB</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">irsb_new</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#pyvex.block.IRSB" title="pyvex.block.IRSB"><span class="pre">IRSB</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#pyvex.block.IRSB" title="pyvex.block.IRSB"><span class="pre">IRSB</span></a></span></span><a class="headerlink" href="#pyvex.lifting.util.irsb_postprocess.irsb_postproc_flatten" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
@@ -3327,7 +3327,7 @@ Ijk_NoDecode, signalling to pyvex that other lifters should be used on the undec
 
 <dl class="py class">
 <dt class="sig sig-object py" id="pyvex.lifting.util.syntax_wrapper.VexValue">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">pyvex.lifting.util.syntax_wrapper.</span></span><span class="sig-name descname"><span class="pre">VexValue</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">irsb_c</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#pyvex.lifting.util.vex_helper.IRSBCustomizer" title="pyvex.lifting.util.vex_helper.IRSBCustomizer"><span class="pre">IRSBCustomizer</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">rdt</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="#pyvex.expr.RdTmp" title="pyvex.expr.RdTmp"><span class="pre">RdTmp</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference internal" href="#pyvex.expr.Const" title="pyvex.expr.Const"><span class="pre">Const</span></a><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">signed</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pyvex.lifting.util.syntax_wrapper.VexValue" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">pyvex.lifting.util.syntax_wrapper.</span></span><span class="sig-name descname"><span class="pre">VexValue</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">irsb_c</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#pyvex.lifting.util.vex_helper.IRSBCustomizer" title="pyvex.lifting.util.vex_helper.IRSBCustomizer"><span class="pre">IRSBCustomizer</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">rdt</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#pyvex.expr.RdTmp" title="pyvex.expr.RdTmp"><span class="pre">RdTmp</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference internal" href="#pyvex.expr.Const" title="pyvex.expr.Const"><span class="pre">Const</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">signed</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pyvex.lifting.util.syntax_wrapper.VexValue" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
 <dl class="py property">
 <dt class="sig sig-object py" id="pyvex.lifting.util.syntax_wrapper.VexValue.value">
