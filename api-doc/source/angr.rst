@@ -415,6 +415,7 @@ Analysis
 .. automodule:: angr.analyses.propagator.engine_vex
 .. automodule:: angr.analyses.propagator.engine_ail
 .. automodule:: angr.analyses.propagator.outdated_definition_walker
+.. automodule:: angr.analyses.propagator.tmpvar_finder
 .. automodule:: angr.analyses.propagator.propagator
 .. automodule:: angr.analyses.propagator.prop_value
 .. automodule:: angr.analyses.propagator.top_checker_mixin
