@@ -373,6 +373,7 @@ Analysis
 .. automodule:: angr.analyses.decompiler.optimization_passes.base_ptr_save_simplifier
 .. automodule:: angr.analyses.decompiler.optimization_passes.div_simplifier
 .. automodule:: angr.analyses.decompiler.optimization_passes.ite_expr_converter
+.. automodule:: angr.analyses.decompiler.optimization_passes.lowered_switch_simplifier
 .. automodule:: angr.analyses.decompiler.optimization_passes.multi_simplifier
 .. automodule:: angr.analyses.decompiler.optimization_passes.mod_simplifier
 .. automodule:: angr.analyses.decompiler.optimization_passes.engine_base
