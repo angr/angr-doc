@@ -27,6 +27,28 @@ Then, we can just fix the bug and rename `broken_x.py` to `test_x.py` and the te
 
 These are some guidelines so that we can keep the codebase in good shape!
 
+## git blame
+
+In some repos there is a `.git-blame-ignore-revs` file; this file specifies specific commits `git blame` should ignore.
+This is useful for ignoring large refactoring / formatting commits.
+To configure `git` to use this file on a per repo basis, users can run:
+```bash
+git config blame.ignoreRevsFile .git-blame-ignore-revs
+```
+
+To configure this on a global basis, use:
+```bash
+git config --global blame.ignoreRevsFile .git-blame-ignore-revs
+```
+
+Additionally, the following two options might be helpful, but are not required:
+```bash
+# Mark any lines that have had a commit skipped using --ignore-rev with a `?`
+git config --global blame.markIgnoredLines true
+# Mark any lines that were added in a skipped commit and can not be attributed with a `*`
+git config --global blame.markUnblamableLines true
+```
+
 ## pre-commit
 
 Many angr repos contain pre-commit hooks provided by [pre-commit](https://pre-commit.com/).
