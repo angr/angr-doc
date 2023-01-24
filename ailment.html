@@ -8,7 +8,7 @@
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   
-  <title>ailment — angr Intermediate Language &mdash; angr 9.2.34
+  <title>ailment — angr Intermediate Language &mdash; angr 9.2.35
  documentation</title>
   
 
@@ -67,7 +67,7 @@
             
             
               <div class="version">
-                9.2.34
+                9.2.35
 
               </div>
             
@@ -96,8 +96,98 @@
               <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="angr.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">angr</span></code> — Analysis and Coordination</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#"><code class="xref py py-mod docutils literal notranslate"><span class="pre">ailment</span></code> — angr Intermediate Language</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#ailment.Block"><code class="docutils literal notranslate"><span class="pre">Block</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#ailment.Block.addr"><code class="docutils literal notranslate"><span class="pre">Block.addr</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#ailment.Block.original_size"><code class="docutils literal notranslate"><span class="pre">Block.original_size</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#ailment.Block.statements"><code class="docutils literal notranslate"><span class="pre">Block.statements</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#ailment.Block.idx"><code class="docutils literal notranslate"><span class="pre">Block.idx</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#ailment.Block.copy"><code class="docutils literal notranslate"><span class="pre">Block.copy()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#ailment.Block.likes"><code class="docutils literal notranslate"><span class="pre">Block.likes()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#ailment.Assignment"><code class="docutils literal notranslate"><span class="pre">Assignment</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#ailment.Assignment.dst"><code class="docutils literal notranslate"><span class="pre">Assignment.dst</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#ailment.Assignment.src"><code class="docutils literal notranslate"><span class="pre">Assignment.src</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#ailment.Assignment.likes"><code class="docutils literal notranslate"><span class="pre">Assignment.likes()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#ailment.Assignment.replace"><code class="docutils literal notranslate"><span class="pre">Assignment.replace()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#ailment.Assignment.copy"><code class="docutils literal notranslate"><span class="pre">Assignment.copy()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#ailment.Expression"><code class="docutils literal notranslate"><span class="pre">Expression</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#ailment.Expression.depth"><code class="docutils literal notranslate"><span class="pre">Expression.depth</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#ailment.Expression.has_atom"><code class="docutils literal notranslate"><span class="pre">Expression.has_atom()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#ailment.Expression.likes"><code class="docutils literal notranslate"><span class="pre">Expression.likes()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#ailment.Expression.replace"><code class="docutils literal notranslate"><span class="pre">Expression.replace()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#ailment.Const"><code class="docutils literal notranslate"><span class="pre">Const</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#ailment.Const.value"><code class="docutils literal notranslate"><span class="pre">Const.value</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#ailment.Const.bits"><code class="docutils literal notranslate"><span class="pre">Const.bits</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#ailment.Const.size"><code class="docutils literal notranslate"><span class="pre">Const.size</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#ailment.Const.likes"><code class="docutils literal notranslate"><span class="pre">Const.likes()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#ailment.Const.sign_bit"><code class="docutils literal notranslate"><span class="pre">Const.sign_bit</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#ailment.Const.copy"><code class="docutils literal notranslate"><span class="pre">Const.copy()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#ailment.Tmp"><code class="docutils literal notranslate"><span class="pre">Tmp</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#ailment.Tmp.tmp_idx"><code class="docutils literal notranslate"><span class="pre">Tmp.tmp_idx</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#ailment.Tmp.bits"><code class="docutils literal notranslate"><span class="pre">Tmp.bits</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#ailment.Tmp.size"><code class="docutils literal notranslate"><span class="pre">Tmp.size</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#ailment.Tmp.likes"><code class="docutils literal notranslate"><span class="pre">Tmp.likes()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#ailment.Tmp.copy"><code class="docutils literal notranslate"><span class="pre">Tmp.copy()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#ailment.Register"><code class="docutils literal notranslate"><span class="pre">Register</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#ailment.Register.reg_offset"><code class="docutils literal notranslate"><span class="pre">Register.reg_offset</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#ailment.Register.bits"><code class="docutils literal notranslate"><span class="pre">Register.bits</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#ailment.Register.size"><code class="docutils literal notranslate"><span class="pre">Register.size</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#ailment.Register.likes"><code class="docutils literal notranslate"><span class="pre">Register.likes()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#ailment.Register.copy"><code class="docutils literal notranslate"><span class="pre">Register.copy()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#ailment.UnaryOp"><code class="docutils literal notranslate"><span class="pre">UnaryOp</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#ailment.UnaryOp.operand"><code class="docutils literal notranslate"><span class="pre">UnaryOp.operand</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#ailment.UnaryOp.bits"><code class="docutils literal notranslate"><span class="pre">UnaryOp.bits</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#ailment.UnaryOp.variable"><code class="docutils literal notranslate"><span class="pre">UnaryOp.variable</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#ailment.UnaryOp.variable_offset"><code class="docutils literal notranslate"><span class="pre">UnaryOp.variable_offset</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#ailment.UnaryOp.likes"><code class="docutils literal notranslate"><span class="pre">UnaryOp.likes()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#ailment.UnaryOp.replace"><code class="docutils literal notranslate"><span class="pre">UnaryOp.replace()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#ailment.UnaryOp.operands"><code class="docutils literal notranslate"><span class="pre">UnaryOp.operands</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#ailment.UnaryOp.size"><code class="docutils literal notranslate"><span class="pre">UnaryOp.size</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#ailment.UnaryOp.copy"><code class="docutils literal notranslate"><span class="pre">UnaryOp.copy()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#ailment.UnaryOp.has_atom"><code class="docutils literal notranslate"><span class="pre">UnaryOp.has_atom()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#ailment.BinaryOp"><code class="docutils literal notranslate"><span class="pre">BinaryOp</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#ailment.BinaryOp.OPSTR_MAP"><code class="docutils literal notranslate"><span class="pre">BinaryOp.OPSTR_MAP</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#ailment.BinaryOp.COMPARISON_NEGATION"><code class="docutils literal notranslate"><span class="pre">BinaryOp.COMPARISON_NEGATION</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#ailment.BinaryOp.operands"><code class="docutils literal notranslate"><span class="pre">BinaryOp.operands</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#ailment.BinaryOp.bits"><code class="docutils literal notranslate"><span class="pre">BinaryOp.bits</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#ailment.BinaryOp.signed"><code class="docutils literal notranslate"><span class="pre">BinaryOp.signed</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#ailment.BinaryOp.variable"><code class="docutils literal notranslate"><span class="pre">BinaryOp.variable</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#ailment.BinaryOp.variable_offset"><code class="docutils literal notranslate"><span class="pre">BinaryOp.variable_offset</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#ailment.BinaryOp.floating_point"><code class="docutils literal notranslate"><span class="pre">BinaryOp.floating_point</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#ailment.BinaryOp.rounding_mode"><code class="docutils literal notranslate"><span class="pre">BinaryOp.rounding_mode</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#ailment.BinaryOp.likes"><code class="docutils literal notranslate"><span class="pre">BinaryOp.likes()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#ailment.BinaryOp.has_atom"><code class="docutils literal notranslate"><span class="pre">BinaryOp.has_atom()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#ailment.BinaryOp.replace"><code class="docutils literal notranslate"><span class="pre">BinaryOp.replace()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#ailment.BinaryOp.verbose_op"><code class="docutils literal notranslate"><span class="pre">BinaryOp.verbose_op</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#ailment.BinaryOp.size"><code class="docutils literal notranslate"><span class="pre">BinaryOp.size</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#ailment.BinaryOp.copy"><code class="docutils literal notranslate"><span class="pre">BinaryOp.copy()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#ailment.Manager"><code class="docutils literal notranslate"><span class="pre">Manager</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#ailment.Manager.next_atom"><code class="docutils literal notranslate"><span class="pre">Manager.next_atom()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#ailment.Manager.reset"><code class="docutils literal notranslate"><span class="pre">Manager.reset()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#ailment.Manager.ins_addr"><code class="docutils literal notranslate"><span class="pre">Manager.ins_addr</span></code></a></li>
+</ul>
+</li>
 <li class="toctree-l2"><a class="reference internal" href="#ailment.IRSBConverter"><code class="docutils literal notranslate"><span class="pre">IRSBConverter</span></code></a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#ailment.IRSBConverter.convert"><code class="docutils literal notranslate"><span class="pre">IRSBConverter.convert()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#ailment.VEXIRSBConverter"><code class="docutils literal notranslate"><span class="pre">VEXIRSBConverter</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#ailment.VEXIRSBConverter.convert"><code class="docutils literal notranslate"><span class="pre">VEXIRSBConverter.convert()</span></code></a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="#module-ailment.converter_common">Converter</a><ul>
@@ -504,6 +594,407 @@
   <section id="module-ailment">
 <span id="ailment-angr-intermediate-language"></span><h1><a class="reference internal" href="#module-ailment" title="ailment"><code class="xref py py-mod docutils literal notranslate"><span class="pre">ailment</span></code></a> — angr Intermediate Language<a class="headerlink" href="#module-ailment" title="Permalink to this heading">¶</a></h1>
 <dl class="py class">
+<dt class="sig sig-object py" id="ailment.Block">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">ailment.</span></span><span class="sig-name descname"><span class="pre">Block</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">addr</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">original_size</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">statements</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">idx</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#ailment.Block" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Describes an AIL block.</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="ailment.Block.addr">
+<span class="sig-name descname"><span class="pre">addr</span></span><a class="headerlink" href="#ailment.Block.addr" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="ailment.Block.original_size">
+<span class="sig-name descname"><span class="pre">original_size</span></span><a class="headerlink" href="#ailment.Block.original_size" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="ailment.Block.statements">
+<span class="sig-name descname"><span class="pre">statements</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="#ailment.statement.Statement" title="ailment.statement.Statement"><span class="pre">Statement</span></a><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#ailment.Block.statements" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="ailment.Block.idx">
+<span class="sig-name descname"><span class="pre">idx</span></span><a class="headerlink" href="#ailment.Block.idx" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="ailment.Block.copy">
+<span class="sig-name descname"><span class="pre">copy</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">statements</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#ailment.Block.copy" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="ailment.Block.likes">
+<span class="sig-name descname"><span class="pre">likes</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">other</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#ailment.Block.likes" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="ailment.Assignment">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">ailment.</span></span><span class="sig-name descname"><span class="pre">Assignment</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#ailment.Assignment" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#ailment.statement.Statement" title="ailment.statement.Statement"><code class="xref py py-class docutils literal notranslate"><span class="pre">Statement</span></code></a></p>
+<p>Assignment statement: expr_a = expr_b</p>
+<p>Create a new instance and set <cite>_tags</cite> attribute.</p>
+<p>Since TaggedObject override <cite>__getattr__</cite> method and try to access the
+<cite>_tags</cite> attribute, infinite recursion could occur if <cite>_tags</cite> not ready
+to exists.</p>
+<p>This behavior causes an infinite recursion error when copying
+<cite>TaggedObject</cite> with <cite>copy.deepcopy</cite>.</p>
+<p>Hence, we set <cite>_tags</cite> attribute here to prevent this problem.</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="ailment.Assignment.dst">
+<span class="sig-name descname"><span class="pre">dst</span></span><a class="headerlink" href="#ailment.Assignment.dst" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="ailment.Assignment.src">
+<span class="sig-name descname"><span class="pre">src</span></span><a class="headerlink" href="#ailment.Assignment.src" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="ailment.Assignment.likes">
+<span class="sig-name descname"><span class="pre">likes</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">other</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#ailment.Assignment.likes" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="ailment.Assignment.replace">
+<span class="sig-name descname"><span class="pre">replace</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">old_expr</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">new_expr</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#ailment.Assignment.replace" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="ailment.Assignment.copy">
+<span class="sig-name descname"><span class="pre">copy</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#ailment.statement.Assignment" title="ailment.statement.Assignment"><span class="pre">Assignment</span></a></span></span><a class="headerlink" href="#ailment.Assignment.copy" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="ailment.Expression">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">ailment.</span></span><span class="sig-name descname"><span class="pre">Expression</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#ailment.Expression" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#ailment.tagged_object.TaggedObject" title="ailment.tagged_object.TaggedObject"><code class="xref py py-class docutils literal notranslate"><span class="pre">TaggedObject</span></code></a></p>
+<p>The base class of all AIL expressions.</p>
+<p>Create a new instance and set <cite>_tags</cite> attribute.</p>
+<p>Since TaggedObject override <cite>__getattr__</cite> method and try to access the
+<cite>_tags</cite> attribute, infinite recursion could occur if <cite>_tags</cite> not ready
+to exists.</p>
+<p>This behavior causes an infinite recursion error when copying
+<cite>TaggedObject</cite> with <cite>copy.deepcopy</cite>.</p>
+<p>Hence, we set <cite>_tags</cite> attribute here to prevent this problem.</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="ailment.Expression.depth">
+<span class="sig-name descname"><span class="pre">depth</span></span><a class="headerlink" href="#ailment.Expression.depth" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="ailment.Expression.has_atom">
+<span class="sig-name descname"><span class="pre">has_atom</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">atom</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">identity</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#ailment.Expression.has_atom" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="ailment.Expression.likes">
+<span class="sig-name descname"><span class="pre">likes</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">atom</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#ailment.Expression.likes" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="ailment.Expression.replace">
+<span class="sig-name descname"><span class="pre">replace</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">old_expr</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">new_expr</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#ailment.Expression.replace" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="ailment.Const">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">ailment.</span></span><span class="sig-name descname"><span class="pre">Const</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#ailment.Const" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#ailment.expression.Atom" title="ailment.expression.Atom"><code class="xref py py-class docutils literal notranslate"><span class="pre">Atom</span></code></a></p>
+<p>Create a new instance and set <cite>_tags</cite> attribute.</p>
+<p>Since TaggedObject override <cite>__getattr__</cite> method and try to access the
+<cite>_tags</cite> attribute, infinite recursion could occur if <cite>_tags</cite> not ready
+to exists.</p>
+<p>This behavior causes an infinite recursion error when copying
+<cite>TaggedObject</cite> with <cite>copy.deepcopy</cite>.</p>
+<p>Hence, we set <cite>_tags</cite> attribute here to prevent this problem.</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="ailment.Const.value">
+<span class="sig-name descname"><span class="pre">value</span></span><a class="headerlink" href="#ailment.Const.value" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="ailment.Const.bits">
+<span class="sig-name descname"><span class="pre">bits</span></span><a class="headerlink" href="#ailment.Const.bits" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="ailment.Const.size">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">size</span></span><a class="headerlink" href="#ailment.Const.size" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="ailment.Const.likes">
+<span class="sig-name descname"><span class="pre">likes</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">other</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#ailment.Const.likes" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="ailment.Const.sign_bit">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">sign_bit</span></span><a class="headerlink" href="#ailment.Const.sign_bit" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="ailment.Const.copy">
+<span class="sig-name descname"><span class="pre">copy</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#ailment.expression.Const" title="ailment.expression.Const"><span class="pre">Const</span></a></span></span><a class="headerlink" href="#ailment.Const.copy" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="ailment.Tmp">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">ailment.</span></span><span class="sig-name descname"><span class="pre">Tmp</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#ailment.Tmp" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#ailment.expression.Atom" title="ailment.expression.Atom"><code class="xref py py-class docutils literal notranslate"><span class="pre">Atom</span></code></a></p>
+<p>Create a new instance and set <cite>_tags</cite> attribute.</p>
+<p>Since TaggedObject override <cite>__getattr__</cite> method and try to access the
+<cite>_tags</cite> attribute, infinite recursion could occur if <cite>_tags</cite> not ready
+to exists.</p>
+<p>This behavior causes an infinite recursion error when copying
+<cite>TaggedObject</cite> with <cite>copy.deepcopy</cite>.</p>
+<p>Hence, we set <cite>_tags</cite> attribute here to prevent this problem.</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="ailment.Tmp.tmp_idx">
+<span class="sig-name descname"><span class="pre">tmp_idx</span></span><a class="headerlink" href="#ailment.Tmp.tmp_idx" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="ailment.Tmp.bits">
+<span class="sig-name descname"><span class="pre">bits</span></span><a class="headerlink" href="#ailment.Tmp.bits" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="ailment.Tmp.size">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">size</span></span><a class="headerlink" href="#ailment.Tmp.size" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="ailment.Tmp.likes">
+<span class="sig-name descname"><span class="pre">likes</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">other</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#ailment.Tmp.likes" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="ailment.Tmp.copy">
+<span class="sig-name descname"><span class="pre">copy</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#ailment.expression.Tmp" title="ailment.expression.Tmp"><span class="pre">Tmp</span></a></span></span><a class="headerlink" href="#ailment.Tmp.copy" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="ailment.Register">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">ailment.</span></span><span class="sig-name descname"><span class="pre">Register</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#ailment.Register" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#ailment.expression.Atom" title="ailment.expression.Atom"><code class="xref py py-class docutils literal notranslate"><span class="pre">Atom</span></code></a></p>
+<p>Create a new instance and set <cite>_tags</cite> attribute.</p>
+<p>Since TaggedObject override <cite>__getattr__</cite> method and try to access the
+<cite>_tags</cite> attribute, infinite recursion could occur if <cite>_tags</cite> not ready
+to exists.</p>
+<p>This behavior causes an infinite recursion error when copying
+<cite>TaggedObject</cite> with <cite>copy.deepcopy</cite>.</p>
+<p>Hence, we set <cite>_tags</cite> attribute here to prevent this problem.</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="ailment.Register.reg_offset">
+<span class="sig-name descname"><span class="pre">reg_offset</span></span><a class="headerlink" href="#ailment.Register.reg_offset" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="ailment.Register.bits">
+<span class="sig-name descname"><span class="pre">bits</span></span><a class="headerlink" href="#ailment.Register.bits" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="ailment.Register.size">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">size</span></span><a class="headerlink" href="#ailment.Register.size" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="ailment.Register.likes">
+<span class="sig-name descname"><span class="pre">likes</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">atom</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#ailment.Register.likes" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="ailment.Register.copy">
+<span class="sig-name descname"><span class="pre">copy</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#ailment.expression.Register" title="ailment.expression.Register"><span class="pre">Register</span></a></span></span><a class="headerlink" href="#ailment.Register.copy" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="ailment.UnaryOp">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">ailment.</span></span><span class="sig-name descname"><span class="pre">UnaryOp</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#ailment.UnaryOp" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#ailment.expression.Op" title="ailment.expression.Op"><code class="xref py py-class docutils literal notranslate"><span class="pre">Op</span></code></a></p>
+<p>Create a new instance and set <cite>_tags</cite> attribute.</p>
+<p>Since TaggedObject override <cite>__getattr__</cite> method and try to access the
+<cite>_tags</cite> attribute, infinite recursion could occur if <cite>_tags</cite> not ready
+to exists.</p>
+<p>This behavior causes an infinite recursion error when copying
+<cite>TaggedObject</cite> with <cite>copy.deepcopy</cite>.</p>
+<p>Hence, we set <cite>_tags</cite> attribute here to prevent this problem.</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="ailment.UnaryOp.operand">
+<span class="sig-name descname"><span class="pre">operand</span></span><a class="headerlink" href="#ailment.UnaryOp.operand" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="ailment.UnaryOp.bits">
+<span class="sig-name descname"><span class="pre">bits</span></span><a class="headerlink" href="#ailment.UnaryOp.bits" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="ailment.UnaryOp.variable">
+<span class="sig-name descname"><span class="pre">variable</span></span><a class="headerlink" href="#ailment.UnaryOp.variable" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="ailment.UnaryOp.variable_offset">
+<span class="sig-name descname"><span class="pre">variable_offset</span></span><a class="headerlink" href="#ailment.UnaryOp.variable_offset" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="ailment.UnaryOp.likes">
+<span class="sig-name descname"><span class="pre">likes</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">other</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#ailment.UnaryOp.likes" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="ailment.UnaryOp.replace">
+<span class="sig-name descname"><span class="pre">replace</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">old_expr</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">new_expr</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#ailment.UnaryOp.replace" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="ailment.UnaryOp.operands">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">operands</span></span><a class="headerlink" href="#ailment.UnaryOp.operands" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="ailment.UnaryOp.size">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">size</span></span><a class="headerlink" href="#ailment.UnaryOp.size" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="ailment.UnaryOp.copy">
+<span class="sig-name descname"><span class="pre">copy</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#ailment.expression.UnaryOp" title="ailment.expression.UnaryOp"><span class="pre">UnaryOp</span></a></span></span><a class="headerlink" href="#ailment.UnaryOp.copy" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="ailment.UnaryOp.has_atom">
+<span class="sig-name descname"><span class="pre">has_atom</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">atom</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">identity</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#ailment.UnaryOp.has_atom" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="ailment.BinaryOp">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">ailment.</span></span><span class="sig-name descname"><span class="pre">BinaryOp</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#ailment.BinaryOp" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#ailment.expression.Op" title="ailment.expression.Op"><code class="xref py py-class docutils literal notranslate"><span class="pre">Op</span></code></a></p>
+<p>Create a new instance and set <cite>_tags</cite> attribute.</p>
+<p>Since TaggedObject override <cite>__getattr__</cite> method and try to access the
+<cite>_tags</cite> attribute, infinite recursion could occur if <cite>_tags</cite> not ready
+to exists.</p>
+<p>This behavior causes an infinite recursion error when copying
+<cite>TaggedObject</cite> with <cite>copy.deepcopy</cite>.</p>
+<p>Hence, we set <cite>_tags</cite> attribute here to prevent this problem.</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="ailment.BinaryOp.OPSTR_MAP">
+<span class="sig-name descname"><span class="pre">OPSTR_MAP</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">{'Add':</span> <span class="pre">'+',</span> <span class="pre">'AddF':</span> <span class="pre">'+',</span> <span class="pre">'And':</span> <span class="pre">'&amp;',</span> <span class="pre">'CmpEQ':</span> <span class="pre">'==',</span> <span class="pre">'CmpF':</span> <span class="pre">'CmpF',</span> <span class="pre">'CmpGE':</span> <span class="pre">'&gt;=',</span> <span class="pre">'CmpGEs':</span> <span class="pre">'&gt;=s',</span> <span class="pre">'CmpGT':</span> <span class="pre">'&gt;',</span> <span class="pre">'CmpGTs':</span> <span class="pre">'&gt;s',</span> <span class="pre">'CmpLE':</span> <span class="pre">'&lt;=',</span> <span class="pre">'CmpLEs':</span> <span class="pre">'&lt;=s',</span> <span class="pre">'CmpLT':</span> <span class="pre">'&lt;',</span> <span class="pre">'CmpLTs':</span> <span class="pre">'&lt;s',</span> <span class="pre">'CmpNE':</span> <span class="pre">'!=',</span> <span class="pre">'Concat':</span> <span class="pre">'CONCAT',</span> <span class="pre">'Div':</span> <span class="pre">'/',</span> <span class="pre">'DivF':</span> <span class="pre">'/',</span> <span class="pre">'DivMod':</span> <span class="pre">'/m',</span> <span class="pre">'LogicalAnd':</span> <span class="pre">'&amp;&amp;',</span> <span class="pre">'LogicalOr':</span> <span class="pre">'||',</span> <span class="pre">'Mul':</span> <span class="pre">'*',</span> <span class="pre">'MulF':</span> <span class="pre">'*',</span> <span class="pre">'Or':</span> <span class="pre">'|',</span> <span class="pre">'Sar':</span> <span class="pre">'&gt;&gt;a',</span> <span class="pre">'Shl':</span> <span class="pre">'&lt;&lt;',</span> <span class="pre">'Shr':</span> <span class="pre">'&gt;&gt;',</span> <span class="pre">'Sub':</span> <span class="pre">'-',</span> <span class="pre">'SubF':</span> <span class="pre">'-',</span> <span class="pre">'Xor':</span> <span class="pre">'^'}</span></em><a class="headerlink" href="#ailment.BinaryOp.OPSTR_MAP" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="ailment.BinaryOp.COMPARISON_NEGATION">
+<span class="sig-name descname"><span class="pre">COMPARISON_NEGATION</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">{'CmpEQ':</span> <span class="pre">'CmpNE',</span> <span class="pre">'CmpGE':</span> <span class="pre">'CmpLT',</span> <span class="pre">'CmpGEs':</span> <span class="pre">'CmpLTs',</span> <span class="pre">'CmpGT':</span> <span class="pre">'CmpLE',</span> <span class="pre">'CmpGTs':</span> <span class="pre">'CmpLEs',</span> <span class="pre">'CmpLE':</span> <span class="pre">'CmpGT',</span> <span class="pre">'CmpLEs':</span> <span class="pre">'CmpGTs',</span> <span class="pre">'CmpLT':</span> <span class="pre">'CmpGE',</span> <span class="pre">'CmpLTs':</span> <span class="pre">'CmpGEs',</span> <span class="pre">'CmpNE':</span> <span class="pre">'CmpEQ'}</span></em><a class="headerlink" href="#ailment.BinaryOp.COMPARISON_NEGATION" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="ailment.BinaryOp.operands">
+<span class="sig-name descname"><span class="pre">operands</span></span><a class="headerlink" href="#ailment.BinaryOp.operands" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="ailment.BinaryOp.bits">
+<span class="sig-name descname"><span class="pre">bits</span></span><a class="headerlink" href="#ailment.BinaryOp.bits" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="ailment.BinaryOp.signed">
+<span class="sig-name descname"><span class="pre">signed</span></span><a class="headerlink" href="#ailment.BinaryOp.signed" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="ailment.BinaryOp.variable">
+<span class="sig-name descname"><span class="pre">variable</span></span><a class="headerlink" href="#ailment.BinaryOp.variable" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="ailment.BinaryOp.variable_offset">
+<span class="sig-name descname"><span class="pre">variable_offset</span></span><a class="headerlink" href="#ailment.BinaryOp.variable_offset" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="ailment.BinaryOp.floating_point">
+<span class="sig-name descname"><span class="pre">floating_point</span></span><a class="headerlink" href="#ailment.BinaryOp.floating_point" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="ailment.BinaryOp.rounding_mode">
+<span class="sig-name descname"><span class="pre">rounding_mode</span></span><a class="headerlink" href="#ailment.BinaryOp.rounding_mode" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="ailment.BinaryOp.likes">
+<span class="sig-name descname"><span class="pre">likes</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">other</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#ailment.BinaryOp.likes" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="ailment.BinaryOp.has_atom">
+<span class="sig-name descname"><span class="pre">has_atom</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">atom</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">identity</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#ailment.BinaryOp.has_atom" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="ailment.BinaryOp.replace">
+<span class="sig-name descname"><span class="pre">replace</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">old_expr</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">new_expr</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#ailment.BinaryOp.replace" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="ailment.BinaryOp.verbose_op">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">verbose_op</span></span><a class="headerlink" href="#ailment.BinaryOp.verbose_op" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="ailment.BinaryOp.size">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">size</span></span><a class="headerlink" href="#ailment.BinaryOp.size" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="ailment.BinaryOp.copy">
+<span class="sig-name descname"><span class="pre">copy</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#ailment.expression.BinaryOp" title="ailment.expression.BinaryOp"><span class="pre">BinaryOp</span></a></span></span><a class="headerlink" href="#ailment.BinaryOp.copy" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="ailment.Manager">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">ailment.</span></span><span class="sig-name descname"><span class="pre">Manager</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">arch</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#ailment.Manager" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<dl class="py method">
+<dt class="sig sig-object py" id="ailment.Manager.next_atom">
+<span class="sig-name descname"><span class="pre">next_atom</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#ailment.Manager.next_atom" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="ailment.Manager.reset">
+<span class="sig-name descname"><span class="pre">reset</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#ailment.Manager.reset" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="ailment.Manager.ins_addr">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">ins_addr</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#ailment.Manager.ins_addr" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
 <dt class="sig sig-object py" id="ailment.IRSBConverter">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">ailment.</span></span><span class="sig-name descname"><span class="pre">IRSBConverter</span></span><a class="headerlink" href="#ailment.IRSBConverter" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="#ailment.converter_common.Converter" title="ailment.converter_common.Converter"><code class="xref py py-class docutils literal notranslate"><span class="pre">Converter</span></code></a></p>
@@ -520,6 +1011,28 @@
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p>Returns the converted block</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="ailment.VEXIRSBConverter">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">ailment.</span></span><span class="sig-name descname"><span class="pre">VEXIRSBConverter</span></span><a class="headerlink" href="#ailment.VEXIRSBConverter" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#ailment.converter_common.Converter" title="ailment.converter_common.Converter"><code class="xref py py-class docutils literal notranslate"><span class="pre">Converter</span></code></a></p>
+<dl class="py method">
+<dt class="sig sig-object py" id="ailment.VEXIRSBConverter.convert">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">convert</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">irsb</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">manager</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#ailment.VEXIRSBConverter.convert" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>irsb</strong> – </p></li>
+<li><p><strong>manager</strong> – </p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p></p>
 </dd>
 </dl>
 </dd></dl>
@@ -2037,7 +2550,7 @@ to exists.</p>
 
 <span class="target" id="module-ailment.utils"></span><dl class="py function">
 <dt class="sig sig-object py" id="ailment.utils.get_bits">
-<span class="sig-prename descclassname"><span class="pre">ailment.utils.</span></span><span class="sig-name descname"><span class="pre">get_bits</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">expr</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference internal" href="claripy.html#claripy.ast.bits.Bits" title="claripy.ast.bits.Bits"><span class="pre">Bits</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference internal" href="#ailment.expression.Expression" title="ailment.expression.Expression"><span class="pre">Expression</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">int</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span></span><a class="headerlink" href="#ailment.utils.get_bits" title="Permalink to this definition">¶</a></dt>
+<span class="sig-prename descclassname"><span class="pre">ailment.utils.</span></span><span class="sig-name descname"><span class="pre">get_bits</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">expr</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference internal" href="claripy.html#claripy.ast.bits.Bits" title="claripy.ast.bits.Bits"><span class="pre">Bits</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference internal" href="#ailment.Expression" title="ailment.Expression"><span class="pre">Expression</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">int</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span></span><a class="headerlink" href="#ailment.utils.get_bits" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py function">

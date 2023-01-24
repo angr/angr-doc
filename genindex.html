@@ -7,7 +7,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   
-  <title>Index &mdash; angr 9.2.34
+  <title>Index &mdash; angr 9.2.35
  documentation</title>
   
 
@@ -64,7 +64,7 @@
             
             
               <div class="version">
-                9.2.34
+                9.2.35
 
               </div>
             
@@ -548,9 +548,11 @@
       </ul></li>
       <li><a href="angr.html#angr.analyses.typehoon.typevars.AddN">AddN (class in angr.analyses.typehoon.typevars)</a>
 </li>
-      <li><a href="ailment.html#ailment.block.Block.addr">addr (ailment.block.Block attribute)</a>
+      <li><a href="ailment.html#ailment.Block.addr">addr (ailment.Block attribute)</a>
 
       <ul>
+        <li><a href="ailment.html#ailment.block.Block.addr">(ailment.block.Block attribute)</a>
+</li>
         <li><a href="ailment.html#ailment.expression.Load.addr">(ailment.expression.Load attribute)</a>
 </li>
         <li><a href="ailment.html#ailment.statement.Store.addr">(ailment.statement.Store attribute)</a>
@@ -4620,6 +4622,8 @@
       <li><a href="angr.html#angr.analyses.cfg.indirect_jump_resolvers.jumptable.AddressTransferringTypes.Assignment">Assignment (angr.analyses.cfg.indirect_jump_resolvers.jumptable.AddressTransferringTypes attribute)</a>
 
       <ul>
+        <li><a href="ailment.html#ailment.Assignment">(class in ailment)</a>
+</li>
         <li><a href="ailment.html#ailment.statement.Assignment">(class in ailment.statement)</a>
 </li>
       </ul></li>
@@ -4885,8 +4889,12 @@
       </ul></li>
       <li><a href="angr.html#angr.analyses.reassembler.BinaryError">BinaryError</a>
 </li>
-      <li><a href="ailment.html#ailment.expression.BinaryOp">BinaryOp (class in ailment.expression)</a>
+      <li><a href="ailment.html#ailment.BinaryOp">BinaryOp (class in ailment)</a>
+
+      <ul>
+        <li><a href="ailment.html#ailment.expression.BinaryOp">(class in ailment.expression)</a>
 </li>
+      </ul></li>
       <li><a href="angr.html#angr.analyses.binary_optimizer.BinaryOptimizer">BinaryOptimizer (class in angr.analyses.binary_optimizer)</a>
 </li>
       <li><a href="cle.html#cle.backends.macho.structs.Arm64e.bind">bind (cle.backends.macho.structs.Arm64e attribute)</a>
@@ -4937,9 +4945,13 @@
 </li>
       <li><a href="angr.html#angr.analyses.stack_pointer_tracker.Register.bitlen">bitlen (angr.analyses.stack_pointer_tracker.Register attribute)</a>
 </li>
-      <li><a href="ailment.html#ailment.expression.BasePointerOffset.bits">bits (ailment.expression.BasePointerOffset attribute)</a>
+      <li><a href="ailment.html#ailment.BinaryOp.bits">bits (ailment.BinaryOp attribute)</a>
 
       <ul>
+        <li><a href="ailment.html#ailment.Const.bits">(ailment.Const attribute)</a>
+</li>
+        <li><a href="ailment.html#ailment.expression.BasePointerOffset.bits">(ailment.expression.BasePointerOffset attribute)</a>
+</li>
         <li><a href="ailment.html#ailment.expression.BinaryOp.bits">(ailment.expression.BinaryOp attribute)</a>
 </li>
         <li><a href="ailment.html#ailment.expression.Const.bits">(ailment.expression.Const attribute)</a>
@@ -4960,7 +4972,13 @@
 </li>
         <li><a href="ailment.html#ailment.expression.VEXCCallExpression.bits">(ailment.expression.VEXCCallExpression attribute)</a>
 </li>
+        <li><a href="ailment.html#ailment.Register.bits">(ailment.Register attribute)</a>
+</li>
         <li><a href="ailment.html#ailment.statement.Call.bits">(ailment.statement.Call property)</a>
+</li>
+        <li><a href="ailment.html#ailment.Tmp.bits">(ailment.Tmp attribute)</a>
+</li>
+        <li><a href="ailment.html#ailment.UnaryOp.bits">(ailment.UnaryOp attribute)</a>
 </li>
         <li><a href="angr.html#angr.analyses.propagator.values.Top.bits">(angr.analyses.propagator.values.Top property)</a>
 </li>
@@ -5065,9 +5083,11 @@
 </li>
       <li><a href="angr.html#angr.knowledge_plugins.cfg.cfg_node.CFGNode.block">block (angr.knowledge_plugins.cfg.cfg_node.CFGNode property)</a>
 </li>
-      <li><a href="ailment.html#ailment.block.Block">Block (class in ailment.block)</a>
+      <li><a href="ailment.html#ailment.Block">Block (class in ailment)</a>
 
       <ul>
+        <li><a href="ailment.html#ailment.block.Block">(class in ailment.block)</a>
+</li>
         <li><a href="angr.html#angr.block.Block">(class in angr.block)</a>
 </li>
       </ul></li>
@@ -6997,8 +7017,6 @@
         <li><a href="cle.html#module-cle.backends.pe.relocation.generic">module</a>
 </li>
       </ul></li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
       <li>
     cle.backends.pe.relocation.i386
 
@@ -7013,6 +7031,8 @@
         <li><a href="cle.html#module-cle.backends.pe.relocation.mips">module</a>
 </li>
       </ul></li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
       <li>
     cle.backends.pe.relocation.pereloc
 
@@ -7357,8 +7377,12 @@
 </li>
       <li><a href="claripy.html#claripy.balancer.Balancer.comparison_info">comparison_info (claripy.balancer.Balancer attribute)</a>
 </li>
-      <li><a href="ailment.html#ailment.expression.BinaryOp.COMPARISON_NEGATION">COMPARISON_NEGATION (ailment.expression.BinaryOp attribute)</a>
+      <li><a href="ailment.html#ailment.BinaryOp.COMPARISON_NEGATION">COMPARISON_NEGATION (ailment.BinaryOp attribute)</a>
+
+      <ul>
+        <li><a href="ailment.html#ailment.expression.BinaryOp.COMPARISON_NEGATION">(ailment.expression.BinaryOp attribute)</a>
 </li>
+      </ul></li>
       <li><a href="claripy.html#claripy.balancer.Balancer.compat_ret">compat_ret (claripy.balancer.Balancer property)</a>
 </li>
       <li><a href="cle.html#cle.backends.cgc.backedcgc.BackedCGC.compilation_units">compilation_units (cle.backends.cgc.backedcgc.BackedCGC attribute)</a>
@@ -7579,9 +7603,11 @@
 </li>
       <li><a href="angr.html#angr.knowledge_plugins.key_definitions.atoms.ConstantSrc.const">const (angr.knowledge_plugins.key_definitions.atoms.ConstantSrc attribute)</a>
 </li>
-      <li><a href="ailment.html#ailment.expression.Const">Const (class in ailment.expression)</a>
+      <li><a href="ailment.html#ailment.Const">Const (class in ailment)</a>
 
       <ul>
+        <li><a href="ailment.html#ailment.expression.Const">(class in ailment.expression)</a>
+</li>
         <li><a href="pyvex.html#pyvex.expr.Const">(class in pyvex.expr)</a>
 </li>
       </ul></li>
@@ -7730,6 +7756,8 @@
 </li>
         <li><a href="ailment.html#ailment.IRSBConverter.convert">(ailment.IRSBConverter static method)</a>
 </li>
+        <li><a href="ailment.html#ailment.VEXIRSBConverter.convert">(ailment.VEXIRSBConverter static method)</a>
+</li>
         <li><a href="claripy.html#claripy.backends.Backend.convert">(claripy.backends.Backend method)</a>
 </li>
         <li><a href="claripy.html#claripy.backends.backend_concrete.BackendConcrete.convert">(claripy.backends.backend_concrete.BackendConcrete method)</a>
@@ -7767,9 +7795,17 @@
 </li>
       <li><a href="angr.html#angr.storage.memory_mixins.paged_memory.pages.cooperation.CooperationBase">CooperationBase (class in angr.storage.memory_mixins.paged_memory.pages.cooperation)</a>
 </li>
-      <li><a href="ailment.html#ailment.block.Block.copy">copy() (ailment.block.Block method)</a>
+      <li><a href="ailment.html#ailment.Assignment.copy">copy() (ailment.Assignment method)</a>
 
       <ul>
+        <li><a href="ailment.html#ailment.BinaryOp.copy">(ailment.BinaryOp method)</a>
+</li>
+        <li><a href="ailment.html#ailment.Block.copy">(ailment.Block method)</a>
+</li>
+        <li><a href="ailment.html#ailment.block.Block.copy">(ailment.block.Block method)</a>
+</li>
+        <li><a href="ailment.html#ailment.Const.copy">(ailment.Const method)</a>
+</li>
         <li><a href="ailment.html#ailment.expression.Atom.copy">(ailment.expression.Atom method)</a>
 </li>
         <li><a href="ailment.html#ailment.expression.BasePointerOffset.copy">(ailment.expression.BasePointerOffset method)</a>
@@ -7800,6 +7836,8 @@
 </li>
         <li><a href="ailment.html#ailment.expression.VEXCCallExpression.copy">(ailment.expression.VEXCCallExpression method)</a>
 </li>
+        <li><a href="ailment.html#ailment.Register.copy">(ailment.Register method)</a>
+</li>
         <li><a href="ailment.html#ailment.statement.Assignment.copy">(ailment.statement.Assignment method)</a>
 </li>
         <li><a href="ailment.html#ailment.statement.Call.copy">(ailment.statement.Call method)</a>
@@ -7815,6 +7853,10 @@
         <li><a href="ailment.html#ailment.statement.Return.copy">(ailment.statement.Return method)</a>
 </li>
         <li><a href="ailment.html#ailment.statement.Store.copy">(ailment.statement.Store method)</a>
+</li>
+        <li><a href="ailment.html#ailment.Tmp.copy">(ailment.Tmp method)</a>
+</li>
+        <li><a href="ailment.html#ailment.UnaryOp.copy">(ailment.UnaryOp method)</a>
 </li>
         <li><a href="angr.html#angr.analyses.cfg.cfg_base.CFGBase.copy">(angr.analyses.cfg.cfg_base.CFGBase method)</a>
 </li>
@@ -8653,9 +8695,11 @@
 </li>
       <li><a href="angr.html#angr.analyses.data_dep.dep_nodes.DepNodeTypes">DepNodeTypes (class in angr.analyses.data_dep.dep_nodes)</a>
 </li>
-      <li><a href="ailment.html#ailment.expression.Expression.depth">depth (ailment.expression.Expression attribute)</a>
+      <li><a href="ailment.html#ailment.Expression.depth">depth (ailment.Expression attribute)</a>
 
       <ul>
+        <li><a href="ailment.html#ailment.expression.Expression.depth">(ailment.expression.Expression attribute)</a>
+</li>
         <li><a href="angr.html#angr.knowledge_plugins.cfg.cfg_node.CFGENode.depth">(angr.knowledge_plugins.cfg.cfg_node.CFGENode attribute)</a>
 </li>
         <li><a href="claripy.html#claripy.ast.base.Base.depth">(claripy.ast.base.Base attribute)</a>
@@ -8937,9 +8981,11 @@
 </li>
       <li><a href="claripy.html#claripy.ast.bv.DSIS">DSIS() (in module claripy.ast.bv)</a>
 </li>
-      <li><a href="ailment.html#ailment.statement.Assignment.dst">dst (ailment.statement.Assignment attribute)</a>
+      <li><a href="ailment.html#ailment.Assignment.dst">dst (ailment.Assignment attribute)</a>
 
       <ul>
+        <li><a href="ailment.html#ailment.statement.Assignment.dst">(ailment.statement.Assignment attribute)</a>
+</li>
         <li><a href="angr.html#angr.knowledge_plugins.xrefs.xref.XRef.dst">(angr.knowledge_plugins.xrefs.xref.XRef attribute)</a>
 </li>
         <li><a href="pyvex.html#pyvex.stmt.Exit.dst">(pyvex.stmt.Exit attribute)</a>
@@ -9659,8 +9705,12 @@
 </li>
       <li><a href="angr.html#angr.analyses.decompiler.region_simplifiers.expr_folding.ExpressionLocation.expr_idx">expr_idx (angr.analyses.decompiler.region_simplifiers.expr_folding.ExpressionLocation attribute)</a>
 </li>
-      <li><a href="ailment.html#ailment.expression.Expression">Expression (class in ailment.expression)</a>
+      <li><a href="ailment.html#ailment.Expression">Expression (class in ailment)</a>
+
+      <ul>
+        <li><a href="ailment.html#ailment.expression.Expression">(class in ailment.expression)</a>
 </li>
+      </ul></li>
       <li><a href="angr.html#angr.analyses.decompiler.region_simplifiers.expr_folding.ExpressionCounter">ExpressionCounter (class in angr.analyses.decompiler.region_simplifiers.expr_folding)</a>
 </li>
       <li><a href="angr.html#angr.analyses.decompiler.region_simplifiers.expr_folding.ExpressionFolder">ExpressionFolder (class in angr.analyses.decompiler.region_simplifiers.expr_folding)</a>
@@ -10069,8 +10119,12 @@
 </li>
       <li><a href="angr.html#angr.analyses.typehoon.typeconsts.FloatBase">FloatBase (class in angr.analyses.typehoon.typeconsts)</a>
 </li>
-      <li><a href="ailment.html#ailment.expression.BinaryOp.floating_point">floating_point (ailment.expression.BinaryOp attribute)</a>
+      <li><a href="ailment.html#ailment.BinaryOp.floating_point">floating_point (ailment.BinaryOp attribute)</a>
+
+      <ul>
+        <li><a href="ailment.html#ailment.expression.BinaryOp.floating_point">(ailment.expression.BinaryOp attribute)</a>
 </li>
+      </ul></li>
       <li><a href="angr.html#angr.knowledge_plugins.cfg.memory_data.MemoryDataSort.FloatingPoint">FloatingPoint (angr.knowledge_plugins.cfg.memory_data.MemoryDataSort attribute)</a>
 </li>
       <li><a href="angr.html#angr.analyses.cfg.cfb.CFBlanket.floor_addr">floor_addr() (angr.analyses.cfg.cfb.CFBlanket method)</a>
@@ -10207,10 +10261,10 @@
 </li>
       <li><a href="claripy.html#claripy.fp.fpIsNaN">fpIsNaN() (in module claripy.fp)</a>
 </li>
-      <li><a href="claripy.html#claripy.fp.fpLEQ">fpLEQ() (in module claripy.fp)</a>
-</li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="claripy.html#claripy.fp.fpLEQ">fpLEQ() (in module claripy.fp)</a>
+</li>
       <li><a href="claripy.html#claripy.fp.fpLT">fpLT() (in module claripy.fp)</a>
 </li>
       <li><a href="claripy.html#claripy.fp.fpMul">fpMul() (in module claripy.fp)</a>
@@ -11559,9 +11613,13 @@
 </li>
       <li><a href="angr.html#angr.state_plugins.history.TreeIter.hardcopy">hardcopy (angr.state_plugins.history.TreeIter property)</a>
 </li>
-      <li><a href="ailment.html#ailment.expression.BinaryOp.has_atom">has_atom() (ailment.expression.BinaryOp method)</a>
+      <li><a href="ailment.html#ailment.BinaryOp.has_atom">has_atom() (ailment.BinaryOp method)</a>
 
       <ul>
+        <li><a href="ailment.html#ailment.Expression.has_atom">(ailment.Expression method)</a>
+</li>
+        <li><a href="ailment.html#ailment.expression.BinaryOp.has_atom">(ailment.expression.BinaryOp method)</a>
+</li>
         <li><a href="ailment.html#ailment.expression.Expression.has_atom">(ailment.expression.Expression method)</a>
 </li>
         <li><a href="ailment.html#ailment.expression.ITE.has_atom">(ailment.expression.ITE method)</a>
@@ -11571,6 +11629,8 @@
         <li><a href="ailment.html#ailment.expression.TernaryOp.has_atom">(ailment.expression.TernaryOp method)</a>
 </li>
         <li><a href="ailment.html#ailment.expression.UnaryOp.has_atom">(ailment.expression.UnaryOp method)</a>
+</li>
+        <li><a href="ailment.html#ailment.UnaryOp.has_atom">(ailment.UnaryOp method)</a>
 </li>
       </ul></li>
       <li><a href="angr.html#angr.analyses.code_tagging.CodeTags.HAS_BITSHIFTS">HAS_BITSHIFTS (angr.analyses.code_tagging.CodeTags attribute)</a>
@@ -11625,10 +11685,10 @@
         <li><a href="angr.html#angr.sim_state.SimState.has_plugin">(angr.sim_state.SimState method)</a>
 </li>
       </ul></li>
-      <li><a href="angr.html#angr.misc.plugins.PluginHub.has_plugin_preset">has_plugin_preset (angr.misc.plugins.PluginHub property)</a>
-</li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="angr.html#angr.misc.plugins.PluginHub.has_plugin_preset">has_plugin_preset (angr.misc.plugins.PluginHub property)</a>
+</li>
       <li><a href="angr.html#angr.knowledge_plugins.callsite_prototypes.CallsitePrototypes.has_prototype">has_prototype() (angr.knowledge_plugins.callsite_prototypes.CallsitePrototypes method)</a>
 
       <ul>
@@ -11881,9 +11941,11 @@
 </li>
       <li><a href="angr.html#angr.analyses.identifier.identify.Identifier.identify_func">identify_func() (angr.analyses.identifier.identify.Identifier method)</a>
 </li>
-      <li><a href="ailment.html#ailment.block.Block.idx">idx (ailment.block.Block attribute)</a>
+      <li><a href="ailment.html#ailment.Block.idx">idx (ailment.Block attribute)</a>
 
       <ul>
+        <li><a href="ailment.html#ailment.block.Block.idx">(ailment.block.Block attribute)</a>
+</li>
         <li><a href="ailment.html#ailment.tagged_object.TaggedObject.idx">(ailment.tagged_object.TaggedObject attribute)</a>
 </li>
         <li><a href="angr.html#angr.analyses.decompiler.structuring.structurer_nodes.CodeNode.idx">(angr.analyses.decompiler.structuring.structurer_nodes.CodeNode property)</a>
@@ -12243,9 +12305,11 @@
 </li>
       <li><a href="angr.html#angr.knowledge_plugins.variables.variable_manager.VariableManagerInternal.input_variables">input_variables() (angr.knowledge_plugins.variables.variable_manager.VariableManagerInternal method)</a>
 </li>
-      <li><a href="ailment.html#ailment.manager.Manager.ins_addr">ins_addr (ailment.manager.Manager property)</a>
+      <li><a href="ailment.html#ailment.Manager.ins_addr">ins_addr (ailment.Manager property)</a>
 
       <ul>
+        <li><a href="ailment.html#ailment.manager.Manager.ins_addr">(ailment.manager.Manager property)</a>
+</li>
         <li><a href="ailment.html#ailment.statement.Label.ins_addr">(ailment.statement.Label attribute)</a>
 </li>
         <li><a href="angr.html#angr.analyses.cfg.cfg_fast.FunctionEdge.ins_addr">(angr.analyses.cfg.cfg_fast.FunctionEdge attribute)</a>
@@ -12473,10 +12537,10 @@
 </li>
       <li><a href="pyvex.html#pyvex.const.IRConst">IRConst (class in pyvex.const)</a>
 </li>
-      <li><a href="pyvex.html#pyvex.expr.IRExpr">IRExpr (class in pyvex.expr)</a>
-</li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="pyvex.html#pyvex.expr.IRExpr">IRExpr (class in pyvex.expr)</a>
+</li>
       <li><a href="angr.html#angr.analyses.disassembly.IROp">IROp (class in angr.analyses.disassembly)</a>
 </li>
       <li><a href="pyvex.html#pyvex.enums.IRRegArray">IRRegArray (class in pyvex.enums)</a>
@@ -13677,9 +13741,19 @@
 </li>
       <li><a href="claripy.html#claripy.frontends.light_frontend.LightFrontend">LightFrontend (class in claripy.frontends.light_frontend)</a>
 </li>
-      <li><a href="ailment.html#ailment.block.Block.likes">likes() (ailment.block.Block method)</a>
+      <li><a href="ailment.html#ailment.Assignment.likes">likes() (ailment.Assignment method)</a>
 
       <ul>
+        <li><a href="ailment.html#ailment.BinaryOp.likes">(ailment.BinaryOp method)</a>
+</li>
+        <li><a href="ailment.html#ailment.Block.likes">(ailment.Block method)</a>
+</li>
+        <li><a href="ailment.html#ailment.block.Block.likes">(ailment.block.Block method)</a>
+</li>
+        <li><a href="ailment.html#ailment.Const.likes">(ailment.Const method)</a>
+</li>
+        <li><a href="ailment.html#ailment.Expression.likes">(ailment.Expression method)</a>
+</li>
         <li><a href="ailment.html#ailment.expression.BasePointerOffset.likes">(ailment.expression.BasePointerOffset method)</a>
 </li>
         <li><a href="ailment.html#ailment.expression.BinaryOp.likes">(ailment.expression.BinaryOp method)</a>
@@ -13708,6 +13782,8 @@
 </li>
         <li><a href="ailment.html#ailment.expression.VEXCCallExpression.likes">(ailment.expression.VEXCCallExpression method)</a>
 </li>
+        <li><a href="ailment.html#ailment.Register.likes">(ailment.Register method)</a>
+</li>
         <li><a href="ailment.html#ailment.statement.Assignment.likes">(ailment.statement.Assignment method)</a>
 </li>
         <li><a href="ailment.html#ailment.statement.Call.likes">(ailment.statement.Call method)</a>
@@ -13721,6 +13797,10 @@
         <li><a href="ailment.html#ailment.statement.Return.likes">(ailment.statement.Return method)</a>
 </li>
         <li><a href="ailment.html#ailment.statement.Store.likes">(ailment.statement.Store method)</a>
+</li>
+        <li><a href="ailment.html#ailment.Tmp.likes">(ailment.Tmp method)</a>
+</li>
+        <li><a href="ailment.html#ailment.UnaryOp.likes">(ailment.UnaryOp method)</a>
 </li>
       </ul></li>
       <li><a href="angr.html#angr.state_plugins.history.SimStateHistory.lineage">lineage (angr.state_plugins.history.SimStateHistory property)</a>
@@ -14211,8 +14291,12 @@
         <li><a href="angr.html#angr.state_plugins.heap.heap_ptmalloc.SimHeapPTMalloc.malloc">(angr.state_plugins.heap.heap_ptmalloc.SimHeapPTMalloc method)</a>
 </li>
       </ul></li>
-      <li><a href="ailment.html#ailment.manager.Manager">Manager (class in ailment.manager)</a>
+      <li><a href="ailment.html#ailment.Manager">Manager (class in ailment)</a>
+
+      <ul>
+        <li><a href="ailment.html#ailment.manager.Manager">(class in ailment.manager)</a>
 </li>
+      </ul></li>
       <li><a href="angr.html#angr.exploration_techniques.manual_mergepoint.ManualMergepoint">ManualMergepoint (class in angr.exploration_techniques.manual_mergepoint)</a>
 </li>
       <li><a href="angr.html#angr.storage.memory_mixins.regioned_memory.region_data.RegionMap.map">map() (angr.storage.memory_mixins.regioned_memory.region_data.RegionMap method)</a>
@@ -16470,8 +16554,12 @@
         <li><a href="angr.html#angr.calling_conventions.SimCCUsercall.next_arg">(angr.calling_conventions.SimCCUsercall method)</a>
 </li>
       </ul></li>
-      <li><a href="ailment.html#ailment.manager.Manager.next_atom">next_atom() (ailment.manager.Manager method)</a>
+      <li><a href="ailment.html#ailment.Manager.next_atom">next_atom() (ailment.Manager method)</a>
+
+      <ul>
+        <li><a href="ailment.html#ailment.manager.Manager.next_atom">(ailment.manager.Manager method)</a>
 </li>
+      </ul></li>
       <li><a href="angr.html#angr.state_plugins.heap.heap_freelist.Chunk.next_chunk">next_chunk() (angr.state_plugins.heap.heap_freelist.Chunk method)</a>
 
       <ul>
@@ -16880,14 +16968,14 @@
 </li>
       <li><a href="pyvex.html#pyvex.lifting.util.vex_helper.IRSBCustomizer.op_cmp_ne">op_cmp_ne() (pyvex.lifting.util.vex_helper.IRSBCustomizer method)</a>
 </li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="pyvex.html#pyvex.lifting.util.vex_helper.IRSBCustomizer.op_cmp_sge">op_cmp_sge() (pyvex.lifting.util.vex_helper.IRSBCustomizer method)</a>
 </li>
       <li><a href="pyvex.html#pyvex.lifting.util.vex_helper.IRSBCustomizer.op_cmp_sgt">op_cmp_sgt() (pyvex.lifting.util.vex_helper.IRSBCustomizer method)</a>
 </li>
       <li><a href="pyvex.html#pyvex.lifting.util.vex_helper.IRSBCustomizer.op_cmp_sle">op_cmp_sle() (pyvex.lifting.util.vex_helper.IRSBCustomizer method)</a>
 </li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="pyvex.html#pyvex.lifting.util.vex_helper.IRSBCustomizer.op_cmp_slt">op_cmp_slt() (pyvex.lifting.util.vex_helper.IRSBCustomizer method)</a>
 </li>
       <li><a href="pyvex.html#pyvex.lifting.util.vex_helper.IRSBCustomizer.op_cmp_uge">op_cmp_uge() (pyvex.lifting.util.vex_helper.IRSBCustomizer method)</a>
@@ -16987,6 +17075,8 @@
       <li><a href="ailment.html#ailment.expression.UnaryOp.operand">operand (ailment.expression.UnaryOp attribute)</a>
 
       <ul>
+        <li><a href="ailment.html#ailment.UnaryOp.operand">(ailment.UnaryOp attribute)</a>
+</li>
         <li><a href="angr.html#angr.analyses.decompiler.structured_codegen.c.CUnaryOp.operand">(angr.analyses.decompiler.structured_codegen.c.CUnaryOp attribute)</a>
 </li>
       </ul></li>
@@ -17010,14 +17100,18 @@
       </ul></li>
       <li><a href="angr.html#angr.analyses.disassembly.OperandPiece">OperandPiece (class in angr.analyses.disassembly)</a>
 </li>
-      <li><a href="ailment.html#ailment.expression.BinaryOp.operands">operands (ailment.expression.BinaryOp attribute)</a>
+      <li><a href="ailment.html#ailment.BinaryOp.operands">operands (ailment.BinaryOp attribute)</a>
 
       <ul>
+        <li><a href="ailment.html#ailment.expression.BinaryOp.operands">(ailment.expression.BinaryOp attribute)</a>
+</li>
         <li><a href="ailment.html#ailment.expression.TernaryOp.operands">(ailment.expression.TernaryOp attribute)</a>
 </li>
         <li><a href="ailment.html#ailment.expression.UnaryOp.operands">(ailment.expression.UnaryOp property)</a>
 </li>
         <li><a href="ailment.html#ailment.expression.VEXCCallExpression.operands">(ailment.expression.VEXCCallExpression attribute)</a>
+</li>
+        <li><a href="ailment.html#ailment.UnaryOp.operands">(ailment.UnaryOp property)</a>
 </li>
         <li><a href="angr.html#angr.engines.light.data.ArithmeticExpression.operands">(angr.engines.light.data.ArithmeticExpression attribute)</a>
 </li>
@@ -17032,9 +17126,11 @@
       </ul></li>
       <li><a href="angr.html#angr.exploration_techniques.oppologist.Oppologist">Oppologist (class in angr.exploration_techniques.oppologist)</a>
 </li>
-      <li><a href="ailment.html#ailment.expression.BinaryOp.OPSTR_MAP">OPSTR_MAP (ailment.expression.BinaryOp attribute)</a>
+      <li><a href="ailment.html#ailment.BinaryOp.OPSTR_MAP">OPSTR_MAP (ailment.BinaryOp attribute)</a>
 
       <ul>
+        <li><a href="ailment.html#ailment.expression.BinaryOp.OPSTR_MAP">(ailment.expression.BinaryOp attribute)</a>
+</li>
         <li><a href="ailment.html#ailment.expression.TernaryOp.OPSTR_MAP">(ailment.expression.TernaryOp attribute)</a>
 </li>
       </ul></li>
@@ -17076,8 +17172,12 @@
 </li>
       <li><a href="angr.html#angr.analyses.decompiler.optimization_passes.lowered_switch_simplifier.Case.original_node">original_node (angr.analyses.decompiler.optimization_passes.lowered_switch_simplifier.Case attribute)</a>
 </li>
-      <li><a href="ailment.html#ailment.block.Block.original_size">original_size (ailment.block.Block attribute)</a>
+      <li><a href="ailment.html#ailment.Block.original_size">original_size (ailment.Block attribute)</a>
+
+      <ul>
+        <li><a href="ailment.html#ailment.block.Block.original_size">(ailment.block.Block attribute)</a>
 </li>
+      </ul></li>
       <li><a href="cle.html#cle.backends.elf.symbol_type.ELFSymbolType.os_proc">os_proc (cle.backends.elf.symbol_type.ELFSymbolType property)</a>
 </li>
       <li><a href="angr.html#angr.procedures.stubs.format_parser.FormatParser.other_types">other_types (angr.procedures.stubs.format_parser.FormatParser attribute)</a>
@@ -18487,6 +18587,8 @@
       <li><a href="ailment.html#ailment.expression.Register.reg_offset">reg_offset (ailment.expression.Register attribute)</a>
 
       <ul>
+        <li><a href="ailment.html#ailment.Register.reg_offset">(ailment.Register attribute)</a>
+</li>
         <li><a href="angr.html#angr.analyses.cfg.indirect_jump_resolvers.jumptable.RegOffsetAnnotation.reg_offset">(angr.analyses.cfg.indirect_jump_resolvers.jumptable.RegOffsetAnnotation attribute)</a>
 </li>
         <li><a href="angr.html#angr.knowledge_plugins.key_definitions.atoms.Register.reg_offset">(angr.knowledge_plugins.key_definitions.atoms.Register attribute)</a>
@@ -18558,9 +18660,11 @@
 </li>
       <li><a href="angr.html#angr.knowledge_plugins.variables.variable_manager.VariableType.REGISTER">REGISTER (angr.knowledge_plugins.variables.variable_manager.VariableType attribute)</a>
 </li>
-      <li><a href="ailment.html#ailment.expression.Register">Register (class in ailment.expression)</a>
+      <li><a href="ailment.html#ailment.Register">Register (class in ailment)</a>
 
       <ul>
+        <li><a href="ailment.html#ailment.expression.Register">(class in ailment.expression)</a>
+</li>
         <li><a href="angr.html#angr.analyses.disassembly.Register">(class in angr.analyses.disassembly)</a>
 </li>
         <li><a href="angr.html#angr.analyses.stack_pointer_tracker.Register">(class in angr.analyses.stack_pointer_tracker)</a>
@@ -19018,9 +19122,15 @@
 </li>
       <li><a href="angr.html#angr.exploration_techniques.tracer.RepHook">RepHook (class in angr.exploration_techniques.tracer)</a>
 </li>
-      <li><a href="ailment.html#ailment.expression.BasePointerOffset.replace">replace() (ailment.expression.BasePointerOffset method)</a>
+      <li><a href="ailment.html#ailment.Assignment.replace">replace() (ailment.Assignment method)</a>
 
       <ul>
+        <li><a href="ailment.html#ailment.BinaryOp.replace">(ailment.BinaryOp method)</a>
+</li>
+        <li><a href="ailment.html#ailment.Expression.replace">(ailment.Expression method)</a>
+</li>
+        <li><a href="ailment.html#ailment.expression.BasePointerOffset.replace">(ailment.expression.BasePointerOffset method)</a>
+</li>
         <li><a href="ailment.html#ailment.expression.BinaryOp.replace">(ailment.expression.BinaryOp method)</a>
 </li>
         <li><a href="ailment.html#ailment.expression.Convert.replace">(ailment.expression.Convert method)</a>
@@ -19054,6 +19164,8 @@
         <li><a href="ailment.html#ailment.statement.Statement.replace">(ailment.statement.Statement method)</a>
 </li>
         <li><a href="ailment.html#ailment.statement.Store.replace">(ailment.statement.Store method)</a>
+</li>
+        <li><a href="ailment.html#ailment.UnaryOp.replace">(ailment.UnaryOp method)</a>
 </li>
         <li><a href="angr.html#angr.analyses.typehoon.typevars.Add.replace">(angr.analyses.typehoon.typevars.Add method)</a>
 </li>
@@ -19138,9 +19250,11 @@
 </li>
       <li><a href="cle.html#cle.backends.macho.structs.dyld_chained_import_addend64.reserved">reserved (cle.backends.macho.structs.dyld_chained_import_addend64 attribute)</a>
 </li>
-      <li><a href="ailment.html#ailment.manager.Manager.reset">reset() (ailment.manager.Manager method)</a>
+      <li><a href="ailment.html#ailment.Manager.reset">reset() (ailment.Manager method)</a>
 
       <ul>
+        <li><a href="ailment.html#ailment.manager.Manager.reset">(ailment.manager.Manager method)</a>
+</li>
         <li><a href="angr.html#angr.analyses.forward_analysis.visitors.graph.GraphVisitor.reset">(angr.analyses.forward_analysis.visitors.graph.GraphVisitor method)</a>
 </li>
         <li><a href="angr.html#angr.analyses.forward_analysis.visitors.single_node_graph.SingleNodeGraphVisitor.reset">(angr.analyses.forward_analysis.visitors.single_node_graph.SingleNodeGraphVisitor method)</a>
@@ -19152,6 +19266,8 @@
         <li><a href="claripy.html#claripy.reset">(in module claripy)</a>
 </li>
       </ul></li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="angr.html#angr.block.Block.reset_initial_regs">reset_initial_regs() (angr.block.Block static method)</a>
 </li>
       <li><a href="angr.html#angr.state_plugins.debug_variables.SimDebugVariable.resolvable">resolvable (angr.state_plugins.debug_variables.SimDebugVariable property)</a>
@@ -19160,8 +19276,6 @@
         <li><a href="angr.html#angr.state_plugins.view.SimMemView.resolvable">(angr.state_plugins.view.SimMemView property)</a>
 </li>
       </ul></li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="angr.html#angr.analyses.cfg.indirect_jump_resolvers.amd64_elf_got.AMD64ElfGotResolver.resolve">resolve() (angr.analyses.cfg.indirect_jump_resolvers.amd64_elf_got.AMD64ElfGotResolver method)</a>
 
       <ul>
@@ -20276,9 +20390,11 @@
 </li>
       <li><a href="claripy.html#claripy.bv.RotateRight">RotateRight() (in module claripy.bv)</a>
 </li>
-      <li><a href="ailment.html#ailment.expression.BinaryOp.rounding_mode">rounding_mode (ailment.expression.BinaryOp attribute)</a>
+      <li><a href="ailment.html#ailment.BinaryOp.rounding_mode">rounding_mode (ailment.BinaryOp attribute)</a>
 
       <ul>
+        <li><a href="ailment.html#ailment.expression.BinaryOp.rounding_mode">(ailment.expression.BinaryOp attribute)</a>
+</li>
         <li><a href="ailment.html#ailment.expression.Convert.rounding_mode">(ailment.expression.Convert attribute)</a>
 </li>
       </ul></li>
@@ -20870,8 +20986,12 @@
 </li>
       <li><a href="claripy.html#claripy.vsa.strided_interval.StridedInterval.sign">sign() (claripy.vsa.strided_interval.StridedInterval static method)</a>
 </li>
-      <li><a href="ailment.html#ailment.expression.Const.sign_bit">sign_bit (ailment.expression.Const property)</a>
+      <li><a href="ailment.html#ailment.Const.sign_bit">sign_bit (ailment.Const property)</a>
+
+      <ul>
+        <li><a href="ailment.html#ailment.expression.Const.sign_bit">(ailment.expression.Const property)</a>
 </li>
+      </ul></li>
       <li><a href="claripy.html#claripy.ast.bv.BV.sign_extend">sign_extend() (claripy.ast.bv.BV method)</a>
 
       <ul>
@@ -20880,9 +21000,11 @@
         <li><a href="claripy.html#claripy.vsa.strided_interval.StridedInterval.sign_extend">(claripy.vsa.strided_interval.StridedInterval method)</a>
 </li>
       </ul></li>
-      <li><a href="ailment.html#ailment.expression.BinaryOp.signed">signed (ailment.expression.BinaryOp attribute)</a>
+      <li><a href="ailment.html#ailment.BinaryOp.signed">signed (ailment.BinaryOp attribute)</a>
 
       <ul>
+        <li><a href="ailment.html#ailment.expression.BinaryOp.signed">(ailment.expression.BinaryOp attribute)</a>
+</li>
         <li><a href="angr.html#angr.procedures.stubs.format_parser.FormatSpecifier.signed">(angr.procedures.stubs.format_parser.FormatSpecifier attribute)</a>
 </li>
         <li><a href="angr.html#angr.sim_type.SimTypeFloat.signed">(angr.sim_type.SimTypeFloat attribute)</a>
@@ -21490,9 +21612,13 @@
 </li>
       <li><a href="claripy.html#claripy.backends.Backend.singlevalued">singlevalued() (claripy.backends.Backend method)</a>
 </li>
-      <li><a href="ailment.html#ailment.expression.BasePointerOffset.size">size (ailment.expression.BasePointerOffset property)</a>
+      <li><a href="ailment.html#ailment.BinaryOp.size">size (ailment.BinaryOp property)</a>
 
       <ul>
+        <li><a href="ailment.html#ailment.Const.size">(ailment.Const property)</a>
+</li>
+        <li><a href="ailment.html#ailment.expression.BasePointerOffset.size">(ailment.expression.BasePointerOffset property)</a>
+</li>
         <li><a href="ailment.html#ailment.expression.BinaryOp.size">(ailment.expression.BinaryOp property)</a>
 </li>
         <li><a href="ailment.html#ailment.expression.Const.size">(ailment.expression.Const property)</a>
@@ -21513,9 +21639,15 @@
 </li>
         <li><a href="ailment.html#ailment.expression.VEXCCallExpression.size">(ailment.expression.VEXCCallExpression property)</a>
 </li>
+        <li><a href="ailment.html#ailment.Register.size">(ailment.Register property)</a>
+</li>
         <li><a href="ailment.html#ailment.statement.Call.size">(ailment.statement.Call property)</a>
 </li>
         <li><a href="ailment.html#ailment.statement.Store.size">(ailment.statement.Store attribute)</a>
+</li>
+        <li><a href="ailment.html#ailment.Tmp.size">(ailment.Tmp property)</a>
+</li>
+        <li><a href="ailment.html#ailment.UnaryOp.size">(ailment.UnaryOp property)</a>
 </li>
         <li><a href="angr.html#angr.analyses.cfg.segment_list.Segment.size">(angr.analyses.cfg.segment_list.Segment property)</a>
 </li>
@@ -21858,12 +21990,12 @@
 </li>
       <li><a href="archinfo.html#archinfo.arch_soot.SootArgument">SootArgument (class in archinfo.arch_soot)</a>
 </li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="angr.html#angr.block.SootBlock">SootBlock (class in angr.block)</a>
 </li>
       <li><a href="angr.html#angr.codenode.SootBlockNode">SootBlockNode (class in angr.codenode)</a>
 </li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="angr.html#angr.analyses.loop_analysis.SootBlockProcessor">SootBlockProcessor (class in angr.analyses.loop_analysis)</a>
 </li>
       <li><a href="archinfo.html#archinfo.arch_soot.SootClassDescriptor">SootClassDescriptor (class in archinfo.arch_soot)</a>
@@ -21994,8 +22126,12 @@
 </li>
       <li><a href="angr.html#angr.analyses.decompiler.structured_codegen.c.squash_array_reference">squash_array_reference() (in module angr.analyses.decompiler.structured_codegen.c)</a>
 </li>
-      <li><a href="ailment.html#ailment.statement.Assignment.src">src (ailment.statement.Assignment attribute)</a>
+      <li><a href="ailment.html#ailment.Assignment.src">src (ailment.Assignment attribute)</a>
+
+      <ul>
+        <li><a href="ailment.html#ailment.statement.Assignment.src">(ailment.statement.Assignment attribute)</a>
 </li>
+      </ul></li>
       <li><a href="angr.html#angr.analyses.vfg.PendingJob.src_block_id">src_block_id (angr.analyses.vfg.PendingJob attribute)</a>
 </li>
       <li><a href="angr.html#angr.analyses.cfg.cfg_fast.FunctionEdge.src_func_addr">src_func_addr (angr.analyses.cfg.cfg_fast.FunctionEdge attribute)</a>
@@ -22532,9 +22668,11 @@
 </li>
       <li><a href="angr.html#angr.analyses.decompiler.region_simplifiers.expr_folding.StatementLocation">StatementLocation (class in angr.analyses.decompiler.region_simplifiers.expr_folding)</a>
 </li>
-      <li><a href="ailment.html#ailment.block.Block.statements">statements (ailment.block.Block attribute)</a>
+      <li><a href="ailment.html#ailment.Block.statements">statements (ailment.Block attribute)</a>
 
       <ul>
+        <li><a href="ailment.html#ailment.block.Block.statements">(ailment.block.Block attribute)</a>
+</li>
         <li><a href="angr.html#angr.analyses.decompiler.structured_codegen.c.CFunction.statements">(angr.analyses.decompiler.structured_codegen.c.CFunction attribute)</a>
 </li>
         <li><a href="angr.html#angr.analyses.decompiler.structured_codegen.c.CStatements.statements">(angr.analyses.decompiler.structured_codegen.c.CStatements attribute)</a>
@@ -23872,9 +24010,11 @@
 </li>
       <li><a href="angr.html#angr.state_plugins.sim_action.SimAction.TMP">TMP (angr.state_plugins.sim_action.SimAction attribute)</a>
 </li>
-      <li><a href="ailment.html#ailment.expression.Tmp">Tmp (class in ailment.expression)</a>
+      <li><a href="ailment.html#ailment.Tmp">Tmp (class in ailment)</a>
 
       <ul>
+        <li><a href="ailment.html#ailment.expression.Tmp">(class in ailment.expression)</a>
+</li>
         <li><a href="angr.html#angr.knowledge_plugins.key_definitions.atoms.Tmp">(class in angr.knowledge_plugins.key_definitions.atoms)</a>
 </li>
       </ul></li>
@@ -23903,6 +24043,8 @@
       <li><a href="ailment.html#ailment.expression.Tmp.tmp_idx">tmp_idx (ailment.expression.Tmp attribute)</a>
 
       <ul>
+        <li><a href="ailment.html#ailment.Tmp.tmp_idx">(ailment.Tmp attribute)</a>
+</li>
         <li><a href="angr.html#angr.knowledge_plugins.key_definitions.atoms.Tmp.tmp_idx">(angr.knowledge_plugins.key_definitions.atoms.Tmp attribute)</a>
 </li>
       </ul></li>
@@ -23926,10 +24068,10 @@
 </li>
       <li><a href="angr.html#angr.analyses.decompiler.utils.to_ail_supergraph">to_ail_supergraph() (in module angr.analyses.decompiler.utils)</a>
 </li>
-      <li><a href="cle.html#cle.backends.symbol.SymbolSubType.to_base_type">to_base_type() (cle.backends.symbol.SymbolSubType method)</a>
-</li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="cle.html#cle.backends.symbol.SymbolSubType.to_base_type">to_base_type() (cle.backends.symbol.SymbolSubType method)</a>
+</li>
       <li><a href="ailment.html#ailment.expression.Convert.to_bits">to_bits (ailment.expression.Convert attribute)</a>
 
       <ul>
@@ -24526,8 +24668,12 @@
 </li>
       <li><a href="angr.html#angr.storage.memory_mixins.paged_memory.paged_memory_mixin.UltraPagesMixin">UltraPagesMixin (class in angr.storage.memory_mixins.paged_memory.paged_memory_mixin)</a>
 </li>
-      <li><a href="ailment.html#ailment.expression.UnaryOp">UnaryOp (class in ailment.expression)</a>
+      <li><a href="ailment.html#ailment.UnaryOp">UnaryOp (class in ailment)</a>
+
+      <ul>
+        <li><a href="ailment.html#ailment.expression.UnaryOp">(class in ailment.expression)</a>
 </li>
+      </ul></li>
       <li><a href="angr.html#angr.state_plugins.unicorn_engine.Unicorn.uncache_region">uncache_region() (angr.state_plugins.unicorn_engine.Unicorn method)</a>
 </li>
       <li><a href="angr.html#angr.state_plugins.solver.SimSolver.Unconstrained">Unconstrained() (angr.state_plugins.solver.SimSolver method)</a>
@@ -24818,9 +24964,11 @@
 </li>
       <li><a href="claripy.html#claripy.ast.bv.BV.val_to_fp">val_to_fp() (claripy.ast.bv.BV method)</a>
 </li>
-      <li><a href="ailment.html#ailment.expression.Const.value">value (ailment.expression.Const attribute)</a>
+      <li><a href="ailment.html#ailment.Const.value">value (ailment.Const attribute)</a>
 
       <ul>
+        <li><a href="ailment.html#ailment.expression.Const.value">(ailment.expression.Const attribute)</a>
+</li>
         <li><a href="angr.html#angr.analyses.decompiler.optimization_passes.lowered_switch_simplifier.Case.value">(angr.analyses.decompiler.optimization_passes.lowered_switch_simplifier.Case attribute)</a>
 </li>
         <li><a href="angr.html#angr.analyses.decompiler.structured_codegen.c.CConstant.value">(angr.analyses.decompiler.structured_codegen.c.CConstant attribute)</a>
@@ -25010,9 +25158,11 @@
 </li>
       <li><a href="angr.html#angr.analyses.data_dep.dep_nodes.VarDepNode">VarDepNode (class in angr.analyses.data_dep.dep_nodes)</a>
 </li>
-      <li><a href="ailment.html#ailment.expression.Atom.variable">variable (ailment.expression.Atom attribute)</a>
+      <li><a href="ailment.html#ailment.BinaryOp.variable">variable (ailment.BinaryOp attribute)</a>
 
       <ul>
+        <li><a href="ailment.html#ailment.expression.Atom.variable">(ailment.expression.Atom attribute)</a>
+</li>
         <li><a href="ailment.html#ailment.expression.BasePointerOffset.variable">(ailment.expression.BasePointerOffset attribute)</a>
 </li>
         <li><a href="ailment.html#ailment.expression.BinaryOp.variable">(ailment.expression.BinaryOp attribute)</a>
@@ -25024,6 +25174,8 @@
         <li><a href="ailment.html#ailment.expression.UnaryOp.variable">(ailment.expression.UnaryOp attribute)</a>
 </li>
         <li><a href="ailment.html#ailment.statement.Store.variable">(ailment.statement.Store attribute)</a>
+</li>
+        <li><a href="ailment.html#ailment.UnaryOp.variable">(ailment.UnaryOp attribute)</a>
 </li>
         <li><a href="angr.html#angr.analyses.decompiler.optimization_passes.lowered_switch_simplifier.Case.variable">(angr.analyses.decompiler.optimization_passes.lowered_switch_simplifier.Case attribute)</a>
 </li>
@@ -25054,9 +25206,11 @@
         <li><a href="angr.html#angr.analyses.variable_recovery.variable_recovery_base.VariableRecoveryStateBase.variable_manager">(angr.analyses.variable_recovery.variable_recovery_base.VariableRecoveryStateBase property)</a>
 </li>
       </ul></li>
-      <li><a href="ailment.html#ailment.expression.Atom.variable_offset">variable_offset (ailment.expression.Atom attribute)</a>
+      <li><a href="ailment.html#ailment.BinaryOp.variable_offset">variable_offset (ailment.BinaryOp attribute)</a>
 
       <ul>
+        <li><a href="ailment.html#ailment.expression.Atom.variable_offset">(ailment.expression.Atom attribute)</a>
+</li>
         <li><a href="ailment.html#ailment.expression.BasePointerOffset.variable_offset">(ailment.expression.BasePointerOffset attribute)</a>
 </li>
         <li><a href="ailment.html#ailment.expression.BinaryOp.variable_offset">(ailment.expression.BinaryOp attribute)</a>
@@ -25066,6 +25220,8 @@
         <li><a href="ailment.html#ailment.expression.Load.variable_offset">(ailment.expression.Load attribute)</a>
 </li>
         <li><a href="ailment.html#ailment.expression.UnaryOp.variable_offset">(ailment.expression.UnaryOp attribute)</a>
+</li>
+        <li><a href="ailment.html#ailment.UnaryOp.variable_offset">(ailment.UnaryOp attribute)</a>
 </li>
       </ul></li>
       <li><a href="angr.html#angr.analyses.decompiler.structured_codegen.c.CVariable.variable_type">variable_type (angr.analyses.decompiler.structured_codegen.c.CVariable attribute)</a>
@@ -25152,9 +25308,11 @@
 </li>
       <li><a href="angr.html#angr.misc.plugins.VendorPreset">VendorPreset (class in angr.misc.plugins)</a>
 </li>
-      <li><a href="ailment.html#ailment.expression.BinaryOp.verbose_op">verbose_op (ailment.expression.BinaryOp property)</a>
+      <li><a href="ailment.html#ailment.BinaryOp.verbose_op">verbose_op (ailment.BinaryOp property)</a>
 
       <ul>
+        <li><a href="ailment.html#ailment.expression.BinaryOp.verbose_op">(ailment.expression.BinaryOp property)</a>
+</li>
         <li><a href="ailment.html#ailment.expression.Op.verbose_op">(ailment.expression.Op property)</a>
 </li>
         <li><a href="ailment.html#ailment.expression.TernaryOp.verbose_op">(ailment.expression.TernaryOp property)</a>
@@ -25232,8 +25390,12 @@
 </li>
       <li><a href="ailment.html#ailment.converter_vex.VEXExprConverter">VEXExprConverter (class in ailment.converter_vex)</a>
 </li>
-      <li><a href="ailment.html#ailment.converter_vex.VEXIRSBConverter">VEXIRSBConverter (class in ailment.converter_vex)</a>
+      <li><a href="ailment.html#ailment.VEXIRSBConverter">VEXIRSBConverter (class in ailment)</a>
+
+      <ul>
+        <li><a href="ailment.html#ailment.converter_vex.VEXIRSBConverter">(class in ailment.converter_vex)</a>
 </li>
+      </ul></li>
       <li><a href="angr.html#angr.analyses.propagator.vex_vars.VEXMemVar">VEXMemVar (class in angr.analyses.propagator.vex_vars)</a>
 </li>
       <li><a href="pyvex.html#pyvex.enums.VEXObject">VEXObject (class in pyvex.enums)</a>
