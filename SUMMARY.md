@@ -30,6 +30,7 @@
   * [Symbolic Memory Addressing](docs/concretization_strategies.md)
   * [Java Symbolic Execution](docs/java_support.md)
   * [Symbion](docs/symbion.md)
+  * [Debug Variable Resolution](docs/debug_var.md)
 * Extending angr
   * [Programming SimProcedures](docs/simprocedures.md)
   * [Writing State Plugins](docs/state_plugins.md)
