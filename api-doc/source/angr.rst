@@ -195,7 +195,6 @@ Simulation Engines
 .. automodule:: angr.engines.pcode.lifter
 .. automodule:: angr.engines.pcode.emulate
 .. automodule:: angr.engines.pcode.behavior
-.. automodule:: angr.engines.pcode.arch
 
 Simulation Logging
 ------------------
