@@ -52,8 +52,8 @@ int main(void){
 
 Side-note:  
 For string type you can use `.string` instead of `.mem` to resolve it.  
-For struct type you can resolve its member by `.member("member_name")`.
-For array type you can use .array(index) to access the element in array.
+For struct type you can resolve its member by `.member("member_name").mem`.
+For array type you can use `.array(index).mem` to access the element in array.
 
 # Variable visibility
 If you have many variable with the same name but in different scope, calling `state.dvars['var_name']` would resolve the variable with the nearest scope.
