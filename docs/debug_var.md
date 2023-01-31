@@ -4,9 +4,13 @@ angr now support resolve source level variable (debug variable) in binary with d
 
 ## Setting up
 
-To use it you need binary that is compiled with debug information and load in angr with the option `load_debug_info`. After that you need to run `project.kb.dvars.load_from_dwarf()` to set up the feature and we're set.  
+To use it you need binary that is compiled with dwarf debuging information (ex: `gcc -g`) and load in angr with the option `load_debug_info`. After that you need to run `project.kb.dvars.load_from_dwarf()` to set up the feature and we're set.  
 
 Overall it looks like this:
+```
+# compile your binary with debug information
+gcc -g -o your_binary_name source.c
+```
 ```python
 >>> import angr
 >>> project = angr.Project('your_binary_name', load_debug_info = True)
@@ -49,6 +53,7 @@ int main(void){
 Side-note:  
 For string type you can use `.string` instead of `.mem` to resolve it.  
 For struct type you can resolve its member by `.member("member_name")`.
+For array type you can use .array(index) to access the element in array.
 
 # Variable visibility
 If you have many variable with the same name but in different scope, calling `state.dvars['var_name']` would resolve the variable with the nearest scope.
