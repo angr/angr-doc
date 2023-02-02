@@ -13,7 +13,7 @@ gcc -g -o debug_var debug_var.c
 ```
 ```python
 >>> import angr
->>> project = angr.Project('/examples/debug_var/simple_var', load_debug_info = True)
+>>> project = angr.Project('./examples/debug_var/simple_var', load_debug_info = True)
 >>> project.kb.dvars.load_from_dwarf()
 ```
 
