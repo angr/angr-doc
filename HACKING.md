@@ -27,9 +27,16 @@ Then, we can just fix the bug and rename `broken_x.py` to `test_x.py` and the te
 
 These are some guidelines so that we can keep the codebase in good shape!
 
+## pre-commit
+
+Many angr repos contain pre-commit hooks provided by [pre-commit](https://pre-commit.com/).
+Installing this is as easy as `pip install pre-commit`.
+After `git` cloning an angr repository, if the repo contains a `.pre-commit-config.yaml`, run `pre-commit install`.
+Future `git` commits will now invoke these hooks automatically.
+
 ## Coding style
 
-We try to get as close as the [PEP8 code convention](http://legacy.python.org/dev/peps/pep-0008/) as is reasonable without being dumb. If you use Vim, the [python-mode](https://github.com/klen/python-mode) plugin does all you need. You can also [manually configure](https://wiki.python.org/moin/Vim) vim to adopt this behavior.
+We format our code with [black](https://github.com/psf/black) and otherwise try to get as close as the [PEP8 code convention](http://legacy.python.org/dev/peps/pep-0008/) as is reasonable without being dumb. If you use Vim, the [python-mode](https://github.com/klen/python-mode) plugin does all you need. You can also [manually configure](https://wiki.python.org/moin/Vim) vim to adopt this behavior.
 
 Most importantly, please consider the following when writing code as part of angr:
 
@@ -46,6 +53,8 @@ Most importantly, please consider the following when writing code as part of ang
 * Avoid extremely long functions, it is often better to break them up into smaller functions.
 
 * Always use `_` instead of `__` for private members \(so that we can access them when debugging\). _You_ might not think that anyone has a need to call a given function, but trust us, you're wrong.
+
+* Format your code with `black`; config is already defined within `pyproject.toml`.
 
 ## Documentation
 

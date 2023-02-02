@@ -195,7 +195,7 @@ Simulation Engines
 .. automodule:: angr.engines.pcode.lifter
 .. automodule:: angr.engines.pcode.emulate
 .. automodule:: angr.engines.pcode.behavior
-.. automodule:: angr.engines.pcode.arch
+.. automodule:: angr.engines.pcode.cc
 
 Simulation Logging
 ------------------
@@ -373,6 +373,7 @@ Analysis
 .. automodule:: angr.analyses.decompiler.optimization_passes.base_ptr_save_simplifier
 .. automodule:: angr.analyses.decompiler.optimization_passes.div_simplifier
 .. automodule:: angr.analyses.decompiler.optimization_passes.ite_expr_converter
+.. automodule:: angr.analyses.decompiler.optimization_passes.lowered_switch_simplifier
 .. automodule:: angr.analyses.decompiler.optimization_passes.multi_simplifier
 .. automodule:: angr.analyses.decompiler.optimization_passes.mod_simplifier
 .. automodule:: angr.analyses.decompiler.optimization_passes.engine_base
@@ -415,6 +416,7 @@ Analysis
 .. automodule:: angr.analyses.propagator.engine_vex
 .. automodule:: angr.analyses.propagator.engine_ail
 .. automodule:: angr.analyses.propagator.outdated_definition_walker
+.. automodule:: angr.analyses.propagator.tmpvar_finder
 .. automodule:: angr.analyses.propagator.propagator
 .. automodule:: angr.analyses.propagator.prop_value
 .. automodule:: angr.analyses.propagator.top_checker_mixin

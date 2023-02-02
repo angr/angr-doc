@@ -14,6 +14,7 @@ Backends
 --------
 
 .. automodule:: cle.backends
+.. automodule:: cle.backends.backend
 .. automodule:: cle.backends.symbol
 .. automodule:: cle.backends.regions
 .. automodule:: cle.backends.region
@@ -52,6 +53,7 @@ Backends
 .. automodule:: cle.backends.binja
 .. automodule:: cle.backends.externs
 .. automodule:: cle.backends.externs.simdata
+.. automodule:: cle.backends.externs.simdata.simdata
 .. automodule:: cle.backends.externs.simdata.common
 .. automodule:: cle.backends.java.android_lifecycle
 .. automodule:: cle.backends.java.apk
@@ -101,6 +103,7 @@ Thread-local storage
 --------------------
 
 .. automodule:: cle.backends.tls
+.. automodule:: cle.backends.tls.tls_object
 .. automodule:: cle.backends.tls.elf_tls
 .. automodule:: cle.backends.tls.pe_tls
 .. automodule:: cle.backends.tls.elfcore_tls

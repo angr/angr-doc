@@ -18,10 +18,12 @@ Architectures
 .. automodule:: archinfo.arch_x86
 .. automodule:: archinfo.arch_soot
 .. automodule:: archinfo.arch_s390x
+.. automodule:: archinfo.arch_pcode
 
 Utilities
 ---------
 
+.. automodule:: archinfo.types
 .. automodule:: archinfo.tls
 .. automodule:: archinfo.defines
 
