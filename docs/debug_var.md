@@ -40,23 +40,23 @@ int main(void){
 }
 ```
 ```python
-# trying to get a state before executing printf(%d\n", *b) (line 7)
+# Get a state before executing printf(%d\n", *b) (line 7)
 # the addr to line 7 is 0x401193 you can search for it with
 >>> project.loader.main_object.addr_to_line
 {...}
 >>> addr = 0x401193
-# create an simulation manager and run to that addr
+# Create an simulation manager and run to that addr
 >>> simgr = project.factory.simgr()
 >>> simgr.explore(find = addr)
 <SimulationManager with 1 found>
 >>> state = simgr.found[0]
-# Trying to resolve 'a' in state
+# Resolve 'a' in state
 >>> state.dvars['a'].mem
 <int (32 bits) <BV32 0xa> at 0x7fffffffffeff30>
-# Trying to dereference pointer b
+# Dereference pointer b
 >>> state.dvars['b'].deref.mem
 <int (32 bits) <BV32 0xa> at 0x7fffffffffeff30>
-# it works as expected when resolving the value of b gives the address of a
+# It works as expected when resolving the value of b gives the address of a
 >>> state.dvars['b'].mem
 <reg64_t <BV64 0x7fffffffffeff30> at 0x7fffffffffeff38>
 ```
@@ -71,16 +71,16 @@ If you have many variable with the same name but in different scope, calling `st
 
 Example:
 ```python
-# find the addr before executing printf("%d\n", a) (line 12)
+# Find the addr before executing printf("%d\n", a) (line 12)
 # with the same method to find addr
 >>> addr = 0x4011e0
-# explore untill find state
+# Explore until find state
 >>> simgr.move(from_stash='found', to_stash='active')
 <SimulationManager with 1 active>
 >>> simgr.explore(find = addr)
 <SimulationManager with 1 found>
 >>> state = simgr.found[0]
-# Trying to resolve 'a' in state before execute line 10
+# Resolve 'a' in state before execute line 10
 >>> state.dvars['a'].mem
 <int (32 bits) <BV32 0x18> at 0x7fffffffffeff34>
 ```
