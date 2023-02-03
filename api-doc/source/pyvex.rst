@@ -2,6 +2,7 @@
 ==================================
 
 .. automodule:: pyvex
+.. automodule:: pyvex.native
 
 
 Translation Interface
@@ -23,6 +24,7 @@ Lifting System
 
 .. automodule:: pyvex.data_ref
 .. automodule:: pyvex.lifting
+.. automodule:: pyvex.lifting.lift_function
 .. automodule:: pyvex.lifting.libvex
 .. automodule:: pyvex.lifting.lifter
 .. automodule:: pyvex.lifting.post_processor
