@@ -394,6 +394,8 @@ Analysis
 .. automodule:: angr.analyses.decompiler.region_simplifiers.loop
 .. automodule:: angr.analyses.decompiler.region_simplifiers.node_address_finder
 .. automodule:: angr.analyses.decompiler.region_simplifiers.region_simplifier
+.. automodule:: angr.analyses.decompiler.region_simplifiers.switch_cluster_simplifier
+.. automodule:: angr.analyses.decompiler.region_simplifiers.switch_expr_simplifier
 .. automodule:: angr.analyses.decompiler.region_walker
 .. automodule:: angr.analyses.decompiler.redundant_label_remover
 .. automodule:: angr.analyses.decompiler.sequence_walker

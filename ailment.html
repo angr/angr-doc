@@ -8,7 +8,7 @@
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   
-  <title>ailment — angr Intermediate Language &mdash; angr 9.2.36
+  <title>ailment — angr Intermediate Language &mdash; angr 9.2.37
  documentation</title>
   
 
@@ -67,7 +67,7 @@
             
             
               <div class="version">
-                9.2.36
+                9.2.37
 
               </div>
             
@@ -388,6 +388,14 @@
 <li class="toctree-l4"><a class="reference internal" href="#ailment.expression.VEXCCallExpression.copy"><code class="docutils literal notranslate"><span class="pre">VEXCCallExpression.copy()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="#ailment.expression.VEXCCallExpression.replace"><code class="docutils literal notranslate"><span class="pre">VEXCCallExpression.replace()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="#ailment.expression.VEXCCallExpression.size"><code class="docutils literal notranslate"><span class="pre">VEXCCallExpression.size</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#ailment.expression.MultiStatementExpression"><code class="docutils literal notranslate"><span class="pre">MultiStatementExpression</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#ailment.expression.MultiStatementExpression.stmts"><code class="docutils literal notranslate"><span class="pre">MultiStatementExpression.stmts</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#ailment.expression.MultiStatementExpression.expr"><code class="docutils literal notranslate"><span class="pre">MultiStatementExpression.expr</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#ailment.expression.MultiStatementExpression.bits"><code class="docutils literal notranslate"><span class="pre">MultiStatementExpression.bits</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#ailment.expression.MultiStatementExpression.size"><code class="docutils literal notranslate"><span class="pre">MultiStatementExpression.size</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#ailment.expression.MultiStatementExpression.replace"><code class="docutils literal notranslate"><span class="pre">MultiStatementExpression.replace()</span></code></a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="#ailment.expression.BasePointerOffset"><code class="docutils literal notranslate"><span class="pre">BasePointerOffset</span></code></a><ul>
@@ -1987,6 +1995,45 @@ to exists.</p>
 <dl class="py property">
 <dt class="sig sig-object py" id="ailment.expression.VEXCCallExpression.size">
 <em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">size</span></span><a class="headerlink" href="#ailment.expression.VEXCCallExpression.size" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="ailment.expression.MultiStatementExpression">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">ailment.expression.</span></span><span class="sig-name descname"><span class="pre">MultiStatementExpression</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#ailment.expression.MultiStatementExpression" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#ailment.expression.Expression" title="ailment.expression.Expression"><code class="xref py py-class docutils literal notranslate"><span class="pre">Expression</span></code></a></p>
+<p>For representing comma-separated statements and expression in C.</p>
+<p>Create a new instance and set <cite>_tags</cite> attribute.</p>
+<p>Since TaggedObject override <cite>__getattr__</cite> method and try to access the
+<cite>_tags</cite> attribute, infinite recursion could occur if <cite>_tags</cite> not ready
+to exists.</p>
+<p>This behavior causes an infinite recursion error when copying
+<cite>TaggedObject</cite> with <cite>copy.deepcopy</cite>.</p>
+<p>Hence, we set <cite>_tags</cite> attribute here to prevent this problem.</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="ailment.expression.MultiStatementExpression.stmts">
+<span class="sig-name descname"><span class="pre">stmts</span></span><a class="headerlink" href="#ailment.expression.MultiStatementExpression.stmts" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="ailment.expression.MultiStatementExpression.expr">
+<span class="sig-name descname"><span class="pre">expr</span></span><a class="headerlink" href="#ailment.expression.MultiStatementExpression.expr" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="ailment.expression.MultiStatementExpression.bits">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">bits</span></span><a class="headerlink" href="#ailment.expression.MultiStatementExpression.bits" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="ailment.expression.MultiStatementExpression.size">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">size</span></span><a class="headerlink" href="#ailment.expression.MultiStatementExpression.size" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="ailment.expression.MultiStatementExpression.replace">
+<span class="sig-name descname"><span class="pre">replace</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">old_expr</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">new_expr</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#ailment.expression.MultiStatementExpression.replace" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 </dd></dl>
