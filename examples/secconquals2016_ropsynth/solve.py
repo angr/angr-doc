@@ -14,7 +14,7 @@ import subprocess
 import struct
 import base64
 import time
-import nose
+import unittest
 
 import angr
 import angrop #pylint:disable=unused-variable
@@ -180,13 +180,11 @@ def get_gadgets():
     return final_payload
 
 def test():
-    #r = pwn.remote('ropsynth.pwn.seccon.jp', 10000)
-    #r = pwn.process("./ropsynth.py", stderr=2)
     try:
         r = subprocess.Popen(["./ropsynth.py"], stdin=subprocess.PIPE, stdout=subprocess.PIPE)
     except OSError as e:
         if e.errno == 12:
-            raise nose.SkipTest()
+            raise unittest.SkipTest()
         else:
             raise
 
