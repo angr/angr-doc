@@ -165,7 +165,6 @@ Exploration Techniques
 .. automodule:: angr.exploration_techniques.oppologist
 .. automodule:: angr.exploration_techniques.loop_seer
 .. automodule:: angr.exploration_techniques.local_loop_seer
-.. automodule:: angr.exploration_techniques.cacher
 .. automodule:: angr.exploration_techniques.stochastic
 .. automodule:: angr.exploration_techniques.unique
 .. automodule:: angr.exploration_techniques.tech_builder
@@ -215,7 +214,6 @@ Calling Conventions and Types
 .. automodule:: angr.calling_conventions
 .. automodule:: angr.sim_variable
 .. automodule:: angr.sim_type
-.. automodule:: angr.type_backend
 .. automodule:: angr.callable
 
 Knowledge Base
