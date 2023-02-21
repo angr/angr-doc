@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Index &mdash; angr 9.2.38
+  <title>Index &mdash; angr 9.2.39
  documentation</title>
       <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
@@ -32,7 +32,7 @@
             angr
           </a>
               <div class="version">
-                9.2.38
+                9.2.39
 
               </div>
 <div role="search">
@@ -239,6 +239,10 @@
 
       <ul>
         <li><a href="cle.html#cle.memory.Clemory.add_backer">(cle.memory.Clemory method)</a>
+</li>
+        <li><a href="cle.html#cle.memory.UninitializedClemory.add_backer">(cle.memory.UninitializedClemory method)</a>
+</li>
+        <li><a href="cle.html#cle.UninitializedClemory.add_backer">(cle.UninitializedClemory method)</a>
 </li>
       </ul></li>
       <li><a href="angr.html#angr.annocfg.AnnotatedCFG.add_block_to_whitelist">add_block_to_whitelist() (angr.annocfg.AnnotatedCFG method)</a>
@@ -2510,6 +2514,8 @@
         <li><a href="angr.html#module-angr.exploration_techniques.bucketizer">module</a>
 </li>
       </ul></li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
       <li>
     angr.exploration_techniques.common
 
@@ -2517,8 +2523,6 @@
         <li><a href="angr.html#module-angr.exploration_techniques.common">module</a>
 </li>
       </ul></li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
       <li>
     angr.exploration_techniques.dfs
 
@@ -4949,6 +4953,10 @@
 </li>
         <li><a href="cle.html#cle.memory.ClemoryView.backers">(cle.memory.ClemoryView method)</a>
 </li>
+        <li><a href="cle.html#cle.memory.UninitializedClemory.backers">(cle.memory.UninitializedClemory method)</a>
+</li>
+        <li><a href="cle.html#cle.UninitializedClemory.backers">(cle.UninitializedClemory method)</a>
+</li>
       </ul></li>
       <li><a href="angr.html#angr.analyses.typehoon.translator.TypeTranslator.backpatch">backpatch() (angr.analyses.typehoon.translator.TypeTranslator method)</a>
 </li>
@@ -6197,6 +6205,8 @@
 </li>
       </ul></li>
       <li><a href="angr.html#angr.analyses.cfg.cfg_job_base.CFGJobBase">CFGJobBase (class in angr.analyses.cfg.cfg_job_base)</a>
+</li>
+      <li><a href="angr.html#angr.analyses.cfg.cfg_fast.CFGJobType">CFGJobType (class in angr.analyses.cfg.cfg_fast)</a>
 </li>
       <li><a href="angr.html#angr.knowledge_plugins.cfg.cfg_manager.CFGManager">CFGManager (class in angr.knowledge_plugins.cfg.cfg_manager)</a>
 </li>
@@ -7901,6 +7911,8 @@
         <li><a href="angr.html#angr.sim_manager.SimulationManager.complete">(angr.sim_manager.SimulationManager method)</a>
 </li>
       </ul></li>
+      <li><a href="angr.html#angr.analyses.cfg.cfg_fast.CFGJobType.COMPLETE_SCANNING">COMPLETE_SCANNING (angr.analyses.cfg.cfg_fast.CFGJobType attribute)</a>
+</li>
       <li><a href="angr.html#angr.analyses.complete_calling_conventions.CompleteCallingConventionsAnalysis">CompleteCallingConventionsAnalysis (class in angr.analyses.complete_calling_conventions)</a>
 </li>
       <li><a href="claripy.html#claripy.frontend_mixins.composited_cache_mixin.CompositedCacheMixin">CompositedCacheMixin (class in claripy.frontend_mixins.composited_cache_mixin)</a>
@@ -8107,6 +8119,10 @@
 
       <ul>
         <li><a href="cle.html#cle.memory.Clemory.consecutive">(cle.memory.Clemory attribute)</a>
+</li>
+        <li><a href="cle.html#cle.memory.UninitializedClemory.consecutive">(cle.memory.UninitializedClemory attribute)</a>
+</li>
+        <li><a href="cle.html#cle.UninitializedClemory.consecutive">(cle.UninitializedClemory attribute)</a>
 </li>
       </ul></li>
       <li><a href="angr.html#angr.knowledge_plugins.key_definitions.atoms.ConstantSrc.const">const (angr.knowledge_plugins.key_definitions.atoms.ConstantSrc attribute)</a>
@@ -9088,6 +9104,8 @@
       <li><a href="angr.html#angr.storage.memory_mixins.bvv_conversion_mixin.DataNormalizationMixin">DataNormalizationMixin (class in angr.storage.memory_mixins.bvv_conversion_mixin)</a>
 </li>
       <li><a href="pyvex.html#pyvex.data_ref.DataRef">DataRef (class in pyvex.data_ref)</a>
+</li>
+      <li><a href="angr.html#angr.analyses.cfg.cfg_fast.CFGJobType.DATAREF_HINTS">DATAREF_HINTS (angr.analyses.cfg.cfg_fast.CFGJobType attribute)</a>
 </li>
       <li><a href="angr.html#angr.angrdb.db.AngrDB.db_compatible">db_compatible() (angr.angrdb.db.AngrDB method)</a>
 </li>
@@ -10591,6 +10609,14 @@
 </li>
       <li><a href="angr.html#angr.exploration_techniques.explorer.Explorer">Explorer (class in angr.exploration_techniques.explorer)</a>
 </li>
+      <li><a href="cle.html#cle.backends.MachO.export_blob">export_blob (cle.backends.MachO attribute)</a>
+
+      <ul>
+        <li><a href="cle.html#cle.backends.macho.MachO.export_blob">(cle.backends.macho.MachO attribute)</a>
+</li>
+        <li><a href="cle.html#cle.backends.macho.macho.MachO.export_blob">(cle.backends.macho.macho.MachO attribute)</a>
+</li>
+      </ul></li>
       <li><a href="ailment.html#ailment.expression.MultiStatementExpression.expr">expr (ailment.expression.MultiStatementExpression attribute)</a>
 
       <ul>
@@ -11003,6 +11029,10 @@
         <li><a href="cle.html#cle.memory.ClemoryBase.find">(cle.memory.ClemoryBase method)</a>
 </li>
         <li><a href="cle.html#cle.memory.ClemoryView.find">(cle.memory.ClemoryView method)</a>
+</li>
+        <li><a href="cle.html#cle.memory.UninitializedClemory.find">(cle.memory.UninitializedClemory method)</a>
+</li>
+        <li><a href="cle.html#cle.UninitializedClemory.find">(cle.UninitializedClemory method)</a>
 </li>
       </ul></li>
       <li><a href="cle.html#cle.Loader.find_all_symbols">find_all_symbols() (cle.Loader method)</a>
@@ -11849,6 +11879,8 @@
         <li><a href="archinfo.html#archinfo.ArchX86.function_prologs">(archinfo.ArchX86 attribute)</a>
 </li>
       </ul></li>
+      <li><a href="angr.html#angr.analyses.cfg.cfg_fast.CFGJobType.FUNCTION_PROLOGUE">FUNCTION_PROLOGUE (angr.analyses.cfg.cfg_fast.CFGJobType attribute)</a>
+</li>
       <li><a href="angr.html#angr.analyses.vfg.FunctionAnalysis">FunctionAnalysis (class in angr.analyses.vfg)</a>
 </li>
       <li><a href="angr.html#angr.analyses.proximity_graph.ProxiNodeTypes.FunctionCall">FunctionCall (angr.analyses.proximity_graph.ProxiNodeTypes attribute)</a>
@@ -13457,6 +13489,8 @@
         <li><a href="pyvex.html#pyvex.expr.ITE.iftrue">(pyvex.expr.ITE attribute)</a>
 </li>
       </ul></li>
+      <li><a href="angr.html#angr.analyses.cfg.cfg_fast.CFGJobType.IFUNC_HINTS">IFUNC_HINTS (angr.analyses.cfg.cfg_fast.CFGJobType attribute)</a>
+</li>
       <li><a href="claripy.html#claripy.vsa.strided_interval.StridedInterval.igcd">igcd() (claripy.vsa.strided_interval.StridedInterval static method)</a>
 </li>
       <li><a href="cle.html#cle.Backend.image_base_delta">image_base_delta (cle.Backend property)</a>
@@ -14225,10 +14259,10 @@
 </li>
       <li><a href="pyvex.html#pyvex.lifting.util.irsb_postprocess.irsb_postproc_flatten">irsb_postproc_flatten() (in module pyvex.lifting.util.irsb_postprocess)</a>
 </li>
-      <li><a href="ailment.html#ailment.IRSBConverter">IRSBConverter (class in ailment)</a>
-</li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="ailment.html#ailment.IRSBConverter">IRSBConverter (class in ailment)</a>
+</li>
       <li><a href="pyvex.html#pyvex.lifting.util.vex_helper.IRSBCustomizer">IRSBCustomizer (class in pyvex.lifting.util.vex_helper)</a>
 </li>
       <li><a href="pyvex.html#pyvex.stmt.IRStmt">IRStmt (class in pyvex.stmt)</a>
@@ -15175,16 +15209,6 @@
 </li>
       <li><a href="angr.html#angr.analyses.cfg.cfg_fast.CFGJob.job_type">job_type (angr.analyses.cfg.cfg_fast.CFGJob attribute)</a>
 </li>
-      <li><a href="angr.html#angr.analyses.cfg.cfg_fast.CFGJob.JOB_TYPE_COMPLETE_SCANNING">JOB_TYPE_COMPLETE_SCANNING (angr.analyses.cfg.cfg_fast.CFGJob attribute)</a>
-</li>
-      <li><a href="angr.html#angr.analyses.cfg.cfg_fast.CFGJob.JOB_TYPE_DATAREF_HINTS">JOB_TYPE_DATAREF_HINTS (angr.analyses.cfg.cfg_fast.CFGJob attribute)</a>
-</li>
-      <li><a href="angr.html#angr.analyses.cfg.cfg_fast.CFGJob.JOB_TYPE_FUNCTION_PROLOGUE">JOB_TYPE_FUNCTION_PROLOGUE (angr.analyses.cfg.cfg_fast.CFGJob attribute)</a>
-</li>
-      <li><a href="angr.html#angr.analyses.cfg.cfg_fast.CFGJob.JOB_TYPE_IFUNC_HINTS">JOB_TYPE_IFUNC_HINTS (angr.analyses.cfg.cfg_fast.CFGJob attribute)</a>
-</li>
-      <li><a href="angr.html#angr.analyses.cfg.cfg_fast.CFGJob.JOB_TYPE_NORMAL">JOB_TYPE_NORMAL (angr.analyses.cfg.cfg_fast.CFGJob attribute)</a>
-</li>
       <li><a href="angr.html#angr.analyses.forward_analysis.job_info.JobInfo">JobInfo (class in angr.analyses.forward_analysis.job_info)</a>
 </li>
       <li><a href="angr.html#angr.analyses.forward_analysis.forward_analysis.ForwardAnalysis.jobs">jobs (angr.analyses.forward_analysis.forward_analysis.ForwardAnalysis property)</a>
@@ -15203,8 +15227,6 @@
 </li>
       <li><a href="angr.html#angr.state_plugins.history.SimStateHistory.jump_sources">jump_sources (angr.state_plugins.history.SimStateHistory property)</a>
 </li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="angr.html#angr.analyses.cfg.cfg_fast.CFGFast.jump_tables">jump_tables (angr.analyses.cfg.cfg_fast.CFGFast property)</a>
 
       <ul>
@@ -15213,6 +15235,8 @@
       </ul></li>
       <li><a href="angr.html#angr.state_plugins.history.SimStateHistory.jump_targets">jump_targets (angr.state_plugins.history.SimStateHistory property)</a>
 </li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="angr.html#angr.analyses.cfg.cfg_fast.CFGJob.jumpkind">jumpkind (angr.analyses.cfg.cfg_fast.CFGJob attribute)</a>
 
       <ul>
@@ -15515,6 +15539,14 @@
 </li>
       <li><a href="cle.html#cle.backends.macho.macho_load_commands.LoadCommands.LC_ENCRYPTION_INFO_64">LC_ENCRYPTION_INFO_64 (cle.backends.macho.macho_load_commands.LoadCommands attribute)</a>
 </li>
+      <li><a href="cle.html#cle.backends.MachO.lc_function_starts">lc_function_starts (cle.backends.MachO attribute)</a>
+
+      <ul>
+        <li><a href="cle.html#cle.backends.macho.MachO.lc_function_starts">(cle.backends.macho.MachO attribute)</a>
+</li>
+        <li><a href="cle.html#cle.backends.macho.macho.MachO.lc_function_starts">(cle.backends.macho.macho.MachO attribute)</a>
+</li>
+      </ul></li>
       <li><a href="cle.html#cle.backends.macho.macho_load_commands.LoadCommands.LC_FUNCTION_STARTS">LC_FUNCTION_STARTS (cle.backends.macho.macho_load_commands.LoadCommands attribute)</a>
 </li>
       <li><a href="cle.html#cle.backends.macho.macho_load_commands.LoadCommands.LC_FVMFILE">LC_FVMFILE (cle.backends.macho.macho_load_commands.LoadCommands attribute)</a>
@@ -16038,6 +16070,10 @@
 </li>
         <li><a href="cle.html#cle.memory.ClemoryView.load">(cle.memory.ClemoryView method)</a>
 </li>
+        <li><a href="cle.html#cle.memory.UninitializedClemory.load">(cle.memory.UninitializedClemory method)</a>
+</li>
+        <li><a href="cle.html#cle.UninitializedClemory.load">(cle.UninitializedClemory method)</a>
+</li>
         <li><a href="pyvex.html#pyvex.lifting.util.instr_helper.Instruction.load">(pyvex.lifting.util.instr_helper.Instruction method)</a>
 </li>
         <li><a href="pyvex.html#pyvex.lifting.util.Instruction.load">(pyvex.lifting.util.Instruction method)</a>
@@ -16397,6 +16433,16 @@
         <li><a href="cle.html#cle.backends.macho.macho.MachO">(class in cle.backends.macho.macho)</a>
 </li>
       </ul></li>
+      <li><a href="cle.html#cle.backends.MachO.macho_base">macho_base (cle.backends.MachO property)</a>
+
+      <ul>
+        <li><a href="cle.html#cle.backends.macho.MachO.macho_base">(cle.backends.macho.MachO property)</a>
+</li>
+        <li><a href="cle.html#cle.backends.macho.macho.MachO.macho_base">(cle.backends.macho.macho.MachO property)</a>
+</li>
+        <li><a href="cle.html#cle.MachO.macho_base">(cle.MachO property)</a>
+</li>
+      </ul></li>
       <li><a href="cle.html#cle.backends.macho.binding.MachORelocation">MachORelocation (class in cle.backends.macho.binding)</a>
 </li>
       <li><a href="cle.html#cle.backends.macho.macho.MachOSection">MachOSection (class in cle.backends.macho.macho)</a>
@@ -16529,14 +16575,6 @@
         <li><a href="angr.html#angr.storage.memory_mixins.paged_memory.paged_memory_mixin.PagedMemoryMixin.map_region">(angr.storage.memory_mixins.paged_memory.paged_memory_mixin.PagedMemoryMixin method)</a>
 </li>
       </ul></li>
-      <li><a href="cle.html#cle.backends.MachO.mapped_base">mapped_base (cle.backends.MachO attribute)</a>
-
-      <ul>
-        <li><a href="cle.html#cle.backends.macho.MachO.mapped_base">(cle.backends.macho.MachO attribute)</a>
-</li>
-        <li><a href="cle.html#cle.backends.macho.macho.MachO.mapped_base">(cle.backends.macho.macho.MachO attribute)</a>
-</li>
-      </ul></li>
       <li><a href="angr.html#angr.analyses.reaching_definitions.rd_state.ReachingDefinitionsState.mark_call">mark_call() (angr.analyses.reaching_definitions.rd_state.ReachingDefinitionsState method)</a>
 </li>
       <li><a href="angr.html#angr.analyses.reaching_definitions.rd_state.ReachingDefinitionsState.mark_const">mark_const() (angr.analyses.reaching_definitions.rd_state.ReachingDefinitionsState method)</a>
@@ -16662,6 +16700,8 @@
 </li>
         <li><a href="cle.html#cle.memory.Clemory.max_addr">(cle.memory.Clemory attribute)</a>
 </li>
+        <li><a href="cle.html#cle.memory.UninitializedClemory.max_addr">(cle.memory.UninitializedClemory attribute)</a>
+</li>
         <li><a href="cle.html#cle.NamedRegion.max_addr">(cle.NamedRegion property)</a>
 </li>
         <li><a href="cle.html#cle.Region.max_addr">(cle.Region property)</a>
@@ -16669,6 +16709,8 @@
         <li><a href="cle.html#cle.Regions.max_addr">(cle.Regions property)</a>
 </li>
         <li><a href="cle.html#cle.Soot.max_addr">(cle.Soot property)</a>
+</li>
+        <li><a href="cle.html#cle.UninitializedClemory.max_addr">(cle.UninitializedClemory attribute)</a>
 </li>
         <li><a href="cle.html#cle.XBE.max_addr">(cle.XBE property)</a>
 </li>
@@ -17374,6 +17416,12 @@
 </li>
         <li><a href="cle.html#cle.backends.elf.compilation_unit.CompilationUnit.min_addr">(cle.backends.elf.compilation_unit.CompilationUnit property)</a>
 </li>
+        <li><a href="cle.html#cle.backends.MachO.min_addr">(cle.backends.MachO property)</a>
+</li>
+        <li><a href="cle.html#cle.backends.macho.MachO.min_addr">(cle.backends.macho.MachO property)</a>
+</li>
+        <li><a href="cle.html#cle.backends.macho.macho.MachO.min_addr">(cle.backends.macho.macho.MachO property)</a>
+</li>
         <li><a href="cle.html#cle.backends.named_region.NamedRegion.min_addr">(cle.backends.named_region.NamedRegion property)</a>
 </li>
         <li><a href="cle.html#cle.backends.NamedRegion.min_addr">(cle.backends.NamedRegion property)</a>
@@ -17394,11 +17442,17 @@
 </li>
         <li><a href="cle.html#cle.loader.Loader.min_addr">(cle.loader.Loader property)</a>
 </li>
+        <li><a href="cle.html#cle.MachO.min_addr">(cle.MachO property)</a>
+</li>
         <li><a href="cle.html#cle.memory.Clemory.min_addr">(cle.memory.Clemory attribute)</a>
+</li>
+        <li><a href="cle.html#cle.memory.UninitializedClemory.min_addr">(cle.memory.UninitializedClemory attribute)</a>
 </li>
         <li><a href="cle.html#cle.NamedRegion.min_addr">(cle.NamedRegion property)</a>
 </li>
         <li><a href="cle.html#cle.Region.min_addr">(cle.Region property)</a>
+</li>
+        <li><a href="cle.html#cle.UninitializedClemory.min_addr">(cle.UninitializedClemory attribute)</a>
 </li>
         <li><a href="cle.html#cle.XBE.min_addr">(cle.XBE property)</a>
 </li>
@@ -19316,6 +19370,8 @@
         <li><a href="archinfo.html#archinfo.ArchX86.nop_instruction">(archinfo.ArchX86 attribute)</a>
 </li>
       </ul></li>
+      <li><a href="angr.html#angr.analyses.cfg.cfg_fast.CFGJobType.NORMAL">NORMAL (angr.analyses.cfg.cfg_fast.CFGJobType attribute)</a>
+</li>
       <li><a href="angr.html#angr.analyses.cfg.cfg_base.CFGBase.normalize">normalize() (angr.analyses.cfg.cfg_base.CFGBase method)</a>
 
       <ul>
@@ -20968,6 +21024,14 @@
         <li><a href="cle.html#cle.backends.elf.relocation.armhf.R_ARM_GLOB_DAT">(class in cle.backends.elf.relocation.armhf)</a>
 </li>
       </ul></li>
+      <li><a href="cle.html#cle.backends.elf.relocation.arm.R_ARM_GOT_PREL">R_ARM_GOT_PREL (class in cle.backends.elf.relocation.arm)</a>
+
+      <ul>
+        <li><a href="cle.html#cle.backends.elf.relocation.armel.R_ARM_GOT_PREL">(class in cle.backends.elf.relocation.armel)</a>
+</li>
+        <li><a href="cle.html#cle.backends.elf.relocation.armhf.R_ARM_GOT_PREL">(class in cle.backends.elf.relocation.armhf)</a>
+</li>
+      </ul></li>
       <li><a href="cle.html#cle.backends.elf.relocation.arm.R_ARM_JUMP24">R_ARM_JUMP24 (class in cle.backends.elf.relocation.arm)</a>
 
       <ul>
@@ -21484,6 +21548,14 @@
         <li><a href="cle.html#cle.ELF.rebase">(cle.ELF method)</a>
 </li>
         <li><a href="cle.html#cle.ExternObject.rebase">(cle.ExternObject method)</a>
+</li>
+      </ul></li>
+      <li><a href="cle.html#cle.backends.MachO.rebase_blob">rebase_blob (cle.backends.MachO attribute)</a>
+
+      <ul>
+        <li><a href="cle.html#cle.backends.macho.MachO.rebase_blob">(cle.backends.macho.MachO attribute)</a>
+</li>
+        <li><a href="cle.html#cle.backends.macho.macho.MachO.rebase_blob">(cle.backends.macho.macho.MachO attribute)</a>
 </li>
       </ul></li>
       <li><a href="cle.html#cle.backends.elf.variable.MemoryVariable.rebased_addr">rebased_addr (cle.backends.elf.variable.MemoryVariable property)</a>
@@ -22295,6 +22367,10 @@
       <ul>
         <li><a href="cle.html#cle.memory.Clemory.remove_backer">(cle.memory.Clemory method)</a>
 </li>
+        <li><a href="cle.html#cle.memory.UninitializedClemory.remove_backer">(cle.memory.UninitializedClemory method)</a>
+</li>
+        <li><a href="cle.html#cle.UninitializedClemory.remove_backer">(cle.UninitializedClemory method)</a>
+</li>
       </ul></li>
       <li><a href="angr.html#angr.state_plugins.inspect.SimInspector.remove_breakpoint">remove_breakpoint() (angr.state_plugins.inspect.SimInspector method)</a>
 </li>
@@ -22492,10 +22568,10 @@
         <li><a href="pyvex.html#pyvex.lifting.util.lifter_helper.GymratLifter.REQUIRE_DATA_PY">(pyvex.lifting.util.lifter_helper.GymratLifter attribute)</a>
 </li>
       </ul></li>
-      <li><a href="angr.html#angr.sim_manager.ErrorRecord.reraise">reraise() (angr.sim_manager.ErrorRecord method)</a>
-</li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="angr.html#angr.sim_manager.ErrorRecord.reraise">reraise() (angr.sim_manager.ErrorRecord method)</a>
+</li>
       <li><a href="cle.html#cle.backends.macho.structs.dyld_chained_import_addend64.reserved">reserved (cle.backends.macho.structs.dyld_chained_import_addend64 attribute)</a>
 </li>
       <li><a href="ailment.html#ailment.Manager.reset">reset() (ailment.Manager method)</a>
@@ -22629,6 +22705,8 @@
 </li>
         <li><a href="cle.html#cle.backends.elf.relocation.arm.R_ARM_GLOB_DAT.resolved">(cle.backends.elf.relocation.arm.R_ARM_GLOB_DAT attribute)</a>
 </li>
+        <li><a href="cle.html#cle.backends.elf.relocation.arm.R_ARM_GOT_PREL.resolved">(cle.backends.elf.relocation.arm.R_ARM_GOT_PREL attribute)</a>
+</li>
         <li><a href="cle.html#cle.backends.elf.relocation.arm.R_ARM_JUMP24.resolved">(cle.backends.elf.relocation.arm.R_ARM_JUMP24 attribute)</a>
 </li>
         <li><a href="cle.html#cle.backends.elf.relocation.arm.R_ARM_JUMP_SLOT.resolved">(cle.backends.elf.relocation.arm.R_ARM_JUMP_SLOT attribute)</a>
@@ -22743,6 +22821,8 @@
 </li>
         <li><a href="cle.html#cle.backends.elf.relocation.armel.R_ARM_GLOB_DAT.resolved">(cle.backends.elf.relocation.armel.R_ARM_GLOB_DAT attribute)</a>
 </li>
+        <li><a href="cle.html#cle.backends.elf.relocation.armel.R_ARM_GOT_PREL.resolved">(cle.backends.elf.relocation.armel.R_ARM_GOT_PREL attribute)</a>
+</li>
         <li><a href="cle.html#cle.backends.elf.relocation.armel.R_ARM_JUMP24.resolved">(cle.backends.elf.relocation.armel.R_ARM_JUMP24 attribute)</a>
 </li>
         <li><a href="cle.html#cle.backends.elf.relocation.armel.R_ARM_JUMP_SLOT.resolved">(cle.backends.elf.relocation.armel.R_ARM_JUMP_SLOT attribute)</a>
@@ -22786,6 +22866,8 @@
         <li><a href="cle.html#cle.backends.elf.relocation.armhf.R_ARM_COPY.resolved">(cle.backends.elf.relocation.armhf.R_ARM_COPY attribute)</a>
 </li>
         <li><a href="cle.html#cle.backends.elf.relocation.armhf.R_ARM_GLOB_DAT.resolved">(cle.backends.elf.relocation.armhf.R_ARM_GLOB_DAT attribute)</a>
+</li>
+        <li><a href="cle.html#cle.backends.elf.relocation.armhf.R_ARM_GOT_PREL.resolved">(cle.backends.elf.relocation.armhf.R_ARM_GOT_PREL attribute)</a>
 </li>
         <li><a href="cle.html#cle.backends.elf.relocation.armhf.R_ARM_JUMP24.resolved">(cle.backends.elf.relocation.armhf.R_ARM_JUMP24 attribute)</a>
 </li>
@@ -23113,6 +23195,8 @@
 </li>
         <li><a href="cle.html#cle.backends.elf.relocation.arm.R_ARM_GLOB_DAT.resolvedby">(cle.backends.elf.relocation.arm.R_ARM_GLOB_DAT attribute)</a>
 </li>
+        <li><a href="cle.html#cle.backends.elf.relocation.arm.R_ARM_GOT_PREL.resolvedby">(cle.backends.elf.relocation.arm.R_ARM_GOT_PREL attribute)</a>
+</li>
         <li><a href="cle.html#cle.backends.elf.relocation.arm.R_ARM_JUMP24.resolvedby">(cle.backends.elf.relocation.arm.R_ARM_JUMP24 attribute)</a>
 </li>
         <li><a href="cle.html#cle.backends.elf.relocation.arm.R_ARM_JUMP_SLOT.resolvedby">(cle.backends.elf.relocation.arm.R_ARM_JUMP_SLOT attribute)</a>
@@ -23227,6 +23311,8 @@
 </li>
         <li><a href="cle.html#cle.backends.elf.relocation.armel.R_ARM_GLOB_DAT.resolvedby">(cle.backends.elf.relocation.armel.R_ARM_GLOB_DAT attribute)</a>
 </li>
+        <li><a href="cle.html#cle.backends.elf.relocation.armel.R_ARM_GOT_PREL.resolvedby">(cle.backends.elf.relocation.armel.R_ARM_GOT_PREL attribute)</a>
+</li>
         <li><a href="cle.html#cle.backends.elf.relocation.armel.R_ARM_JUMP24.resolvedby">(cle.backends.elf.relocation.armel.R_ARM_JUMP24 attribute)</a>
 </li>
         <li><a href="cle.html#cle.backends.elf.relocation.armel.R_ARM_JUMP_SLOT.resolvedby">(cle.backends.elf.relocation.armel.R_ARM_JUMP_SLOT attribute)</a>
@@ -23270,6 +23356,8 @@
         <li><a href="cle.html#cle.backends.elf.relocation.armhf.R_ARM_COPY.resolvedby">(cle.backends.elf.relocation.armhf.R_ARM_COPY attribute)</a>
 </li>
         <li><a href="cle.html#cle.backends.elf.relocation.armhf.R_ARM_GLOB_DAT.resolvedby">(cle.backends.elf.relocation.armhf.R_ARM_GLOB_DAT attribute)</a>
+</li>
+        <li><a href="cle.html#cle.backends.elf.relocation.armhf.R_ARM_GOT_PREL.resolvedby">(cle.backends.elf.relocation.armhf.R_ARM_GOT_PREL attribute)</a>
 </li>
         <li><a href="cle.html#cle.backends.elf.relocation.armhf.R_ARM_JUMP24.resolvedby">(cle.backends.elf.relocation.armhf.R_ARM_JUMP24 attribute)</a>
 </li>
@@ -25758,8 +25846,6 @@
         <li><a href="angr.html#angr.exploration_techniques.spiller.PickledStatesList.sort">(angr.exploration_techniques.spiller.PickledStatesList method)</a>
 </li>
       </ul></li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="angr.html#angr.analyses.forward_analysis.visitors.call_graph.CallGraphVisitor.sort_nodes">sort_nodes() (angr.analyses.forward_analysis.visitors.call_graph.CallGraphVisitor method)</a>
 
       <ul>
@@ -25772,6 +25858,8 @@
         <li><a href="angr.html#angr.analyses.forward_analysis.visitors.single_node_graph.SingleNodeGraphVisitor.sort_nodes">(angr.analyses.forward_analysis.visitors.single_node_graph.SingleNodeGraphVisitor method)</a>
 </li>
       </ul></li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="cle.html#cle.backends.backend.FunctionHint.source">source (cle.backends.backend.FunctionHint attribute)</a>
 
       <ul>
@@ -25832,6 +25920,10 @@
 
       <ul>
         <li><a href="cle.html#cle.memory.Clemory.split_backer">(cle.memory.Clemory method)</a>
+</li>
+        <li><a href="cle.html#cle.memory.UninitializedClemory.split_backer">(cle.memory.UninitializedClemory method)</a>
+</li>
+        <li><a href="cle.html#cle.UninitializedClemory.split_backer">(cle.UninitializedClemory method)</a>
 </li>
       </ul></li>
       <li><a href="angr.html#angr.analyses.disassembly.Instruction.split_op_string">split_op_string() (angr.analyses.disassembly.Instruction static method)</a>
@@ -26759,6 +26851,10 @@
 </li>
         <li><a href="cle.html#cle.memory.ClemoryView.store">(cle.memory.ClemoryView method)</a>
 </li>
+        <li><a href="cle.html#cle.memory.UninitializedClemory.store">(cle.memory.UninitializedClemory method)</a>
+</li>
+        <li><a href="cle.html#cle.UninitializedClemory.store">(cle.UninitializedClemory method)</a>
+</li>
         <li><a href="pyvex.html#pyvex.lifting.util.instr_helper.Instruction.store">(pyvex.lifting.util.instr_helper.Instruction method)</a>
 </li>
         <li><a href="pyvex.html#pyvex.lifting.util.Instruction.store">(pyvex.lifting.util.Instruction method)</a>
@@ -26940,6 +27036,14 @@
 
       <ul>
         <li><a href="claripy.html#claripy.strings.StrSuffixOf">(in module claripy.strings)</a>
+</li>
+      </ul></li>
+      <li><a href="cle.html#cle.backends.MachO.strtab">strtab (cle.backends.MachO attribute)</a>
+
+      <ul>
+        <li><a href="cle.html#cle.backends.macho.MachO.strtab">(cle.backends.macho.MachO attribute)</a>
+</li>
+        <li><a href="cle.html#cle.backends.macho.macho.MachO.strtab">(cle.backends.macho.macho.MachO attribute)</a>
 </li>
       </ul></li>
       <li><a href="claripy.html#claripy.ast.strings.String.StrToInt">StrToInt() (claripy.ast.strings.String static method)</a>
@@ -28944,14 +29048,14 @@
       </ul></li>
       <li><a href="angr.html#angr.state_plugins.unicorn_engine.Unicorn">Unicorn (class in angr.state_plugins.unicorn_engine)</a>
 </li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="archinfo.html#archinfo.Arch.unicorn_support">unicorn_support (archinfo.Arch property)</a>
 
       <ul>
         <li><a href="archinfo.html#archinfo.arch.Arch.unicorn_support">(archinfo.arch.Arch property)</a>
 </li>
       </ul></li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="archinfo.html#archinfo.arch_arm.ArchARM.unicorn_thumb">unicorn_thumb (archinfo.arch_arm.ArchARM property)</a>
 
       <ul>
@@ -28968,6 +29072,12 @@
 </li>
       <li><a href="claripy.html#claripy.ast.base.Base.uninitialized">uninitialized (claripy.ast.base.Base property)</a>
 </li>
+      <li><a href="cle.html#cle.UninitializedClemory">UninitializedClemory (class in cle)</a>
+
+      <ul>
+        <li><a href="cle.html#cle.memory.UninitializedClemory">(class in cle.memory)</a>
+</li>
+      </ul></li>
       <li><a href="angr.html#angr.analyses.cfg.indirect_jump_resolvers.jumptable.UninitReadMeta">UninitReadMeta (class in angr.analyses.cfg.indirect_jump_resolvers.jumptable)</a>
 </li>
       <li><a href="angr.html#angr.state_plugins.sim_action_object.SimActionObject.union">union() (angr.state_plugins.sim_action_object.SimActionObject method)</a>
@@ -29146,6 +29256,10 @@
 
       <ul>
         <li><a href="cle.html#cle.memory.Clemory.update_backer">(cle.memory.Clemory method)</a>
+</li>
+        <li><a href="cle.html#cle.memory.UninitializedClemory.update_backer">(cle.memory.UninitializedClemory method)</a>
+</li>
+        <li><a href="cle.html#cle.UninitializedClemory.update_backer">(cle.UninitializedClemory method)</a>
 </li>
       </ul></li>
       <li><a href="angr.html#angr.angrdb.db.AngrDB.update_dbinfo">update_dbinfo() (angr.angrdb.db.AngrDB method)</a>

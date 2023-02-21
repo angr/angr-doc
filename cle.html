@@ -4,7 +4,7 @@
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>cle — Binary Loader &mdash; angr 9.2.38
+  <title>cle — Binary Loader &mdash; angr 9.2.39
  documentation</title>
       <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
@@ -35,7 +35,7 @@
             angr
           </a>
               <div class="version">
-                9.2.38
+                9.2.39
 
               </div>
 <div role="search">
@@ -241,6 +241,8 @@
 <li class="toctree-l3"><a class="reference internal" href="#cle.MachO.MH_CIGAM"><code class="docutils literal notranslate"><span class="pre">MachO.MH_CIGAM</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="#cle.MachO.ncmds"><code class="docutils literal notranslate"><span class="pre">MachO.ncmds</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="#cle.MachO.sizeofcmds"><code class="docutils literal notranslate"><span class="pre">MachO.sizeofcmds</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#cle.MachO.macho_base"><code class="docutils literal notranslate"><span class="pre">MachO.macho_base</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#cle.MachO.min_addr"><code class="docutils literal notranslate"><span class="pre">MachO.min_addr</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="#cle.MachO.is_compatible"><code class="docutils literal notranslate"><span class="pre">MachO.is_compatible()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="#cle.MachO.is_thumb_interworking"><code class="docutils literal notranslate"><span class="pre">MachO.is_thumb_interworking()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="#cle.MachO.decode_thumb_interworking"><code class="docutils literal notranslate"><span class="pre">MachO.decode_thumb_interworking()</span></code></a></li>
@@ -550,6 +552,20 @@
 <li class="toctree-l3"><a class="reference internal" href="#cle.ClemoryView.load"><code class="docutils literal notranslate"><span class="pre">ClemoryView.load()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="#cle.ClemoryView.store"><code class="docutils literal notranslate"><span class="pre">ClemoryView.store()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="#cle.ClemoryView.find"><code class="docutils literal notranslate"><span class="pre">ClemoryView.find()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#cle.UninitializedClemory"><code class="docutils literal notranslate"><span class="pre">UninitializedClemory</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#cle.UninitializedClemory.max_addr"><code class="docutils literal notranslate"><span class="pre">UninitializedClemory.max_addr</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#cle.UninitializedClemory.add_backer"><code class="docutils literal notranslate"><span class="pre">UninitializedClemory.add_backer()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#cle.UninitializedClemory.split_backer"><code class="docutils literal notranslate"><span class="pre">UninitializedClemory.split_backer()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#cle.UninitializedClemory.update_backer"><code class="docutils literal notranslate"><span class="pre">UninitializedClemory.update_backer()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#cle.UninitializedClemory.remove_backer"><code class="docutils literal notranslate"><span class="pre">UninitializedClemory.remove_backer()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#cle.UninitializedClemory.backers"><code class="docutils literal notranslate"><span class="pre">UninitializedClemory.backers()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#cle.UninitializedClemory.load"><code class="docutils literal notranslate"><span class="pre">UninitializedClemory.load()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#cle.UninitializedClemory.store"><code class="docutils literal notranslate"><span class="pre">UninitializedClemory.store()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#cle.UninitializedClemory.find"><code class="docutils literal notranslate"><span class="pre">UninitializedClemory.find()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#cle.UninitializedClemory.consecutive"><code class="docutils literal notranslate"><span class="pre">UninitializedClemory.consecutive</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#cle.UninitializedClemory.min_addr"><code class="docutils literal notranslate"><span class="pre">UninitializedClemory.min_addr</span></code></a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="#cle.PatchedStream"><code class="docutils literal notranslate"><span class="pre">PatchedStream</span></code></a><ul>
@@ -876,12 +892,17 @@
 <li class="toctree-l4"><a class="reference internal" href="#cle.backends.MachO.MH_MAGIC"><code class="docutils literal notranslate"><span class="pre">MachO.MH_MAGIC</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="#cle.backends.MachO.MH_CIGAM"><code class="docutils literal notranslate"><span class="pre">MachO.MH_CIGAM</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="#cle.backends.MachO.symbols"><code class="docutils literal notranslate"><span class="pre">MachO.symbols</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#cle.backends.MachO.lc_function_starts"><code class="docutils literal notranslate"><span class="pre">MachO.lc_function_starts</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#cle.backends.MachO.export_blob"><code class="docutils literal notranslate"><span class="pre">MachO.export_blob</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="#cle.backends.MachO.binding_blob"><code class="docutils literal notranslate"><span class="pre">MachO.binding_blob</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="#cle.backends.MachO.lazy_binding_blob"><code class="docutils literal notranslate"><span class="pre">MachO.lazy_binding_blob</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="#cle.backends.MachO.weak_binding_blob"><code class="docutils literal notranslate"><span class="pre">MachO.weak_binding_blob</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#cle.backends.MachO.rebase_blob"><code class="docutils literal notranslate"><span class="pre">MachO.rebase_blob</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#cle.backends.MachO.strtab"><code class="docutils literal notranslate"><span class="pre">MachO.strtab</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="#cle.backends.MachO.ncmds"><code class="docutils literal notranslate"><span class="pre">MachO.ncmds</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="#cle.backends.MachO.sizeofcmds"><code class="docutils literal notranslate"><span class="pre">MachO.sizeofcmds</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="#cle.backends.MachO.mapped_base"><code class="docutils literal notranslate"><span class="pre">MachO.mapped_base</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#cle.backends.MachO.macho_base"><code class="docutils literal notranslate"><span class="pre">MachO.macho_base</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#cle.backends.MachO.min_addr"><code class="docutils literal notranslate"><span class="pre">MachO.min_addr</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="#cle.backends.MachO.is_compatible"><code class="docutils literal notranslate"><span class="pre">MachO.is_compatible()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="#cle.backends.MachO.is_thumb_interworking"><code class="docutils literal notranslate"><span class="pre">MachO.is_thumb_interworking()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="#cle.backends.MachO.decode_thumb_interworking"><code class="docutils literal notranslate"><span class="pre">MachO.decode_thumb_interworking()</span></code></a></li>
@@ -889,6 +910,7 @@
 <li class="toctree-l4"><a class="reference internal" href="#cle.backends.MachO.do_binding"><code class="docutils literal notranslate"><span class="pre">MachO.do_binding()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="#cle.backends.MachO.get_string"><code class="docutils literal notranslate"><span class="pre">MachO.get_string()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="#cle.backends.MachO.parse_lc_str"><code class="docutils literal notranslate"><span class="pre">MachO.parse_lc_str()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#cle.backends.MachO.S"><code class="docutils literal notranslate"><span class="pre">MachO.S</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="#cle.backends.MachO.loader"><code class="docutils literal notranslate"><span class="pre">MachO.loader</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="#cle.backends.MachO.imports"><code class="docutils literal notranslate"><span class="pre">MachO.imports</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="#cle.backends.MachO.relocs"><code class="docutils literal notranslate"><span class="pre">MachO.relocs</span></code></a></li>
@@ -896,7 +918,6 @@
 <li class="toctree-l4"><a class="reference internal" href="#cle.backends.MachO.exception_handlings"><code class="docutils literal notranslate"><span class="pre">MachO.exception_handlings</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="#cle.backends.MachO.function_hints"><code class="docutils literal notranslate"><span class="pre">MachO.function_hints</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="#cle.backends.MachO.memory"><code class="docutils literal notranslate"><span class="pre">MachO.memory</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="#cle.backends.MachO.S"><code class="docutils literal notranslate"><span class="pre">MachO.S</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="#cle.backends.MachO.get_symbol_by_address_fuzzy"><code class="docutils literal notranslate"><span class="pre">MachO.get_symbol_by_address_fuzzy()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="#cle.backends.MachO.get_symbol"><code class="docutils literal notranslate"><span class="pre">MachO.get_symbol()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="#cle.backends.MachO.get_symbol_by_insertion_order"><code class="docutils literal notranslate"><span class="pre">MachO.get_symbol_by_insertion_order()</span></code></a></li>
@@ -1556,12 +1577,17 @@
 <li class="toctree-l4"><a class="reference internal" href="#cle.backends.macho.MachO.MH_MAGIC"><code class="docutils literal notranslate"><span class="pre">MachO.MH_MAGIC</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="#cle.backends.macho.MachO.MH_CIGAM"><code class="docutils literal notranslate"><span class="pre">MachO.MH_CIGAM</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="#cle.backends.macho.MachO.symbols"><code class="docutils literal notranslate"><span class="pre">MachO.symbols</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#cle.backends.macho.MachO.lc_function_starts"><code class="docutils literal notranslate"><span class="pre">MachO.lc_function_starts</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#cle.backends.macho.MachO.export_blob"><code class="docutils literal notranslate"><span class="pre">MachO.export_blob</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="#cle.backends.macho.MachO.binding_blob"><code class="docutils literal notranslate"><span class="pre">MachO.binding_blob</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="#cle.backends.macho.MachO.lazy_binding_blob"><code class="docutils literal notranslate"><span class="pre">MachO.lazy_binding_blob</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="#cle.backends.macho.MachO.weak_binding_blob"><code class="docutils literal notranslate"><span class="pre">MachO.weak_binding_blob</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#cle.backends.macho.MachO.rebase_blob"><code class="docutils literal notranslate"><span class="pre">MachO.rebase_blob</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#cle.backends.macho.MachO.strtab"><code class="docutils literal notranslate"><span class="pre">MachO.strtab</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="#cle.backends.macho.MachO.ncmds"><code class="docutils literal notranslate"><span class="pre">MachO.ncmds</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="#cle.backends.macho.MachO.sizeofcmds"><code class="docutils literal notranslate"><span class="pre">MachO.sizeofcmds</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="#cle.backends.macho.MachO.mapped_base"><code class="docutils literal notranslate"><span class="pre">MachO.mapped_base</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#cle.backends.macho.MachO.macho_base"><code class="docutils literal notranslate"><span class="pre">MachO.macho_base</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#cle.backends.macho.MachO.min_addr"><code class="docutils literal notranslate"><span class="pre">MachO.min_addr</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="#cle.backends.macho.MachO.is_compatible"><code class="docutils literal notranslate"><span class="pre">MachO.is_compatible()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="#cle.backends.macho.MachO.is_thumb_interworking"><code class="docutils literal notranslate"><span class="pre">MachO.is_thumb_interworking()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="#cle.backends.macho.MachO.decode_thumb_interworking"><code class="docutils literal notranslate"><span class="pre">MachO.decode_thumb_interworking()</span></code></a></li>
@@ -1569,6 +1595,7 @@
 <li class="toctree-l4"><a class="reference internal" href="#cle.backends.macho.MachO.do_binding"><code class="docutils literal notranslate"><span class="pre">MachO.do_binding()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="#cle.backends.macho.MachO.get_string"><code class="docutils literal notranslate"><span class="pre">MachO.get_string()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="#cle.backends.macho.MachO.parse_lc_str"><code class="docutils literal notranslate"><span class="pre">MachO.parse_lc_str()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#cle.backends.macho.MachO.S"><code class="docutils literal notranslate"><span class="pre">MachO.S</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="#cle.backends.macho.MachO.loader"><code class="docutils literal notranslate"><span class="pre">MachO.loader</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="#cle.backends.macho.MachO.imports"><code class="docutils literal notranslate"><span class="pre">MachO.imports</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="#cle.backends.macho.MachO.relocs"><code class="docutils literal notranslate"><span class="pre">MachO.relocs</span></code></a></li>
@@ -1576,7 +1603,6 @@
 <li class="toctree-l4"><a class="reference internal" href="#cle.backends.macho.MachO.exception_handlings"><code class="docutils literal notranslate"><span class="pre">MachO.exception_handlings</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="#cle.backends.macho.MachO.function_hints"><code class="docutils literal notranslate"><span class="pre">MachO.function_hints</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="#cle.backends.macho.MachO.memory"><code class="docutils literal notranslate"><span class="pre">MachO.memory</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="#cle.backends.macho.MachO.S"><code class="docutils literal notranslate"><span class="pre">MachO.S</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="#cle.backends.macho.MachO.get_symbol_by_address_fuzzy"><code class="docutils literal notranslate"><span class="pre">MachO.get_symbol_by_address_fuzzy()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="#cle.backends.macho.MachO.get_symbol"><code class="docutils literal notranslate"><span class="pre">MachO.get_symbol()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="#cle.backends.macho.MachO.get_symbol_by_insertion_order"><code class="docutils literal notranslate"><span class="pre">MachO.get_symbol_by_insertion_order()</span></code></a></li>
@@ -1590,12 +1616,17 @@
 <li class="toctree-l4"><a class="reference internal" href="#cle.backends.macho.macho.MachO.MH_MAGIC"><code class="docutils literal notranslate"><span class="pre">MachO.MH_MAGIC</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="#cle.backends.macho.macho.MachO.MH_CIGAM"><code class="docutils literal notranslate"><span class="pre">MachO.MH_CIGAM</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="#cle.backends.macho.macho.MachO.symbols"><code class="docutils literal notranslate"><span class="pre">MachO.symbols</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#cle.backends.macho.macho.MachO.lc_function_starts"><code class="docutils literal notranslate"><span class="pre">MachO.lc_function_starts</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#cle.backends.macho.macho.MachO.export_blob"><code class="docutils literal notranslate"><span class="pre">MachO.export_blob</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="#cle.backends.macho.macho.MachO.binding_blob"><code class="docutils literal notranslate"><span class="pre">MachO.binding_blob</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="#cle.backends.macho.macho.MachO.lazy_binding_blob"><code class="docutils literal notranslate"><span class="pre">MachO.lazy_binding_blob</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="#cle.backends.macho.macho.MachO.weak_binding_blob"><code class="docutils literal notranslate"><span class="pre">MachO.weak_binding_blob</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#cle.backends.macho.macho.MachO.rebase_blob"><code class="docutils literal notranslate"><span class="pre">MachO.rebase_blob</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#cle.backends.macho.macho.MachO.strtab"><code class="docutils literal notranslate"><span class="pre">MachO.strtab</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="#cle.backends.macho.macho.MachO.ncmds"><code class="docutils literal notranslate"><span class="pre">MachO.ncmds</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="#cle.backends.macho.macho.MachO.sizeofcmds"><code class="docutils literal notranslate"><span class="pre">MachO.sizeofcmds</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="#cle.backends.macho.macho.MachO.mapped_base"><code class="docutils literal notranslate"><span class="pre">MachO.mapped_base</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#cle.backends.macho.macho.MachO.macho_base"><code class="docutils literal notranslate"><span class="pre">MachO.macho_base</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#cle.backends.macho.macho.MachO.min_addr"><code class="docutils literal notranslate"><span class="pre">MachO.min_addr</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="#cle.backends.macho.macho.MachO.is_compatible"><code class="docutils literal notranslate"><span class="pre">MachO.is_compatible()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="#cle.backends.macho.macho.MachO.is_thumb_interworking"><code class="docutils literal notranslate"><span class="pre">MachO.is_thumb_interworking()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="#cle.backends.macho.macho.MachO.decode_thumb_interworking"><code class="docutils literal notranslate"><span class="pre">MachO.decode_thumb_interworking()</span></code></a></li>
@@ -1603,6 +1634,7 @@
 <li class="toctree-l4"><a class="reference internal" href="#cle.backends.macho.macho.MachO.do_binding"><code class="docutils literal notranslate"><span class="pre">MachO.do_binding()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="#cle.backends.macho.macho.MachO.get_string"><code class="docutils literal notranslate"><span class="pre">MachO.get_string()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="#cle.backends.macho.macho.MachO.parse_lc_str"><code class="docutils literal notranslate"><span class="pre">MachO.parse_lc_str()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#cle.backends.macho.macho.MachO.S"><code class="docutils literal notranslate"><span class="pre">MachO.S</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="#cle.backends.macho.macho.MachO.loader"><code class="docutils literal notranslate"><span class="pre">MachO.loader</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="#cle.backends.macho.macho.MachO.imports"><code class="docutils literal notranslate"><span class="pre">MachO.imports</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="#cle.backends.macho.macho.MachO.relocs"><code class="docutils literal notranslate"><span class="pre">MachO.relocs</span></code></a></li>
@@ -1610,7 +1642,6 @@
 <li class="toctree-l4"><a class="reference internal" href="#cle.backends.macho.macho.MachO.exception_handlings"><code class="docutils literal notranslate"><span class="pre">MachO.exception_handlings</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="#cle.backends.macho.macho.MachO.function_hints"><code class="docutils literal notranslate"><span class="pre">MachO.function_hints</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="#cle.backends.macho.macho.MachO.memory"><code class="docutils literal notranslate"><span class="pre">MachO.memory</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="#cle.backends.macho.macho.MachO.S"><code class="docutils literal notranslate"><span class="pre">MachO.S</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="#cle.backends.macho.macho.MachO.get_symbol_by_address_fuzzy"><code class="docutils literal notranslate"><span class="pre">MachO.get_symbol_by_address_fuzzy()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="#cle.backends.macho.macho.MachO.get_symbol"><code class="docutils literal notranslate"><span class="pre">MachO.get_symbol()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="#cle.backends.macho.macho.MachO.get_symbol_by_insertion_order"><code class="docutils literal notranslate"><span class="pre">MachO.get_symbol_by_insertion_order()</span></code></a></li>
@@ -2472,6 +2503,11 @@
 <li class="toctree-l4"><a class="reference internal" href="#cle.backends.elf.relocation.armel.R_ARM_GLOB_DAT.resolved"><code class="docutils literal notranslate"><span class="pre">R_ARM_GLOB_DAT.resolved</span></code></a></li>
 </ul>
 </li>
+<li class="toctree-l3"><a class="reference internal" href="#cle.backends.elf.relocation.armel.R_ARM_GOT_PREL"><code class="docutils literal notranslate"><span class="pre">R_ARM_GOT_PREL</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#cle.backends.elf.relocation.armel.R_ARM_GOT_PREL.resolvedby"><code class="docutils literal notranslate"><span class="pre">R_ARM_GOT_PREL.resolvedby</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#cle.backends.elf.relocation.armel.R_ARM_GOT_PREL.resolved"><code class="docutils literal notranslate"><span class="pre">R_ARM_GOT_PREL.resolved</span></code></a></li>
+</ul>
+</li>
 <li class="toctree-l3"><a class="reference internal" href="#cle.backends.elf.relocation.armel.R_ARM_JUMP_SLOT"><code class="docutils literal notranslate"><span class="pre">R_ARM_JUMP_SLOT</span></code></a><ul>
 <li class="toctree-l4"><a class="reference internal" href="#cle.backends.elf.relocation.armel.R_ARM_JUMP_SLOT.resolvedby"><code class="docutils literal notranslate"><span class="pre">R_ARM_JUMP_SLOT.resolvedby</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="#cle.backends.elf.relocation.armel.R_ARM_JUMP_SLOT.resolved"><code class="docutils literal notranslate"><span class="pre">R_ARM_JUMP_SLOT.resolved</span></code></a></li>
@@ -2754,6 +2790,11 @@
 <li class="toctree-l3"><a class="reference internal" href="#cle.backends.elf.relocation.armhf.R_ARM_GLOB_DAT"><code class="docutils literal notranslate"><span class="pre">R_ARM_GLOB_DAT</span></code></a><ul>
 <li class="toctree-l4"><a class="reference internal" href="#cle.backends.elf.relocation.armhf.R_ARM_GLOB_DAT.resolvedby"><code class="docutils literal notranslate"><span class="pre">R_ARM_GLOB_DAT.resolvedby</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="#cle.backends.elf.relocation.armhf.R_ARM_GLOB_DAT.resolved"><code class="docutils literal notranslate"><span class="pre">R_ARM_GLOB_DAT.resolved</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#cle.backends.elf.relocation.armhf.R_ARM_GOT_PREL"><code class="docutils literal notranslate"><span class="pre">R_ARM_GOT_PREL</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#cle.backends.elf.relocation.armhf.R_ARM_GOT_PREL.resolvedby"><code class="docutils literal notranslate"><span class="pre">R_ARM_GOT_PREL.resolvedby</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#cle.backends.elf.relocation.armhf.R_ARM_GOT_PREL.resolved"><code class="docutils literal notranslate"><span class="pre">R_ARM_GOT_PREL.resolved</span></code></a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="#cle.backends.elf.relocation.armhf.R_ARM_JUMP_SLOT"><code class="docutils literal notranslate"><span class="pre">R_ARM_JUMP_SLOT</span></code></a><ul>
@@ -3186,6 +3227,11 @@
 <li class="toctree-l4"><a class="reference internal" href="#cle.backends.elf.relocation.arm.R_ARM_THM_MOVT_ABS.value"><code class="docutils literal notranslate"><span class="pre">R_ARM_THM_MOVT_ABS.value</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="#cle.backends.elf.relocation.arm.R_ARM_THM_MOVT_ABS.resolvedby"><code class="docutils literal notranslate"><span class="pre">R_ARM_THM_MOVT_ABS.resolvedby</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="#cle.backends.elf.relocation.arm.R_ARM_THM_MOVT_ABS.resolved"><code class="docutils literal notranslate"><span class="pre">R_ARM_THM_MOVT_ABS.resolved</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#cle.backends.elf.relocation.arm.R_ARM_GOT_PREL"><code class="docutils literal notranslate"><span class="pre">R_ARM_GOT_PREL</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#cle.backends.elf.relocation.arm.R_ARM_GOT_PREL.resolvedby"><code class="docutils literal notranslate"><span class="pre">R_ARM_GOT_PREL.resolvedby</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#cle.backends.elf.relocation.arm.R_ARM_GOT_PREL.resolved"><code class="docutils literal notranslate"><span class="pre">R_ARM_GOT_PREL.resolved</span></code></a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="#cle.backends.elf.relocation.arm_cortex_m.R_ARM_CALL"><code class="docutils literal notranslate"><span class="pre">R_ARM_CALL</span></code></a><ul>
@@ -3825,6 +3871,20 @@
 <li class="toctree-l4"><a class="reference internal" href="#cle.memory.ClemoryView.load"><code class="docutils literal notranslate"><span class="pre">ClemoryView.load()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="#cle.memory.ClemoryView.store"><code class="docutils literal notranslate"><span class="pre">ClemoryView.store()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="#cle.memory.ClemoryView.find"><code class="docutils literal notranslate"><span class="pre">ClemoryView.find()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#cle.memory.UninitializedClemory"><code class="docutils literal notranslate"><span class="pre">UninitializedClemory</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#cle.memory.UninitializedClemory.max_addr"><code class="docutils literal notranslate"><span class="pre">UninitializedClemory.max_addr</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#cle.memory.UninitializedClemory.add_backer"><code class="docutils literal notranslate"><span class="pre">UninitializedClemory.add_backer()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#cle.memory.UninitializedClemory.split_backer"><code class="docutils literal notranslate"><span class="pre">UninitializedClemory.split_backer()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#cle.memory.UninitializedClemory.update_backer"><code class="docutils literal notranslate"><span class="pre">UninitializedClemory.update_backer()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#cle.memory.UninitializedClemory.remove_backer"><code class="docutils literal notranslate"><span class="pre">UninitializedClemory.remove_backer()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#cle.memory.UninitializedClemory.backers"><code class="docutils literal notranslate"><span class="pre">UninitializedClemory.backers()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#cle.memory.UninitializedClemory.load"><code class="docutils literal notranslate"><span class="pre">UninitializedClemory.load()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#cle.memory.UninitializedClemory.store"><code class="docutils literal notranslate"><span class="pre">UninitializedClemory.store()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#cle.memory.UninitializedClemory.find"><code class="docutils literal notranslate"><span class="pre">UninitializedClemory.find()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#cle.memory.UninitializedClemory.consecutive"><code class="docutils literal notranslate"><span class="pre">UninitializedClemory.consecutive</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#cle.memory.UninitializedClemory.min_addr"><code class="docutils literal notranslate"><span class="pre">UninitializedClemory.min_addr</span></code></a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="#cle.patched_stream.PatchedStream"><code class="docutils literal notranslate"><span class="pre">PatchedStream</span></code></a><ul>
@@ -4964,6 +5024,16 @@ Note: Directory of the JAR is added by default.</p></li>
 <dl class="py attribute">
 <dt class="sig sig-object py" id="cle.MachO.sizeofcmds">
 <span class="sig-name descname"><span class="pre">sizeofcmds</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span></em><a class="headerlink" href="#cle.MachO.sizeofcmds" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="cle.MachO.macho_base">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">macho_base</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span></em><a class="headerlink" href="#cle.MachO.macho_base" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="cle.MachO.min_addr">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">min_addr</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span></em><a class="headerlink" href="#cle.MachO.min_addr" title="Permalink to this definition"></a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
@@ -6810,6 +6880,83 @@ encountered.</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="cle.ClemoryView.find">
 <span class="sig-name descname"><span class="pre">find</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">search_min</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">search_max</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#cle.ClemoryView.find" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="cle.UninitializedClemory">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">cle.</span></span><span class="sig-name descname"><span class="pre">UninitializedClemory</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">arch</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">size</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#cle.UninitializedClemory" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="#cle.memory.Clemory" title="cle.memory.Clemory"><code class="xref py py-class docutils literal notranslate"><span class="pre">Clemory</span></code></a></p>
+<p>A special kind of Clemory that acts as a placeholder for uninitialized and invalid memory.
+This is needed for the PAGEZERO segment for MachO binaries, which is 4GB worth of memory
+This does _not_ handle data being written to it, this is only for uninitialized memory that is technically occupied
+but should never be accessed</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="cle.UninitializedClemory.max_addr">
+<span class="sig-name descname"><span class="pre">max_addr</span></span><a class="headerlink" href="#cle.UninitializedClemory.max_addr" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="cle.UninitializedClemory.add_backer">
+<span class="sig-name descname"><span class="pre">add_backer</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">start</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">data</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">overwrite</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#cle.UninitializedClemory.add_backer" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="cle.UninitializedClemory.split_backer">
+<span class="sig-name descname"><span class="pre">split_backer</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">addr</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#cle.UninitializedClemory.split_backer" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="cle.UninitializedClemory.update_backer">
+<span class="sig-name descname"><span class="pre">update_backer</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">start</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">data</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#cle.UninitializedClemory.update_backer" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="cle.UninitializedClemory.remove_backer">
+<span class="sig-name descname"><span class="pre">remove_backer</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">start</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#cle.UninitializedClemory.remove_backer" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="cle.UninitializedClemory.backers">
+<span class="sig-name descname"><span class="pre">backers</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">addr</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#cle.UninitializedClemory.backers" title="Permalink to this definition"></a></dt>
+<dd><p>Technically this object has no real backer
+We could create a fake backer on demand, but that would be a waste of memory, and code like the
+function prolog discovery for MachO binaries would search 4GB worth of nullbytes for a prolog,
+which is a waste of time
+Instead we just return an empty byte array, which seems to pass the test cases
+:param addr:
+:return:</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="cle.UninitializedClemory.load">
+<span class="sig-name descname"><span class="pre">load</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">addr</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">n</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#cle.UninitializedClemory.load" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="cle.UninitializedClemory.store">
+<span class="sig-name descname"><span class="pre">store</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">addr</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">data</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#cle.UninitializedClemory.store" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="cle.UninitializedClemory.find">
+<span class="sig-name descname"><span class="pre">find</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">search_min</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">search_max</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#cle.UninitializedClemory.find" title="Permalink to this definition"></a></dt>
+<dd><p>The memory has no value, so matter what is searched for, it won’t be found.
+:param data:
+:param search_min:
+:param search_max:
+:return:</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="cle.UninitializedClemory.consecutive">
+<span class="sig-name descname"><span class="pre">consecutive</span></span><a class="headerlink" href="#cle.UninitializedClemory.consecutive" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="cle.UninitializedClemory.min_addr">
+<span class="sig-name descname"><span class="pre">min_addr</span></span><a class="headerlink" href="#cle.UninitializedClemory.min_addr" title="Permalink to this definition"></a></dt>
 <dd></dd></dl>
 
 </dd></dl>
@@ -8709,6 +8856,16 @@ See <a class="reference external" href="https://en.wikipedia.org/wiki/Intel_HEX"
 <dd></dd></dl>
 
 <dl class="py attribute">
+<dt class="sig sig-object py" id="cle.backends.MachO.lc_function_starts">
+<span class="sig-name descname"><span class="pre">lc_function_starts</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#cle.backends.MachO.lc_function_starts" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="cle.backends.MachO.export_blob">
+<span class="sig-name descname"><span class="pre">export_blob</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">bytes</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#cle.backends.MachO.export_blob" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
 <dt class="sig sig-object py" id="cle.backends.MachO.binding_blob">
 <span class="sig-name descname"><span class="pre">binding_blob</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">bytes</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#cle.backends.MachO.binding_blob" title="Permalink to this definition"></a></dt>
 <dd></dd></dl>
@@ -8724,6 +8881,16 @@ See <a class="reference external" href="https://en.wikipedia.org/wiki/Intel_HEX"
 <dd></dd></dl>
 
 <dl class="py attribute">
+<dt class="sig sig-object py" id="cle.backends.MachO.rebase_blob">
+<span class="sig-name descname"><span class="pre">rebase_blob</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">bytes</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#cle.backends.MachO.rebase_blob" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="cle.backends.MachO.strtab">
+<span class="sig-name descname"><span class="pre">strtab</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">bytes</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#cle.backends.MachO.strtab" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
 <dt class="sig sig-object py" id="cle.backends.MachO.ncmds">
 <span class="sig-name descname"><span class="pre">ncmds</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span></em><a class="headerlink" href="#cle.backends.MachO.ncmds" title="Permalink to this definition"></a></dt>
 <dd></dd></dl>
@@ -8733,9 +8900,14 @@ See <a class="reference external" href="https://en.wikipedia.org/wiki/Intel_HEX"
 <span class="sig-name descname"><span class="pre">sizeofcmds</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span></em><a class="headerlink" href="#cle.backends.MachO.sizeofcmds" title="Permalink to this definition"></a></dt>
 <dd></dd></dl>
 
-<dl class="py attribute">
-<dt class="sig sig-object py" id="cle.backends.MachO.mapped_base">
-<span class="sig-name descname"><span class="pre">mapped_base</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">MemoryPointer</span></em><a class="headerlink" href="#cle.backends.MachO.mapped_base" title="Permalink to this definition"></a></dt>
+<dl class="py property">
+<dt class="sig sig-object py" id="cle.backends.MachO.macho_base">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">macho_base</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span></em><a class="headerlink" href="#cle.backends.MachO.macho_base" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="cle.backends.MachO.min_addr">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">min_addr</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span></em><a class="headerlink" href="#cle.backends.MachO.min_addr" title="Permalink to this definition"></a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
@@ -8778,6 +8950,11 @@ See <a class="reference external" href="https://en.wikipedia.org/wiki/Intel_HEX"
 </dd></dl>
 
 <dl class="py attribute">
+<dt class="sig sig-object py" id="cle.backends.MachO.S">
+<span class="sig-name descname"><span class="pre">S</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">~S</span></em><a class="headerlink" href="#cle.backends.MachO.S" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
 <dt class="sig sig-object py" id="cle.backends.MachO.loader">
 <span class="sig-name descname"><span class="pre">loader</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="#cle.Loader" title="cle.Loader"><span class="pre">Loader</span></a></em><a class="headerlink" href="#cle.backends.MachO.loader" title="Permalink to this definition"></a></dt>
 <dd></dd></dl>
@@ -8810,11 +8987,6 @@ See <a class="reference external" href="https://en.wikipedia.org/wiki/Intel_HEX"
 <dl class="py attribute">
 <dt class="sig sig-object py" id="cle.backends.MachO.memory">
 <span class="sig-name descname"><span class="pre">memory</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="#cle.Clemory" title="cle.Clemory"><span class="pre">Clemory</span></a></em><a class="headerlink" href="#cle.backends.MachO.memory" title="Permalink to this definition"></a></dt>
-<dd></dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="cle.backends.MachO.S">
-<span class="sig-name descname"><span class="pre">S</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">~S</span></em><a class="headerlink" href="#cle.backends.MachO.S" title="Permalink to this definition"></a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
@@ -12419,6 +12591,16 @@ like RAM, MMIO, etc</p>
 <dd></dd></dl>
 
 <dl class="py attribute">
+<dt class="sig sig-object py" id="cle.backends.macho.MachO.lc_function_starts">
+<span class="sig-name descname"><span class="pre">lc_function_starts</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#cle.backends.macho.MachO.lc_function_starts" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="cle.backends.macho.MachO.export_blob">
+<span class="sig-name descname"><span class="pre">export_blob</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">bytes</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#cle.backends.macho.MachO.export_blob" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
 <dt class="sig sig-object py" id="cle.backends.macho.MachO.binding_blob">
 <span class="sig-name descname"><span class="pre">binding_blob</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">bytes</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#cle.backends.macho.MachO.binding_blob" title="Permalink to this definition"></a></dt>
 <dd></dd></dl>
@@ -12434,6 +12616,16 @@ like RAM, MMIO, etc</p>
 <dd></dd></dl>
 
 <dl class="py attribute">
+<dt class="sig sig-object py" id="cle.backends.macho.MachO.rebase_blob">
+<span class="sig-name descname"><span class="pre">rebase_blob</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">bytes</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#cle.backends.macho.MachO.rebase_blob" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="cle.backends.macho.MachO.strtab">
+<span class="sig-name descname"><span class="pre">strtab</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">bytes</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#cle.backends.macho.MachO.strtab" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
 <dt class="sig sig-object py" id="cle.backends.macho.MachO.ncmds">
 <span class="sig-name descname"><span class="pre">ncmds</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span></em><a class="headerlink" href="#cle.backends.macho.MachO.ncmds" title="Permalink to this definition"></a></dt>
 <dd></dd></dl>
@@ -12443,9 +12635,14 @@ like RAM, MMIO, etc</p>
 <span class="sig-name descname"><span class="pre">sizeofcmds</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span></em><a class="headerlink" href="#cle.backends.macho.MachO.sizeofcmds" title="Permalink to this definition"></a></dt>
 <dd></dd></dl>
 
-<dl class="py attribute">
-<dt class="sig sig-object py" id="cle.backends.macho.MachO.mapped_base">
-<span class="sig-name descname"><span class="pre">mapped_base</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">MemoryPointer</span></em><a class="headerlink" href="#cle.backends.macho.MachO.mapped_base" title="Permalink to this definition"></a></dt>
+<dl class="py property">
+<dt class="sig sig-object py" id="cle.backends.macho.MachO.macho_base">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">macho_base</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span></em><a class="headerlink" href="#cle.backends.macho.MachO.macho_base" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="cle.backends.macho.MachO.min_addr">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">min_addr</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span></em><a class="headerlink" href="#cle.backends.macho.MachO.min_addr" title="Permalink to this definition"></a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
@@ -12488,6 +12685,11 @@ like RAM, MMIO, etc</p>
 </dd></dl>
 
 <dl class="py attribute">
+<dt class="sig sig-object py" id="cle.backends.macho.MachO.S">
+<span class="sig-name descname"><span class="pre">S</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">~S</span></em><a class="headerlink" href="#cle.backends.macho.MachO.S" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
 <dt class="sig sig-object py" id="cle.backends.macho.MachO.loader">
 <span class="sig-name descname"><span class="pre">loader</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="#cle.Loader" title="cle.Loader"><span class="pre">Loader</span></a></em><a class="headerlink" href="#cle.backends.macho.MachO.loader" title="Permalink to this definition"></a></dt>
 <dd></dd></dl>
@@ -12520,11 +12722,6 @@ like RAM, MMIO, etc</p>
 <dl class="py attribute">
 <dt class="sig sig-object py" id="cle.backends.macho.MachO.memory">
 <span class="sig-name descname"><span class="pre">memory</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="#cle.Clemory" title="cle.Clemory"><span class="pre">Clemory</span></a></em><a class="headerlink" href="#cle.backends.macho.MachO.memory" title="Permalink to this definition"></a></dt>
-<dd></dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="cle.backends.macho.MachO.S">
-<span class="sig-name descname"><span class="pre">S</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">~S</span></em><a class="headerlink" href="#cle.backends.macho.MachO.S" title="Permalink to this definition"></a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
@@ -12616,6 +12813,16 @@ name, therefore this method always returns an array.</p>
 <dd></dd></dl>
 
 <dl class="py attribute">
+<dt class="sig sig-object py" id="cle.backends.macho.macho.MachO.lc_function_starts">
+<span class="sig-name descname"><span class="pre">lc_function_starts</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#cle.backends.macho.macho.MachO.lc_function_starts" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="cle.backends.macho.macho.MachO.export_blob">
+<span class="sig-name descname"><span class="pre">export_blob</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">bytes</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#cle.backends.macho.macho.MachO.export_blob" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
 <dt class="sig sig-object py" id="cle.backends.macho.macho.MachO.binding_blob">
 <span class="sig-name descname"><span class="pre">binding_blob</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">bytes</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#cle.backends.macho.macho.MachO.binding_blob" title="Permalink to this definition"></a></dt>
 <dd></dd></dl>
@@ -12631,6 +12838,16 @@ name, therefore this method always returns an array.</p>
 <dd></dd></dl>
 
 <dl class="py attribute">
+<dt class="sig sig-object py" id="cle.backends.macho.macho.MachO.rebase_blob">
+<span class="sig-name descname"><span class="pre">rebase_blob</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">bytes</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#cle.backends.macho.macho.MachO.rebase_blob" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="cle.backends.macho.macho.MachO.strtab">
+<span class="sig-name descname"><span class="pre">strtab</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">bytes</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#cle.backends.macho.macho.MachO.strtab" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
 <dt class="sig sig-object py" id="cle.backends.macho.macho.MachO.ncmds">
 <span class="sig-name descname"><span class="pre">ncmds</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span></em><a class="headerlink" href="#cle.backends.macho.macho.MachO.ncmds" title="Permalink to this definition"></a></dt>
 <dd></dd></dl>
@@ -12640,9 +12857,14 @@ name, therefore this method always returns an array.</p>
 <span class="sig-name descname"><span class="pre">sizeofcmds</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span></em><a class="headerlink" href="#cle.backends.macho.macho.MachO.sizeofcmds" title="Permalink to this definition"></a></dt>
 <dd></dd></dl>
 
-<dl class="py attribute">
-<dt class="sig sig-object py" id="cle.backends.macho.macho.MachO.mapped_base">
-<span class="sig-name descname"><span class="pre">mapped_base</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">MemoryPointer</span></em><a class="headerlink" href="#cle.backends.macho.macho.MachO.mapped_base" title="Permalink to this definition"></a></dt>
+<dl class="py property">
+<dt class="sig sig-object py" id="cle.backends.macho.macho.MachO.macho_base">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">macho_base</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span></em><a class="headerlink" href="#cle.backends.macho.macho.MachO.macho_base" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="cle.backends.macho.macho.MachO.min_addr">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">min_addr</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span></em><a class="headerlink" href="#cle.backends.macho.macho.MachO.min_addr" title="Permalink to this definition"></a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
@@ -12685,6 +12907,11 @@ name, therefore this method always returns an array.</p>
 </dd></dl>
 
 <dl class="py attribute">
+<dt class="sig sig-object py" id="cle.backends.macho.macho.MachO.S">
+<span class="sig-name descname"><span class="pre">S</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">~S</span></em><a class="headerlink" href="#cle.backends.macho.macho.MachO.S" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
 <dt class="sig sig-object py" id="cle.backends.macho.macho.MachO.loader">
 <span class="sig-name descname"><span class="pre">loader</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="#cle.Loader" title="cle.Loader"><span class="pre">Loader</span></a></em><a class="headerlink" href="#cle.backends.macho.macho.MachO.loader" title="Permalink to this definition"></a></dt>
 <dd></dd></dl>
@@ -12717,11 +12944,6 @@ name, therefore this method always returns an array.</p>
 <dl class="py attribute">
 <dt class="sig sig-object py" id="cle.backends.macho.macho.MachO.memory">
 <span class="sig-name descname"><span class="pre">memory</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="#cle.Clemory" title="cle.Clemory"><span class="pre">Clemory</span></a></em><a class="headerlink" href="#cle.backends.macho.macho.MachO.memory" title="Permalink to this definition"></a></dt>
-<dd></dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="cle.backends.macho.macho.MachO.S">
-<span class="sig-name descname"><span class="pre">S</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">~S</span></em><a class="headerlink" href="#cle.backends.macho.macho.MachO.S" title="Permalink to this definition"></a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
@@ -16864,6 +17086,24 @@ bottom of the page – the ranges don’t make sense)</p></li>
 </dd></dl>
 
 <dl class="py class">
+<dt class="sig sig-object py" id="cle.backends.elf.relocation.armel.R_ARM_GOT_PREL">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">cle.backends.elf.relocation.armel.</span></span><span class="sig-name descname"><span class="pre">R_ARM_GOT_PREL</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">owner</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">symbol</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">relative_addr</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">addend</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#cle.backends.elf.relocation.armel.R_ARM_GOT_PREL" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="#cle.backends.elf.relocation.generic.GenericPCRelativeAddendReloc" title="cle.backends.elf.relocation.generic.GenericPCRelativeAddendReloc"><code class="xref py py-class docutils literal notranslate"><span class="pre">GenericPCRelativeAddendReloc</span></code></a>, <a class="reference internal" href="#cle.backends.elf.relocation.generic.RelocTruncate32Mixin" title="cle.backends.elf.relocation.generic.RelocTruncate32Mixin"><code class="xref py py-class docutils literal notranslate"><span class="pre">RelocTruncate32Mixin</span></code></a>, <a class="reference internal" href="#cle.backends.elf.relocation.generic.RelocGOTMixin" title="cle.backends.elf.relocation.generic.RelocGOTMixin"><code class="xref py py-class docutils literal notranslate"><span class="pre">RelocGOTMixin</span></code></a></p>
+<p>GOT(S) + A - P
+Ref: <a class="reference external" href="https://github.com/ARM-software/abi-aa/blob/main/aaelf32/aaelf32.rst">https://github.com/ARM-software/abi-aa/blob/main/aaelf32/aaelf32.rst</a></p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="cle.backends.elf.relocation.armel.R_ARM_GOT_PREL.resolvedby">
+<span class="sig-name descname"><span class="pre">resolvedby</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="#cle.Symbol" title="cle.Symbol"><span class="pre">Symbol</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#cle.backends.elf.relocation.armel.R_ARM_GOT_PREL.resolvedby" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="cle.backends.elf.relocation.armel.R_ARM_GOT_PREL.resolved">
+<span class="sig-name descname"><span class="pre">resolved</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">bool</span></em><a class="headerlink" href="#cle.backends.elf.relocation.armel.R_ARM_GOT_PREL.resolved" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
 <dt class="sig sig-object py" id="cle.backends.elf.relocation.armel.R_ARM_JUMP_SLOT">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">cle.backends.elf.relocation.armel.</span></span><span class="sig-name descname"><span class="pre">R_ARM_JUMP_SLOT</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">owner</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">symbol</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">relative_addr</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">addend</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#cle.backends.elf.relocation.armel.R_ARM_JUMP_SLOT" title="Permalink to this definition"></a></dt>
 <dd><p>Bases: <a class="reference internal" href="#cle.backends.elf.relocation.generic.GenericJumpslotReloc" title="cle.backends.elf.relocation.generic.GenericJumpslotReloc"><code class="xref py py-class docutils literal notranslate"><span class="pre">GenericJumpslotReloc</span></code></a></p>
@@ -18001,6 +18241,24 @@ bottom of the page – the ranges don’t make sense)</p></li>
 <dl class="py attribute">
 <dt class="sig sig-object py" id="cle.backends.elf.relocation.armhf.R_ARM_GLOB_DAT.resolved">
 <span class="sig-name descname"><span class="pre">resolved</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">bool</span></em><a class="headerlink" href="#cle.backends.elf.relocation.armhf.R_ARM_GLOB_DAT.resolved" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="cle.backends.elf.relocation.armhf.R_ARM_GOT_PREL">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">cle.backends.elf.relocation.armhf.</span></span><span class="sig-name descname"><span class="pre">R_ARM_GOT_PREL</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">owner</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">symbol</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">relative_addr</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">addend</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#cle.backends.elf.relocation.armhf.R_ARM_GOT_PREL" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="#cle.backends.elf.relocation.generic.GenericPCRelativeAddendReloc" title="cle.backends.elf.relocation.generic.GenericPCRelativeAddendReloc"><code class="xref py py-class docutils literal notranslate"><span class="pre">GenericPCRelativeAddendReloc</span></code></a>, <a class="reference internal" href="#cle.backends.elf.relocation.generic.RelocTruncate32Mixin" title="cle.backends.elf.relocation.generic.RelocTruncate32Mixin"><code class="xref py py-class docutils literal notranslate"><span class="pre">RelocTruncate32Mixin</span></code></a>, <a class="reference internal" href="#cle.backends.elf.relocation.generic.RelocGOTMixin" title="cle.backends.elf.relocation.generic.RelocGOTMixin"><code class="xref py py-class docutils literal notranslate"><span class="pre">RelocGOTMixin</span></code></a></p>
+<p>GOT(S) + A - P
+Ref: <a class="reference external" href="https://github.com/ARM-software/abi-aa/blob/main/aaelf32/aaelf32.rst">https://github.com/ARM-software/abi-aa/blob/main/aaelf32/aaelf32.rst</a></p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="cle.backends.elf.relocation.armhf.R_ARM_GOT_PREL.resolvedby">
+<span class="sig-name descname"><span class="pre">resolvedby</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="#cle.Symbol" title="cle.Symbol"><span class="pre">Symbol</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#cle.backends.elf.relocation.armhf.R_ARM_GOT_PREL.resolvedby" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="cle.backends.elf.relocation.armhf.R_ARM_GOT_PREL.resolved">
+<span class="sig-name descname"><span class="pre">resolved</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">bool</span></em><a class="headerlink" href="#cle.backends.elf.relocation.armhf.R_ARM_GOT_PREL.resolved" title="Permalink to this definition"></a></dt>
 <dd></dd></dl>
 
 </dd></dl>
@@ -19535,6 +19793,24 @@ Ref: <a class="reference external" href="https://github.com/ARM-software/abi-aa/
 <dl class="py attribute">
 <dt class="sig sig-object py" id="cle.backends.elf.relocation.arm.R_ARM_THM_MOVT_ABS.resolved">
 <span class="sig-name descname"><span class="pre">resolved</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">bool</span></em><a class="headerlink" href="#cle.backends.elf.relocation.arm.R_ARM_THM_MOVT_ABS.resolved" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="cle.backends.elf.relocation.arm.R_ARM_GOT_PREL">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">cle.backends.elf.relocation.arm.</span></span><span class="sig-name descname"><span class="pre">R_ARM_GOT_PREL</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">owner</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">symbol</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">relative_addr</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">addend</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#cle.backends.elf.relocation.arm.R_ARM_GOT_PREL" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="#cle.backends.elf.relocation.generic.GenericPCRelativeAddendReloc" title="cle.backends.elf.relocation.generic.GenericPCRelativeAddendReloc"><code class="xref py py-class docutils literal notranslate"><span class="pre">GenericPCRelativeAddendReloc</span></code></a>, <a class="reference internal" href="#cle.backends.elf.relocation.generic.RelocTruncate32Mixin" title="cle.backends.elf.relocation.generic.RelocTruncate32Mixin"><code class="xref py py-class docutils literal notranslate"><span class="pre">RelocTruncate32Mixin</span></code></a>, <a class="reference internal" href="#cle.backends.elf.relocation.generic.RelocGOTMixin" title="cle.backends.elf.relocation.generic.RelocGOTMixin"><code class="xref py py-class docutils literal notranslate"><span class="pre">RelocGOTMixin</span></code></a></p>
+<p>GOT(S) + A - P
+Ref: <a class="reference external" href="https://github.com/ARM-software/abi-aa/blob/main/aaelf32/aaelf32.rst">https://github.com/ARM-software/abi-aa/blob/main/aaelf32/aaelf32.rst</a></p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="cle.backends.elf.relocation.arm.R_ARM_GOT_PREL.resolvedby">
+<span class="sig-name descname"><span class="pre">resolvedby</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="#cle.Symbol" title="cle.Symbol"><span class="pre">Symbol</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#cle.backends.elf.relocation.arm.R_ARM_GOT_PREL.resolvedby" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="cle.backends.elf.relocation.arm.R_ARM_GOT_PREL.resolved">
+<span class="sig-name descname"><span class="pre">resolved</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">bool</span></em><a class="headerlink" href="#cle.backends.elf.relocation.arm.R_ARM_GOT_PREL.resolved" title="Permalink to this definition"></a></dt>
 <dd></dd></dl>
 
 </dd></dl>
@@ -22055,6 +22331,83 @@ will update the backer but also raise <code class="docutils literal notranslate"
 <dl class="py method">
 <dt class="sig sig-object py" id="cle.memory.ClemoryView.find">
 <span class="sig-name descname"><span class="pre">find</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">search_min</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">search_max</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#cle.memory.ClemoryView.find" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="cle.memory.UninitializedClemory">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">cle.memory.</span></span><span class="sig-name descname"><span class="pre">UninitializedClemory</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">arch</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">size</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#cle.memory.UninitializedClemory" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="#cle.memory.Clemory" title="cle.memory.Clemory"><code class="xref py py-class docutils literal notranslate"><span class="pre">Clemory</span></code></a></p>
+<p>A special kind of Clemory that acts as a placeholder for uninitialized and invalid memory.
+This is needed for the PAGEZERO segment for MachO binaries, which is 4GB worth of memory
+This does _not_ handle data being written to it, this is only for uninitialized memory that is technically occupied
+but should never be accessed</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="cle.memory.UninitializedClemory.max_addr">
+<span class="sig-name descname"><span class="pre">max_addr</span></span><a class="headerlink" href="#cle.memory.UninitializedClemory.max_addr" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="cle.memory.UninitializedClemory.add_backer">
+<span class="sig-name descname"><span class="pre">add_backer</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">start</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">data</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">overwrite</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#cle.memory.UninitializedClemory.add_backer" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="cle.memory.UninitializedClemory.split_backer">
+<span class="sig-name descname"><span class="pre">split_backer</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">addr</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#cle.memory.UninitializedClemory.split_backer" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="cle.memory.UninitializedClemory.update_backer">
+<span class="sig-name descname"><span class="pre">update_backer</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">start</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">data</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#cle.memory.UninitializedClemory.update_backer" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="cle.memory.UninitializedClemory.remove_backer">
+<span class="sig-name descname"><span class="pre">remove_backer</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">start</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#cle.memory.UninitializedClemory.remove_backer" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="cle.memory.UninitializedClemory.backers">
+<span class="sig-name descname"><span class="pre">backers</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">addr</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#cle.memory.UninitializedClemory.backers" title="Permalink to this definition"></a></dt>
+<dd><p>Technically this object has no real backer
+We could create a fake backer on demand, but that would be a waste of memory, and code like the
+function prolog discovery for MachO binaries would search 4GB worth of nullbytes for a prolog,
+which is a waste of time
+Instead we just return an empty byte array, which seems to pass the test cases
+:param addr:
+:return:</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="cle.memory.UninitializedClemory.load">
+<span class="sig-name descname"><span class="pre">load</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">addr</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">n</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#cle.memory.UninitializedClemory.load" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="cle.memory.UninitializedClemory.store">
+<span class="sig-name descname"><span class="pre">store</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">addr</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">data</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#cle.memory.UninitializedClemory.store" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="cle.memory.UninitializedClemory.find">
+<span class="sig-name descname"><span class="pre">find</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">search_min</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">search_max</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#cle.memory.UninitializedClemory.find" title="Permalink to this definition"></a></dt>
+<dd><p>The memory has no value, so matter what is searched for, it won’t be found.
+:param data:
+:param search_min:
+:param search_max:
+:return:</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="cle.memory.UninitializedClemory.consecutive">
+<span class="sig-name descname"><span class="pre">consecutive</span></span><a class="headerlink" href="#cle.memory.UninitializedClemory.consecutive" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="cle.memory.UninitializedClemory.min_addr">
+<span class="sig-name descname"><span class="pre">min_addr</span></span><a class="headerlink" href="#cle.memory.UninitializedClemory.min_addr" title="Permalink to this definition"></a></dt>
 <dd></dd></dl>
 
 </dd></dl>
