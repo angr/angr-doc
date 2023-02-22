@@ -234,6 +234,8 @@ Knowledge Base
 .. automodule:: angr.knowledge_plugins.gotos
 .. automodule:: angr.knowledge_plugins.types
 .. automodule:: angr.knowledge_plugins.propagations
+.. automodule:: angr.knowledge_plugins.propagations.propagation_manager
+.. automodule:: angr.knowledge_plugins.propagations.propagation_model
 .. automodule:: angr.knowledge_plugins.comments
 .. automodule:: angr.knowledge_plugins.data
 .. automodule:: angr.knowledge_plugins.indirect_jumps
