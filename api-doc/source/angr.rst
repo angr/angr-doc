@@ -234,6 +234,8 @@ Knowledge Base
 .. automodule:: angr.knowledge_plugins.gotos
 .. automodule:: angr.knowledge_plugins.types
 .. automodule:: angr.knowledge_plugins.propagations
+.. automodule:: angr.knowledge_plugins.propagations.propagation_manager
+.. automodule:: angr.knowledge_plugins.propagations.propagation_model
 .. automodule:: angr.knowledge_plugins.comments
 .. automodule:: angr.knowledge_plugins.data
 .. automodule:: angr.knowledge_plugins.indirect_jumps
@@ -317,6 +319,7 @@ Analysis
 .. automodule:: angr.analyses.cfg.indirect_jump_resolvers.default_resolvers
 .. automodule:: angr.analyses.cfg.indirect_jump_resolvers.jumptable
 .. automodule:: angr.analyses.cfg.indirect_jump_resolvers.const_resolver
+.. automodule:: angr.analyses.cfg.indirect_jump_resolvers.propagator_utils
 .. automodule:: angr.analyses.cfg.indirect_jump_resolvers.resolver
 .. automodule:: angr.analyses.cfg.indirect_jump_resolvers
 .. automodule:: angr.analyses.cfg.cfg_utils
