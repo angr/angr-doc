@@ -231,7 +231,6 @@ Knowledge Base
 .. automodule:: angr.knowledge_plugins.cfg.cfg_manager
 .. automodule:: angr.knowledge_plugins.cfg.cfg_node
 .. automodule:: angr.knowledge_plugins.cfg.indirect_jump
-.. automodule:: angr.knowledge_plugins.gotos
 .. automodule:: angr.knowledge_plugins.types
 .. automodule:: angr.knowledge_plugins.propagations
 .. automodule:: angr.knowledge_plugins.comments
