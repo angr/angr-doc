@@ -62,6 +62,8 @@ Backends
 .. automodule:: cle.backends.java.soot
 .. automodule:: cle.backends.xbe
 .. automodule:: cle.backends.static_archive
+.. automodule:: cle.backends.uefi_firmware
+.. automodule:: cle.backends.te
 
 
 Relocations

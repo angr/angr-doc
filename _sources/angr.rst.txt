@@ -231,9 +231,10 @@ Knowledge Base
 .. automodule:: angr.knowledge_plugins.cfg.cfg_manager
 .. automodule:: angr.knowledge_plugins.cfg.cfg_node
 .. automodule:: angr.knowledge_plugins.cfg.indirect_jump
-.. automodule:: angr.knowledge_plugins.gotos
 .. automodule:: angr.knowledge_plugins.types
 .. automodule:: angr.knowledge_plugins.propagations
+.. automodule:: angr.knowledge_plugins.propagations.propagation_manager
+.. automodule:: angr.knowledge_plugins.propagations.propagation_model
 .. automodule:: angr.knowledge_plugins.comments
 .. automodule:: angr.knowledge_plugins.data
 .. automodule:: angr.knowledge_plugins.indirect_jumps
@@ -317,6 +318,7 @@ Analysis
 .. automodule:: angr.analyses.cfg.indirect_jump_resolvers.default_resolvers
 .. automodule:: angr.analyses.cfg.indirect_jump_resolvers.jumptable
 .. automodule:: angr.analyses.cfg.indirect_jump_resolvers.const_resolver
+.. automodule:: angr.analyses.cfg.indirect_jump_resolvers.propagator_utils
 .. automodule:: angr.analyses.cfg.indirect_jump_resolvers.resolver
 .. automodule:: angr.analyses.cfg.indirect_jump_resolvers
 .. automodule:: angr.analyses.cfg.cfg_utils
@@ -361,6 +363,7 @@ Analysis
 .. automodule:: angr.analyses.decompiler.empty_node_remover
 .. automodule:: angr.analyses.decompiler.expression_narrower
 .. automodule:: angr.analyses.decompiler.graph_region
+.. automodule:: angr.analyses.decompiler.goto_manager
 .. automodule:: angr.analyses.decompiler.jump_target_collector
 .. automodule:: angr.analyses.decompiler.jumptable_entry_condition_rewriter
 .. automodule:: angr.analyses.decompiler.optimization_passes

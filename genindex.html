@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Index &mdash; angr 9.2.39
+  <title>Index &mdash; angr 9.2.40
  documentation</title>
       <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
@@ -32,7 +32,7 @@
             angr
           </a>
               <div class="version">
-                9.2.39
+                9.2.40
 
               </div>
 <div role="search">
@@ -488,6 +488,8 @@
 </li>
         <li><a href="angr.html#angr.analyses.decompiler.decompilation_cache.DecompilationCache.addr">(angr.analyses.decompiler.decompilation_cache.DecompilationCache attribute)</a>
 </li>
+        <li><a href="angr.html#angr.analyses.decompiler.goto_manager.Goto.addr">(angr.analyses.decompiler.goto_manager.Goto property)</a>
+</li>
         <li><a href="angr.html#angr.analyses.decompiler.graph_region.GraphRegion.addr">(angr.analyses.decompiler.graph_region.GraphRegion property)</a>
 </li>
         <li><a href="angr.html#angr.analyses.decompiler.structured_codegen.c.CFunction.addr">(angr.analyses.decompiler.structured_codegen.c.CFunction attribute)</a>
@@ -626,6 +628,8 @@
 </li>
       </ul></li>
       <li><a href="archinfo.html#archinfo.arch_soot.SootMethodDescriptor.address">address() (archinfo.arch_soot.SootMethodDescriptor method)</a>
+</li>
+      <li><a href="cle.html#cle.backends.te.HeaderType.address_of_entry_point">address_of_entry_point (cle.backends.te.HeaderType attribute)</a>
 </li>
       <li><a href="archinfo.html#archinfo.Arch.address_types">address_types (archinfo.Arch attribute)</a>
 
@@ -1094,6 +1098,13 @@
 </li>
       </ul></li>
       <li>
+    angr.analyses.cfg.indirect_jump_resolvers.propagator_utils
+
+      <ul>
+        <li><a href="angr.html#module-angr.analyses.cfg.indirect_jump_resolvers.propagator_utils">module</a>
+</li>
+      </ul></li>
+      <li>
     angr.analyses.cfg.indirect_jump_resolvers.resolver
 
       <ul>
@@ -1329,6 +1340,13 @@
 
       <ul>
         <li><a href="angr.html#module-angr.analyses.decompiler.expression_narrower">module</a>
+</li>
+      </ul></li>
+      <li>
+    angr.analyses.decompiler.goto_manager
+
+      <ul>
+        <li><a href="angr.html#module-angr.analyses.decompiler.goto_manager">module</a>
 </li>
       </ul></li>
       <li>
@@ -2514,8 +2532,6 @@
         <li><a href="angr.html#module-angr.exploration_techniques.bucketizer">module</a>
 </li>
       </ul></li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
       <li>
     angr.exploration_techniques.common
 
@@ -2530,6 +2546,8 @@
         <li><a href="angr.html#module-angr.exploration_techniques.dfs">module</a>
 </li>
       </ul></li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
       <li>
     angr.exploration_techniques.director
 
@@ -2832,13 +2850,6 @@
 </li>
       </ul></li>
       <li>
-    angr.knowledge_plugins.gotos
-
-      <ul>
-        <li><a href="angr.html#module-angr.knowledge_plugins.gotos">module</a>
-</li>
-      </ul></li>
-      <li>
     angr.knowledge_plugins.indirect_jumps
 
       <ul>
@@ -2962,6 +2973,20 @@
 
       <ul>
         <li><a href="angr.html#module-angr.knowledge_plugins.propagations">module</a>
+</li>
+      </ul></li>
+      <li>
+    angr.knowledge_plugins.propagations.propagation_manager
+
+      <ul>
+        <li><a href="angr.html#module-angr.knowledge_plugins.propagations.propagation_manager">module</a>
+</li>
+      </ul></li>
+      <li>
+    angr.knowledge_plugins.propagations.propagation_model
+
+      <ul>
+        <li><a href="angr.html#module-angr.knowledge_plugins.propagations.propagation_model">module</a>
 </li>
       </ul></li>
       <li>
@@ -4291,6 +4316,10 @@
 </li>
         <li><a href="cle.html#cle.backends.StaticArchive.arch">(cle.backends.StaticArchive attribute)</a>
 </li>
+        <li><a href="cle.html#cle.backends.TE.arch">(cle.backends.TE attribute)</a>
+</li>
+        <li><a href="cle.html#cle.backends.te.TE.arch">(cle.backends.te.TE attribute)</a>
+</li>
         <li><a href="cle.html#cle.backends.tls.elf_tls.ELFTLSObject.arch">(cle.backends.tls.elf_tls.ELFTLSObject attribute)</a>
 </li>
         <li><a href="cle.html#cle.backends.tls.elf_tls.ELFTLSObjectV1.arch">(cle.backends.tls.elf_tls.ELFTLSObjectV1 attribute)</a>
@@ -4302,6 +4331,16 @@
         <li><a href="cle.html#cle.backends.tls.tls_object.TLSObject.arch">(cle.backends.tls.tls_object.TLSObject attribute)</a>
 </li>
         <li><a href="cle.html#cle.backends.tls.TLSObject.arch">(cle.backends.tls.TLSObject attribute)</a>
+</li>
+        <li><a href="cle.html#cle.backends.uefi_firmware.UefiFirmware.arch">(cle.backends.uefi_firmware.UefiFirmware attribute)</a>
+</li>
+        <li><a href="cle.html#cle.backends.uefi_firmware.UefiModuleMixin.arch">(cle.backends.uefi_firmware.UefiModuleMixin attribute)</a>
+</li>
+        <li><a href="cle.html#cle.backends.uefi_firmware.UefiPE.arch">(cle.backends.uefi_firmware.UefiPE attribute)</a>
+</li>
+        <li><a href="cle.html#cle.backends.uefi_firmware.UefiTE.arch">(cle.backends.uefi_firmware.UefiTE attribute)</a>
+</li>
+        <li><a href="cle.html#cle.backends.UefiFirmware.arch">(cle.backends.UefiFirmware attribute)</a>
 </li>
         <li><a href="cle.html#cle.backends.XBE.arch">(cle.backends.XBE attribute)</a>
 </li>
@@ -4329,7 +4368,11 @@
 </li>
         <li><a href="cle.html#cle.StaticArchive.arch">(cle.StaticArchive attribute)</a>
 </li>
+        <li><a href="cle.html#cle.TE.arch">(cle.TE attribute)</a>
+</li>
         <li><a href="cle.html#cle.TLSObject.arch">(cle.TLSObject attribute)</a>
+</li>
+        <li><a href="cle.html#cle.UefiFirmware.arch">(cle.UefiFirmware attribute)</a>
 </li>
         <li><a href="pyvex.html#pyvex.block.IRSB.arch">(pyvex.block.IRSB attribute)</a>
 </li>
@@ -4994,6 +5037,8 @@
 </li>
       <li><a href="angr.html#angr.storage.memory_mixins.regioned_memory.region_data.RegionDescriptor.base_address">base_address (angr.storage.memory_mixins.regioned_memory.region_data.RegionDescriptor attribute)</a>
 </li>
+      <li><a href="cle.html#cle.backends.te.HeaderType.base_of_code">base_of_code (cle.backends.te.HeaderType attribute)</a>
+</li>
       <li><a href="angr.html#angr.analyses.data_dep.dep_nodes.BaseDepNode">BaseDepNode (class in angr.analyses.data_dep.dep_nodes)</a>
 </li>
       <li><a href="angr.html#angr.exploration_techniques.director.BaseGoal">BaseGoal (class in angr.exploration_techniques.director)</a>
@@ -5407,7 +5452,11 @@
 </li>
       </ul></li>
       <li><a href="angr.html#angr.analyses.propagator.propagator.PropagatorAILState.block_initial_reg_values">block_initial_reg_values (angr.analyses.propagator.propagator.PropagatorAILState attribute)</a>
+
+      <ul>
+        <li><a href="angr.html#angr.knowledge_plugins.propagations.propagation_model.PropagationModel.block_initial_reg_values">(angr.knowledge_plugins.propagations.propagation_model.PropagationModel attribute)</a>
 </li>
+      </ul></li>
       <li><a href="angr.html#angr.analyses.bindiff.FunctionDiff.block_matches">block_matches (angr.analyses.bindiff.FunctionDiff property)</a>
 </li>
       <li><a href="angr.html#angr.block.Block.BLOCK_MAX_SIZE">BLOCK_MAX_SIZE (angr.block.Block attribute)</a>
@@ -5565,7 +5614,11 @@
       <li><a href="angr.html#angr.exploration_techniques.bucketizer.Bucketizer">Bucketizer (class in angr.exploration_techniques.bucketizer)</a>
 </li>
       <li><a href="angr.html#angr.analyses.disassembly.Operand.build">build() (angr.analyses.disassembly.Operand static method)</a>
+
+      <ul>
+        <li><a href="cle.html#cle.backends.uefi_firmware.UefiModulePending.build">(cle.backends.uefi_firmware.UefiModulePending method)</a>
 </li>
+      </ul></li>
       <li><a href="claripy.html#claripy.ast.bv.BV">BV (class in claripy.ast.bv)</a>
 </li>
       <li><a href="claripy.html#claripy.BV">BV() (in module claripy)</a>
@@ -6267,6 +6320,8 @@
 </li>
       </ul></li>
       <li><a href="angr.html#angr.storage.memory_mixins.paged_memory.paged_memory_mixin.PagedMemoryMixin.changed_pages">changed_pages() (angr.storage.memory_mixins.paged_memory.paged_memory_mixin.PagedMemoryMixin method)</a>
+</li>
+      <li><a href="cle.html#cle.backends.te.SectionHeaderType.characteristics">characteristics (cle.backends.te.SectionHeaderType attribute)</a>
 </li>
       <li><a href="angr.html#angr.state_plugins.filesystem.SimFilesystem.chdir">chdir() (angr.state_plugins.filesystem.SimFilesystem method)</a>
 </li>
@@ -7499,6 +7554,13 @@
 </li>
       </ul></li>
       <li>
+    cle.backends.te
+
+      <ul>
+        <li><a href="cle.html#module-cle.backends.te">module</a>
+</li>
+      </ul></li>
+      <li>
     cle.backends.tls
 
       <ul>
@@ -7540,6 +7602,13 @@
 
       <ul>
         <li><a href="cle.html#module-cle.backends.tls.tls_object">module</a>
+</li>
+      </ul></li>
+      <li>
+    cle.backends.uefi_firmware
+
+      <ul>
+        <li><a href="cle.html#module-cle.backends.uefi_firmware">module</a>
 </li>
       </ul></li>
       <li>
@@ -8508,8 +8577,6 @@
 </li>
         <li><a href="angr.html#angr.knowledge_plugins.functions.function_manager.FunctionManager.copy">(angr.knowledge_plugins.functions.function_manager.FunctionManager method)</a>
 </li>
-        <li><a href="angr.html#angr.knowledge_plugins.gotos.Gotos.copy">(angr.knowledge_plugins.gotos.Gotos method)</a>
-</li>
         <li><a href="angr.html#angr.knowledge_plugins.indirect_jumps.IndirectJumps.copy">(angr.knowledge_plugins.indirect_jumps.IndirectJumps method)</a>
 </li>
         <li><a href="angr.html#angr.knowledge_plugins.key_definitions.key_definition_manager.KeyDefinitionManager.copy">(angr.knowledge_plugins.key_definitions.key_definition_manager.KeyDefinitionManager method)</a>
@@ -8526,7 +8593,7 @@
 </li>
         <li><a href="angr.html#angr.knowledge_plugins.plugin.KnowledgeBasePlugin.copy">(angr.knowledge_plugins.plugin.KnowledgeBasePlugin method)</a>
 </li>
-        <li><a href="angr.html#angr.knowledge_plugins.propagations.Propagations.copy">(angr.knowledge_plugins.propagations.Propagations method)</a>
+        <li><a href="angr.html#angr.knowledge_plugins.propagations.propagation_manager.PropagationManager.copy">(angr.knowledge_plugins.propagations.propagation_manager.PropagationManager method)</a>
 </li>
         <li><a href="angr.html#angr.knowledge_plugins.structured_code.manager.StructuredCodeManager.copy">(angr.knowledge_plugins.structured_code.manager.StructuredCodeManager method)</a>
 </li>
@@ -9065,6 +9132,14 @@
       </ul></li>
       <li><a href="pyvex.html#pyvex.data_ref.DataRef.data_addr">data_addr (pyvex.data_ref.DataRef attribute)</a>
 </li>
+      <li><a href="cle.html#cle.backends.te.HeaderType.data_directory_0_size">data_directory_0_size (cle.backends.te.HeaderType attribute)</a>
+</li>
+      <li><a href="cle.html#cle.backends.te.HeaderType.data_directory_0_virtual_address">data_directory_0_virtual_address (cle.backends.te.HeaderType attribute)</a>
+</li>
+      <li><a href="cle.html#cle.backends.te.HeaderType.data_directory_1_size">data_directory_1_size (cle.backends.te.HeaderType attribute)</a>
+</li>
+      <li><a href="cle.html#cle.backends.te.HeaderType.data_directory_1_virtual_address">data_directory_1_virtual_address (cle.backends.te.HeaderType attribute)</a>
+</li>
       <li><a href="angr.html#angr.analyses.ddg.DDG.data_graph">data_graph (angr.analyses.ddg.DDG property)</a>
 </li>
       <li><a href="angr.html#angr.state_plugins.heap.heap_freelist.Chunk.data_ptr">data_ptr() (angr.state_plugins.heap.heap_freelist.Chunk method)</a>
@@ -9573,6 +9648,8 @@
         <li><a href="angr.html#angr.sim_variable.SimVariableSet.discard">(angr.sim_variable.SimVariableSet method)</a>
 </li>
       </ul></li>
+      <li><a href="angr.html#angr.knowledge_plugins.propagations.propagation_manager.PropagationManager.discard_by_prefix">discard_by_prefix() (angr.knowledge_plugins.propagations.propagation_manager.PropagationManager method)</a>
+</li>
       <li><a href="angr.html#angr.state_plugins.cgc.SimStateCGC.discard_input">discard_input() (angr.state_plugins.cgc.SimStateCGC method)</a>
 </li>
       <li><a href="angr.html#angr.sim_variable.SimVariableSet.discard_memory_variable">discard_memory_variable() (angr.sim_variable.SimVariableSet method)</a>
@@ -9655,6 +9732,8 @@
         <li><a href="angr.html#angr.analyses.variable_recovery.variable_recovery_base.VariableRecoveryStateBase.downsize">(angr.analyses.variable_recovery.variable_recovery_base.VariableRecoveryStateBase method)</a>
 </li>
         <li><a href="angr.html#angr.knowledge_plugins.cfg.cfg_node.CFGENode.downsize">(angr.knowledge_plugins.cfg.cfg_node.CFGENode method)</a>
+</li>
+        <li><a href="angr.html#angr.knowledge_plugins.propagations.propagation_model.PropagationModel.downsize">(angr.knowledge_plugins.propagations.propagation_model.PropagationModel method)</a>
 </li>
         <li><a href="angr.html#angr.sim_state.SimState.downsize">(angr.sim_state.SimState method)</a>
 </li>
@@ -10271,6 +10350,8 @@
 </li>
       <li><a href="angr.html#angr.analyses.loop_analysis.Condition.Equal">Equal (angr.analyses.loop_analysis.Condition attribute)</a>
 </li>
+      <li><a href="angr.html#angr.knowledge_plugins.propagations.propagation_model.PropagationModel.equivalence">equivalence (angr.knowledge_plugins.propagations.propagation_model.PropagationModel attribute)</a>
+</li>
       <li><a href="angr.html#angr.analyses.propagator.propagator.Equivalence">Equivalence (class in angr.analyses.propagator.propagator)</a>
 
       <ul>
@@ -10500,6 +10581,10 @@
 </li>
         <li><a href="cle.html#cle.backends.StaticArchive.exception_handlings">(cle.backends.StaticArchive attribute)</a>
 </li>
+        <li><a href="cle.html#cle.backends.TE.exception_handlings">(cle.backends.TE attribute)</a>
+</li>
+        <li><a href="cle.html#cle.backends.te.TE.exception_handlings">(cle.backends.te.TE attribute)</a>
+</li>
         <li><a href="cle.html#cle.backends.tls.elf_tls.ELFTLSObject.exception_handlings">(cle.backends.tls.elf_tls.ELFTLSObject attribute)</a>
 </li>
         <li><a href="cle.html#cle.backends.tls.elf_tls.ELFTLSObjectV1.exception_handlings">(cle.backends.tls.elf_tls.ELFTLSObjectV1 attribute)</a>
@@ -10511,6 +10596,16 @@
         <li><a href="cle.html#cle.backends.tls.tls_object.TLSObject.exception_handlings">(cle.backends.tls.tls_object.TLSObject attribute)</a>
 </li>
         <li><a href="cle.html#cle.backends.tls.TLSObject.exception_handlings">(cle.backends.tls.TLSObject attribute)</a>
+</li>
+        <li><a href="cle.html#cle.backends.uefi_firmware.UefiFirmware.exception_handlings">(cle.backends.uefi_firmware.UefiFirmware attribute)</a>
+</li>
+        <li><a href="cle.html#cle.backends.uefi_firmware.UefiModuleMixin.exception_handlings">(cle.backends.uefi_firmware.UefiModuleMixin attribute)</a>
+</li>
+        <li><a href="cle.html#cle.backends.uefi_firmware.UefiPE.exception_handlings">(cle.backends.uefi_firmware.UefiPE attribute)</a>
+</li>
+        <li><a href="cle.html#cle.backends.uefi_firmware.UefiTE.exception_handlings">(cle.backends.uefi_firmware.UefiTE attribute)</a>
+</li>
+        <li><a href="cle.html#cle.backends.UefiFirmware.exception_handlings">(cle.backends.UefiFirmware attribute)</a>
 </li>
         <li><a href="cle.html#cle.backends.XBE.exception_handlings">(cle.backends.XBE attribute)</a>
 </li>
@@ -10538,7 +10633,11 @@
 </li>
         <li><a href="cle.html#cle.StaticArchive.exception_handlings">(cle.StaticArchive attribute)</a>
 </li>
+        <li><a href="cle.html#cle.TE.exception_handlings">(cle.TE attribute)</a>
+</li>
         <li><a href="cle.html#cle.TLSObject.exception_handlings">(cle.TLSObject attribute)</a>
+</li>
+        <li><a href="cle.html#cle.UefiFirmware.exception_handlings">(cle.UefiFirmware attribute)</a>
 </li>
       </ul></li>
       <li><a href="cle.html#cle.ExceptionHandling">ExceptionHandling (class in cle)</a>
@@ -10567,7 +10666,7 @@
 </li>
       <li><a href="angr.html#angr.analyses.typehoon.typevars.Existence">Existence (class in angr.analyses.typehoon.typevars)</a>
 </li>
-      <li><a href="angr.html#angr.knowledge_plugins.propagations.Propagations.exists">exists() (angr.knowledge_plugins.propagations.Propagations method)</a>
+      <li><a href="angr.html#angr.knowledge_plugins.propagations.propagation_manager.PropagationManager.exists">exists() (angr.knowledge_plugins.propagations.propagation_manager.PropagationManager method)</a>
 </li>
       <li><a href="angr.html#angr.analyses.cfg.indirect_jump_resolvers.const_resolver.exists_in_replacements">exists_in_replacements() (in module angr.analyses.cfg.indirect_jump_resolvers.const_resolver)</a>
 </li>
@@ -11393,8 +11492,6 @@
         <li><a href="claripy.html#claripy.ast.fp.FPV">(in module claripy.ast.fp)</a>
 </li>
       </ul></li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="angr.html#angr.analyses.reaching_definitions.heap_allocator.HeapAllocator.free">free() (angr.analyses.reaching_definitions.heap_allocator.HeapAllocator method)</a>
 
       <ul>
@@ -11409,6 +11506,8 @@
         <li><a href="angr.html#angr.state_plugins.heap.heap_ptmalloc.SimHeapPTMalloc.free_chunks">(angr.state_plugins.heap.heap_ptmalloc.SimHeapPTMalloc method)</a>
 </li>
       </ul></li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="angr.html#angr.analyses.stack_pointer_tracker.StackPointerTrackerState.freeze">freeze() (angr.analyses.stack_pointer_tracker.StackPointerTrackerState method)</a>
 </li>
       <li><a href="angr.html#angr.factory.AngrObjectFactory.fresh_block">fresh_block() (angr.factory.AngrObjectFactory method)</a>
@@ -11560,6 +11659,8 @@
       <li><a href="claripy.html#claripy.frontends.full_frontend.FullFrontend">FullFrontend (class in claripy.frontends.full_frontend)</a>
 </li>
       <li><a href="archinfo.html#archinfo.arch_soot.SootMethodDescriptor.fullname">fullname (archinfo.arch_soot.SootMethodDescriptor property)</a>
+</li>
+      <li><a href="angr.html#angr.analyses.cfg.indirect_jump_resolvers.jumptable.ConstantValueManager.func">func (angr.analyses.cfg.indirect_jump_resolvers.jumptable.ConstantValueManager attribute)</a>
 </li>
       <li><a href="angr.html#angr.analyses.cfg.cfg_fast.CFGJob.func_addr">func_addr (angr.analyses.cfg.cfg_fast.CFGJob attribute)</a>
 
@@ -11770,6 +11871,10 @@
 </li>
         <li><a href="cle.html#cle.backends.StaticArchive.function_hints">(cle.backends.StaticArchive attribute)</a>
 </li>
+        <li><a href="cle.html#cle.backends.TE.function_hints">(cle.backends.TE attribute)</a>
+</li>
+        <li><a href="cle.html#cle.backends.te.TE.function_hints">(cle.backends.te.TE attribute)</a>
+</li>
         <li><a href="cle.html#cle.backends.tls.elf_tls.ELFTLSObject.function_hints">(cle.backends.tls.elf_tls.ELFTLSObject attribute)</a>
 </li>
         <li><a href="cle.html#cle.backends.tls.elf_tls.ELFTLSObjectV1.function_hints">(cle.backends.tls.elf_tls.ELFTLSObjectV1 attribute)</a>
@@ -11781,6 +11886,16 @@
         <li><a href="cle.html#cle.backends.tls.tls_object.TLSObject.function_hints">(cle.backends.tls.tls_object.TLSObject attribute)</a>
 </li>
         <li><a href="cle.html#cle.backends.tls.TLSObject.function_hints">(cle.backends.tls.TLSObject attribute)</a>
+</li>
+        <li><a href="cle.html#cle.backends.uefi_firmware.UefiFirmware.function_hints">(cle.backends.uefi_firmware.UefiFirmware attribute)</a>
+</li>
+        <li><a href="cle.html#cle.backends.uefi_firmware.UefiModuleMixin.function_hints">(cle.backends.uefi_firmware.UefiModuleMixin attribute)</a>
+</li>
+        <li><a href="cle.html#cle.backends.uefi_firmware.UefiPE.function_hints">(cle.backends.uefi_firmware.UefiPE attribute)</a>
+</li>
+        <li><a href="cle.html#cle.backends.uefi_firmware.UefiTE.function_hints">(cle.backends.uefi_firmware.UefiTE attribute)</a>
+</li>
+        <li><a href="cle.html#cle.backends.UefiFirmware.function_hints">(cle.backends.UefiFirmware attribute)</a>
 </li>
         <li><a href="cle.html#cle.backends.XBE.function_hints">(cle.backends.XBE attribute)</a>
 </li>
@@ -11808,7 +11923,11 @@
 </li>
         <li><a href="cle.html#cle.StaticArchive.function_hints">(cle.StaticArchive attribute)</a>
 </li>
+        <li><a href="cle.html#cle.TE.function_hints">(cle.TE attribute)</a>
+</li>
         <li><a href="cle.html#cle.TLSObject.function_hints">(cle.TLSObject attribute)</a>
+</li>
+        <li><a href="cle.html#cle.UefiFirmware.function_hints">(cle.UefiFirmware attribute)</a>
 </li>
       </ul></li>
       <li><a href="angr.html#angr.analyses.vfg.VFG.function_initial_states">function_initial_states (angr.analyses.vfg.VFG property)</a>
@@ -12024,7 +12143,7 @@
 </li>
         <li><a href="angr.html#angr.knowledge_plugins.labels.Labels.get">(angr.knowledge_plugins.labels.Labels method)</a>
 </li>
-        <li><a href="angr.html#angr.knowledge_plugins.propagations.Propagations.get">(angr.knowledge_plugins.propagations.Propagations method)</a>
+        <li><a href="angr.html#angr.knowledge_plugins.propagations.propagation_manager.PropagationManager.get">(angr.knowledge_plugins.propagations.propagation_manager.PropagationManager method)</a>
 </li>
         <li><a href="angr.html#angr.procedures.definitions.SimCppLibrary.get">(angr.procedures.definitions.SimCppLibrary method)</a>
 </li>
@@ -12451,10 +12570,10 @@
         <li><a href="archinfo.html#archinfo.arch.Arch.get_register_offset">(archinfo.arch.Arch method)</a>
 </li>
       </ul></li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="angr.html#angr.state_plugins.unicorn_engine.Unicorn.get_regs">get_regs() (angr.state_plugins.unicorn_engine.Unicorn method)</a>
 </li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="cle.html#cle.backends.elf.relocation.get_relocation">get_relocation() (in module cle.backends.elf.relocation)</a>
 
       <ul>
@@ -12861,11 +12980,15 @@
         <li><a href="archinfo.html#archinfo.ArchX86.got_section_name">(archinfo.ArchX86 attribute)</a>
 </li>
       </ul></li>
-      <li><a href="angr.html#angr.knowledge_plugins.gotos.Goto">Goto (class in angr.knowledge_plugins.gotos)</a>
+      <li><a href="angr.html#angr.analyses.decompiler.goto_manager.Goto">Goto (class in angr.analyses.decompiler.goto_manager)</a>
 </li>
       <li><a href="pyvex.html#pyvex.lifting.util.vex_helper.IRSBCustomizer.goto">goto() (pyvex.lifting.util.vex_helper.IRSBCustomizer method)</a>
 </li>
-      <li><a href="angr.html#angr.knowledge_plugins.gotos.Gotos">Gotos (class in angr.knowledge_plugins.gotos)</a>
+      <li><a href="angr.html#angr.analyses.decompiler.goto_manager.GotoManager">GotoManager (class in angr.analyses.decompiler.goto_manager)</a>
+</li>
+      <li><a href="angr.html#angr.analyses.decompiler.goto_manager.GotoManager.gotos_by_addr">gotos_by_addr() (angr.analyses.decompiler.goto_manager.GotoManager method)</a>
+</li>
+      <li><a href="angr.html#angr.analyses.decompiler.goto_manager.GotoManager.gotos_in_block">gotos_in_block() (angr.analyses.decompiler.goto_manager.GotoManager method)</a>
 </li>
       <li><a href="angr.html#angr.analyses.decompiler.region_simplifiers.goto.GotoSimplifier">GotoSimplifier (class in angr.analyses.decompiler.region_simplifiers.goto)</a>
 </li>
@@ -12904,6 +13027,8 @@
 </li>
       </ul></li>
       <li><a href="angr.html#angr.knowledge_plugins.functions.function.Function.graph_ex">graph_ex() (angr.knowledge_plugins.functions.function.Function method)</a>
+</li>
+      <li><a href="angr.html#angr.knowledge_plugins.propagations.propagation_model.PropagationModel.graph_visitor">graph_visitor (angr.knowledge_plugins.propagations.propagation_model.PropagationModel attribute)</a>
 </li>
       <li><a href="angr.html#angr.analyses.decompiler.graph_region.GraphRegion.graph_with_successors">graph_with_successors (angr.analyses.decompiler.graph_region.GraphRegion attribute)</a>
 </li>
@@ -13213,6 +13338,8 @@
       </ul></li>
       <li><a href="archinfo.html#archinfo.tls.TLSArchInfo.head_offsets">head_offsets (archinfo.tls.TLSArchInfo attribute)</a>
 </li>
+      <li><a href="cle.html#cle.backends.te.HeaderType">HeaderType (class in cle.backends.te)</a>
+</li>
       <li><a href="angr.html#angr.analyses.reaching_definitions.rd_state.ReachingDefinitionsState.heap_address">heap_address() (angr.analyses.reaching_definitions.rd_state.ReachingDefinitionsState method)</a>
 </li>
       <li><a href="angr.html#angr.analyses.reaching_definitions.rd_state.ReachingDefinitionsState.heap_allocator">heap_allocator (angr.analyses.reaching_definitions.rd_state.ReachingDefinitionsState attribute)</a>
@@ -13493,6 +13620,8 @@
 </li>
       <li><a href="claripy.html#claripy.vsa.strided_interval.StridedInterval.igcd">igcd() (claripy.vsa.strided_interval.StridedInterval static method)</a>
 </li>
+      <li><a href="cle.html#cle.backends.te.HeaderType.image_base">image_base (cle.backends.te.HeaderType attribute)</a>
+</li>
       <li><a href="cle.html#cle.Backend.image_base_delta">image_base_delta (cle.Backend property)</a>
 
       <ul>
@@ -13686,6 +13815,10 @@
 </li>
         <li><a href="cle.html#cle.backends.StaticArchive.imports">(cle.backends.StaticArchive attribute)</a>
 </li>
+        <li><a href="cle.html#cle.backends.TE.imports">(cle.backends.TE attribute)</a>
+</li>
+        <li><a href="cle.html#cle.backends.te.TE.imports">(cle.backends.te.TE attribute)</a>
+</li>
         <li><a href="cle.html#cle.backends.tls.elf_tls.ELFTLSObject.imports">(cle.backends.tls.elf_tls.ELFTLSObject attribute)</a>
 </li>
         <li><a href="cle.html#cle.backends.tls.elf_tls.ELFTLSObjectV1.imports">(cle.backends.tls.elf_tls.ELFTLSObjectV1 attribute)</a>
@@ -13697,6 +13830,16 @@
         <li><a href="cle.html#cle.backends.tls.tls_object.TLSObject.imports">(cle.backends.tls.tls_object.TLSObject attribute)</a>
 </li>
         <li><a href="cle.html#cle.backends.tls.TLSObject.imports">(cle.backends.tls.TLSObject attribute)</a>
+</li>
+        <li><a href="cle.html#cle.backends.uefi_firmware.UefiFirmware.imports">(cle.backends.uefi_firmware.UefiFirmware attribute)</a>
+</li>
+        <li><a href="cle.html#cle.backends.uefi_firmware.UefiModuleMixin.imports">(cle.backends.uefi_firmware.UefiModuleMixin attribute)</a>
+</li>
+        <li><a href="cle.html#cle.backends.uefi_firmware.UefiPE.imports">(cle.backends.uefi_firmware.UefiPE attribute)</a>
+</li>
+        <li><a href="cle.html#cle.backends.uefi_firmware.UefiTE.imports">(cle.backends.uefi_firmware.UefiTE attribute)</a>
+</li>
+        <li><a href="cle.html#cle.backends.UefiFirmware.imports">(cle.backends.UefiFirmware attribute)</a>
 </li>
         <li><a href="cle.html#cle.backends.XBE.imports">(cle.backends.XBE attribute)</a>
 </li>
@@ -13724,7 +13867,11 @@
 </li>
         <li><a href="cle.html#cle.StaticArchive.imports">(cle.StaticArchive attribute)</a>
 </li>
+        <li><a href="cle.html#cle.TE.imports">(cle.TE attribute)</a>
+</li>
         <li><a href="cle.html#cle.TLSObject.imports">(cle.TLSObject attribute)</a>
+</li>
+        <li><a href="cle.html#cle.UefiFirmware.imports">(cle.UefiFirmware attribute)</a>
 </li>
       </ul></li>
       <li><a href="cle.html#cle.backends.macho.structs.dyld_chained_fixups_header.imports_count">imports_count (cle.backends.macho.structs.dyld_chained_fixups_header attribute)</a>
@@ -14259,10 +14406,10 @@
 </li>
       <li><a href="pyvex.html#pyvex.lifting.util.irsb_postprocess.irsb_postproc_flatten">irsb_postproc_flatten() (in module pyvex.lifting.util.irsb_postprocess)</a>
 </li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="ailment.html#ailment.IRSBConverter">IRSBConverter (class in ailment)</a>
 </li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="pyvex.html#pyvex.lifting.util.vex_helper.IRSBCustomizer">IRSBCustomizer (class in pyvex.lifting.util.vex_helper)</a>
 </li>
       <li><a href="pyvex.html#pyvex.stmt.IRStmt">IRStmt (class in pyvex.stmt)</a>
@@ -14392,6 +14539,14 @@
 </li>
         <li><a href="cle.html#cle.backends.StaticArchive.is_compatible">(cle.backends.StaticArchive class method)</a>
 </li>
+        <li><a href="cle.html#cle.backends.TE.is_compatible">(cle.backends.TE class method)</a>
+</li>
+        <li><a href="cle.html#cle.backends.te.TE.is_compatible">(cle.backends.te.TE class method)</a>
+</li>
+        <li><a href="cle.html#cle.backends.uefi_firmware.UefiFirmware.is_compatible">(cle.backends.uefi_firmware.UefiFirmware class method)</a>
+</li>
+        <li><a href="cle.html#cle.backends.UefiFirmware.is_compatible">(cle.backends.UefiFirmware class method)</a>
+</li>
         <li><a href="cle.html#cle.backends.XBE.is_compatible">(cle.backends.XBE static method)</a>
 </li>
         <li><a href="cle.html#cle.backends.xbe.XBE.is_compatible">(cle.backends.xbe.XBE static method)</a>
@@ -14417,6 +14572,10 @@
         <li><a href="cle.html#cle.PE.is_compatible">(cle.PE static method)</a>
 </li>
         <li><a href="cle.html#cle.StaticArchive.is_compatible">(cle.StaticArchive class method)</a>
+</li>
+        <li><a href="cle.html#cle.TE.is_compatible">(cle.TE class method)</a>
+</li>
+        <li><a href="cle.html#cle.UefiFirmware.is_compatible">(cle.UefiFirmware class method)</a>
 </li>
         <li><a href="cle.html#cle.XBE.is_compatible">(cle.XBE static method)</a>
 </li>
@@ -14506,6 +14665,14 @@
 </li>
         <li><a href="cle.html#cle.backends.StaticArchive.is_default">(cle.backends.StaticArchive attribute)</a>
 </li>
+        <li><a href="cle.html#cle.backends.TE.is_default">(cle.backends.TE attribute)</a>
+</li>
+        <li><a href="cle.html#cle.backends.te.TE.is_default">(cle.backends.te.TE attribute)</a>
+</li>
+        <li><a href="cle.html#cle.backends.uefi_firmware.UefiFirmware.is_default">(cle.backends.uefi_firmware.UefiFirmware attribute)</a>
+</li>
+        <li><a href="cle.html#cle.backends.UefiFirmware.is_default">(cle.backends.UefiFirmware attribute)</a>
+</li>
         <li><a href="cle.html#cle.backends.XBE.is_default">(cle.backends.XBE attribute)</a>
 </li>
         <li><a href="cle.html#cle.backends.xbe.XBE.is_default">(cle.backends.xbe.XBE attribute)</a>
@@ -14531,6 +14698,10 @@
         <li><a href="cle.html#cle.PE.is_default">(cle.PE attribute)</a>
 </li>
         <li><a href="cle.html#cle.StaticArchive.is_default">(cle.StaticArchive attribute)</a>
+</li>
+        <li><a href="cle.html#cle.TE.is_default">(cle.TE attribute)</a>
+</li>
+        <li><a href="cle.html#cle.UefiFirmware.is_default">(cle.UefiFirmware attribute)</a>
 </li>
         <li><a href="cle.html#cle.XBE.is_default">(cle.XBE attribute)</a>
 </li>
@@ -15298,6 +15469,8 @@
       <li><a href="angr.html#angr.analyses.analysis.Analysis.kb">kb (angr.analyses.analysis.Analysis attribute)</a>
 
       <ul>
+        <li><a href="angr.html#angr.analyses.cfg.indirect_jump_resolvers.jumptable.ConstantValueManager.kb">(angr.analyses.cfg.indirect_jump_resolvers.jumptable.ConstantValueManager attribute)</a>
+</li>
         <li><a href="angr.html#angr.analyses.decompiler.optimization_passes.optimization_pass.BaseOptimizationPass.kb">(angr.analyses.decompiler.optimization_passes.optimization_pass.BaseOptimizationPass property)</a>
 </li>
         <li><a href="angr.html#angr.analyses.decompiler.peephole_optimizations.base.PeepholeOptimizationExprBase.kb">(angr.analyses.decompiler.peephole_optimizations.base.PeepholeOptimizationExprBase attribute)</a>
@@ -15350,7 +15523,11 @@
 </li>
       </ul></li>
       <li><a href="angr.html#angr.angrdb.models.DbInformation.key">key (angr.angrdb.models.DbInformation attribute)</a>
+
+      <ul>
+        <li><a href="angr.html#angr.knowledge_plugins.propagations.propagation_model.PropagationModel.key">(angr.knowledge_plugins.propagations.propagation_model.PropagationModel attribute)</a>
 </li>
+      </ul></li>
       <li><a href="cle.html#cle.utils.key_bisect_find">key_bisect_find() (in module cle.utils)</a>
 </li>
       <li><a href="cle.html#cle.utils.key_bisect_floor_key">key_bisect_floor_key() (in module cle.utils)</a>
@@ -15363,6 +15540,8 @@
 </li>
       <li><a href="angr.html#angr.keyed_region.KeyedRegion">KeyedRegion (class in angr.keyed_region)</a>
 </li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="angr.html#angr.knowledge_plugins.patches.PatchManager.keys">keys() (angr.knowledge_plugins.patches.PatchManager method)</a>
 
       <ul>
@@ -15379,8 +15558,6 @@
         <li><a href="angr.html#angr.vaults.VaultDirShelf.keys">(angr.vaults.VaultDirShelf method)</a>
 </li>
       </ul></li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="archinfo.html#archinfo.Arch.keystone">keystone (archinfo.Arch property)</a>
 
       <ul>
@@ -15945,10 +16122,10 @@
         <li><a href="archinfo.html#archinfo.ArchX86.linux_name">(archinfo.ArchX86 attribute)</a>
 </li>
       </ul></li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="angr.html#angr.calling_conventions.SimCCSyscall.linux_syscall_update_error_reg">linux_syscall_update_error_reg() (angr.calling_conventions.SimCCSyscall method)</a>
 </li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="angr.html#angr.utils.dynamic_dictlist.DynamicDictList.list_content">list_content (angr.utils.dynamic_dictlist.DynamicDictList attribute)</a>
 </li>
       <li><a href="angr.html#angr.misc.plugins.PluginPreset.list_default_plugins">list_default_plugins() (angr.misc.plugins.PluginPreset method)</a>
@@ -16226,6 +16403,10 @@
 </li>
         <li><a href="cle.html#cle.backends.StaticArchive.loader">(cle.backends.StaticArchive attribute)</a>
 </li>
+        <li><a href="cle.html#cle.backends.TE.loader">(cle.backends.TE attribute)</a>
+</li>
+        <li><a href="cle.html#cle.backends.te.TE.loader">(cle.backends.te.TE attribute)</a>
+</li>
         <li><a href="cle.html#cle.backends.tls.elf_tls.ELFTLSObject.loader">(cle.backends.tls.elf_tls.ELFTLSObject attribute)</a>
 </li>
         <li><a href="cle.html#cle.backends.tls.elf_tls.ELFTLSObjectV1.loader">(cle.backends.tls.elf_tls.ELFTLSObjectV1 attribute)</a>
@@ -16237,6 +16418,16 @@
         <li><a href="cle.html#cle.backends.tls.tls_object.TLSObject.loader">(cle.backends.tls.tls_object.TLSObject attribute)</a>
 </li>
         <li><a href="cle.html#cle.backends.tls.TLSObject.loader">(cle.backends.tls.TLSObject attribute)</a>
+</li>
+        <li><a href="cle.html#cle.backends.uefi_firmware.UefiFirmware.loader">(cle.backends.uefi_firmware.UefiFirmware attribute)</a>
+</li>
+        <li><a href="cle.html#cle.backends.uefi_firmware.UefiModuleMixin.loader">(cle.backends.uefi_firmware.UefiModuleMixin attribute)</a>
+</li>
+        <li><a href="cle.html#cle.backends.uefi_firmware.UefiPE.loader">(cle.backends.uefi_firmware.UefiPE attribute)</a>
+</li>
+        <li><a href="cle.html#cle.backends.uefi_firmware.UefiTE.loader">(cle.backends.uefi_firmware.UefiTE attribute)</a>
+</li>
+        <li><a href="cle.html#cle.backends.UefiFirmware.loader">(cle.backends.UefiFirmware attribute)</a>
 </li>
         <li><a href="cle.html#cle.backends.XBE.loader">(cle.backends.XBE attribute)</a>
 </li>
@@ -16270,7 +16461,11 @@
 </li>
         <li><a href="cle.html#cle.StaticArchive.loader">(cle.StaticArchive attribute)</a>
 </li>
+        <li><a href="cle.html#cle.TE.loader">(cle.TE attribute)</a>
+</li>
         <li><a href="cle.html#cle.TLSObject.loader">(cle.TLSObject attribute)</a>
+</li>
+        <li><a href="cle.html#cle.UefiFirmware.loader">(cle.UefiFirmware attribute)</a>
 </li>
         <li><a href="cle.html#cle.XBE.loader">(cle.XBE attribute)</a>
 </li>
@@ -16423,6 +16618,8 @@
         <li><a href="archinfo.html#archinfo.ArchARM.m_addr">(archinfo.ArchARM method)</a>
 </li>
       </ul></li>
+      <li><a href="cle.html#cle.backends.te.HeaderType.machine">machine (cle.backends.te.HeaderType attribute)</a>
+</li>
       <li><a href="cle.html#cle.MachO">MachO (class in cle)</a>
 
       <ul>
@@ -16575,6 +16772,8 @@
         <li><a href="angr.html#angr.storage.memory_mixins.paged_memory.paged_memory_mixin.PagedMemoryMixin.map_region">(angr.storage.memory_mixins.paged_memory.paged_memory_mixin.PagedMemoryMixin method)</a>
 </li>
       </ul></li>
+      <li><a href="angr.html#angr.analyses.cfg.indirect_jump_resolvers.jumptable.ConstantValueManager.mapping">mapping (angr.analyses.cfg.indirect_jump_resolvers.jumptable.ConstantValueManager attribute)</a>
+</li>
       <li><a href="angr.html#angr.analyses.reaching_definitions.rd_state.ReachingDefinitionsState.mark_call">mark_call() (angr.analyses.reaching_definitions.rd_state.ReachingDefinitionsState method)</a>
 </li>
       <li><a href="angr.html#angr.analyses.reaching_definitions.rd_state.ReachingDefinitionsState.mark_const">mark_const() (angr.analyses.reaching_definitions.rd_state.ReachingDefinitionsState method)</a>
@@ -16976,6 +17175,10 @@
 </li>
         <li><a href="cle.html#cle.backends.StaticArchive.memory">(cle.backends.StaticArchive attribute)</a>
 </li>
+        <li><a href="cle.html#cle.backends.TE.memory">(cle.backends.TE attribute)</a>
+</li>
+        <li><a href="cle.html#cle.backends.te.TE.memory">(cle.backends.te.TE attribute)</a>
+</li>
         <li><a href="cle.html#cle.backends.tls.elf_tls.ELFTLSObject.memory">(cle.backends.tls.elf_tls.ELFTLSObject attribute)</a>
 </li>
         <li><a href="cle.html#cle.backends.tls.elf_tls.ELFTLSObjectV1.memory">(cle.backends.tls.elf_tls.ELFTLSObjectV1 attribute)</a>
@@ -16987,6 +17190,16 @@
         <li><a href="cle.html#cle.backends.tls.tls_object.TLSObject.memory">(cle.backends.tls.tls_object.TLSObject attribute)</a>
 </li>
         <li><a href="cle.html#cle.backends.tls.TLSObject.memory">(cle.backends.tls.TLSObject attribute)</a>
+</li>
+        <li><a href="cle.html#cle.backends.uefi_firmware.UefiFirmware.memory">(cle.backends.uefi_firmware.UefiFirmware attribute)</a>
+</li>
+        <li><a href="cle.html#cle.backends.uefi_firmware.UefiModuleMixin.memory">(cle.backends.uefi_firmware.UefiModuleMixin attribute)</a>
+</li>
+        <li><a href="cle.html#cle.backends.uefi_firmware.UefiPE.memory">(cle.backends.uefi_firmware.UefiPE attribute)</a>
+</li>
+        <li><a href="cle.html#cle.backends.uefi_firmware.UefiTE.memory">(cle.backends.uefi_firmware.UefiTE attribute)</a>
+</li>
+        <li><a href="cle.html#cle.backends.UefiFirmware.memory">(cle.backends.UefiFirmware attribute)</a>
 </li>
         <li><a href="cle.html#cle.backends.XBE.memory">(cle.backends.XBE attribute)</a>
 </li>
@@ -17018,7 +17231,11 @@
 </li>
         <li><a href="cle.html#cle.StaticArchive.memory">(cle.StaticArchive attribute)</a>
 </li>
+        <li><a href="cle.html#cle.TE.memory">(cle.TE attribute)</a>
+</li>
         <li><a href="cle.html#cle.TLSObject.memory">(cle.TLSObject attribute)</a>
+</li>
+        <li><a href="cle.html#cle.UefiFirmware.memory">(cle.UefiFirmware attribute)</a>
 </li>
       </ul></li>
       <li><a href="angr.html#angr.calling_conventions.SimCC.memory_args">memory_args (angr.calling_conventions.SimCC property)</a>
@@ -17623,6 +17840,8 @@
 </li>
         <li><a href="angr.html#module-angr.analyses.cfg.indirect_jump_resolvers.mips_elf_fast">angr.analyses.cfg.indirect_jump_resolvers.mips_elf_fast</a>
 </li>
+        <li><a href="angr.html#module-angr.analyses.cfg.indirect_jump_resolvers.propagator_utils">angr.analyses.cfg.indirect_jump_resolvers.propagator_utils</a>
+</li>
         <li><a href="angr.html#module-angr.analyses.cfg.indirect_jump_resolvers.resolver">angr.analyses.cfg.indirect_jump_resolvers.resolver</a>
 </li>
         <li><a href="angr.html#module-angr.analyses.cfg.indirect_jump_resolvers.x86_elf_pic_plt">angr.analyses.cfg.indirect_jump_resolvers.x86_elf_pic_plt</a>
@@ -17690,6 +17909,8 @@
         <li><a href="angr.html#module-angr.analyses.decompiler.empty_node_remover">angr.analyses.decompiler.empty_node_remover</a>
 </li>
         <li><a href="angr.html#module-angr.analyses.decompiler.expression_narrower">angr.analyses.decompiler.expression_narrower</a>
+</li>
+        <li><a href="angr.html#module-angr.analyses.decompiler.goto_manager">angr.analyses.decompiler.goto_manager</a>
 </li>
         <li><a href="angr.html#module-angr.analyses.decompiler.graph_region">angr.analyses.decompiler.graph_region</a>
 </li>
@@ -18119,8 +18340,6 @@
 </li>
         <li><a href="angr.html#module-angr.knowledge_plugins.functions.soot_function">angr.knowledge_plugins.functions.soot_function</a>
 </li>
-        <li><a href="angr.html#module-angr.knowledge_plugins.gotos">angr.knowledge_plugins.gotos</a>
-</li>
         <li><a href="angr.html#module-angr.knowledge_plugins.indirect_jumps">angr.knowledge_plugins.indirect_jumps</a>
 </li>
         <li><a href="angr.html#module-angr.knowledge_plugins.key_definitions">angr.knowledge_plugins.key_definitions</a>
@@ -18156,6 +18375,10 @@
         <li><a href="angr.html#module-angr.knowledge_plugins.plugin">angr.knowledge_plugins.plugin</a>
 </li>
         <li><a href="angr.html#module-angr.knowledge_plugins.propagations">angr.knowledge_plugins.propagations</a>
+</li>
+        <li><a href="angr.html#module-angr.knowledge_plugins.propagations.propagation_manager">angr.knowledge_plugins.propagations.propagation_manager</a>
+</li>
+        <li><a href="angr.html#module-angr.knowledge_plugins.propagations.propagation_model">angr.knowledge_plugins.propagations.propagation_model</a>
 </li>
         <li><a href="angr.html#module-angr.knowledge_plugins.structured_code">angr.knowledge_plugins.structured_code</a>
 </li>
@@ -18753,6 +18976,8 @@
 </li>
         <li><a href="cle.html#module-cle.backends.symbol">cle.backends.symbol</a>
 </li>
+        <li><a href="cle.html#module-cle.backends.te">cle.backends.te</a>
+</li>
         <li><a href="cle.html#module-cle.backends.tls">cle.backends.tls</a>
 </li>
         <li><a href="cle.html#module-cle.backends.tls.elf_tls">cle.backends.tls.elf_tls</a>
@@ -18764,6 +18989,8 @@
         <li><a href="cle.html#module-cle.backends.tls.pe_tls">cle.backends.tls.pe_tls</a>
 </li>
         <li><a href="cle.html#module-cle.backends.tls.tls_object">cle.backends.tls.tls_object</a>
+</li>
+        <li><a href="cle.html#module-cle.backends.uefi_firmware">cle.backends.uefi_firmware</a>
 </li>
         <li><a href="cle.html#module-cle.backends.xbe">cle.backends.xbe</a>
 </li>
@@ -19061,6 +19288,8 @@
 </li>
         <li><a href="cle.html#cle.backends.externs.simdata.simdata.SimData.name">(cle.backends.externs.simdata.simdata.SimData attribute)</a>
 </li>
+        <li><a href="cle.html#cle.backends.uefi_firmware.UefiModulePending.name">(cle.backends.uefi_firmware.UefiModulePending attribute)</a>
+</li>
         <li><a href="pyvex.html#pyvex.enums.IRCallee.name">(pyvex.enums.IRCallee attribute)</a>
 </li>
         <li><a href="pyvex.html#pyvex.IRCallee.name">(pyvex.IRCallee attribute)</a>
@@ -19152,10 +19381,10 @@
         <li><a href="angr.html#angr.analyses.typehoon.typeconsts.Pointer.new">(angr.analyses.typehoon.typeconsts.Pointer method)</a>
 </li>
       </ul></li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="angr.html#angr.analyses.decompiler.clinic.Clinic.new_block_addr">new_block_addr() (angr.analyses.decompiler.clinic.Clinic method)</a>
 </li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="angr.html#angr.storage.memory_mixins.paged_memory.pages.ultra_page.UltraPage.new_from_shared">new_from_shared() (angr.storage.memory_mixins.paged_memory.pages.ultra_page.UltraPage class method)</a>
 </li>
       <li><a href="angr.html#angr.analyses.reassembler.Label.new_label">new_label() (angr.analyses.reassembler.Label static method)</a>
@@ -19276,6 +19505,8 @@
         <li><a href="angr.html#angr.analyses.decompiler.region_simplifiers.expr_folding.ConditionLocation.node_addr">(angr.analyses.decompiler.region_simplifiers.expr_folding.ConditionLocation attribute)</a>
 </li>
       </ul></li>
+      <li><a href="angr.html#angr.knowledge_plugins.propagations.propagation_model.PropagationModel.node_iterations">node_iterations (angr.knowledge_plugins.propagations.propagation_model.PropagationModel attribute)</a>
+</li>
       <li><a href="angr.html#angr.analyses.reaching_definitions.reaching_definitions.ReachingDefinitionsAnalysis.node_observe">node_observe() (angr.analyses.reaching_definitions.reaching_definitions.ReachingDefinitionsAnalysis method)</a>
 </li>
       <li><a href="angr.html#angr.analyses.decompiler.structuring.structurer_nodes.SequenceNode.node_position">node_position() (angr.analyses.decompiler.structuring.structurer_nodes.SequenceNode method)</a>
@@ -19433,6 +19664,12 @@
       <li><a href="angr.html#angr.analyses.reassembler.NotypeLabel">NotypeLabel (class in angr.analyses.reassembler)</a>
 </li>
       <li><a href="angr.html#angr.knowledge_plugins.functions.function.Function.num_arguments">num_arguments (angr.knowledge_plugins.functions.function.Function property)</a>
+</li>
+      <li><a href="cle.html#cle.backends.te.SectionHeaderType.number_of_line_numbers">number_of_line_numbers (cle.backends.te.SectionHeaderType attribute)</a>
+</li>
+      <li><a href="cle.html#cle.backends.te.SectionHeaderType.number_of_relocations">number_of_relocations (cle.backends.te.SectionHeaderType attribute)</a>
+</li>
+      <li><a href="cle.html#cle.backends.te.HeaderType.number_of_sections">number_of_sections (cle.backends.te.HeaderType attribute)</a>
 </li>
       <li><a href="claripy.html#claripy.vsa.discrete_strided_interval_set.DiscreteStridedIntervalSet.number_of_values">number_of_values (claripy.vsa.discrete_strided_interval_set.DiscreteStridedIntervalSet property)</a>
 </li>
@@ -20120,6 +20357,8 @@
         <li><a href="cle.html#cle.backends.pe.pe.PE">(class in cle.backends.pe.pe)</a>
 </li>
       </ul></li>
+      <li><a href="cle.html#cle.backends.uefi_firmware.UefiModulePending.pe_image">pe_image (cle.backends.uefi_firmware.UefiModulePending attribute)</a>
+</li>
       <li><a href="angr.html#angr.state_plugins.cgc.SimStateCGC.peek_input">peek_input() (angr.state_plugins.cgc.SimStateCGC method)</a>
 </li>
       <li><a href="angr.html#angr.state_plugins.cgc.SimStateCGC.peek_output">peek_output() (angr.state_plugins.cgc.SimStateCGC method)</a>
@@ -20187,6 +20426,8 @@
       <li><a href="cle.html#cle.backends.tls.pe_tls.PETLSObject">PETLSObject (class in cle.backends.tls.pe_tls)</a>
 </li>
       <li><a href="angr.html#angr.analyses.decompiler.structuring.phoenix.PhoenixStructurer">PhoenixStructurer (class in angr.analyses.decompiler.structuring.phoenix)</a>
+</li>
+      <li><a href="cle.html#cle.backends.te.SectionHeaderType.physical_address_virtual_size">physical_address_virtual_size (cle.backends.te.SectionHeaderType attribute)</a>
 </li>
       <li><a href="angr.html#angr.exploration_techniques.spiller_db.PickledState">PickledState (class in angr.exploration_techniques.spiller_db)</a>
 </li>
@@ -20257,6 +20498,12 @@
       <li><a href="angr.html#angr.knowledge_plugins.cfg.memory_data.MemoryData.pointer_addr">pointer_addr (angr.knowledge_plugins.cfg.memory_data.MemoryData attribute)</a>
 </li>
       <li><a href="cle.html#cle.backends.macho.structs.dyld_chained_starts_in_segment.pointer_format">pointer_format (cle.backends.macho.structs.dyld_chained_starts_in_segment property)</a>
+</li>
+      <li><a href="cle.html#cle.backends.te.SectionHeaderType.pointer_to_line_numbers">pointer_to_line_numbers (cle.backends.te.SectionHeaderType attribute)</a>
+</li>
+      <li><a href="cle.html#cle.backends.te.SectionHeaderType.pointer_to_raw_data">pointer_to_raw_data (cle.backends.te.SectionHeaderType attribute)</a>
+</li>
+      <li><a href="cle.html#cle.backends.te.SectionHeaderType.pointer_to_relocations">pointer_to_relocations (cle.backends.te.SectionHeaderType attribute)</a>
 </li>
       <li><a href="angr.html#angr.analyses.decompiler.structured_codegen.c.PointerArithmeticFixer">PointerArithmeticFixer (class in angr.analyses.decompiler.structured_codegen.c)</a>
 </li>
@@ -20563,6 +20810,8 @@
       <li><a href="angr.html#angr.analyses.analysis.Analysis.project">project (angr.analyses.analysis.Analysis attribute)</a>
 
       <ul>
+        <li><a href="angr.html#angr.analyses.cfg.indirect_jump_resolvers.jumptable.ConstantValueManager.project">(angr.analyses.cfg.indirect_jump_resolvers.jumptable.ConstantValueManager attribute)</a>
+</li>
         <li><a href="angr.html#angr.analyses.decompiler.optimization_passes.optimization_pass.BaseOptimizationPass.project">(angr.analyses.decompiler.optimization_passes.optimization_pass.BaseOptimizationPass property)</a>
 </li>
         <li><a href="angr.html#angr.analyses.decompiler.peephole_optimizations.base.PeepholeOptimizationExprBase.project">(angr.analyses.decompiler.peephole_optimizations.base.PeepholeOptimizationExprBase attribute)</a>
@@ -20588,11 +20837,21 @@
 </li>
       <li><a href="angr.html#angr.analyses.decompiler.clinic.BlockCache.prop">prop (angr.analyses.decompiler.clinic.BlockCache attribute)</a>
 </li>
-      <li><a href="angr.html#angr.knowledge_plugins.propagations.Propagations">Propagations (class in angr.knowledge_plugins.propagations)</a>
+      <li><a href="angr.html#angr.analyses.propagator.propagator.PropagatorAnalysis.prop_key">prop_key (angr.analyses.propagator.propagator.PropagatorAnalysis property)</a>
+</li>
+      <li><a href="angr.html#angr.knowledge_plugins.propagations.propagation_manager.PropagationManager">PropagationManager (class in angr.knowledge_plugins.propagations.propagation_manager)</a>
+</li>
+      <li><a href="angr.html#angr.knowledge_plugins.propagations.propagation_model.PropagationModel">PropagationModel (class in angr.knowledge_plugins.propagations.propagation_model)</a>
+</li>
+      <li><a href="angr.html#angr.knowledge_base.knowledge_base.KnowledgeBase.propagations">propagations (angr.knowledge_base.knowledge_base.KnowledgeBase attribute)</a>
+</li>
+      <li><a href="angr.html#angr.analyses.cfg.indirect_jump_resolvers.propagator_utils.PropagatorLoadCallback.propagator_load_callback">propagator_load_callback() (angr.analyses.cfg.indirect_jump_resolvers.propagator_utils.PropagatorLoadCallback method)</a>
 </li>
       <li><a href="angr.html#angr.analyses.propagator.propagator.PropagatorAILState">PropagatorAILState (class in angr.analyses.propagator.propagator)</a>
 </li>
       <li><a href="angr.html#angr.analyses.propagator.propagator.PropagatorAnalysis">PropagatorAnalysis (class in angr.analyses.propagator.propagator)</a>
+</li>
+      <li><a href="angr.html#angr.analyses.cfg.indirect_jump_resolvers.propagator_utils.PropagatorLoadCallback">PropagatorLoadCallback (class in angr.analyses.cfg.indirect_jump_resolvers.propagator_utils)</a>
 </li>
       <li><a href="angr.html#angr.analyses.propagator.propagator.PropagatorState">PropagatorState (class in angr.analyses.propagator.propagator)</a>
 </li>
@@ -22305,6 +22564,10 @@
 </li>
         <li><a href="cle.html#cle.backends.StaticArchive.relocs">(cle.backends.StaticArchive attribute)</a>
 </li>
+        <li><a href="cle.html#cle.backends.TE.relocs">(cle.backends.TE attribute)</a>
+</li>
+        <li><a href="cle.html#cle.backends.te.TE.relocs">(cle.backends.te.TE attribute)</a>
+</li>
         <li><a href="cle.html#cle.backends.tls.elf_tls.ELFTLSObject.relocs">(cle.backends.tls.elf_tls.ELFTLSObject attribute)</a>
 </li>
         <li><a href="cle.html#cle.backends.tls.elf_tls.ELFTLSObjectV1.relocs">(cle.backends.tls.elf_tls.ELFTLSObjectV1 attribute)</a>
@@ -22316,6 +22579,16 @@
         <li><a href="cle.html#cle.backends.tls.tls_object.TLSObject.relocs">(cle.backends.tls.tls_object.TLSObject attribute)</a>
 </li>
         <li><a href="cle.html#cle.backends.tls.TLSObject.relocs">(cle.backends.tls.TLSObject attribute)</a>
+</li>
+        <li><a href="cle.html#cle.backends.uefi_firmware.UefiFirmware.relocs">(cle.backends.uefi_firmware.UefiFirmware attribute)</a>
+</li>
+        <li><a href="cle.html#cle.backends.uefi_firmware.UefiModuleMixin.relocs">(cle.backends.uefi_firmware.UefiModuleMixin attribute)</a>
+</li>
+        <li><a href="cle.html#cle.backends.uefi_firmware.UefiPE.relocs">(cle.backends.uefi_firmware.UefiPE attribute)</a>
+</li>
+        <li><a href="cle.html#cle.backends.uefi_firmware.UefiTE.relocs">(cle.backends.uefi_firmware.UefiTE attribute)</a>
+</li>
+        <li><a href="cle.html#cle.backends.UefiFirmware.relocs">(cle.backends.UefiFirmware attribute)</a>
 </li>
         <li><a href="cle.html#cle.backends.XBE.relocs">(cle.backends.XBE attribute)</a>
 </li>
@@ -22343,7 +22616,11 @@
 </li>
         <li><a href="cle.html#cle.StaticArchive.relocs">(cle.StaticArchive attribute)</a>
 </li>
+        <li><a href="cle.html#cle.TE.relocs">(cle.TE attribute)</a>
+</li>
         <li><a href="cle.html#cle.TLSObject.relocs">(cle.TLSObject attribute)</a>
+</li>
+        <li><a href="cle.html#cle.UefiFirmware.relocs">(cle.UefiFirmware attribute)</a>
 </li>
       </ul></li>
       <li><a href="cle.html#cle.backends.elf.relocation.generic.RelocTruncate32Mixin">RelocTruncate32Mixin (class in cle.backends.elf.relocation.generic)</a>
@@ -22534,8 +22811,14 @@
 </li>
       <li><a href="claripy.html#claripy.frontends.replacement_frontend.ReplacementFrontend">ReplacementFrontend (class in claripy.frontends.replacement_frontend)</a>
 </li>
-      <li><a href="claripy.html#claripy.balancer.Balancer.replacements">replacements (claripy.balancer.Balancer property)</a>
+      <li><a href="angr.html#angr.analyses.propagator.propagator.PropagatorAnalysis.replacements">replacements (angr.analyses.propagator.propagator.PropagatorAnalysis property)</a>
+
+      <ul>
+        <li><a href="angr.html#angr.knowledge_plugins.propagations.propagation_model.PropagationModel.replacements">(angr.knowledge_plugins.propagations.propagation_model.PropagationModel attribute)</a>
 </li>
+        <li><a href="claripy.html#claripy.balancer.Balancer.replacements">(claripy.balancer.Balancer property)</a>
+</li>
+      </ul></li>
       <li><a href="angr.html#angr.exploration_techniques.suggestions.Suggestions.report">report() (angr.exploration_techniques.suggestions.Suggestions static method)</a>
 </li>
       <li><a href="angr.html#angr.codenode.repr_addr">repr_addr() (in module angr.codenode)</a>
@@ -22558,6 +22841,8 @@
         <li><a href="pyvex.html#pyvex.lifting.lifter.Lifter.REQUIRE_DATA_C">(pyvex.lifting.lifter.Lifter attribute)</a>
 </li>
       </ul></li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="pyvex.html#pyvex.lifting.Lifter.REQUIRE_DATA_PY">REQUIRE_DATA_PY (pyvex.lifting.Lifter attribute)</a>
 
       <ul>
@@ -22568,8 +22853,6 @@
         <li><a href="pyvex.html#pyvex.lifting.util.lifter_helper.GymratLifter.REQUIRE_DATA_PY">(pyvex.lifting.util.lifter_helper.GymratLifter attribute)</a>
 </li>
       </ul></li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="angr.html#angr.sim_manager.ErrorRecord.reraise">reraise() (angr.sim_manager.ErrorRecord method)</a>
 </li>
       <li><a href="cle.html#cle.backends.macho.structs.dyld_chained_import_addend64.reserved">reserved (cle.backends.macho.structs.dyld_chained_import_addend64 attribute)</a>
@@ -23704,6 +23987,8 @@
       </ul></li>
       <li><a href="angr.html#angr.analyses.cfg.cfg_emulated.CFGEmulated.resume">resume() (angr.analyses.cfg.cfg_emulated.CFGEmulated method)</a>
 </li>
+      <li><a href="angr.html#angr.analyses.forward_analysis.visitors.function_graph.FunctionGraphVisitor.resume_with_new_graph">resume_with_new_graph() (angr.analyses.forward_analysis.visitors.function_graph.FunctionGraphVisitor method)</a>
+</li>
       <li><a href="angr.html#angr.state_plugins.symbolizer.SimSymbolizer.resymbolize">resymbolize() (angr.state_plugins.symbolizer.SimSymbolizer method)</a>
 </li>
       <li><a href="archinfo.html#archinfo.arch_soot.SootMethodDescriptor.ret">ret (archinfo.arch_soot.SootMethodDescriptor attribute)</a>
@@ -24193,6 +24478,12 @@
       <li><a href="angr.html#angr.analyses.reassembler.Reassembler.section_alignment">section_alignment() (angr.analyses.reassembler.Reassembler method)</a>
 </li>
       <li><a href="cle.html#cle.backends.macho.symbol.SymbolTableSymbol.section_name">section_name (cle.backends.macho.symbol.SymbolTableSymbol property)</a>
+
+      <ul>
+        <li><a href="cle.html#cle.backends.te.SectionHeaderType.section_name">(cle.backends.te.SectionHeaderType attribute)</a>
+</li>
+      </ul></li>
+      <li><a href="cle.html#cle.backends.te.SectionHeaderType">SectionHeaderType (class in cle.backends.te)</a>
 </li>
       <li><a href="cle.html#cle.Backend.sections">sections (cle.Backend property)</a>
 
@@ -24664,6 +24955,8 @@
 </li>
       <li><a href="angr.html#angr.analyses.cfg.indirect_jump_resolvers.jumptable.AddressTransferringTypes.ShiftLeft">ShiftLeft (angr.analyses.cfg.indirect_jump_resolvers.jumptable.AddressTransferringTypes attribute)</a>
 </li>
+      <li><a href="angr.html#angr.analyses.cfg.indirect_jump_resolvers.jumptable.AddressTransferringTypes.ShiftRight">ShiftRight (angr.analyses.cfg.indirect_jump_resolvers.jumptable.AddressTransferringTypes attribute)</a>
+</li>
       <li><a href="angr.html#angr.knowledge_plugins.cfg.cfg_node.CFGNodeCreationFailure.short_reason">short_reason (angr.knowledge_plugins.cfg.cfg_node.CFGNodeCreationFailure attribute)</a>
 </li>
       <li><a href="angr.html#angr.analyses.ddg.ProgramVariable.short_repr">short_repr (angr.analyses.ddg.ProgramVariable property)</a>
@@ -24720,6 +25013,8 @@
         <li><a href="claripy.html#claripy.vsa.strided_interval.StridedInterval.sign_extend">(claripy.vsa.strided_interval.StridedInterval method)</a>
 </li>
       </ul></li>
+      <li><a href="cle.html#cle.backends.te.HeaderType.signature">signature (cle.backends.te.HeaderType attribute)</a>
+</li>
       <li><a href="ailment.html#ailment.BinaryOp.signed">signed (ailment.BinaryOp attribute)</a>
 
       <ul>
@@ -25546,6 +25841,8 @@
         <li><a href="claripy.html#claripy.vsa.valueset.ValueSet.size">(claripy.vsa.valueset.ValueSet method)</a>
 </li>
       </ul></li>
+      <li><a href="cle.html#cle.backends.te.SectionHeaderType.size_of_raw_data">size_of_raw_data (cle.backends.te.SectionHeaderType attribute)</a>
+</li>
       <li><a href="angr.html#angr.storage.memory_mixins.size_resolution_mixin.SizeConcretizationMixin">SizeConcretizationMixin (class in angr.storage.memory_mixins.size_resolution_mixin)</a>
 </li>
       <li><a href="angr.html#angr.storage.memory_mixins.size_resolution_mixin.SizeNormalizationMixin">SizeNormalizationMixin (class in angr.storage.memory_mixins.size_resolution_mixin)</a>
@@ -25858,8 +26155,6 @@
         <li><a href="angr.html#angr.analyses.forward_analysis.visitors.single_node_graph.SingleNodeGraphVisitor.sort_nodes">(angr.analyses.forward_analysis.visitors.single_node_graph.SingleNodeGraphVisitor method)</a>
 </li>
       </ul></li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="cle.html#cle.backends.backend.FunctionHint.source">source (cle.backends.backend.FunctionHint attribute)</a>
 
       <ul>
@@ -25868,6 +26163,8 @@
         <li><a href="cle.html#cle.FunctionHint.source">(cle.FunctionHint attribute)</a>
 </li>
       </ul></li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="angr.html#angr.knowledge_plugins.functions.function.Function.sp_delta">sp_delta (angr.knowledge_plugins.functions.function.Function attribute)</a>
 
       <ul>
@@ -26524,6 +26821,8 @@
       </ul></li>
       <li><a href="angr.html#angr.sim_state_options.StateOption">StateOption (class in angr.sim_state_options)</a>
 </li>
+      <li><a href="angr.html#angr.knowledge_plugins.propagations.propagation_model.PropagationModel.states">states (angr.knowledge_plugins.propagations.propagation_model.PropagationModel attribute)</a>
+</li>
       <li><a href="angr.html#angr.analyses.disassembly.SootExpressionInvoke.Static">Static (angr.analyses.disassembly.SootExpressionInvoke attribute)</a>
 </li>
       <li><a href="angr.html#angr.simos.windows.SecurityCookieInit.STATIC">STATIC (angr.simos.windows.SecurityCookieInit attribute)</a>
@@ -26992,6 +27291,8 @@
         <li><a href="claripy.html#claripy.ast.strings.StringV">(in module claripy.ast.strings)</a>
 </li>
       </ul></li>
+      <li><a href="cle.html#cle.backends.te.HeaderType.stripped_size">stripped_size (cle.backends.te.HeaderType attribute)</a>
+</li>
       <li><a href="claripy.html#claripy.ast.strings.String.StrIsDigit">StrIsDigit() (claripy.ast.strings.String static method)</a>
 
       <ul>
@@ -27161,6 +27462,8 @@
       <li><a href="angr.html#angr.state_plugins.history.SimStateHistory.subscribe_actions">subscribe_actions() (angr.state_plugins.history.SimStateHistory method)</a>
 </li>
       <li><a href="claripy.html#claripy.operations.substr_length_calc">substr_length_calc() (in module claripy.operations)</a>
+</li>
+      <li><a href="cle.html#cle.backends.te.HeaderType.subsystem">subsystem (cle.backends.te.HeaderType attribute)</a>
 </li>
       <li><a href="angr.html#angr.analyses.typehoon.typevars.Subtype">Subtype (class in angr.analyses.typehoon.typevars)</a>
 </li>
@@ -27435,6 +27738,10 @@
 </li>
         <li><a href="cle.html#cle.backends.StaticArchive.symbols">(cle.backends.StaticArchive attribute)</a>
 </li>
+        <li><a href="cle.html#cle.backends.TE.symbols">(cle.backends.TE attribute)</a>
+</li>
+        <li><a href="cle.html#cle.backends.te.TE.symbols">(cle.backends.te.TE attribute)</a>
+</li>
         <li><a href="cle.html#cle.backends.tls.elf_tls.ELFTLSObject.symbols">(cle.backends.tls.elf_tls.ELFTLSObject attribute)</a>
 </li>
         <li><a href="cle.html#cle.backends.tls.elf_tls.ELFTLSObjectV1.symbols">(cle.backends.tls.elf_tls.ELFTLSObjectV1 attribute)</a>
@@ -27446,6 +27753,16 @@
         <li><a href="cle.html#cle.backends.tls.tls_object.TLSObject.symbols">(cle.backends.tls.tls_object.TLSObject attribute)</a>
 </li>
         <li><a href="cle.html#cle.backends.tls.TLSObject.symbols">(cle.backends.tls.TLSObject attribute)</a>
+</li>
+        <li><a href="cle.html#cle.backends.uefi_firmware.UefiFirmware.symbols">(cle.backends.uefi_firmware.UefiFirmware attribute)</a>
+</li>
+        <li><a href="cle.html#cle.backends.uefi_firmware.UefiModuleMixin.symbols">(cle.backends.uefi_firmware.UefiModuleMixin attribute)</a>
+</li>
+        <li><a href="cle.html#cle.backends.uefi_firmware.UefiPE.symbols">(cle.backends.uefi_firmware.UefiPE attribute)</a>
+</li>
+        <li><a href="cle.html#cle.backends.uefi_firmware.UefiTE.symbols">(cle.backends.uefi_firmware.UefiTE attribute)</a>
+</li>
+        <li><a href="cle.html#cle.backends.UefiFirmware.symbols">(cle.backends.UefiFirmware attribute)</a>
 </li>
         <li><a href="cle.html#cle.backends.XBE.symbols">(cle.backends.XBE attribute)</a>
 </li>
@@ -27477,7 +27794,11 @@
 </li>
         <li><a href="cle.html#cle.StaticArchive.symbols">(cle.StaticArchive attribute)</a>
 </li>
+        <li><a href="cle.html#cle.TE.symbols">(cle.TE attribute)</a>
+</li>
         <li><a href="cle.html#cle.TLSObject.symbols">(cle.TLSObject attribute)</a>
+</li>
+        <li><a href="cle.html#cle.UefiFirmware.symbols">(cle.UefiFirmware attribute)</a>
 </li>
       </ul></li>
       <li><a href="cle.html#cle.Backend.symbols_by_addr">symbols_by_addr (cle.Backend property)</a>
@@ -27960,6 +28281,16 @@
       </ul></li>
       <li><a href="archinfo.html#archinfo.tls.TLSArchInfo.tcbhead_size">tcbhead_size (archinfo.tls.TLSArchInfo attribute)</a>
 </li>
+      <li><a href="cle.html#cle.TE">TE (class in cle)</a>
+
+      <ul>
+        <li><a href="cle.html#cle.backends.TE">(class in cle.backends)</a>
+</li>
+        <li><a href="cle.html#cle.backends.te.TE">(class in cle.backends.te)</a>
+</li>
+      </ul></li>
+      <li><a href="cle.html#cle.backends.uefi_firmware.UefiModulePending.te_image">te_image (cle.backends.uefi_firmware.UefiModulePending attribute)</a>
+</li>
       <li><a href="angr.html#angr.calling_conventions.SimCC.teardown_callsite">teardown_callsite() (angr.calling_conventions.SimCC method)</a>
 </li>
       <li><a href="angr.html#angr.exploration_techniques.tech_builder.TechniqueBuilder">TechniqueBuilder (class in angr.exploration_techniques.tech_builder)</a>
@@ -28222,14 +28553,14 @@
         <li><a href="angr.html#angr.analyses.typehoon.typevars.ReinterpretAs.to_bits">(angr.analyses.typehoon.typevars.ReinterpretAs attribute)</a>
 </li>
       </ul></li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="claripy.html#claripy.ast.bv.BV.to_bv">to_bv() (claripy.ast.bv.BV method)</a>
 
       <ul>
         <li><a href="claripy.html#claripy.ast.fp.FP.to_bv">(claripy.ast.fp.FP method)</a>
 </li>
       </ul></li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="angr.html#angr.state_plugins.sim_action_object.SimActionObject.to_claripy">to_claripy() (angr.state_plugins.sim_action_object.SimActionObject method)</a>
 
       <ul>
@@ -28974,6 +29305,24 @@
       </ul></li>
       <li><a href="claripy.html#claripy.vsa.strided_interval.StridedInterval.udiv">udiv() (claripy.vsa.strided_interval.StridedInterval method)</a>
 </li>
+      <li><a href="cle.html#cle.backends.uefi_firmware.UefiDriverLoadError">UefiDriverLoadError</a>
+</li>
+      <li><a href="cle.html#cle.UefiFirmware">UefiFirmware (class in cle)</a>
+
+      <ul>
+        <li><a href="cle.html#cle.backends.UefiFirmware">(class in cle.backends)</a>
+</li>
+        <li><a href="cle.html#cle.backends.uefi_firmware.UefiFirmware">(class in cle.backends.uefi_firmware)</a>
+</li>
+      </ul></li>
+      <li><a href="cle.html#cle.backends.uefi_firmware.UefiModuleMixin">UefiModuleMixin (class in cle.backends.uefi_firmware)</a>
+</li>
+      <li><a href="cle.html#cle.backends.uefi_firmware.UefiModulePending">UefiModulePending (class in cle.backends.uefi_firmware)</a>
+</li>
+      <li><a href="cle.html#cle.backends.uefi_firmware.UefiPE">UefiPE (class in cle.backends.uefi_firmware)</a>
+</li>
+      <li><a href="cle.html#cle.backends.uefi_firmware.UefiTE">UefiTE (class in cle.backends.uefi_firmware)</a>
+</li>
       <li><a href="claripy.html#claripy.ast.bv.BV.UGE">UGE() (claripy.ast.bv.BV method)</a>
 
       <ul>
@@ -29046,6 +29395,8 @@
         <li><a href="archinfo.html#archinfo.arch.Arch.unicorn">(archinfo.arch.Arch property)</a>
 </li>
       </ul></li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="angr.html#angr.state_plugins.unicorn_engine.Unicorn">Unicorn (class in angr.state_plugins.unicorn_engine)</a>
 </li>
       <li><a href="archinfo.html#archinfo.Arch.unicorn_support">unicorn_support (archinfo.Arch property)</a>
@@ -29054,8 +29405,6 @@
         <li><a href="archinfo.html#archinfo.arch.Arch.unicorn_support">(archinfo.arch.Arch property)</a>
 </li>
       </ul></li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="archinfo.html#archinfo.arch_arm.ArchARM.unicorn_thumb">unicorn_thumb (archinfo.arch_arm.ArchARM property)</a>
 
       <ul>
@@ -29236,7 +29585,7 @@
 </li>
       <li><a href="angr.html#angr.storage.memory_mixins.unwrapper_mixin.UnwrapperMixin">UnwrapperMixin (class in angr.storage.memory_mixins.unwrapper_mixin)</a>
 </li>
-      <li><a href="angr.html#angr.knowledge_plugins.propagations.Propagations.update">update() (angr.knowledge_plugins.propagations.Propagations method)</a>
+      <li><a href="angr.html#angr.knowledge_plugins.propagations.propagation_manager.PropagationManager.update">update() (angr.knowledge_plugins.propagations.propagation_manager.PropagationManager method)</a>
 
       <ul>
         <li><a href="angr.html#angr.knowledge_plugins.sync.sync_controller.SyncController.update">(angr.knowledge_plugins.sync.sync_controller.SyncController method)</a>
@@ -29991,6 +30340,8 @@
       <li><a href="angr.html#angr.analyses.vfg.VFGNode">VFGNode (class in angr.analyses.vfg)</a>
 </li>
       <li><a href="angr.html#angr.analyses.disassembly.SootExpressionInvoke.Virtual">Virtual (angr.analyses.disassembly.SootExpressionInvoke attribute)</a>
+</li>
+      <li><a href="cle.html#cle.backends.te.SectionHeaderType.virtual_address">virtual_address (cle.backends.te.SectionHeaderType attribute)</a>
 </li>
       <li><a href="angr.html#angr.analyses.reaching_definitions.reaching_definitions.ReachingDefinitionsAnalysis.visited_blocks">visited_blocks (angr.analyses.reaching_definitions.reaching_definitions.ReachingDefinitionsAnalysis property)</a>
 </li>

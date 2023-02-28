@@ -4,7 +4,7 @@
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>cle — Binary Loader &mdash; angr 9.2.39
+  <title>cle — Binary Loader &mdash; angr 9.2.40
  documentation</title>
       <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
@@ -35,7 +35,7 @@
             angr
           </a>
               <div class="version">
-                9.2.39
+                9.2.40
 
               </div>
 <div role="search">
@@ -627,6 +627,32 @@
 <li class="toctree-l3"><a class="reference internal" href="#cle.SymbolSubType.to_base_type"><code class="docutils literal notranslate"><span class="pre">SymbolSubType.to_base_type()</span></code></a></li>
 </ul>
 </li>
+<li class="toctree-l2"><a class="reference internal" href="#cle.TE"><code class="docutils literal notranslate"><span class="pre">TE</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#cle.TE.is_default"><code class="docutils literal notranslate"><span class="pre">TE.is_default</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#cle.TE.is_compatible"><code class="docutils literal notranslate"><span class="pre">TE.is_compatible()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#cle.TE.loader"><code class="docutils literal notranslate"><span class="pre">TE.loader</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#cle.TE.symbols"><code class="docutils literal notranslate"><span class="pre">TE.symbols</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#cle.TE.imports"><code class="docutils literal notranslate"><span class="pre">TE.imports</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#cle.TE.relocs"><code class="docutils literal notranslate"><span class="pre">TE.relocs</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#cle.TE.arch"><code class="docutils literal notranslate"><span class="pre">TE.arch</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#cle.TE.exception_handlings"><code class="docutils literal notranslate"><span class="pre">TE.exception_handlings</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#cle.TE.function_hints"><code class="docutils literal notranslate"><span class="pre">TE.function_hints</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#cle.TE.memory"><code class="docutils literal notranslate"><span class="pre">TE.memory</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#cle.UefiFirmware"><code class="docutils literal notranslate"><span class="pre">UefiFirmware</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#cle.UefiFirmware.is_default"><code class="docutils literal notranslate"><span class="pre">UefiFirmware.is_default</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#cle.UefiFirmware.is_compatible"><code class="docutils literal notranslate"><span class="pre">UefiFirmware.is_compatible()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#cle.UefiFirmware.arch"><code class="docutils literal notranslate"><span class="pre">UefiFirmware.arch</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#cle.UefiFirmware.loader"><code class="docutils literal notranslate"><span class="pre">UefiFirmware.loader</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#cle.UefiFirmware.symbols"><code class="docutils literal notranslate"><span class="pre">UefiFirmware.symbols</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#cle.UefiFirmware.imports"><code class="docutils literal notranslate"><span class="pre">UefiFirmware.imports</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#cle.UefiFirmware.relocs"><code class="docutils literal notranslate"><span class="pre">UefiFirmware.relocs</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#cle.UefiFirmware.exception_handlings"><code class="docutils literal notranslate"><span class="pre">UefiFirmware.exception_handlings</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#cle.UefiFirmware.function_hints"><code class="docutils literal notranslate"><span class="pre">UefiFirmware.function_hints</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#cle.UefiFirmware.memory"><code class="docutils literal notranslate"><span class="pre">UefiFirmware.memory</span></code></a></li>
+</ul>
+</li>
 <li class="toctree-l2"><a class="reference internal" href="#module-cle.loader">Loading Interface</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#cle.loader.Loader"><code class="docutils literal notranslate"><span class="pre">Loader</span></code></a><ul>
 <li class="toctree-l4"><a class="reference internal" href="#cle.loader.Loader.memory"><code class="docutils literal notranslate"><span class="pre">Loader.memory</span></code></a></li>
@@ -1091,6 +1117,32 @@
 </li>
 <li class="toctree-l3"><a class="reference internal" href="#cle.backends.SymbolSubType"><code class="docutils literal notranslate"><span class="pre">SymbolSubType</span></code></a><ul>
 <li class="toctree-l4"><a class="reference internal" href="#cle.backends.SymbolSubType.to_base_type"><code class="docutils literal notranslate"><span class="pre">SymbolSubType.to_base_type()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#cle.backends.UefiFirmware"><code class="docutils literal notranslate"><span class="pre">UefiFirmware</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#cle.backends.UefiFirmware.is_default"><code class="docutils literal notranslate"><span class="pre">UefiFirmware.is_default</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#cle.backends.UefiFirmware.is_compatible"><code class="docutils literal notranslate"><span class="pre">UefiFirmware.is_compatible()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#cle.backends.UefiFirmware.arch"><code class="docutils literal notranslate"><span class="pre">UefiFirmware.arch</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#cle.backends.UefiFirmware.loader"><code class="docutils literal notranslate"><span class="pre">UefiFirmware.loader</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#cle.backends.UefiFirmware.symbols"><code class="docutils literal notranslate"><span class="pre">UefiFirmware.symbols</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#cle.backends.UefiFirmware.imports"><code class="docutils literal notranslate"><span class="pre">UefiFirmware.imports</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#cle.backends.UefiFirmware.relocs"><code class="docutils literal notranslate"><span class="pre">UefiFirmware.relocs</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#cle.backends.UefiFirmware.exception_handlings"><code class="docutils literal notranslate"><span class="pre">UefiFirmware.exception_handlings</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#cle.backends.UefiFirmware.function_hints"><code class="docutils literal notranslate"><span class="pre">UefiFirmware.function_hints</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#cle.backends.UefiFirmware.memory"><code class="docutils literal notranslate"><span class="pre">UefiFirmware.memory</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#cle.backends.TE"><code class="docutils literal notranslate"><span class="pre">TE</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#cle.backends.TE.is_default"><code class="docutils literal notranslate"><span class="pre">TE.is_default</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#cle.backends.TE.is_compatible"><code class="docutils literal notranslate"><span class="pre">TE.is_compatible()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#cle.backends.TE.loader"><code class="docutils literal notranslate"><span class="pre">TE.loader</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#cle.backends.TE.symbols"><code class="docutils literal notranslate"><span class="pre">TE.symbols</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#cle.backends.TE.imports"><code class="docutils literal notranslate"><span class="pre">TE.imports</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#cle.backends.TE.relocs"><code class="docutils literal notranslate"><span class="pre">TE.relocs</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#cle.backends.TE.arch"><code class="docutils literal notranslate"><span class="pre">TE.arch</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#cle.backends.TE.exception_handlings"><code class="docutils literal notranslate"><span class="pre">TE.exception_handlings</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#cle.backends.TE.function_hints"><code class="docutils literal notranslate"><span class="pre">TE.function_hints</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#cle.backends.TE.memory"><code class="docutils literal notranslate"><span class="pre">TE.memory</span></code></a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="#cle.backends.backend.FunctionHintSource"><code class="docutils literal notranslate"><span class="pre">FunctionHintSource</span></code></a><ul>
@@ -2297,6 +2349,101 @@
 <li class="toctree-l4"><a class="reference internal" href="#cle.backends.static_archive.StaticArchive.exception_handlings"><code class="docutils literal notranslate"><span class="pre">StaticArchive.exception_handlings</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="#cle.backends.static_archive.StaticArchive.function_hints"><code class="docutils literal notranslate"><span class="pre">StaticArchive.function_hints</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="#cle.backends.static_archive.StaticArchive.memory"><code class="docutils literal notranslate"><span class="pre">StaticArchive.memory</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#cle.backends.uefi_firmware.UefiDriverLoadError"><code class="docutils literal notranslate"><span class="pre">UefiDriverLoadError</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#cle.backends.uefi_firmware.UefiFirmware"><code class="docutils literal notranslate"><span class="pre">UefiFirmware</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#cle.backends.uefi_firmware.UefiFirmware.is_default"><code class="docutils literal notranslate"><span class="pre">UefiFirmware.is_default</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#cle.backends.uefi_firmware.UefiFirmware.is_compatible"><code class="docutils literal notranslate"><span class="pre">UefiFirmware.is_compatible()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#cle.backends.uefi_firmware.UefiFirmware.arch"><code class="docutils literal notranslate"><span class="pre">UefiFirmware.arch</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#cle.backends.uefi_firmware.UefiFirmware.loader"><code class="docutils literal notranslate"><span class="pre">UefiFirmware.loader</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#cle.backends.uefi_firmware.UefiFirmware.symbols"><code class="docutils literal notranslate"><span class="pre">UefiFirmware.symbols</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#cle.backends.uefi_firmware.UefiFirmware.imports"><code class="docutils literal notranslate"><span class="pre">UefiFirmware.imports</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#cle.backends.uefi_firmware.UefiFirmware.relocs"><code class="docutils literal notranslate"><span class="pre">UefiFirmware.relocs</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#cle.backends.uefi_firmware.UefiFirmware.exception_handlings"><code class="docutils literal notranslate"><span class="pre">UefiFirmware.exception_handlings</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#cle.backends.uefi_firmware.UefiFirmware.function_hints"><code class="docutils literal notranslate"><span class="pre">UefiFirmware.function_hints</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#cle.backends.uefi_firmware.UefiFirmware.memory"><code class="docutils literal notranslate"><span class="pre">UefiFirmware.memory</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#cle.backends.uefi_firmware.UefiModulePending"><code class="docutils literal notranslate"><span class="pre">UefiModulePending</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#cle.backends.uefi_firmware.UefiModulePending.name"><code class="docutils literal notranslate"><span class="pre">UefiModulePending.name</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#cle.backends.uefi_firmware.UefiModulePending.pe_image"><code class="docutils literal notranslate"><span class="pre">UefiModulePending.pe_image</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#cle.backends.uefi_firmware.UefiModulePending.te_image"><code class="docutils literal notranslate"><span class="pre">UefiModulePending.te_image</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#cle.backends.uefi_firmware.UefiModulePending.build"><code class="docutils literal notranslate"><span class="pre">UefiModulePending.build()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#cle.backends.uefi_firmware.UefiModuleMixin"><code class="docutils literal notranslate"><span class="pre">UefiModuleMixin</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#cle.backends.uefi_firmware.UefiModuleMixin.loader"><code class="docutils literal notranslate"><span class="pre">UefiModuleMixin.loader</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#cle.backends.uefi_firmware.UefiModuleMixin.symbols"><code class="docutils literal notranslate"><span class="pre">UefiModuleMixin.symbols</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#cle.backends.uefi_firmware.UefiModuleMixin.imports"><code class="docutils literal notranslate"><span class="pre">UefiModuleMixin.imports</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#cle.backends.uefi_firmware.UefiModuleMixin.relocs"><code class="docutils literal notranslate"><span class="pre">UefiModuleMixin.relocs</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#cle.backends.uefi_firmware.UefiModuleMixin.arch"><code class="docutils literal notranslate"><span class="pre">UefiModuleMixin.arch</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#cle.backends.uefi_firmware.UefiModuleMixin.exception_handlings"><code class="docutils literal notranslate"><span class="pre">UefiModuleMixin.exception_handlings</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#cle.backends.uefi_firmware.UefiModuleMixin.function_hints"><code class="docutils literal notranslate"><span class="pre">UefiModuleMixin.function_hints</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#cle.backends.uefi_firmware.UefiModuleMixin.memory"><code class="docutils literal notranslate"><span class="pre">UefiModuleMixin.memory</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#cle.backends.uefi_firmware.UefiPE"><code class="docutils literal notranslate"><span class="pre">UefiPE</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#cle.backends.uefi_firmware.UefiPE.loader"><code class="docutils literal notranslate"><span class="pre">UefiPE.loader</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#cle.backends.uefi_firmware.UefiPE.symbols"><code class="docutils literal notranslate"><span class="pre">UefiPE.symbols</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#cle.backends.uefi_firmware.UefiPE.imports"><code class="docutils literal notranslate"><span class="pre">UefiPE.imports</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#cle.backends.uefi_firmware.UefiPE.relocs"><code class="docutils literal notranslate"><span class="pre">UefiPE.relocs</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#cle.backends.uefi_firmware.UefiPE.arch"><code class="docutils literal notranslate"><span class="pre">UefiPE.arch</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#cle.backends.uefi_firmware.UefiPE.exception_handlings"><code class="docutils literal notranslate"><span class="pre">UefiPE.exception_handlings</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#cle.backends.uefi_firmware.UefiPE.function_hints"><code class="docutils literal notranslate"><span class="pre">UefiPE.function_hints</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#cle.backends.uefi_firmware.UefiPE.memory"><code class="docutils literal notranslate"><span class="pre">UefiPE.memory</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#cle.backends.uefi_firmware.UefiTE"><code class="docutils literal notranslate"><span class="pre">UefiTE</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#cle.backends.uefi_firmware.UefiTE.loader"><code class="docutils literal notranslate"><span class="pre">UefiTE.loader</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#cle.backends.uefi_firmware.UefiTE.symbols"><code class="docutils literal notranslate"><span class="pre">UefiTE.symbols</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#cle.backends.uefi_firmware.UefiTE.imports"><code class="docutils literal notranslate"><span class="pre">UefiTE.imports</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#cle.backends.uefi_firmware.UefiTE.relocs"><code class="docutils literal notranslate"><span class="pre">UefiTE.relocs</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#cle.backends.uefi_firmware.UefiTE.arch"><code class="docutils literal notranslate"><span class="pre">UefiTE.arch</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#cle.backends.uefi_firmware.UefiTE.exception_handlings"><code class="docutils literal notranslate"><span class="pre">UefiTE.exception_handlings</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#cle.backends.uefi_firmware.UefiTE.function_hints"><code class="docutils literal notranslate"><span class="pre">UefiTE.function_hints</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#cle.backends.uefi_firmware.UefiTE.memory"><code class="docutils literal notranslate"><span class="pre">UefiTE.memory</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#cle.backends.te.HeaderType"><code class="docutils literal notranslate"><span class="pre">HeaderType</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#cle.backends.te.HeaderType.address_of_entry_point"><code class="docutils literal notranslate"><span class="pre">HeaderType.address_of_entry_point</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#cle.backends.te.HeaderType.base_of_code"><code class="docutils literal notranslate"><span class="pre">HeaderType.base_of_code</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#cle.backends.te.HeaderType.data_directory_0_size"><code class="docutils literal notranslate"><span class="pre">HeaderType.data_directory_0_size</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#cle.backends.te.HeaderType.data_directory_0_virtual_address"><code class="docutils literal notranslate"><span class="pre">HeaderType.data_directory_0_virtual_address</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#cle.backends.te.HeaderType.data_directory_1_size"><code class="docutils literal notranslate"><span class="pre">HeaderType.data_directory_1_size</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#cle.backends.te.HeaderType.data_directory_1_virtual_address"><code class="docutils literal notranslate"><span class="pre">HeaderType.data_directory_1_virtual_address</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#cle.backends.te.HeaderType.image_base"><code class="docutils literal notranslate"><span class="pre">HeaderType.image_base</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#cle.backends.te.HeaderType.machine"><code class="docutils literal notranslate"><span class="pre">HeaderType.machine</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#cle.backends.te.HeaderType.number_of_sections"><code class="docutils literal notranslate"><span class="pre">HeaderType.number_of_sections</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#cle.backends.te.HeaderType.signature"><code class="docutils literal notranslate"><span class="pre">HeaderType.signature</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#cle.backends.te.HeaderType.stripped_size"><code class="docutils literal notranslate"><span class="pre">HeaderType.stripped_size</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#cle.backends.te.HeaderType.subsystem"><code class="docutils literal notranslate"><span class="pre">HeaderType.subsystem</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#cle.backends.te.SectionHeaderType"><code class="docutils literal notranslate"><span class="pre">SectionHeaderType</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#cle.backends.te.SectionHeaderType.characteristics"><code class="docutils literal notranslate"><span class="pre">SectionHeaderType.characteristics</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#cle.backends.te.SectionHeaderType.number_of_line_numbers"><code class="docutils literal notranslate"><span class="pre">SectionHeaderType.number_of_line_numbers</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#cle.backends.te.SectionHeaderType.number_of_relocations"><code class="docutils literal notranslate"><span class="pre">SectionHeaderType.number_of_relocations</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#cle.backends.te.SectionHeaderType.physical_address_virtual_size"><code class="docutils literal notranslate"><span class="pre">SectionHeaderType.physical_address_virtual_size</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#cle.backends.te.SectionHeaderType.pointer_to_line_numbers"><code class="docutils literal notranslate"><span class="pre">SectionHeaderType.pointer_to_line_numbers</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#cle.backends.te.SectionHeaderType.pointer_to_raw_data"><code class="docutils literal notranslate"><span class="pre">SectionHeaderType.pointer_to_raw_data</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#cle.backends.te.SectionHeaderType.pointer_to_relocations"><code class="docutils literal notranslate"><span class="pre">SectionHeaderType.pointer_to_relocations</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#cle.backends.te.SectionHeaderType.section_name"><code class="docutils literal notranslate"><span class="pre">SectionHeaderType.section_name</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#cle.backends.te.SectionHeaderType.size_of_raw_data"><code class="docutils literal notranslate"><span class="pre">SectionHeaderType.size_of_raw_data</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#cle.backends.te.SectionHeaderType.virtual_address"><code class="docutils literal notranslate"><span class="pre">SectionHeaderType.virtual_address</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#cle.backends.te.TE"><code class="docutils literal notranslate"><span class="pre">TE</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#cle.backends.te.TE.is_default"><code class="docutils literal notranslate"><span class="pre">TE.is_default</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#cle.backends.te.TE.is_compatible"><code class="docutils literal notranslate"><span class="pre">TE.is_compatible()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#cle.backends.te.TE.loader"><code class="docutils literal notranslate"><span class="pre">TE.loader</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#cle.backends.te.TE.symbols"><code class="docutils literal notranslate"><span class="pre">TE.symbols</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#cle.backends.te.TE.imports"><code class="docutils literal notranslate"><span class="pre">TE.imports</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#cle.backends.te.TE.relocs"><code class="docutils literal notranslate"><span class="pre">TE.relocs</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#cle.backends.te.TE.arch"><code class="docutils literal notranslate"><span class="pre">TE.arch</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#cle.backends.te.TE.exception_handlings"><code class="docutils literal notranslate"><span class="pre">TE.exception_handlings</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#cle.backends.te.TE.function_hints"><code class="docutils literal notranslate"><span class="pre">TE.function_hints</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#cle.backends.te.TE.memory"><code class="docutils literal notranslate"><span class="pre">TE.memory</span></code></a></li>
 </ul>
 </li>
 </ul>
@@ -7280,6 +7427,120 @@ the <a class="reference internal" href="#cle.backends.Backend.get_symbol" title=
 
 </dd></dl>
 
+<dl class="py class">
+<dt class="sig sig-object py" id="cle.TE">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">cle.</span></span><span class="sig-name descname"><span class="pre">TE</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#cle.TE" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="#cle.backends.backend.Backend" title="cle.backends.backend.Backend"><code class="xref py py-class docutils literal notranslate"><span class="pre">Backend</span></code></a></p>
+<p>A “Terse Executable” format image, commonly used as part of UEFI firmware drivers.</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="cle.TE.is_default">
+<span class="sig-name descname"><span class="pre">is_default</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">True</span></em><a class="headerlink" href="#cle.TE.is_default" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="cle.TE.is_compatible">
+<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">is_compatible</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">stream</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#cle.TE.is_compatible" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="cle.TE.loader">
+<span class="sig-name descname"><span class="pre">loader</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="#cle.Loader" title="cle.Loader"><span class="pre">Loader</span></a></em><a class="headerlink" href="#cle.TE.loader" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="cle.TE.symbols">
+<span class="sig-name descname"><span class="pre">symbols</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">sortedcontainers.SortedKeyList</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="#cle.Symbol" title="cle.Symbol"><span class="pre">Symbol</span></a><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#cle.TE.symbols" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="cle.TE.imports">
+<span class="sig-name descname"><span class="pre">imports</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="s"><span class="pre">'Relocation'</span></span><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#cle.TE.imports" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="cle.TE.relocs">
+<span class="sig-name descname"><span class="pre">relocs</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="angr.html#angr.analyses.reassembler.Relocation" title="angr.analyses.reassembler.Relocation"><span class="pre">Relocation</span></a><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#cle.TE.relocs" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="cle.TE.arch">
+<span class="sig-name descname"><span class="pre">arch</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="archinfo.html#archinfo.Arch" title="archinfo.Arch"><span class="pre">archinfo.Arch</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#cle.TE.arch" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="cle.TE.exception_handlings">
+<span class="sig-name descname"><span class="pre">exception_handlings</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="#cle.ExceptionHandling" title="cle.ExceptionHandling"><span class="pre">ExceptionHandling</span></a><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#cle.TE.exception_handlings" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="cle.TE.function_hints">
+<span class="sig-name descname"><span class="pre">function_hints</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="#cle.FunctionHint" title="cle.FunctionHint"><span class="pre">FunctionHint</span></a><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#cle.TE.function_hints" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="cle.TE.memory">
+<span class="sig-name descname"><span class="pre">memory</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="#cle.Clemory" title="cle.Clemory"><span class="pre">Clemory</span></a></em><a class="headerlink" href="#cle.TE.memory" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="cle.UefiFirmware">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">cle.</span></span><span class="sig-name descname"><span class="pre">UefiFirmware</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#cle.UefiFirmware" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="#cle.backends.backend.Backend" title="cle.backends.backend.Backend"><code class="xref py py-class docutils literal notranslate"><span class="pre">Backend</span></code></a></p>
+<p>A UEFI firmware blob loader. Support is provided by the <code class="docutils literal notranslate"><span class="pre">uefi_firmware</span></code> package.</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="cle.UefiFirmware.is_default">
+<span class="sig-name descname"><span class="pre">is_default</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">True</span></em><a class="headerlink" href="#cle.UefiFirmware.is_default" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="cle.UefiFirmware.is_compatible">
+<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">is_compatible</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">stream</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#cle.UefiFirmware.is_compatible" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="cle.UefiFirmware.arch">
+<span class="sig-name descname"><span class="pre">arch</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="archinfo.html#archinfo.Arch" title="archinfo.Arch"><span class="pre">archinfo.Arch</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#cle.UefiFirmware.arch" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="cle.UefiFirmware.loader">
+<span class="sig-name descname"><span class="pre">loader</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="#cle.Loader" title="cle.Loader"><span class="pre">Loader</span></a></em><a class="headerlink" href="#cle.UefiFirmware.loader" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="cle.UefiFirmware.symbols">
+<span class="sig-name descname"><span class="pre">symbols</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">sortedcontainers.SortedKeyList</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="#cle.Symbol" title="cle.Symbol"><span class="pre">Symbol</span></a><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#cle.UefiFirmware.symbols" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="cle.UefiFirmware.imports">
+<span class="sig-name descname"><span class="pre">imports</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="s"><span class="pre">'Relocation'</span></span><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#cle.UefiFirmware.imports" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="cle.UefiFirmware.relocs">
+<span class="sig-name descname"><span class="pre">relocs</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="angr.html#angr.analyses.reassembler.Relocation" title="angr.analyses.reassembler.Relocation"><span class="pre">Relocation</span></a><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#cle.UefiFirmware.relocs" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="cle.UefiFirmware.exception_handlings">
+<span class="sig-name descname"><span class="pre">exception_handlings</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="#cle.ExceptionHandling" title="cle.ExceptionHandling"><span class="pre">ExceptionHandling</span></a><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#cle.UefiFirmware.exception_handlings" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="cle.UefiFirmware.function_hints">
+<span class="sig-name descname"><span class="pre">function_hints</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="#cle.FunctionHint" title="cle.FunctionHint"><span class="pre">FunctionHint</span></a><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#cle.UefiFirmware.function_hints" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="cle.UefiFirmware.memory">
+<span class="sig-name descname"><span class="pre">memory</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="#cle.Clemory" title="cle.Clemory"><span class="pre">Clemory</span></a></em><a class="headerlink" href="#cle.UefiFirmware.memory" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
 <section id="module-cle.loader">
 <span id="loading-interface"></span><h2>Loading Interface<a class="headerlink" href="#module-cle.loader" title="Permalink to this heading"></a></h2>
 <dl class="py class">
@@ -10003,6 +10264,120 @@ the <a class="reference internal" href="#cle.backends.Backend.get_symbol" title=
 <span class="sig-name descname"><span class="pre">to_base_type</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#cle.backends.symbol.SymbolType" title="cle.backends.symbol.SymbolType"><span class="pre">SymbolType</span></a></span></span><a class="headerlink" href="#cle.backends.SymbolSubType.to_base_type" title="Permalink to this definition"></a></dt>
 <dd><p>A subclass’ ABI-specific mapping to :SymbolType:</p>
 </dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="cle.backends.UefiFirmware">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">cle.backends.</span></span><span class="sig-name descname"><span class="pre">UefiFirmware</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#cle.backends.UefiFirmware" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="#cle.backends.backend.Backend" title="cle.backends.backend.Backend"><code class="xref py py-class docutils literal notranslate"><span class="pre">Backend</span></code></a></p>
+<p>A UEFI firmware blob loader. Support is provided by the <code class="docutils literal notranslate"><span class="pre">uefi_firmware</span></code> package.</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="cle.backends.UefiFirmware.is_default">
+<span class="sig-name descname"><span class="pre">is_default</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">True</span></em><a class="headerlink" href="#cle.backends.UefiFirmware.is_default" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="cle.backends.UefiFirmware.is_compatible">
+<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">is_compatible</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">stream</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#cle.backends.UefiFirmware.is_compatible" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="cle.backends.UefiFirmware.arch">
+<span class="sig-name descname"><span class="pre">arch</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="archinfo.html#archinfo.Arch" title="archinfo.Arch"><span class="pre">archinfo.Arch</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#cle.backends.UefiFirmware.arch" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="cle.backends.UefiFirmware.loader">
+<span class="sig-name descname"><span class="pre">loader</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="#cle.Loader" title="cle.Loader"><span class="pre">Loader</span></a></em><a class="headerlink" href="#cle.backends.UefiFirmware.loader" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="cle.backends.UefiFirmware.symbols">
+<span class="sig-name descname"><span class="pre">symbols</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">sortedcontainers.SortedKeyList</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="#cle.backends.Symbol" title="cle.backends.Symbol"><span class="pre">Symbol</span></a><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#cle.backends.UefiFirmware.symbols" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="cle.backends.UefiFirmware.imports">
+<span class="sig-name descname"><span class="pre">imports</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="s"><span class="pre">'Relocation'</span></span><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#cle.backends.UefiFirmware.imports" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="cle.backends.UefiFirmware.relocs">
+<span class="sig-name descname"><span class="pre">relocs</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="angr.html#angr.analyses.reassembler.Relocation" title="angr.analyses.reassembler.Relocation"><span class="pre">Relocation</span></a><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#cle.backends.UefiFirmware.relocs" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="cle.backends.UefiFirmware.exception_handlings">
+<span class="sig-name descname"><span class="pre">exception_handlings</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="#cle.backends.ExceptionHandling" title="cle.backends.ExceptionHandling"><span class="pre">ExceptionHandling</span></a><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#cle.backends.UefiFirmware.exception_handlings" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="cle.backends.UefiFirmware.function_hints">
+<span class="sig-name descname"><span class="pre">function_hints</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="#cle.backends.FunctionHint" title="cle.backends.FunctionHint"><span class="pre">FunctionHint</span></a><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#cle.backends.UefiFirmware.function_hints" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="cle.backends.UefiFirmware.memory">
+<span class="sig-name descname"><span class="pre">memory</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="#cle.Clemory" title="cle.Clemory"><span class="pre">Clemory</span></a></em><a class="headerlink" href="#cle.backends.UefiFirmware.memory" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="cle.backends.TE">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">cle.backends.</span></span><span class="sig-name descname"><span class="pre">TE</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#cle.backends.TE" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="#cle.backends.backend.Backend" title="cle.backends.backend.Backend"><code class="xref py py-class docutils literal notranslate"><span class="pre">Backend</span></code></a></p>
+<p>A “Terse Executable” format image, commonly used as part of UEFI firmware drivers.</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="cle.backends.TE.is_default">
+<span class="sig-name descname"><span class="pre">is_default</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">True</span></em><a class="headerlink" href="#cle.backends.TE.is_default" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="cle.backends.TE.is_compatible">
+<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">is_compatible</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">stream</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#cle.backends.TE.is_compatible" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="cle.backends.TE.loader">
+<span class="sig-name descname"><span class="pre">loader</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="#cle.Loader" title="cle.Loader"><span class="pre">Loader</span></a></em><a class="headerlink" href="#cle.backends.TE.loader" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="cle.backends.TE.symbols">
+<span class="sig-name descname"><span class="pre">symbols</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">sortedcontainers.SortedKeyList</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="#cle.backends.Symbol" title="cle.backends.Symbol"><span class="pre">Symbol</span></a><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#cle.backends.TE.symbols" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="cle.backends.TE.imports">
+<span class="sig-name descname"><span class="pre">imports</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="s"><span class="pre">'Relocation'</span></span><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#cle.backends.TE.imports" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="cle.backends.TE.relocs">
+<span class="sig-name descname"><span class="pre">relocs</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="angr.html#angr.analyses.reassembler.Relocation" title="angr.analyses.reassembler.Relocation"><span class="pre">Relocation</span></a><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#cle.backends.TE.relocs" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="cle.backends.TE.arch">
+<span class="sig-name descname"><span class="pre">arch</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="archinfo.html#archinfo.Arch" title="archinfo.Arch"><span class="pre">archinfo.Arch</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#cle.backends.TE.arch" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="cle.backends.TE.exception_handlings">
+<span class="sig-name descname"><span class="pre">exception_handlings</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="#cle.backends.ExceptionHandling" title="cle.backends.ExceptionHandling"><span class="pre">ExceptionHandling</span></a><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#cle.backends.TE.exception_handlings" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="cle.backends.TE.function_hints">
+<span class="sig-name descname"><span class="pre">function_hints</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="#cle.backends.FunctionHint" title="cle.backends.FunctionHint"><span class="pre">FunctionHint</span></a><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#cle.backends.TE.function_hints" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="cle.backends.TE.memory">
+<span class="sig-name descname"><span class="pre">memory</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="#cle.Clemory" title="cle.Clemory"><span class="pre">Clemory</span></a></em><a class="headerlink" href="#cle.backends.TE.memory" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
 
 </dd></dl>
 
@@ -16237,6 +16612,441 @@ Note: Directory of the JAR is added by default.</p></li>
 <dl class="py attribute">
 <dt class="sig sig-object py" id="cle.backends.static_archive.StaticArchive.memory">
 <span class="sig-name descname"><span class="pre">memory</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="#cle.Clemory" title="cle.Clemory"><span class="pre">Clemory</span></a></em><a class="headerlink" href="#cle.backends.static_archive.StaticArchive.memory" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<span class="target" id="module-cle.backends.uefi_firmware"></span><dl class="py exception">
+<dt class="sig sig-object py" id="cle.backends.uefi_firmware.UefiDriverLoadError">
+<em class="property"><span class="pre">exception</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">cle.backends.uefi_firmware.</span></span><span class="sig-name descname"><span class="pre">UefiDriverLoadError</span></span><a class="headerlink" href="#cle.backends.uefi_firmware.UefiDriverLoadError" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">Exception</span></code></p>
+<p>This error is raised (and caught internally) if the data contained in the UEFI entity tree doesn’t make sense.</p>
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="cle.backends.uefi_firmware.UefiFirmware">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">cle.backends.uefi_firmware.</span></span><span class="sig-name descname"><span class="pre">UefiFirmware</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#cle.backends.uefi_firmware.UefiFirmware" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="#cle.backends.backend.Backend" title="cle.backends.backend.Backend"><code class="xref py py-class docutils literal notranslate"><span class="pre">Backend</span></code></a></p>
+<p>A UEFI firmware blob loader. Support is provided by the <code class="docutils literal notranslate"><span class="pre">uefi_firmware</span></code> package.</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="cle.backends.uefi_firmware.UefiFirmware.is_default">
+<span class="sig-name descname"><span class="pre">is_default</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">True</span></em><a class="headerlink" href="#cle.backends.uefi_firmware.UefiFirmware.is_default" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="cle.backends.uefi_firmware.UefiFirmware.is_compatible">
+<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">is_compatible</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">stream</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#cle.backends.uefi_firmware.UefiFirmware.is_compatible" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="cle.backends.uefi_firmware.UefiFirmware.arch">
+<span class="sig-name descname"><span class="pre">arch</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="archinfo.html#archinfo.Arch" title="archinfo.Arch"><span class="pre">archinfo.Arch</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#cle.backends.uefi_firmware.UefiFirmware.arch" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="cle.backends.uefi_firmware.UefiFirmware.loader">
+<span class="sig-name descname"><span class="pre">loader</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="#cle.Loader" title="cle.Loader"><span class="pre">Loader</span></a></em><a class="headerlink" href="#cle.backends.uefi_firmware.UefiFirmware.loader" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="cle.backends.uefi_firmware.UefiFirmware.symbols">
+<span class="sig-name descname"><span class="pre">symbols</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">sortedcontainers.SortedKeyList</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="#cle.Symbol" title="cle.Symbol"><span class="pre">Symbol</span></a><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#cle.backends.uefi_firmware.UefiFirmware.symbols" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="cle.backends.uefi_firmware.UefiFirmware.imports">
+<span class="sig-name descname"><span class="pre">imports</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="s"><span class="pre">'Relocation'</span></span><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#cle.backends.uefi_firmware.UefiFirmware.imports" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="cle.backends.uefi_firmware.UefiFirmware.relocs">
+<span class="sig-name descname"><span class="pre">relocs</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="angr.html#angr.analyses.reassembler.Relocation" title="angr.analyses.reassembler.Relocation"><span class="pre">Relocation</span></a><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#cle.backends.uefi_firmware.UefiFirmware.relocs" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="cle.backends.uefi_firmware.UefiFirmware.exception_handlings">
+<span class="sig-name descname"><span class="pre">exception_handlings</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="#cle.ExceptionHandling" title="cle.ExceptionHandling"><span class="pre">ExceptionHandling</span></a><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#cle.backends.uefi_firmware.UefiFirmware.exception_handlings" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="cle.backends.uefi_firmware.UefiFirmware.function_hints">
+<span class="sig-name descname"><span class="pre">function_hints</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="#cle.FunctionHint" title="cle.FunctionHint"><span class="pre">FunctionHint</span></a><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#cle.backends.uefi_firmware.UefiFirmware.function_hints" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="cle.backends.uefi_firmware.UefiFirmware.memory">
+<span class="sig-name descname"><span class="pre">memory</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="#cle.Clemory" title="cle.Clemory"><span class="pre">Clemory</span></a></em><a class="headerlink" href="#cle.backends.uefi_firmware.UefiFirmware.memory" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="cle.backends.uefi_firmware.UefiModulePending">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">cle.backends.uefi_firmware.</span></span><span class="sig-name descname"><span class="pre">UefiModulePending</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pe_image</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bytes</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">te_image</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bytes</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#cle.backends.uefi_firmware.UefiModulePending" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>A worklist entry for the UEFI firmware loader.</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="cle.backends.uefi_firmware.UefiModulePending.name">
+<span class="sig-name descname"><span class="pre">name</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#cle.backends.uefi_firmware.UefiModulePending.name" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="cle.backends.uefi_firmware.UefiModulePending.pe_image">
+<span class="sig-name descname"><span class="pre">pe_image</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">bytes</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#cle.backends.uefi_firmware.UefiModulePending.pe_image" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="cle.backends.uefi_firmware.UefiModulePending.te_image">
+<span class="sig-name descname"><span class="pre">te_image</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">bytes</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#cle.backends.uefi_firmware.UefiModulePending.te_image" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="cle.backends.uefi_firmware.UefiModulePending.build">
+<span class="sig-name descname"><span class="pre">build</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">parent</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#cle.backends.uefi_firmware.UefiFirmware" title="cle.backends.uefi_firmware.UefiFirmware"><span class="pre">UefiFirmware</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">guid</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">UUID</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#cle.backends.uefi_firmware.UefiModuleMixin" title="cle.backends.uefi_firmware.UefiModuleMixin"><span class="pre">UefiModuleMixin</span></a></span></span><a class="headerlink" href="#cle.backends.uefi_firmware.UefiModulePending.build" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="cle.backends.uefi_firmware.UefiModuleMixin">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">cle.backends.uefi_firmware.</span></span><span class="sig-name descname"><span class="pre">UefiModuleMixin</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">guid</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">UUID</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#cle.backends.uefi_firmware.UefiModuleMixin" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="#cle.backends.backend.Backend" title="cle.backends.backend.Backend"><code class="xref py py-class docutils literal notranslate"><span class="pre">Backend</span></code></a></p>
+<p>A mixin to make other kinds of backends load as UEFI modules.</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="cle.backends.uefi_firmware.UefiModuleMixin.loader">
+<span class="sig-name descname"><span class="pre">loader</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="#cle.Loader" title="cle.Loader"><span class="pre">Loader</span></a></em><a class="headerlink" href="#cle.backends.uefi_firmware.UefiModuleMixin.loader" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="cle.backends.uefi_firmware.UefiModuleMixin.symbols">
+<span class="sig-name descname"><span class="pre">symbols</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">sortedcontainers.SortedKeyList</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="#cle.Symbol" title="cle.Symbol"><span class="pre">Symbol</span></a><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#cle.backends.uefi_firmware.UefiModuleMixin.symbols" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="cle.backends.uefi_firmware.UefiModuleMixin.imports">
+<span class="sig-name descname"><span class="pre">imports</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="s"><span class="pre">'Relocation'</span></span><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#cle.backends.uefi_firmware.UefiModuleMixin.imports" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="cle.backends.uefi_firmware.UefiModuleMixin.relocs">
+<span class="sig-name descname"><span class="pre">relocs</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="angr.html#angr.analyses.reassembler.Relocation" title="angr.analyses.reassembler.Relocation"><span class="pre">Relocation</span></a><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#cle.backends.uefi_firmware.UefiModuleMixin.relocs" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="cle.backends.uefi_firmware.UefiModuleMixin.arch">
+<span class="sig-name descname"><span class="pre">arch</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="archinfo.html#archinfo.Arch" title="archinfo.Arch"><span class="pre">archinfo.Arch</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#cle.backends.uefi_firmware.UefiModuleMixin.arch" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="cle.backends.uefi_firmware.UefiModuleMixin.exception_handlings">
+<span class="sig-name descname"><span class="pre">exception_handlings</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="#cle.ExceptionHandling" title="cle.ExceptionHandling"><span class="pre">ExceptionHandling</span></a><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#cle.backends.uefi_firmware.UefiModuleMixin.exception_handlings" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="cle.backends.uefi_firmware.UefiModuleMixin.function_hints">
+<span class="sig-name descname"><span class="pre">function_hints</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="#cle.FunctionHint" title="cle.FunctionHint"><span class="pre">FunctionHint</span></a><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#cle.backends.uefi_firmware.UefiModuleMixin.function_hints" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="cle.backends.uefi_firmware.UefiModuleMixin.memory">
+<span class="sig-name descname"><span class="pre">memory</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="#cle.Clemory" title="cle.Clemory"><span class="pre">Clemory</span></a></em><a class="headerlink" href="#cle.backends.uefi_firmware.UefiModuleMixin.memory" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="cle.backends.uefi_firmware.UefiPE">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">cle.backends.uefi_firmware.</span></span><span class="sig-name descname"><span class="pre">UefiPE</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">guid</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">UUID</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#cle.backends.uefi_firmware.UefiPE" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="#cle.backends.uefi_firmware.UefiModuleMixin" title="cle.backends.uefi_firmware.UefiModuleMixin"><code class="xref py py-class docutils literal notranslate"><span class="pre">UefiModuleMixin</span></code></a>, <a class="reference internal" href="#cle.backends.pe.pe.PE" title="cle.backends.pe.pe.PE"><code class="xref py py-class docutils literal notranslate"><span class="pre">PE</span></code></a></p>
+<p>A PE file contained in a UEFI image.</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="cle.backends.uefi_firmware.UefiPE.loader">
+<span class="sig-name descname"><span class="pre">loader</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="#cle.Loader" title="cle.Loader"><span class="pre">Loader</span></a></em><a class="headerlink" href="#cle.backends.uefi_firmware.UefiPE.loader" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="cle.backends.uefi_firmware.UefiPE.symbols">
+<span class="sig-name descname"><span class="pre">symbols</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">sortedcontainers.SortedKeyList</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="#cle.Symbol" title="cle.Symbol"><span class="pre">Symbol</span></a><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#cle.backends.uefi_firmware.UefiPE.symbols" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="cle.backends.uefi_firmware.UefiPE.imports">
+<span class="sig-name descname"><span class="pre">imports</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="s"><span class="pre">'Relocation'</span></span><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#cle.backends.uefi_firmware.UefiPE.imports" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="cle.backends.uefi_firmware.UefiPE.relocs">
+<span class="sig-name descname"><span class="pre">relocs</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="angr.html#angr.analyses.reassembler.Relocation" title="angr.analyses.reassembler.Relocation"><span class="pre">Relocation</span></a><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#cle.backends.uefi_firmware.UefiPE.relocs" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="cle.backends.uefi_firmware.UefiPE.arch">
+<span class="sig-name descname"><span class="pre">arch</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="archinfo.html#archinfo.Arch" title="archinfo.Arch"><span class="pre">archinfo.Arch</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#cle.backends.uefi_firmware.UefiPE.arch" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="cle.backends.uefi_firmware.UefiPE.exception_handlings">
+<span class="sig-name descname"><span class="pre">exception_handlings</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="#cle.ExceptionHandling" title="cle.ExceptionHandling"><span class="pre">ExceptionHandling</span></a><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#cle.backends.uefi_firmware.UefiPE.exception_handlings" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="cle.backends.uefi_firmware.UefiPE.function_hints">
+<span class="sig-name descname"><span class="pre">function_hints</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="#cle.FunctionHint" title="cle.FunctionHint"><span class="pre">FunctionHint</span></a><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#cle.backends.uefi_firmware.UefiPE.function_hints" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="cle.backends.uefi_firmware.UefiPE.memory">
+<span class="sig-name descname"><span class="pre">memory</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="#cle.Clemory" title="cle.Clemory"><span class="pre">Clemory</span></a></em><a class="headerlink" href="#cle.backends.uefi_firmware.UefiPE.memory" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="cle.backends.uefi_firmware.UefiTE">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">cle.backends.uefi_firmware.</span></span><span class="sig-name descname"><span class="pre">UefiTE</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">guid</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">UUID</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#cle.backends.uefi_firmware.UefiTE" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="#cle.backends.uefi_firmware.UefiModuleMixin" title="cle.backends.uefi_firmware.UefiModuleMixin"><code class="xref py py-class docutils literal notranslate"><span class="pre">UefiModuleMixin</span></code></a>, <a class="reference internal" href="#cle.backends.te.TE" title="cle.backends.te.TE"><code class="xref py py-class docutils literal notranslate"><span class="pre">TE</span></code></a></p>
+<p>A TE file contained in a UEFI image.</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="cle.backends.uefi_firmware.UefiTE.loader">
+<span class="sig-name descname"><span class="pre">loader</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="#cle.Loader" title="cle.Loader"><span class="pre">Loader</span></a></em><a class="headerlink" href="#cle.backends.uefi_firmware.UefiTE.loader" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="cle.backends.uefi_firmware.UefiTE.symbols">
+<span class="sig-name descname"><span class="pre">symbols</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">sortedcontainers.SortedKeyList</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="#cle.Symbol" title="cle.Symbol"><span class="pre">Symbol</span></a><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#cle.backends.uefi_firmware.UefiTE.symbols" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="cle.backends.uefi_firmware.UefiTE.imports">
+<span class="sig-name descname"><span class="pre">imports</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="s"><span class="pre">'Relocation'</span></span><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#cle.backends.uefi_firmware.UefiTE.imports" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="cle.backends.uefi_firmware.UefiTE.relocs">
+<span class="sig-name descname"><span class="pre">relocs</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="angr.html#angr.analyses.reassembler.Relocation" title="angr.analyses.reassembler.Relocation"><span class="pre">Relocation</span></a><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#cle.backends.uefi_firmware.UefiTE.relocs" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="cle.backends.uefi_firmware.UefiTE.arch">
+<span class="sig-name descname"><span class="pre">arch</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="archinfo.html#archinfo.Arch" title="archinfo.Arch"><span class="pre">archinfo.Arch</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#cle.backends.uefi_firmware.UefiTE.arch" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="cle.backends.uefi_firmware.UefiTE.exception_handlings">
+<span class="sig-name descname"><span class="pre">exception_handlings</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="#cle.ExceptionHandling" title="cle.ExceptionHandling"><span class="pre">ExceptionHandling</span></a><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#cle.backends.uefi_firmware.UefiTE.exception_handlings" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="cle.backends.uefi_firmware.UefiTE.function_hints">
+<span class="sig-name descname"><span class="pre">function_hints</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="#cle.FunctionHint" title="cle.FunctionHint"><span class="pre">FunctionHint</span></a><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#cle.backends.uefi_firmware.UefiTE.function_hints" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="cle.backends.uefi_firmware.UefiTE.memory">
+<span class="sig-name descname"><span class="pre">memory</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="#cle.Clemory" title="cle.Clemory"><span class="pre">Clemory</span></a></em><a class="headerlink" href="#cle.backends.uefi_firmware.UefiTE.memory" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<span class="target" id="module-cle.backends.te"></span><dl class="py class">
+<dt class="sig sig-object py" id="cle.backends.te.HeaderType">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">cle.backends.te.</span></span><span class="sig-name descname"><span class="pre">HeaderType</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">signature</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">machine</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">number_of_sections</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">subsystem</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">stripped_size</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">address_of_entry_point</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">base_of_code</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">image_base</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">data_directory_0_virtual_address</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">data_directory_0_size</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">data_directory_1_virtual_address</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">data_directory_1_size</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#cle.backends.te.HeaderType" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">tuple</span></code></p>
+<p>Create new instance of HeaderType(signature, machine, number_of_sections, subsystem, stripped_size, address_of_entry_point, base_of_code, image_base, data_directory_0_virtual_address, data_directory_0_size, data_directory_1_virtual_address, data_directory_1_size)</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="cle.backends.te.HeaderType.address_of_entry_point">
+<span class="sig-name descname"><span class="pre">address_of_entry_point</span></span><a class="headerlink" href="#cle.backends.te.HeaderType.address_of_entry_point" title="Permalink to this definition"></a></dt>
+<dd><p>Alias for field number 5</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="cle.backends.te.HeaderType.base_of_code">
+<span class="sig-name descname"><span class="pre">base_of_code</span></span><a class="headerlink" href="#cle.backends.te.HeaderType.base_of_code" title="Permalink to this definition"></a></dt>
+<dd><p>Alias for field number 6</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="cle.backends.te.HeaderType.data_directory_0_size">
+<span class="sig-name descname"><span class="pre">data_directory_0_size</span></span><a class="headerlink" href="#cle.backends.te.HeaderType.data_directory_0_size" title="Permalink to this definition"></a></dt>
+<dd><p>Alias for field number 9</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="cle.backends.te.HeaderType.data_directory_0_virtual_address">
+<span class="sig-name descname"><span class="pre">data_directory_0_virtual_address</span></span><a class="headerlink" href="#cle.backends.te.HeaderType.data_directory_0_virtual_address" title="Permalink to this definition"></a></dt>
+<dd><p>Alias for field number 8</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="cle.backends.te.HeaderType.data_directory_1_size">
+<span class="sig-name descname"><span class="pre">data_directory_1_size</span></span><a class="headerlink" href="#cle.backends.te.HeaderType.data_directory_1_size" title="Permalink to this definition"></a></dt>
+<dd><p>Alias for field number 11</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="cle.backends.te.HeaderType.data_directory_1_virtual_address">
+<span class="sig-name descname"><span class="pre">data_directory_1_virtual_address</span></span><a class="headerlink" href="#cle.backends.te.HeaderType.data_directory_1_virtual_address" title="Permalink to this definition"></a></dt>
+<dd><p>Alias for field number 10</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="cle.backends.te.HeaderType.image_base">
+<span class="sig-name descname"><span class="pre">image_base</span></span><a class="headerlink" href="#cle.backends.te.HeaderType.image_base" title="Permalink to this definition"></a></dt>
+<dd><p>Alias for field number 7</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="cle.backends.te.HeaderType.machine">
+<span class="sig-name descname"><span class="pre">machine</span></span><a class="headerlink" href="#cle.backends.te.HeaderType.machine" title="Permalink to this definition"></a></dt>
+<dd><p>Alias for field number 1</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="cle.backends.te.HeaderType.number_of_sections">
+<span class="sig-name descname"><span class="pre">number_of_sections</span></span><a class="headerlink" href="#cle.backends.te.HeaderType.number_of_sections" title="Permalink to this definition"></a></dt>
+<dd><p>Alias for field number 2</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="cle.backends.te.HeaderType.signature">
+<span class="sig-name descname"><span class="pre">signature</span></span><a class="headerlink" href="#cle.backends.te.HeaderType.signature" title="Permalink to this definition"></a></dt>
+<dd><p>Alias for field number 0</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="cle.backends.te.HeaderType.stripped_size">
+<span class="sig-name descname"><span class="pre">stripped_size</span></span><a class="headerlink" href="#cle.backends.te.HeaderType.stripped_size" title="Permalink to this definition"></a></dt>
+<dd><p>Alias for field number 4</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="cle.backends.te.HeaderType.subsystem">
+<span class="sig-name descname"><span class="pre">subsystem</span></span><a class="headerlink" href="#cle.backends.te.HeaderType.subsystem" title="Permalink to this definition"></a></dt>
+<dd><p>Alias for field number 3</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="cle.backends.te.SectionHeaderType">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">cle.backends.te.</span></span><span class="sig-name descname"><span class="pre">SectionHeaderType</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">section_name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">physical_address_virtual_size</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">virtual_address</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">size_of_raw_data</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pointer_to_raw_data</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pointer_to_relocations</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pointer_to_line_numbers</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">number_of_relocations</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">number_of_line_numbers</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">characteristics</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#cle.backends.te.SectionHeaderType" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">tuple</span></code></p>
+<p>Create new instance of SectionHeaderType(section_name, physical_address_virtual_size, virtual_address, size_of_raw_data, pointer_to_raw_data, pointer_to_relocations, pointer_to_line_numbers, number_of_relocations, number_of_line_numbers, characteristics)</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="cle.backends.te.SectionHeaderType.characteristics">
+<span class="sig-name descname"><span class="pre">characteristics</span></span><a class="headerlink" href="#cle.backends.te.SectionHeaderType.characteristics" title="Permalink to this definition"></a></dt>
+<dd><p>Alias for field number 9</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="cle.backends.te.SectionHeaderType.number_of_line_numbers">
+<span class="sig-name descname"><span class="pre">number_of_line_numbers</span></span><a class="headerlink" href="#cle.backends.te.SectionHeaderType.number_of_line_numbers" title="Permalink to this definition"></a></dt>
+<dd><p>Alias for field number 8</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="cle.backends.te.SectionHeaderType.number_of_relocations">
+<span class="sig-name descname"><span class="pre">number_of_relocations</span></span><a class="headerlink" href="#cle.backends.te.SectionHeaderType.number_of_relocations" title="Permalink to this definition"></a></dt>
+<dd><p>Alias for field number 7</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="cle.backends.te.SectionHeaderType.physical_address_virtual_size">
+<span class="sig-name descname"><span class="pre">physical_address_virtual_size</span></span><a class="headerlink" href="#cle.backends.te.SectionHeaderType.physical_address_virtual_size" title="Permalink to this definition"></a></dt>
+<dd><p>Alias for field number 1</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="cle.backends.te.SectionHeaderType.pointer_to_line_numbers">
+<span class="sig-name descname"><span class="pre">pointer_to_line_numbers</span></span><a class="headerlink" href="#cle.backends.te.SectionHeaderType.pointer_to_line_numbers" title="Permalink to this definition"></a></dt>
+<dd><p>Alias for field number 6</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="cle.backends.te.SectionHeaderType.pointer_to_raw_data">
+<span class="sig-name descname"><span class="pre">pointer_to_raw_data</span></span><a class="headerlink" href="#cle.backends.te.SectionHeaderType.pointer_to_raw_data" title="Permalink to this definition"></a></dt>
+<dd><p>Alias for field number 4</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="cle.backends.te.SectionHeaderType.pointer_to_relocations">
+<span class="sig-name descname"><span class="pre">pointer_to_relocations</span></span><a class="headerlink" href="#cle.backends.te.SectionHeaderType.pointer_to_relocations" title="Permalink to this definition"></a></dt>
+<dd><p>Alias for field number 5</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="cle.backends.te.SectionHeaderType.section_name">
+<span class="sig-name descname"><span class="pre">section_name</span></span><a class="headerlink" href="#cle.backends.te.SectionHeaderType.section_name" title="Permalink to this definition"></a></dt>
+<dd><p>Alias for field number 0</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="cle.backends.te.SectionHeaderType.size_of_raw_data">
+<span class="sig-name descname"><span class="pre">size_of_raw_data</span></span><a class="headerlink" href="#cle.backends.te.SectionHeaderType.size_of_raw_data" title="Permalink to this definition"></a></dt>
+<dd><p>Alias for field number 3</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="cle.backends.te.SectionHeaderType.virtual_address">
+<span class="sig-name descname"><span class="pre">virtual_address</span></span><a class="headerlink" href="#cle.backends.te.SectionHeaderType.virtual_address" title="Permalink to this definition"></a></dt>
+<dd><p>Alias for field number 2</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="cle.backends.te.TE">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">cle.backends.te.</span></span><span class="sig-name descname"><span class="pre">TE</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#cle.backends.te.TE" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="#cle.backends.backend.Backend" title="cle.backends.backend.Backend"><code class="xref py py-class docutils literal notranslate"><span class="pre">Backend</span></code></a></p>
+<p>A “Terse Executable” format image, commonly used as part of UEFI firmware drivers.</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="cle.backends.te.TE.is_default">
+<span class="sig-name descname"><span class="pre">is_default</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">True</span></em><a class="headerlink" href="#cle.backends.te.TE.is_default" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="cle.backends.te.TE.is_compatible">
+<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">is_compatible</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">stream</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#cle.backends.te.TE.is_compatible" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="cle.backends.te.TE.loader">
+<span class="sig-name descname"><span class="pre">loader</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="#cle.Loader" title="cle.Loader"><span class="pre">Loader</span></a></em><a class="headerlink" href="#cle.backends.te.TE.loader" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="cle.backends.te.TE.symbols">
+<span class="sig-name descname"><span class="pre">symbols</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">sortedcontainers.SortedKeyList</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="#cle.Symbol" title="cle.Symbol"><span class="pre">Symbol</span></a><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#cle.backends.te.TE.symbols" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="cle.backends.te.TE.imports">
+<span class="sig-name descname"><span class="pre">imports</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="s"><span class="pre">'Relocation'</span></span><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#cle.backends.te.TE.imports" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="cle.backends.te.TE.relocs">
+<span class="sig-name descname"><span class="pre">relocs</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="angr.html#angr.analyses.reassembler.Relocation" title="angr.analyses.reassembler.Relocation"><span class="pre">Relocation</span></a><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#cle.backends.te.TE.relocs" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="cle.backends.te.TE.arch">
+<span class="sig-name descname"><span class="pre">arch</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="archinfo.html#archinfo.Arch" title="archinfo.Arch"><span class="pre">archinfo.Arch</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#cle.backends.te.TE.arch" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="cle.backends.te.TE.exception_handlings">
+<span class="sig-name descname"><span class="pre">exception_handlings</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="#cle.ExceptionHandling" title="cle.ExceptionHandling"><span class="pre">ExceptionHandling</span></a><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#cle.backends.te.TE.exception_handlings" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="cle.backends.te.TE.function_hints">
+<span class="sig-name descname"><span class="pre">function_hints</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="#cle.FunctionHint" title="cle.FunctionHint"><span class="pre">FunctionHint</span></a><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#cle.backends.te.TE.function_hints" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="cle.backends.te.TE.memory">
+<span class="sig-name descname"><span class="pre">memory</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="#cle.Clemory" title="cle.Clemory"><span class="pre">Clemory</span></a></em><a class="headerlink" href="#cle.backends.te.TE.memory" title="Permalink to this definition"></a></dt>
 <dd></dd></dl>
 
 </dd></dl>
