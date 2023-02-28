@@ -361,6 +361,7 @@ Analysis
 .. automodule:: angr.analyses.decompiler.empty_node_remover
 .. automodule:: angr.analyses.decompiler.expression_narrower
 .. automodule:: angr.analyses.decompiler.graph_region
+.. automodule:: angr.analyses.decompiler.goto_manager
 .. automodule:: angr.analyses.decompiler.jump_target_collector
 .. automodule:: angr.analyses.decompiler.jumptable_entry_condition_rewriter
 .. automodule:: angr.analyses.decompiler.optimization_passes
