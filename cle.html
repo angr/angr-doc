@@ -4,7 +4,7 @@
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>cle — Binary Loader &mdash; angr 9.2.40
+  <title>cle — Binary Loader &mdash; angr 9.2.41
  documentation</title>
       <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
@@ -35,7 +35,7 @@
             angr
           </a>
               <div class="version">
-                9.2.40
+                9.2.41
 
               </div>
 <div role="search">
@@ -516,6 +516,7 @@
 <li class="toctree-l3"><a class="reference internal" href="#cle.Loader.perform_irelative_relocs"><code class="docutils literal notranslate"><span class="pre">Loader.perform_irelative_relocs()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="#cle.Loader.dynamic_load"><code class="docutils literal notranslate"><span class="pre">Loader.dynamic_load()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="#cle.Loader.get_loader_symbolic_constraints"><code class="docutils literal notranslate"><span class="pre">Loader.get_loader_symbolic_constraints()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#cle.Loader.fast_memory_load_pointer"><code class="docutils literal notranslate"><span class="pre">Loader.fast_memory_load_pointer()</span></code></a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="#cle.Clemory"><code class="docutils literal notranslate"><span class="pre">Clemory</span></code></a><ul>
@@ -687,6 +688,7 @@
 <li class="toctree-l4"><a class="reference internal" href="#cle.loader.Loader.perform_irelative_relocs"><code class="docutils literal notranslate"><span class="pre">Loader.perform_irelative_relocs()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="#cle.loader.Loader.dynamic_load"><code class="docutils literal notranslate"><span class="pre">Loader.dynamic_load()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="#cle.loader.Loader.get_loader_symbolic_constraints"><code class="docutils literal notranslate"><span class="pre">Loader.get_loader_symbolic_constraints()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#cle.loader.Loader.fast_memory_load_pointer"><code class="docutils literal notranslate"><span class="pre">Loader.fast_memory_load_pointer()</span></code></a></li>
 </ul>
 </li>
 </ul>
@@ -6788,6 +6790,23 @@ not being found, return None.</p>
 <dd><p>Do not use this method.</p>
 </dd></dl>
 
+<dl class="py method">
+<dt class="sig sig-object py" id="cle.Loader.fast_memory_load_pointer">
+<span class="sig-name descname"><span class="pre">fast_memory_load_pointer</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">addr</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">size</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">int</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span></span><a class="headerlink" href="#cle.Loader.fast_memory_load_pointer" title="Permalink to this definition"></a></dt>
+<dd><p>Perform a fast memory loading of a pointer.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>addr</strong> – Address to read from.</p></li>
+<li><p><strong>size</strong> – Size of the pointer. Default to machine-word size.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>A pointer or None if the address does not exist.</p>
+</dd>
+</dl>
+</dd></dl>
+
 </dd></dl>
 
 <dl class="py class">
@@ -7914,6 +7933,23 @@ not being found, return None.</p>
 <dt class="sig sig-object py" id="cle.loader.Loader.get_loader_symbolic_constraints">
 <span class="sig-name descname"><span class="pre">get_loader_symbolic_constraints</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#cle.loader.Loader.get_loader_symbolic_constraints" title="Permalink to this definition"></a></dt>
 <dd><p>Do not use this method.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="cle.loader.Loader.fast_memory_load_pointer">
+<span class="sig-name descname"><span class="pre">fast_memory_load_pointer</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">addr</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">size</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">int</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span></span><a class="headerlink" href="#cle.loader.Loader.fast_memory_load_pointer" title="Permalink to this definition"></a></dt>
+<dd><p>Perform a fast memory loading of a pointer.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>addr</strong> – Address to read from.</p></li>
+<li><p><strong>size</strong> – Size of the pointer. Default to machine-word size.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>A pointer or None if the address does not exist.</p>
+</dd>
+</dl>
 </dd></dl>
 
 </dd></dl>
