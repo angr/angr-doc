@@ -75,7 +75,8 @@ def get_possible_flags():
     # for all 8 bytes pushes a lot of complexity to the SAT solver, and it chokes.
     # To avoid this, we're going to get the solutions to 2 bytes at a time, and
     # brute force the combinations.
-    possible_values = [ s.solver.eval_upto(s.memory.load(0x6C4B20 + i, 2), 65536, cast_to=bytes) for i in range(0, 8, 2) ]
+    possible_values = [s.solver.eval_upto(s.memory.load(0x6C4B20 + i, 2), 65536, cast_to=bytes) 
+                       for i in range(0, 8, 2)]
     possibilities = tuple(itertools.product(*possible_values))
     return possibilities
 
@@ -83,12 +84,20 @@ def bruteforce_possibilities(possibilities):
     # let's try those values!
     print('[*] example guess: %r' % b''.join(possibilities[0]))
     print('[*] brute-forcing %d possibilities' % len(possibilities))
-    with progress.Progress(progress.MofNCompleteColumn(), progress.TaskProgressColumn(), progress.BarColumn(), progress.TimeElapsedColumn(), progress.TextColumn("{task.description}")) as progressbar:
+    with progress.Progress(progress.MofNCompleteColumn(), 
+                           progress.TaskProgressColumn(), 
+                           progress.BarColumn(), 
+                           progress.TimeElapsedColumn(), 
+                           progress.TextColumn("{task.description}")
+                           ) as progressbar:
+
         task = progressbar.add_task("Guessing...", total=len(possibilities))
         for guess in possibilities:
             guess_str = b''.join(guess)
             progressbar.update(task, description=f"Guessing {guess_str}", advance=1)
-            stdout,_ = subprocess.Popen(["./whitehat_crypto400", guess_str.decode("ascii")], stdout=subprocess.PIPE, stderr=subprocess.STDOUT).communicate()
+            stdout,_ = subprocess.Popen(["./whitehat_crypto400", guess_str.decode("ascii")], 
+                                        stdout=subprocess.PIPE, 
+                                        stderr=subprocess.STDOUT).communicate()
             if b'FLAG IS' in stdout:
                 return next(filter(lambda s: guess_str in s, stdout.split()))
 
