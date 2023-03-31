@@ -10,10 +10,11 @@ used to reduce the keyspace, allowing for a reasonable brute-force.
 import logging
 import itertools
 import subprocess
-import progressbar
 
 import angr
 import claripy
+
+from rich import progress
 
 def get_possible_flags():
     # load the binary
@@ -82,11 +83,14 @@ def bruteforce_possibilities(possibilities):
     # let's try those values!
     print('[*] example guess: %r' % b''.join(possibilities[0]))
     print('[*] brute-forcing %d possibilities' % len(possibilities))
-    for guess in progressbar.ProgressBar(widgets=[progressbar.Counter(), ' ', progressbar.Percentage(), ' ', progressbar.Bar(), ' ', progressbar.ETA()])(possibilities):
-        guess_str = b''.join(guess)
-        stdout,_ = subprocess.Popen(["./whitehat_crypto400", guess_str.decode("ascii")], stdout=subprocess.PIPE, stderr=subprocess.STDOUT).communicate()
-        if b'FLAG IS' in stdout:
-            return next(filter(lambda s: guess_str in s, stdout.split()))
+    with progress.Progress(progress.MofNCompleteColumn(), progress.TaskProgressColumn(), progress.BarColumn(), progress.TimeElapsedColumn(), progress.TextColumn("{task.description}")) as progressbar:
+        task = progressbar.add_task("Guessing...", total=len(possibilities))
+        for guess in possibilities:
+            guess_str = b''.join(guess)
+            progressbar.update(task, description=f"Guessing {guess_str}", advance=1)
+            stdout,_ = subprocess.Popen(["./whitehat_crypto400", guess_str.decode("ascii")], stdout=subprocess.PIPE, stderr=subprocess.STDOUT).communicate()
+            if b'FLAG IS' in stdout:
+                return next(filter(lambda s: guess_str in s, stdout.split()))
 
 def main():
     return bruteforce_possibilities(get_possible_flags())
