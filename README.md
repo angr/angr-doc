@@ -1,3 +1,12 @@
+# This repo has been archived
+
+If looking for documentation, check out https://docs.angr.io/en/latest/.
+The content from this repo has been moved to new locations.
+API documentation has been moved to the related project repos.
+The former gitbook doc source have been moved to https://github.com/angr/angr/tree/master/docs.
+Examples have been moved to https://github.com/angr/angr-examples.
+
+
 # What is angr, and how do I use it?
 
 angr is a multi-architecture binary analysis toolkit, with the capability to perform dynamic symbolic execution \(like Mayhem, KLEE, etc.\) and various static analyses on binaries. If you'd like to learn how to use it, you're in the right place!
